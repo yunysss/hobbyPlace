@@ -8,7 +8,9 @@
 </head>
 <body>
 
-<%@include file="views/common/mainPage.jsp" %>
+<a href="views/common/tutorMainPage.jsp">튜터 페이지로</a>
+
+
 
 </body>
 </html>
