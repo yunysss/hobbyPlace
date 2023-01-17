@@ -206,14 +206,14 @@
     <div class="wrap">
         <div id="header">
             <div id="header1">
-                <img src="../resources/images/logo.png">
+                <img src="<%=request.getContextPath()%>/resources/images/logo.png">
             </div>
             <div id="header2">
                 <h4>튜터 관리 페이지</h4>
             </div>
             <div id="header3">
                 <div class="dropdown" >
-                    <img src="resources/images/sampleimg.png" type="button" width="65"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+                    <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" type="button" width="65"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
                   
                     </img>
                     <div class="dropdown-menu">
@@ -296,7 +296,7 @@
                     <div id="c2">
                         <div id="notice-area">
                             <span style="font-size: 14px;font-weight: 600;">📌공지사항 </span>
-                            <a href="" style="color:black; font-size: 12px;"> ▶️더보기</a>
+                            <a href="" style="color:black; font-size: 12px;"> >더보기</a>
                             <table id="notice" class="table table-hover table-sm" >
                                 <tr>
                                     <td><span class="badge badge-info">공지</span></td>
@@ -318,7 +318,7 @@
                         </div>
                         <div id="reserva-area">
                             <span style="font-size: 14px;font-weight: 600;">📆예약관리</span>
-                             <a href="" style="color:black; font-size: 12px;"> ▶️더보기</a>
+                             <a href="" style="color:black; font-size: 12px;"> >더보기</a>
                             <table id="reservation" class="table table-hover table-sm">
                                 <tr>
                                     <th width="80">날짜</th>
