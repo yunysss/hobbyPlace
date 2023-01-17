@@ -4,6 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
    
 <!--주소입력 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -15,7 +21,7 @@
         /*클래스 등록*/
 
         .outer{
-            padding: 20px 25px;
+            padding: 25px 30px;
 
         }
         .outer>*{
@@ -77,13 +83,13 @@
     }
 
     .form_control {
-        border: 1px solid #0002;
+        border: 1px solid rgba(15, 11, 11, 0.133);
         background-color: transparent;
         outline: none;
         padding: 8px 12px;
         font-family: 1.2rem;
         width: 100%;
-        color: #333;
+        color:#333;
         transition: 0.3s ease-in-out;
     }
 
@@ -104,7 +110,7 @@
     .action_container>* {
         border: none;
         outline: none;
-        color: #fff;
+        color: rgb(247, 243, 243);
         text-decoration: none;
         display: inline-block;
         padding: 8px 10px;
@@ -337,7 +343,7 @@
                                           </td>
                                           <td>
                                             <div class="action_container">
-                                              <button type="button" class="danger" onclick="remove_tr(this)">-
+                                              <button type="button" class="danger" onclick="remove_tr(this)">-&nbsp;
                                               </button>
                                             </div>
                                           </td>
@@ -363,8 +369,7 @@
                     
                     <hr>
                     <div align="center">
-                    <button type="submit" class="btn btn-secondary btn-sm">저장</button>
-                    <button type="button" class="btn btn-secondary btn-sm">다음</button>
+                    <a href="classInsertView2.jsp" type="button" class="btn btn-secondary btn-sm" >다음페이지로</a>
                     
                     </div>
 
@@ -409,11 +414,7 @@
 
 
 
-
-
-
-
-
+        
 
 </body>
 </html>

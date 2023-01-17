@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   
@@ -21,7 +20,6 @@
         div{box-sizing: border-box;}
         .wrap{
             width: 1200px;
-            height: 1200px;
             margin: auto;
         }
         .wrap>div{width: 1200px;}
@@ -123,18 +121,12 @@
         }
 
 
-
-
         /*컨텐트영역*/
-        
-        #content2{
-           
-            padding:20px 50px;
+        .content-area{
             margin-top: 90px;
-            margin-left: 160px;
-            width: 90%;
-            height: 100%;
- 
+            margin-left: 200px;
+            width: 1000px;
+
         }
        
 
@@ -184,7 +176,7 @@
                             person_pin
                             </span>&nbsp;&nbsp;마이페이지
                            
-                                <li><a href="">프로필관리</a></li>
+                                <li><a href="../tutor/tutorProfileView.jsp">프로필관리</a></li>
                             
                                 
                             
@@ -195,7 +187,7 @@
                             </span>&nbsp;클래스관리
                             
                                 <li><a href="../lesson/classInsertView1.jsp">클래스등록</a></li>
-                                <li><a href="">내 클래스목록</a></li>
+                                <li><a href="../lesson/classListView.jsp">내 클래스목록</a></li>
                                 <li><a href="">예약승인</a></li>
                                 <li><a href="">예약관리</a></li>
                                 <li><a href="">문의관리</a></li>
@@ -221,7 +213,7 @@
                 
             </div>
             
-            <div id="content2">
+            <div class="content-area">
                
                 
            
