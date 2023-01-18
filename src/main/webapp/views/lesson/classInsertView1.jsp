@@ -149,6 +149,10 @@
             background-color: rgb(22, 160, 133);
         }
    
+    table{
+        
+        margin-left: 20px;
+    }
     </style>
 
 </head>

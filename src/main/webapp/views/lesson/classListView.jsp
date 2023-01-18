@@ -189,6 +189,8 @@
         border-radius: 5px;
     }
     
+        #class-select{margin-left: 30px;}
+   
 
  
 

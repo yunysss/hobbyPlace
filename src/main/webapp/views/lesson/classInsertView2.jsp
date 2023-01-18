@@ -51,6 +51,9 @@
         border-radius: 5px;
         width: 700px;
          }
+        table{
+            margin-left: 20px;
+        }
 
 </style>
 </head>
