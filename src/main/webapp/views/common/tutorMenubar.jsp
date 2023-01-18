@@ -97,7 +97,7 @@
             width: 100%;
             height:30px;
             list-style-type: none;
-            font-weight: 800;
+            font-weight: 600;
             font-size: 15px;
             text-align: center;
             line-height: 30px;
@@ -119,7 +119,25 @@
             color: black;
             background-color: rgb(253, 252, 250);
         }
+        .mbtn{
+            border: 1px solid white;
+            border-radius: 5px;
+            background-color: rgb(104, 103, 103);
+            color: white;
+            width: 90px;
+            height: 35px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 4px;
+            font-size: 13px;
+           
 
+        }
+        .mbtn:hover{
+            
+        }
+
+       
 
         /*컨텐트영역*/
         .content-area{
@@ -166,8 +184,8 @@
             <div id="content1">
                 <div id="button-area">
                 
-                <button type="button" class="btn btn-secondary btn btn-primary btn-sm">클래스 등록</button>
-                <button type="button" class="btn btn-secondary btn btn-primary btn-sm">클래스 목록</button>
+                <button type="button" class="mbtn">클래스 등록</button>
+                <button type="button" class="mbtn">클래스 목록</button>
                 </div>
                
                 <ul>

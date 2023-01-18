@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -56,7 +56,7 @@
             
         }
         .schedule:checked+label{
-            background-color: rgb(35, 104, 116)
+            background-color: rgb(22, 160, 133);
         }
         
 
@@ -95,12 +95,12 @@
 
     .success {
         border-radius: 5px;
-        background-color: rgb(35, 104, 116) !important;
+        background-color: rgb(22, 160, 133);
     }
 
     .danger {
         border-radius: 5px;
-        background-color: gray !important;
+        background-color: rgb(99, 97, 97) !important;
     }
 
     .action_container {
@@ -145,7 +145,9 @@
         height: 32px;
         border-radius: 5px;
     }
-    
+    input[type=radio]:hover+label{
+            background-color: rgb(22, 160, 133);
+        }
    
     </style>
 
