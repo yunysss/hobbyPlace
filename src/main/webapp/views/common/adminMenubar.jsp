@@ -9,7 +9,7 @@
     <title>Document</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+   
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 
@@ -26,8 +26,8 @@
 
         .wrap>div{width: 100%;}
 
-        #header{height: 18%;}
-        #content{height: 80%; }
+        #header{height: 160px;}
+        #content{height: 80%;}
 
         #header>div, #content>div{height: 100%; float:left}
 
@@ -41,18 +41,21 @@
         #log_box{ height: 50px;  margin-top: 65px; }
 
         p{  display: inline-block;
-            margin-top: 27px;}
+            margin-top: 15px;}
 
         p>a{margin:5px;color:black; text-decoration: none;}
 
 
         #navigator{width: 16%; box-sizing: border-box;}
+        
+        
         #mainContent{width:1000px; padding:20px; }
 
        
         #search_box, #meny_box{width: 100%;}
         #search_box{background:#266C78;height: 8%;}
-        #navi_box{height:92%; background:#266C78;;}
+       
+        #navi_box{height:100vh; background:#266C78;}
         
         #search_icon{width:30px; margin-top: 6px; margin-left: 5px;} 
         #searchText{width: 140px; padding-top: 14px;}
@@ -62,7 +65,7 @@
             padding: 0px;
             margin: 0;
             width: 100%;
-            height: 100%;
+            height: 40%;
         }
 
         #navi a{
@@ -78,6 +81,7 @@
             font-weight: bold;
             padding-right:15px
         }
+        
         #navi a:hover{
             color:black;
             font-weight: bold;

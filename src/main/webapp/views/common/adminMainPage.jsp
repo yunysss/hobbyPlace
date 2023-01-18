@@ -13,7 +13,7 @@
         h2{padding: 5px;}
         .firstDiv{
             width: 47%;
-            height: 30%;
+            height: 230px;
             float: left;
             margin:14px;
             text-align:center;
@@ -185,7 +185,7 @@
             <table align="center" id="noticeTb">
                 <tr>
                     <td width="50px" height="30px">
-                        <div id="noticeAll">전체</div>
+                        <div id="noticeAll" style="margin-right:10px">전체</div>
                     </td>
                     <td width="650px">베스트 튜터 제도 일시 중지 및 개편 관련 안내</td>
                     <td width="100px">2022-12-28</td>
