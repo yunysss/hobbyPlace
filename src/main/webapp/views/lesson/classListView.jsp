@@ -135,10 +135,10 @@
             margin: 5px 5px;
            
         } 
-        #class-select input[type="checkbox"]{
-            margin: 10px 5px;
-           
-        } 
+        #class-select input[type="checkbox"]+label{
+        margin-right: 10px;
+       
+    } 
         #class-select>tr{
            margin: 10px;
         }
@@ -257,10 +257,12 @@
                         <tr>
                             <th>등록상태</th>
                             <td>
+                                <input type="checkbox" name="status" id="chkAll" value="">
+                                <label for="">전체</label>
                                 <input type="checkbox" name="status" id="" value="">
                                 <label for="">검수요청</label>
                                 <input type="checkbox" name="status" id="" value="">
-                                <label for="">검수반려</label>
+                                <label for="">신청반려</label>
                                 <input type="checkbox" name="status" id="" value="">
                                 <label for="">판매중</label>
                                 <input type="checkbox" name="status" id="" value="">
@@ -268,6 +270,18 @@
                             </td>
                         </tr>
                     </table>    
+                    <script>
+                        $(function(){
+                            $("#chkAll").click(function(){
+                                if($(this).is(":checked")){
+                                    $("input[name=status]").attr("checked",true);
+                                }else{
+                                    $("input[name=status]").attr("checked",false);
+                                }
+                            })
+                        })
+                    </script>
+
                     <br>
                     <hr>
                     <div align="center">

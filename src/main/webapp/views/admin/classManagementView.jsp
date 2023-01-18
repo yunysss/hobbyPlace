@@ -14,14 +14,15 @@
         font-size: small;
     }
    
-    #class-select input[type="checkbox"]{
-        margin: 10px 5px;
+    #class-select input[type="checkbox"]+label{
+        margin-right: 15px;
        
     } 
     #class-select input{
        margin: 10px 0px;
     }
 
+   
     input[type=radio]{display: none; }
     input[type=radio]+label{
         display: inline-block;
@@ -228,7 +229,7 @@
                 </tr>
 
                 <tr>
-                    <th>카테고리</th>
+                    <th width="100">카테고리</th>
                     <td>
                         <select id="category">
                             <option value="">공예 웅앵</option>
@@ -282,17 +283,31 @@
                 <tr>
                     <th>등록상태</th>
                     <td>
-                        <input type="checkbox" name="status" id="" value="">
-                        <label for="">판매중</label>
-                        <input type="checkbox" name="status" id="" value="">
-                        <label for="">검수요청</label>
-                        <input type="checkbox" name="status" id="" value="">
-                        <label for="">검수반려</label>
-                        <input type="checkbox" name="status" id="" value="">
-                        <label for="">판매중지</label>
+                        <input type="checkbox" name="status" id="chkAll" value="">
+                        <label for="">전체</label>
+                        <input type="checkbox" name="status" id="beforeApproval" value="">
+                        <label for="beforeApproval">검수요청</label>
+                        <input type="checkbox" name="status" id="rejectClass" value="">
+                        <label for="rejectClass">신청반려</label>
+                        <input type="checkbox" name="status" id="saleClass" value="">
+                        <label for="saleClass">판매중</label>
+                        <input type="checkbox" name="status" id="stopClass" value="">
+                        <label for="stopClass">판매중지</label>
                        
                     </td>
                 </tr>
+                <script>
+                    $(function(){
+                        $("#chkAll").click(function(){
+                            if($(this).is(":checked")){
+                                $("input[name=status]").attr("checked",true);
+                            }else{
+                                $("input[name=status]").attr("checked",false);
+                            }
+                        })
+                    })
+                </script>
+
             </table>    
             <hr>
             <div align="center">
