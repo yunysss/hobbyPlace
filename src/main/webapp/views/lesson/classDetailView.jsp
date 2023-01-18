@@ -4,6 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--w지워-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+
+
+
  <!-- 카카오 -->
  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -14,10 +27,23 @@
             padding: 30px 50px;
 
         }
- 
-        #detail-area * { 
+
+        #detail-area * {box-sizing: border-box;}
+        #img-area{
+            width: 410px;
+            margin: auto;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+       #btn-area{
           
-            box-sizing: border-box;}
+            width: 900px;
+            text-align: right;
+       }
+    
+
+
 
         #thumbnail, #classInfo{float: left;}    
         #thumbnail{
@@ -26,8 +52,6 @@
             position: relative;
         }
 
-       
-        
        
         #classInfo{
             padding: 20px;
@@ -62,21 +86,30 @@
         <br>
         <span style="font-size: 14px; font-weight:550" id="detail">클래스 상세내역
         </span> 
-        <a href="" class="btn btn-secondary btn-sm a">삭제</a>
+        <div id="btn-area" >
         <a href="" class="btn btn-secondary btn-sm a">수정</a>
-
+        <a href="" class="btn btn-secondary btn-sm a">삭제</a>
+        </div>
         <hr>
         <div id="detail-area">
             <div id="thumbnail">
-                <table border="1px solid black">
+                <table id="img-area">
                     <tr>
-                        <td colspan="3"><img id="mainImg" src="" ></img></td>
+                        <td colspan="3" height="260px">
+                            <img id="mainImg" src="" width="400" height="250" >
+                        </img></td>
                     </tr>
                     <tr>
                     <div id="img">
-                        <td><img id="img1" src=""></img></td>
-                        <td><img id="img2" src=""></img></td>
-                        <td><img id="img3" src=""></img></td>
+                        <td>
+                            <img id="img1" src="" height="98px" width="130px"> </img>
+                        </td>
+                        <td>
+                            <img id="img2" src=""height="98px" width="130px"></img>
+                        </td>
+                        <td>
+                            <img id="img3" src="" height="98px" width="130px"></img>
+                        </td>
                     </div>
                     </tr>
                 </table>
@@ -164,49 +197,49 @@
         <br><br>
         <h6 style="font-weight: 550;">진행장소</h6>
         <hr>
-            <!--카카오맵 지도 (주소입력하면 지도위에표시)-->
-   <div id="map" style="width:500px;height:350px;"></div>
-   
-   
-   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=19e99c5794a1b621123d4304f847fd72&libraries=services"></script>
-   	<script>
-   	
-   	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
+      <!--카카오맵 지도 (주소입력하면 지도위에표시)-->
+    <div id="map" style="width:500px;height:350px;"></div>
+    
+    
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=19e99c5794a1b621123d4304f847fd72&libraries=services"></script>
+        <script>
+        
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };  
 
-	// 지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
-	
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-	
-	// 주소로 좌표를 검색합니다
-	geocoder.addressSearch('인천시 부평구 수변로 333' , function(result, status) {
+        // 지도를 생성합니다    
+        var map = new kakao.maps.Map(mapContainer, mapOption); 
+        
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+        
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch('인천시 부평구 수변로 333' , function(result, status) {
 
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
+        // 정상적으로 검색이 완료됐으면 
+        if (status === kakao.maps.services.Status.OK) {
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
 
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;">우리회사</div>'
-        });
-        infowindow.open(map, marker);
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;">우리회사</div>'
+            });
+            infowindow.open(map, marker);
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});    
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+        } 
+    });    
    	
    	
    	</script>
