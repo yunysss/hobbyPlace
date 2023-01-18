@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -216,8 +220,8 @@
                         <span class="material-symbols-outlined">
                             paid
                             </span>&nbsp;정산관리
-                            <li><a href="">정산신청</a></li>
-                            <li><a href="">정산내역</a></li>
+                            <li><a href="../calculate/calculate.jsp">정산신청</a></li>
+                            <li><a href="../calculate/calculateList.jsp">정산내역</a></li>
                         </li>
                     <li style="background-color: rgb(22, 160, 133); color: aliceblue;">
                         <span class="material-symbols-outlined">
