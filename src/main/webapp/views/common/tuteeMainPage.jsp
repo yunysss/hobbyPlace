@@ -100,56 +100,55 @@
                             <button>&lt;</button>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="../lesson/classPageView.jsp">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td rowspan="2">
                             <button>&gt;</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                    </tr>
+                    
                 </table>
                 
                 <!-- 로그인 후 -->
@@ -163,56 +162,55 @@
                             <button>&lt;</button>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td rowspan="2">
                             <button>&gt;</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                    </tr>
+                    
                 </table> -->
                 
             </div>
@@ -228,54 +226,52 @@
                             <button>&lt;</button>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                지역 <br>
+                                제목 <br>
+                                가격
+                                별점
+                            </a>
                         </td>
                         <td rowspan="2">
                             <button>&gt;</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
-                        </td>
-                        <td>
-                            지역 <br>
-                            제목 <br>
-                            가격
-                            별점
                         </td>
                     </tr>
                 </table>
@@ -291,43 +287,37 @@
                             <button>&lt;</button>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                별점 <br>
+                                후기내용 <br>
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                별점 <br>
+                                후기내용 <br>
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                별점 <br>
+                                후기내용 <br>
+                            </a>
                         </td>
                         <td>
-                            <img src="">
+                            <a href="">
+                                <img src=""><br>
+                                별점 <br>
+                                후기내용 <br>
+                            </a>
                         </td>
                         
                         <td rowspan="3">
                             <button>&gt;</button>
                         </td>
-                    </tr>
-                    <tr height="30px">
-                        <td>별점</td>
-                        <td>별점</td>
-                        <td>별점</td>
-                        <td>별점</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            후기내용
-                        </td>
-                        <td>
-                            후기내용
-                        </td>
-                        <td>
-                            후기내용
-                        </td>
-                        <td>
-                            후기내용
-                        </td>
-                        
-                        
                     </tr>
                 </table>
             </div>
