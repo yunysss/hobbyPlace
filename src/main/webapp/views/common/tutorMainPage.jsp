@@ -61,6 +61,8 @@ margin-top: 5px;
 #notice-area a, #reserva-area a{
     position: absolute;
     right: 25px;
+    cursor: pointer;
+    text-decoration: none;
     
 }
 

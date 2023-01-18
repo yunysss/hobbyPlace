@@ -109,11 +109,11 @@
                 <div id="tutorInfo">
                     <div id="tutorImg">
                     <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg"  width="80"  class="rounded-circle" alt="Cinque Terre" >
-                    <label style="font-weight: 600;">튜터명 감자왕</label>
+                    <label style="font-weight: 600;">&nbsp; 튜터명 감자왕</label>
                     </div>
                     <br>
                     <div id="tutorIntroduce">
-                        <div style="font-weight: 600">튜터 소개</div>
+                        <div style="font-weight: 600"> &nbsp;튜터 소개</div>
                         <p>튜터 소개 라라라라라랄ㅇㄹㅇ튜터 소개 라라라라라랄ㅇㄹㅇ튜터 소개 라라라라라랄ㅇㄹㅇ튜터 소개 라라라라라랄ㅇㄹㅇ튜터 소개 라라라라라랄ㅇㄹㅇ튜터 소개 라라라라라랄ㅇㄹㅇ</p>
                             
                     </div>
