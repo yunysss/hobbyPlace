@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 <style>
     div, p, form, input{box-sizing:border-box;}
-    a{text-decoration: none !important; color:black !important;}
+    #menubar a{text-decoration: none !important; color:black !important;}
 
     .wrap{width:1000px; height:120px; margin:auto;}
     #menubar{width:1000px; height:120px; background:white; z-index: 100; position: fixed;}
@@ -33,7 +33,7 @@
 
     /* menubar-2 */
     /* 로고 이미지, 검색창 공통스타일 */
-    #search-form, #logo>img{
+    #search-form, #logo img{
         margin:auto;
         position:absolute;
         top:0;
@@ -86,7 +86,9 @@
 	                    전체 카테고리
 	            </a>
 	            <div id="logo">
-	                <img src="<%= contextPath %>/resources/images/logo.png" width="100%" height="50%">
+	            	<a href="../common/tuteeMainPage.jsp">
+	            		<img src="<%= contextPath %>/resources/images/logo.png" width="100%" height="50%">
+	            	</a>
 	            </div>
 	            <div id="search">
 	                <form action="" id="search-form">

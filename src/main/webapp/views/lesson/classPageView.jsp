@@ -128,15 +128,15 @@
             height:30px;
             width:30px;
         }
-        #classDetail-cal>div>button{
+        #classDetail-cal>div>a{
             background:white;
             height:40px;
             width:150px;
             margin-top:10px;
         }
-        #classDetail-cal>button{
+        #classDetail-cal>a{
             background:rgb(35, 104, 116);
-            color:white;
+            color:white!important;
             height:40px;
             width:300px;
             margin-top:10px;
@@ -470,10 +470,10 @@
                             <p>총 결제 금액 99,000원</p>
                         </div>
                         <div>
-                            <button>🤍 찜하기</button>
-                            <button>💬 1:1문의</button>
+                            <a href="" class="btn">🤍 찜하기</a>
+                            <a href="" class="btn">💬 1:1문의</a>
                         </div>
-                        <button>클래스 신청하기</button>
+                        <a href="classPayment.jsp" class="btn">클래스 신청하기</a>
                     </div>
                 </form>
                 <br>
