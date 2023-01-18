@@ -208,7 +208,7 @@
                             
                                 <li><a href="../lesson/classInsertView1.jsp">클래스등록</a></li>
                                 <li><a href="../lesson/classListView.jsp">내 클래스목록</a></li>
-                                <li><a href="">예약승인</a></li>
+                                <li><a href="../tutor/reservationApproval.jsp">예약승인</a></li>
                                 <li><a href="">예약관리</a></li>
                                 <li><a href="">문의관리</a></li>
                                 <li><a href="">후기관리</a></li>
