@@ -106,7 +106,7 @@
 
 
 
-	
-
+	<br><br><br><br>
+	<%@ include file = "../common/footerbar.jsp" %>
 </body>
 </html>

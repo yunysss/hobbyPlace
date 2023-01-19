@@ -163,5 +163,6 @@
 
             })
         </script>
+        <%@ include file = "../common/footerbar.jsp" %>
 </body>
 </html>
