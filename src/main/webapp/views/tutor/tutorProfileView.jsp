@@ -155,7 +155,7 @@ padding: 5px 10px;
 
                 </div>
         </div>
-      
+        <%@ include file="../common/footerbar.jsp" %>
 
 </body>
 </html>

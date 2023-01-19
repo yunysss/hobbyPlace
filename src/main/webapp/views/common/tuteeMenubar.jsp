@@ -391,7 +391,7 @@
 	<div class="wrap">
 		<div id="menubar">
 	        <div id="menubar-1">
-	            <a href="">튜터센터</a>
+	            <a href="<%=contextPath%>/tutorMain.tt">튜터센터</a>
 	            <a href="">튜터등록</a>
 	        </div>
 	        <div id="menubar-2">

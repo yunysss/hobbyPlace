@@ -87,7 +87,7 @@
             margin-top: 100px;
         }
         #button-area{
-            height: 60px;
+            margin-bottom: 10px;
             text-align: center;
             line-height: 50px;
             
@@ -126,16 +126,17 @@
         .mbtn{
             border: 1px solid white;
             border-radius: 5px;
-            background-color: rgb(104, 103, 103);
+            background-color: rgb(92, 90, 90);
             color: white;
-            width: 90px;
-            height: 35px;
+            padding: 5px 8px;
             text-align: center;
             vertical-align: middle;
-            line-height: 4px;
+            line-height: 5px;
             font-size: 13px;
-           
-
+        }
+        #button-area :hover{
+            cursor: pointer;
+            background-color: black;
         }
         
 
@@ -168,9 +169,9 @@
                   
                     </img>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">프로필관리</a>
-                      <a class="dropdown-item" href="#">내 클래스</a>
-                      <a class="dropdown-item" href="#">메인페이지로</a>
+                      <a class="dropdown-item" href="<%=contextPath%>/profile.tt">프로필관리</a>
+                      <a class="dropdown-item" href="<%=contextPath%>/myClass.tt">내 클래스</a>
+                      <a class="dropdown-item" href="<%=contextPath%>">메인페이지로</a>
                       <a class="dropdown-item" href="#">로그아웃</a>
                     </div>
                   </div>
@@ -186,9 +187,11 @@
             <div id="content1">
                 <div id="button-area">
                 
-                <button type="button" class="mbtn">클래스 등록</button>
-                <button type="button" class="mbtn">클래스 목록</button>
+                <a href="<%=contextPath %>/enrollForm.cl" class="mbtn">클래스 등록</a>
+                <a href="<%=contextPath%>/myClass.tt" class="mbtn">클래스 목록</a>
                 </div>
+                
+                
                
                 <ul>
                     <li style="background-color: rgb(22, 160, 133); color: aliceblue;">
@@ -196,7 +199,7 @@
                             person_pin
                             </span>&nbsp;&nbsp;마이페이지
                            
-                                <li><a href="../tutor/tutorProfileView.jsp">프로필관리</a></li>
+                                <li><a href="<%=contextPath%>/profile.tt">프로필관리</a></li>
                             
                                 
                             
@@ -206,8 +209,8 @@
                             event_available
                             </span>&nbsp;클래스관리
                             
-                                <li><a href="../lesson/classInsertView1.jsp">클래스등록</a></li>
-                                <li><a href="../lesson/classListView.jsp">내 클래스목록</a></li>
+                                <li><a href="<%=contextPath %>/enrollForm.cl">클래스등록</a></li>
+                                <li><a href="<%=contextPath%>/myClass.tt">내 클래스목록</a></li>
                                 <li><a href="<%=contextPath%>/approval.tt">예약승인</a></li>
                                 <li><a href="../tutor/reservationList.jsp">예약관리</a></li>
                                 <li><a href="">문의관리</a></li>
@@ -236,7 +239,6 @@
             <div class="content-area">
                
                 
-           
         
 
         

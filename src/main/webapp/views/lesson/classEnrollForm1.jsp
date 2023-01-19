@@ -375,7 +375,7 @@
                     
                     <hr>
                     <div align="center">
-                    <a href="classInsertView2.jsp" type="button" class="btn btn-secondary btn-sm" >다음페이지로</a>
+                    <a href="classInsertForm2.jsp" type="button" class="btn btn-secondary btn-sm" >다음페이지로</a>
                     
                     </div>
 
@@ -418,7 +418,7 @@
               </script>
         
 
-
+        <%@ include file="../common/footerbar.jsp" %>
 
         
 

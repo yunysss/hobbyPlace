@@ -13,6 +13,7 @@
 #content2{
     width: 1000px;
     padding:20px;
+    height: 100%;
  
 }
 
@@ -192,6 +193,9 @@ margin-top: 5px;
     </div>
 </div>
 </div>
+
+
+<%@ include file="footerbar.jsp" %>
 
 </body>
 </html>
