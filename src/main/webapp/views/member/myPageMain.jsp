@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hobby Place || MyPage</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <style>
         /*div{border:1px solid black;}*/
         div{box-sizing:border-box;}
@@ -60,21 +61,7 @@
         .numberData{font-size:45px; font-weight: bolder;}
         
 
-    </style>
-    <script>
-        $(function(){
-            $(".categoryMain").click(function(){
-                const category1 = $(this).html();
-
-                if($(this)){
-                    $(this).css("color", "white").css("background-color", "rgb(35, 104, 116)").css("font-weight", "bolder");
-                    $(this).siblings("div").css("color", "rgb(64, 64, 64)").css("background-color", "white").css("font-weight", "normal");
-                }
-
-            }) 
-            
-        })
-    </script>
+</style>
 </head>
 <body>
 	<%@ include file="../common/tuteeMenubar.jsp" %>
@@ -146,5 +133,35 @@
 	            </div>
 	        </div>
 		</div>
+		<script>
+            $(function(){
+            	$(".categoryMain").click(function(){
+                    const category1 = $(this).html();
+
+                    if($(this)){
+                        $(this).css("color", "white").css("background-color", "rgb(35, 104, 116)").css("font-weight", "bolder");
+                        $(this).siblings("div").css("color", "rgb(64, 64, 64)").css("background-color", "white").css("font-weight", "normal");
+                    }
+                })             	
+                $("#viewMyInfo").click(function(){
+                    //회원정보 조회 및 수정 클릭시 이동할 페이지링크
+                    location.href = "<%=contextPath%>/.....";
+                })
+                $("#viewMyQna").click(function(){
+                    // 나의 문의 조회시 이동할 페이지링크(나의문의내역으로)
+                    location.href = "<%=contextPath%>/.....";
+                })
+                $("#viewMyClass").click(function(){
+                    //마이클래스 클릭시 이동할 페이지링크
+                    location.href = "<%=contextPath%>/.....";
+                })
+                $("#withdrawal").click(function(){
+                    // 회원탈퇴 클릭시 이동할 페이지링크
+                	location.href = "<%=contextPath%>/withdrawal.me";
+                })
+
+
+            })
+        </script>
 </body>
 </html>

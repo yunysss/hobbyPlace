@@ -62,6 +62,13 @@
             </div><div class="selectMethod m2" >
                 이메일 인증
             </div>
+            <script>
+            	$(function(){
+            		$(".m1").click(function(){
+            			location.href = "<%=contextPath%>/searchPwdByPhone.me";
+            		})
+            	})
+            </script>
 
             <br><br><br>
 
