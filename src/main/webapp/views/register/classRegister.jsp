@@ -56,7 +56,7 @@
 </head>
 <body>
 	<%@ include file="../common/tuteeMenubar.jsp" %>
-    <form class="outer" action="classPayFin.jsp">
+    <form class="outer" action="classRegisterFin.jsp">
         <div id="payment-1">
             <h5><b>결제하기</b></h5>
             <div>
