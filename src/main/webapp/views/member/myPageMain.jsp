@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MyPage Main</title>
+<title>Hobby Place || MyPage</title>
 <style>
         /*div{border:1px solid black;}*/
         div{box-sizing:border-box;}
