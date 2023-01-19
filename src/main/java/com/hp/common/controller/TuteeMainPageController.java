@@ -1,4 +1,4 @@
-package com.hp.calculate.controller;
+package com.hp.common.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CalculateManage
+ * Servlet implementation class TuteeMainPageController
  */
-@WebServlet("/manage.cal")
-public class CalculateManageController extends HttpServlet {
+@WebServlet("/main.tee")
+public class TuteeMainPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CalculateManageController() {
+    public TuteeMainPageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class CalculateManageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/calculate/calculateManage.jsp").forward(request, response);
+		request.getRequestDispatcher("views/common/tuteeMainPage.jsp").forward(request, response);
 	}
 
 	/**

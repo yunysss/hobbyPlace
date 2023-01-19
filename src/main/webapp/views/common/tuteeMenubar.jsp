@@ -132,7 +132,7 @@
 
                 
 	            <div id="logo">
-	            	<a href="../common/tuteeMainPage.jsp">
+	            	<a href="<%=contextPath%>/main.tee">
 	            		<img src="<%= contextPath %>/resources/images/logo.png" width="100%" height="50%">
 	            	</a>
 	            </div>
