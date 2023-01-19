@@ -107,7 +107,7 @@
                     </tfoot>
                 </table>
                 <div align="center">
-                    <a href="../common/tuteeMainPage.jsp" class="btn btn-secondary btn-sm">홈으로 이동</a>
+                    <a href="<%=contextPath %>/main.tee" class="btn btn-secondary btn-sm">홈으로 이동</a>
                     <a href="" class="btn btn-sm" id="checkbutton">수강 내역 확인</a>
                 </div>
             </div>
