@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <style>
     div, p, form, input{box-sizing:border-box;}
     #menubar a{text-decoration: none !important; color:black !important;}
@@ -463,7 +462,7 @@
                 
                 
 	            <div id="logo">
-	            	<a href="../common/tuteeMainPage.jsp">
+	            	<a href="<%=contextPath%>/main.tee">
 	            		<img src="<%= contextPath %>/resources/images/logo.png" width="100%" height="50%">
 	            	</a>
 	            </div>

@@ -57,7 +57,7 @@
 <body>
 	<%@ include file="../common/tuteeMenubar.jsp" %>
 	<div class="outer">
-    <form action="classRegisterFin.jsp" id="payment">
+    <form action="<%=contextPath %>/fin.reg" id="payment">
         <div id="payment-1">
         
             <h5><b>결제하기</b></h5>

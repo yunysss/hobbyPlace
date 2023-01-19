@@ -1,4 +1,4 @@
-package com.hp.register.controller;
+package com.hp.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,18 +6,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class RegisterController
+ * Servlet implementation class ViewMemberInfoController
  */
-@WebServlet("/register.reg")
-public class RegisterController extends HttpServlet {
+@WebServlet("/memberInfo.me")
+public class ViewMemberInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterController() {
+    public ViewMemberInfoController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +27,8 @@ public class RegisterController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/register/classRegister.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		request.getRequestDispatcher("views/member/myPageMemberInfo.jsp").forward(request, response);
 	}
 
 	/**

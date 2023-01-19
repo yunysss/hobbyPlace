@@ -5,8 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+    
+</style>
 </head>
 <body>
+	<%@ include file = "../common/myPageMenubar.jsp" %>
+	
 
 </body>
 </html>

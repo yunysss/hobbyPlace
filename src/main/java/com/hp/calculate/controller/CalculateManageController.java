@@ -1,4 +1,4 @@
-package com.hp.register.controller;
+package com.hp.calculate.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class RegisterController
+ * Servlet implementation class CalculateManage
  */
-@WebServlet("/register.reg")
-public class RegisterController extends HttpServlet {
+@WebServlet("/manage.cal")
+public class CalculateManageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterController() {
+    public CalculateManageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class RegisterController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/register/classRegister.jsp").forward(request, response);
+		request.getRequestDispatcher("views/calculate/calculateManage.jsp").forward(request, response);
 	}
 
 	/**
