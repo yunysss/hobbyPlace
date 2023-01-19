@@ -8,29 +8,24 @@
 <style>
         /*div{border:1px solid black;}*/
         div{box-sizing:border-box;}
-       
-        .content{width:80%; float:left; margin-top:5px;}
-
-        .contentMain>h2{margin-left:100px;}
         .explainForm{
-            margin-left:100px;
-            width:600px;
+            width:700px;
             background-color: lightgray;
             border:0;
             padding:30px 20px 30px 20px;
         }
         .explainForm>table td{padding-left:15px;}
-        .checkAgreement{width:600px; margin-left:100px; margin-top:5px; padding-left:5px;}
+        .checkAgreement{width:700px; margin-top:5px; padding-left:5px;}
         .checkAgreement>table th{width:100px; text-align:left;}
         .tr1{height:30px;}
         .tr1>td{font-size:15px;}
 
         .leaveButton{
-            height:25px; width:120px; 
+            height:30px; width:140px; 
             color:white; background-color:gray; 
             border:0; border-radius:5px; 
             margin-top:30px;
-            margin-left:200px;
+            margin-left:300px;
         }
         .leaveButton:hover{cursor: pointer;}
 
@@ -39,11 +34,11 @@
 <body>
 	<%@ include file = "../common/myPageMenubar.jsp" %>
 	<div class="contentMain" align="center">
+		<br>
 
-        <br><br><br>
-
-        <h2>정말 떠나시겠어요?</h2>
-
+        <h3>정말 떠나시겠어요?</h3>
+		<br><br>
+		
         <div class="explainForm" align="center">
             <table>
                 <tr>
@@ -111,7 +106,7 @@
                             &nbsp;탈퇴사유
                         </th>
                         <td rowspan="10">
-                            <textarea name="" id="" cols="50" rows="10" style=resize:none></textarea>
+                            <textarea name="" id="" cols="70" rows="10" style=resize:none></textarea>
                         </td> 
                     </tr>
                     <tr><th></th></tr>
