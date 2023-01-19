@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <style>
     div, p, form, input{box-sizing:border-box;}
     #menubar a{text-decoration: none !important; color:black !important;}
