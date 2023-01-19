@@ -45,7 +45,7 @@
             border: 1px solid rgb(99, 99, 99);
             border-collapse: collapse;
         }
-
+		th{background:rgb(243, 240, 240);}
         #select-area{
             margin: auto;
             width: 50px;
@@ -76,7 +76,7 @@
 
 
         <div class="tb_box">
-            <table border="1px" style="text-align: center;">
+            <table class="table-bordered" style="text-align: center;">
                 <br>
                 <tr>
                     <th width="70px" height="25px">상태</th>
@@ -118,7 +118,7 @@
 
 
         <div class="tb_box">
-            <table border="1px" style="text-align: center;">
+            <table class="table-bordered" style="text-align: center;">
                 <br>
                 <tr>
                     <th width="70px" height="25px">상태</th>
@@ -146,7 +146,7 @@
                     <td>23.01.03 17:00</td>
                     <td>2명</td>
                     <td>
-                        <div id="select-area"><a href=""> 조회</a></div>
+                        <div id="select-area"><a href="../tutor/reservationDetail.jsp"> 조회</a></div>
                     </td>
                 </tr>
                 <tr>
@@ -157,7 +157,7 @@
                     <td>23.01.03 17:00</td>
                     <td>2명</td>
                     <td>
-                        <div id="select-area"><a href=""> 조회</a></div>
+                        <div id="select-area"><a href="../tutor/reservationDetail.jsp"> 조회</a></div>
                     </td>
                 </tr>
                 <tr>
@@ -168,7 +168,7 @@
                     <td>23.01.03 17:00</td>
                     <td>2명</td>
                     <td>
-                        <div id="select-area"><a href=""> 조회</a></div>
+                        <div id="select-area"><a href="../tutor/reservationDetail.jsp"> 조회</a></div>
                     </td>
                 </tr>
                 <tr>
@@ -179,7 +179,7 @@
                     <td>23.01.03 17:00</td>
                     <td>2명</td>
                     <td>
-                        <div id="select-area"><a href=""> 조회</a></div>
+                     	 <div id="select-area"><a href="../tutor/reservationDetail.jsp"> 조회</a></div>
                     </td>
                 </tr>
                 <tr>
@@ -190,7 +190,7 @@
                     <td>23.01.03 17:00</td>
                     <td>2명</td>
                     <td>
-                        <div id="select-area"><a href=""> 조회</a></div>
+                       <div id="select-area"><a href="../tutor/reservationDetail.jsp"> 조회</a></div>
                     </td>
                 </tr>
                 
