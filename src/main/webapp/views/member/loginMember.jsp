@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>Hobby Place || 로그인 </title>
 <style>
         /*div{border:1px solid black;}*/
         div{box-sizing:border-box;}
@@ -40,9 +40,9 @@
             <input type="password" class="lgPage" id="userPwd" required placeholder="비밀번호를 입력해주세요">
             
             <div class="searchInfo" align="right">
-                <a href="">아이디 찾기</a>
+                <a href="<%=contextPath%>/searchIdByPhone.me">아이디 찾기</a>
                 <p> | </p>
-                <a href="">비밀번호 찾기</a>
+                <a href="<%=contextPath%>/searchPwdByPhone.me">비밀번호 찾기</a>
             </div>
 
             <button type="submit" class="lgPage" id="logInUser">로그인</button> <br>

@@ -34,9 +34,9 @@
        
         
         /*헤더바 상세 스타일*/
-        #header{background: url(<%=request.getContextPath()%>/resources/images/newMainLogoBG.png); background-size: contain;}
+        #header{background: url(<%=request.getContextPath()%>/resources/images/newMainLogoBG.png); background-size: cover;}
         
-        #log_box{ height: 50px;  margin-top: 65px; }
+        #log_box{ height: 155px; padding:52px;margin-left:40%;}
 
         p{  display: inline-block;
             margin-top: 15px;}
