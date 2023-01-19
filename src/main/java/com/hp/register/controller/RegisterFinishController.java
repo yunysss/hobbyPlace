@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class RegisterController
+ * Servlet implementation class RegisterFinishController
  */
-@WebServlet("/register.reg")
-public class RegisterController extends HttpServlet {
+@WebServlet("/fin.reg")
+public class RegisterFinishController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterController() {
+    public RegisterFinishController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class RegisterController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/register/classRegister.jsp").forward(request, response);
+		request.getRequestDispatcher("views/register/classRegisterFin.jsp").forward(request, response);
 	}
 
 	/**

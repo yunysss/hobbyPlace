@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -160,9 +163,9 @@
                         </li>
                         <li><a href="">결제 관리</a>
                             <ul>
-                                <li><a href="../register/registerManage.jsp">결제 내역</a></li>
-                                <li><a href="../calculate/calculateManage.jsp">튜터 정산 관리</a></li>
-                                <li><a href="../refund/refundManage.jsp">환불 신청 조회</a></li>
+                                <li><a href="<%=contextPath%>/manage.reg">결제 내역</a></li>
+                                <li><a href="<%=contextPath%>/manage.cal">튜터 정산 관리</a></li>
+                                <li><a href="<%=contextPath %>/manage.ref">환불 신청 조회</a></li>
                             </ul>
                         </li>
                         <li><a href="">통계</a>
