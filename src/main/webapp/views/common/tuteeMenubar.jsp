@@ -299,70 +299,18 @@
 
    
    
-       
-    </style>
 
     
-</style>
-<script>                
- 
-    $(document).ready(function() {
-
-        //datepicker 한국어로 사용하기 위한 언어설정
-        $.datepicker.setDefaults($.datepicker.regional['ko']);     
-    
-        // Datepicker            
-        $(".datepicker").datepicker({
-            showButtonPanel: true,
-            dateFormat: "yy-mm-dd",
-            onClose : function ( selectedDate ) {
-            
-                var eleId = $(this).attr("id");
-                var optionName = "";
-
-                if(eleId.indexOf("StartDate") > 0) {
-                    eleId = eleId.replace("StartDate", "EndDate");
-                    optionName = "minDate";
-                } else {
-                    eleId = eleId.replace("EndDate", "StartDate");
-                    optionName = "maxDate";
-                }
-
-                $("#"+eleId).datepicker( "option", optionName, selectedDate );        
-                $(".searchDate").find(".chkbox2").removeClass("on"); 
-            }
-        }); 
-
-        $(".dateclick").dateclick();    // DateClick
-        $(".searchDate").schDate();        // searchDate
-        
-    });
-
-    // DateClick
-    jQuery.fn.dateclick = function(){
-        var $obj = $(this);
-        $obj.click(function(){
-            $(this).parent().find("input").focus();
-        });
-    }    
-
-    
-    function setSearchDate(start){
-
-        
-        var startDate = $.datepicker.formatDate('yy-mm-dd', today);
-        $('#searchStartDate').val(startDate);
-                
-        // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
-        $("#searchEndDate").datepicker( "option", "minDate", startDate );
-        
-        // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
-        $("#searchStartDate").datepicker( "option", "maxDate", endDate );
-
-    }
-
-        
-    </script>           
+ <!-- Bootstrap CSS -->
+ <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+ <!-- Font Awesome CSS -->
+ <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+ <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+ <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+ <!-- datepicker 한국어로 -->
+ <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>           
 
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -372,15 +320,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Font Awesome CSS -->
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
-
-<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<!-- datepicker 한국어로 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
 
 
 <style src="@vueform/slider/themes/default.css"></style>
@@ -468,7 +407,7 @@
 	            </div>
 	            <div id="search">
 	                <form action="" id="search-form">
-	                        <div id="search-text">
+	                        <div id="search-text" class="dropdown-toggle" data-toggle="dropdown" >
 	                            <input type="text" name="keyword" placeholder="&nbsp;검색어를 입력하세요">
 	                        </div>
 	                        <div id="search-btn">
@@ -478,16 +417,7 @@
  
 	            </div>
                
-               <script>
-          
-                    $(function(){
-                        $("input[name=keyword]").click(function(){
-                            $("#search-area").css("display", block);})
-                    })
-                     
-                     
-
-                </script>
+             
 
 
 
@@ -515,159 +445,12 @@
 		</div>
     </div>
 
-    <script src="main.js"></script>
-    <script>
-        const bookBtn = document.querySelector('.bookmark-btt');
-        const section = document.querySelector('section');
-        const label = document.querySelector('label');
-
-        bookBtn.addEventListener('click',function(){
-            section.style.left = 0;
-            label.style.opacity = 0;
-        })
-
-        bookBtn.addEventListener('blur',function(){
-            section.style.left="-200px";
-            label.style.opacity = 1;
-        })
-    </script>
-
-
-
-    <div id="search-area" align="center">
-        <form action="" id="searchForm">
-        <br>
-
-        <div class="form-group has-search" >
-            <span class="fa fa-search form-control-feedback" ></span>
-            <input type="text" name="keywordDetail" placeholder="검색어를 입력하세요">
-        </div>
-        
-        <table id="select">
-           
-            <tr>
-                <th>카테고리</th>
-                <td>
-                    <select name="categoryList" id="categoryList">
-                    <option value="교육">교육</option>
-                    <option value="">공예 DIY</option>
-                    <option value="">베이킹</option>
-                    <option value="">쿠킹</option>
-                    <option value="">스포츠/피트니스</option>
-
-                     </select>
-                     <select name="detailCategory" id="detailCategory">
-                        <option value="교육">교육</option>
-                        <option value="">공예 DIY</option>
-                        <option value="">베이킹</option>
-                        <option value="">쿠킹</option>
-                        <option value="">스포츠/피트니스</option>
-    
-                         </select>
-                </td>
-            </tr>
-            <tr>
-                <th>지역</th>
-                <td>
-                    <select name="region" id="region">
-                    <option value="서울">서울</option>
-                    <option value="">경기도</option>
-                    <option value="">인천</option>
-                    <option value=""></option>
-                     </select>
-
-                     <select name="region" id="region" >
-                        <option value="서울">서울</option>
-                        <option value="">경기도</option>
-                        <option value="">인천</option>
-                        <option value=""></option>
-                         </select>
-                </td>
-            </tr>
-            <tr>
-                <th height="30"width="100">날짜</th>
-                <td>
-                    <div class="clearfix">
-                        <!-- 시작일 -->
-                        <span class="dset">
-                            <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >
-                            <a href="#none" class="btncalendar dateclick"></a>
-                        </span>
-                        <span class="demi">-</span>
-                        <!-- 종료일 -->
-                        <span class="dset">
-                            <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" > 
-                            <span class="material-symbols-outlined"></span>
-                            <a href="#none" class="btncalendar dateclick"></a>
-                        </span>
-                    </div>    
 
 
 
 
-
-                </td>
-                
-            </tr>
-            <tr>
-                <th height="30"width="100">가격</th>
-                <td>
-                <div class="Container" >
-                                             
-                    <input style = "width:100%;" class="slider_range slider" type="range"  min="0" max="200000" ></input>
-                    <div id="tickmarks">
-                        <p>0</p>
-                        <p></p>
-                        <p></p>
-                        <p>100,000</p>
-                        <p></p>
-                        <p></p>
-                        <p>200,000</p>
-                    </div>
-                   <br>
-                   <div id="slider-value">
-                    <font size = 2 id = "slider_value_view"></font>		
-                     </div>				  
-                  </div>
-                </td>
-            </tr>
-
-          
-              
-              
-              <script language = "javascript">
-              
-              function ShowSliderValue(sVal)
-              {
-                  var obValueView = document.getElementById("slider_value_view");
-                  obValueView.innerHTML = sVal
-              }
-              
-              var RangeSlider = function(){
-                  var range = $('.slider_range');
-                  
-                  range.on('input', function(){		
-                      ShowSliderValue(this.value);
-                  });
-              };
-              
-              RangeSlider();
-              
-              
-              </script>
-    
-        </table>
-        <br>
-        <div id="btn-area">
-            <button>&nbsp;검색&nbsp;</button>
-            <button type="reset">초기화</a>
-        </div>
-
-
-     </form>
-    </div>
-  
 
 
 </body>
 </html>
+  
