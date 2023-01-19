@@ -215,7 +215,7 @@
                     <script>
                         $(function(){
                             var thisYear = new Date().getFullYear();
-                            for(let i=1900; i<=thisYear; i++){
+                            for(let i=(thisYear-100); i<=thisYear; i++){
                                 $("#bYear").append("<option value='" + i +"'>" + i + "</option>");
                             }
 
@@ -227,17 +227,17 @@
                                 $("#bDate").append("<option value='" + i + "'>" + i + "</option>");
                             }
 
+                           
+                            
                             /*
-                            $("#bMonth option[value='2']").click(function(){
-                                $("#bDate option[value='30']").remove();
-                                $("#bDate option[value='31']").remove();
-                            })
-                            */
-                           /*
-                            if($("#bMonth").val() == '2'){
-                                $('#bDate').val('31').remove();
+                            if($("#bMonth option[value='2']").click()){
+                                $("#bDate option[value='30']").remove(); 
+                                $("#bDate option[value='31']").remove(); 
+                            }else{
+                                $("#bDate").append("<option value='30'>30</option>");
+                                $("#bDate").append("<option value='31'>31</option>");
                             }
-                            */
+                           */
                             
                             /*
                             if($("#bMonth option[value='4']") || 

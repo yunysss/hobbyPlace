@@ -12,7 +12,7 @@
        .cWrap{width:1000px; margin:auto;}
        .content{width:80%; float:left; margin-top:5px; padding-top:100px; margin-left:200px;}
        .mpMenubar{
-       		width:200px; height:600px; padding-top:10px; margin-top:5px; float:left; padding-top:0;
+       		width:200px; padding-top:10px; margin-top:5px; float:left; padding-top:0;
        		position:fixed; top:130px;
        }
        
@@ -162,7 +162,13 @@
                 </span>
                 <hr>
             </div>
-
+            <script>
+	        	$(function(){
+	        		$("#home").click(function(){
+	        			location.href="<%=contextPath%>/main.tee"
+	        		})
+	        	})
+	        </script>
             
 
         
