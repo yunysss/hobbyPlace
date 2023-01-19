@@ -67,6 +67,16 @@
     #category>*{margin:5px; font-size:14px;}
     #membership>*{margin-left:20px; font-size:12px;}
     
+
+
+
+
+
+    /*카테고리 영역*/
+   
+       
+    </style>
+
     
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -86,6 +96,41 @@
 	                    <img src="<%= contextPath %>/resources/images/list.png" alt="" height="20px" width="25px">
 	                    전체 카테고리
 	            </a>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
 	            <div id="logo">
 	            	<a href="../common/tuteeMainPage.jsp">
 	            		<img src="<%= contextPath %>/resources/images/logo.png" width="100%" height="50%">
@@ -123,6 +168,23 @@
 	        </div>
 		</div>
     </div>
+
+    <script src="main.js"></script>
+    <script>
+        const bookBtn = document.querySelector('.bookmark-btt');
+        const section = document.querySelector('section');
+        const label = document.querySelector('label');
+
+        bookBtn.addEventListener('click',function(){
+            section.style.left = 0;
+            label.style.opacity = 0;
+        })
+
+        bookBtn.addEventListener('blur',function(){
+            section.style.left="-200px";
+            label.style.opacity = 1;
+        })
+    </script>
 
 </body>
 </html>
