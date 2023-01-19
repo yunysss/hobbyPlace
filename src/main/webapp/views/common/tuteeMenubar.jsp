@@ -150,7 +150,7 @@
 	            	<br>
 	                <!-- 로그인 전 -->
 	                <a href="<%=contextPath%>/login.me">로그인</a>
-	                <a href="">회원가입</a>
+	                <a href="<%=contextPath%>/enroll.me">회원가입</a>
 	
 	                <!-- 로그인 후 -->
 	                <!-- <a href="">마이 클래스</a> -->
