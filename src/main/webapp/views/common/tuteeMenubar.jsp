@@ -8,6 +8,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+ <!-- Font Awesome CSS -->
+ <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+
+ <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+ <!-- datepicker 한국어로 -->
+ <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
+
+
+ <style src="@vueform/slider/themes/default.css"></style>
 <style>
     div, p, form, input{box-sizing:border-box;}
     #menubar a{text-decoration: none !important; color:black !important;}
@@ -78,7 +90,9 @@
  
         }
       
-        .category{width: 220px;}
+        .category{width: 210px;
+       }
+      
      
         .bookmark-lists{
             height: 100%;
@@ -87,7 +101,7 @@
         
         .bookmark-lists>li>a{
             display: block;
-            height: 35px;
+            height: 31px;
             background-color: rgb(35, 104, 116);
             text-align: left;
             line-height: 35px;
@@ -99,7 +113,7 @@
         }
 
         .bookmark>ul>li{
-            height: 33px;
+            height: 30px;
             border: 0.01px solid rgba(238, 235, 235, 0.881);
             border-radius: 5px;
         }
@@ -118,7 +132,7 @@
 
         .bookmark span{
             float:right;
-            line-height: 35px;
+            line-height: 30px;
             font-size: 12px;
             
             
@@ -127,7 +141,7 @@
             background-color: rgb(243, 242, 242)     
         }
         #symbol>span{  
-            height: 50px;
+            height: 45px;
             font-size: 14px;
         
         }
@@ -139,13 +153,27 @@
         color: white;
        }
 
-       #category{
-        margin-right: 30px;
-       }
+       .ct-area{height: 60px;
+        display: inline-block;
+    }
+         #symbol{  
+            height: 90px;
+            padding: 0px 10px
+            
+        
+        }
+        #symbol *{
+            vertical-align: middle;
+            margin-top: 30px;
+        }
+        
+
+
+
+    
    
-   
-        /*검색바*/
-        #search-area{
+    /*검색바*/
+    #search-area{
             border: 1px solid rgb(206, 204, 204);
             border-radius: 5px;
             width: 600px;
@@ -153,7 +181,6 @@
             font-size: 13px;
             margin: auto;
             padding: 20px;
-            display: none;
         }
        
         #select>tr{
@@ -292,37 +319,73 @@
         text-align: center;
     
     }
-
-
-
+    #search-area{display: none;
+       float:inherit
+    
+    }
+ 
     </style>
+       
+    
+ <script>                
+    
+    $(document).ready(function() {
+
+        //datepicker 한국어로 사용하기 위한 언어설정
+        $.datepicker.setDefaults($.datepicker.regional['ko']);     
+    
+        // Datepicker            
+        $(".datepicker").datepicker({
+            showButtonPanel: true,
+            dateFormat: "yy-mm-dd",
+            onClose : function ( selectedDate ) {
+            
+                var eleId = $(this).attr("id");
+                var optionName = "";
+
+                if(eleId.indexOf("StartDate") > 0) {
+                    eleId = eleId.replace("StartDate", "EndDate");
+                    optionName = "minDate";
+                } else {
+                    eleId = eleId.replace("EndDate", "StartDate");
+                    optionName = "maxDate";
+                }
+
+                $("#"+eleId).datepicker( "option", optionName, selectedDate );        
+                $(".searchDate").find(".chkbox2").removeClass("on"); 
+            }
+        }); 
+
+       
+
+        $(".dateclick").dateclick();    // DateClick
+    
+        
+    });
 
    
-   
+    // DateClick
+    jQuery.fn.dateclick = function(){
+        var $obj = $(this);
+        $obj.click(function(){
+            $(this).parent().find("input").focus();
+        });
+    }    
 
     
- <!-- Bootstrap CSS -->
- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
- <!-- Font Awesome CSS -->
- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
- <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
- <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
- <!-- datepicker 한국어로 -->
- <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>           
+    
+
+        
+    </script>           
 
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-
-<style src="@vueform/slider/themes/default.css"></style>
 </head>
 <body>
 	<div class="wrap">
@@ -332,71 +395,74 @@
 	            <a href="">튜터등록</a>
 	        </div>
 	        <div id="menubar-2">
-	            <div class="dropdown">
-                    <div id="category" style="height:50px;">
-                      <span class="material-symbols-outlined dropdown-toggle" data-toggle="dropdown">
-                        <img src="<%= contextPath %>/resources/images/list.png" alt="" height="20px" width="25px">전체카테고리</span> 
+                <div class="dropdown">  
+                    <div class="dropdown ct-area">
+                    <div id="symbol" style="width: 150px;">
+                        <span  data-toggle="dropdown"> 
+                            <img src="<%= contextPath %>/resources/images/list.png" alt="" height="20px" width="25px">
+                            <label style="font-size: 13px;">전체 카테고리</label>
+                        </span> 
                     </div>
-
                     <div class="category dropdown-menu ">
-                     
-                          <ul class="bookmark-lists menu">
-                              <li class="bookmark"><a href="" ><label for="">교육</label> 
-                                  <span class="material-symbols-outlined"> arrow_forward_ios</span>
-                                  </a>
-                                  <ul class="submenu">
-                                      <li><a href="">외국어</a></li>
-                                      <li><a href="">IT</a></li>
-                                      <li><a href="">자격증</a></li>
-              
-                                  </ul>
-                              </li>
-                              <li class="bookmark"><a href=""><label for="">공예 DIY</label>
-                                  <span class="material-symbols-outlined"> arrow_forward_ios</span>
-                              </a>
-                                  <ul class="submenu">
-                                      <li><a href="">가죽 / 라탄</a></li>
-                                      <li><a href="">비누 / 꽃 / 향</a></li>
-                                      <li><a href="">뜨개 / 자수 </a></li>
-                                      <li><a href="">기타 </a></li>
-                                  </ul>
-                              
-                              </li>
-                              <li class="bookmark"><a href=""><label for="">드로잉</label>
-                                  <span class="material-symbols-outlined"> arrow_forward_ios</span>
-                              </a>
-                                  <ul class="submenu">
-                                      <li><a href="">취미미술</a></li>
-                                      <li><a href="">캘리그래피</a></li>
-                                      <li><a href="">웹디자인 </a></li>
+                    
+                            <ul class="bookmark-lists menu">
+                                <li class="bookmark"><a href=""><label>교육</label>
+                                    <span class="material-symbols-outlined"> arrow_forward_ios</span>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li><a href="">외국어</a></li>
+                                        <li><a href="">IT</a></li>
+                                        <li><a href="">자격증</a></li>
+    
+                                    </ul>
+                                </li>
+                                <li class="bookmark"><a href=""><label>공예 DIY</label>
+                                    <span class="material-symbols-outlined"> arrow_forward_ios</span>
+                                </a>
+                                    <ul class="submenu">
+                                        <li><a href="">가죽 / 라탄</a></li>
+                                        <li><a href="">비누 / 꽃 / 향</a></li>
+                                        <li><a href="">뜨개 / 자수 </a></li>
+                                        <li><a href="">기타 </a></li>
+                                    </ul>
+                                
+                                </li>
+                                <li class="bookmark"><a href=""><label>드로잉</label>
+                                    <span class="material-symbols-outlined"> arrow_forward_ios</span>
+                                </a>
+                                    <ul class="submenu">
+                                        <li><a href="">취미미술</a></li>
+                                        <li><a href="">캘리그래피</a></li>
+                                        <li><a href="">웹디자인 </a></li>
                                     
-                                  </ul>
-                              </li>
-                              <li class="bookmark"><a href=""><label for="">드로잉</label>
-                                  <span class="material-symbols-outlined"> arrow_forward_ios</span>
-                              </a>
-                                  <ul class="submenu">
-                                      <li><a href="">요리</a></li>
-                                      <li><a href="">베이킹</a></li>
+                                    </ul>
+                                </li>
+                                <li class="bookmark"><a href=""><label>쿠킹</label>
+                                    <span class="material-symbols-outlined"> arrow_forward_ios</span>
+                                </a>
+                                    <ul class="submenu">
+                                        <li><a href="">요리</a></li>
+                                        <li><a href="">베이킹</a></li>
                                     
-                                  </ul>
-                              </li>
-                              <li class="bookmark"><a href=""><label for="">스포츠/피트니스</label>
-                                  <span class="material-symbols-outlined"> arrow_forward_ios</span>
-                              </a>
-                                  <ul class="submenu">
-                                      <li><a href="">실내스포츠</a></li>
-                                      <li><a href="">야외스포츠</a></li>
-                                      <li><a href="">레저 / 액티비티 </a></li>
-                                      <li><a href="">요가 / 필라테스 </a></li>
-                                      <li><a href="">헬스 / PT </a></li>
-                                  </ul>
-                              </li>
-                          </ul>
-              
-                      </div>   
-                      
-                  </div>   
+                                    </ul>
+                                </li>
+                                <li class="bookmark"><a href=""><label>스포츠/피트니스</label>
+                                    <span class="material-symbols-outlined"> arrow_forward_ios</span>
+                                </a>
+                                    <ul class="submenu">
+                                        <li><a href="">실내스포츠</a></li>
+                                        <li><a href="">야외스포츠</a></li>
+                                        <li><a href="">레저 / 액티비티 </a></li>
+                                        <li><a href="">요가 필라테스 / 헬스 PT</a></li>
+                                        
+                                    </ul>
+                                </li>
+                            </ul>
+    
+                        </div>   
+                        
+                    </div>   
+                    </div>
 
                 
                 
@@ -407,22 +473,36 @@
 	            </div>
 	            <div id="search">
 	                <form action="" id="search-form">
-	                        <div id="search-text" class="dropdown-toggle" data-toggle="dropdown" >
+	                        <div id="search-text"  >
 	                            <input type="text" name="keyword" placeholder="&nbsp;검색어를 입력하세요">
 	                        </div>
+
 	                        <div id="search-btn">
 	                            <button type="submit"><img src="<%= contextPath %>/resources/images/search.png" height="25px" width="25px"></button>
 	                        </div>
 	                </form>
- 
+
+
+                    <script>
+                        $(function(){
+                            $("#search-text").click(function(){
+                                  $("#search-area").show();
+                             
+                            })
+
+                            document.addEventListener('mouseup', function(e){
+                            var search = document.getElementById('search-area');
+                            if(!search.contains(e.target)){
+                                search.style.display = 'none';
+                            }
+
+                        }
+                
+                        )
+                        })
+                    </script>
 	            </div>
-               
-             
-
-
-
-
-              
+         
 	            <div id="membership" align="center">
 	            	<br>
 	                <!-- 로그인 전 -->
@@ -443,6 +523,129 @@
 	            </div>
 	        </div>
 		</div>
+    </div>
+    
+    <div id="search-area" align="center">
+        <br>
+        <form action="" id="searchForm">  
+        <div class="form-group has-search">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요"  placeholder="Search">
+        </div>
+        
+        <table id="select">
+           
+            <tr>
+                <th>카테고리</th>
+                <td>
+                    <select name="category">
+                    <option value="교육">교육</option>
+                    <option value="">공예 DIY</option>
+                    <option value="">베이킹</option>
+                    <option value="">쿠킹</option>
+                    <option value="">스포츠/피트니스</option>
+
+                     </select>
+                     <select name="category_detail">
+                        <option value="교육">교육</option>
+                        <option value="">공예 DIY</option>
+                        <option value="">베이킹</option>
+                        <option value="">쿠킹</option>
+                        <option value="">스포츠/피트니스</option>
+    
+                         </select>
+                </td>
+            </tr>
+            <tr>
+                <th>지역</th>
+                <td>
+                    <select name="region" id="region">
+                    <option value="서울">서울</option>
+                    <option value="">경기도</option>
+                    <option value="">인천</option>
+                    <option value=""></option>
+                     </select>
+
+                     <select name="region" id="region" >
+                        <option value="서울">서울</option>
+                        <option value="">경기도</option>
+                        <option value="">인천</option>
+                        <option value=""></option>
+                         </select>
+                </td>
+            </tr>
+            <tr>
+                <th height="30"width="100">날짜</th>
+                <td>
+                    <div class="clearfix">
+                        <!-- 시작일 -->
+                        <span class="dset">
+                            <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >
+                            <a href="#none" class="btncalendar dateclick"></a>
+                        </span>
+                        <span class="demi">-</span>
+                        <!-- 종료일 -->
+                        <span class="dset">
+                            <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" > 
+                            <span class="material-symbols-outlined"></span>
+                            <a href="#none" class="btncalendar dateclick"></a>
+                        </span>
+                    </div>    
+
+                </td>
+                
+            </tr>
+            <tr>
+                <th height="30"width="100">가격</th>
+                <td>
+                <div class="Container" >
+                                             
+                    <input style = "width:100%;" class="slider_range slider" type="range"  min="0" max="200000" ></input>
+                    <div id="tickmarks">
+                        <p>0</p>
+                        <p></p>
+                        <p></p>
+                        <p>100,000</p>
+                        <p></p>
+                        <p></p>
+                        <p>200,000</p>
+                    </div>
+                   <br>
+                   <div id="slider-value">
+                    <font size = 2 id = "slider_value_view"></font>		
+                     </div>				  
+                  </div>
+                </td>
+            </tr>
+
+        </table>
+        <br>
+        <div id="btn-area">
+            <button>&nbsp;검색&nbsp;</button>
+            <button type="reset">초기화</a>
+        </div>
+        <script language = "javascript">
+              
+            function ShowSliderValue(sVal)
+            {
+                var obValueView = document.getElementById("slider_value_view");
+                obValueView.innerHTML = sVal
+            }
+            
+            var RangeSlider = function(){
+                var range = $('.slider_range');
+                
+                range.on('input', function(){		
+                    ShowSliderValue(this.value);
+                });
+            };
+            
+            RangeSlider();
+            
+            
+            </script>
+       
+    </form>
     </div>
 
 
