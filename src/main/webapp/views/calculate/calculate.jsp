@@ -74,7 +74,7 @@
             <button type="button">정산완료</button>
         </div>
         <br>
-        <form action="calculateDetail.jsp">
+        <form action="<%= contextPath %>/detail.cal">
             <div id="cal-2">
                 <div class="calList" style="height:130px">
                     <div>

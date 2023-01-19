@@ -1,4 +1,4 @@
-package com.hp.calculate.controller;
+package com.hp.tutor.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CalculateController
+ * Servlet implementation class ReservationApprovalController
  */
-@WebServlet("/calculate.cal")
-public class CalculateController extends HttpServlet {
+@WebServlet("/approval.tt")
+public class ReservationApprovalController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CalculateController() {
+    public ReservationApprovalController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class CalculateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/calculate/calculate.jsp").forward(request, response);
+		request.getRequestDispatcher("views/tutor/reservationApproval.jsp").forward(request, response);
 	}
 
 	/**
