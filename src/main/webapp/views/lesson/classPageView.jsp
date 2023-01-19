@@ -473,7 +473,7 @@
                             <a href="" class="btn">🤍 찜하기</a>
                             <a href="" class="btn">💬 1:1문의</a>
                         </div>
-                        <a href="classPayment.jsp" class="btn">클래스 신청하기</a>
+                        <a href="../register/classRegister.jsp" class="btn">클래스 신청하기</a>
                     </div>
                 </form>
                 <br>
@@ -487,7 +487,11 @@
                 
             </div>
         </div>
+        
+        	
     </div>
+    <br clear="both">
+    <%@ include file="../common/footerbar.jsp" %>
     
 </body>
 </html>

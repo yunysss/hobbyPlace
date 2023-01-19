@@ -28,6 +28,7 @@
         width:90px;
         background:rgb(22, 160, 133);
         color:white;
+        height:30px;
     }
     #cal-form p{
         font-size:12px;

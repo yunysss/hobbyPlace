@@ -8,8 +8,8 @@
     <style>
         div, p, form, input{box-sizing:border-box;}
 
-        .outer{width:1000px; margin:auto; margin-top:20px;}
-        .outer>div{float:left;}
+        .outer{width:1000px; margin:auto; margin-top:20px; position:relative;}
+        #payment>div{float:left;}
         #payment-1{height:100%; width:65%;}
         #payment-2{width:35%; height:300px; margin-top:50px;}
 
@@ -56,8 +56,10 @@
 </head>
 <body>
 	<%@ include file="../common/tuteeMenubar.jsp" %>
-    <form class="outer" action="classPayFin.jsp">
+	<div class="outer">
+    <form action="classRegisterFin.jsp" id="payment">
         <div id="payment-1">
+        
             <h5><b>결제하기</b></h5>
             <div>
                 <table>
@@ -188,5 +190,9 @@
             <button type="submit" class="btn btn-sm" id="pay-btn">결제하기</button>
         </div>
     </form>
+    </div>
+    
+    <br clear="both">
+    <%@ include file="../common/footerbar.jsp" %>
 </body>
 </html>
