@@ -76,7 +76,7 @@
         <br>
         <form action="calculateDetail.jsp">
             <div id="cal-2">
-                <div class="calList" style="height:150px">
+                <div class="calList" style="height:130px">
                     <div>
                         <small>결제일자 : 2023-01-15 16:44:45</small><br>
                         <h5>제빵왕 원데이클래스</h5>
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="calList" style="height:150px">
+                <div class="calList" style="height:130px">
                     <div>
                         <small>결제일자 : 2023-01-15 16:44:45</small><br>
                         <h5>제빵왕 원데이클래스</h5>

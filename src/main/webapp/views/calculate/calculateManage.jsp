@@ -38,8 +38,8 @@
     background:rgb(22, 160, 133); 
     color:white;
    }
-   input[type=radio]{display: none; margin: 10px;}
-    input[type=radio]+label{
+   .searchDate input[type=radio]{display: none; margin: 10px;}
+   .searchDate input[type=radio]+label{
         display: inline-block;
         cursor: pointer;
         padding: 5px 8px;
@@ -56,10 +56,10 @@
             height: 30px;
             border-radius: 5px;
     }
-    input[type=radio]:checked+label{
+    .searchDate input[type=radio]:checked+label{
         background-color: rgb(22, 160, 133);
     }
-    input[type=radio]:hover+label{
+    .searchDate input[type=radio]:hover+label{
         background-color: rgb(22, 160, 133);
     }
     #tutorId{
