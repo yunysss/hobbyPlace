@@ -172,7 +172,7 @@
                         <li><a href="">결제 관리</a>
                             <ul>
                                 <li><a href="">결제 내역</a></li>
-                                <li><a href="">튜터 정산 관리</a></li>
+                                <li><a href="../admin/calculateManage.jsp">튜터 정산 관리</a></li>
                                 <li><a href="">환불 신청 조회</a></li>
                             </ul>
                         </li>

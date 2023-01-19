@@ -35,6 +35,7 @@
         color:white;
         margin-top:20px;
         width:90px;
+        height:30px;
     }
     .calList span{
         color:white;
