@@ -305,11 +305,26 @@
                     </div>
                     <hr>
                     <div id="section3" class="container-fluid">
-                        <b>후기</b>
-                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                        <p>
-                           
-                        </p>
+                        <b>후기</b> <br>
+                        ⭐5.0 (11)
+                        <br><br>
+                        <table width="550" height="150">
+                            <tr>
+                                <td width="60" height="60">
+                                    <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" width="45"  class="rounded-circle">
+                                </td>
+                                <td>
+                                    홍길순 <br>
+                                    ⭐⭐⭐⭐⭐ 2022/3/11
+                                </td>
+                                <td rowspan="2" width="100">
+                                    <img src="" width="100">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">후기내용어쩌구저쩌구 솰라솰라솰라 존존존존존존존존존존존잼잼잼잼잼잼잼잼재맺ㅈ맺잼</td>
+                            </tr>
+                        </table>
                         <div align="center">
                             <button type="button">더보기</button>
                         </div>

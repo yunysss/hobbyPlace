@@ -100,7 +100,7 @@
                             <button>&lt;</button>
                         </td>
                         <td>
-                            <a href="../lesson/classPageView.jsp">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 지역 <br>
                                 제목 <br>
@@ -109,7 +109,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 지역 <br>
                                 제목 <br>
@@ -118,7 +118,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 지역 <br>
                                 제목 <br>
@@ -127,7 +127,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 지역 <br>
                                 제목 <br>
@@ -136,7 +136,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 지역 <br>
                                 제목 <br>
@@ -226,7 +226,7 @@
                             <button>&lt;</button>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 지역 <br>
                                 제목 <br>
@@ -235,7 +235,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 지역 <br>
                                 제목 <br>
@@ -244,7 +244,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 지역 <br>
                                 제목 <br>
@@ -253,7 +253,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 지역 <br>
                                 제목 <br>
@@ -262,7 +262,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 지역 <br>
                                 제목 <br>
@@ -287,28 +287,28 @@
                             <button>&lt;</button>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 별점 <br>
                                 후기내용 <br>
                             </a>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 별점 <br>
                                 후기내용 <br>
                             </a>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 별점 <br>
                                 후기내용 <br>
                             </a>
                         </td>
                         <td>
-                            <a href="">
+                            <a href="<%=contextPath%>/page.cl">
                                 <img src=""><br>
                                 별점 <br>
                                 후기내용 <br>
