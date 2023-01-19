@@ -24,65 +24,7 @@
 
  <style src="@vueform/slider/themes/default.css"></style>
  
- <script>                
- 
-     $(document).ready(function() {
- 
-         //datepicker 한국어로 사용하기 위한 언어설정
-         $.datepicker.setDefaults($.datepicker.regional['ko']);     
-     
-         // Datepicker            
-         $(".datepicker").datepicker({
-             showButtonPanel: true,
-             dateFormat: "yy-mm-dd",
-             onClose : function ( selectedDate ) {
-             
-                 var eleId = $(this).attr("id");
-                 var optionName = "";
- 
-                 if(eleId.indexOf("StartDate") > 0) {
-                     eleId = eleId.replace("StartDate", "EndDate");
-                     optionName = "minDate";
-                 } else {
-                     eleId = eleId.replace("EndDate", "StartDate");
-                     optionName = "maxDate";
-                 }
- 
-                 $("#"+eleId).datepicker( "option", optionName, selectedDate );        
-                 $(".searchDate").find(".chkbox2").removeClass("on"); 
-             }
-         }); 
-
-         $(".dateclick").dateclick();    // DateClick
-         $(".searchDate").schDate();        // searchDate
-         
-     });
- 
-     // DateClick
-     jQuery.fn.dateclick = function(){
-         var $obj = $(this);
-         $obj.click(function(){
-             $(this).parent().find("input").focus();
-         });
-     }    
- 
-     
-     function setSearchDate(start){
- 
-         
-         var startDate = $.datepicker.formatDate('yy-mm-dd', today);
-         $('#searchStartDate').val(startDate);
-                 
-         // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
-         $("#searchEndDate").datepicker( "option", "minDate", startDate );
-         
-         // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
-         $("#searchStartDate").datepicker( "option", "maxDate", endDate );
- 
-     }
- 
-         
-     </script>           
+        
  
 
 <style>
@@ -469,7 +411,7 @@
 	            </div>
 	            <div id="search">
 	                <form action="" id="search-form">
-	                        <div id="search-text">
+	                        <div id="search-text"  class="dropdown-toggle" data-toggle="dropdown">
 	                            <input type="text" name="keyword" placeholder="&nbsp;검색어를 입력하세요">
 	                        </div>
 	                        <div id="search-btn">
@@ -499,16 +441,17 @@
 	        </div>
 		</div>
     </div>
-
-
-
-    <form action="" id="searchForm">
-        <div id="search-area" align="center">
-            <br>
     
-            <div class="form-group has-search" >
-                <span class="fa fa-search form-control-feedback" ></span>
-                <input type="text" name="keywordDetail" placeholder="검색어를 입력하세요">
+    <div class="dropdown-toggle" data-toggle="dropdown">
+        <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요"  placeholder="Search">
+    </div>
+    <div class="dropdown-menu selectform">
+        <div id="search-form" align="center">
+            <br>
+            <form action="" id="searchForm">  
+            <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요"  placeholder="Search">
             </div>
             
             <table id="select">
@@ -516,7 +459,7 @@
                 <tr>
                     <th>카테고리</th>
                     <td>
-                        <select name="categoryList" id="categoryList">
+                        <select name="category" id="category">
                         <option value="교육">교육</option>
                         <option value="">공예 DIY</option>
                         <option value="">베이킹</option>
@@ -524,7 +467,7 @@
                         <option value="">스포츠/피트니스</option>
     
                          </select>
-                         <select name="detailCategory" id="detailCategory">
+                         <select name="category_detail" id="category">
                             <option value="교육">교육</option>
                             <option value="">공예 DIY</option>
                             <option value="">베이킹</option>
@@ -570,10 +513,6 @@
                             </span>
                         </div>    
     
-    
-    
-    
-    
                     </td>
                     
                 </tr>
@@ -600,51 +539,45 @@
                     </td>
                 </tr>
     
-              
-                  
-                  
-                  <script language = "javascript">
-                  
-                  function ShowSliderValue(sVal)
-                  {
-                      var obValueView = document.getElementById("slider_value_view");
-                      obValueView.innerHTML = sVal
-                  }
-                  
-                  var RangeSlider = function(){
-                      var range = $('.slider_range');
-                      
-                      range.on('input', function(){		
-                          ShowSliderValue(this.value);
-                      });
-                  };
-                  
-                  RangeSlider();
-                  
-                  
-                  </script>
-                  
-    
-                
-    
-    
-    
             </table>
             <br>
             <div id="btn-area">
                 <button>&nbsp;검색&nbsp;</button>
                 <button type="reset">초기화</a>
             </div>
-    
-    
-    
-    
-    
-    
-        </div>
+            <script language = "javascript">
+                  
+                function ShowSliderValue(sVal)
+                {
+                    var obValueView = document.getElementById("slider_value_view");
+                    obValueView.innerHTML = sVal
+                }
+                
+                var RangeSlider = function(){
+                    var range = $('.slider_range');
+                    
+                    range.on('input', function(){		
+                        ShowSliderValue(this.value);
+                    });
+                };
+                
+                RangeSlider();
+                
+                
+                </script>
+           
         </form>
+        </div>
+       
+ 
 
-  
+
+
+
+
+
+
+       
 
 </body>
 </html>
