@@ -400,7 +400,7 @@
                                   cnt += 1;
                             
                                 cell.setAttribute('id', i);
-                                  cell.innerHTML = i;
+                                  cell.innerHTML = "<a href='' class='calen'>" + i + "</a>";
                                   cell.align = "center";
                             
                                 cell.onclick = function(){
@@ -417,11 +417,11 @@
                                 }
                             
                                 if (cnt % 7 == 1) {
-                                    cell.innerHTML = "<font color=#F79DC2>" + i + "</font>";
+                                    cell.innerHTML = "<a href='' class='calen'><font color=#F79DC2>" + i + "</font></a>";
                                 }
                             
                                 if (cnt % 7 == 0){
-                                    cell.innerHTML = "<font color=skyblue>" + i + "</font>";
+                                    cell.innerHTML = "<a href='' class='calen'><font color=skyblue>" + i + "</font></a>";
                                     row = calendar.insertRow();
                                 }
                               }
@@ -470,10 +470,11 @@
                             <p>총 결제 금액 99,000원</p>
                         </div>
                         <div>
-                            <a href="" class="btn">🤍 찜하기</a>
+                            <a href="" class="btn">🤍 찜하기</a> <!-- 찜한 목록에 추가 / 로그인회원의 찜 리스트 조회 => 있으면 빨간하트로-->
                             <a href="" class="btn">💬 1:1문의</a>
                         </div>
                         <a href="../register/classRegister.jsp" class="btn">클래스 신청하기</a>
+                        <!-- 일정 선택 전이면 alert창 띄우기 -->
                     </div>
                 </form>
                 <br>
