@@ -10,8 +10,11 @@
        /*div{border:1px solid black;}*/
        div{box-sizing:border-box;}
        .cWrap{width:1000px; margin:auto;}
-       .mpMenubar{width:20%; height:600px; padding-top:10px; margin-top:5px; float:left; padding-top:0;}
-       .content{width:80%; float:left; margin-top:5px;}
+       .content{width:80%; float:left; margin-top:5px; padding-top:100px; margin-left:200px;}
+       .mpMenubar{
+       		width:200px; height:600px; padding-top:10px; margin-top:5px; float:left; padding-top:0;
+       		position:fixed; top:130px;
+       }
        
        .categoryMain {
            width:90%;
@@ -44,7 +47,13 @@
            font-weight: bolder;
        }
        
-       .pageRoute{margin-top:10px;}
+       .pageRoute{  
+       	position:fixed;
+       	top:120px;
+       	width:800px;
+       	background:white;
+       	padding-top:20px;
+       }
        #home {width:20px; height:20px; vertical-align: text-bottom;}
        #home:hover{cursor:pointer;}
        .contentA{text-decoration: none; color:rgb(64, 64, 64);}
@@ -94,7 +103,8 @@
 	<div class="cWrap">
         <div class="mpMenubar">
             <h3 align="center">마이페이지</h3>
-
+			<br><br>
+			
             <div class="categoryMain" align="center" id="viewMyInfo" onclick="">회원정보 조회 및 수정</div>
             <ul class="categoryDetail">
             </ul>
@@ -114,7 +124,7 @@
             $(function(){
                 $("#viewMyInfo").click(function(){
                     //회원정보 조회 및 수정 클릭시 이동할 페이지링크
-                    location.href = "<%=contextPath%>/.....";
+                    location.href = "<%=contextPath%>/memberInfo.me";
                 })
                 $("#viewMyQna").click(function(){
                     // 나의 문의 조회시 이동할 페이지링크(나의문의내역으로)
