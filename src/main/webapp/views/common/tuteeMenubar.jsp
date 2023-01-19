@@ -477,21 +477,22 @@
 	                </form>
  
 	            </div>
-                <script>
+               
+               <script>
           
-                    $function(){
-                        $(".keyword").click(function(){
-
-                        })
-                    }
-
+                    $(function(){
+                        $("input[name=keyword]").click(function(){
+                            $("#search-area").css("display", block);})
+                    })
+                     
+                     
 
                 </script>
 
 
 
 
-
+              
 	            <div id="membership" align="center">
 	            	<br>
 	                <!-- 로그인 전 -->
