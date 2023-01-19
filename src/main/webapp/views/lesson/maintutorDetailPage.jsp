@@ -54,13 +54,12 @@
           clear: both;
           width: 100%;
           
-          
       }
 
 
   .container{
       width: 1000px;
-      margin: auto;
+      margin:auto;      
   }
 
   .list-area{width:900px;}
@@ -259,34 +258,70 @@
               </div>
               <div id="menu1" class="container tab-pane fade"><br>
                 <div id="review-area">
-
-                    <table border="1px" style="text-align: left;">
+                    <table style="text-align: left;">
                       <tr>
-                        <th width="60"><img src="resources/KakaoTalk_20230111_135534500.jpg" width="60" class="rounded-circle" alt="Cinque Terre"></th>
-                        <td >
-                          <label id="review-nick">닉네임1123</label> <br>
-                          ⭐⭐⭐⭐⭐ <span id="review-date">2023-01-21</span>
+                        <th width="70" height="60"><img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" width="60" class="rounded-circle" alt="Cinque Terre"></th>
+                        <td>
+                          <label id="review-nick" style="font-weight: 550;">닉네임1123</label> <br>
+                          ⭐⭐⭐⭐⭐ <span id="review-date" style="font-size:12px;">2023-01-21</span>
                       </td>
                           <td rowspan="3" width="150">
-                              <img src="" alt="">
+                              <img src="<%=request.getContextPath()%>/resources/images/sample1.png" width="150" height="150" alt="">
                           </td>
                       </tr>
                       <tr>
-                          <th colspan="2" width="500"">
+                        <td width="60">
+                            
+                        </td>
+                        <td style="font-size: 11px;" height="20">
+                            앙금플라워 떡케이크 클래스 참여
+                        </td>
+                    </tr>
+                      <tr>
+                          <td colspan="2" width="700" style="font-size: 14px;">
+                            <div style="width: 600px;">
                            앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍
-                          </th>
-                      </tr>
-                      <tr>
-                          <td colspan="2">
-                              앙금플라워 떡케이크 클래스 참여
+                           </div>
                           </td>
                       </tr>
-          
-          
-  
-  
-  
+                   </table>
+                   
                   </div>
+                  <hr>
+                  
+                  <div id="review-area">
+                    <table style="text-align: left;">
+                      <tr>
+                        <th width="70" height="60"><img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" width="60" class="rounded-circle" alt="Cinque Terre"></th>
+                        <td>
+                          <label id="review-nick" style="font-weight: 550;">닉네임1123</label> <br>
+                          ⭐⭐⭐⭐⭐ <span id="review-date" style="font-size:12px;">2023-01-21</span>
+                      </td>
+                          <td rowspan="3" width="150">
+                              <img src="<%=request.getContextPath()%>/resources/images/sample1.png" width="150" height="150" alt="">
+                          </td>
+                      </tr>
+                      <tr>
+                        <td width="60">
+                            
+                        </td>
+                        <td style="font-size: 11px;" height="30">
+                            앙금플라워 떡케이크 클래스 참여
+                        </td>
+                    </tr>
+                      <tr>
+                          <td colspan="2" width="700" style="font-size: 14px;">
+                            <div style="width: 650px;">
+                                앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍
+                                </div>
+                          </td>
+                      </tr>
+                   </table>
+                   
+                  </div>
+                  
+                  
+
               </div>
               
             </div>
