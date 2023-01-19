@@ -29,15 +29,13 @@
         #header{height: 160px;}
         #content{height: 80%;}
 
-        #header>div, #content>div{height: 100%; float:left}
+        #content>div{height: 100%; float:left}
 
-        #header_1{width: 16%;}
-        #header_2{width: 30%;}
-        #header_3{width: 54%;}
+       
         
         /*헤더바 상세 스타일*/
-        #header_1{background: url(<%=request.getContextPath()%>/resources/images/mainLogoBG.png); background-size: contain;}
-        #header_2, #header_3{background: url(<%=request.getContextPath()%>/resources/images/mainLineBG.png); background-size: contain;}
+        #header{background: url(<%=request.getContextPath()%>/resources/images/newMainLogoBG.png); background-size: contain;}
+        
         #log_box{ height: 50px;  margin-top: 65px; }
 
         p{  display: inline-block;
@@ -119,22 +117,13 @@
 
     <div class="wrap">
         <div id="header">
-            <!--메인 로고 들어가는 곳-->
-            <div id="header_1">
-            </div>
-    
-            <!--빈칸-->
-            <div id="header_2"></div>
-    
-            <!--로그인정보,로그아웃-->
-            <div id="header_3">
                     <div id="log_box">
                             <p style="width: 450px;" align="right"> <img src="<%=request.getContextPath()%>/resources/images/admin_icon.png" height="23px">관리자 강보람님 반갑습니다!</p>
                             <p><a href="">로그아웃</a></p>
                             <p><a href="">메인 홈</a></p>
                     </div>
                 
-            </div>
+            
         </div>
             
         <!--해당 화면 나오는 곳-->
