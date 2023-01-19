@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <style>
     div, p, form, input{box-sizing:border-box;}
     #menubar a{text-decoration: none !important; color:black !important;}
@@ -113,7 +114,7 @@
 					<img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
 					
 					<div class="dropdown-menu">
-					    <a class="dropdown-item" href="#">마이페이지</a>
+					    <a class="dropdown-item" href="<%=contextPath%>/myPageMain.me">마이페이지</a>
 					    <a class="dropdown-item" href="#">내가 찜한 목록</a>
 					    <a class="dropdown-item" href="#">로그아웃</a>
 					</div>
