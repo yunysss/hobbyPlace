@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 <style>
     div, p{box-sizing:border-box;}
-    a{text-decoration: none !important; color:black !important;}
+    #footer a{text-decoration: none !important; color:black !important;}
 
     /* footer 전반적인 틀 */
-    #footer{width:1000px; height:200px; margin:auto; background-color: rgb(247,247,247); padding:20px;}
+    #footer{width:1000px; height:200px; margin:auto; background-color: rgb(247,247,247); padding:20px; margin-top:20px;}
     #footer>div{width:100%;}
     #footer-1{height:20%; text-align: center;}
     #footer-2{height:80%;}
@@ -40,6 +40,7 @@
 </style>
 </head>
 <body>
+	
 	<div id="footer">
 	    <div id="footer-1">
 	        <a href="">이용약관</a>
@@ -60,7 +61,6 @@
 	
 	    </div>
 	</div>
-
 
 </body>
 </html>

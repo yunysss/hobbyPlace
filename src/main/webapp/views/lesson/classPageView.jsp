@@ -487,7 +487,11 @@
                 
             </div>
         </div>
+        
+        	
     </div>
+    <br clear="both">
+    <%@ include file="../common/footerbar.jsp" %>
     
 </body>
 </html>
