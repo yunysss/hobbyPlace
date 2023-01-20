@@ -7,19 +7,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.hp.common.MyFileRenamePolicy;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class TutorProfileController
+ * Servlet implementation class TutorProfileUpdateController
  */
-@WebServlet("/profile.tt")
-public class TutorProfileController extends HttpServlet {
+@WebServlet("/update.tt")
+public class TutorProfileUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TutorProfileController() {
+    public TutorProfileUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,17 +32,23 @@ public class TutorProfileController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// 프로필 정보 불러오기 
-		//로그인한 회원만 들어올수있게 해야됨
-		HttpSession session = request.getSession();
-		if(session.getAttribute("loginUser")==null) {//로그인전 
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 페이지입니다.");
+		request.setCharacterEncoding("UTF-8");
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 10*1024*1024;
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/tutorProfile_upfiles/");
+			MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
+			
+			
+			//첨부파일 없을 경우 -null
+			if(multiRequest.getOriginalFileName("upfile") != null) {// 
+				String changeName= multiRequest.getFilesystemName("upfile");
+				
+				
+			}
 		}
 		
 		
 		
-		request.getRequestDispatcher("views/tutor/tutorProfileView.jsp").forward(request, response);
 	}
 
 	/**

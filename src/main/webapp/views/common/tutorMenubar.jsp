@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <% 
 	String contextPath = request.getContextPath();
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>

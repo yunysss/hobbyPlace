@@ -391,7 +391,10 @@
 	<div class="wrap">
 		<div id="menubar">
 	        <div id="menubar-1">
-	            <a href="<%=contextPath%>/tutorMain.tt">튜터센터</a>
+                <!--로그인전-->
+                <!--<a href="<%=contextPath%>/login.me">튜터센터</a>-->
+                <!--로그인후-->
+	           <a href="<%=contextPath%>/tutorMain.tt">튜터센터</a>
 	            <a href="">튜터등록</a>
 	        </div>
 	        <div id="menubar-2">

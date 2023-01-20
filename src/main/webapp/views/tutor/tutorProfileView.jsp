@@ -55,7 +55,7 @@ padding: 5px 10px;
  <div id="content2">
                 <div class="outer">
                     
-                    <form action="" id="profile" >
+                    <form action="" method="post" id="profile" >
                     <h5 style="font-weight: 900;">프로필 관리</h5>
                     <hr>
                     <br>
@@ -63,6 +63,7 @@ padding: 5px 10px;
                     <table id="profile-area">
                         <tr>
                             <th rowspan="2">프로필 사진</th>
+                            <% %>
                             <td>
                                 <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" width="80"  class="rounded-circle" alt="Cinque Terre" >
                             </td>
@@ -70,7 +71,7 @@ padding: 5px 10px;
                         <tr>
                             <td>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <input type="file" class="custom-file-input" id="customFile" name="upfile">
                                     <label class="custom-file-label" for="customFile">파일선택</label>
                                 </div>
                                 <br>
@@ -144,11 +145,11 @@ padding: 5px 10px;
                     <br><br>
                     <div id="btn-area" align="center" style="width: 600px;">
                     <a class="btn btn-secondary btn-sm">이전</a>
-                    <a  class="btn btn-secondary btn-sm">저장</a>
+                    <a href="<%=contextPath %>/update.tt"  class="btn btn-secondary btn-sm">정보변경</a>
                     </div>
 
 
-
+				</form>
                    
                 
             
