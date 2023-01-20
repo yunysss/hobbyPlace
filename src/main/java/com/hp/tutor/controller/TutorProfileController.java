@@ -29,16 +29,22 @@ public class TutorProfileController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 프로필 정보 불러오기 
+	 
 		//로그인한 회원만 들어올수있게 해야됨
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginUser")==null) {//로그인전 
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 페이지입니다.");
-		}
+		//if(session.getAttribute("loginUser")==null) {//로그인전 
+		//	session.setAttribute("alertMsg", "로그인 후 이용가능한 페이지입니다.");
+		//} else {
+			// 프로필 정보 불러오기
+			
+			
+			
+			
+			
+			
+			request.getRequestDispatcher("views/tutor/tutorProfileView.jsp").forward(request, response);
 		
-		
-		
-		request.getRequestDispatcher("views/tutor/tutorProfileView.jsp").forward(request, response);
+		//}
 	}
 
 	/**
