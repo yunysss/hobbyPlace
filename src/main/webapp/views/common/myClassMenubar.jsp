@@ -12,7 +12,7 @@
         div{box-sizing:border-box;}
         .wrap{width:1200px; height:100vh; margin:auto;}
         
-        .menubar{width:200px; height:100%; float:left; padding-top:0;}
+        .menubar{width:200px; height:100%; float:left; padding-top:0; background: white;}
         .content{width:1000px; height:100%; float:left; }
         
         .categoryMain {

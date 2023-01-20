@@ -214,6 +214,7 @@
                     </tr>
                     <script>
                         $(function(){
+
                             var thisYear = new Date().getFullYear();
                             for(let i=(thisYear-100); i<=thisYear; i++){
                                 $("#bYear").append("<option value='" + i +"'>" + i + "</option>");
@@ -228,16 +229,37 @@
                             }
 
                            
+                            $("#bMonth").change(function(){
+                                if($(this).val() == 2){
+                                    const d30 = $("#bDate option[value='30']").detach();
+                                    const d31 = $("#bDate option[value='31']").detach();
+                                    
+                                }else {
+                                    
+                                    $("#bDate").append(d);
+                                   
+                                    
+                                }
+                                
+                              
+                               
+                            })
                             
                             /*
-                            if($("#bMonth option[value='2']").click()){
-                                $("#bDate option[value='30']").remove(); 
-                                $("#bDate option[value='31']").remove(); 
+                            if($("#bMonth").change()){
+                                console.log("change발생");
+                                console.log($(this).children("option:selected").val());
+                                if($(this).val() == 2){
+                                    $("#bDate option[value='30']").remove(); 
+                                    $("#bDate option[value='31']").remove(); 
+
+                                }
                             }else{
                                 $("#bDate").append("<option value='30'>30</option>");
                                 $("#bDate").append("<option value='31'>31</option>");
                             }
-                           */
+                            */
+                           
                             
                             /*
                             if($("#bMonth option[value='4']") || 
