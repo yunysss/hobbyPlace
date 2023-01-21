@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class ReservationApprovalController
  */
 @WebServlet("/approval.tt")
-public class ReservationApprovalController extends HttpServlet {
+public class TutorApprovalController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservationApprovalController() {
+    public TutorApprovalController() {
         super();
         // TODO Auto-generated constructor stub
     }
