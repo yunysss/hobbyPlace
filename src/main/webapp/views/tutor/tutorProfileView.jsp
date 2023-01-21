@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%
+   //로그인한 튜터의 정보 세션으로부터 꺼내기
+   
+ 
+ 
+ %>
 <!DOCTYPE html>
 <html>
 <head>
