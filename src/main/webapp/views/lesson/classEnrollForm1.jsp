@@ -385,7 +385,7 @@
                     
                     <hr>
                     <div align="center">
-                    <a href="classEnrollForm2.jsp" type="button" class="btn btn-secondary btn-sm" >다음페이지로</a>
+                    <button class="btn btn-secondary btn-sm" >다음페이지로</button>
                     
                     </div>
 

@@ -6,7 +6,9 @@
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
 	
-	Tutor loginTutor = 
+// 로그인한 튜터 정보
+
+
 %>
 <!DOCTYPE html>
 <html>
