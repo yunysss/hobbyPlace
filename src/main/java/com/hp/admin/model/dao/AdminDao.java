@@ -15,6 +15,7 @@ import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.vo.Member;
 
 public class AdminDao {
@@ -227,6 +228,48 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return l;
+		
+		
+		
+	}
+	
+	/**
+	 * @author 한빛
+	 * @param clNo
+	 * @return Schedule s
+	 */
+	public Schedule selectSchedule(Connection conn, int clNo) {
+		Schedule s = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectSchedule");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				s = new Schedule(rset.getInt("sch_no"),
+								 rset.getInt("session_no"),
+								 rset.getString("start_time"),
+								 rset.getString("end_time")
+								 
+						);
+			}
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		return s;
+		
+		
 		
 		
 		

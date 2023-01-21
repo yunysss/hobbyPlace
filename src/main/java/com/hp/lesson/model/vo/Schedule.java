@@ -21,6 +21,14 @@ public class Schedule {
 		this.hour = hour;
 	}
 
+	public Schedule(int schNo, int sessionNo, String startTime, String endTime) {
+		super();
+		this.schNo = schNo;
+		this.sessionNo = sessionNo;
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
+
 	public int getSchNo() {
 		return schNo;
 	}

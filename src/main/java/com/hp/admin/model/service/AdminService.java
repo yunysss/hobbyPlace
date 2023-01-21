@@ -11,6 +11,7 @@ import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.lesson.model.vo.Schedule;
 
 public class AdminService {
 	
@@ -58,6 +59,13 @@ public class AdminService {
 		Lesson l = new AdminDao().selectClass(conn, clNo);
 		close(conn);
 		return l;
+	}
+	
+	public Schedule selectSchedule(int clNo) {
+		Connection conn = getConnection();
+		Schedule s = new AdminDao().selectSchedule(conn,clNo);
+		close(conn);
+		return s;
 	}
 	
 	

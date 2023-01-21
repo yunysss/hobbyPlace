@@ -101,6 +101,16 @@
 		
 	
 	</entry>
+	
+	<!-- 스케줄조회 -->
+	<entry key="selectSchedule">
+	SELECT SCH_NO
+		  ,SESSION_NO
+		  ,START_TIME
+		  ,END_TIME
+	FROM SCHEDULE	
+	WEHRE CL_NO = ?  
+	</entry>
 		
 		
 	
