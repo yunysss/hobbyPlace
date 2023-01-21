@@ -493,7 +493,7 @@
                     </div>
                 </form>
                 <br>
-                <a href="" id="classDetail-tutor">
+                <a href="<%=contextPath%>/ttdetail.cl" id="classDetail-tutor">
                 	
                 	<img src="" width="75px" height="100%">
                     <span>람보람보베이커리</span>

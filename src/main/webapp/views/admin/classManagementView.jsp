@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.hp.common.model.vo.PageInfo, com.hp.lesson.model.vo.Lesson" %>    
+<%@ page import="java.util.ArrayList, com.hp.common.model.vo.PageInfo, com.hp.lesson.model.vo.*" %>    
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");
-   
+    ArrayList<Category> cList = (ArrayList<Category>)session.getAttribute("cList");
+    ArrayList<Dcategory> dList = (ArrayList<Dcategory>)session.getAttribute("dList");
 %>    
     
 <!DOCTYPE html>
@@ -246,10 +247,14 @@
                     <th width="100">카테고리</th>
                     <td>
                         <select id="category">
-                            <option value="">공예 웅앵</option>
+                        <%for(Category c : cList){ %>
+                            <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
+                        <%} %>
                         </select>
-                        <select id="category">
-                            <option value="">공예 웅앵</option>
+                        <select id="dCategory">
+                        <%for(Dcategory d : dList){ %>
+                            <option value="<%=d.getCtDno()%>"><%=d.getCtDname() %></option>
+                            <%} %>
                         </select>
                     </td>
 
@@ -373,8 +378,7 @@
                 
                                 %>
                                 <%=status %>
-                               
-                            
+
                             </td>
 	
 	                    </tr>
@@ -384,13 +388,25 @@
              </tbody>
 
         </table>
+        
+        <script>
+        	$(function(){
+        		$("#classList>tbody>tr").click(function(){
+        			location.href="<%=contextPath%>/cldetail.ad?no="+$(this).children().eq(0).text();
+        		})
+        	})
+        
+        
+        </script>
+        
+        
 
 
         <div class="paging-area">
         
-        		<%if(pi.getCurrentPage() != 1){ %>    
+        	<%if(pi.getCurrentPage() != 1){ %>    
         		
-            	<button onclick="location.href='<%=contextPath%>/classmg.ad?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            		<button onclick="location.href='<%=contextPath%>/classmg.ad?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
             <%} %>
 			
 			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>

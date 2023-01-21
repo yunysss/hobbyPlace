@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import com.hp.admin.model.dao.AdminDao;
 import com.hp.common.model.vo.PageInfo;
+import com.hp.lesson.model.vo.Category;
+import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 
 public class AdminService {
@@ -28,8 +30,21 @@ public class AdminService {
 		
 		
 		return list;
-		
-		
+
+	}
+	
+	public ArrayList<Category> selectCategoryList(){
+		Connection conn = getConnection();
+		ArrayList<Category> cList = new AdminDao().selectCategoryList(conn);
+		close(conn);
+		return cList;
+	}
+	
+	public ArrayList<Dcategory> selectDcategoryList(){
+		Connection conn = getConnection();
+		ArrayList<Dcategory> dList = new AdminDao().selectDcategoryList(conn);
+		close(conn);
+		return dList;
 	}
 	
 	

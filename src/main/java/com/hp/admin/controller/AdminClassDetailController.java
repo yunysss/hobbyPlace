@@ -1,7 +1,6 @@
 package com.hp.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,20 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hp.admin.model.service.AdminService;
-import com.hp.common.model.vo.PageInfo;
-
 
 /**
- * Servlet implementation class NewClassManagementList
+ * Servlet implementation class AdminClassDetailController
  */
-@WebServlet("/newcl.ad")
-public class NewClassManagementList extends HttpServlet {
+@WebServlet("/cldetail.ad")
+public class AdminClassDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewClassManagementList() {
+    public AdminClassDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,35 +29,14 @@ public class NewClassManagementList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int clNo = Integer.parseInt(request.getParameter("no"));
 		
-		int listCount = new AdminService().selectNewClassCount();
-		
-		int currentPage = Integer.parseInt(request.getParameter("cpage"));
-		int pageLimit = 5;
-		int boardLimit = 10;
-		
-		
-		int maxPage = (int)Math.ceil((double)listCount/boardLimit);
-		int startPage = (currentPage-1)/pageLimit* pageLimit +1;
-		int endPage = startPage + pageLimit-1;
-		if(endPage>maxPage) {
-			endPage= maxPage;
-		}
-		
-		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-		
-		ArrayList<Class> list = new AdminService().selectNewList(pi);
+		AdminService aService = new AdminService();
 		
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
+		request.getRequestDispatcher("views/admin/adminClassDetail.jsp").forward(request, response);
 	}
 
 	/**
