@@ -36,6 +36,16 @@
 	WHERE RNUM BETWEEN ?   AND ?
 	</entry>
 	
+	<entry key = "adminLogin">
+	SELECT 
+      		MEM_ID,
+      	    MEM_PWD
+       FROM MEMBER
+	  WHERE MEM_ID =?
+	    AND MEM_PWD = ?
+	    AND GRADE = 0
+	    AND MEM_STATUS = 'Y'
+	</entry>
 	
 	<!-- 카테고리 대분류 조회 -->	
 	<entry key="selectCategoryList">

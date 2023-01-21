@@ -56,7 +56,7 @@
             </div>
 
             <div id="log_box">
-                <form action="xxxxxx" method="post">
+                <form action="<%=request.getContextPath()%>/login.ad" method="post">
                     <div id="login">
                         
                         <input type="text" placeholder="UserId" name="userId">

@@ -46,6 +46,12 @@ public class AdminService {
 		close(conn);
 		return dList;
 	}
+
+	public void adminLogin(String userId, String userPwd) {
+		Connection conn = getConnection();
+		new AdminDao().adminLogin(conn, userId, userPwd);
+		
+	}
 	
 	public Lesson selectClass(int clNo) {
 		Connection conn = getConnection();
