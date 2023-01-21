@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import ="com.hp.tutor.model.vo.Tutor" %>    
+    
 <% 
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
+	
+// 로그인한 튜터 정보
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -156,6 +162,12 @@
     </style>
 </head>
 <body>
+	<%if(alertMsg != null) {%>
+		<script>
+			alert("<%=alertMsg%>"); // alert("") 따옴표안에 작성해야됨
+		</script>
+			<%session.removeAttribute("alertMsg");%>
+		<%} %>
     <div class="wrap">
         <div id="header">
             <div id="header1">

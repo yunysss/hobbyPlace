@@ -163,7 +163,7 @@
             <!-- 여기부터-->
           
                 <div class="outer">
-                    <form action="" id="enroll-form" >
+                    <form action="" id="enroll-form" method="post">
                     <h5 style="font-weight: 900;">클래스 등록</h5>
                     <br>
                     <span style="font-size: 14px; font-weight: 600;">기본정보</span>
@@ -266,7 +266,6 @@
                         <tr>
                             <th width="100">판매시작일</th>
                             <td>
-                       
                                 <input type="date" name="startDate">
                             </td>
                         </tr>
@@ -294,13 +293,13 @@
                                 <br>
 
 
-                                <input type="checkbox" name="day" value="월" class="day"><label for="day">월</label>
-                                <input type="checkbox" name="day" value="0" class="day"><label for="day">화</label>
-                                <input type="checkbox" name="day" value="0" class="day"><label for="day">수</label>
-                                <input type="checkbox" name="day" value="0" class="day"><label for="day">목</label>
-                                <input type="checkbox" name="day" value="0" class="day"><label for="day">금</label>
-                                <input type="checkbox" name="day" value="0" class="day"><label for="day">토</label>
-                                <input type="checkbox" name="day" value="0" class="day"><label for="day">일</label>
+                                <input type="checkbox" name="day" value="월" class="day" id="mon"><label for="mon">월</label>
+                                <input type="checkbox" name="day" value="화" class="day" id="tue"><label for="tue">화</label>
+                                <input type="checkbox" name="day" value="수" class="day" id="wed"><label for="wed">수</label>
+                                <input type="checkbox" name="day" value="목" class="day" id="thur"><label for="thur">목</label>
+                                <input type="checkbox" name="day" value="금" class="day" id="fri"><label for="fri">금</label>
+                                <input type="checkbox" name="day" value="토" class="day" id="sat"><label for="sat">토</label>
+                                <input type="checkbox" name="day" value="일" class="day" id="sun"><label for="sun">일</label>
                                 
                             </td>
 
@@ -315,6 +314,10 @@
                                     
                                
                             </script>
+                        </tr>
+                        <tr>
+                            <th>일 운영횟수</th>
+                            <td><input type="number" name="times">회</td>
                         </tr>
                         <tr>
                             <th>운영시간</th>
@@ -337,32 +340,39 @@
                                         </tr>
                                       </thead>
                                       <tbody id="table_body">
-                                        <tr>
-                                          <td>
-                                            <input type="number" class="form_control">
-                                          </td>
-                                          <td>
-                                            <input type="time" class="form_control" >
-                                          </td>
-                                          <td>
-                                            <input type="time" class="form_control">
-                                          </td>
-                                          <td>
-                                            <div class="action_container">
-                                              <button type="button" class="danger" onclick="remove_tr(this)">-&nbsp;
-                                              </button>
-                                            </div>
-                                          </td>
-                                        </tr>
-                                      </tbody>
+                                            <tr>
+                                            <td>
+                                                <input type="number" class="form_control" >
+                                            </td>
+                                            <td>
+                                                <input type="time" class="form_control" >
+                                            </td>
+                                            <td>
+                                                <input type="time" class="form_control">
+                                            </td>
+                                            <td>
+                                                <div class="action_container">
+                                                <button type="button" class="danger" onclick="remove_tr(this)">-&nbsp;
+                                                </button>
+                                                </div>
+                                            </td>
+                                            </tr>
+                        
+                                        </tbody>
+                                    
                                     </table>
+                                    <pre>    예시 )  1 / 10:00 AM / 12:00 PM 
+            2 / 2:00 PM / 04:00 PM                               
+                                        
+                                                 
+                                    </pre>    
                                   </div>
                           
                             </td>
                         </tr>
 
                     </table>
-                    <br>
+                   
                     <h6 style="font-weight: 550;">판매가격</h6>
                     <hr>
                     <table>
@@ -375,7 +385,7 @@
                     
                     <hr>
                     <div align="center">
-                    <a href="classInsertForm2.jsp" type="button" class="btn btn-secondary btn-sm" >다음페이지로</a>
+                    <button class="btn btn-secondary btn-sm" >다음페이지로</button>
                     
                     </div>
 
