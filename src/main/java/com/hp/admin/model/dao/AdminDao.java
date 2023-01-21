@@ -291,7 +291,9 @@ public class AdminDao {
 			
 			if(rset.next()) {
 				m = new Member(rset.getString("mem_id"),
-						       rset.getString("mem_pwd"));
+						       rset.getString("mem_pwd"),
+						       rset.getString("mem_name"));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
