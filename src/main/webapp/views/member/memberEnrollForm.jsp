@@ -13,11 +13,12 @@
 
     form{width:70%;}
     span{display:inline-block; align: right;}
-    #star{color:rgb(182, 1, 1); font-size:15px; font-weight:bolder;}
+    .star{color:rgb(182, 1, 1); font-size:15px; font-weight:bolder;}
     form>table{width:85%; padding:0; border:0;}
     .td1{width:25%; padding:10px;}
     .td2{width:52%;}
     .td3{width:25%; padding-left:10px;}
+    .checkAlert{height:12px; padding-left: 13px; font-size:8px; color:red;}
 
     .fillOutForms{
         width:100%;
@@ -56,21 +57,6 @@
         border:1px solid rgb(35, 104, 116);
         border-radius:5px;
     }
-    /*
-    .birthDay select::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    .birthDay select::-webkit-scrollbar-thumb {
-        background-color: #b6b6b6;
-        border-radius: 3px;
-    }
-
-    .birthDay select::-webkit-scrollbar-track {
-        background-color: #ebe9e9;
-        border-radius: 6px;
-    }
-    */
     #getCode{background:rgb(35, 104, 116); color:white; font-size:18px; font-weight:bolder;}
     .profileButton{
         height:30px;
@@ -111,52 +97,77 @@
 
                 <h1>회원가입</h1>
 
-                <div align="right" style="margin-right: 30px;"><span id="star">*</span>필수입력사항</div>
+                <div align="right" style="margin-right: 30px;"><span class="star">*</span>필수입력사항</div>
 
                 <hr>
                 
                 <table>
                     <tr>
-                        <td class="td1">아이디 <span id="star">*</span></td>
+                        <td class="td1">아이디 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="userId" class="fillOutForms" placeholder="영문과 숫자 조합 6~16자" required>
+                            <input type="text" id="userId" class="fillOutForms" placeholder="영문과 숫자 조합 6~16자" onclick="check();" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck">중복확인</button>
                         </td>
                     </tr>
                     <tr>
-                        <td class="td1">비밀번호 <span id="star">*</span></td>
+                        <td></td>
+                        <td class="td2 checkAlert idTest"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">비밀번호 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="password" class="fillOutForms" placeholder="영문, 숫자, 특수문자 포함 12~20자" required>
+                            <input type="password" class="fillOutForms" id="userPwd" onclick="check();" placeholder="영문, 숫자, 특수문자 포함 12~20자" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
                     <tr>
-                        <td class="td1">비밀번호 확인 <span id="star">*</span></td>
+                        <td></td>
+                        <td class="td2 checkAlert pwdTest1"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">비밀번호 확인 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="password" class="fillOutForms" placeholder="영문, 숫자, 특수문자 포함 12~20자" required>
+                            <input type="password" class="fillOutForms" id="userPwdCheck" onclick="check();" placeholder="영문, 숫자, 특수문자 포함 12~20자" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
                     <tr>
-                        <td class="td1">이름 <span id="star">*</span></td>
+                        <td></td>
+                        <td class="td2 checkAlert pwdTest2"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">이름 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="userName"  class="fillOutForms" placeholder="이름을 입력해주세요" required>
+                            <input type="text" id="userName" class="fillOutForms" onclick="check();" placeholder="이름을 입력해주세요" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
                     <tr>
-                        <td class="td1">닉네임 <span id="star">*</span></td>
+                        <td></td>
+                        <td class="td2 checkAlert nameTest"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">닉네임 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" class="fillOutForms" placeholder="8글자 이내로 입력하세요" required>
+                            <input type="text" class="fillOutForms" onclick="check();" placeholder="8글자 이내로 입력하세요(특수문자제외)" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck">중복확인</button>
                         </td>
                     </tr>
                     <tr>
-                        <td class="td1">이메일 <span id="star">*</span></td>
+                        <td></td>
+                        <td class="td2 checkAlert nickNameTest"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">이메일 <span class="star">*</span></td>
                         <td class="td2">
                             <input type="email" class="fillOutForms" placeholder="예) hobbyplace@hobpl.com" required>
                         </td>
@@ -165,13 +176,23 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="td1">휴대폰 <span id="star">*</span></td>
+                        <td></td>
+                        <td class="td2 checkAlert emailTest"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">휴대폰 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="phone" class="fillOutForms"  placeholder="-포함하여 입력해주세요" required>
+                            <input type="text" id="phone" class="fillOutForms" onclick="check();" placeholder="-포함하여 입력해주세요" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck">인증번호 받기</button>
                         </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="td2 checkAlert phoneTest"></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td class="td1" rowspan="2">주소</td>
@@ -223,28 +244,28 @@
                             for(let i=1; i<=12; i++){
                                 $("#bMonth").append("<option value='" + i + "'>" + i + "</option>");
                             }
-
+                            /*
                             for(let i=1; i<=31; i++){
                                 $("#bDate").append("<option value='" + i + "'>" + i + "</option>");
                             }
-
-                           
+                            */
                             $("#bMonth").change(function(){
-                                if($(this).val() == 2){
-                                    const d30 = $("#bDate option[value='30']").detach();
-                                    const d31 = $("#bDate option[value='31']").detach();
-                                    
-                                }else {
-                                    
-                                    $("#bDate").append(d);
-                                   
+                                if($($(this).val() == '2')){
+                                    $("#bDate").val().remove();
+
+                                    for(let j=1; j<=29; j++){
+                                        $("#bDate").append("<option value='" + j + "'>" + j + "</option>");
+                                    }
                                     
                                 }
+                                   
+                                    
+                                
                                 
                               
                                
                             })
-                            
+                           
                             /*
                             if($("#bMonth").change()){
                                 console.log("change발생");
@@ -284,7 +305,7 @@
                     <tr>
                         <td class="td1"></td>
                         <td  class="td2" rowspan="2">
-                            <img src="" alt="">
+                            <img src="" style="width:100px; height:100px;" class="rounded-circle">
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -346,7 +367,7 @@
                     
                 </table>
                 <br><br>
-                <button type="submit" id="submitForm">가입하기</button>
+                <button type="submit" id="submitForm" onclick="">가입하기</button>
                 <br><br><br><br>
                 
                 
@@ -375,7 +396,62 @@
             </script>
         </div>
     </div>
+    <script>
+        function check(){
+           let idCheck = RegExp(/^[a-z\d]{6,16}$/);
+           let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{12,20}$/i);
+           let nameCheck = RegExp(/^[가-힣]{2,}$/);
+           let phoneCheck = RegExp(/^[0][1][\d]-[\d]{3,4}-[\d]{3,4}$/);
 
+            $("#userId").focusout(function(){
+                if(!idCheck.test($("#userId").val())){
+                    $(".idTest").html('유효한 아이디가 아닙니다.');
+                }else{
+                    $(".idTest").html('');
+                }
+            })
+
+            $("#userPwd").focusout(function(){
+                if(!pwdCheck.test($("#userPwd").val())){
+                    $(".pwdTest1").html('유효한 비밀번호가 아닙니다.');
+                }else{
+                    $(".pwdTest1").html('');
+                }
+            })
+
+            $("#userPwdCheck").focusout(function(){
+                if($("#userPwd").val() != $("#userPwdCheck").val()){
+                    $(".pwdTest2").html('비밀번호가 일치하지 않습니다.');
+                }else{
+                    $(".pwdTest2").html('');
+                }
+            })
+
+            $("#userName").focusout(function(){
+                if(!nameCheck.test($("#userName").val())){
+                    $(".nameTest").html('유효한 이름이 아닙니다.');
+                }else{
+                    $(".nameTest").html('');
+                }
+            })
+
+            $("#phone").focusout(function(){
+                if(!phoneCheck.test($("#phone").val())){
+                    $(".phoneTest").html('유효한 연락처 형식이 아닙니다.');
+                    console.log('no');
+                }else{
+                    $(".phoneTest").html('');
+                    console.log('yes');
+                }
+            })
+        }
+        
+
+
+
+
+        
+    </script>
     
     
     

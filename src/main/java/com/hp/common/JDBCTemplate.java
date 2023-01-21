@@ -38,6 +38,7 @@ public class JDBCTemplate {
 											   prop.getProperty("username"),
 											   prop.getProperty("password"));
 			
+			// 맥북용
 			conn.setAutoCommit(false);
 			
 		} catch (ClassNotFoundException e) {
