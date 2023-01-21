@@ -278,7 +278,7 @@
                     <td>
                         <div class="paySt">
                             입금대기
-                            <button type="button" class="btn btn-secondary btn-sm" class="payChange-btn">수정</button>
+                            <button type="button" class="btn btn-secondary btn-sm payChange-btn">수정</button>
                         </div>
                     </td>
                     <td>
@@ -289,7 +289,7 @@
             </table>
         </form>
     </div>
-    <div class="modal" id="myModal1">
+    <div class="modal" id="payChangeModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="">
@@ -311,7 +311,7 @@
         $(function(){
             $(".payChange-btn").click(function(){
                 $(this).attr("data-toggle", "modal");
-                $(this).attr("data-target", "#myModal1");
+                $(this).attr("data-target", "#payChangeModal");
             })
         })
     </script>

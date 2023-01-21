@@ -305,7 +305,7 @@
                     <td>
                         <div class="refSt">
                             환불신청
-                            <button type="button" class="btn btn-sm btn-secondary">수정</button>
+                            <button type="button" class="btn btn-sm btn-secondary refChange-btn">수정</button>
                         </div>
                     </td>
                 </tr>
@@ -313,7 +313,7 @@
             </table>
         </form>
     </div>
-    <div class="modal" id="myModal1">
+    <div class="modal" id="refChangeModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="">
@@ -331,7 +331,7 @@
         </div>
     </div>
 
-    <div class="modal" id="myModal2">
+    <div class="modal" id="refAccModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="">
@@ -353,11 +353,11 @@
         $(function(){
             $(".refChange-btn").click(function(){
                 $(this).attr("data-toggle", "modal");
-                $(this).attr("data-target", "#myModal1");
+                $(this).attr("data-target", "#refChangeModal");
             })
             $(".refAcc-btn").click(function(){
                 $(this).attr("data-toggle", "modal");
-                $(this).attr("data-target", "#myModal2");
+                $(this).attr("data-target", "#refAccModal");
             })
         })
     </script>
