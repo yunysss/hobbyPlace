@@ -36,6 +36,7 @@
 	WHERE RNUM BETWEEN ?   AND ?
 	</entry>
 	
+	<!--관리자 로그인 -->
 	<entry key = "adminLogin">
 	SELECT 
       		MEM_ID,
