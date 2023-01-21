@@ -170,6 +170,66 @@ public class AdminDao {
 		}
 		
 		return dList;
+		
+	}
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return l : Lesson객체 
+	 */
+	public Lesson selectClass(Connection conn, int clNo) {
+		Lesson l = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectClass");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				l = new Lesson(rset.getInt("cl_no"),
+							rset.getString("ct_name"),
+							rset.getString("ct_dname"),
+							rset.getString("tt_name"),
+							rset.getString("local_name"),
+							rset.getString("distr_name"),
+							rset.getString("cl_name"),
+							rset.getString("cl_address"),
+							rset.getInt("cl_max"),
+							rset.getString("cl_level"),
+							rset.getString("start_date"),
+							rset.getString("end_date"),
+							rset.getInt("cl_times"),
+							rset.getString("cl_schedule"),
+							rset.getString("cl_day"),
+							rset.getInt("cl_price"),
+							rset.getClob("cl_detail"),
+							rset.getString("curriculum"),
+							rset.getString("refundPolicy"),
+							rset.getString("cl_supplies"),
+							rset.getString("keyword"),
+							rset.getDate("enroll_date"),
+							rset.getString("cl_status"),
+							rset.getString("cl_thumb")
+							
+						);
+			}
+			
+	     
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return l;
+		
+		
+		
 	}
 
 

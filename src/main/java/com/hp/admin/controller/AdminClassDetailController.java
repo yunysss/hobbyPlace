@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hp.admin.model.service.AdminService;
+import com.hp.lesson.model.vo.Lesson;
 
 /**
  * Servlet implementation class AdminClassDetailController
@@ -32,6 +33,8 @@ public class AdminClassDetailController extends HttpServlet {
 		int clNo = Integer.parseInt(request.getParameter("no"));
 		
 		AdminService aService = new AdminService();
+		
+		Lesson l = aService.selectClass(clNo);
 		
 		
 		

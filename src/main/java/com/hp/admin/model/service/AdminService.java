@@ -54,6 +54,15 @@ public class AdminService {
 		return m;
 	}
 	
+	public Lesson selectClass(int clNo) {
+		Connection conn = getConnection();
+		Lesson l = new AdminDao().selectClass(conn, clNo);
+		close(conn);
+		return l;
+	}
+	
+	
+	
 	
 	
 
