@@ -5,7 +5,6 @@ import static com.hp.common.JDBCTemplate.close;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +13,7 @@ import java.util.Properties;
 
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.member.model.vo.Member;
 
 public class AdminDao {
 	
@@ -101,6 +101,32 @@ public class AdminDao {
 		}
 		return list;
 	
+		
+	}
+
+
+	public void adminLogin(Connection conn, String userId, String userPwd) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("adminLogin");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			rset=pstmt.executeQuery();
+			if(rset.next()) {
+//				m= new Member(rset.getString("mem_id"),
+//							  rset.getString("mem_pwd"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 		
 	}
 

@@ -31,6 +31,12 @@ public class AdminService {
 		
 		
 	}
+
+	public void adminLogin(String userId, String userPwd) {
+		Connection conn = getConnection();
+		new AdminDao().adminLogin(conn, userId, userPwd);
+		
+	}
 	
 	
 	
