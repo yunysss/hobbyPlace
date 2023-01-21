@@ -350,7 +350,7 @@
                 <button type="submit" id="submitForm" onclick="">가입하기</button>
                 <br><br><br><br>
                 
-                
+                                
             </form>
             <script>
                 $(function(){
@@ -365,12 +365,8 @@
                             $("#agreeRules").prop("checked", false);
                             $("#agreeCollection").prop("checked", false);
                             $("#over14").prop("checked", false);
-                        }
-                        
+                        }  
                     })
-
-                    
-                    
                 })
                            
             </script>

@@ -34,20 +34,21 @@
 	<div class="lgWrap">
         <div class="content" align="center">
             <br><br><br>
-            <h1 align="center">로그인</h1>
-            <br>
-            <input type="text" class="lgPage" id="userId" required placeholder="아이디를 입력해주세요"> <br>
-            <input type="password" class="lgPage" id="userPwd" required placeholder="비밀번호를 입력해주세요">
-            
-            <div class="searchInfo" align="right">
-                <a href="<%=contextPath%>/searchIdByPhone.me">아이디 찾기</a>
-                <p> | </p>
-                <a href="<%=contextPath%>/searchPwdByPhone.me">비밀번호 찾기</a>
-            </div>
-
-            <button type="submit" class="lgPage" id="logInUser">로그인</button> <br>
-            <button type="button" class="lgPage" id="signInUser" onclick="enrollPage();">회원가입</button>
-
+            <form action="<%=request.getContextPath()%>/loginUser.me" method="post">
+            	<h1 align="center">로그인</h1>
+	            <br>
+	            <input type="text" class="lgPage" id="userId" required placeholder="아이디를 입력해주세요"> <br>
+	            <input type="password" class="lgPage" id="userPwd" required placeholder="비밀번호를 입력해주세요">
+	            
+	            <div class="searchInfo" align="right">
+	                <a href="<%=contextPath%>/searchIdByPhone.me">아이디 찾기</a>
+	                <p> | </p>
+	                <a href="<%=contextPath%>/searchPwdByPhone.me">비밀번호 찾기</a>
+	            </div>
+	
+	            <button type="submit" class="lgPage" id="logInUser">로그인</button> <br>
+	            <button type="button" class="lgPage" id="signInUser" onclick="enrollPage();">회원가입</button>
+            </form>
         </div>
     </div>
     <script>

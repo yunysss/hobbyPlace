@@ -13,14 +13,14 @@ public class Member {
 	private String phone;
 	private int post;
 	private String memAddr;
-	private char gender;
+	private String gender;
 	private String memBirth;
 	private String memProfile;
 	private String interest;
 	private String grade;
 	private Date enrollDate;
 	private Date memUpdate;
-	private char memStatus;
+	private String memStatus;
 	private String memDrop;
 
 
@@ -28,8 +28,8 @@ public class Member {
 
 
 	public Member(int memNo, String memId, String memPwd, String memName, String memNick, String email, String phone,
-			int post, String memAddr, char gender, String memBirth, String memProfile, String interest, String grade,
-			Date enrollDate, Date memUpdate, char memStatus, String memDrop) {
+			int post, String memAddr, String gender, String memBirth, String memProfile, String interest, String grade,
+			Date enrollDate, Date memUpdate, String memStatus, String memDrop) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -142,12 +142,12 @@ public class Member {
 	}
 
 
-	public char getGender() {
+	public String getGender() {
 		return gender;
 	}
 
 
-	public void setGender(char gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
@@ -212,12 +212,12 @@ public class Member {
 	}
 
 
-	public char getMemStatus() {
+	public String getMemStatus() {
 		return memStatus;
 	}
 
 
-	public void setMemStatus(char memStatus) {
+	public void setMemStatus(String memStatus) {
 		this.memStatus = memStatus;
 	}
 
