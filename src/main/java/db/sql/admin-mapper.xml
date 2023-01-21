@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+	
+	<!-- 총 클래스 개수  -->
 	<entry key="selectClassCount">
 	
 	SELECT COUNT(*) "count"
@@ -8,7 +10,7 @@
 	
 	
 	</entry>
-	
+	<!-- 클래스 리스트 조회 -->
 	<entry key="selectClassList">
 	
 	 SELECT *
@@ -31,7 +33,6 @@
 			    ORDER BY CL_NO DESC
 			)A
 	  )	
-		
 	WHERE RNUM BETWEEN ?   AND ?
 	</entry>
 	
@@ -45,6 +46,23 @@
 	    AND GRADE = 0
 	    AND MEM_STATUS = 'Y'
 	</entry>
+	
+	<!-- 카테고리 대분류 조회 -->	
+	<entry key="selectCategoryList">
+		SELECT CT_NO
+			  ,CT_NAME
+		FROM  CATEGORY
+
+	</entry>
+	<!-- 세부카테고리 조회 -->
+	<entry key="selectDcategoryList">
+		SELECT CT_DNO
+		      ,CT_NO
+		      ,CT_DNAME
+		 FROM DCATEGORY     
+
+	</entry>		
+		
 		
 	
 </properties>
