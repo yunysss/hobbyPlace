@@ -14,16 +14,16 @@ import com.hp.lesson.model.service.LessonService;
 import com.hp.lesson.model.vo.Lesson;
 
 /**
- * Servlet implementation class ClassAllListController
+ * Servlet implementation class AjaxLikeClassListController
  */
-@WebServlet("/listMain.cl")
-public class AjaxClassListController extends HttpServlet {
+@WebServlet("/listLike.cl")
+public class AjaxLikeClassListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxClassListController() {
+    public AjaxLikeClassListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +32,10 @@ public class AjaxClassListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Lesson> list = new LessonService().selectMainClass();
+		ArrayList<Lesson> list = new LessonService().selectLikeClass();
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());
-		
 	}
 
 	/**

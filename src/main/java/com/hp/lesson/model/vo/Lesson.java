@@ -36,6 +36,7 @@ public class Lesson {
 	private String clThumb;
 	private int clStarAvg;
 	private int clStarCount;
+	private int clLikeCount;
 	
 	public Lesson() {}
 
@@ -135,6 +136,22 @@ public class Lesson {
 		this.clThumb = clThumb;
 		this.clStarAvg = clStarAvg;
 		this.clStarCount = clStarCount;
+	}
+
+	
+
+	public Lesson(int clNo, String localCode, String distrCode, String clName, String clPrice, String clThumb, int clStarAvg,
+			int clStarCount, int clLikeCount) {
+		super();
+		this.clNo = clNo;
+		this.localCode = localCode;
+		this.distrCode = distrCode;
+		this.clName = clName;
+		this.clPrice = clPrice;
+		this.clThumb = clThumb;
+		this.clStarAvg = clStarAvg;
+		this.clStarCount = clStarCount;
+		this.clLikeCount = clLikeCount;
 	}
 
 

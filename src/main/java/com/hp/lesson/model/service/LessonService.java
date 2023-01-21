@@ -16,5 +16,12 @@ public class LessonService {
 		close(conn);
 		return list;
 	}
+	
+	public ArrayList<Lesson> selectLikeClass(){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().selectLikeClass(conn);
+		close(conn);
+		return list;
+	}
 
 }

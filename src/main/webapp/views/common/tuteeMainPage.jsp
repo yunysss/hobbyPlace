@@ -26,20 +26,20 @@
     #mainPageRec-1, #mainPageRec-2{height:30%;}
     #mainPageRec-3{height:40%;}
 
-    #mainPageRec-1 div{width:100%;}
+    #mainPageRec-1 div, #mainPageRec-2 div{width:100%;}
     .rec-title{height:10%;}
-    #rec-pic{height:90%; overflow-x:auto; overflow-y:hidden; white-space:nowrap;}
-    #rec-pic::-webkit-scrollbar {
+    #rec-pic, #rec-pic-2{height:90%; overflow-x:auto; overflow-y:hidden; white-space:nowrap;}
+    #rec-pic::-webkit-scrollbar, #rec-pic-2::-webkit-scrollbar {
 	  height: 8px;
 	}
-	#rec-pic::-webkit-scrollbar-track{
+	#rec-pic::-webkit-scrollbar-track, #rec-pic-2::-webkit-scrollbar-track{
 	  background-color: rgb(240,240,240);
 	}
-	#rec-pic::-webkit-scrollbar-thumb{
+	#rec-pic::-webkit-scrollbar-thumb, #rec-pic-2::-webkit-scrollbar-thumb{
 	  border-radius: 3px;
 	  background-color: rgb(180, 180, 180);
 	}
-	#rec-pic::-webkit-scrollbar-button{
+	#rec-pic::-webkit-scrollbar-button, #rec-pic-2::-webkit-scrollbar-button{
 	  width: 0;
 	  height: 0;
 	}
@@ -99,7 +99,7 @@
                 <!-- 로그인 전 -->
                 <% if(loginUser == null) {%>
 	                <div class="rec-title">
-	                    <b>새로운 클래스</b>
+	                    <b>새로운 클래스 🎁</b>
 	                </div>
 	                <div id="rec-pic">
 	                    <table>
@@ -110,17 +110,18 @@
 	                
 	                <script>
 	                	$(function(){
-	                		selectMainClassList();
+	                		selectNewClassList();
 	                	})
 	                	
-	                	function selectMainClassList(){
+	                	function selectNewClassList(){
 	                		$.ajax({
-	                			url:"<%=contextPath%>/listMain.cl",
+	                			url:"<%=contextPath%>/listNew.cl",
+	                			async:false,
 	                			success:function(list){
 	                				let value = "";
 	                				for(let i=0; i<10; i++){
 	                					value += "<td>"
-	                								+ "<a href=''<%=contextPath%>'/page.cl'>"
+	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl'>"
 	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
 	                									+ "<small>" + list[i].distrCode + "</small><br>"
 	                									+ "<b>" + list[i].clName + "</b><br>"
@@ -132,7 +133,6 @@
 	                			},error:function(){
 	                				console.log("클래스 조회용 ajax 통신실패");
 	                			}
-	                				
 	                		})
 	                	}
 	                </script>
@@ -148,8 +148,40 @@
 	                    <b>찜이 가장 많은 클래스 ❤️</b>
 	                </div>
 	                <div id="rec-pic-2">
-	                    
+	                    <table>
+	                    	<tr>
+	                    	</tr>
+	                    </table>
 	                </div>
+	                
+	                <script>
+	                	$(function(){
+	                		selectLikeClassList();
+	                	})
+	                	
+	                	function selectLikeClassList(){
+	                		$.ajax({
+	                			url:"<%=contextPath%>/listLike.cl",
+	                			async:false,
+	                			success:function(list){
+	                				let value = "";
+	                				for(let i=0; i<10; i++){
+	                					value += "<td>"
+	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl'>"
+	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+	                									+ "<small>" + list[i].distrCode + "</small><br>"
+	                									+ "<b>" + list[i].clName + "</b><br>"
+	                									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+	               									+ "</a>"
+	             								+ "</td>"
+	                				}
+	                				$("#rec-pic-2 tr").html(value);
+	                			},error:function(){
+	                				console.log("클래스 조회용 ajax 통신실패");
+	                			}
+	                		})
+	                	}
+	                </script>
             </div>
 
             <div id="mainPageRec-3">

@@ -21,5 +21,28 @@
 		 ORDER
 		    BY CL_NO DESC
 	</entry>
+	<entry key="selectLikeClass">
+		SELECT 
+		       CL_NO
+		     , LOCAL_NAME
+		     , DISTR_NAME
+		     , SUBSTR(CL_NAME, 1, 10) || '...' "CL_NAME"
+		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+		     , CL_THUMB
+		     , (SELECT AVG(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		     , (SELECT COUNT(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		     , (SELECT COUNT(*)
+		          FROM "LIKE" L
+		         WHERE L.CL_NO = C.CL_NO
+		         GROUP BY L.CL_NO) "LIKE_COUNT"
+		  FROM CLASS C
+		  JOIN LOCATION USING(LOCAL_CODE)
+		  JOIN DISTRICT ON(DESTR_CODE = DISTR_CODE)
+		  ORDER BY LIKE_COUNT DESC NULLS LAST
+	</entry>
 
 </properties>

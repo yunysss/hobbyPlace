@@ -55,5 +55,37 @@ private Properties prop = new Properties();
 		}
 		return list;
 	}
+	
+	public ArrayList<Lesson> selectLikeClass(Connection conn){
+		ArrayList<Lesson> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLikeClass");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Lesson ls = new Lesson(rset.getInt("cl_no"),
+									   rset.getString("local_name"),
+									   rset.getString("distr_name"),
+									   rset.getString("cl_name"),
+									   rset.getString("cl_price"),
+									   rset.getString("cl_thumb"),
+									   rset.getInt("star_avg"),
+									   rset.getInt("star_count"),
+									   rset.getInt("like_count"));
+				list.add(ls);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 
 }
