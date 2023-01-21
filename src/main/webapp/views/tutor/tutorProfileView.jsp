@@ -3,8 +3,7 @@
  <%
    //로그인한 튜터의 정보 세션으로부터 꺼내기
    
- 
- 
+
  %>
 <!DOCTYPE html>
 <html>
@@ -69,7 +68,7 @@ padding: 5px 10px;
                     <table id="profile-area">
                         <tr>
                             <th rowspan="2">프로필 사진</th>
-                            <% %>
+                           
                             <td>
                                 <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" width="80"  class="rounded-circle" alt="Cinque Terre" >
                             </td>

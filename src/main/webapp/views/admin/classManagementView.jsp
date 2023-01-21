@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.hp.common.model.vo.PageInfo, com.hp.lesson.model.vo.Lesson" %>    
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");
+   
+%>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,6 +85,16 @@
 
     #classList{
         text-align: center;
+        font-size: 12px;
+    }
+
+    .paging-area{
+        text-align: center;
+    }
+    .paging-area>*{
+        border: none;
+        border-radius: 3px;
+
     }
         
 
@@ -87,9 +104,6 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -323,7 +337,8 @@
             <thead class="thead-light">
                 <tr>
                     <th width="100">클래스번호</th>
-                    <th width="500">클래스명</th>
+                    <th width="120">카테고리</th>
+                    <th width="400">클래스명</th>
                     <th width="100">등록일</th>
                     <th width="100">튜터명</th>
                     <th width="100">상태</th>
@@ -331,20 +346,40 @@
             </thead>
             
             <tbody>
-                
+            		<!-- 등록된 클래스 없을경우  -->
+                	<%if(list.isEmpty()){ %>
                     <tr>
                         <td colspan="5">등록된 클래스가 없습니다.</td>
                         
                     </tr>
+                	<%} else{%>
+                	<!-- 등록된 클래스 있을경우  -->
+	                	<%for(Lesson c : list){ %>
+	                    <tr>
+	                        <td><%=c.getClNo() %></td>
+	                        <td><%=c.getCtNo() %></td>
+	                        <td><%=c.getClName() %></td>
+	                        <td><%=c.getEnrollDate() %></td>
+	                        <td><%=c.getMemNo() %></td>
+	                        <td>
+                                <%String status = c.getClStatus();
+                                switch(String.valueOf(status)){
+                                	case "0" : status ="검수요청"; break;
+                                	case "1" : status ="검수반려"; break;
+                                	case "2" : status ="판매중"; break;
+                                	case "3" : status ="판매중지"; break;
+                                }
+                                
                 
-                    <tr>
-                        <td>1</td>
-                        <td>클래스명자리</td>
-                        <td>2023-01-16</td>
-                        <td>튜터명자리</td>
-                        <td>검수요청</td>
-
-                    </tr>
+                                %>
+                                <%=status %>
+                               
+                            
+                            </td>
+	
+	                    </tr>
+	                    <%} %>
+                    <%} %>
                 
              </tbody>
 
@@ -353,6 +388,21 @@
 
         <div class="paging-area">
         
+        		<%if(pi.getCurrentPage() != 1){ %>    
+        		
+            	<button onclick="location.href='<%=contextPath%>/classmg.ad?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <%} %>
+			
+			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+           		 <button onclick="location.href='<%=contextPath%>/classmg.ad?cpage=<%=p%>';"><%= p %></button>
+           		 
+            <%} %>
+          
+            <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
+            <button onclick="location.href='<%=contextPath%>/classmg.ad?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <%} %>
+            
+           
         </div>
 
 
