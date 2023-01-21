@@ -40,7 +40,8 @@
 	<entry key = "adminLogin">
 	SELECT 
       		MEM_ID,
-      	    MEM_PWD
+      	    MEM_PWD,
+      	    MEM_NAME
        FROM MEMBER
 	  WHERE MEM_ID =?
 	    AND MEM_PWD = ?
