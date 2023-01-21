@@ -1,7 +1,6 @@
 package com.hp.admin.model.service;
 
-import static com.hp.common.JDBCTemplate.close;
-import static com.hp.common.JDBCTemplate.getConnection;
+import static com.hp.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -11,6 +10,8 @@ import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.lesson.model.vo.Schedule;
+import com.hp.member.model.vo.Member;
 
 public class AdminService {
 	
@@ -47,11 +48,28 @@ public class AdminService {
 		return dList;
 	}
 
-	public void adminLogin(String userId, String userPwd) {
+	public Member adminLogin(String userId, String userPwd) {
 		Connection conn = getConnection();
-		new AdminDao().adminLogin(conn, userId, userPwd);
-		
+		Member m = new AdminDao().adminLogin(conn, userId, userPwd);
+		close(conn);
+		return m;
 	}
+	
+	public Lesson selectClass(int clNo) {
+		Connection conn = getConnection();
+		Lesson l = new AdminDao().selectClass(conn, clNo);
+		close(conn);
+		return l;
+	}
+	
+	public Schedule selectSchedule(int clNo) {
+		Connection conn = getConnection();
+		Schedule s = new AdminDao().selectSchedule(conn,clNo);
+		close(conn);
+		return s;
+	}
+	
+	
 	
 	
 	

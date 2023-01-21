@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hp.admin.model.service.AdminService;
+import com.hp.lesson.model.vo.Lesson;
+import com.hp.lesson.model.vo.Schedule;
 
 /**
  * Servlet implementation class AdminClassDetailController
@@ -33,8 +35,11 @@ public class AdminClassDetailController extends HttpServlet {
 		
 		AdminService aService = new AdminService();
 		
+		Lesson l = aService.selectClass(clNo);
+		Schedule s = aService.selectSchedule(clNo);
 		
-		
+		request.setAttribute("l", l);
+		request.setAttribute("s", s);
 		
 		request.getRequestDispatcher("views/admin/adminClassDetail.jsp").forward(request, response);
 	}

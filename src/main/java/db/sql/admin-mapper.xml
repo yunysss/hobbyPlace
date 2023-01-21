@@ -36,6 +36,7 @@
 	WHERE RNUM BETWEEN ?   AND ?
 	</entry>
 	
+	<!--관리자 로그인 -->
 	<entry key = "adminLogin">
 	SELECT 
       		MEM_ID,
@@ -62,6 +63,55 @@
 		 FROM DCATEGORY     
 
 	</entry>		
+	
+	<!-- 클래스 상세조회 -->
+	<entry key="selectClass">
+		SELECT 
+	        CL_NO,
+	        CT_NAME,
+	        CT_DNAME,
+	        TT_NAME,
+	        LOCAL_NAME,
+	        DISTR_NAME,
+	        CL_NAME,
+	        CL_ADDRESS,
+	        CL_MAX,
+	        CL_LEVEL,
+	        START_DATE,
+	        END_DATE,
+	        CL_TIMES,
+	        CL_SCHEDULE,
+	        CL_DAY,
+	        CL_PRICE,
+	        CL_DETAIL,
+	        CURRICULUM,
+	        REFUNDPOLICY,
+	        CL_SUPPLIES,
+	        KEYWORD,
+	        C.ENROLL_DATE,
+	        CL_STATUS,
+	        CL_THUMB
+	   FROM CLASS C
+	   JOIN CATEGORY G USING (CT_NO)
+	   JOIN DCATEGORY D USING (CT_DNO)
+	   JOIN TUTOR T USING (MEM_NO)
+	   JOIN LOCATION USING (LOCAL_CODE)
+	   JOIN DISTRICT USING (DISTR_CODE)
+	  WHERE CL_NO =?
+   
+		
+	
+	</entry>
+	
+	<!-- 스케줄조회 -->
+	<entry key="selectSchedule">
+	SELECT SCH_NO
+		  ,SESSION_NO
+		  ,START_TIME
+		  ,END_TIME
+	FROM SCHEDULE	
+	WEHRE CL_NO = ?  
+	</entry>
 		
 		
 	

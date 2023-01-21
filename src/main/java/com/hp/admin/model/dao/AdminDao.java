@@ -1,6 +1,6 @@
 package com.hp.admin.model.dao;
 
-import static com.hp.common.JDBCTemplate.close;
+import static com.hp.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,6 +15,7 @@ import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.vo.Member;
 
 public class AdminDao {
@@ -170,10 +171,112 @@ public class AdminDao {
 		}
 		
 		return dList;
+		
+	}
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return l : Lesson객체 
+	 */
+	public Lesson selectClass(Connection conn, int clNo) {
+		Lesson l = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectClass");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				l = new Lesson(rset.getInt("cl_no"),
+							rset.getString("ct_name"),
+							rset.getString("ct_dname"),
+							rset.getString("tt_name"),
+							rset.getString("local_name"),
+							rset.getString("distr_name"),
+							rset.getString("cl_name"),
+							rset.getString("cl_address"),
+							rset.getInt("cl_max"),
+							rset.getString("cl_level"),
+							rset.getString("start_date"),
+							rset.getString("end_date"),
+							rset.getInt("cl_times"),
+							rset.getString("cl_schedule"),
+							rset.getString("cl_day"),
+							rset.getInt("cl_price"),
+							rset.getClob("cl_detail"),
+							rset.getString("curriculum"),
+							rset.getString("refundPolicy"),
+							rset.getString("cl_supplies"),
+							rset.getString("keyword"),
+							rset.getDate("enroll_date"),
+							rset.getString("cl_status"),
+							rset.getString("cl_thumb")
+							
+						);
+			}
+			
+	     
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return l;
+		
+		
+		
+	}
+	
+	/**
+	 * @author 한빛
+	 * @param clNo
+	 * @return Schedule s
+	 */
+	public Schedule selectSchedule(Connection conn, int clNo) {
+		Schedule s = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectSchedule");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				s = new Schedule(rset.getInt("sch_no"),
+								 rset.getInt("session_no"),
+								 rset.getString("start_time"),
+								 rset.getString("end_time")
+								 
+						);
+			}
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		return s;
+		
+		
+		
+		
+		
 	}
 
 
-	public void adminLogin(Connection conn, String userId, String userPwd) {
+	public Member adminLogin(Connection conn, String userId, String userPwd) {
 		Member m = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -185,18 +288,21 @@ public class AdminDao {
 			pstmt.setString(2, userPwd);
 			
 			rset=pstmt.executeQuery();
+			
 			if(rset.next()) {
-//				m= new Member(rset.getString("mem_id"),
-//							  rset.getString("mem_pwd"));
+				m = new Member(rset.getString("mem_id"),
+						       rset.getString("mem_pwd"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		
-		
-		
-		
+		return m;
 	}
 
+	
 	
 }

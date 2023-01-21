@@ -52,6 +52,13 @@ public class Member {
 	}
 
 
+	public Member(String memId, String memPwd) {
+		super();
+		this.memId = memId;
+		this.memPwd = memPwd;
+	}
+
+
 	public int getMemNo() {
 		return memNo;
 	}
