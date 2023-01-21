@@ -156,8 +156,8 @@
                         </li>
                         <li><a href="">클래스 관리</a>
                             <ul>
-                                <li><a href="">신규클래스 검토/승인</a></li>
-                                <li><a href="">클래스 관리</a></li>
+                                <li><a href="<%=contextPath%>/newclass.ad?cpage=1">신규클래스 검토/승인</a></li>
+                                <li><a href="<%=contextPath%>/classmg.ad?cpage=1"">클래스 관리</a></li>
                                 <li><a href="">리뷰 관리</a></li>
                             </ul>
                         </li>

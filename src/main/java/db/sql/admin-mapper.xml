@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectClassCount">
+	
+	SELECT COUNT(*) "count"
+	FROM CLASS
+	
+	
+	</entry>
+	
+	<entry key="selectClassList">
+	
+	 SELECT *
+	 FROM
+	  (	
+		SELECT ROWNUM RNUM, A.*
+		FROM	
+			(
+			 SELECT 
+					 CL_NO
+					,G.CT_NAME
+					,T.TT_NAME
+					,CL_NAME
+					,C.ENROLL_DATE
+					,CL_STATUS
+					
+				FROM CLASS C
+				JOIN CATEGORY G USING (CT_NO)
+				JOIN TUTOR T USING (MEM_NO)
+			    ORDER BY CL_NO DESC
+			)A
+	  )	
+		
+	WHERE RNUM BETWEEN ?   AND ?
+	</entry>
+		
+	
+</properties>

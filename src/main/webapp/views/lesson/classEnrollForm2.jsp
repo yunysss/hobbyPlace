@@ -63,7 +63,7 @@
 
  <div id="content2">
                 <div class="outer">
-                    <form action="" id="enroll-form" >
+                    <form action="" id="enroll-form" class="classEnroll">
                     <h5 style="font-weight: 900; font-size: 18px;">클래스 등록</h5>
                     <br>
                     <span style="font-size: 14px; font-weight: 600;">클래스 설명</span>
