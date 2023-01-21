@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "com.hp.lesson.model.vo.*" %>    
+    
+<% 
+	Schedule s = (Schedule)request.getAttribute("s");
+	Lesson l = (Lesson)request.getAttribute("l");
+
+%>    
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +88,7 @@
         <%@ include file="../common/adminMenubar.jsp" %>
         <div class="outer">
                         
-            <form action="" id="class_list" >
+            
             <h5 style="font-weight: 900;">클래스 관리</h5>
             <br>
             <span style="font-size: 15px; font-weight:550" id="detail">클래스 상세내역
@@ -292,7 +299,7 @@
             
         
         </div>
-        </form>
+     
         </div>
 
         <div class="container">
