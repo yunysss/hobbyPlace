@@ -60,11 +60,11 @@
                     <div id="login">
                         
                         <input type="text" placeholder="UserId" name="userId">
-                        <label for=""></label>
+                        <label ></label>
 
                         
                         <input type="password" placeholder="********" name="userPwd">
-                        <label for=""></label>
+                        <label ></label>
                     </div>
 
                     <div id="log_btn">

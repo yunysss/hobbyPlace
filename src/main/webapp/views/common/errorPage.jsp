@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1 align="center" style="color:red"><%=request.getAttribute("errorMsg") %></h1>
 
 </body>
 </html>

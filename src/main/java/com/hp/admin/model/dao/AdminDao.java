@@ -1,6 +1,6 @@
 package com.hp.admin.model.dao;
 
-import static com.hp.common.JDBCTemplate.close;
+import static com.hp.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -173,7 +173,7 @@ public class AdminDao {
 	}
 
 
-	public void adminLogin(Connection conn, String userId, String userPwd) {
+	public Member adminLogin(Connection conn, String userId, String userPwd) {
 		Member m = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -185,18 +185,21 @@ public class AdminDao {
 			pstmt.setString(2, userPwd);
 			
 			rset=pstmt.executeQuery();
+			
 			if(rset.next()) {
-//				m= new Member(rset.getString("mem_id"),
-//							  rset.getString("mem_pwd"));
+				m = new Member(rset.getString("mem_id"),
+						       rset.getString("mem_pwd"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		
-		
-		
-		
+		return m;
 	}
 
+	
 	
 }
