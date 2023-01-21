@@ -244,54 +244,34 @@
                             for(let i=1; i<=12; i++){
                                 $("#bMonth").append("<option value='" + i + "'>" + i + "</option>");
                             }
-                            /*
+                            
                             for(let i=1; i<=31; i++){
                                 $("#bDate").append("<option value='" + i + "'>" + i + "</option>");
                             }
-                            */
+                            
                             $("#bMonth").change(function(){
-                                if($($(this).val() == '2')){
-                                    $("#bDate").val().remove();
+                                if($(this).val() == 2){
 
+                                   $("#bDate").empty();
                                     for(let j=1; j<=29; j++){
                                         $("#bDate").append("<option value='" + j + "'>" + j + "</option>");
                                     }
                                     
+                                }else if($(this).val() == 4 || $(this).val() == 6 || $(this).val() == 9 || $(this).val() == 11){
+
+                                    $("#bDate").empty();
+                                    for(let j=1; j<=30; j++){
+                                        $("#bDate").append("<option value='" + j + "'>" + j + "</option>");
+                                    }
+
+                                }else{
+                                    $("#bDate").empty();
+                                    for(let j=1; j<=31; j++){
+                                        $("#bDate").append("<option value='" + j + "'>" + j + "</option>");
+                                    }
                                 }
-                                   
-                                    
-                                
-                                
-                              
                                
                             })
-                           
-                            /*
-                            if($("#bMonth").change()){
-                                console.log("change발생");
-                                console.log($(this).children("option:selected").val());
-                                if($(this).val() == 2){
-                                    $("#bDate option[value='30']").remove(); 
-                                    $("#bDate option[value='31']").remove(); 
-
-                                }
-                            }else{
-                                $("#bDate").append("<option value='30'>30</option>");
-                                $("#bDate").append("<option value='31'>31</option>");
-                            }
-                            */
-                           
-                            
-                            /*
-                            if($("#bMonth option[value='4']") || 
-                                $("#bMonth option[value='6']") || 
-                                $("#bMonth option[value='9']") ||
-                                $("#bMonth option[value='11']")
-                                ){
-                                $("#bDate option[value='31']").remove(); 
-                            }
-                            */
-                            
                         })
                     </script>
                     <tr>
