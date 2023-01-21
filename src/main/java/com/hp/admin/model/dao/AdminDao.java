@@ -200,33 +200,33 @@ public class AdminDao {
 							rset.getString("cl_name"),
 							rset.getString("cl_address"),
 							rset.getInt("cl_max"),
-							rset.getString("cl_level",
+							rset.getString("cl_level"),
 							rset.getString("start_date"),
 							rset.getString("end_date"),
+							rset.getInt("cl_times"),
+							rset.getString("cl_schedule"),
+							rset.getString("cl_day"),
+							rset.getInt("cl_price"),
+							rset.getClob("cl_detail"),
+							rset.getString("curriculum"),
+							rset.getString("refundPolicy"),
+							rset.getString("cl_supplies"),
+							rset.getString("keyword"),
+							rset.getDate("enroll_date"),
+							rset.getString("cl_status"),
+							rset.getString("cl_thumb")
 							
-							
-							  
-						
-						)
+						);
 			}
 			
-	        END_DATE,
-	        CL_TIMES,
-	        CL_SCHEDULE,
-	        CL_DAY,
-	        CL_PRICE,
-	        CL_DETAIL,
-	        CURRICULUM,
-	        REFUNDPOLICY,
-	        CL_SUPPLIES,
-	        KEYWORD,
-	        C.ENROLL_DATE,
-	        CL_STATUS,
-	        CL_THUMB
+	     
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
 		}
-	
+		return l;
 		
 		
 		
