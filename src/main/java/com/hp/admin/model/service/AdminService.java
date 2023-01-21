@@ -25,6 +25,8 @@ public class AdminService {
 		Connection conn= getConnection();
 		ArrayList<Lesson> list = new AdminDao().selectClassList(conn,pi);
 		close(conn);
+		
+		
 		return list;
 		
 		

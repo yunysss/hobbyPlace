@@ -2,6 +2,7 @@ package com.hp.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale.Category;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,13 +33,11 @@ public class ClassManagementList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		int listCount = new AdminService().selectClassCount();
-				
+	    //페이징처리 부분
+		int listCount = new AdminService().selectClassCount();			
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
 		int pageLimit = 5;
 		int boardLimit = 10;
-		
 		
 		int maxPage = (int)Math.ceil((double)listCount/boardLimit);
 		int startPage = (currentPage-1)/pageLimit* pageLimit +1;
@@ -48,8 +47,13 @@ public class ClassManagementList extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-		
+		// 리스트 조회
 		ArrayList<Lesson> list = new AdminService().selectClassList(pi);
+		
+		//카테고리조회
+		
+		
+		
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
