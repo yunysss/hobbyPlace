@@ -68,7 +68,8 @@
         <h5><b>예약 관리</b></h5>
         <br>
         
-        <!-- 수강전 버튼을 눌렀을때
+        <!-- 수강전 버튼을 눌렀을때-->
+        
         <div class="btn_area">
             <button type="button" id="click_btn" >수강전</button>
             <button type="button"> 수강완료</button>
@@ -88,13 +89,13 @@
                     <th width="100px">상세조회</th>
                 </tr>
 
-                 수강 전 클래스가 없을 경우
+                 <!-- 수강 전 클래스가 없을 경우 -->
                 <tr>
                         <td colspan="7" height="30px">
                             수강 전 클래스가 없습니다.
                         </td>
                 </tr>
-                수강 전 클래스가 있을 경우
+                <!-- 수강 전 클래스가 있을 경우 -->
                 <tr>
                     <td height="25px">수강전</td>
                     <td>김말똥</td>
@@ -108,8 +109,7 @@
                 </tr>
                 
             </table>
-        </div> -->
-
+        </div> 
         <!--수강후기 버튼을 눌렀을때-->
         <div class="btn_area">
             <button type="button" >수강전</button>
