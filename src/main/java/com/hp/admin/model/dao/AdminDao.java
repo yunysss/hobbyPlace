@@ -210,7 +210,7 @@ public class AdminDao {
 							rset.getInt("cl_times"),
 							rset.getString("cl_schedule"),
 							rset.getString("cl_day"),
-							rset.getInt("cl_price"),	
+							rset.getString("cl_price"),	
 							rset.getString("curriculum"),
 							rset.getString("refundPolicy"),
 							rset.getString("cl_supplies"),

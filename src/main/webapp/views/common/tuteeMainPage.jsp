@@ -124,7 +124,7 @@
 	                				let value = "";
 	                				for(let i=0; i<10; i++){
 	                					value += "<td>"
-	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl'>"
+	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
 	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
 	                									+ "<small>" + list[i].distrCode + "</small><br>"
 	                									+ "<b>" + list[i].clName + "</b><br>"
@@ -166,7 +166,7 @@
 	                				let value = "";
 	                				for(let i=0; i<10; i++){
 	                					value += "<td>"
-	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl'>"
+	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
 	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
 	                									+ "<small>" + list[i].distrCode + "</small><br>"
 	                									+ "<b>" + list[i].clName + "</b><br>"
@@ -207,9 +207,9 @@
 	                				let value = "";
 	                				for(let i=0; i<list.length; i++){
 	                					value += "<td>"
-	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl'>"
+	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
 	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-	                									+ "<b>" + list[i].clNo + "</b><br>"
+	                									+ "<b>" + list[i].clName + "</b><br>"
 	                					for(let j=1; j<=list[i].reviewStar; j++){
 	                						value += "⭐"
 	                					}

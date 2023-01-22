@@ -9,13 +9,15 @@ public class Review {
 	private String reviewUpDate;
 	private String reviewStatus;
 	private int regNo;
-	private String clNo;
+	private int clNo;
+	private String clName;
 	private String clThumb;
+	
 	
 	public Review() {}
 
 	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate,
-			String reviewStatus, int regNo, String clNo) {
+			String reviewStatus, int regNo, int clNo) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewContent = reviewContent;
@@ -29,12 +31,13 @@ public class Review {
 	
 	
 
-	public Review(int reviewNo, String reviewContent, int reviewStar, String clNo, String clThumb) {
+	public Review(int reviewNo, String reviewContent, int reviewStar, int clNo, String clName, String clThumb) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewContent = reviewContent;
 		this.reviewStar = reviewStar;
 		this.clNo = clNo;
+		this.clName = clName;
 		this.clThumb = clThumb;
 	}
 
@@ -94,12 +97,20 @@ public class Review {
 		this.regNo = regNo;
 	}
 
-	public String getClNo() {
+	public int getClNo() {
 		return clNo;
 	}
 
-	public void setClNo(String clNo) {
+	public void setClNo(int clNo) {
 		this.clNo = clNo;
+	}
+
+	public String getClName() {
+		return clName;
+	}
+
+	public void setClName(String clName) {
+		this.clName = clName;
 	}
 
 	public String getClThumb() {
@@ -109,6 +120,7 @@ public class Review {
 	public void setClThumb(String clThumb) {
 		this.clThumb = clThumb;
 	}
+	
 
 	@Override
 	public String toString() {
