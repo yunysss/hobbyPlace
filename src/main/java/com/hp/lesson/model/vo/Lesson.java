@@ -36,6 +36,7 @@ public class Lesson {
 	private String clThumb;
 	private int clStarAvg;
 	private int clStarCount;
+	private int likeCount;
 	
 	public Lesson() {}
 
@@ -165,6 +166,33 @@ public class Lesson {
 		this.clStarAvg = clStarAvg;
 		this.clStarCount = clStarCount;
 	}
+
+	public Lesson(String ctNo, String ctDno, String memNo, String clName, String clAddress, int clMax, String clLevel,
+			String startDate, String endDate, int clTimes, String clSchedule, String clDay, String clPrice,
+			Clob clDetail, String curriculum, String refundPolicy, String clSupplies, String clThumb, int likeCount) {
+		super();
+		this.ctNo = ctNo;
+		this.ctDno = ctDno;
+		this.memNo = memNo;
+		this.clName = clName;
+		this.clAddress = clAddress;
+		this.clMax = clMax;
+		this.clLevel = clLevel;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.clTimes = clTimes;
+		this.clSchedule = clSchedule;
+		this.clDay = clDay;
+		this.clPrice = clPrice;
+		this.clDetail = clDetail;
+		this.curriculum = curriculum;
+		this.refundPolicy = refundPolicy;
+		this.clSupplies = clSupplies;
+		this.clThumb = clThumb;
+		this.likeCount = likeCount;
+	}
+
+
 
 	public int getClNo() {
 		return clNo;
@@ -402,6 +430,18 @@ public class Lesson {
 
 	public void setClStarCount(int clStarCount) {
 		this.clStarCount = clStarCount;
+	}
+
+
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 
 

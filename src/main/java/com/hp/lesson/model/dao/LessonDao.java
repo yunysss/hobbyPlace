@@ -14,6 +14,8 @@ import java.util.Properties;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.review.model.vo.Review;
 
+import oracle.jdbc.OracleResultSet;
+
 public class LessonDao {
 	
 private Properties prop = new Properties();
@@ -131,6 +133,50 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		return list;
+	}
+	public Lesson selectClassPage(Connection conn, int clNo) {
+		Lesson le = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectClassPage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				le = new Lesson(
+						        rset.getString("ct_name"),
+						        rset.getString("ct_dname"),
+						        rset.getString("tt_name"),
+						        rset.getString("cl_name"),
+						        rset.getString("cl_address"),
+						        rset.getInt("cl_max"),
+						        rset.getString("cl_level"),
+						        rset.getString("start_date"),
+						        rset.getString("end_date"),
+						        rset.getInt("cl_times"),
+						        rset.getString("cl_schedule"),
+						        rset.getString("cl_day"),
+						        rset.getString("cl_price"),
+						        ((OracleResultSet)rset).getCLOB("cl_detail"),
+						        rset.getString("curriculum"),
+						        rset.getString("refundpolicy"),
+						        rset.getString("cl_supplies"),
+						        rset.getString("cl_thumb"),
+						        rset.getInt("like_count")
+						        );
+						        
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return le;
 	}
 
 }
