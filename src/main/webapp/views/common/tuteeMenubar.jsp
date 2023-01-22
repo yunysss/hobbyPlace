@@ -404,7 +404,7 @@
 	                <%if(loginUser.getGrade().equals("2")) {%>
 		            <a href="<%=contextPath%>/tutorMain.tt">튜터센터</a>
 		            <%}else { %>
-		            <a href="">튜터등록</a>
+		            <a href="<%=contextPath%>/enrollForm.tt">튜터등록</a>
 		            <%} %>
 	            <%} %>
 	        </div>

@@ -17,6 +17,44 @@
 
 	</entry>
 	
+	<!-- 로그인한 튜터 클래스 개수  -->
+	<entry key="selectClassCount">
+		
+		SELECT COUNT(*) "count"
+		FROM CLASS
+		WHERE MEM_NO =?
+	</entry>
+	
+	<!-- 클래스 리스트 조회 -->
+	<entry key="selectClassList">
+	
+	 SELECT *
+	 FROM
+	  (	
+		SELECT ROWNUM RNUM, A.*
+		FROM	
+			(
+			 SELECT 
+					 C.CL_NO
+					,G.CT_NAME
+					,D.CT_DNAME
+					,T.TT_NAME
+					,CL_NAME
+					,C.ENROLL_DATE
+					,C.CL_STATUS
+					,CL_REFUSE
+					
+				FROM CLASS C
+				JOIN CATEGORY G USING (CT_NO)
+				JOIN DCATEGORY D USING (CT_DNO)
+				JOIN TUTOR T USING (MEM_NO)
+				WHERE MEM_NO= ?
+			    ORDER BY CL_NO DESC
+			)A
+	  )	
+	WHERE RNUM BETWEEN ?   AND ?
+	</entry>
+	
 
 
 

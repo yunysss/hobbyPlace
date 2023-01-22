@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "java.util.ArrayList, com.hp.common.model.vo.PageInfo, com.hp.lesson.model.vo.*"  %>
+    
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");	
+
+%>        
 <!DOCTYPE html>
 <html>
 <head>
@@ -166,7 +173,7 @@
         .clearfix{display: inline-block;}
         .searchDate{display: inline;}
 
-
+	
 
 
 
@@ -190,6 +197,20 @@
     }
     
         #class-select{margin-left: 30px;}
+        
+        
+        
+        .paging-area{
+        text-align: center;
+    }
+    	.paging-area>*{
+        border: none;
+        border-radius: 3px;
+
+    }
+  	 #clTable{
+  	  	font-size: 12px;
+  	  }
    
 
  
@@ -297,33 +318,49 @@
                         <h6 style="font-weight:600">조회 결과</h6>
                         <hr>
                         <div id="table-area" align="center">
-                        <table class="table table-hover ">
+                        <table class="table table-hover" id="clTable">
                             <thead class="thead-light">
                             <tr>
                                 <th>클래스번호</th>
-                                <th width="450">클래스명</th>
+                                <th width="120">카테고리</th>
+                                <th width="400">클래스명</th>
                                 <th width="100">등록일</th>
-                                <th width="100">상태</th>
+                                <th width="80">상태</th>
                                 <th width="100">반려사유</th>
                             </tr>
                             </thead>
                             <tbody>
-                          
+                          	<%if (list.isEmpty()){ %>
                             <tr>
                                 <td colspan="5">등록된 클래스가 없습니다.</td>
                                 
                             </tr>
-                            
+                            <%} else{%>
                             <!-- 등록된 클래스 있을 경우 -->
-                            
+                            	<%for (Lesson l : list) {%>
                                 <tr>
-                                    <td>1</td>
-                                    <td>클래명쓰시오</td>
-                                    <td>2023-01-24</td>
-                                    <td>검수요청</td>
-                                    <td>못생겻음</td>
+                                    <td><%=l.getClNo() %></td>
+                                    <td><%=l.getCtDno() %></td>
+                                    <td><%=l.getClName() %></td>
+                                    <td><%=l.getEnrollDate() %></td>
+                                    <td>
+                                     <%String status = l.getClStatus();
+			                            switch(String.valueOf(status)){
+			                              case "0" : status ="검수요청"; break;
+			                              case "1" : status ="검수반려"; break;
+			                              case "2" : status ="판매중"; break;
+			                              case "3" : status ="판매중지"; break;
+			                                }
+                                
+                
+                               		 %>
+                         				 <%=status %>
+
+                                    </td>
+                                    <td><%= l.getClRefuse()==null ? "" : l.getClRefuse() %></td>
                                 </tr>
-                             
+                                <%} %>
+                             <%} %>
                             </tbody>
                         </table>
                         </div>
@@ -332,11 +369,23 @@
 
                 </div>
 
-                 <div class="paging-area">
-        
+         <div class="paging-area">
+        	<%if(pi.getCurrentPage() != 1){ %>    
+        		
+            		<button onclick="location.href='<%=contextPath%>/myclass.tt?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <%} %>
+			
+			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+           		 <button onclick="location.href='<%=contextPath%>/myclass.tt?cpage=<%=p%>';"><%= p %></button>
+           		 
+            <%} %>
+          
+            <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
+            <button onclick="location.href='<%=contextPath%>/myclass.tt?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <%} %>
         	
                
-                </div>
+        </div>
                   <%@ include file="../common/footerbar.jsp" %>
 	
 </body>
