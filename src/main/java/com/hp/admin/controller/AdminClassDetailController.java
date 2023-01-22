@@ -1,6 +1,7 @@
 package com.hp.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,14 +37,13 @@ public class AdminClassDetailController extends HttpServlet {
 		AdminService aService = new AdminService();
 		
 		Lesson l = aService.selectClass(clNo);
-		Schedule s = aService.selectSchedule(clNo);
+		ArrayList<Schedule> sList = aService.selectSchedule(clNo);
 		
 		//상세페이지 사진 조회해오기 (Attachment)
 		
 		
-		
 		request.setAttribute("l", l);
-		request.setAttribute("s", s);
+		request.setAttribute("sList", sList);
 	
 		
 		request.getRequestDispatcher("views/admin/adminClassDetail.jsp").forward(request, response);

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.hp.lesson.model.vo.*" %>    
+<%@ page import = "com.hp.lesson.model.vo.* , java.util.ArrayList" %>    
     
 <% 
-	Schedule s = (Schedule)request.getAttribute("s");
+	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("s");
 	Lesson l = (Lesson)request.getAttribute("l");
 
 %>    
@@ -108,7 +108,7 @@
                     <table id="img-area">
                         <tr>
                             <td colspan="3" height="260px">
-                                <img id="mainImg" src="" width="400" height="250" >
+                                <img id="mainImg" src="<%=l.getClThumb() %>" width="400" height="250" >
                             </td>
                         </tr>
                         <tr>
@@ -128,12 +128,12 @@
                 </div>
     
                 <div id="classInfo">
-                    <div id="className"><h4 style="font-weight: 600;">감자빵을만들어 보아요</h4></div>
-                    <div id="classPrice"><h5 style="font-weight: 550;">20000 원</h5></div>
+                    <div id="className"><h4 style="font-weight: 600;"><%=l.getClName() %></h4></div>
+                    <div id="classPrice"><h5 style="font-weight: 550;"><%=l.getClPrice() %> 원</h5></div>
                     <div id="tutorInfo">
                         <div id="tutorImg">
                         <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg"  width="80"  class="rounded-circle" alt="Cinque Terre" >
-                        <label style="font-weight: 600;"> &nbsp; 튜터명 감자왕</label>
+                        <label style="font-weight: 600;"> &nbsp; <%=l.getMemNo() %></label>
                         </div>
                         <br>
                         <div id="tutorIntroduce">
@@ -154,11 +154,11 @@
                 <table>
                     <tr>
                         <th>난이도</th>
-                        <td> 쉬움 / 중간  어려움</td>
+                        <td><%=l.getClLevel() %></td>
                     </tr>
                     <tr>
                         <th>최대인원</th>
-                        <td>10 명</td>
+                        <td><%=l.getClMax() %> 명</td>
                     </tr>
                 </table>
             </div>
@@ -169,22 +169,21 @@
             <table>
                 <tr>
                     <th>판매시작일</th>
-                    <td> 2023-01-31</td>
+                    <td><%=l.getStartDate() %></td>
                 </tr>
                 <tr>
                     <th>판매종료일</th>
-                    <td> 2023-12-31</td>
+                    <td> <%=l.getEndDate() %></td>
                 </tr>
 
                 <tr>
                     <th>일정</th>
-                    <td>매주 월/수/금</td>
+                    <td><%=l.getClSchedule() %> &nbsp; <%=l.getClDay() %></td>
                 </tr>
                 <tr>
                     <th>스케줄</th>
-                    <td>1회차 : 오전 9시 - 오전 11시 <br>
-                        2회차 : 오후 2시 - 오후 4시 
-    
+                    <td>
+           
                     </td>
                     
                 </tr>
@@ -195,7 +194,7 @@
             <h6 style="font-weight: 550; font-size: 15px; ">클래스 소개</h6>
             <hr>
             <div>
-                이런분들께 추천 드려요~ 
+                <%=l.getClDetail() %>
                 
     
     
@@ -208,10 +207,7 @@
             <h6 style="font-weight: 550; font-size: 15px; ">커리큘럼</h6>
             <hr>
             <div>
-                1️⃣2️⃣3️⃣<br>
-                2️⃣<br>
-                3️⃣<br>
-                
+               <%=l.getCurriculum() %>
                 
     
             </div>
@@ -235,7 +231,7 @@
             var geocoder = new kakao.maps.services.Geocoder();
             
             // 주소로 좌표를 검색합니다
-            geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+            geocoder.addressSearch('<%=l.getClAddress()%>', function(result, status) {
             
                 // 정상적으로 검색이 완료됐으면 
                  if (status === kakao.maps.services.Status.OK) {
@@ -266,7 +262,7 @@
     
             <div>
                 <b>찾아오는 길</b> <br>
-                제주특별자치도 제주시 첨단로 242
+                <%=l.getClAddress()%>
                  
             </div>
             <br><br>
@@ -276,11 +272,11 @@
                 <table>
                     <tr>
                         <th>준비물</th>
-                        <td>없음</td>
+                        <td><%=l.getClSupplies() %></td>
                     </tr>
                     <tr>
                         <th>검색키워드</th>
-                        <td>뜨개 붕어빵 </td>
+                        <td><%=l.getKeyword() %> </td>
                     </tr>
                 </table>
                 
@@ -290,11 +286,9 @@
             <br><br>
             <h6 style="font-weight: 550;font-size: 15px; ">취소/환불규정</h6>
             <hr>
-            <div>
-                <pre>
-1. 결제 후 14일 이내 취소 시 : 전액 환불
-2. 결제 후 14일 이후 취소 시 : 환불 불가
-                </pre>
+            <div style="width: 300px">
+               <%=l.getRefundPolicy()%>
+
             </div>
             
         

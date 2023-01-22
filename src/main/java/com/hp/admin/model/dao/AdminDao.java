@@ -4,7 +4,7 @@ import static com.hp.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.Reader;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -234,11 +234,11 @@ public class AdminDao {
 			close(rset);
 			close(pstmt);
 		}
+		
+		return l;
 
 	}
 	
-
-		
 
 	
 	/**
@@ -246,8 +246,8 @@ public class AdminDao {
 	 * @param clNo
 	 * @return Schedule s
 	 */
-	public Schedule selectSchedule(Connection conn, int clNo) {
-		Schedule s = null;
+	public ArrayList<Schedule> selectSchedule(Connection conn, int clNo) {
+		 ArrayList<Schedule> sList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -258,13 +258,14 @@ public class AdminDao {
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				s = new Schedule(rset.getInt("sch_no"),
+			while(rset.next()) {
+				sList.add(new Schedule(rset.getInt("sch_no"),
+								 rset.getString("cl_no"),
 								 rset.getInt("session_no"),
 								 rset.getString("start_time"),
 								 rset.getString("end_time")
 								 
-						);
+						));
 			}
 			
 		
@@ -275,7 +276,7 @@ public class AdminDao {
 			close(pstmt);
 			
 		}
-		return s;
+		return sList;
 		
 		
 		
