@@ -41,6 +41,7 @@
             z-index: 100;
             position: fixed;
             height: 80px;  
+            
         }  
         
         #content{height: 700px; }
@@ -51,23 +52,23 @@
 
   
         #header1{
+           
             width:200px; 
             text-align: center;
 
         }
         #header2{width:800px;}
         #header2>h4{
-           width: 100%;
+           width: 750px;
             margin-top: 45px;
             margin-left: 10px;
             font-weight: 600;
-       
-            
+
         }
         #header3{
             width:200px;
             text-align: center;
-            
+    
         }
 
         #header3 div{
@@ -81,12 +82,12 @@
         #header1>img{
             margin-top: 20px;
             width: 150px;
-           
         }
 
         #hr{
             width: 1200px;
-            
+           height: 1px;
+
         }
 
    
@@ -146,7 +147,9 @@
         }
         #button-area :hover{
             cursor: pointer;
-            background-color: black;
+            background-color: rgb(75, 68, 68);
+            text-decoration: none;
+            color: white;
         }
         
 
@@ -186,14 +189,14 @@
                     </img>
                     <div class="dropdown-menu">
                       <a class="dropdown-item" href="<%=contextPath%>/profile.tt">프로필관리</a>
-                      <a class="dropdown-item" href="<%=contextPath%>/myClass.tt">내 클래스</a>
+                      <a class="dropdown-item" href="<%=contextPath%>/myclass.tt?cpage=1">내 클래스</a>
                       <a class="dropdown-item" href="<%=contextPath%>">메인페이지로</a>
-                      <a class="dropdown-item" href="#">로그아웃</a>
+                      <a class="dropdown-item" href="<%=contextPath%>/logout.me">로그아웃</a>
                     </div>
                   </div>
                   
             </div>
-            <div id="hr">
+            <div id="hr" style="height: 0px;">
                 <hr>
             </div>
         </div>
@@ -204,11 +207,10 @@
                 <div id="button-area">
                 
                 <a href="<%=contextPath %>/enrollForm.cl" class="mbtn">클래스 등록</a>
-                <a href="<%=contextPath%>/myClass.tt" class="mbtn">클래스 목록</a>
+                <a href="<%=contextPath%>/myclass.tt?cpage=1" class="mbtn">클래스 목록</a>
+              
                 </div>
-                
-                
-               
+        
                 <ul>
                     <li style="background-color: rgb(22, 160, 133); color: aliceblue;">
                         <span class="material-symbols-outlined">
@@ -226,7 +228,7 @@
                             </span>&nbsp;클래스관리
                             
                                 <li><a href="<%=contextPath %>/enrollForm.cl">클래스등록</a></li>
-                                <li><a href="<%=contextPath%>/myClass.tt">내 클래스목록</a></li>
+                                <li><a href="<%=contextPath%>/myclass.tt?cpage=1">내 클래스목록</a></li>
                                 <li><a href="<%=contextPath%>/approval.tt">예약승인</a></li>
                                 <li><a href="<%=contextPath%>/reservationList.tt">예약관리</a></li>
                                 <li><a href="">문의관리</a></li>
