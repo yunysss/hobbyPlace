@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.hp.lesson.model.vo.Lesson"%>
+    pageEncoding="UTF-8" import="com.hp.lesson.model.vo.Lesson, java.util.ArrayList, com.hp.common.model.vo.Attachment"%>
 <%
 	Lesson le = (Lesson)request.getAttribute("le");
+	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
 %>
 <!DOCTYPE html>
 <html>
@@ -158,21 +159,26 @@
     <div class="outer">
         <div id="classDetail-1">
             <div id="classDetail-img">
-                <img src="<%=contextPath%>/<%= le.getClThumb() %>" + >
+                <img src="<%=contextPath%>/<%= le.getClThumb() %>">
                 <br><br>
                 <table width="500px;">
                     <tr>
-                        <td>
-                            <img src="">
-                        </td>
-                        <td>
-                            <img src="">
-                        </td>
-                        <td>
-                            <img src="">
-                        </td>
+                    	<% for(int i=0; i<aList.size(); i++){ %>
+                    		<td>
+                    		<img src="<%= contextPath %>/<%= aList.get(i).getFilePath() + aList.get(i).getChangeName() %>">
+                    		</td>
+                    	<% } %>
+                    	<% if(aList.size()<3) {%>
+                    		<% for(int i=0; i<3-aList.size(); i++){ %>
+                    			<td>
+                    			<img src="<%= contextPath %>/resources/images/classimg.png">
+                    			</td>
+                    		<% } %>
+                    	<%} %>
                     </tr>
+                    
                 </table>
+                
                 <br>
                 <div align="right" style="width:500px">
                     <div id="classDetail-short">

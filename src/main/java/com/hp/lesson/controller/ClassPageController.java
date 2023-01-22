@@ -34,8 +34,10 @@ public class ClassPageController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int clNo = Integer.parseInt(request.getParameter("no"));
 		Lesson le = new LessonService().selectClassPage(clNo);
-		ArrayList<Attachment> list = new LessonService().selectClassAttachment(clNo);
+		ArrayList<Attachment> aList = new LessonService().selectClassAttachment(clNo);
+		
 		request.setAttribute("le", le);
+		request.setAttribute("aList", aList);
 		
 		request.getRequestDispatcher("views/lesson/classPageView.jsp").forward(request, response);
 	}
