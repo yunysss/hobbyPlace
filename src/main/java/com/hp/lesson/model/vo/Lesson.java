@@ -22,8 +22,8 @@ public class Lesson {
 	private int clTimes;
 	private String clSchedule;
 	private String clDay;
-	private int clPrice;
-	private String clDetail;
+	private String clPrice;
+	private CLOB clDetail;
 	private String curriculum;
 	private String refundPolicy;
 	private String clSupplies;
@@ -43,7 +43,7 @@ public class Lesson {
 	
 	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
 			String clAddress, int clMax, String clLevel, String startDate, String endDate, int clTimes,
-			String clSchedule, String clDay, int clPrice, String curriculum, String refundPolicy, String clSupplies,
+			String clSchedule, String clDay, String clPrice, String curriculum, String refundPolicy, String clSupplies,
 			String keyword, Date enrollDate, String clStatus, String clThumb) {
 		super();
 		this.clNo = clNo;
@@ -89,7 +89,7 @@ public class Lesson {
 
 	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
 			String clAddress, int clMax, String clLevel, String startDate, String endDate, int clTimes,
-			String clSchedule, String clDay, int clPrice,String clDetail, String curriculum, String refundPolicy,
+			String clSchedule, String clDay, String clPrice, CLOB clDetail, String curriculum, String refundPolicy,
 			String clSupplies, String keyword, Date enrollDate, Date updateDate, String clStatus, int clCount,
 			String clRefuse, String clThumb) {
 		super();
@@ -125,7 +125,7 @@ public class Lesson {
 
 
 
-	public Lesson(int clNo, String localCode, String distrCode, String clName, int clPrice, String clThumb,
+	public Lesson(int clNo, String localCode, String distrCode, String clName, String clPrice, String clThumb,
 			int clStarAvg, int clStarCount) {
 		super();
 		this.clNo = clNo;
@@ -258,11 +258,11 @@ public class Lesson {
 		this.clDay = clDay;
 	}
 
-	public int getClPrice() {
+	public String getClPrice() {
 		return clPrice;
 	}
 
-	public void setClPrice (int clPrice) {
+	public void setClPrice (String clPrice) {
 		this.clPrice = clPrice;
 	}
 

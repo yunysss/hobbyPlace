@@ -104,6 +104,7 @@ private Properties prop = new Properties();
 				Review r = new Review(rset.getInt("re_no"),
 									   rset.getString("content"),
 									   rset.getInt("re_star"),
+									   rset.getInt("cl_no"),
 									   rset.getString("cl_name"),
 									   rset.getString("cl_thumb"));
 				list.add(r);

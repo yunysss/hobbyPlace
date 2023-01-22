@@ -51,6 +51,7 @@
 		         RE_NO
 		       , SUBSTR(CONTENT, 1, 28) || '...' "CONTENT"
 		       , RE_STAR
+		       , CL_NO
 		       , CL_NAME
 		       , CL_THUMB
 		  FROM REVIEW
