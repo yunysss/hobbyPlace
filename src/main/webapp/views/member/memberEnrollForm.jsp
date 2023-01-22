@@ -112,7 +112,7 @@
                     <tr>
                         <td class="td1">아이디 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="userId" class="fillOutForms" name="userId" placeholder="영문과 숫자 조합 6~16자" onclick="check();" required>
+                            <input type="text" id="userId" class="fillOutForms" name="userId" placeholder="영문과 숫자 조합 4~16자" onclick="check();" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck">중복확인</button>
@@ -126,7 +126,7 @@
                     <tr>
                         <td class="td1">비밀번호 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="password" class="fillOutForms" id="userPwd" name="userPwd" onclick="check();" placeholder="영문, 숫자, 특수문자 포함 12~20자" required>
+                            <input type="password" class="fillOutForms" id="userPwd" name="userPwd" onclick="check();" placeholder="영문, 숫자, 특수문자 포함 6~20자" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -204,7 +204,7 @@
                     <tr>
                         <td class="td1" rowspan="2">주소</td>
                         <td class="td2">
-                            <input type="text" id="address1" name="postCode" placeholder="우편번호">
+                            <input type="text" id="address1" name="postcode" placeholder="우편번호">
                             <button type="button" id="postCode" class="doubleCheck">우편번호 검색</button>
                         </td>
                         <td class="td3"></td>
@@ -218,8 +218,8 @@
                     <tr>
                         <td class="td1">성별</td>
                         <td class="td2">
-                            <input type="radio" class="gender" name="gender" id="male"><label for="male">남자</label>
-                            <input type="radio" class="gender" name="gender" id="female"><label for="female">여자</label>
+                            <input type="radio" class="gender" name="gender" value="M" id="male"><label for="male">남자</label>
+                            <input type="radio" class="gender" name="gender" value="F" id="female"><label for="female">여자</label>
                             <input type="radio" class="gender" name="gender" id="doNotSelect" checked><label for="doNotSelect">선택안함</label>
                         </td>
                         <td class="td3"></td>
@@ -286,7 +286,7 @@
                         <td class="td2">
                         	<label for="upProfile"  class="profileButton">업로드</label>	
                             <input type="file" id="upProfile" name="upProfile"> <!-- style="display:none;" -->
-                                <!-- <button type="button" class="profileButton" onclick="document.upProfile.click();">업로드</button>-->
+                                
 
                         </td>
                         <td class="td3"></td>
@@ -308,11 +308,11 @@
                             (중복선택 가능)
                         </td>
                         <td class="td2" rowspan="5">
-                            <input type="checkbox" name="interest" id="education"> <label for="education">학업 (외국어, IT, 자격증 등)</label> <br>
-                            <input type="checkbox" name="interest" id="diy"> <label for="diy">공예 DIY (가죽, 비누, 꽃, 뜨개질 등)</label> <br>
-                            <input type="checkbox" name="interest" id="cooking"> <label for="cooking">쿠킹 (요리, 베이킹)</label> <br>
-                            <input type="checkbox" name="interest" id="drawing"> <label for="drawing">드로잉</label> <br>
-                            <input type="checkbox" name="interest" id="sports"> <label for="sports">스포츠</label> <br>
+                            <input type="checkbox" name="interest" value="11" id="education"> <label for="education">학업 (외국어, IT, 자격증 등)</label> <br>
+                            <input type="checkbox" name="interest" value="22" id="diy"> <label for="diy">공예 DIY (가죽, 비누, 꽃, 뜨개질 등)</label> <br>
+                            <input type="checkbox" name="interest" value="33" id="cooking"> <label for="cooking">쿠킹 (요리, 베이킹)</label> <br>
+                            <input type="checkbox" name="interest" value="44" id="drawing"> <label for="drawing">드로잉</label> <br>
+                            <input type="checkbox" name="interest" value="55" id="sports"> <label for="sports">스포츠</label> <br>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -383,8 +383,8 @@
     </div>
     <script>
         function check(){
-           let idCheck = RegExp(/^[a-z\d]{6,16}$/);
-           let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{12,20}$/i);
+           let idCheck = RegExp(/^[a-z\d]{4,16}$/);
+           let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{6,20}$/i);
            let nameCheck = RegExp(/^[가-힣]{2,}$/);
            let nickCheck = RegExp(/^[a-z\d가-힣]{1,8}$/i);
            let phoneCheck = RegExp(/^[0][1][\d]-[\d]{3,4}-[\d]{3,4}$/);
