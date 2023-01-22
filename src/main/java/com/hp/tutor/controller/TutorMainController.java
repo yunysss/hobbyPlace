@@ -28,7 +28,7 @@ public class TutorMainController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	
 		// 로그인한 회원만 튜터페이지로 올수있음 
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginUser")== null) { //로그인 전상태
@@ -36,7 +36,7 @@ public class TutorMainController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/login.me");
 			
 		}else { //로그인 후 
-			
+		
 			request.getRequestDispatcher("views/common/tutorMainPage.jsp").forward(request, response);
 		}
 		

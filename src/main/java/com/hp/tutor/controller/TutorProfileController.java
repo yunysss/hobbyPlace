@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hp.member.model.vo.Member;
+
 /**
  * Servlet implementation class TutorProfileController
  */
@@ -28,20 +30,17 @@ public class TutorProfileController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	 
-		//로그인한 회원만 들어올수있게 해야됨
+
+		//로그인전
 		HttpSession session = request.getSession();
-		//if(session.getAttribute("loginUser")==null) {//로그인전 
-		//	session.setAttribute("alertMsg", "로그인 후 이용가능한 페이지입니다.");
-		//} else {
-			// 프로필 정보 불러오기
-			
-			
-			
-			
-			
-			
+		if(session.getAttribute("loginUser")== null) {
+			session.setAttribute("alertMsg","로그인 후 이용한 가능한 서비스입니다.");
+		}else
+		
+		
+		// 프로필 정보 불러오기
+			new 
+
 			request.getRequestDispatcher("views/tutor/tutorProfileView.jsp").forward(request, response);
 		
 		//}

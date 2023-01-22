@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="com.hp.tutor.model.vo.Tutor" %>    
+<%@ page import ="com.hp.tutor.model.vo.Tutor, com.hp.member.model.vo.Member" %>    
     
 <% 
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
 	
 // 로그인한 튜터 정보
-
+	Member loginUser = (Member)session.getAttribute("loginUser");
 
 %>
 <!DOCTYPE html>
