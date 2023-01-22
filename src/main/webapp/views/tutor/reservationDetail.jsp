@@ -28,7 +28,7 @@
 
         #content_box{ 
             width:99%; 
-            height: 110%;
+            height: 95%;
             border: 1px solid black; 
             border-radius: 7px;
         }
@@ -92,6 +92,9 @@
                         </tr>
 
                     </table>
+                    <br>
+                    <br>
+                    
 
                     <textarea name="" id="memo" cols="30" rows="10"></textarea>
 
