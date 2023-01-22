@@ -21,9 +21,10 @@ public class Schedule {
 		this.hour = hour;
 	}
 
-	public Schedule(int schNo, int sessionNo, String startTime, String endTime) {
+	public Schedule(int schNo, String clNo, int sessionNo, String startTime, String endTime) {
 		super();
 		this.schNo = schNo;
+		this.clNo = clNo;
 		this.sessionNo = sessionNo;
 		this.startTime = startTime;
 		this.endTime = endTime;

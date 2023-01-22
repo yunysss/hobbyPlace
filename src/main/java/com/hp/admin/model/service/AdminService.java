@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.hp.admin.model.dao.AdminDao;
-import com.hp.admin.model.dao.clob;
+
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
@@ -65,11 +65,11 @@ public class AdminService {
 		return l;
 	}
 	
-	public Schedule selectSchedule(int clNo) {
+	public ArrayList<Schedule> selectSchedule(int clNo) {
 		Connection conn = getConnection();
-		Schedule s = new AdminDao().selectSchedule(conn,clNo);
+		ArrayList<Schedule> sList = new AdminDao().selectSchedule(conn,clNo);
 		close(conn);
-		return s;
+		return sList;
 	}
 	
 

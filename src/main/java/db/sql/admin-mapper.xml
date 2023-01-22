@@ -84,6 +84,7 @@
 	        CL_SCHEDULE,
 	        CL_DAY,
 	        CL_PRICE,
+	        CL_DETAIL,
 	        CURRICULUM,
 	        REFUNDPOLICY,
 	        CL_SUPPLIES,
@@ -115,11 +116,12 @@
 	<!-- 스케줄조회 -->
 	<entry key="selectSchedule">
 	SELECT SCH_NO
+		  ,CL_NO
 		  ,SESSION_NO
 		  ,START_TIME
 		  ,END_TIME
 	FROM SCHEDULE	
-	WEHRE CL_NO = ?  
+	WHERE CL_NO = ?  
 	</entry>
 		
 		
