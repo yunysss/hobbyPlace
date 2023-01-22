@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "com.hp.lesson.model.vo.* , java.util.ArrayList" %>    
+    
+<% 
+	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("sList");
+	Lesson l = (Lesson)request.getAttribute("l");
+
+%>      
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,14 +88,13 @@
         <%@ include file="../common/adminMenubar.jsp" %>
         <div class="outer">
                         
-            <form action="" id="class_list" >
-            <h5 style="font-weight: 900;">신규클래스 신청내역</h5>
+            
+            <h5 style="font-weight: 900;">클래스 관리</h5>
             <br>
             <span style="font-size: 15px; font-weight:550" id="detail">클래스 상세내역
             </span> 
            
             <div id="btn-area" >
-            
             <a href="" class="btn btn-secondary btn-sm a">승인</a>
             <button  type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classReject">반려</button>
             </div>
@@ -99,7 +105,7 @@
                     <table id="img-area">
                         <tr>
                             <td colspan="3" height="260px">
-                                <img id="mainImg" src="" width="400" height="250" >
+                                <img id="mainImg" src="<%=l.getClThumb() %>" width="400" height="250" >
                             </td>
                         </tr>
                         <tr>
@@ -119,17 +125,18 @@
                 </div>
     
                 <div id="classInfo">
-                    <div id="className"><h4 style="font-weight: 600;">감자빵을만들어 보아요</h4></div>
-                    <div id="classPrice"><h5 style="font-weight: 550;">20000 원</h5></div>
+                    <div id="className"><h4 style="font-weight: 600;"><%=l.getClName() %></h4></div>
+                    <div id="classPrice"><h5 style="font-weight: 550;"><%=l.getClPrice() %> 원</h5></div>
                     <div id="tutorInfo">
                         <div id="tutorImg">
                         <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg"  width="80"  class="rounded-circle" alt="Cinque Terre" >
-                        <label style="font-weight: 600;"> &nbsp; 튜터명 감자왕</label>
+                        <label style="font-weight: 600;"> &nbsp; <%=l.getMemNo() %></label>
                         </div>
                         <br>
                         <div id="tutorIntroduce">
                             <div style="font-weight: 600"> </div>
-                            <p>튜터 소개 저는 감자를 좋아해용 같이 만들어머거요🥔🍟🥔🥔🥔🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🍟🍟🍟🍟🍟🍟🍟🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🍟🍟🍟🍟🍟🥔🥔🥔🥔🥔🥔🥔🥔🥔🍟</p>
+                            <p><%=l.getIntroduce() %></p>
+                          	
                                 
                         </div>
                     </div>
@@ -145,11 +152,11 @@
                 <table>
                     <tr>
                         <th>난이도</th>
-                        <td> 쉬움 / 중간  어려움</td>
+                        <td><%=l.getClLevel() %></td>
                     </tr>
                     <tr>
                         <th>최대인원</th>
-                        <td>10 명</td>
+                        <td><%=l.getClMax() %> 명</td>
                     </tr>
                 </table>
             </div>
@@ -160,22 +167,23 @@
             <table>
                 <tr>
                     <th>판매시작일</th>
-                    <td> 2023-01-31</td>
+                    <td><%=l.getStartDate() %></td>
                 </tr>
                 <tr>
                     <th>판매종료일</th>
-                    <td> 2023-12-31</td>
+                    <td> <%=l.getEndDate() %></td>
                 </tr>
 
                 <tr>
                     <th>일정</th>
-                    <td>매주 월/수/금</td>
+                    <td><%=l.getClSchedule() %> &nbsp; <%=l.getClDay() %></td>
                 </tr>
                 <tr>
                     <th>스케줄</th>
-                    <td>1회차 : 오전 9시 - 오전 11시 <br>
-                        2회차 : 오후 2시 - 오후 4시 
-    
+                    <td>
+           			<%for(Schedule s : sList) {%>
+           			<%=s.getSessionNo()%> 회차 : <%=s.getStartTime() %> - <%=s.getEndTime() %><br>
+           			<%} %>
                     </td>
                     
                 </tr>
@@ -186,7 +194,8 @@
             <h6 style="font-weight: 550; font-size: 15px; ">클래스 소개</h6>
             <hr>
             <div>
-                이런분들께 추천 드려요~ 
+              <!--  clob 변환해야됨 -->
+                <%=l.getClDetail() %>
                 
     
     
@@ -199,10 +208,7 @@
             <h6 style="font-weight: 550; font-size: 15px; ">커리큘럼</h6>
             <hr>
             <div>
-                1️⃣2️⃣3️⃣<br>
-                2️⃣<br>
-                3️⃣<br>
-                
+               <%=l.getCurriculum() %>
                 
     
             </div>
@@ -226,7 +232,7 @@
             var geocoder = new kakao.maps.services.Geocoder();
             
             // 주소로 좌표를 검색합니다
-            geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+            geocoder.addressSearch('<%=l.getClAddress()%>', function(result, status) {
             
                 // 정상적으로 검색이 완료됐으면 
                  if (status === kakao.maps.services.Status.OK) {
@@ -257,7 +263,7 @@
     
             <div>
                 <b>찾아오는 길</b> <br>
-                제주특별자치도 제주시 첨단로 242
+                <%=l.getClAddress()%>
                  
             </div>
             <br><br>
@@ -267,11 +273,18 @@
                 <table>
                     <tr>
                         <th>준비물</th>
-                        <td>없음</td>
+                        <td>
+                        <%String supplies = l.getClSupplies() == null? "없음" : l.getClSupplies() ;%>
+                        <%=supplies %>
+                        </td>
                     </tr>
                     <tr>
                         <th>검색키워드</th>
-                        <td>뜨개 붕어빵 </td>
+                        <td>
+                         <%String keyword = l.getKeyword() == null? "없음" : l.getKeyword() ;%>
+                        <%=keyword %>
+                        
+                         </td>
                     </tr>
                 </table>
                 
@@ -281,35 +294,17 @@
             <br><br>
             <h6 style="font-weight: 550;font-size: 15px; ">취소/환불규정</h6>
             <hr>
-            <div>
-                <pre>
-    가. 클래스 환불기준 원칙
-    학원의 설립/운영 및 과외교습에 관한 법률 제 18조(교습비 등의 반환 등)
-    - 학원설립, 운영자, 교습자 및 개인과외교습자는 학습자가 수강을 계속할 수 없는 경우
-     또는 학원의 등록말소, 교습소 폐지 등으로 교습을 계속할 수 없는 경우에는 학습자로부터 받은 
-     교습비를 반환하는 등 학습자를 보호하기위하여 필요한 조치를 하여야 한다.
-                    
-    1. 클래스을 제공할 수 없거나, 클래스 장소를 제공할 수 없게 된 날 : 이미 납부한 비용 등을 일한 계산한 금액 환불
-                    
-    2. 클래스기간이 1개월 이내의 경우
-    - 레슨 시작전 : 이미 납부한 레슨비 전액 환불
-    - 총 레슨 시간의 1/3 경과전 : 이미 납부한 레슨비의 2/3에 해당액 환불
-    - 총 레슨 시간의 1/2 경과전 : 이미 납부한 레슨비용의 1/2에 해당액 환불
-    - 총 레슨시간의 1/2 경과후 : 반환하지 않음
-                    
-     3.클래스 기간이 1개월을 초과하는 경우
-    - 레슨 시작전 : 이미 납부한 레슨비 전액 환불
-    - 레슨 시작후 : 반환사유가 발생한 당해 월의 반환 대상 레슨비
-    (레슨비 징수기간이 1개월 이내인 경우에 따라 산출된 수강료를 말한다)와 나머지 월의 레슨비 전액을 합산한 금액 환불
-                    
-    • 총 클래스 시간의 레슨비 징수기간 중의 총레슨시간을 말하며,
-    반환 금액의 산정은 반환 사유가 발생한 날까지 경과 된 레슨시간을 기준으로 함
-                </pre>
+            <div style="width: 300px">
+               <%=l.getRefundPolicy()%>
+
+            </div>
+            <div align="center">
+                <a href="<%=contextPath%>/newcl.ad?cpage=1"class="btn btn-secondary btn-sm a">목록으로</a>
             </div>
             
         
         </div>
-        </form>
+     
         </div>
 
         <div class="container">

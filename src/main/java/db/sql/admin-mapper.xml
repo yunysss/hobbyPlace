@@ -91,7 +91,8 @@
 	        KEYWORD,
 	        C.ENROLL_DATE,
 	        CL_STATUS,
-	        CL_THUMB
+	        CL_THUMB,
+	        INTRODUCE
 	   FROM CLASS C
 	   JOIN CATEGORY G USING (CT_NO)
 	   JOIN DCATEGORY D USING (CT_DNO)

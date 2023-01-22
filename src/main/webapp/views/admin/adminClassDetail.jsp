@@ -3,7 +3,7 @@
 <%@ page import = "com.hp.lesson.model.vo.* , java.util.ArrayList" %>    
     
 <% 
-	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("s");
+	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("sList");
 	Lesson l = (Lesson)request.getAttribute("l");
 
 %>    
@@ -99,7 +99,7 @@
             <a href="" class="btn btn-secondary btn-sm a">승인</a>
             <button  type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classReject">반려</button>
             -->
-            <button class="btn btn-secondary btn-sm a">목록으로</button>
+            <a href="<%=contextPath%>/classmg.ad?cpage=1"class="btn btn-secondary btn-sm a">목록으로</a>
             </div>
         
             <hr>
@@ -138,7 +138,8 @@
                         <br>
                         <div id="tutorIntroduce">
                             <div style="font-weight: 600"> </div>
-                            <p>튜터 소개 저는 감자를 좋아해용 같이 만들어머거요🥔🍟🥔🥔🥔🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🍟🍟🍟🍟🍟🍟🍟🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🍟🍟🍟🍟🍟🥔🥔🥔🥔🥔🥔🥔🥔🥔🍟</p>
+                            <p><%=l.getIntroduce() %></p>
+                          	
                                 
                         </div>
                     </div>
@@ -183,7 +184,9 @@
                 <tr>
                     <th>스케줄</th>
                     <td>
-           
+           			<%for(Schedule s : sList) {%>
+           			<%=s.getSessionNo()%> 회차 : <%=s.getStartTime() %> - <%=s.getEndTime() %><br>
+           			<%} %>
                     </td>
                     
                 </tr>
@@ -194,6 +197,7 @@
             <h6 style="font-weight: 550; font-size: 15px; ">클래스 소개</h6>
             <hr>
             <div>
+              <!--  clob 변환해야됨 -->
                 <%=l.getClDetail() %>
                 
     
@@ -272,11 +276,18 @@
                 <table>
                     <tr>
                         <th>준비물</th>
-                        <td><%=l.getClSupplies() %></td>
+                        <td>
+                        <%String supplies = l.getClSupplies() == null? "없음" : l.getClSupplies() ;%>
+                        <%=supplies %>
+                        </td>
                     </tr>
                     <tr>
                         <th>검색키워드</th>
-                        <td><%=l.getKeyword() %> </td>
+                        <td>
+                         <%String keyword = l.getKeyword() == null? "없음" : l.getKeyword() ;%>
+                        <%=keyword %>
+                        
+                         </td>
                     </tr>
                 </table>
                 
