@@ -8,8 +8,9 @@ public class TutorService {
 	
 	
 	public Tutor selectTutorInfo(int memNo) {
-		Tutor t = null;
 		Connection conn = getConnection();
+		Tutor t = new TutorDao(). selectTutorInfo(conn, memNo);
+		
 	}
 
 }
