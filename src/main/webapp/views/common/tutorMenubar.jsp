@@ -8,9 +8,10 @@
 	
 // 로그인한 튜터 정보
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	int MemNo = loginUser.getMemNo();
 	Tutor tutorInfo = (Tutor)session.getAttribute("tutorInfo");
 	String ttProfile = tutorInfo.getTtProfile() ==  null? "resources/tutorProfile_upfiles/defaultimg.jpg" : tutorInfo.getTtProfile();
-
+	
 %>
 <!DOCTYPE html>
 <html>
