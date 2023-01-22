@@ -285,19 +285,20 @@
                         <td class="td1">프로필사진</td>
                         <td class="td2">
                         	<label for="upProfile"  class="profileButton">업로드</label>	
-                            <input type="file" id="upProfile" name="upProfile"> <!-- style="display:none;" -->
-                                
-
+                            <input type="file" id="upProfile" name="upProfile" onchange=>
                         </td>
                         <td class="td3"></td>
                     </tr>
                     <tr>
                         <td class="td1"></td>
                         <td  class="td2" rowspan="2">
-                            <img src="" style="width:100px; height:100px;" class="rounded-circle">
+                            <img id="loadedProfile" style="width:100px; height:100px;" class="rounded-circle">
                         </td>
                         <td class="td3"></td>
                     </tr>
+                    <script>
+                    	
+                    </script>
                     <tr>
                         <td class="td1"></td>
                         <td class="td3"></td>

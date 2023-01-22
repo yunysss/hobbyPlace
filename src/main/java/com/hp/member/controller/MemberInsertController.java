@@ -79,7 +79,7 @@ public class MemberInsertController extends HttpServlet {
 			m.setInterest(interest);
 			
 			if(multiRequest.getOriginalFileName("upProfile") != null) {
-				m.setMemProfile("resources/memberProfile_upfiles/");
+				m.setMemProfile("resources/memberProfile_upfiles/" + multiRequest.getFilesystemName("upProfile"));
 			}
 			
 			int result = new MemberService().insertMember(m);
@@ -100,29 +100,7 @@ public class MemberInsertController extends HttpServlet {
 			}
 		}
 		
-		/*
-		String memId = request.getParameter("userId");
-		String memPwd = request.getParameter("userPwd");
-		String memName = request.getParameter("userName");
-		String memNick = request.getParameter("userNickName");
-		String email = request.getParameter("email");
-		String phone = request.getParameter("phone");
-		int postcode = Integer.parseInt(request.getParameter("postcode"));
-		String memAddr = request.getParameter("address");
-		String gender = request.getParameter("gender");
-		String[] memBirthArr = request.getParameterValues("memBirth");
-		String[] interestArr = request.getParameterValues("interest");
-		
-		String memBirth = "";
-		if(memBirthArr != null) {
-			memBirth = String.join("-", memBirthArr);
-		}
-		String interest = "";
-		if(interestArr != null) {
-			interest = String.join(",", interestArr);
-		}
-		*/
-		
+
 		
 		
 	}
