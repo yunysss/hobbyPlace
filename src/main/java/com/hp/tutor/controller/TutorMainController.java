@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hp.member.model.vo.Member;
+import com.hp.tutor.model.service.TutorService;
+import com.hp.tutor.model.vo.Tutor;
+
 /**
  * Servlet implementation class TutorMainController
  */
@@ -28,15 +32,21 @@ public class TutorMainController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// 로그인한 회원만 튜터페이지로 올수있음 
-		HttpSession session = request.getSession();
-		if(session.getAttribute("loginUser")== null) { //로그인 전상태
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+	
+		// 로그인한 회원이 튜터일경우만 튜터페이지로 올수있음 
+			HttpSession session = request.getSession();
+			if(session.getAttribute("loginUser")== null) { //로그인 전상태
+				
 			response.sendRedirect(request.getContextPath()+"/login.me");
 			
 		}else { //로그인 후 
 			
+			Member loginUser = (Member)session.getAttribute("loginUser");
+		    int memNo = loginUser.getMemNo();
+			Tutor t = new TutorService().selectTutorInfo(memNo);
+			
+			session.setAttribute("tutorInfo", t);
+
 			request.getRequestDispatcher("views/common/tutorMainPage.jsp").forward(request, response);
 		}
 		

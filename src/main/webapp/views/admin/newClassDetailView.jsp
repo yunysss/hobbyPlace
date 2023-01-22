@@ -18,14 +18,7 @@
     <!-- 카카오 -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
      
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Insert title here</title>
+    
     <style>
             .outer{
                 padding: 30px 50px;
@@ -64,9 +57,9 @@
                 clear: both;
             }
             #className{
-                height: 60px;
+                height: 120px;
             }
-            #classPrice{height: 100px;}
+            #classPrice{height: 50px;}
             #tutorInfo{
                 height: 200px;
     
@@ -105,19 +98,19 @@
                     <table id="img-area">
                         <tr>
                             <td colspan="3" height="260px">
-                                <img id="mainImg" src="<%=l.getClThumb() %>" width="400" height="250" >
+                                <img id="mainImg" src="<%=l.getClThumb() %>" width="450" height="250" >
                             </td>
                         </tr>
                         <tr>
                             <div id="img">
                                 <td>
-                                    <img id="img1" src="" height="98px" width="130px"> 
+                                    <img id="img1" src="" height="98px" width="148px"> 
                                 </td>
                                 <td>
-                                    <img id="img2" src=""height="98px" width="130px">
+                                    <img id="img2" src=""height="98px" width="148px">
                                 </td>
                                 <td>
-                                    <img id="img3" src="" height="98px" width="130px">
+                                    <img id="img3" src="" height="98px" width="148px">
                                 </td>
                             </div>
                         </tr>
@@ -132,7 +125,7 @@
                         <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg"  width="80"  class="rounded-circle" alt="Cinque Terre" >
                         <label style="font-weight: 600;"> &nbsp; <%=l.getMemNo() %></label>
                         </div>
-                        <br>
+                        
                         <div id="tutorIntroduce">
                             <div style="font-weight: 600"> </div>
                             <p><%=l.getIntroduce() %></p>
@@ -247,7 +240,7 @@
             
                     // 인포윈도우로 장소에 대한 설명을 표시합니다
                     var infowindow = new kakao.maps.InfoWindow({
-                        content: '<div style="width:150px;text-align:center;padding:6px 0;">장소명</div>'
+                        content: '<div style="width:150px;text-align:center;padding:6px 0;">클래스장소</div>'
                     });
                     infowindow.open(map, marker);
             

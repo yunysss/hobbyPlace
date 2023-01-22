@@ -12,11 +12,16 @@ public class Tutor {
 	private Date enrollDate;
 	private String pubPhone;
 	private String ttProfile;
+	private String modifyDate;
 	
+
+
 	public Tutor() {}
 
+
+	
 	public Tutor(int memNo, String ttName, String ttPhone, String ttEmail, String introduce, Date enrollDate,
-			String pubPhone, String ttProfile) {
+			String pubPhone, String ttProfile, String modifyDate) {
 		super();
 		this.memNo = memNo;
 		this.ttName = ttName;
@@ -24,6 +29,21 @@ public class Tutor {
 		this.ttEmail = ttEmail;
 		this.introduce = introduce;
 		this.enrollDate = enrollDate;
+		this.pubPhone = pubPhone;
+		this.ttProfile = ttProfile;
+		this.modifyDate = modifyDate;
+	}
+
+
+
+	public Tutor(int memNo, String ttName, String ttPhone, String ttEmail, String introduce, String pubPhone,
+			String ttProfile) {
+		super();
+		this.memNo = memNo;
+		this.ttName = ttName;
+		this.ttPhone = ttPhone;
+		this.ttEmail = ttEmail;
+		this.introduce = introduce;
 		this.pubPhone = pubPhone;
 		this.ttProfile = ttProfile;
 	}
@@ -90,6 +110,14 @@ public class Tutor {
 
 	public void setTtProfile(String ttProfile) {
 		this.ttProfile = ttProfile;
+	}
+	
+	public String getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 
 	@Override

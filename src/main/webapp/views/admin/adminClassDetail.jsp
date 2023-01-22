@@ -64,9 +64,9 @@
                 clear: both;
             }
             #className{
-                height: 60px;
+                height: 120px;
             }
-            #classPrice{height: 100px;}
+            #classPrice{height: 50px;}
             #tutorInfo{
                 height: 200px;
     
@@ -108,19 +108,19 @@
                     <table id="img-area">
                         <tr>
                             <td colspan="3" height="260px">
-                                <img id="mainImg" src="<%=l.getClThumb() %>" width="400" height="250" >
+                                <img id="mainImg" src="<%=l.getClThumb() %>" width="450" height="250" >
                             </td>
                         </tr>
                         <tr>
                             <div id="img">
                                 <td>
-                                    <img id="img1" src="" height="98px" width="130px"> 
+                                    <img id="img1" src="" height="98px" width="148px"> 
                                 </td>
                                 <td>
-                                    <img id="img2" src=""height="98px" width="130px">
+                                    <img id="img2" src=""height="98px" width="148px">
                                 </td>
                                 <td>
-                                    <img id="img3" src="" height="98px" width="130px">
+                                    <img id="img3" src="" height="98px" width="148px">
                                 </td>
                             </div>
                         </tr>
@@ -135,7 +135,7 @@
                         <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg"  width="80"  class="rounded-circle" alt="Cinque Terre" >
                         <label style="font-weight: 600;"> &nbsp; <%=l.getMemNo() %></label>
                         </div>
-                        <br>
+               
                         <div id="tutorIntroduce">
                             <div style="font-weight: 600"> </div>
                             <p><%=l.getIntroduce() %></p>
@@ -250,7 +250,7 @@
             
                     // 인포윈도우로 장소에 대한 설명을 표시합니다
                     var infowindow = new kakao.maps.InfoWindow({
-                        content: '<div style="width:150px;text-align:center;padding:6px 0;">장소명</div>'
+                        content: '<div style="width:150px;text-align:center;padding:6px 0;">클래스장소</div>'
                     });
                     infowindow.open(map, marker);
             

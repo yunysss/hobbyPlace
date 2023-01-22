@@ -79,18 +79,15 @@
             padding:20px;
             background:rgb(245, 245, 245);
         }
-        #classDetail-cal>table{
-            background:white;
-        }
-        #classDetail-cal td{
-            width:50px;
-            height:40px;
-        }
         #classDetail-cal>div{
             text-align:center; 
             border-radius:5px;
             color:white;
         }
+        .calendar {text-align:center; background:white;}
+	    .calendar > thead td { width:50px;height:50px;}
+	    .calendar > thead > tr:first-child > td { font-weight:bold;}
+	    .calendar > tbody td { width:50px;height:50px;}
         
         /* 날짜 선택하면 나타나는 창 */
         #classDetail-date>table{
@@ -264,8 +261,16 @@
                         <%= le.getClAddress() %>
                     </div><br>
                     <b>준비물</b><br><br>
-                    <%= le.getClSupplies() %>
+                    <%= le.getClSupplies() %> <br><br>
+                    
+                    <b>강사소개</b><br><br>
+                    <a href="<%=contextPath%>/ttdetail.cl" id="classDetail-tutor">
+                	<img src="" width="75px" height="100%">
+                    <span>람보람보베이커리</span>
+                    <img src="<%= contextPath %>/resources/images/right_arrow.png" width="40px;" height="40px;">
+                  	</a>
                     </div>
+                    
                     <hr>
                     <div id="section2" class="container-fluid">
                         <b>커리큘럼</b>
@@ -317,94 +322,179 @@
                         <div style="background:rgb(180,180,180); height:40px; line-height:40px;">
                             <b>클래스 일정</b>
                         </div>
-                        <table id="calendar" align="center">
-                            <tr>
-                                <td align="center"><label onclick="prevCalendar()"> < </label></td>
-                                <td colspan="5" align="center" id="calendarTitle">yyyy년 m월</td>
-                                <td align="center"><label onclick="nextCalendar()"> > </label></td>
-                            </tr>
-                            <tr>
-                                <td align="center"><font color ="#F79DC2">일</td>
-                                <td align="center">월</td>
-                                <td align="center">화</td>
-                                <td align="center">수</td>
-                                <td align="center">목</td>
-                                <td align="center">금</td>
-                                <td align="center"><font color ="skyblue">토</td>
-                            </tr>
-                        </table>
+                        <table class="calendar">
+						    <thead>
+						        <tr>
+						            <td onClick="prevCalendar();" style="cursor:pointer;">&lt;</td>
+						            <td colspan="5">
+						                <span id="calYear">YYYY</span>년
+						                <span id="calMonth">MM</span>월
+						            </td>
+						            <td onClick="nextCalendar();" style="cursor:pointer;">&gt;</td>
+						        </tr>
+						        <tr>
+						            <td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
+						        </tr>
+						    </thead>
+						    <tbody></tbody>
+						</table>
                         <script>
-                            $(function(){
-                                buildCalendar();
-                            })
-                            var today = new Date();
-                            function buildCalendar(){
-                              var row = null;
-                              var cnt = 0;
-                              var calendarTable = document.getElementById("calendar");
-                              var calendarTableTitle = document.getElementById("calendarTitle");
-                              calendarTableTitle.innerHTML = today.getFullYear()+"년"+(today.getMonth()+1)+"월";
-                              
-                              var firstDate = new Date(today.getFullYear(), today.getMonth(), 1);
-                              var lastDate = new Date(today.getFullYear(), today.getMonth()+1, 0);
-                              while(calendarTable.rows.length > 2){
-                                  calendarTable.deleteRow(calendarTable.rows.length -1); 
-                              }
-                            
-                              row = calendarTable.insertRow();
-                              for(i = 0; i < firstDate.getDay(); i++){
-                                  cell = row.insertCell(); 
-                                  cnt += 1;
-                              }
-                            
-                              for(i = 1; i <= lastDate.getDate(); i++){
-                                  cell = row.insertCell();
-                                  cnt += 1;
-                            
-                                cell.setAttribute('id', i);
-                                  cell.innerHTML = "<a href='' class='calen'>" + i + "</a>";
-                                  cell.align = "center";
-                            
-                                cell.onclick = function(){
-                                    clickedYear = today.getFullYear();
-                                    clickedMonth = ( 1 + today.getMonth() );
-                                    clickedDate = this.getAttribute('id');
-                            
-                                    clickedDate = clickedDate >= 10 ? clickedDate : '0' + clickedDate;
-                                    clickedMonth = clickedMonth >= 10 ? clickedMonth : '0' + clickedMonth;
-                                    clickedYMD = clickedYear + "-" + clickedMonth + "-" + clickedDate;
-                            
-                                    opener.document.getElementById("date").value = clickedYMD;
-                                    self.close();
-                                }
-                            
-                                if (cnt % 7 == 1) {
-                                    cell.innerHTML = "<a href='' class='calen'><font color=#F79DC2>" + i + "</font></a>";
-                                }
-                            
-                                if (cnt % 7 == 0){
-                                    cell.innerHTML = "<a href='' class='calen'><font color=skyblue>" + i + "</font></a>";
-                                    row = calendar.insertRow();
-                                }
-                              }
-                            
-                              if(cnt % 7 != 0){
-                                  for(i = 0; i < 7 - (cnt % 7); i++){
-                                      cell = row.insertCell();
-                                  }
-                              }
-                            }
-                            
-                            function prevCalendar(){
-                                today = new Date(today.getFullYear(), today.getMonth()-1, today.getDate());
-                                buildCalendar();
-                            }
-                            
-                            function nextCalendar(){
-                                today = new Date(today.getFullYear(), today.getMonth()+1, today.getDate());
-                                buildCalendar();
-                            }
-                            </script>
+						    window.onload = function(){
+						        buildCalendar();
+						    };
+						
+						    var today = new Date();
+						    var date = new Date(); 
+						
+						    // 이전달 
+						    function prevCalendar() {
+						        this.today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+						        buildCalendar();
+						    }
+						
+						    // 다음달
+						    function nextCalendar() {
+						        this.today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+						        buildCalendar();   
+						    }
+						
+						    function buildCalendar() {
+						
+						        let doMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+						        let lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+						
+						        let tbCalendar = document.querySelector(".calendar > tbody");
+						
+						        document.getElementById("calYear").innerText = today.getFullYear();   // YYYY월
+						        document.getElementById("calMonth").innerText = autoLeftPad((today.getMonth() + 1), 2);   // MM월
+						       
+						        while(tbCalendar.rows.length > 0) {
+						            tbCalendar.deleteRow(tbCalendar.rows.length - 1);
+						        }
+						
+						        let row = tbCalendar.insertRow();
+						        let dom = 1;
+						
+						        // 시작일의 요일값( doMonth.getDay() ) + 해당월의 전체일( lastDate.getDate())을  더해준 값에서
+						        // 7로 나눈값을 올림( Math.ceil() )하고 다시 시작일의 요일값( doMonth.getDay() )을 빼준다.
+						        let daysLength = (Math.ceil((doMonth.getDay() + lastDate.getDate()) / 7) * 7) - doMonth.getDay();
+								
+						        // 시작일, 종료일
+						        const startDate = new Date('<%= le.getStartDate() %>');
+						        const endDate = new Date('<%= le.getEndDate() %>');
+						        
+						        // 달력 출력
+						        // 시작값은 1일을 직접 지정하고 요일값( doMonth.getDay() )를 빼서 마이너스( - )로 for문을 시작한다.
+						        for(let day = 1 - doMonth.getDay(); daysLength >= day; day++) {
+						
+						            let column = row.insertCell();
+						
+						            // 평일( 전월일과 익월일의 데이터 제외 )
+						            if(Math.sign(day) == 1 && lastDate.getDate() >= day) {
+						
+						
+						                // 평일 날짜 데이터 삽입
+						                column.innerText = autoLeftPad(day, 2);
+						
+						
+						                // 일요일인 경우
+						                if(dom % 7 == 1) {
+						                    column.style.color = "#FF4D4D";
+						                }
+						
+						                // 토요일인 경우
+						                if(dom % 7 == 0) {
+						                    column.style.color = "#4D4DFF";
+						                    row = tbCalendar.insertRow();
+						                }
+						
+						            }
+						
+						            // 현재년과 선택 년도가 같은경우
+						            if(today.getFullYear() == date.getFullYear()) {
+						
+						                // 현재월과 선택월이 같은경우
+						                if(today.getMonth() == date.getMonth()) {
+						
+						                    // 현재일보다 이전인 경우이면서 현재월에 포함되는 일인경우
+						                    if(date.getDate() > day && Math.sign(day) == 1) {
+						                        column.style.textDecorationLine = "line-through";
+						                    }
+						
+						                    // 현재일보다 이후이면서 현재월에 포함되는 일인경우
+						                    else if(date.getDate() < day && lastDate.getDate() >= day) {
+						                        column.style.backgroundColor = "#FFFFFF";
+						                        column.onclick = function(){ calendarChoiceDay(this); }
+						                    }
+						
+						                    // 현재일인 경우
+						                    else if(date.getDate() == day) {
+						                        column.style.backgroundColor = "#FFFFE6";
+						                        column.onclick = function(){ calendarChoiceDay(this); }
+						                    }
+						
+						                // 현재월보다 이전인경우
+						                } else if(today.getMonth() < date.getMonth()) {
+						                    if(Math.sign(day) == 1 && day <= lastDate.getDate()) {
+						                        column.style.backgroundColor = "#E5E5E5";
+						                    }
+						                }
+						
+						                // 현재월보다 이후인경우
+						                else {
+						                    if(Math.sign(day) == 1 && day <= lastDate.getDate()) {
+						                        column.style.backgroundColor = "#FFFFFF";
+							                    column.onclick = function(){ calendarChoiceDay(this); }  
+						                    }
+						                }
+						            }
+						
+						            // 선택한년도가 현재년도보다 작은경우
+						            else if(today.getFullYear() < date.getFullYear()) {
+						                if(Math.sign(day) == 1 && day <= lastDate.getDate()) {
+						                    column.style.backgroundColor = "#E5E5E5";
+						                }
+						            }
+						
+						            // 선택한년도가 현재년도보다 큰경우
+						            else {
+						                if(Math.sign(day) == 1 && day <= lastDate.getDate()) {
+						                    column.style.backgroundColor = "#FFFFFF";
+						                    column.onclick = function(){ calendarChoiceDay(this); }
+						                }
+						            }
+						            dom++;
+						
+						        }
+						    }
+						
+						    // 날짜 선택
+						    function calendarChoiceDay(column) {
+						
+						        // 기존 선택일의 표시형식 초기화
+						        if(document.getElementsByClassName("choiceDay")[0]) {
+						            document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "#FFFFFF";
+						            document.getElementsByClassName("choiceDay")[0].style.color = "black";
+						            document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+						        }
+								
+						        // 선택일 체크 표시
+						        column.style.backgroundColor = "#266C78";
+						        column.style.color = "white";
+						
+						        // 선택일 클래스명 변경
+						        column.classList.add("choiceDay");
+						    }
+						
+						    // 두자리수 변경
+						    function autoLeftPad(num, digit) {
+						        if(String(num).length < digit) {
+						            num = new Array(digit - String(num).length + 1).join("0") + num;
+						        }
+						        return num;
+						    }
+						
+						</script>
                         <!-- 날짜 선택하면 나타나는 창 -->
                         <div id="classDetail-date">
                             <table>
@@ -440,17 +530,9 @@
                     </div>
                 </form>
                 <br>
-                <a href="<%=contextPath%>/ttdetail.cl" id="classDetail-tutor">
-                	
-                	<img src="" width="75px" height="100%">
-                    <span>람보람보베이커리</span>
-                    <img src="<%= contextPath %>/resources/images/right_arrow.png" width="40px;" height="40px;">
-                    
-                </a>
                 
             </div>
         </div>
-        
         	
     </div>
     <br clear="both">

@@ -1,1 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectTutorInfo">
+	
+	   SELECT 
+		   	MEM_NO
+	        , TT_NAME
+	        , TT_PHONE
+	        , TT_EMAIL
+	        , INTRODUCE
+	        , PUB_PHONE
+	        , TT_PROFILE
+	    FROM TUTOR
+	    WHERE MEM_NO = ?
+
+	</entry>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</properties>
