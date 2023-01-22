@@ -27,6 +27,6 @@
 	       AND MEM_PWD = ?
 	       AND MEM_STATUS = 'Y'
 	</entry>
-	
+
 	
 </properties>
