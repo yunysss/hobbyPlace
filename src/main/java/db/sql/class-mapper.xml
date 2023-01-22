@@ -61,23 +61,6 @@
 		 ORDER BY RE_NO DESC
 	</entry>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	<entry key="selectClassPage">
 		SELECT
 		       CT_NAME

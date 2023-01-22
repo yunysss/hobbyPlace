@@ -134,23 +134,6 @@ private Properties prop = new Properties();
 		}
 		return list;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public Lesson selectClassPage(Connection conn, int clNo) {
 		Lesson le = null;
 		PreparedStatement pstmt = null;

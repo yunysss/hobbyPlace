@@ -45,27 +45,6 @@ public class LessonService {
 		return list;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * @author 예서
 	 * @param clNo : 클래스 번호
