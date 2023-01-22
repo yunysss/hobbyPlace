@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 <style>
     div, p, form, input{box-sizing:border-box;}
-    .outer{width:1000px; height:1400px; margin:auto; margin-top:20px;}
+    .outer{width:1000px; height:1500px; margin:auto; margin-top:20px;}
     a{text-decoration: none !important; color:black !important;}
 
     .outer>div{width:100%;}
@@ -28,20 +28,16 @@
 
     #mainPageRec-1 div, #mainPageRec-2 div{width:100%;}
     .rec-title{height:10%;}
-    #rec-pic, #rec-pic-2{height:90%; overflow-x:auto; overflow-y:hidden; white-space:nowrap;}
-    #rec-pic::-webkit-scrollbar, #rec-pic-2::-webkit-scrollbar {
+    #rec-pic, #rec-pic-2, #rec-pic-3 {height:90%; overflow-x:auto; overflow-y:hidden;}
+    #rec-pic::-webkit-scrollbar, #rec-pic-2::-webkit-scrollbar, #rec-pic-3::-webkit-scrollbar{
 	  height: 8px;
 	}
-	#rec-pic::-webkit-scrollbar-track, #rec-pic-2::-webkit-scrollbar-track{
+	#rec-pic::-webkit-scrollbar-track, #rec-pic-2::-webkit-scrollbar-track, #rec-pic-3::-webkit-scrollbar-track{
 	  background-color: rgb(240,240,240);
 	}
-	#rec-pic::-webkit-scrollbar-thumb, #rec-pic-2::-webkit-scrollbar-thumb{
+	#rec-pic::-webkit-scrollbar-thumb, #rec-pic-2::-webkit-scrollbar-thumb, #rec-pic-3::-webkit-scrollbar-thumb{
 	  border-radius: 3px;
 	  background-color: rgb(180, 180, 180);
-	}
-	#rec-pic::-webkit-scrollbar-button, #rec-pic-2::-webkit-scrollbar-button{
-	  width: 0;
-	  height: 0;
 	}
 	
     #mainPageRec-1 img, #mainPageRec-2 img{
@@ -52,8 +48,14 @@
     }
 
     #mainPageRec-3 img{
-        width:200px;
-        height:200px;
+        width:230px;
+        height:230px;
+    }
+    #mainPageRec-3 td{
+    	width:240px;
+    	vertical-align : top;
+    	padding:10px;
+    	
     }
 
     
@@ -111,6 +113,7 @@
 	                <script>
 	                	$(function(){
 	                		selectNewClassList();
+	                		selectLikeClassList();
 	                	})
 	                	
 	                	function selectNewClassList(){
@@ -155,10 +158,6 @@
 	                </div>
 	                
 	                <script>
-	                	$(function(){
-	                		selectLikeClassList();
-	                	})
-	                	
 	                	function selectLikeClassList(){
 	                		$.ajax({
 	                			url:"<%=contextPath%>/listLike.cl",
@@ -195,6 +194,36 @@
 	                    	</tr>
 	                    </table>
 	                </div>
+	                <script>
+	                $(function(){
+                		selectReviewClassList();
+                	})
+	                	function selectReviewClassList(){
+	                		$.ajax({
+	                			url:"<%=contextPath%>/listReview.cl",
+	                			async:false,
+	                			success:function(list){
+	                				console.log(list.reviewStar);
+	                				let value = "";
+	                				for(let i=0; i<list.length; i++){
+	                					value += "<td>"
+	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl'>"
+	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+	                									+ "<b>" + list[i].clNo + "</b><br>"
+	                					for(let j=1; j<=list[i].reviewStar; j++){
+	                						value += "⭐"
+	                					}
+	               						value += "<p>" + list[i].reviewContent + "</p>"
+	               								+ "</a>"
+	             								+ "</td>"
+	                				}
+	                				$("#rec-pic-3 tr").html(value);
+	                			},error:function(){
+	                				console.log("클래스 조회용 ajax 통신실패");
+	                			}
+	                		})
+	                	}
+	                </script>
             </div>
           </div>
 

@@ -18,6 +18,7 @@
 		  FROM CLASS C
 		  JOIN LOCATION USING(LOCAL_CODE)
 		  JOIN DISTRICT ON(DESTR_CODE = DISTR_CODE)
+		 WHERE CL_STATUS = 2
 		 ORDER
 		    BY CL_NO DESC
 	</entry>
@@ -42,7 +43,21 @@
 		  FROM CLASS C
 		  JOIN LOCATION USING(LOCAL_CODE)
 		  JOIN DISTRICT ON(DESTR_CODE = DISTR_CODE)
+		 WHERE CL_STATUS = 2
 		  ORDER BY LIKE_COUNT DESC NULLS LAST
+	</entry>
+	<entry key="selectReviewClass">
+		SELECT 
+		         RE_NO
+		       , SUBSTR(CONTENT, 1, 28) || '...' "CONTENT"
+		       , RE_STAR
+		       , CL_NAME
+		       , CL_THUMB
+		  FROM REVIEW
+		  JOIN CLASS USING(CL_NO)
+		 WHERE CL_STATUS = 2
+		   AND RE_STA = 'Y'
+		 ORDER BY RE_NO DESC
 	</entry>
 
 </properties>

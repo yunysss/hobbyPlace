@@ -1,5 +1,7 @@
 package com.hp.lesson.model.dao;
 
+import static com.hp.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.hp.lesson.model.vo.Lesson;
-import static com.hp.common.JDBCTemplate.close;
+import com.hp.review.model.vo.Review;
 
 public class LessonDao {
 	
@@ -75,9 +77,36 @@ private Properties prop = new Properties();
 									   rset.getString("cl_price"),
 									   rset.getString("cl_thumb"),
 									   rset.getInt("star_avg"),
-									   rset.getInt("star_count"),
-									   rset.getInt("like_count"));
+									   rset.getInt("star_count"));
 				list.add(ls);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public ArrayList<Review> selectReviewClass(Connection conn){
+		ArrayList<Review> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReviewClass");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Review r = new Review(rset.getInt("re_no"),
+									   rset.getString("content"),
+									   rset.getInt("re_star"),
+									   rset.getString("cl_name"),
+									   rset.getString("cl_thumb"));
+				list.add(r);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
