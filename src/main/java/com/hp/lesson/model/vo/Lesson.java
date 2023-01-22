@@ -37,7 +37,10 @@ public class Lesson {
 	private int clStarAvg;
 	private int clStarCount;
 	private int likeCount;
+	private String introduce;
 	
+
+
 	public Lesson() {}
 
 	
@@ -74,7 +77,7 @@ public class Lesson {
 	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
 			String clAddress, int clMax, String clLevel, String startDate, String endDate, int clTimes,
 			String clSchedule, String clDay, String clPrice, Clob clDetail, String curriculum, String refundPolicy,
-			String clSupplies, String keyword, Date enrollDate, String clStatus, String clThumb) {
+			String clSupplies, String keyword, Date enrollDate, String clStatus, String clThumb,String introduce) {
 		super();
 		this.clNo = clNo;
 		this.ctNo = ctNo;
@@ -100,6 +103,8 @@ public class Lesson {
 		this.enrollDate = enrollDate;
 		this.clStatus = clStatus;
 		this.clThumb = clThumb;
+		this.introduce = introduce;
+		
 	}
 
 
@@ -444,8 +449,14 @@ public class Lesson {
 		this.likeCount = likeCount;
 	}
 
+	public String getIntroduce() {
+		return introduce;
+	}
 
-
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+	
 	@Override
 	public String toString() {
 		return "Lesson [clNo=" + clNo + ", ctNo=" + ctNo + ", ctDno=" + ctDno + ", memNo=" + memNo + ", localCode="
@@ -455,10 +466,13 @@ public class Lesson {
 				+ ", clDetail=" + clDetail + ", curriculum=" + curriculum + ", refundPolicy=" + refundPolicy
 				+ ", clSupplies=" + clSupplies + ", keyword=" + keyword + ", enrollDate=" + enrollDate + ", updateDate="
 				+ updateDate + ", clStatus=" + clStatus + ", clCount=" + clCount + ", clRefuse=" + clRefuse
-				+ ", clThumb=" + clThumb + "]";
+				+ ", clThumb=" + clThumb + ", clStarAvg=" + clStarAvg + ", clStarCount=" + clStarCount + ", likeCount="
+				+ likeCount + ", introduce=" + introduce + "]";
 	}
-	
-	
+
+
+
+
 	
 	
 }

@@ -222,7 +222,8 @@ public class AdminDao {
 							rset.getString("keyword"),
 							rset.getDate("enroll_date"),
 							rset.getString("cl_status"),
-							rset.getString("cl_thumb")
+							rset.getString("cl_thumb"),
+							rset.getString("introduce")
 							
 						);
 			}
@@ -247,7 +248,8 @@ public class AdminDao {
 	 * @return Schedule s
 	 */
 	public ArrayList<Schedule> selectSchedule(Connection conn, int clNo) {
-		 ArrayList<Schedule> sList = new ArrayList<>();
+		
+		ArrayList<Schedule> sList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -264,11 +266,9 @@ public class AdminDao {
 								 rset.getInt("session_no"),
 								 rset.getString("start_time"),
 								 rset.getString("end_time")
-								 
 						));
 			}
-			
-		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
