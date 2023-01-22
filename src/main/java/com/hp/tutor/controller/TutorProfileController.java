@@ -36,15 +36,6 @@ public class TutorProfileController extends HttpServlet {
 		if(session.getAttribute("loginUser")== null) {
 			session.setAttribute("alertMsg","로그인 후 이용한 가능한 서비스입니다.");
 		}else
-		
-		
-		// 프로필 정보 불러오기
-		
-			
-			
-			
-			
-		
 
 			request.getRequestDispatcher("views/tutor/tutorProfileView.jsp").forward(request, response);
 		
