@@ -23,7 +23,7 @@ public class Lesson {
 	private String clSchedule;
 	private String clDay;
 	private int clPrice;
-	private CLOB clDetail;
+	private String clDetail;
 	private String curriculum;
 	private String refundPolicy;
 	private String clSupplies;
@@ -89,7 +89,7 @@ public class Lesson {
 
 	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
 			String clAddress, int clMax, String clLevel, String startDate, String endDate, int clTimes,
-			String clSchedule, String clDay, int clPrice, CLOB clDetail, String curriculum, String refundPolicy,
+			String clSchedule, String clDay, int clPrice,String clDetail, String curriculum, String refundPolicy,
 			String clSupplies, String keyword, Date enrollDate, Date updateDate, String clStatus, int clCount,
 			String clRefuse, String clThumb) {
 		super();
@@ -266,11 +266,11 @@ public class Lesson {
 		this.clPrice = clPrice;
 	}
 
-	public CLOB getClDetail() {
+	public String getClDetail() {
 		return clDetail;
 	}
 
-	public void setClDetail(CLOB clDetail) {
+	public void setClDetail(String clDetail) {
 		this.clDetail = clDetail;
 	}
 
