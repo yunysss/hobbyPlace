@@ -27,8 +27,8 @@ public class MemberDao {
 	}
 	
 	/**
-	 * 
-	 * @param 수연
+	 * @author 수연
+	 * @param userId, userPwd
 	 * @return conn, Member m
 	 */
 	public Member loginMember(Connection conn, String userId, String userPwd) {
