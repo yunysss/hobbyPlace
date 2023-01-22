@@ -401,7 +401,7 @@
                 <% }else { %>
 	                <!--로그인후-->
 		            <a href="<%=contextPath%>/tutorMain.tt">튜터센터</a>
-		            <a href="">튜터등록</a>
+		            <a href="<%=contextPath%>/tutorEnroll.tt">튜터등록</a>
 	            <%} %>
 	        </div>
 	        <div id="menubar-2">
