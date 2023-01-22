@@ -61,7 +61,7 @@
     <table class="table table-hover" id="newClass" >
         <thead class="thead-light">
             <tr>
-            	<th><input type="checkbox"></th>
+            	<th><input type="checkbox" name="check" id="chkAll"></th>
                 <th width="100">클래스번호</th>
                 <th width="100">카테고리</th>
                 <th width="400">클래스명</th>
@@ -80,7 +80,7 @@
            <%} else{%>
            		<%for(Lesson l : list){ %>
                 <tr>
-               		<th><input type="checkbox"></th>
+               		<th><input type="checkbox"  name="check"></th>
                     <td><%=l.getClNo() %></td>
                     <td><%=l.getCtNo() %></td>
                     <td><%=l.getClName() %></td>
@@ -107,7 +107,33 @@
          </tbody>
 
     </table>
+    
+    			 <script>
+                    $(function(){
+                        $("#chkAll").click(function(){
+                            if($(this).is(":checked")){
+                                $("input[name=check]").attr("checked",true);
+                            }else{
+                                $("input[name=check]").attr("checked",false);
+                            }
+                        })
+                    })
+                </script>
     </form>
+    
+     <script>
+        	$(function(){
+        		$("#newClass>tbody>tr").click(function(){
+        			location.href="<%=contextPath%>/newde.ad?no="+$(this).children().eq(1).text();
+        		})
+        	})
+        
+        
+        </script>
+    
+    
+    
+    
 
     <div class="paging-area">
       	

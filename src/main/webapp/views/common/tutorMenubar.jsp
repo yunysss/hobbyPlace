@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="com.hp.tutor.model.vo.Tutor" %>    
+<%@ page import ="com.hp.tutor.model.vo.Tutor, com.hp.member.model.vo.Member" %>    
     
 <% 
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
 	
 // 로그인한 튜터 정보
-
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	Tutor tutorInfo = (Tutor)session.getAttribute("tutorInfo");
+	String ttProfile = tutorInfo.getTtProfile() ==  null? "resources/tutorProfile_upfiles/defaultimg.jpg" : tutorInfo.getTtProfile();
 
 %>
 <!DOCTYPE html>
@@ -178,7 +180,7 @@
             </div>
             <div id="header3">
                 <div class="dropdown" >
-                    <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" type="button" width="65"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+                    <img src="<%=request.getContextPath()%>/<%=ttProfile %>" type="button" width="60"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
                   
                     </img>
                     <div class="dropdown-menu">

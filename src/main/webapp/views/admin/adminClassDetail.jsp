@@ -3,7 +3,7 @@
 <%@ page import = "com.hp.lesson.model.vo.* , java.util.ArrayList" %>    
     
 <% 
-	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("s");
+	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("sList");
 	Lesson l = (Lesson)request.getAttribute("l");
 
 %>    
@@ -64,9 +64,9 @@
                 clear: both;
             }
             #className{
-                height: 60px;
+                height: 120px;
             }
-            #classPrice{height: 100px;}
+            #classPrice{height: 50px;}
             #tutorInfo{
                 height: 200px;
     
@@ -99,7 +99,7 @@
             <a href="" class="btn btn-secondary btn-sm a">승인</a>
             <button  type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classReject">반려</button>
             -->
-            <button class="btn btn-secondary btn-sm a">목록으로</button>
+            <a href="<%=contextPath%>/classmg.ad?cpage=1"class="btn btn-secondary btn-sm a">목록으로</a>
             </div>
         
             <hr>
@@ -108,19 +108,19 @@
                     <table id="img-area">
                         <tr>
                             <td colspan="3" height="260px">
-                                <img id="mainImg" src="<%=l.getClThumb() %>" width="400" height="250" >
+                                <img id="mainImg" src="<%=l.getClThumb() %>" width="450" height="250" >
                             </td>
                         </tr>
                         <tr>
                             <div id="img">
                                 <td>
-                                    <img id="img1" src="" height="98px" width="130px"> 
+                                    <img id="img1" src="" height="98px" width="148px"> 
                                 </td>
                                 <td>
-                                    <img id="img2" src=""height="98px" width="130px">
+                                    <img id="img2" src=""height="98px" width="148px">
                                 </td>
                                 <td>
-                                    <img id="img3" src="" height="98px" width="130px">
+                                    <img id="img3" src="" height="98px" width="148px">
                                 </td>
                             </div>
                         </tr>
@@ -135,10 +135,11 @@
                         <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg"  width="80"  class="rounded-circle" alt="Cinque Terre" >
                         <label style="font-weight: 600;"> &nbsp; <%=l.getMemNo() %></label>
                         </div>
-                        <br>
+               
                         <div id="tutorIntroduce">
                             <div style="font-weight: 600"> </div>
-                            <p>튜터 소개 저는 감자를 좋아해용 같이 만들어머거요🥔🍟🥔🥔🥔🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🍟🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🍟🍟🍟🍟🍟🍟🍟🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🥔🍟🍟🍟🍟🍟🥔🥔🥔🥔🥔🥔🥔🥔🥔🍟</p>
+                            <p><%=l.getIntroduce() %></p>
+                          	
                                 
                         </div>
                     </div>
@@ -183,7 +184,9 @@
                 <tr>
                     <th>스케줄</th>
                     <td>
-           
+           			<%for(Schedule s : sList) {%>
+           			<%=s.getSessionNo()%> 회차 : <%=s.getStartTime() %> - <%=s.getEndTime() %><br>
+           			<%} %>
                     </td>
                     
                 </tr>
@@ -194,6 +197,7 @@
             <h6 style="font-weight: 550; font-size: 15px; ">클래스 소개</h6>
             <hr>
             <div>
+              <!--  clob 변환해야됨 -->
                 <%=l.getClDetail() %>
                 
     
@@ -246,7 +250,7 @@
             
                     // 인포윈도우로 장소에 대한 설명을 표시합니다
                     var infowindow = new kakao.maps.InfoWindow({
-                        content: '<div style="width:150px;text-align:center;padding:6px 0;">장소명</div>'
+                        content: '<div style="width:150px;text-align:center;padding:6px 0;">클래스장소</div>'
                     });
                     infowindow.open(map, marker);
             
@@ -272,11 +276,18 @@
                 <table>
                     <tr>
                         <th>준비물</th>
-                        <td><%=l.getClSupplies() %></td>
+                        <td>
+                        <%String supplies = l.getClSupplies() == null? "없음" : l.getClSupplies() ;%>
+                        <%=supplies %>
+                        </td>
                     </tr>
                     <tr>
                         <th>검색키워드</th>
-                        <td><%=l.getKeyword() %> </td>
+                        <td>
+                         <%String keyword = l.getKeyword() == null? "없음" : l.getKeyword() ;%>
+                        <%=keyword %>
+                        
+                         </td>
                     </tr>
                 </table>
                 

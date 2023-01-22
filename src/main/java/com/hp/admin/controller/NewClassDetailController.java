@@ -1,27 +1,29 @@
-package com.hp.tutor.controller;
+package com.hp.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.hp.tutor.model.service.TutorService;
+import com.hp.admin.model.service.AdminService;
+import com.hp.lesson.model.vo.Lesson;
+import com.hp.lesson.model.vo.Schedule;
 
 /**
- * Servlet implementation class TutorProfileController
+ * Servlet implementation class NewClassDetailController
  */
-@WebServlet("/profile.tt")
-public class TutorProfileController extends HttpServlet {
+@WebServlet("/newde.ad")
+public class NewClassDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TutorProfileController() {
+    public NewClassDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +32,24 @@ public class TutorProfileController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		//로그인전
-		HttpSession session = request.getSession();
-		if(session.getAttribute("loginUser")== null) {
-			session.setAttribute("alertMsg","로그인 후 이용한 가능한 서비스입니다.");
-		}else
-
-			request.getRequestDispatcher("views/tutor/tutorProfileView.jsp").forward(request, response);
 		
-		//}
-	}
+		int clNo = Integer.parseInt(request.getParameter("no"));
+		
+		AdminService aService = new AdminService();
+		
+		Lesson l = aService.selectClass(clNo);
+		ArrayList<Schedule> sList = aService.selectSchedule(clNo);
+		
+		
+		//상세페이지 사진 조회해오기 (Attachment)
+		
+	
+		request.setAttribute("l", l);
+		request.setAttribute("sList", sList);
+	
 
+		request.getRequestDispatcher("views/admin/newClassDetailView.jsp").forward(request, response);
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

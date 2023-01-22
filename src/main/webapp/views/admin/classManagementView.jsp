@@ -304,13 +304,13 @@
                     <td>
                         <input type="checkbox" name="status" id="chkAll" value="">
                         <label for="">전체</label>
-                        <input type="checkbox" name="status" id="beforeApproval" value="">
+                        <input type="checkbox" name="status" id="beforeApproval" value="0">
                         <label for="beforeApproval">검수요청</label>
-                        <input type="checkbox" name="status" id="rejectClass" value="">
+                        <input type="checkbox" name="status" id="rejectClass" value="1">
                         <label for="rejectClass">신청반려</label>
-                        <input type="checkbox" name="status" id="saleClass" value="">
+                        <input type="checkbox" name="status" id="saleClass" value="2">
                         <label for="saleClass">판매중</label>
-                        <input type="checkbox" name="status" id="stopClass" value="">
+                        <input type="checkbox" name="status" id="stopClass" value="3">
                         <label for="stopClass">판매중지</label>
                        
                     </td>

@@ -27,7 +27,6 @@ public class AdminClassDetailController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -39,9 +38,10 @@ public class AdminClassDetailController extends HttpServlet {
 		Lesson l = aService.selectClass(clNo);
 		ArrayList<Schedule> sList = aService.selectSchedule(clNo);
 		
+
 		//상세페이지 사진 조회해오기 (Attachment)
 		
-		
+	
 		request.setAttribute("l", l);
 		request.setAttribute("sList", sList);
 	

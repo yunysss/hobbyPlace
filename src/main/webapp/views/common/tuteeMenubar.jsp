@@ -4,6 +4,7 @@
 	String contextPath = request.getContextPath();
 
 	Member loginUser = (Member)session.getAttribute("loginUser");
+
 	// 로그인 전 : null
 	// 로그인 후 : 로그인한 회원의 정보가 담겨있는 Member객체
 %>
@@ -400,8 +401,11 @@
 	                <a href="<%=contextPath%>/login.me">튜터센터</a>
                 <% }else { %>
 	                <!--로그인후-->
+	                <%if(loginUser.getGrade().equals("2")) {%>
 		            <a href="<%=contextPath%>/tutorMain.tt">튜터센터</a>
+		            <%}else { %>
 		            <a href="">튜터등록</a>
+		            <%} %>
 	            <%} %>
 	        </div>
 	        <div id="menubar-2">
