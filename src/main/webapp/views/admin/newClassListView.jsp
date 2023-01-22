@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.hp.common.model.vo.PageInfo, com.hp.lesson.model.vo.*"  %>    
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");	
+
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,10 +26,20 @@
 
     #newClass{
         text-align: center;
+        font-size: 12px;
     }
     #btn-area {float: right;}
 
     #btn-area {width: 600px;}
+    
+     .paging-area{
+        text-align: center;
+    }
+    .paging-area>*{
+        border: none;
+        border-radius: 3px;
+
+    }
   
 </style>
 </head>
@@ -34,6 +50,7 @@
     <br>
     <h5 style="font-weight: 900;">신규클래스 신청내역</h5>
     <br><br>
+    <form action="">
     <span style="font-weight: 600;">신규클래스 목록</span>
     
     <div id="btn-area" align="right">
@@ -44,37 +61,70 @@
     <table class="table table-hover" id="newClass" >
         <thead class="thead-light">
             <tr>
+            	<th><input type="checkbox"></th>
                 <th width="100">클래스번호</th>
-                <th width="500">클래스명</th>
+                <th width="100">카테고리</th>
+                <th width="400">클래스명</th>
                 <th width="100">등록일</th>
                 <th width="100">튜터명</th>
-                <th width="100">상태</th>
+                <th width="80">상태</th>
             </tr>
         </thead>
         
         <tbody>
-           
+           	<% if(list.isEmpty()){ %>
                 <tr>
                     <td colspan="5">신규클래스 신청내역이 없습니다.</td>
                     
                 </tr>
-           
+           <%} else{%>
+           		<%for(Lesson l : list){ %>
                 <tr>
-                    <td>1</td>
-                    <td>클래스명자리</td>
-                    <td>2023-01-16</td>
-                    <td>튜터명자리</td>
-                    <td>검수요청</td>
+               		<th><input type="checkbox"></th>
+                    <td><%=l.getClNo() %></td>
+                    <td><%=l.getCtNo() %></td>
+                    <td><%=l.getClName() %></td>
+                    <td><%=l.getEnrollDate() %></td>
+                    <td><%=l.getMemNo() %></td>
+                    <td>
+						 <%String status = l.getClStatus();
+                            switch(String.valueOf(status)){
+                              case "0" : status ="검수요청"; break;
+                              case "1" : status ="검수반려"; break;
+                              case "2" : status ="판매중"; break;
+                              case "3" : status ="판매중지"; break;
+                                }
+                                
+                
+                                %>
+                          <%=status %>
+
+					</td>
 
                 </tr>
-          
+                <%} %>
+          <%} %>
          </tbody>
 
     </table>
-
+    </form>
 
     <div class="paging-area">
-     페이징바 
+      	
+      	
+        	<%if(pi.getCurrentPage() != 1){ %>    
+        		
+            		<button onclick="location.href='<%=contextPath%>/newcl.ad?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <%} %>
+			
+			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+           		 <button onclick="location.href='<%=contextPath%>/newcl.ad?cpage=<%=p%>';"><%= p %></button>
+           		 
+            <%} %>
+          
+            <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
+            <button onclick="location.href='<%=contextPath%>/newcl.ad?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <%} %>
      </div>
 
 

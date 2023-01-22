@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hp.admin.model.service.AdminService;
 import com.hp.common.model.vo.PageInfo;
+import com.hp.lesson.model.vo.Lesson;
 
 
 /**
@@ -49,11 +50,12 @@ public class NewClassManagementList extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
-		ArrayList<Class> list = new AdminService().selectNewList(pi);
+		ArrayList<Lesson> list = new AdminService().selectNewClassList(pi);
 		
+		request.setAttribute("pi", pi);
+		request.setAttribute("list", list);
 		
-		
-		
+		request.getRequestDispatcher("views/admin/newClassListView.jsp").forward(request, response);
 		
 		
 		

@@ -58,7 +58,7 @@ public class ClassManagementList extends HttpServlet {
 		//카테고리조회(세부)
 		ArrayList<Dcategory> dList = new AdminService().selectDcategoryList();
 		
-		
+	
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		
