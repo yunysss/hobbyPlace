@@ -81,7 +81,7 @@
     #category>img, #membership>img{vertical-align:middle; cursor:pointer;}
     #category>*{margin:5px; font-size:14px;}
     #membership>*{margin-left:20px; font-size:12px;}
-    
+    #membership>p{display:inline-block;}
 
 
 
@@ -395,11 +395,14 @@
 	<div class="wrap">
 		<div id="menubar">
 	        <div id="menubar-1">
-                <!--로그인전-->
-                <!--<a href="<%=contextPath%>/login.me">튜터센터</a>-->
-                <!--로그인후-->
-	           <a href="<%=contextPath%>/tutorMain.tt">튜터센터</a>
-	            <a href="">튜터등록</a>
+	        	<% if(loginUser == null) {%>
+	                <!--로그인전-->
+	                <a href="<%=contextPath%>/login.me">튜터센터</a>
+                <% }else { %>
+	                <!--로그인후-->
+		            <a href="<%=contextPath%>/tutorMain.tt">튜터센터</a>
+		            <a href="">튜터등록</a>
+	            <%} %>
 	        </div>
 	        <div id="menubar-2">
                 <div class="dropdown">  
@@ -513,20 +516,21 @@
 	            <div id="membership" align="center">
 	            	<br>
 	                <!-- 로그인 전 -->
-	                <a href="<%=contextPath%>/login.me">로그인</a>
-	                <a href="<%=contextPath%>/enroll.me">회원가입</a>
-	
-	                <!-- 로그인 후 -->
-	                <!-- <a href="">마이 클래스</a> -->
-	                
-					<img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
-					
-					<div class="dropdown-menu">
-					    <a class="dropdown-item" href="<%=contextPath%>/myPageMain.me">마이페이지</a>
-					    <a class="dropdown-item" href="#">내가 찜한 목록</a>
-					    <a class="dropdown-item" href="#">로그아웃</a>
-					</div>
-	                
+	                <%if(loginUser == null) {%>
+		                <a href="<%=contextPath%>/login.me">로그인</a>
+		                <a href="<%=contextPath%>/enroll.me">회원가입</a>
+					<%}else{ %>
+		                <!-- 로그인 후 -->
+		                <a href="">마이클래스</a>
+		                <p><%=loginUser.getMemNick()%>님</p> 
+						<img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+						
+						<div class="dropdown-menu">
+						    <a class="dropdown-item" href="<%=contextPath%>/myPageMain.me">마이페이지</a>
+						    <a class="dropdown-item" href="#">내가 찜한 목록</a>
+						    <a class="dropdown-item" href="<%=contextPath%>/logout.me">로그아웃</a>
+						</div>
+	                <%} %>
 	            </div>
 	        </div>
 		</div>

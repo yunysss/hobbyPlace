@@ -71,45 +71,53 @@
         <!-- 수강전 버튼을 눌렀을때-->
         
         <div class="btn_area">
-            <button type="button" id="click_btn" >수강전</button>
-            <button type="button"> 수강완료</button>
+            <button type="button" onclick="bfBtn()" >수강전</button>
+            <button type="button" onclick="atBtn()"> 수강완료</button>
         </div>
 
 
-        <div class="tb_box">
-            <table class="table-bordered" style="text-align: center;">
-                <br>
-                <tr>
-                    <th width="70px" height="25px">상태</th>
-                    <th width="60px">튜티명</th>
-                    <th width="125px">전화번호</th>
-                    <th width="350px">예약 클래스</th>
-                    <th width="100px">예약 날짜</th>
-                    <th width="45px">인원</th>
-                    <th width="100px">상세조회</th>
-                </tr>
-
-                 <!-- 수강 전 클래스가 없을 경우 -->
-                <tr>
-                        <td colspan="7" height="30px">
-                            수강 전 클래스가 없습니다.
-                        </td>
-                </tr>
-                <!-- 수강 전 클래스가 있을 경우 -->
-                <tr>
-                    <td height="25px">수강전</td>
-                    <td>김말똥</td>
-                    <td>010-2222-3333</td>
-                    <td>하루만에 뚝딱 귀도리</td>
-                    <td>23.01.03 17:00</td>
-                    <td>2명</td>
-                    <td>
-                        <div id="select-area"><a href=""> 조회</a></div>
-                    </td>
-                </tr>
+        <div class="tb_box" id="bf.classList" id="classList"> 
+        	<table class="table-bordered" style="text-align: center;">
+		        <br>
+		        <tr>
+		            <th width="70px" height="25px">상태</th>
+		            <th width="60px">튜티명</th>
+		            <th width="125px">전화번호</th>
+		            <th width="350px">예약 클래스</th>
+		            <th width="100px">예약 날짜</th>
+		            <th width="45px">인원</th>
+		            <th width="100px">상세조회</th>
+		        </tr>
+		
+		         <!-- 수강 전 클래스가 없을 경우 -->
+		        <tr>
+		                <td colspan="7" height="30px">
+		                    수강 전 클래스가 없습니다.
+		                </td>
+		        </tr>
+		        <!-- 수강 전 클래스가 있을 경우 -->
+		        <tr>
+		            <td height="25px">수강전</td>
+		            <td>김말똥</td>
+		            <td>010-2222-3333</td>
+		            <td>하루만에 뚝딱 귀도리</td>
+		            <td>23.01.03 17:00</td>
+		            <td>2명</td>
+		            <td>
+		                <div id="select-area"><a href=""> 조회</a></div>
+		            </td>
+		        </tr>
+		        
+		    </table>
+        </div>
+        
+        <script>
+        function bf.list(){
+        	const bf.classList = document.getElementById("bf.classList")
+        }
+        
+        </script> 
                 
-            </table>
-        </div> 
         <!--수강후기 버튼을 눌렀을때-->
         <div class="btn_area">
             <button type="button" >수강전</button>
@@ -146,53 +154,10 @@
                     <td>23.01.03 17:00</td>
                     <td>2명</td>
                     <td>
-                        <div id="select-area"><a href="../tutor/reservationDetail.jsp"> 조회</a></div>
+                        <div id="select-area"><a href="<%=contextPath %>/reservationDetail.tt"> 조회</a></div>
                     </td>
                 </tr>
-                <tr>
-                    <td height="25px">수강완료</td>
-                    <td>김말똥</td>
-                    <td>010-2222-3333</td>
-                    <td>하루만에 뚝딱 귀도리</td>
-                    <td>23.01.03 17:00</td>
-                    <td>2명</td>
-                    <td>
-                        <div id="select-area"><a href="../tutor/reservationDetail.jsp"> 조회</a></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td height="25px">수강완료</td>
-                    <td>김말똥</td>
-                    <td>010-2222-3333</td>
-                    <td>하루만에 뚝딱 귀도리</td>
-                    <td>23.01.03 17:00</td>
-                    <td>2명</td>
-                    <td>
-                        <div id="select-area"><a href="../tutor/reservationDetail.jsp"> 조회</a></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td height="25px">수강완료</td>
-                    <td>김말똥</td>
-                    <td>010-2222-3333</td>
-                    <td>하루만에 뚝딱 귀도리</td>
-                    <td>23.01.03 17:00</td>
-                    <td>2명</td>
-                    <td>
-                     	 <div id="select-area"><a href="../tutor/reservationDetail.jsp"> 조회</a></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td height="25px">수강완료</td>
-                    <td>김말똥</td>
-                    <td>010-2222-3333</td>
-                    <td>하루만에 뚝딱 귀도리</td>
-                    <td>23.01.03 17:00</td>
-                    <td>2명</td>
-                    <td>
-                       <div id="select-area"><a href="../tutor/reservationDetail.jsp"> 조회</a></div>
-                    </td>
-                </tr>
+               
                 
             </table>
         </div> 

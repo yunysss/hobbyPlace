@@ -72,7 +72,24 @@ public class AdminService {
 		return sList;
 	}
 	
+	public int selectNewClassCount() { // 게시글 수 조회하기
+		Connection conn = getConnection();
+		int listCount = new AdminDao().selectNewClassCount(conn);
+		
+		close(conn);
+		return listCount;
+		
+	}
+	
+	public ArrayList<Lesson> selectNewClassList(PageInfo pi){
+		Connection conn= getConnection();
+		ArrayList<Lesson> list = new AdminDao().selectNewClassList(conn,pi);
+		close(conn);
+		
+		
+		return list;
 
+	}
 	
 	
 
