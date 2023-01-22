@@ -23,7 +23,7 @@ public class Lesson {
 	private String clSchedule;
 	private String clDay;
 	private String clPrice;
-	private CLOB clDetail;
+	private Clob clDetail;
 	private String curriculum;
 	private String refundPolicy;
 	private String clSupplies;
@@ -41,6 +41,35 @@ public class Lesson {
 
 	
 	
+	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
+			String clAddress, int clMax, String clLevel, String startDate, String endDate, int clTimes,
+			String clSchedule, String clDay, String clPrice, String curriculum, String refundPolicy, String clSupplies,
+			String keyword, Date enrollDate, String clStatus, String clThumb) {
+		super();
+		this.clNo = clNo;
+		this.ctNo = ctNo;
+		this.ctDno = ctDno;
+		this.memNo = memNo;
+		this.localCode = localCode;
+		this.distrCode = distrCode;
+		this.clName = clName;
+		this.clAddress = clAddress;
+		this.clMax = clMax;
+		this.clLevel = clLevel;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.clTimes = clTimes;
+		this.clSchedule = clSchedule;
+		this.clDay = clDay;
+		this.clPrice = clPrice;
+		this.curriculum = curriculum;
+		this.refundPolicy = refundPolicy;
+		this.clSupplies = clSupplies;
+		this.keyword = keyword;
+		this.enrollDate = enrollDate;
+		this.clStatus = clStatus;
+		this.clThumb = clThumb;
+	}
 	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
 			String clAddress, int clMax, String clLevel, String startDate, String endDate, int clTimes,
 			String clSchedule, String clDay, String clPrice, Clob clDetail, String curriculum, String refundPolicy,
@@ -62,7 +91,7 @@ public class Lesson {
 		this.clSchedule = clSchedule;
 		this.clDay = clDay;
 		this.clPrice = clPrice;
-		this.clDetail = (CLOB) clDetail;
+		this.clDetail = clDetail;
 		this.curriculum = curriculum;
 		this.refundPolicy = refundPolicy;
 		this.clSupplies = clSupplies;
@@ -136,8 +165,6 @@ public class Lesson {
 		this.clStarAvg = clStarAvg;
 		this.clStarCount = clStarCount;
 	}
-
-
 
 	public int getClNo() {
 		return clNo;
@@ -263,15 +290,15 @@ public class Lesson {
 		return clPrice;
 	}
 
-	public void setClPrice(String clPrice) {
+	public void setClPrice (String clPrice) {
 		this.clPrice = clPrice;
 	}
 
-	public CLOB getClDetail() {
+	public Clob getClDetail() {
 		return clDetail;
 	}
 
-	public void setClDetail(CLOB clDetail) {
+	public void setClDetail(Clob clDetail) {
 		this.clDetail = clDetail;
 	}
 

@@ -406,7 +406,7 @@
                     <div class="dropdown ct-area">
                     <div id="symbol" style="width: 150px;">
                         <span  data-toggle="dropdown"> 
-                            <img src="<%= contextPath %>/resources/images/list.png" alt="" height="20px" width="25px">
+                            <img src="<%= contextPath %>/resources/images/list.png" height="20px" width="25px">
                             <label style="font-size: 13px;">전체 카테고리</label>
                         </span> 
                     </div>
