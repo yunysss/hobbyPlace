@@ -84,7 +84,6 @@
 	        CL_SCHEDULE,
 	        CL_DAY,
 	        CL_PRICE,
-	        CL_DETAIL,
 	        CURRICULUM,
 	        REFUNDPOLICY,
 	        CL_SUPPLIES,
@@ -101,6 +100,15 @@
 	  WHERE CL_NO =?
    
 		
+	
+	</entry>
+	
+	
+	<entry key="selectDetail">
+	SELECT CL_DETAIL
+	  FROM CLASS
+	 WHERE CL_NO =?
+	
 	
 	</entry>
 	

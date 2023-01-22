@@ -6,12 +6,15 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.hp.admin.model.dao.AdminDao;
+import com.hp.admin.model.dao.clob;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.vo.Member;
+
+import oracle.sql.CLOB;
 
 public class AdminService {
 	
@@ -69,6 +72,11 @@ public class AdminService {
 		return s;
 	}
 	
+	public String selectDetail(int clNo) {
+		Connection conn = getConnection();
+		new AdminDao().selectDetail(conn,clNo);
+		
+	}
 	
 	
 	

@@ -266,11 +266,11 @@ public class Lesson {
 		this.clPrice = clPrice;
 	}
 
-	public CLOB getClDetail() {
+	public String getClDetail() {
 		return clDetail;
 	}
 
-	public void setClDetail(CLOB clDetail) {
+	public void setClDetail(String clDetail) {
 		this.clDetail = clDetail;
 	}
 

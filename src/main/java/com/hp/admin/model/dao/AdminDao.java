@@ -19,6 +19,8 @@ import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.vo.Member;
 
+import oracle.sql.CLOB;
+
 public class AdminDao {
 	
 	private Properties prop = new Properties();
@@ -30,6 +32,8 @@ public class AdminDao {
 				e.printStackTrace();
 			}
 	}
+	
+	
 	
 
 	/**
@@ -220,12 +224,8 @@ public class AdminDao {
 							rset.getString("cl_thumb")
 							
 						);
-
-			
-				
-				
 			}
-			
+		
 	     
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -233,9 +233,42 @@ public class AdminDao {
 			close(rset);
 			close(pstmt);
 		}
-		return l;
-		
-		
+
+	}
+	
+	public StringBuffer selectDetail(Connection conn, int clNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDetail");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,clNo);
+			rset =pstmt.executeQuery();
+			
+			if(rset.next()) {
+				System.out.println(rset.getString(1));
+				StringBuffer output = new StringBuffer();
+				Reader input = rset.getCharacterStream("cl_detail");
+				char[] buffer = new char[1024];
+				int byteRead =0;
+				try {
+					while((byteRead=input.read(buffer,0,1024))!=-1) {
+						output.append(buffer,0,byteRead);
+						
+					}
+					input.close();
+				
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return output;
 		
 	}
 	
