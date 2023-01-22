@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.review.model.vo.Review;
 
@@ -177,6 +178,14 @@ private Properties prop = new Properties();
 		}
 		
 		return le;
+	}
+	
+	public ArrayList<Attachment> selectClassAttachment(Connection conn, int clNo){
+		ArrayList<Attachment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectClassAttachment");
+		
 	}
 
 }

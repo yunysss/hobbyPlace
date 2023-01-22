@@ -6,6 +6,7 @@ import static com.hp.common.JDBCTemplate.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.dao.LessonDao;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.review.model.vo.Review;
@@ -55,6 +56,13 @@ public class LessonService {
 		Lesson le = new LessonDao().selectClassPage(conn, clNo);
 		close(conn);
 		return le;
+	}
+	
+	public ArrayList<Attachment> selectClassAttachment(int clNo){
+		Connection conn = getConnection();
+		ArrayList<Attachment> list = new LessonDao().selectClassAttachment(conn, clNo);
+		close(conn);
+		return list;
 	}
 
 }
