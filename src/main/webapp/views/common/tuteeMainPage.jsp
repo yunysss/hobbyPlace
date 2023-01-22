@@ -77,13 +77,13 @@
             <!-- The slideshow -->
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="https://umclassupload.s3.ap-northeast-2.amazonaws.com/app/web_um_coupon_220530.png" alt="">
+                <img src="<%=contextPath %>/resources/images/mainImage.png">
               </div>
               <div class="carousel-item">
-                <img src="https://post-phinf.pstatic.net/MjAxOTExMjhfOTMg/MDAxNTc0OTE5MDA0OTYw.hyFb4e85nGeKGZyF4CZhEce16yWo9hM9R_Q9ALHV4RUg.2Yhm6vm0ButtlO5JHrIlzcl_e9AiF7KmC8SS0SaZ9Vsg.JPEG/20191125_%EC%9D%B8%EC%8A%A4%ED%83%80_%EC%9B%90%EB%8D%B0%EC%9D%B4%ED%81%B4%EB%9E%98%EC%8A%A4.jpg?type=w1200" alt="">
+                <img src="<%=contextPath %>/resources/images/mainImage2.png">
               </div>
               <div class="carousel-item">
-                <img src="https://og-data.s3.amazonaws.com/media/artworks/half/A0880/A0880-0019.jpg" alt="">
+                <img src="<%=contextPath %>/resources/images/mainImage3.png">
               </div>
             </div>
           
