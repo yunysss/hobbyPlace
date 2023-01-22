@@ -124,9 +124,10 @@
     <div class="wrap">
         <div id="header">
                     <div id="log_box">
-                            <p style="width: 450px;" align="right"> <img src="<%=request.getContextPath()%>/resources/images/admin_icon.png" height="23px">관리자님 반갑습니다!</p>
-                            <p><a href="">로그아웃</a></p>
-                            <p><a href="">메인 홈</a></p>
+                            <p style="width: 450px;" align="right"> <img src="<%=request.getContextPath()%>/resources/images/admin_icon.png" height="23px">
+                            관리자<%=loginAdmin.getMemName() %>님 반갑습니다!</p>
+                            <p><a href="<%=contextPath%>/logout.ad">로그아웃</a></p>
+                            <p><a href="<%=contextPath%>/main.tee">합플 홈</a></p>
                     </div>
                 
             

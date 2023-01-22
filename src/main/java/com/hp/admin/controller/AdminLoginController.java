@@ -39,7 +39,7 @@ public class AdminLoginController extends HttpServlet {
 		
 		if(loginAdmin == null) { //로그인 실패 =>에러페이지
 			request.setAttribute("errorMsg", "로그인에 실패했습니다.");
-			RequestDispatcher view = request.getRequestDispatcher("views/commom/errorPage.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request,response);
 			
 		}else { //로그인 성공=>관리자 메인 페이지
