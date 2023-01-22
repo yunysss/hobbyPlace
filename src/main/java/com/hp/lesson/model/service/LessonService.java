@@ -12,6 +12,10 @@ import com.hp.review.model.vo.Review;
 
 public class LessonService {
 	
+	/**
+	 * @author 예서
+	 * @return list : 튜티 메인페이지 '새로운 클래스'에 띄울 목록
+	 */
 	public ArrayList<Lesson> selectMainClass(){
 		Connection conn = getConnection();
 		ArrayList<Lesson> list = new LessonDao().selectMainClass(conn);
@@ -19,6 +23,10 @@ public class LessonService {
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @return list : 튜티 메인페이지 '찜이 가장 많은 클래스'에 띄울 목록
+	 */
 	public ArrayList<Lesson> selectLikeClass(){
 		Connection conn = getConnection();
 		ArrayList<Lesson> list = new LessonDao().selectLikeClass(conn);
@@ -26,6 +34,10 @@ public class LessonService {
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @return list : 튜티 메인페이지 '클래스 후기'에 띄울 목록
+	 */
 	public ArrayList<Review> selectReviewClass(){
 		Connection conn = getConnection();
 		ArrayList<Review> list = new LessonDao().selectReviewClass(conn);

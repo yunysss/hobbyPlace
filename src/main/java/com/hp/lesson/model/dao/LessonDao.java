@@ -27,6 +27,11 @@ private Properties prop = new Properties();
 		}
 	}
 	
+	/**
+	 * @author 예서
+	 * @param conn
+	 * @return list : 튜티 메인페이지 '새로운 클래스'에 띄울 목록
+	 */
 	public ArrayList<Lesson> selectMainClass(Connection conn){
 		ArrayList<Lesson> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -58,6 +63,11 @@ private Properties prop = new Properties();
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param conn
+	 * @return list : 튜티 메인페이지 '찜이 가장 많은 클래스'에 띄울 목록
+	 */
 	public ArrayList<Lesson> selectLikeClass(Connection conn){
 		ArrayList<Lesson> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -89,6 +99,11 @@ private Properties prop = new Properties();
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param conn
+	 * @return list : 튜티 메인페이지 '클래스 후기'에 띄울 목록
+	 */
 	public ArrayList<Review> selectReviewClass(Connection conn){
 		ArrayList<Review> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
