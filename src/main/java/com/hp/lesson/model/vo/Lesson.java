@@ -23,7 +23,7 @@ public class Lesson {
 	private String clSchedule;
 	private String clDay;
 	private String clPrice;
-	private CLOB clDetail;
+	private Clob clDetail;
 	private String curriculum;
 	private String refundPolicy;
 	private String clSupplies;
@@ -70,10 +70,38 @@ public class Lesson {
 		this.clStatus = clStatus;
 		this.clThumb = clThumb;
 	}
+	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
+			String clAddress, int clMax, String clLevel, String startDate, String endDate, int clTimes,
+			String clSchedule, String clDay, String clPrice, Clob clDetail, String curriculum, String refundPolicy,
+			String clSupplies, String keyword, Date enrollDate, String clStatus, String clThumb) {
+		super();
+		this.clNo = clNo;
+		this.ctNo = ctNo;
+		this.ctDno = ctDno;
+		this.memNo = memNo;
+		this.localCode = localCode;
+		this.distrCode = distrCode;
+		this.clName = clName;
+		this.clAddress = clAddress;
+		this.clMax = clMax;
+		this.clLevel = clLevel;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.clTimes = clTimes;
+		this.clSchedule = clSchedule;
+		this.clDay = clDay;
+		this.clPrice = clPrice;
+		this.clDetail = clDetail;
+		this.curriculum = curriculum;
+		this.refundPolicy = refundPolicy;
+		this.clSupplies = clSupplies;
+		this.keyword = keyword;
+		this.enrollDate = enrollDate;
+		this.clStatus = clStatus;
+		this.clThumb = clThumb;
+	}
 
 
-
-	
 
 	public Lesson(int clNo, String ctNo, String memNo, String clName, Date enrollDate, String clStatus) {
 		super();
@@ -266,11 +294,11 @@ public class Lesson {
 		this.clPrice = clPrice;
 	}
 
-	public String getClDetail() {
+	public Clob getClDetail() {
 		return clDetail;
 	}
 
-	public void setClDetail(String clDetail) {
+	public void setClDetail(Clob clDetail) {
 		this.clDetail = clDetail;
 	}
 

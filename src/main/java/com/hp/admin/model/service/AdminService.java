@@ -72,13 +72,7 @@ public class AdminService {
 		return s;
 	}
 	
-	public String selectDetail(int clNo) {
-		Connection conn = getConnection();
-		new AdminDao().selectDetail(conn,clNo);
-		
-	}
-	
-	
+
 	
 	
 
