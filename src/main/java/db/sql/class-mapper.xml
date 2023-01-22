@@ -60,5 +60,54 @@
 		   AND RE_STA = 'Y'
 		 ORDER BY RE_NO DESC
 	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<entry key="selectClassPage">
+		SELECT
+		       CT_NAME
+		     , CT_DNAME
+		     , TT_NAME
+		     , CL_NAME
+		     , CL_ADDRESS
+		     , CL_MAX
+		     , CL_LEVEL
+		     , START_DATE
+		     , END_DATE
+		     , CL_TIMES
+		     , CL_SCHEDULE
+		     , CL_DAY
+		     , CL_PRICE
+		     , CL_DETAIL
+		     , CURRICULUM
+		     , REFUNDPOLICY
+		     , NVL(CL_SUPPLIES, '준비물 없음') "CL_SUPPLIES"
+		     , CL_THUMB
+		     , (SELECT COUNT(*)
+		          FROM "LIKE" L
+		         WHERE L.CL_NO = C.CL_NO
+		         GROUP BY L.CL_NO) "LIKE_COUNT"
+		  FROM CLASS C
+		  JOIN CATEGORY USING(CT_NO)
+		  JOIN DCATEGORY USING(CT_DNO)
+		  JOIN TUTOR USING(MEM_NO)
+		 WHERE C.CL_STATUS = 2
+		   AND C.CL_NO = ?
+	</entry>
 
 </properties>

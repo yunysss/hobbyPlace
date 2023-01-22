@@ -44,5 +44,38 @@ public class LessonService {
 		close(conn);
 		return list;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * @author 예서
+	 * @param clNo : 클래스 번호
+	 * @return le : 클래스 상세 정보
+	 */
+	public Lesson selectClassPage(int clNo) {
+		Connection conn = getConnection();
+		Lesson le = new LessonDao().selectClassPage(conn, clNo);
+		close(conn);
+		return le;
+	}
 
 }

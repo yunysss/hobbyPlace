@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.hp.lesson.model.vo.Lesson"%>
+<%
+	Lesson le = (Lesson)request.getAttribute("le");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,17 +29,9 @@
             height:400px;
         }
         #classDetail-img table img{
-            width:100px;
-            height:80px;
-            margin-left:20px;
-        }
-        #classDetail-img table button{
-            background:none;
-            color:rgb(180, 180, 180); 
-            border:1px solid rgb(180, 180, 180); 
-            border-radius:50%;
-            height:30px;
-            width:30px;
+            width:150px;
+            height:120px;
+            margin-left:8px;
         }
         #classDetail-short{float:left;}
         #classDetail-likeShare{float:right;}
@@ -44,7 +39,7 @@
             border:1px solid rgb(245, 245, 245); 
             border-radius:5px;
             background: rgb(245, 245, 245);
-            width:50px;
+            padding:5px;
             text-align:center;
         }
         #classDetail-img span{
@@ -163,13 +158,10 @@
     <div class="outer">
         <div id="classDetail-1">
             <div id="classDetail-img">
-                <img src="">
+                <img src="<%=contextPath%>/<%= le.getClThumb() %>" + >
                 <br><br>
                 <table width="500px;">
                     <tr>
-                        <td rowspan="2">
-                            <button>&lt;</button>
-                        </td>
                         <td>
                             <img src="">
                         </td>
@@ -178,27 +170,24 @@
                         </td>
                         <td>
                             <img src="">
-                        </td>
-                        <td rowspan="2">
-                            <button>&gt;</button>
                         </td>
                     </tr>
                 </table>
                 <br>
                 <div align="right" style="width:500px">
                     <div id="classDetail-short">
-                        <span>쿠킹</span>
-                        <span>쉬움</span>
+                        <span><%= le.getCtDno() %></span>
+                        <span>난이도 <%= le.getClLevel() %></span>
                     </div>
                     <div id="classDetail-likeShare">
-                        <span>❤️12</span>
-                        <a><img src="<%= contextPath %>/resources/images/share.png" width="25px"></a>
+                        <span>❤️<%= le.getLikeCount() %></span>
+                        <a href=""><img src="<%= contextPath %>/resources/images/share.png" width="25px"></a>
                     </div>
                 </div>
                 
                 <br clear="both">
                 <div>
-                    <h5><b>앙금플라워떡케이크 만들기</b></h5>
+                    <h5><b><%= le.getClName() %></b></h5>
                 </div>
             </div>
             <div id="classDetail-content" data-spy="scroll" data-target=".navbar">
@@ -220,32 +209,8 @@
                     </nav>
                     
                     <div id="section1" class="container-fluid">
+                    <b>클래스 상세</b>
                     <br><br>
-                    <b>클래스 소개</b>
-                    <br><br>
-                    <p>
-                        • 수업목표 <br>
-                        하루만에 자신만의 감성이 담긴 예쁘고 정성스러운 떡케이크 완성하기<br><br>
-
-                        • 수업소개
-                        이 세상 단 하나! 자신만의 케이크를 디자인할 수 있는 수업입니다.<br>
-                        누구나 즐길 수 있는 떡케이크와 천연재료를 이용한 조색으로<br>
-                        보기에도 예쁘고 맛도 담백하고 맛있답니다! <br><br>
-
-                        시즌과 TPO에 맞는 색감으로 맞춤 제작할 수 있어 더욱 특별하며,<br>
-                        떡은 물론 꽃도 모두 드실수 있는 떡케이크입니다.<br>
-                        쉽게 재미있게 초보자분이라도 퀄리티 있는 케이크를 만들어 가실수 있으며<br>
-                        소규모로 클래스를 진행하고 있기에 더욱더 정성껏 노하우를 알려드릴 수 있습니다.<br>
-                        또한, 외국인 수강생이실 경우에는 영어로도 수업이 가능합니다.
-                    </p>
-                    <b>이런 분들이 들으면 좋아요</b>
-                    <br><br>
-                    <p>
-                        • 떡케이크에 관심 있는 분<br>
-                        • 특별한 케이크로 축하하고 싶은 분<br>
-                        • 새로운 취미를 만들고 싶은 분
-
-                    </p>
                     <b>진행 장소</b>
                     <br><br>
                     <div id="map" style="width:600px;height:300px;"></div><br>
@@ -300,7 +265,7 @@
                         <b>커리큘럼</b>
                         <br><br>
                         <p>
-                            튜터가 입력한 커리큘럼내용<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                        
                         </p>
                     </div>
                     <hr>
