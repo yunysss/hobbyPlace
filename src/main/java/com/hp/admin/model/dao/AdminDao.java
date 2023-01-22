@@ -1,9 +1,10 @@
 package com.hp.admin.model.dao;
 
-import static com.hp.common.JDBCTemplate.*;
+import static com.hp.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -191,7 +192,9 @@ public class AdminDao {
 			pstmt.setInt(1, clNo);
 			rset = pstmt.executeQuery();
 			
+			
 			if(rset.next()) {
+				
 				l = new Lesson(rset.getInt("cl_no"),
 							rset.getString("ct_name"),
 							rset.getString("ct_dname"),
@@ -207,8 +210,7 @@ public class AdminDao {
 							rset.getInt("cl_times"),
 							rset.getString("cl_schedule"),
 							rset.getString("cl_day"),
-							rset.getInt("cl_price"),
-							rset.getClob("cl_detail"),
+							rset.getInt("cl_price"),	
 							rset.getString("curriculum"),
 							rset.getString("refundPolicy"),
 							rset.getString("cl_supplies"),
@@ -218,6 +220,10 @@ public class AdminDao {
 							rset.getString("cl_thumb")
 							
 						);
+
+			
+				
+				
 			}
 			
 	     
