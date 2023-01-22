@@ -209,10 +209,9 @@
                     </nav>
                     
                     <div id="section1" class="container-fluid">
-                    <b>클래스 상세</b>
-                    <br><br>
-                    <b>진행 장소</b>
-                    <br><br>
+                    <b>클래스 상세</b><br><br>
+                    CLOB 출력..?<br><br>
+                    <b>진행 장소</b><br><br>
                     <div id="map" style="width:600px;height:300px;"></div><br>
 
                     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=19e99c5794a1b621123d4304f847fd72&libraries=services"></script>
@@ -230,7 +229,7 @@
                     var geocoder = new kakao.maps.services.Geocoder();
                     
                     // 주소로 좌표를 검색합니다
-                    geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+                    geocoder.addressSearch('<%= le.getClAddress() %>', function(result, status) {
                     
                         // 정상적으로 검색이 완료됐으면 
                         if (status === kakao.maps.services.Status.OK) {
@@ -256,17 +255,16 @@
                     </script>
                     <div style="font-size: 13px;">
                         <span><b>찾아오시는 길</b></span><br>
-                        제주특별자치도 제주시 첨단로 242
-                    </div>
-                    
+                        <%= le.getClAddress() %>
+                    </div><br>
+                    <b>준비물</b><br><br>
+                    <%= le.getClSupplies() %>
                     </div>
                     <hr>
                     <div id="section2" class="container-fluid">
                         <b>커리큘럼</b>
                         <br><br>
-                        <p>
-                        
-                        </p>
+                        <%= le.getCurriculum() %>
                     </div>
                     <hr>
                     <div id="section3" class="container-fluid">
@@ -299,29 +297,7 @@
                     <div id="section4" class="container-fluid">
                         <b>취소/환불</b>
                         <br><br>
-                        <p>
-						가. 클래스 환불기준 원칙 <br>
-						학원의 설립/운영 및 과외교습에 관한 법률 제 18조(교습비 등의 반환 등)<br>
-						- 학원설립, 운영자, 교습자 및 개인과외교습자는 학습자가 수강을 계속할 수 없는 경우<br>
-						  또는 학원의 등록말소, 교습소 폐지 등으로 교습을 계속할 수 없는 경우에는 학습자로부터 받은 <br>
-						  교습비를 반환하는 등 학습자를 보호하기위하여 필요한 조치를 하여야 한다.<br><br>
-						                
-						1. 클래스을 제공할 수 없거나, 클래스 장소를 제공할 수 없게 된 날 : 이미 납부한 비용 등을 일한 계산한 금액 환불<br><br>
-						                
-						2. 클래스기간이 1개월 이내의 경우<br>
-						- 레슨 시작전 : 이미 납부한 레슨비 전액 환불<br>
-						- 총 레슨 시간의 1/3 경과전 : 이미 납부한 레슨비의 2/3에 해당액 환불<br>
-						- 총 레슨 시간의 1/2 경과전 : 이미 납부한 레슨비용의 1/2에 해당액 환불<br>
-						- 총 레슨시간의 1/2 경과후 : 반환하지 않음<br><br>
-						
-						3.클래스 기간이 1개월을 초과하는 경우<br>
-						- 레슨 시작전 : 이미 납부한 레슨비 전액 환불<br>
-						- 레슨 시작후 : 반환사유가 발생한 당해 월의 반환 대상 레슨비<br>
-						(레슨비 징수기간이 1개월 이내인 경우에 따라 산출된 수강료를 말한다)와 나머지 월의 레슨비 전액을 합산한 금액 환불<br><br>
-						                
-						• 총 클래스 시간의 레슨비 징수기간 중의 총레슨시간을 말하며,<br>
-						반환 금액의 산정은 반환 사유가 발생한 날까지 경과 된 레슨시간을 기준으로 함<br>
-                        </p>
+						<%= le.getRefundPolicy() %>
                     </div>
                 
                 
