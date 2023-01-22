@@ -27,7 +27,7 @@ public class Tutor {
 		this.pubPhone = pubPhone;
 		this.ttProfile = ttProfile;
 	}
-
+	
 	public int getMemNo() {
 		return memNo;
 	}

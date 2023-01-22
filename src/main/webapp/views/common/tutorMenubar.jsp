@@ -8,6 +8,7 @@
 	
 // 로그인한 튜터 정보
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	 String MemId = loginUser.getMemId();
 
 %>
 <!DOCTYPE html>

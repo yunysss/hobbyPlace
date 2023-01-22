@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hp.member.model.vo.Member;
+import com.hp.tutor.model.service.TutorService;
 
 /**
  * Servlet implementation class TutorProfileController
@@ -39,7 +39,12 @@ public class TutorProfileController extends HttpServlet {
 		
 		
 		// 프로필 정보 불러오기
-			new 
+		
+			
+			
+			
+			
+		
 
 			request.getRequestDispatcher("views/tutor/tutorProfileView.jsp").forward(request, response);
 		

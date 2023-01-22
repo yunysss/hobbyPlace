@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hp.member.model.vo.Member;
+import com.hp.tutor.model.service.TutorService;
+import com.hp.tutor.model.vo.Tutor;
+
 /**
  * Servlet implementation class TutorMainController
  */
@@ -36,6 +40,11 @@ public class TutorMainController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/login.me");
 			
 		}else { //로그인 후 
+			
+			Member loginUser = (Member)session.getAttribute("loginUser");
+		    int memNo = loginUser.getMemNo();
+			Tutor t = new TutorService().selectTutorInfo(memNo);
+
 		
 			request.getRequestDispatcher("views/common/tutorMainPage.jsp").forward(request, response);
 		}

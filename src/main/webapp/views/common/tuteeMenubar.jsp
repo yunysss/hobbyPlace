@@ -4,6 +4,7 @@
 	String contextPath = request.getContextPath();
 
 	Member loginUser = (Member)session.getAttribute("loginUser");
+
 	// 로그인 전 : null
 	// 로그인 후 : 로그인한 회원의 정보가 담겨있는 Member객체
 %>

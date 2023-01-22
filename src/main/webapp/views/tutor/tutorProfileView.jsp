@@ -57,6 +57,22 @@ padding: 5px 10px;
 
 <%@ include file="../common/tutorMenubar.jsp" %>
 
+<%
+
+  String MemId = loginUser.getMemId();
+	//	String userName = loginUser.getUserName();
+		//필수입력사항 아닌 부분 null일 수 있음 (삼항연산자 사용해서 null일경우 빈문자열오도록함)
+	//	String phone = loginUser.getPhone() == null? "" : loginUser.getPhone(); 
+	//	String email = loginUser.getEmail() == null? "" : loginUser.getEmail();
+	//	String address = loginUser.getAddress() == null? "" : loginUser.getAddress();
+	//	String interest = loginUser.getInterest() == null? "" : loginUser.getInterest();
+
+  
+
+
+
+%>
+
  <div id="content2">
                 <div class="outer">
                     
