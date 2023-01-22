@@ -10,8 +10,7 @@ public class MemberService {
 
 	/**
 	 * @author 수연
-	 * @param userId
-	 * @param userPwd
+	 * @param userId, userPwd
 	 * @return Member m
 	 */
 	public Member loginMember(String userId, String userPwd) {

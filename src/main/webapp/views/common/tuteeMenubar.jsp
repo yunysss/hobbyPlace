@@ -518,7 +518,7 @@
 	                <!-- 로그인 전 -->
 	                <%if(loginUser == null) {%>
 		                <a href="<%=contextPath%>/login.me">로그인</a>
-		                <a href="<%=contextPath%>/enroll.me">회원가입</a>
+		                <a href="<%=contextPath%>/enrollForm.me">회원가입</a>
 					<%}else{ %>
 		                <!-- 로그인 후 -->
 		                <a href="">마이클래스</a>

@@ -59,14 +59,21 @@
     }
     #getCode{background:rgb(35, 104, 116); color:white; font-size:18px; font-weight:bolder;}
     .profileButton{
-        height:30px;
-        width:60px;
+        height:35px;
+        width:65px;
+        line-height: 35px;
+        display: inline-block; 
         box-sizing:border-box;  
+        vertical-align: middle;
+        text-align: center;
         border:0;
         border-radius:5px;
         background-color:rgb(200, 199, 199);
     }
     .profileButton:hover{cursor:pointer;}
+    #upProfile{
+        position:absolute; width:1px; height:1px;padding:0; margin:-1px; overflow:hidden;clip:rect(0,0,0,0);border:0; 
+    }
     .showRules{
         height:20px;
         width:100px;
@@ -93,7 +100,7 @@
 	<div class="cWrap">
         <div class="content" align="center">
             <br>
-            <form action="">
+            <form action="<%=contextPath%>/enrollMember.me" method="post" enctype="multipart/form-data">
 
                 <h1>회원가입</h1>
 
@@ -105,7 +112,7 @@
                     <tr>
                         <td class="td1">아이디 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="userId" class="fillOutForms" placeholder="영문과 숫자 조합 6~16자" onclick="check();" required>
+                            <input type="text" id="userId" class="fillOutForms" name="userId" placeholder="영문과 숫자 조합 6~16자" onclick="check();" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck">중복확인</button>
@@ -119,7 +126,7 @@
                     <tr>
                         <td class="td1">비밀번호 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="password" class="fillOutForms" id="userPwd" onclick="check();" placeholder="영문, 숫자, 특수문자 포함 12~20자" required>
+                            <input type="password" class="fillOutForms" id="userPwd" name="userPwd" onclick="check();" placeholder="영문, 숫자, 특수문자 포함 12~20자" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -143,7 +150,7 @@
                     <tr>
                         <td class="td1">이름 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="userName" class="fillOutForms" onclick="check();" placeholder="이름을 입력해주세요" required>
+                            <input type="text" id="userName" class="fillOutForms" name="userName" onclick="check();" placeholder="이름을 입력해주세요" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -155,7 +162,7 @@
                     <tr>
                         <td class="td1">닉네임 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" class="fillOutForms" onclick="check();" placeholder="8글자 이내로 입력하세요(특수문자제외)" required>
+                            <input type="text" id="userNickName" class="fillOutForms" name="userNick" onclick="check();" placeholder="8글자 이내로 입력하세요(특수문자제외)" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck">중복확인</button>
@@ -169,7 +176,7 @@
                     <tr>
                         <td class="td1">이메일 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="email" class="fillOutForms" placeholder="예) hobbyplace@hobpl.com" required>
+                            <input type="email" class="fillOutForms" name="email" placeholder="예) hobbyplace@hobpl.com" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck">중복확인</button>
@@ -183,7 +190,7 @@
                     <tr>
                         <td class="td1">휴대폰 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="phone" class="fillOutForms" onclick="check();" placeholder="-포함하여 입력해주세요" required>
+                            <input type="text" id="phone" class="fillOutForms" name="phone" onclick="check();" placeholder="-포함하여 입력해주세요" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck">인증번호 받기</button>
@@ -197,14 +204,14 @@
                     <tr>
                         <td class="td1" rowspan="2">주소</td>
                         <td class="td2">
-                            <input type="text" id="address1" placeholder="우편번호">
+                            <input type="text" id="address1" name="postCode" placeholder="우편번호">
                             <button type="button" id="postCode" class="doubleCheck">우편번호 검색</button>
                         </td>
                         <td class="td3"></td>
                     </tr>
                     <tr>
                         <td class="td2">
-                            <input type="text" id="address2"  class="fillOutForms" placeholder="상세주소">
+                            <input type="text" id="address2" name="address" class="fillOutForms" placeholder="상세주소">
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -220,13 +227,13 @@
                     <tr>
                         <td class="td1">생년월일</td>
                         <td class="td2">
-                            <select class="birthDay" id="bYear">
+                            <select class="birthDay" name="memBirth" id="bYear">
                                 <option disabled selected>출생 연도</option>
                             </select>
-                            <select class="birthDay" id="bMonth">
+                            <select class="birthDay" name="memBirth" id="bMonth">
                                 <option disabled selected>월</option>
                             </select>
-                            <select class="birthDay" id="bDate">
+                            <select class="birthDay" name="memBirth" id="bDate">
                                 <option disabled selected>일</option>
                             </select>
                                                            
@@ -277,8 +284,10 @@
                     <tr>
                         <td class="td1">프로필사진</td>
                         <td class="td2">
-                            <button type="button" class="profileButton" id="uploadPicture">업로드</button>
-                            <button type="reset" class="profileButton" id="deletePicture">삭제</button>
+                        	<label for="upProfile"  class="profileButton">업로드</label>	
+                            <input type="file" id="upProfile" name="upProfile"> <!-- style="display:none;" -->
+                                <!-- <button type="button" class="profileButton" onclick="document.upProfile.click();">업로드</button>-->
+
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -347,7 +356,7 @@
                     
                 </table>
                 <br><br>
-                <button type="submit" id="submitForm" onclick="">가입하기</button>
+                <button type="submit" id="submitForm" onclick="enrollMember();">가입하기</button>
                 <br><br><br><br>
                 
                                 
@@ -377,6 +386,7 @@
            let idCheck = RegExp(/^[a-z\d]{6,16}$/);
            let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{12,20}$/i);
            let nameCheck = RegExp(/^[가-힣]{2,}$/);
+           let nickCheck = RegExp(/^[a-z\d가-힣]{1,8}$/i);
            let phoneCheck = RegExp(/^[0][1][\d]-[\d]{3,4}-[\d]{3,4}$/);
 
             $("#userId").focusout(function(){
@@ -410,22 +420,27 @@
                     $(".nameTest").html('');
                 }
             })
+            
+            $("#userNickName").focusout(function(){
+            	if(!nickCheck.test($("#userNickName").val())){
+            		$(".nickNameTest").html('유효한 닉네임 형식이 아닙니다.');
+            	}else{
+            		$(".nickNameTest").html('');
+            	}
+            })
 
             $("#phone").focusout(function(){
                 if(!phoneCheck.test($("#phone").val())){
                     $(".phoneTest").html('유효한 연락처 형식이 아닙니다.');
-                    console.log('no');
                 }else{
                     $(".phoneTest").html('');
-                    console.log('yes');
                 }
             })
         }
         
-
-
-
-
+        function enrollMember(){
+        	
+        }
         
     </script>
     

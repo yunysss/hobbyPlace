@@ -11,7 +11,7 @@ public class Member {
 	private String memNick;
 	private String email; 
 	private String phone;
-	private int post;
+	private int postcode;
 	private String memAddr;
 	private String gender;
 	private String memBirth;
@@ -28,7 +28,7 @@ public class Member {
 
 
 	public Member(int memNo, String memId, String memPwd, String memName, String memNick, String email, String phone,
-			int post, String memAddr, String gender, String memBirth, String memProfile, String interest, String grade,
+			int postcode, String memAddr, String gender, String memBirth, String memProfile, String interest, String grade,
 			Date enrollDate, Date memUpdate, String memStatus, String memDrop) {
 		super();
 		this.memNo = memNo;
@@ -38,7 +38,7 @@ public class Member {
 		this.memNick = memNick;
 		this.email = email;
 		this.phone = phone;
-		this.post = post;
+		this.postcode = postcode;
 		this.memAddr = memAddr;
 		this.gender = gender;
 		this.memBirth = memBirth;
@@ -130,13 +130,13 @@ public class Member {
 	}
 
 
-	public int getPost() {
-		return post;
+	public int getPostcode() {
+		return postcode;
 	}
 
 
-	public void setPost(int post) {
-		this.post = post;
+	public void setPostcode(int postcode) {
+		this.postcode = postcode;
 	}
 
 
@@ -243,7 +243,7 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", memName=" + memName
-				+ ", memNick=" + memNick + ", email=" + email + ", phone=" + phone + ", post=" + post + ", memAddr="
+				+ ", memNick=" + memNick + ", email=" + email + ", phone=" + phone + ", postcode=" + postcode + ", memAddr="
 				+ memAddr + ", gender=" + gender + ", memBirth=" + memBirth + ", memProfile=" + memProfile
 				+ ", interest=" + interest + ", grade=" + grade + ", enrollDate=" + enrollDate + ", memUpdate="
 				+ memUpdate + ", memStatus=" + memStatus + ", memDrop=" + memDrop + "]";
