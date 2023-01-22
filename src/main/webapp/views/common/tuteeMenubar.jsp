@@ -525,7 +525,7 @@
 		                <a href="<%=contextPath%>/enrollForm.me">회원가입</a>
 					<%}else{ %>
 		                <!-- 로그인 후 -->
-		                <a href="">마이클래스</a>
+		                <a href="<%=contextPath%>/myClass.tt">마이클래스</a>
 		                <p><%=loginUser.getMemNick()%>님</p> 
 						<img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
 						

@@ -9,7 +9,7 @@
     <title>My Page Main</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <style>
-        div{box-sizing:border-box;}
+        div{box-sizing:border-box; border: 1px solid;}
         .wrap{width:1200px; height:100vh; margin:auto;}
         
         .menubar{width:200px; height:100%; float:left; padding-top:0; background: white;}
@@ -105,10 +105,7 @@
 
         <div class="content">
             
-
         </div>
-
-
 
     </div>
 
