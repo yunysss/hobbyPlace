@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.hp.admin.model.service.AdminService;
 import com.hp.member.model.vo.Member;
@@ -43,6 +44,10 @@ public class AdminLoginController extends HttpServlet {
 			
 		}else { //로그인 성공=>관리자 메인 페이지
 			
+			HttpSession session = request.getSession();
+			session.setAttribute("loginAdmin", loginAdmin);
+			RequestDispatcher view = request.getRequestDispatcher("views/common/adminMainPage.jsp");
+			view.forward(request, response);
 		}
 		
 	

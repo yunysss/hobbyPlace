@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.hp.lesson.model.vo.Lesson"%>
+<%
+	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +10,7 @@
 <title>Insert title here</title>
 <style>
     div, p, form, input{box-sizing:border-box;}
-    .outer{width:1000px; height:1300px; margin:auto; margin-top:20px;}
+    .outer{width:1000px; height:1500px; margin:auto; margin-top:20px;}
     a{text-decoration: none !important; color:black !important;}
 
     .outer>div{width:100%;}
@@ -23,32 +26,38 @@
     #mainPageRec-1, #mainPageRec-2{height:30%;}
     #mainPageRec-3{height:40%;}
 
-    .allView{float:right; font-size:12px;}
-
-    #mainPageRec table{
-        width:100%;
-        height:100%;
-    }
+    #mainPageRec-1 div, #mainPageRec-2 div{width:100%;}
+    .rec-title{height:10%;}
+    #rec-pic, #rec-pic-2, #rec-pic-3 {height:90%; overflow-x:auto; overflow-y:hidden;}
+    #rec-pic::-webkit-scrollbar, #rec-pic-2::-webkit-scrollbar, #rec-pic-3::-webkit-scrollbar{
+	  height: 8px;
+	}
+	#rec-pic::-webkit-scrollbar-track, #rec-pic-2::-webkit-scrollbar-track, #rec-pic-3::-webkit-scrollbar-track{
+	  background-color: rgb(240,240,240);
+	}
+	#rec-pic::-webkit-scrollbar-thumb, #rec-pic-2::-webkit-scrollbar-thumb, #rec-pic-3::-webkit-scrollbar-thumb{
+	  border-radius: 3px;
+	  background-color: rgb(180, 180, 180);
+	}
+	
     #mainPageRec-1 img, #mainPageRec-2 img{
-        width:160px;
-        height:160px;
+        width:175px;
+        height:175px;
         margin-left:10px;
         margin-right:10px;
     }
 
     #mainPageRec-3 img{
-        width:200px;
-        height:200px;
+        width:230px;
+        height:230px;
+    }
+    #mainPageRec-3 td{
+    	width:240px;
+    	vertical-align : top;
+    	padding:10px;
+    	
     }
 
-    #mainPageRec button{
-        background:none;
-        color:rgb(180, 180, 180); 
-        border:1px solid rgb(180, 180, 180); 
-        border-radius:50%;
-        height:30px;
-        width:30px;
-    }
     
 </style>
 </head>
@@ -68,13 +77,13 @@
             <!-- The slideshow -->
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="https://umclassupload.s3.ap-northeast-2.amazonaws.com/app/web_um_coupon_220530.png" alt="">
+                <img src="<%=contextPath %>/resources/images/mainImage.png">
               </div>
               <div class="carousel-item">
-                <img src="https://post-phinf.pstatic.net/MjAxOTExMjhfOTMg/MDAxNTc0OTE5MDA0OTYw.hyFb4e85nGeKGZyF4CZhEce16yWo9hM9R_Q9ALHV4RUg.2Yhm6vm0ButtlO5JHrIlzcl_e9AiF7KmC8SS0SaZ9Vsg.JPEG/20191125_%EC%9D%B8%EC%8A%A4%ED%83%80_%EC%9B%90%EB%8D%B0%EC%9D%B4%ED%81%B4%EB%9E%98%EC%8A%A4.jpg?type=w1200" alt="">
+                <img src="<%=contextPath %>/resources/images/mainImage2.png">
               </div>
               <div class="carousel-item">
-                <img src="https://og-data.s3.amazonaws.com/media/artworks/half/A0880/A0880-0019.jpg" alt="">
+                <img src="<%=contextPath %>/resources/images/mainImage3.png">
               </div>
             </div>
           
@@ -90,236 +99,131 @@
           <div id="mainPageRec">
             <div id="mainPageRec-1">
                 <!-- 로그인 전 -->
-                <table>
-                    <tr>
-                        <td colspan="5"><b>1월의 추천 클래스 👍</b></td>
-                        <td colspan="2"><a href="" class="allView">전체보기</a></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">
-                            <button>&lt;</button>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td rowspan="2">
-                            <button>&gt;</button>
-                        </td>
-                    </tr>
-                    
-                </table>
+                <% if(loginUser == null) {%>
+	                <div class="rec-title">
+	                    <b>새로운 클래스 🎁</b>
+	                </div>
+	                <div id="rec-pic">
+	                    <table>
+	                    	<tr>
+	                    	</tr>
+	                    </table>
+	                </div>
+	                
+	                <script>
+	                	$(function(){
+	                		selectNewClassList();
+	                		selectLikeClassList();
+	                	})
+	                	
+	                	function selectNewClassList(){
+	                		$.ajax({
+	                			url:"<%=contextPath%>/listNew.cl",
+	                			async:false,
+	                			success:function(list){
+	                				let value = "";
+	                				for(let i=0; i<10; i++){
+	                					value += "<td>"
+	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl'>"
+	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+	                									+ "<small>" + list[i].distrCode + "</small><br>"
+	                									+ "<b>" + list[i].clName + "</b><br>"
+	                									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+	               									+ "</a>"
+	             								+ "</td>"
+	                				}
+	                				$("#rec-pic tr").html(value);
+	                			},error:function(){
+	                				console.log("클래스 조회용 ajax 통신실패");
+	                			}
+	                		})
+	                	}
+	                </script>
+                <% } else{ %>
+                	<!-- 로그인 후 -->
                 
-                <!-- 로그인 후 -->
-                <!-- <table>
-                    <tr>
-                        <td colspan="5"><b>xxx님이 좋아할만한 클래스 🥰</b></td>
-                        <td colspan="2"><a href="" class="allView">전체보기</a></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">
-                            <button>&lt;</button>
-                        </td>
-                        <td>
-                            <a href="">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td rowspan="2">
-                            <button>&gt;</button>
-                        </td>
-                    </tr>
-                    
-                </table> -->
+                <% } %>
                 
             </div>
 
             <div id="mainPageRec-2">
-                <table>
-                    <tr>
-                        <td colspan="5"><b>찜이 가장 많은 클래스 ❤️</b></td>
-                        <td colspan="2"><a href="" class="allView">전체보기</a></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">
-                            <button>&lt;</button>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                지역 <br>
-                                제목 <br>
-                                가격
-                                별점
-                            </a>
-                        </td>
-                        <td rowspan="2">
-                            <button>&gt;</button>
-                        </td>
-                    </tr>
-                </table>
+                <div class="rec-title">
+	                    <b>찜이 가장 많은 클래스 ❤️</b>
+	                </div>
+	                <div id="rec-pic-2">
+	                    <table>
+	                    	<tr>
+	                    	</tr>
+	                    </table>
+	                </div>
+	                
+	                <script>
+	                	function selectLikeClassList(){
+	                		$.ajax({
+	                			url:"<%=contextPath%>/listLike.cl",
+	                			async:false,
+	                			success:function(list){
+	                				let value = "";
+	                				for(let i=0; i<10; i++){
+	                					value += "<td>"
+	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl'>"
+	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+	                									+ "<small>" + list[i].distrCode + "</small><br>"
+	                									+ "<b>" + list[i].clName + "</b><br>"
+	                									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+	               									+ "</a>"
+	             								+ "</td>"
+	                				}
+	                				$("#rec-pic-2 tr").html(value);
+	                			},error:function(){
+	                				console.log("클래스 조회용 ajax 통신실패");
+	                			}
+	                		})
+	                	}
+	                </script>
             </div>
 
             <div id="mainPageRec-3">
-                <table>
-                    <tr height="50px">
-                        <td colspan="7"><b>클래스 후기</b></td>
-                    </tr>
-                    <tr height="200px">
-                        <td rowspan=3">
-                            <button>&lt;</button>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                별점 <br>
-                                후기내용 <br>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                별점 <br>
-                                후기내용 <br>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                별점 <br>
-                                후기내용 <br>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=contextPath%>/page.cl">
-                                <img src=""><br>
-                                별점 <br>
-                                후기내용 <br>
-                            </a>
-                        </td>
-                        
-                        <td rowspan="3">
-                            <button>&gt;</button>
-                        </td>
-                    </tr>
-                </table>
+                <div class="rec-title">
+	                    <b>클래스 후기</b>
+	                </div>
+	                <div id="rec-pic-3">
+	                    <table>
+	                    	<tr>
+	                    		
+	                    	</tr>
+	                    </table>
+	                </div>
+	                <script>
+	                $(function(){
+                		selectReviewClassList();
+                	})
+	                	function selectReviewClassList(){
+	                		$.ajax({
+	                			url:"<%=contextPath%>/listReview.cl",
+	                			async:false,
+	                			success:function(list){
+	                				console.log(list.reviewStar);
+	                				let value = "";
+	                				for(let i=0; i<list.length; i++){
+	                					value += "<td>"
+	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl'>"
+	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+	                									+ "<b>" + list[i].clNo + "</b><br>"
+	                					for(let j=1; j<=list[i].reviewStar; j++){
+	                						value += "⭐"
+	                					}
+	               						value += "<p>" + list[i].reviewContent + "</p>"
+	               								+ "</a>"
+	             								+ "</td>"
+	                				}
+	                				$("#rec-pic-3 tr").html(value);
+	                			},error:function(){
+	                				console.log("클래스 조회용 ajax 통신실패");
+	                			}
+	                		})
+	                	}
+	                </script>
             </div>
           </div>
 

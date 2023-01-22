@@ -52,10 +52,11 @@ public class Member {
 	}
 
 
-	public Member(String memId, String memPwd) {
+	public Member(String memId, String memPwd, String memName) {
 		super();
 		this.memId = memId;
 		this.memPwd = memPwd;
+		this.memName = memName;
 	}
 
 

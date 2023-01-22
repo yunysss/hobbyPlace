@@ -22,7 +22,7 @@ public class Lesson {
 	private int clTimes;
 	private String clSchedule;
 	private String clDay;
-	private int clPrice;
+	private String clPrice;
 	private CLOB clDetail;
 	private String curriculum;
 	private String refundPolicy;
@@ -34,6 +34,8 @@ public class Lesson {
 	private int clCount;
 	private String clRefuse;
 	private String clThumb;
+	private int clStarAvg;
+	private int clStarCount;
 	
 	public Lesson() {}
 
@@ -41,7 +43,7 @@ public class Lesson {
 	
 	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
 			String clAddress, int clMax, String clLevel, String startDate, String endDate, int clTimes,
-			String clSchedule, String clDay, int clPrice, Clob clDetail, String curriculum, String refundPolicy,
+			String clSchedule, String clDay, String clPrice, Clob clDetail, String curriculum, String refundPolicy,
 			String clSupplies, String keyword, Date enrollDate, String clStatus, String clThumb) {
 		super();
 		this.clNo = clNo;
@@ -86,7 +88,7 @@ public class Lesson {
 
 	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
 			String clAddress, int clMax, String clLevel, String startDate, String endDate, int clTimes,
-			String clSchedule, String clDay, int clPrice, CLOB clDetail, String curriculum, String refundPolicy,
+			String clSchedule, String clDay, String clPrice, CLOB clDetail, String curriculum, String refundPolicy,
 			String clSupplies, String keyword, Date enrollDate, Date updateDate, String clStatus, int clCount,
 			String clRefuse, String clThumb) {
 		super();
@@ -117,6 +119,22 @@ public class Lesson {
 		this.clCount = clCount;
 		this.clRefuse = clRefuse;
 		this.clThumb = clThumb;
+	}
+	
+
+
+
+	public Lesson(int clNo, String localCode, String distrCode, String clName, String clPrice, String clThumb,
+			int clStarAvg, int clStarCount) {
+		super();
+		this.clNo = clNo;
+		this.localCode = localCode;
+		this.distrCode = distrCode;
+		this.clName = clName;
+		this.clPrice = clPrice;
+		this.clThumb = clThumb;
+		this.clStarAvg = clStarAvg;
+		this.clStarCount = clStarCount;
 	}
 
 	public int getClNo() {
@@ -239,11 +257,11 @@ public class Lesson {
 		this.clDay = clDay;
 	}
 
-	public int getClPrice() {
+	public String getClPrice() {
 		return clPrice;
 	}
 
-	public void setClPrice(int clPrice) {
+	public void setClPrice(String clPrice) {
 		this.clPrice = clPrice;
 	}
 
@@ -334,6 +352,30 @@ public class Lesson {
 	public void setClThumb(String clThumb) {
 		this.clThumb = clThumb;
 	}
+
+	public int getClStarAvg() {
+		return clStarAvg;
+	}
+
+
+
+	public void setClStarAvg(int clStarAvg) {
+		this.clStarAvg = clStarAvg;
+	}
+
+
+
+	public int getClStarCount() {
+		return clStarCount;
+	}
+
+
+
+	public void setClStarCount(int clStarCount) {
+		this.clStarCount = clStarCount;
+	}
+
+
 
 	@Override
 	public String toString() {

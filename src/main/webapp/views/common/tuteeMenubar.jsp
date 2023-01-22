@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.hp.member.model.vo.Member"%>
 <% 
 	String contextPath = request.getContextPath();
+
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	// 로그인 전 : null
+	// 로그인 후 : 로그인한 회원의 정보가 담겨있는 Member객체
 %>
 <!DOCTYPE html>
 <html>
@@ -402,7 +406,7 @@
                     <div class="dropdown ct-area">
                     <div id="symbol" style="width: 150px;">
                         <span  data-toggle="dropdown"> 
-                            <img src="<%= contextPath %>/resources/images/list.png" alt="" height="20px" width="25px">
+                            <img src="<%= contextPath %>/resources/images/list.png" height="20px" width="25px">
                             <label style="font-size: 13px;">전체 카테고리</label>
                         </span> 
                     </div>

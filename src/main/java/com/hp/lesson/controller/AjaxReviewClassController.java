@@ -1,23 +1,29 @@
-package com.hp.common.controller;
+package com.hp.lesson.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.hp.lesson.model.service.LessonService;
+import com.hp.review.model.vo.Review;
+
 /**
- * Servlet implementation class TuteeMainPageController
+ * Servlet implementation class AjaxReviewClassController
  */
-@WebServlet("/main.tee")
-public class TuteeMainPageController extends HttpServlet {
+@WebServlet("/listReview.cl")
+public class AjaxReviewClassController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TuteeMainPageController() {
+    public AjaxReviewClassController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +32,10 @@ public class TuteeMainPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/common/tuteeMainPage.jsp").forward(request, response);
+		ArrayList<Review> list = new LessonService().selectReviewClass();
+		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**
