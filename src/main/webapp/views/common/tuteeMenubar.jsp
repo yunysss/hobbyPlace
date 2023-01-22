@@ -400,8 +400,11 @@
 	                <a href="<%=contextPath%>/login.me">튜터센터</a>
                 <% }else { %>
 	                <!--로그인후-->
+	                <%if(loginUser.getGrade().equals("2")) {%>
 		            <a href="<%=contextPath%>/tutorMain.tt">튜터센터</a>
+		            <%}else { %>
 		            <a href="">튜터등록</a>
+		            <%} %>
 	            <%} %>
 	        </div>
 	        <div id="menubar-2">
