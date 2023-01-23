@@ -73,5 +73,13 @@ public class TutorService {
 		return updateTutor;
 	}
 	
+	public int nickCheck(String checkNick) {
+		Connection conn = getConnection();
+		int count = new TutorDao().nickCheck(conn, checkNick);
+		close(conn);
+		return count; 
+		
+	}
+	
 
 }

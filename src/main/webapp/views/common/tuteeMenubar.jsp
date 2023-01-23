@@ -447,7 +447,7 @@
                                     <ul class="submenu">
                                         <li><a href="">취미미술</a></li>
                                         <li><a href="">캘리그래피</a></li>
-                                        <li><a href="">웹디자인 </a></li>
+                                    
                                     
                                     </ul>
                                 </li>
@@ -553,41 +553,83 @@
             <tr>
                 <th>카테고리</th>
                 <td>
-                    <select name="category">
-                    <option value="교육">교육</option>
-                    <option value="">공예 DIY</option>
-                    <option value="">베이킹</option>
-                    <option value="">쿠킹</option>
-                    <option value="">스포츠/피트니스</option>
+                    <select name="category" id="ct" onchange="changeCt();">
+                    <option value="11">교육</option>
+                    <option value="22">공예 DIY</option>
+                    <option value="33">드로잉</option>
+                    <option value="44">쿠킹</option>
+                    <option value="55">스포츠/피트니스</option>
 
                      </select>
-                     <select name="category_detail">
-                        <option value="교육">교육</option>
-                        <option value="">공예 DIY</option>
-                        <option value="">베이킹</option>
-                        <option value="">쿠킹</option>
-                        <option value="">스포츠/피트니스</option>
-    
-                         </select>
+                     <select name="category_detail" id="dct">
+                    
+                    </select>
+                    
+                    
+                    <script>
+                        function changeCt(){
+                        	var study = ["외국어","자격증","IT"];
+                        	var diy = ["가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
+                        	var draw = ["취미미술","캘리그래피"];
+                        	var cook = ["요리","베이킹"];
+                        	var sport = ["실내스포츠","야외스포츠","레저/액티비티","요가필라테스/헬스PT"];
+     	
+                        	var changeDct;
+                        	
+                        	if( $("#ct").val() == "11"){
+                        		changeDct = study;
+                        		
+                        	}else if( $("#ct").val() == "22"){
+                        		changeDct = diy;
+                        	}else if( $("#ct").val() == "33"){
+                        		changeDct = draw;
+
+                        	}else if( $("#ct").val()  == "44"){
+                        		changeDct = cook;
+                        	}else if( $("#ct").val() == "55"){
+                        		changeDct = sport;
+                        	}
+                        	
+                        	$("#dct").empty();
+                        	for(var i=0; i<changeDct.length; i++){
+                        		var option = $("<option>"+changeDct[i]+"</option>");
+                        		$("#dct").append(option);
+                        	}
+                        	
+                        }
+                        
+                        </script>
+                    
+                    
                 </td>
             </tr>
             <tr>
                 <th>지역</th>
                 <td>
-                    <select name="region" id="region">
-                    <option value="서울">서울</option>
+                    <select name="region" id="region" onchange="changeregion();">
+                    <option value="">서울</option>
                     <option value="">경기도</option>
                     <option value="">인천</option>
-                    <option value=""></option>
+                    
                      </select>
 
-                     <select name="region" id="region" >
-                        <option value="서울">서울</option>
-                        <option value="">경기도</option>
-                        <option value="">인천</option>
-                        <option value=""></option>
-                         </select>
+                     <select name="district" id="district" >
+                       
+                     </select>
                 </td>
+                
+                <script>
+                
+                
+              
+                
+                
+                </script>
+                
+                
+                
+                
+                
             </tr>
             <tr>
                 <th height="30"width="100">날짜</th>

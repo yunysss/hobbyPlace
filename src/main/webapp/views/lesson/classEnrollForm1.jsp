@@ -3,7 +3,7 @@
  <%@ page import = "java.util.ArrayList, com.hp.lesson.model.vo.*" %>
 
 <%
-	 ArrayList<Category> cList = (ArrayList<Category>)request.getAttribute("cList");
+	ArrayList<Category> cList = (ArrayList<Category>)request.getAttribute("cList");
     ArrayList<Dcategory> dList = (ArrayList<Dcategory>)request.getAttribute("dList");
 %>    
     
@@ -177,7 +177,7 @@
       <!-- 여기부터-->
           
                 <div class="outer">
-                    <form action="<%=contextPath %>/clenroll2.tt" id="enroll-form" method="post" class="classEnroll">
+                    <form action="<%=contextPath %>/clenroll.tt" id="enroll-form" method="post" class="classEnroll">
                     <h5 style="font-weight: 900;">클래스 등록</h5>
                     <br>
                     <span style="font-size: 14px; font-weight: 600;">기본정보</span>
@@ -187,21 +187,21 @@
                         <tr>
                             <th width=100>카테고리</th>
                             <td>
-                                <select name="category" id="category" class="ct" >
+                                <select name="category" id="category" class="ct" onchange="changeCt();">
                                     <%for(Category c : cList){ %>
 		                            <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
 		                        	<%} %>
                                 </select>
                                 
                                 <select name="dCategory" id="Dcategory" class="ct">
-                                   <%for(Dcategory d : dList){ %>
-		                            <option value="<%=d.getCtDno()%>"><%=d.getCtDname() %></option>
-		                            <%} %>
+                                   
 
                                 </select>
+                   
                             </td>
                         </tr>
-                      
+                        
+                       
                         <tr>
                             <th>클래스명</th>
                             <td>
@@ -446,6 +446,43 @@
                     }
                 }
               </script>
+              
+              
+               <script>
+                        function changeCt(){
+                        	var study = ["외국어","자격증","IT"];
+                        	var diy = ["가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
+                        	var draw = ["취미미술","캘리그래피"];
+                        	var cook = ["요리","베이킹"];
+                        	var sport = ["실내스포츠","야외스포츠","레저/액티비티","요가필라테스/헬스PT"];
+     	
+                        	var changeDct;
+                        	
+                        	if( $("#category").val() == "11"){
+                        		changeDct = study;
+                        		
+                        	}else if( $("#category").val() == "22"){
+                        		changeDct = diy;
+                        	}else if( $("#category").val() == "33"){
+                        		changeDct = draw;
+
+                        	}else if( $("#category").val() == "44"){
+                        		changeDct = cook;
+                        	}else if( $("#category").val()== "55"){
+                        		changeDct = sport;
+                        	}
+                        	
+                        	$("#Dcategory").empty();
+                        	for(var i=0; i<changeDct.length; i++){
+                        		var option = $("<option>"+changeDct[i]+"</option>");
+                        		$("#Dcategory").append(option);
+                        	}
+                        	
+                        }
+                        
+                        </script>
+                        
+
         
 
         <%@ include file="../common/footerbar.jsp" %>
