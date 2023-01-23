@@ -62,7 +62,7 @@ padding: 5px 10px;
  <div id="content2">
                 <div class="outer">
                     
-                    <form action="" method="post" id="profile" >
+                    <form action="<%=contextPath %>/update.tt" method="post" id="profile" enctype="multipart/form-data">
                     <input type="hidden" name="no" value="<%=tutorInfo.getMemNo()%>">
                     <h5 style="font-weight: 900;">프로필 관리</h5>
                     <hr>
@@ -173,7 +173,7 @@ padding: 5px 10px;
                     <br><br>
                     <div id="btn-area" align="center" style="width: 600px;">
                     <a class="btn btn-secondary btn-sm">이전</a>
-                    <a href="<%=contextPath %>/update.tt"  class="btn btn-secondary btn-sm">정보변경</a>
+                    <button class="btn btn-secondary btn-sm">정보변경</button>
                     </div>
 
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.hp.common.MyFileRenamePolicy;
+import com.hp.tutor.model.service.TutorService;
 import com.hp.tutor.model.vo.Tutor;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -45,10 +46,14 @@ public class TutorProfileUpdateController extends HttpServlet {
 				String changeName = multiRequest.getFilesystemName("upfile");
 				
 				ttProfile = filePath + changeName;
+				
+					// 새로운 첨부파일이 있고 기존 첨부파일 있던 없던-->update
 
+			}else {
+				  ttProfile = multiRequest.getParameter("originFile");
 			}
 			
-			int memNo = Integer.parseInt(multiRequest.getParameter("memNo"));
+			int memNo = Integer.parseInt(multiRequest.getParameter("no"));
 			String ttPhone = multiRequest.getParameter("phone");
 			String ttName = multiRequest.getParameter("nickName");
 			String email = multiRequest.getParameter("email");
@@ -59,7 +64,18 @@ public class TutorProfileUpdateController extends HttpServlet {
 			
 			Tutor t = new Tutor(memNo,ttName,ttPhone,email,introduce,pubPhone,ttProfile);
 			
-			int result = new TutorService().updateTutorProfile(t);
+			Tutor updateTutor = new TutorService().updateTutorProfile(t);
+			
+			if(updateTutor == null) {
+				request.getSession().setAttribute("alertMsg","회원정보변경에 실패했습니다.");
+				response.sendRedirect(request.getContextPath()+"/profile.tt");
+				
+				
+			}else {
+				request.getSession().setAttribute("alertMsg","성공적으로 수정되었습니다.");
+				request.getSession().setAttribute("tutorInfo",updateTutor);
+				response.sendRedirect(request.getContextPath()+"/profile.tt");
+			}
 		}
 		
 		

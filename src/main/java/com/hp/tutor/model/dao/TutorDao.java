@@ -211,6 +211,37 @@ private Properties prop = new Properties();
 		return dList;
 		
 	}
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param t
+	 * @return result (튜터 프로필 수정) 
+	 */
+	public int updateTutorProfile(Connection conn, Tutor t) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+	
+		String sql = prop.getProperty("updateTutorProfile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, t.getTtName());
+			pstmt.setString(2, t.getTtPhone());
+			pstmt.setString(3, t.getTtEmail());
+			pstmt.setString(4, t.getIntroduce());
+			pstmt.setString(5, t.getPubPhone());
+			pstmt.setString(6, t.getTtProfile());
+			pstmt.setInt(7, t.getMemNo());
+			
+			result =pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 
 	

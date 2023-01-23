@@ -73,7 +73,19 @@
 
 	</entry>		
 
+	<!-- 튜터 프로필 수정 -->
+	<entry key="updateTutorProfile">
+	 	UPDATE TUTOR
+	 	  SET  TT_NAME =?
+	 	  	  , TT_PHONE =?
+	 	  	  , TT_EMAIL =?
+	 	  	  , INTRODUCE= ?
+	 	  	  , PUB_PHONE= ?
+	 	  	  , TT_PROFILE =?
+	 	  	  , MODIFY_DATE = SYSDATE
+	 	WHERE MEM_NO = ?
 
+	</entry>
 
 
 
