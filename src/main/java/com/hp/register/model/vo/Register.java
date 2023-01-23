@@ -2,4 +2,183 @@ package com.hp.register.model.vo;
 
 public class Register {
 
+	public int regNo;
+	public String memNo;
+	public String clNo;
+	public String teachDate;
+	public String regDate;
+	public String schNo;
+	public String regPay;
+	public String regPrice;
+	public String regCount;
+	public String regSta;
+	public String refuse;
+	public String reEnroll;
+	public String regCal;
+	public String memPhone;
+	public String memEmail;
+	
+	public Register() {}
+
+	public Register(int regNo, String memNo, String clNo, String teachDate, String regDate, String schNo, String regPay,
+			String regPrice, String regCount, String regSta, String refuse, String reEnroll, String regCal) {
+		super();
+		this.regNo = regNo;
+		this.memNo = memNo;
+		this.clNo = clNo;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.schNo = schNo;
+		this.regPay = regPay;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.refuse = refuse;
+		this.reEnroll = reEnroll;
+		this.regCal = regCal;
+	}
+
+	public Register(int regNo, String memNo, String clNo, String teachDate, String regDate, String schNo,
+			String regPrice, String regCount, String regSta, String memPhone, String memEmail) {
+		super();
+		this.regNo = regNo;
+		this.memNo = memNo;
+		this.clNo = clNo;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.schNo = schNo;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.memPhone = memPhone;
+		this.memEmail = memEmail;
+	}
+
+	public int getRegNo() {
+		return regNo;
+	}
+
+	public void setRegNo(int regNo) {
+		this.regNo = regNo;
+	}
+
+	public String getMemNo() {
+		return memNo;
+	}
+
+	public void setMemNo(String memNo) {
+		this.memNo = memNo;
+	}
+
+	public String getClNo() {
+		return clNo;
+	}
+
+	public void setClNo(String clNo) {
+		this.clNo = clNo;
+	}
+
+	public String getTeachDate() {
+		return teachDate;
+	}
+
+	public void setTeachDate(String teachDate) {
+		this.teachDate = teachDate;
+	}
+
+	public String getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+
+	public String getSchNo() {
+		return schNo;
+	}
+
+	public void setSchNo(String schNo) {
+		this.schNo = schNo;
+	}
+
+	public String getRegPay() {
+		return regPay;
+	}
+
+	public void setRegPay(String regPay) {
+		this.regPay = regPay;
+	}
+
+	public String getRegPrice() {
+		return regPrice;
+	}
+
+	public void setRegPrice(String regPrice) {
+		this.regPrice = regPrice;
+	}
+
+	public String getRegCount() {
+		return regCount;
+	}
+
+	public void setRegCount(String regCount) {
+		this.regCount = regCount;
+	}
+
+	public String getRegSta() {
+		return regSta;
+	}
+
+	public void setRegSta(String regSta) {
+		this.regSta = regSta;
+	}
+
+	public String getRefuse() {
+		return refuse;
+	}
+
+	public void setRefuse(String refuse) {
+		this.refuse = refuse;
+	}
+
+	public String getReEnroll() {
+		return reEnroll;
+	}
+
+	public void setReEnroll(String reEnroll) {
+		this.reEnroll = reEnroll;
+	}
+
+	public String getRegCal() {
+		return regCal;
+	}
+
+	public void setRegCal(String regCal) {
+		this.regCal = regCal;
+	}
+	public String getMemPhone() {
+		return memPhone;
+	}
+
+	public void setMemPhone(String memPhone) {
+		this.memPhone = memPhone;
+	}
+
+	public String getMemEmail() {
+		return memEmail;
+	}
+
+	public void setMemEmail(String memEmail) {
+		this.memEmail = memEmail;
+	}
+
+	@Override
+	public String toString() {
+		return "Register [regNo=" + regNo + ", memNo=" + memNo + ", clNo=" + clNo + ", teachDate=" + teachDate
+				+ ", regDate=" + regDate + ", schNo=" + schNo + ", regPay=" + regPay + ", regPrice=" + regPrice
+				+ ", regCount=" + regCount + ", regSta=" + regSta + ", refuse=" + refuse + ", reEnroll=" + reEnroll
+				+ ", regCal=" + regCal + "]";
+	}
+	
 }

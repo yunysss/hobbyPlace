@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.hp.register.model.vo.Register" %>
+<%
+	ArrayList<Register> rList = (ArrayList<Register>)request.getAttribute("rList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +16,8 @@
         #rsvApproval{width:800px; margin:auto;}
         #rsvApproval>div, #rsvListAll>div{padding:20px;}
         #rsvApproval button{
-            border:none;
-            border-radius:3px;
+	        border:none;
+	        border-radius:3px;
             margin-left:20px;
             height:40px;
             width:120px;
@@ -48,53 +52,50 @@
     <div class="outer">
         <h5><b>예약 승인</b></h5><br>
         <div id="rsvApproval">
-            신규 <b>1건</b>
             <div align="center">
-                <button>전체</button>
-                <button>NEW</button>
-                <button>승인완료</button>
-                <button>신청반려</button>
+                <button type="button" id="selectAll">전체</button>
+                <button type="button" id="selectNew">NEW</button>
+                <button type="button" id="selectFin">승인완료</button>
+                <button type="button" id="selectReject">신청반려</button>
             </div>
             <div id="rsvListAll">
-                <div class="rsvList">
-                    <div>
-                        2023-01-20 16:40:45 <br>
-                        김개똥 수강생 <br>
-                        <h5>제빵왕 원데이클래스</h5> <br>
-                        진행일시 : 2023-01-25 14:00 - 16:00
-                    </div>
-                    <div align="right">
-                        <span style="background:rgb(241, 196, 15);"><b>NEW</b></span>
-                    </div>
-                </div>
-                <br>
-
-                <div class="rsvList">
-                    <div>
-                        2023-01-20 16:40:45 <br>
-                        김개똥 수강생 <br>
-                        <h5>제빵왕 원데이클래스</h5> <br>
-                        진행일시 : 2023-01-25 14:00 - 16:00
-                    </div>
-                    <div align="right">
-                        <span style="background:rgb(22, 160, 133);"><b>승인완료</b></span>
-                    </div>
-                </div>
-                <br>
-
-                <div class="rsvList">
-                    <div>
-                        2023-01-20 16:40:45 <br>
-                        김개똥 수강생 <br>
-                        <h5>제빵왕 원데이클래스</h5> <br>
-                        진행일시 : 2023-01-25 14:00 - 16:00
-                    </div>
-                    <div align="right">
-                        <span style="background:rgb(180, 180, 180)"><b>신청반려</b></span>
-                    </div>
-                </div>
-                <br>
+            	<% if(rList.isEmpty()){ %>
+            		<div align="center">
+            		<b>예약 내역이 없습니다.</b>
+            		</div>
+            	<% } else{%>
+	            	<% for(int i=0; i<rList.size(); i++){ %>
+	            	
+		                <div class="rsvList">
+		                    <div>
+		                        <%= rList.get(i).getRegDate() %> <br>
+		                        <%= rList.get(i).getMemNo() %> 수강생 <br>
+		                        <h5><%= rList.get(i).getClNo() %></h5> <br>
+		                        진행일시 : <%= rList.get(i).getTeachDate() %> <%= rList.get(i).getSchNo() %>
+		                    </div>
+		                    <div align="right">
+		                        <span id="regSta"></span>
+		                        
+		                    </div>
+		                    <script>
+		                    let regSta = "";
+		                    let regColor = "";
+		                    switch(<%=rList.get(i).getRegSta()%>){
+		                    case 0: regSta = "NEW"; regColor = "rgb(241, 196, 15)"; break;
+		                    case 1: case 2: regSta = "승인완료"; regColor = "rgb(22, 160, 133)"; break;
+		                    case 3: regSta = "신청반려"; regColor = "rgb(180, 180, 180)";
+		                    }
+		                    $("#regSta").html("<b>" + regSta + "</b>");
+		                    $("#regSta").css("backgroundColor", regColor);
+		                    </script>
+	                	</div>
+	                	<br>
+	                <% } %>
+                <% } %>
             </div>
+            <script>
+            	
+            </script>
             
         </div>
     </div>

@@ -1,15 +1,18 @@
 package com.hp.tutor.model.service;
 
-import static com.hp.common.JDBCTemplate.*;
+import static com.hp.common.JDBCTemplate.close;
+import static com.hp.common.JDBCTemplate.commit;
+import static com.hp.common.JDBCTemplate.getConnection;
+import static com.hp.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.hp.admin.model.dao.AdminDao;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
 import com.hp.tutor.model.vo.Tutor;
 
@@ -73,5 +76,11 @@ public class TutorService {
 		return updateTutor;
 	}
 	
+	public ArrayList<Register> selectTutorRegister(int memNo){
+		Connection conn = getConnection();
+		ArrayList<Register> rList = new TutorDao().selectTutorRegister(conn, memNo);
+		close(conn);
+		return rList;
+	}
 
 }

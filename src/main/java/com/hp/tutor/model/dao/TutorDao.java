@@ -1,5 +1,7 @@
 package com.hp.tutor.model.dao;
 
+import static com.hp.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,12 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import static com.hp.common.JDBCTemplate.*;
-
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.vo.Tutor;
 
 public class TutorDao {
@@ -241,6 +242,38 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public ArrayList<Register> selectTutorRegister(Connection conn, int memNo){
+		ArrayList<Register> rList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectTutorRegister");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				rList.add(new Register(rset.getInt("reg_no"),
+									  rset.getString("mem_name"),
+									  rset.getString("cl_name"),
+									  rset.getString("teach_date"),
+									  rset.getString("reg_date"),
+									  rset.getString("sch_time"),
+									  rset.getString("reg_price"),
+									  rset.getString("reg_count"),
+									  rset.getString("reg_sta"),
+									  rset.getString("mem_phone"),
+									  rset.getString("mem_email")
+									  ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return rList;
 	}
 
 
