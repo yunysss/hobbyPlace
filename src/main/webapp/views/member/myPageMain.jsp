@@ -155,7 +155,7 @@
                 })
                 $("#viewMyClass").click(function(){
                     //마이클래스 클릭시 이동할 페이지링크
-                    location.href = "<%=contextPath%>/.....";
+                    location.href = "<%=contextPath%>/myClassList.tee";
                 })
                 $("#withdrawal").click(function(){
                     // 회원탈퇴 클릭시 이동할 페이지링크

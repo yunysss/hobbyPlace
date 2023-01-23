@@ -83,6 +83,24 @@
 		  FROM MEMBER
 		 WHERE MEM_NICKNAME = ?
 	</entry>
+	
+	
+	
+	<!-- 수강한클래스수 -->
+	<entry key="registerCount">
+		SELECT
+		       COUNT(*) "COUNT"
+		  FROM REGISTER
+		 WHERE MEM_NO = ?
+	</entry>
+	
+	<!-- 찜한클래스수 -->
+	<entry key="likeCount">
+		SELECT
+		      COUNT(*) "COUNT"
+		  FROM LIKE
+		 WHERE MEM_NO = ?
+	</entry>
 
 	
 </properties>
