@@ -63,6 +63,7 @@ padding: 5px 10px;
                 <div class="outer">
                     
                     <form action="" method="post" id="profile" >
+                    <input type="hidden" name="no" value="<%=tutorInfo.getMemNo()%>">
                     <h5 style="font-weight: 900;">프로필 관리</h5>
                     <hr>
                     <br>
@@ -72,19 +73,39 @@ padding: 5px 10px;
                             <th rowspan="2">프로필 사진</th>
                            
                             <td>
-                                <img src="<%=request.getContextPath()%>/<%=ttProfile %>" width="80"  class="rounded-circle" alt="Cinque Terre" >
+                                <img src="<%=request.getContextPath()%>/<%=ttProfile %>" id="loadedProfile" width="80"  class="rounded-circle" alt="Cinque Terre" >
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile" name="upfile">
+                                    <input type="file" class="custom-file-input" id="upProfile" name="upfile" >
                                     <label class="custom-file-label" for="customFile">파일선택</label>
+                                    <input type="hidden" name="originFile" value="<%=ttProfile%>">
                                 </div>
                                 <br>
                             <span>용량 2MB이하 jpg, png</span>
                             
                             </td> 
+                            <script>
+                                function readURL(input) {
+                                    if(input.files && input.files[0]) {
+                                        var reader = new FileReader();
+        
+                                        reader.onload = function (e) {
+                                            $("#loadedProfile").attr('src', e.target.result);
+                                        }
+        
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+                                $("#upProfile").change(function(){
+                                        readURL(this);
+                                });
+                            </script>
+
+
+
                         </tr>
                         
                         <tr>
@@ -125,7 +146,7 @@ padding: 5px 10px;
                             <th>공개연락처(선택)</th>
                             <td>
                                 <hr>
-                                <input type="tel" name="phone2" size="40"<%=pubPhone %>>
+                                <input type="tel" name="phone2" size="40" value="<%=pubPhone %>">
                             <br>
                             <span>튜티(회원)에게 노출되는 공개연락처입니다.<br>
                                 미입력 시 인증한 연락처가 노출됩니다.</span>

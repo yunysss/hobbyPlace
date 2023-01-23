@@ -50,6 +50,11 @@
         border: 1px solid rgb(202, 199, 199);
         border-radius: 5px;
         width: 700px;
+        resize: none;
+       
+         }
+         #refundPolicy{
+            background-color: rgb(223, 222, 222);
          }
         table{
             margin-left: 20px;
@@ -63,7 +68,7 @@
 
  <div id="content2">
                 <div class="outer">
-                    <form action="" id="enroll-form" class="classEnroll">
+                    <form action="clinsert.tt" id="enroll-form" class="classEnroll" method="post">
                     <h5 style="font-weight: 900; font-size: 18px;">클래스 등록</h5>
                     <br>
                     <span style="font-size: 14px; font-weight: 600;">클래스 설명</span>
@@ -178,10 +183,12 @@
                         <tr>
                             <th width="100">환불규정</th>
                             <td>
-                                <textarea name="" id=""  rows="10" readonly >
-
-
-
+                                <textarea name="refundPolicy" id="refundPolicy"  rows="5" readonly style="font-size:11px"   >
+1. 결제 후 14일 이내 취소 시 : 전액 환불
+2. 결제 후 14일 이후 취소 시 : 환불 불가
+[환불 신청 방법]
+1. 해당 클래스 결제한 계정으로 로그인
+2. 마이 - 신청내역 or 결제내역"
 
                                 </textarea>
                             </td>
@@ -204,8 +211,8 @@
                     </table>
                     <hr>
                     <div align="center">
-                        <button type="submit" class="btn btn-secondary btn-sm">이전</button>
-                        <button type="button" class="btn btn-secondary btn-sm">검수요청</button>
+                        <button type="button" class="btn btn-secondary btn-sm"  onclick="history.back();">이전</button>
+                        <button type="submit" class="btn btn-secondary btn-sm">검수요청</button>
                         
                         </div>
 
