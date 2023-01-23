@@ -12,12 +12,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
    
 <!--주소입력 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -179,7 +177,7 @@
       <!-- 여기부터-->
           
                 <div class="outer">
-                    <form action="" id="enroll-form" method="post" class="classEnroll">
+                    <form action="<%=contextPath %>/clenroll2.tt" id="enroll-form" method="post" class="classEnroll">
                     <h5 style="font-weight: 900;">클래스 등록</h5>
                     <br>
                     <span style="font-size: 14px; font-weight: 600;">기본정보</span>
@@ -218,9 +216,10 @@
                              
                                 <input id="class_sido" type="hidden"  name="sido" placeholder="시/도" readonly>
                                 <input id="class_sigungu" type="hidden" name="sigungu" placeholder="구" readonly> <br>
+                                
                                 <input id="class_addr" type="text" name="address" placeholder="주소입력" readonly>
                                 <button type="button" onclick="findAddr()"  class="btn btn-secondary btn-sm">주소검색 </button><br>
-                                <input type="text" name="Daddress" placeholder="상세주소입력"><br>
+                                <input type="text" name="dAddress" placeholder="상세주소입력"><br>
                                 <script>
                                     function findAddr(){
                                         new daum.Postcode({
@@ -264,10 +263,10 @@
                         <tr>
                             <th>난이도</th>
                             <td>
-                                <input type="radio" name="level" value="0" id="level"><label for="level">없음</label>
-                                <input type="radio" name="level" value="1" id="level"><label for="level">쉬움</label>
-                                <input type="radio" name="level" value="2" id="level"><label for="level">보통</label>
-                                <input type="radio" name="level" value="3" id="level"><label for="level">어려움</label>
+                                <input type="radio" name="level" value="없음" id="level"><label for="level">없음</label>
+                                <input type="radio" name="level" value="하" id="level"><label for="level">하</label>
+                                <input type="radio" name="level" value="중" id="level"><label for="level">중</label>
+                                <input type="radio" name="level" value="상" id="level"><label for="level">상</label>
                             </td>
                         </tr>
 
@@ -279,17 +278,26 @@
                         <tr>
                             <th width="100">판매시작일</th>
                             <td>
-                                <input type="date" name="startDate">
+                                <input type="date" name="startDate" id="startDate">
                             </td>
                         </tr>
                         <tr>
                             <th>판매종료일</th>
                             <td>
 
-                                <input type="date" name="endDate">
+                                <input type="date" name="endDate" id="endDate">
 
                             </td>
                         </tr>
+                        <script>
+                        var now_utc = Date.now()
+                        var timeOff = new Date().getTimezoneOffset()*60000;
+                        var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+                        document.getElementById("startDate").setAttribute("min", today);
+                        document.getElementById("endDate").setAttribute("min", today);
+                        
+                        
+                        </script>
 
                     </table>
                      <br>
@@ -299,9 +307,9 @@
                         <tr>
                             <th width="100">일정</th>
                             <td>
-                                <input type="radio" id="everyday" name="schedule"class="schedule">
+                                <input type="radio" id="everyday" name="schedule"class="schedule" value="매일">
                                 <label for="everyday">매일</label>
-                                <input type="radio" id="weekly" name="schedule" class="schedule">
+                                <input type="radio" id="weekly" name="schedule" class="schedule" value="매주">
                                 <label for="weekly">매주</label>
                                 <br>
 
@@ -317,8 +325,9 @@
                             </td>
 
                             <script>
+    
                                 $("input:radio[name=schedule]").on('click',function(){
-                                    if($(this).val() == 'everyday'){
+                                    if($(this).val() == '매일'){
                                         $("input:checkbox[name=day]").attr("checked",true);
                                     }else{
                                         $("input:checkbox[name=day]").attr("checked",false);
@@ -399,6 +408,8 @@
                     </div>
 
                     </form>
+                    
+                    
                 </div>
             
 
