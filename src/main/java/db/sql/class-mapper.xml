@@ -63,7 +63,8 @@
 	
 	<entry key="selectClassPage">
 		SELECT
-		       CT_NAME
+			   CL_NO
+		     , CT_NAME
 		     , CT_DNAME
 		     , TT_NAME
 		     , CL_NAME
@@ -127,6 +128,25 @@
 	<entry key="selectLikeStatus">
 		SELECT 
 		       COUNT(*) "LIKE_ST"
+		  FROM "LIKE"
+		 WHERE CL_NO = ?
+		   AND MEM_NO = ?
+	</entry>
+	<entry key="insertLikeClass">
+		INSERT
+		  INTO "LIKE"
+		  (
+		    CL_NO
+		  , MEM_NO
+		  )
+		  VALUES
+		  (
+		    ?
+		  , ?
+		  )
+	</entry>
+	<entry key="deleteLikeClass">
+		DELETE 
 		  FROM "LIKE"
 		 WHERE CL_NO = ?
 		   AND MEM_NO = ?

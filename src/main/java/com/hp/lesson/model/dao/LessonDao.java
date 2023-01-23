@@ -148,6 +148,7 @@ private Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				le = new Lesson(
+								rset.getInt("cl_no"),
 						        rset.getString("ct_name"),
 						        rset.getString("ct_dname"),
 						        rset.getString("tt_name"),
@@ -266,5 +267,45 @@ private Properties prop = new Properties();
 		}
 		return likeStatus;
 	}
+	
+	public int insertLikeClass(Connection conn, int clNo, int memNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertLikeClass");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			pstmt.setInt(2, memNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteLikeClass(Connection conn, int clNo, int memNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteLikeClass");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			pstmt.setInt(2, memNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 
 }

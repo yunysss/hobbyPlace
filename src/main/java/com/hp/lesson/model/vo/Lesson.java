@@ -188,10 +188,11 @@ public class Lesson {
 		this.clStarCount = clStarCount;
 	}
 
-	public Lesson(String ctNo, String ctDno, String memNo, String clName, String clAddress, int clMax, String clLevel,
+	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String clName, String clAddress, int clMax, String clLevel,
 			String startDate, String endDate, int clTimes, String clSchedule, String clDay, String clPrice,
 			Clob clDetail, String curriculum, String refundPolicy, String clSupplies, String clThumb, int clStarAvg, int clStarCount, int likeCount, String tutorProfile) {
 		super();
+		this.clNo = clNo;
 		this.ctNo = ctNo;
 		this.ctDno = ctDno;
 		this.memNo = memNo;

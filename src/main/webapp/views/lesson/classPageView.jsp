@@ -380,9 +380,9 @@
                         </div>
                         <div>
                         	<% if(likeStatus == 0) {%>
-                            	<a class="btn" id="like-btn-n">🤍 찜하기</a> <!-- 찜한 목록에 추가 / 로그인회원의 찜 리스트 조회 => 있으면 빨간하트로-->
+                            	<a class="btn like-btn">🤍 찜하기</a> 
                             <%}else{ %>
-                            	<a class="btn" id="like-btn-y">❤️ 찜하기</a>
+                            	<a class="btn like-btn">❤️ 찜하기 해제</a>
                             <%} %>
                             <a href="" class="btn">💬 1:1문의</a>
                         </div>
@@ -398,24 +398,43 @@
     </div>
     <script>
 	   	$(function(){
-	   		$("#like-btn-n").click(function(){
-	   			if(<%=loginUser%> == null){
+   			$(".like-btn").click(function(){
+   				<% if(loginUser != null){ %>
+   					if($(this).text().includes("🤍")){
+		   				$.ajax({
+		   					url:"<%=contextPath%>/classLike.cl",
+		   					data:{
+		   						clNo:<%=le.getClNo()%>,
+		   						memNo:<%=loginUser.getMemNo()%>
+		   					},
+		   					success:function(result){
+		   						if(result > 0){
+		   							$(".like-btn").text("❤️ 찜하기 해제");
+		   						}
+		   					},error:function(){
+		   						
+		   					}
+		   				})
+   					} else{
+   						$.ajax({
+   		   					url:"<%=contextPath%>/classDislike.cl",
+   		   					data:{
+   		   						clNo:<%=le.getClNo()%>,
+   		   						memNo:<%=loginUser.getMemNo()%>
+   		   					},
+   		   					success:function(result){
+   		   						if(result > 0){
+   		   							$(".like-btn").text("🤍 찜하기");
+   		   						}
+   		   					},error:function(){
+   		   						
+   		   					}
+   		   				})
+   					}	
+   				<%} else{%>
 	   				$(this).attr("data-toggle", "modal");
 	   				$(this).attr("data-target", "#myModal1");
-	   			} else{
-	   				$.ajax({
-	   					url:"<%=contextPath%>/classLike.cl",
-	   					data:{
-	   						clNo:<%=le.getClNo()%>,
-	   						mem:<%=loginUser%>
-	   					},
-	   					success:function(){
-	   						
-	   					},error:function(){
-	   						
-	   					}
-	   				})
-	   			}
+   				<%}%>
 	   		})
 	   	})
 	</script>

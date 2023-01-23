@@ -1,7 +1,6 @@
 package com.hp.lesson.model.service;
 
-import static com.hp.common.JDBCTemplate.close;
-import static com.hp.common.JDBCTemplate.getConnection;
+import static com.hp.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -77,6 +76,30 @@ public class LessonService {
 		int likeStatus = new LessonDao().selectLikeStatus(conn, clNo, memNo);
 		close(conn);
 		return likeStatus;
+	}
+	
+	public int insertLikeClass(int clNo, int memNo) {
+		Connection conn = getConnection();
+		int result = new LessonDao().insertLikeClass(conn, clNo, memNo);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int deleteLikeClass(int clNo, int memNo) {
+		Connection conn = getConnection();
+		int result = new LessonDao().deleteLikeClass(conn, clNo, memNo);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 }
