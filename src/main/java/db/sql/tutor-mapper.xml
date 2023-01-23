@@ -86,7 +86,37 @@
 	 	WHERE MEM_NO = ?
 
 	</entry>
+	
+	<!-- 튜터 닉네임 중복체크 -->
+	<entry key="nickCheck">
+		SELECT
+			   COUNT(*) "COUNT"
+		  FROM TUTOR
+		WHERE TT_NAME = ? 
+		 
+	</entry>
 
+	<entry key="selectTutorRegister">
+		SELECT
+		       REG_NO
+		     , MEM_NAME
+		     , CL_NAME
+		     , TEACH_DATE
+		     , REG_DATE
+		     , START_TIME || '-' || END_TIME "SCH_TIME"
+		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_COUNT || '명' "REG_COUNT"
+		     , REG_STA
+		     , MEM_PHONE
+		     , NVL(MEM_EMAIL, '없음') "MEM_EMAIL"
+		  FROM REGISTER
+		  JOIN MEMBER USING(MEM_NO)
+		  JOIN CLASS C USING(CL_NO)
+		  JOIN SCHEDULE USING(SCH_NO)
+		 WHERE C.MEM_NO = ?
+		 ORDER 
+		    BY REG_NO
+	</entry>
 
 
 

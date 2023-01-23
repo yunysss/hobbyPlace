@@ -112,7 +112,7 @@ padding: 5px 10px;
                             <th>휴대폰 인증</th>
                             <td>
                                 <hr>
-                                <input type="tel" name="phone" size="40" value="<%=tutorInfo.getTtPhone()%>">&nbsp;&nbsp;<button class="btn btn-secondary btn-sm">재인증</button>
+                                <input type="tel" name="phone" required size="40" value="<%=tutorInfo.getTtPhone()%>">&nbsp;&nbsp;<button class="btn btn-secondary btn-sm">재인증</button>
                             <br>
                                 <span>클래스를 직접 운영하실 튜터님의 휴대폰 번호로 인증해주세요.</span>
                                
@@ -123,9 +123,11 @@ padding: 5px 10px;
                             <th>튜터명</th>
                             <td>
                                 <hr>
-                                <input type="text" name="nickName" maxlength="20" class="form-control-sm" size="40" value="<%=tutorInfo.getTtName() %>">
+                                <input type="text" name="nickName" required maxlength="20" class="input_id" size="40" value="<%=tutorInfo.getTtName() %>">
+	                 
                                 <br>
-                                <span>최대 20자 이내로 입력해주세요.<br>
+                                 <font id = "checkId" size = "1"></font>
+                                <span>최대 20자 이내로 입력해주세요.</span>
                                 
                             </td>
 
@@ -184,6 +186,36 @@ padding: 5px 10px;
 
                 </div>
         </div>
+        
+        
+       	 <script>
+			$('.input_id').focusout(function(){
+				let ttName = $('.input_id').val(); // input_id에 입력되는 값
+				
+				$.ajax({
+					url : "<%=contextPath%>/checknick.tt",
+					type : "post",
+					data : {checkNick: ttName},
+					success : function(result){
+						if(result == 0){
+							$("#checkId").html('사용할 수 없는 아이디입니다.');
+							$("#checkId").attr('color','red');
+						} else{
+							$("#checkId").html('사용할 수 있는 아이디입니다.');
+							$("#checkId").attr('color','green');
+						} 
+					},
+					error : function(){
+						alert("서버요청실패");
+					}
+				})
+				 
+			})
+		 </script>
+  
+        
+        
+        
         <%@ include file="../common/footerbar.jsp" %>
 
 </body>

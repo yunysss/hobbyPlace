@@ -1,4 +1,4 @@
-package com.hp.tutor.controller;
+package com.hp.lesson.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,21 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.hp.register.model.vo.Register;
-import com.hp.tutor.model.service.TutorService;
+import com.hp.lesson.model.vo.Category;
+import com.hp.lesson.model.vo.Dcategory;
 
 /**
- * Servlet implementation class ReservationApprovalController
+ * Servlet implementation class ClassEnrolltest
  */
-@WebServlet("/approval.tt")
-public class TutorApprovalController extends HttpServlet {
+@WebServlet("/test.do")
+public class ClassEnrolltest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TutorApprovalController() {
+    public ClassEnrolltest() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +32,7 @@ public class TutorApprovalController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		ArrayList<Register> rList = new TutorService().selectTutorRegister(memNo);
-		
-		request.setAttribute("rList", rList);
-		request.getRequestDispatcher("views/tutor/reservationApproval.jsp").forward(request, response);
 	}
 
 	/**
