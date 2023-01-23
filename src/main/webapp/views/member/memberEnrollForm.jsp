@@ -46,13 +46,13 @@
         width:100%;
         height:35px;
         box-sizing:border-box;  
-        border:1px solid rgb(35, 104, 116);
+        border:1px solid rgb(143, 143, 143);
         border-radius:5px;
-        color:rgb(182, 1, 1);
+        color:rgb(143, 143, 143);
         background: white;
     }
     #postCode{width:48%;}
-    .doubleCheck:hover{cursor:pointer; border:2px solid rgb(35, 104, 116);}
+    
     .gender{width:33px;}
     .birthDay{
         width:30%;
@@ -116,48 +116,51 @@
                     <tr>
                         <td class="td1">아이디 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="userId" class="fillOutForms" name="userId" placeholder="영문과 숫자 조합 4~16자" onclick="check();" required>
+                            <input type="text" id="userId" class="fillOutForms" name="userId" placeholder="영문과 숫자 조합 4~16자" required>
                         </td>
                         <td class="td3">
-                            <button type="button" class="doubleCheck" onclick="idCheck();">중복확인</button>
+                            <button type="button" class="doubleCheck idDoubleCheck" onclick="idCheck();" disabled>중복확인</button>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td class="td2 checkAlert idTest"></td>
                         <td></td>
-                    </tr>
+                    </tr>    
                     <script>
-                    	function idCheck(){
-                    		const $idInput = $("#userId");
-                    		
-                    		$.ajax({
-                    			url:"<%=contextPath%>/idCheck.me",
-                    			data:{checkId:$idInput.val()},
-                    			success:function(result){
-                    				if(result == "NNNNN") {
-                    					$(".idTest").html("이미 존재하거나 탈퇴한 회원의 아이디입니다.");
-                    					$idInput.focus();
-                    				}else{
-                    					$(".idTest").html("");
-                    					if(confirm("사용가능한 아이디입니다. 정말로 사용하시겠습니까?")){
-                    						$idInput.attr("readonly", true);
-                    						$("#enroll-form :submit").removeAttr("disabled");
-                    					}else {
-                    						$idInput.focus();
-                    					}
-                    				}
-                    			},
-                    			error:function(){
-                    				console.log("아이디 중복체크용 ajax 통신실패");
-                    			}
-                    		})
-                    	}
-                    </script>             
+					   	function idCheck(){
+					   		const $idInput = $("#userId");
+					   		
+					   		$.ajax({
+					   			url:"<%=contextPath%>/idCheck.me",
+					   			data:{checkId:$idInput.val()},
+					   			success:function(result){
+					   				if(result == "NNNNN") {
+					   					$(".idTest").html("이미 존재하거나 탈퇴한 회원의 아이디입니다.");
+					   					$idInput.focus();
+					   				}else if(result=="NNNNY"){
+					   					$(".idTest").html("");
+					   					if(confirm("사용가능한 아이디입니다. 정말로 사용하시겠습니까?")){
+					   						$idInput.attr("readonly", true);
+					   						$(".idDoubleCheck").attr("disabled");
+					   						$(".idDoubleCheck").css('cursor', 'default').css('color', 'rgb(35, 104, 116)').text("확인완료");
+					   						//$("#enroll-form :submit").removeAttr("disabled");
+					   						
+					   					}else {
+					   						$idInput.focus();
+					   					}
+					   				}
+					   			},
+					   			error:function(){
+					   				console.log("아이디 중복체크용 ajax 통신실패");
+					   			}
+					   		})
+					   	}
+					</script>         
                     <tr>
                         <td class="td1">비밀번호 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="password" class="fillOutForms" id="userPwd" name="userPwd" onclick="check();" placeholder="영문, 숫자, 특수문자 포함 6~20자" required>
+                            <input type="password" class="fillOutForms" id="userPwd" name="userPwd" placeholder="영문, 숫자, 특수문자 포함 6~20자" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -169,7 +172,7 @@
                     <tr>
                         <td class="td1">비밀번호 확인 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="password" class="fillOutForms" id="userPwdCheck" onclick="check();" placeholder="영문, 숫자, 특수문자 포함 12~20자" required>
+                            <input type="password" class="fillOutForms" id="userPwdCheck" placeholder="영문, 숫자, 특수문자 포함 12~20자" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -181,7 +184,7 @@
                     <tr>
                         <td class="td1">이름 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="userName" class="fillOutForms" name="userName" onclick="check();" placeholder="이름을 입력해주세요" required>
+                            <input type="text" id="userName" class="fillOutForms" name="userName" placeholder="이름을 입력해주세요" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -193,10 +196,10 @@
                     <tr>
                         <td class="td1">닉네임 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="userNickName" class="fillOutForms" name="userNick" onclick="check();" placeholder="8글자 이내로 입력하세요(특수문자제외)" required>
+                            <input type="text" id="userNickName" class="fillOutForms" name="userNick" placeholder="8글자 이내로 입력하세요(특수문자제외)" required>
                         </td>
                         <td class="td3">
-                            <button type="button" class="doubleCheck">중복확인</button>
+                            <button type="button" class="doubleCheck nickDoubleCheck" onclick="nickCheck();" disabled>중복확인</button>
                         </td>
                     </tr>
                     <tr>
@@ -204,13 +207,43 @@
                         <td class="td2 checkAlert nickNameTest"></td>
                         <td></td>
                     </tr>
+                    <script>
+                    	function nickCheck(){
+                    		const $nickInput = $("#userNickName");
+                    		
+                    		$.ajax({
+                    			url:"<%=contextPath%>/nickCheck.me",
+                    			data:{checkNick:$nickInput.val()},
+                    			success:function(result){
+                    				if(result == "NNNNN"){
+                    					$(".nickNameTest").html("이미 존재하는 닉네임입니다");
+                    					$nickInput.focus();
+                    				}else if(result=="NNNNY"){
+                    					$(".nickNameTest").html("");
+                    					if(confirm("사용가능한 닉네임입니다. 정말로 사용하시겠습니까?")){
+                    						// 확인 눌렀을때
+                    						$nickInput.attr("readonly", true);
+                    						$(".nickDoubleCheck").attr("disabled");
+                    						$(".nickDoubleCheck").css('cursor', 'default').css('color', 'rgb(35, 104, 116)').text("확인완료");
+                    					}else {
+                							// 취소 눌렀을때
+                							$nickInput.focus();
+                    					}
+                    				}
+                    			},
+                    			error:function(){
+                    				console.log("닉네임 중복체크용 ajax 통신실패");
+                    			}
+                    		});
+                    	}
+                    </script>
                     <tr>
                         <td class="td1">이메일 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="email" class="fillOutForms" name="email" placeholder="예) hobbyplace@hobpl.com" required>
+                            <input type="email" class="fillOutForms" id="email" name="email" placeholder="예) hobbyplace@hobpl.com" required>
                         </td>
                         <td class="td3">
-                            <button type="button" class="doubleCheck">중복확인</button>
+                            <button type="button" class="doubleCheck emailDoubleCheck" disabled>중복확인</button>
                         </td>
                     </tr>
                     <tr>
@@ -224,7 +257,7 @@
                             <input type="text" id="phone" class="fillOutForms" name="phone" onclick="check();" placeholder="-포함하여 입력해주세요" required>
                         </td>
                         <td class="td3">
-                            <button type="button" class="doubleCheck">인증번호 받기</button>
+                            <button type="button" class="doubleCheck phoneDoubleCheck" disabled>인증번호 받기</button>
                         </td>
                     </tr>
                     <tr>
@@ -468,22 +501,27 @@
         </div>
     </div>
     <script>
-        function check(){
+        $(function(){
            let idCheck = RegExp(/^[a-z\d]{4,16}$/);
            let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{6,20}$/i);
            let nameCheck = RegExp(/^[가-힣]{2,}$/);
            let nickCheck = RegExp(/^[a-z\d가-힣]{1,8}$/i);
            let phoneCheck = RegExp(/^[0][1][\d]-[\d]{3,4}-[\d]{3,4}$/);
+           let emailCheck = RegExp(/^[a-z\d+-_.]+@[a-z\d-]+\.[a-z\d.]+$/i);
 
-            $("#userId").focusout(function(){
+            $("#userId").keyup(function(){
                 if(!idCheck.test($("#userId").val())){
                     $(".idTest").html('유효한 아이디가 아닙니다.');
+                    $(".idDoubleCheck").attr("disabled");
+                    $(".idDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
                 }else{
                     $(".idTest").html('');
+                    $(".idDoubleCheck").removeAttr("disabled");
+                    $(".idDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
                 }
             })
 
-            $("#userPwd").focusout(function(){
+            $("#userPwd").keyup(function(){
                 if(!pwdCheck.test($("#userPwd").val())){
                     $(".pwdTest1").html('유효한 비밀번호가 아닙니다.');
                 }else{
@@ -491,7 +529,7 @@
                 }
             })
 
-            $("#userPwdCheck").focusout(function(){
+            $("#userPwdCheck").keyup(function(){
                 if($("#userPwd").val() != $("#userPwdCheck").val()){
                     $(".pwdTest2").html('비밀번호가 일치하지 않습니다.');
                 }else{
@@ -499,7 +537,7 @@
                 }
             })
 
-            $("#userName").focusout(function(){
+            $("#userName").keyup(function(){
                 if(!nameCheck.test($("#userName").val())){
                     $(".nameTest").html('유효한 이름이 아닙니다.');
                 }else{
@@ -507,28 +545,45 @@
                 }
             })
             
-            $("#userNickName").focusout(function(){
+            $("#userNickName").keyup(function(){
             	if(!nickCheck.test($("#userNickName").val())){
             		$(".nickNameTest").html('유효한 닉네임 형식이 아닙니다.');
+            		$(".nickDoubleCheck").attr("disabled");
+                    $(".nickDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
             	}else{
             		$(".nickNameTest").html('');
+                    $(".nickDoubleCheck").removeAttr("disabled");
+                    $(".nickDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
+            	}
+            })
+            
+            $("#email").keyup(function(){
+            	if(!emailCheck.test($("#email").val())){
+            		$(".emailTest").html('유효한 이메일 형식이 아닙니다.');
+            		$(".emailDoubleCheck").attr("disabled");
+            		$(".emailDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
+            	}else{
+            		$(".emailTest").html('');
+                    $(".emailDoubleCheck").removeAttr("disabled");
+                    $(".emailDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
             	}
             })
 
-            $("#phone").focusout(function(){
+            $("#phone").keyup(function(){
                 if(!phoneCheck.test($("#phone").val())){
                     $(".phoneTest").html('유효한 연락처 형식이 아닙니다.');
+                    $(".phoneDoubleCheck").attr("disabled");
+                    $(".phoneDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
                 }else{
                     $(".phoneTest").html('');
+                    $(".phoneDoubleCheck").removeAttr("disabled");
+                    $(".phoneDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
                 }
             })
-        }
-        
-        function enrollMember(){
-        	
-        }
-        
+            
+        })
     </script>
+
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     
     

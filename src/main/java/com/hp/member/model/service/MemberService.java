@@ -49,9 +49,17 @@ public class MemberService {
 		Connection conn = getConnection();
 		int count = new MemberDao().idCheck(conn, checkId);
 		close(conn);
+		
 		return count;
 	}
 	
+	public int nickCheck(String checkNick) {
+		Connection conn = getConnection();
+		int count = new MemberDao().nickCheck(conn, checkNick);
+		close(conn);
+		
+		return count;
+	}
 	
 	
 	

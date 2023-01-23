@@ -106,31 +106,56 @@ public class MemberDao {
 		}
 		return result;
 	}
-	/** 회원가입시 프로필사진 db저장용 dao메소드
+	
+	/** 아이디중복체크
 	 * @author 수연
 	 * @param conn
-	 * @param m
-	 * @return int result
+	 * @param checkId
+	 * @return count
 	 */
-	/*
-	public int insertAttachment(Connection conn, Member m) {
-		int result = 0;
+	public int idCheck(Connection conn, String checkId) {
+		int count = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertAttachment");
+		ResultSet rset = null;
+		String sql = prop.getProperty("idCheck");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, m.getMemProfile());
-			
-			result = pstmt.executeUpdate();
+			pstmt.setString(1, checkId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
-		return result;
+		return count;
 	}
-	*/
+	
+	public int nickCheck(Connection conn, String checkNick) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("nickCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, checkNick);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
 	
 	
 	
