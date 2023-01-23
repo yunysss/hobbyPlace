@@ -9,11 +9,11 @@
     <title>My Page Main</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <style>
-        div{box-sizing:border-box; border: 1px solid;}
-        .cwrap{width:1000px; height:1000px; margin:auto;}
+        div{box-sizing:border-box; /*border: 1px solid;*/}
+        .cwrap{width:1000px; height:1000px; margin:auto; padding:2px;}
         
-        .menubar{width:200px; height:100%; float:left; padding-top:30px; background: white;}
-        .content{width:797px; height:100%; float:left; margin:0;}
+        .menubar{width:200px; height:100%; float:left; padding-top:30px; background: white; margin: 5px;}
+        .content{width:785px; height:100%; float:left; margin:0;}
         
         .categoryMain {
             width:90%;
@@ -85,7 +85,7 @@
 	<%@ include file="../common/tuteeMenubar.jsp" %>
     <div class="cwrap">
         <div class="menubar">
-            <h3 align="center">마이클래스</h3>
+            <h4 align="center" style="font-weight: bold;">마이클래스</h4>
 
             <div class="categoryMain" align="center" id="myClass" onclick="">수강 내역</div>
             <ul class="categoryDetail">
