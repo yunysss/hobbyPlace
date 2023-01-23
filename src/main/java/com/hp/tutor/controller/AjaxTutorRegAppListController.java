@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.register.model.vo.Register;
-import com.hp.tutor.model.service.TutorService;
+import com.google.gson.Gson;
+import com.hp.lesson.model.service.LessonService;
+import com.hp.lesson.model.vo.Lesson;
 
 /**
- * Servlet implementation class ReservationApprovalController
+ * Servlet implementation class TutorRegAppListController
  */
-@WebServlet("/approval.tt")
-public class TutorApprovalController extends HttpServlet {
+@WebServlet("/regAppList.tt")
+public class AjaxTutorRegAppListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TutorApprovalController() {
+    public AjaxTutorRegAppListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +32,9 @@ public class TutorApprovalController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		ArrayList<Register> rList = new TutorService().selectTutorRegister(memNo);
-		ArrayList<Register> nList = new TutorService().selectTutorNewRegister(memNo);
-		ArrayList<Register> fList = new TutorService().selectTutorFinRegister(memNo);
-		ArrayList<Register> rjList = new TutorService().selectTutorRejectRegister(memNo);
 		
-		request.setAttribute("rList", rList);
-		request.setAttribute("nList", nList);
-		request.setAttribute("fList", fList);
-		request.setAttribute("rjList", rjList);
-		request.getRequestDispatcher("views/tutor/reservationApproval.jsp").forward(request, response);
+		
 	}
 
 	/**

@@ -275,6 +275,104 @@ private Properties prop = new Properties();
 		}
 		return rList;
 	}
+	
+	public ArrayList<Register> selectTutorNewRegister(Connection conn, int memNo){
+		ArrayList<Register> nList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectTutorNewRegister");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, 0);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				nList.add(new Register(rset.getInt("reg_no"),
+									  rset.getString("mem_name"),
+									  rset.getString("cl_name"),
+									  rset.getString("teach_date"),
+									  rset.getString("reg_date"),
+									  rset.getString("sch_time"),
+									  rset.getString("reg_price"),
+									  rset.getString("reg_count"),
+									  rset.getString("reg_sta"),
+									  rset.getString("mem_phone"),
+									  rset.getString("mem_email")
+									  ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return nList;
+	}
+	
+	public ArrayList<Register> selectTutorFinRegister(Connection conn, int memNo){
+		ArrayList<Register> fList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectTutorFinRegister");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				fList.add(new Register(rset.getInt("reg_no"),
+									  rset.getString("mem_name"),
+									  rset.getString("cl_name"),
+									  rset.getString("teach_date"),
+									  rset.getString("reg_date"),
+									  rset.getString("sch_time"),
+									  rset.getString("reg_price"),
+									  rset.getString("reg_count"),
+									  rset.getString("reg_sta"),
+									  rset.getString("mem_phone"),
+									  rset.getString("mem_email")
+									  ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return fList;
+	}
+	
+	public ArrayList<Register> selectTutorRejectRegister(Connection conn, int memNo){
+		ArrayList<Register> rjList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectTutorNewRegister");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, 4);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				rjList.add(new Register(rset.getInt("reg_no"),
+									  rset.getString("mem_name"),
+									  rset.getString("cl_name"),
+									  rset.getString("teach_date"),
+									  rset.getString("reg_date"),
+									  rset.getString("sch_time"),
+									  rset.getString("reg_price"),
+									  rset.getString("reg_count"),
+									  rset.getString("reg_sta"),
+									  rset.getString("mem_phone"),
+									  rset.getString("mem_email")
+									  ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return rjList;
+	}
 
 
 	
