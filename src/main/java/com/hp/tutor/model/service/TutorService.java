@@ -55,5 +55,23 @@ public class TutorService {
 		return dList;
 	}
 	
+	public Tutor updateTutorProfile(Tutor t) {
+		Connection conn = getConnection();
+		int result = new TutorDao().updateTutorProfile(conn,t);
+	
+		Tutor updateTutor = null;
+		if(result>0) {
+			commit(conn);
+			// 갱신된 튜터 객체 다시 조회해오기 
+			updateTutor = new TutorDao().selectTutorInfo(conn,t.getMemNo());
+			
+		}else {
+			rollback(conn);
+			
+		}
+		
+		return updateTutor;
+	}
+	
 
 }
