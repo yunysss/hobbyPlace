@@ -12,6 +12,8 @@ public class Review {
 	private int clNo;
 	private String clName;
 	private String clThumb;
+	private String memNickName;
+	private String memProfile;
 	
 	
 	public Review() {}
@@ -39,6 +41,18 @@ public class Review {
 		this.clNo = clNo;
 		this.clName = clName;
 		this.clThumb = clThumb;
+	}
+
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate,
+			String memNickName, String memProfile) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.reviewUpDate = reviewUpDate;
+		this.memNickName = memNickName;
+		this.memProfile = memProfile;
 	}
 
 	public int getReviewNo() {
@@ -121,6 +135,22 @@ public class Review {
 		this.clThumb = clThumb;
 	}
 	
+
+	public String getMemNickName() {
+		return memNickName;
+	}
+
+	public void setMemNickName(String memNickName) {
+		this.memNickName = memNickName;
+	}
+
+	public String getMemProfile() {
+		return memProfile;
+	}
+
+	public void setMemProfile(String memProfile) {
+		this.memProfile = memProfile;
+	}
 
 	@Override
 	public String toString() {

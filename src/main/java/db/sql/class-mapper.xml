@@ -81,10 +81,17 @@
 		     , REFUNDPOLICY
 		     , NVL(CL_SUPPLIES, '준비물 없음') "CL_SUPPLIES"
 		     , CL_THUMB
+		     , (SELECT AVG(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		     , (SELECT COUNT(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
 		     , (SELECT COUNT(*)
 		          FROM "LIKE" L
 		         WHERE L.CL_NO = C.CL_NO
 		         GROUP BY L.CL_NO) "LIKE_COUNT"
+		     , TT_PROFILE
 		  FROM CLASS C
 		  JOIN CATEGORY USING(CT_NO)
 		  JOIN DCATEGORY USING(CT_DNO)
@@ -101,6 +108,21 @@
 		 WHERE REF_NO = ?
 		   AND REF_TYPE = 1
 		   AND STATUS = 'Y'
+	</entry>
+	<entry key="selectClassReview">
+		SELECT
+		       RE_NO
+		     , CONTENT
+		     , RE_STAR
+		     , RE_DATE
+		     , RE_UPDATE
+		     , MEM_NICKNAME
+		     , MEM_PROFILE
+		  FROM REVIEW R
+		  JOIN REGISTER USING(REG_NO)
+		  JOIN MEMBER USING(MEM_NO)
+		 WHERE R.CL_NO = ?
+		   AND RE_STA = 'Y'
 	</entry>
 
 </properties>

@@ -10,10 +10,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <style>
         div{box-sizing:border-box; border: 1px solid;}
-        .wrap{width:1200px; height:100vh; margin:auto;}
+        .cwrap{width:1000px; height:1000px; margin:auto;}
         
-        .menubar{width:200px; height:100%; float:left; padding-top:0; background: white;}
-        .content{width:1000px; height:100%; float:left; }
+        .menubar{width:200px; height:100%; float:left; padding-top:30px; background: white;}
+        .content{width:797px; height:100%; float:left; margin:0;}
         
         .categoryMain {
             width:90%;
@@ -83,7 +83,7 @@
 </head>
 <body>
 	<%@ include file="../common/tuteeMenubar.jsp" %>
-    <div class="wrap">
+    <div class="cwrap">
         <div class="menubar">
             <h3 align="center">마이클래스</h3>
 
@@ -100,16 +100,10 @@
             <div class="categoryMain" align="center" id="likeList" onclick="">찜목록</div>
             <ul class="categoryDetail">
             </ul>
-        </div>
-
-
-        <div class="content">
             
         </div>
-
-    </div>
-
-   
+        
+        
 
 </body>
 </html>
