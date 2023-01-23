@@ -66,16 +66,16 @@
 		height: 23px;
 		text-align: center;
 	}
-	table{width: 90%; margin-top: 16px;}
+	#classDetail table{width: 90%; margin-top: 16px;}
 
-	thead td{font-size: 12px; color: gray;}
+	#classDetail thead td {font-size: 12px; color: gray;}
 
 	#classTitle{
 		font-weight: bold;
 		font-size: 20px;
 		height: 43px;
 	}
-	tfoot button{
+	#classDetail tfoot button{
 		width: 150px;
 		height: 35px;
 		margin: 12px;
