@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ page import = "java.util.ArrayList, com.hp.common.model.vo.PageInfo, com.hp.lesson.model.vo.*" %>
+ <%
+ 
+	 ArrayList<Category> cList = (ArrayList<Category>)session.getAttribute("cList");
+	 ArrayList<Dcategory> dList = (ArrayList<Dcategory>)session.getAttribute("dList");
+ 
+  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,6 +160,15 @@
         
         margin-left: 20px;
     }
+    select{
+    	 width: 150px;
+        border: 1px solid rgb(202, 199, 199);
+        height: 32px;
+        border-radius: 5px;
+  
+    }
+    
+    }
     </style>
 
 </head>
@@ -173,29 +189,53 @@
                         <tr>
                             <th width=100>카테고리</th>
                             <td>
-                                <select name="" id="" class="form-control-sm">
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-
+                                <select name="category" id="category" class="ct" onchange="dCategoryChange(this)">
+                                    <%for(Category c : cList){ %>
+		                            <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
+		                        	<%} %>
                                 </select>
-                                <select name="" id="" class="form-control-sm">
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
+                                <select name="dCategory" id="Dcategory" class="ct">
+                                   <%for(Dcategory d : dList){ %>
+		                            <option value="<%=d.getCtDno()%>"><%=d.getCtDname() %></option>
+		                            <%} %>
 
                                 </select>
                             </td>
+                            <script>
+                            	function dCategoryChange(e){
+                            		if(e.value == d.getCtNo();) var d = 
+                            			for(Dcategory d : dList){
+                            				d.getCtDname();
+                            			}
+                            		target.options.length = 0;
+                            		
+                            		for( x in d){
+                            			var opt = document.createElement("option");
+                            			opt.value = d[x];
+                            			opt.innerHTML= d[x];
+                            			target.appenChild(opt);
+                            		}
+                            		
+                            		
+                            	}
+                            
+                            
+                            
+                            
+                            </script>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                         </tr>
                         <tr>
                             <th>클래스명</th>
                             <td>
                                 <br>
-                                <input type="text" name="" value="" class="form-control">
+                                <input type="text" name="className" class="form-control">
                                 
                             </td>
                         </tr>
@@ -246,7 +286,7 @@
                         </tr>
                         <tr>
                             <th>최대인원</th>
-                            <td><input type="number" class="form-control-sm"> 명</td>
+                            <td><input type="number" name="clMax" class="form-control-sm"> 명</td>
                         </tr>
                         <tr>
                             <th>난이도</th>
