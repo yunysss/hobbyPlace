@@ -39,7 +39,20 @@ public class Register {
 	}
 
 	public Register(int regNo, String memNo, String clNo, String teachDate, String regDate, String schNo,
-			String regPrice, String regCount, String regSta, String memPhone, String memEmail) {
+			String regPrice, String regSta) {
+		super();
+		this.regNo = regNo;
+		this.memNo = memNo;
+		this.clNo = clNo;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.schNo = schNo;
+		this.regPrice = regPrice;
+		this.regSta = regSta;
+	}
+
+	public Register(int regNo, String memNo, String clNo, String teachDate, String regDate, String schNo,
+			String regPrice, String regCount, String memPhone, String memEmail) {
 		super();
 		this.regNo = regNo;
 		this.memNo = memNo;
@@ -49,7 +62,6 @@ public class Register {
 		this.schNo = schNo;
 		this.regPrice = regPrice;
 		this.regCount = regCount;
-		this.regSta = regSta;
 		this.memPhone = memPhone;
 		this.memEmail = memEmail;
 	}

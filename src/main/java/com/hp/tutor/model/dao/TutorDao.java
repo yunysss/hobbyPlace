@@ -290,15 +290,13 @@ private Properties prop = new Properties();
 									  rset.getString("reg_date"),
 									  rset.getString("sch_time"),
 									  rset.getString("reg_price"),
-									  rset.getString("reg_count"),
-									  rset.getString("reg_sta"),
-									  rset.getString("mem_phone"),
-									  rset.getString("mem_email")
+									  rset.getString("reg_sta")
 									  ));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+			close(rset);
 			close(pstmt);
 		}
 		return rList;
@@ -323,15 +321,13 @@ private Properties prop = new Properties();
 									  rset.getString("reg_date"),
 									  rset.getString("sch_time"),
 									  rset.getString("reg_price"),
-									  rset.getString("reg_count"),
-									  rset.getString("reg_sta"),
-									  rset.getString("mem_phone"),
-									  rset.getString("mem_email")
+									  rset.getString("reg_sta")
 									  ));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+			close(rset);
 			close(pstmt);
 		}
 		return nList;
@@ -355,15 +351,13 @@ private Properties prop = new Properties();
 									  rset.getString("reg_date"),
 									  rset.getString("sch_time"),
 									  rset.getString("reg_price"),
-									  rset.getString("reg_count"),
-									  rset.getString("reg_sta"),
-									  rset.getString("mem_phone"),
-									  rset.getString("mem_email")
+									  rset.getString("reg_sta")
 									  ));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+			close(rset);
 			close(pstmt);
 		}
 		return fList;
@@ -388,18 +382,68 @@ private Properties prop = new Properties();
 									  rset.getString("reg_date"),
 									  rset.getString("sch_time"),
 									  rset.getString("reg_price"),
-									  rset.getString("reg_count"),
-									  rset.getString("reg_sta"),
-									  rset.getString("mem_phone"),
-									  rset.getString("mem_email")
+									  rset.getString("reg_sta")
 									  ));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+			close(rset);
 			close(pstmt);
 		}
 		return rjList;
+	}
+	
+	public Register selectDetailApproval(Connection conn, int regNo) {
+		Register r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectDetailApproval");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, regNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = new Register(rset.getInt("reg_no"),
+								rset.getString("mem_name"),
+								rset.getString("cl_name"),
+								rset.getString("teach_date"),
+								rset.getString("reg_date"),
+								rset.getString("sch_time"),
+								rset.getString("reg_price"),
+								rset.getString("reg_count"),
+								rset.getString("mem_phone"),
+								rset.getString("mem_email"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
+	}
+	
+	public int updateRegister(Connection conn, int regSta, int regNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRegister");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, regSta);
+			pstmt.setInt(2, regNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 

@@ -111,5 +111,23 @@ public class TutorService {
 		close(conn);
 		return rjList;
 	}
+	
+	public Register selectDetailApproval(int regNo) {
+		Connection conn = getConnection();
+		Register r = new TutorDao().selectDetailApproval(conn, regNo);
+		close(conn);
+		return r;
+	}
+	
+	public int updateRegister(int regSta, int regNo) {
+		Connection conn = getConnection();
+		int result = new TutorDao().updateRegister(conn, regSta, regNo);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
 
 }
