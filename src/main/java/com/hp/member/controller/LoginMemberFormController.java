@@ -48,7 +48,7 @@ public class LoginMemberFormController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath()+"/main.tee");
 		}
 	}
 
