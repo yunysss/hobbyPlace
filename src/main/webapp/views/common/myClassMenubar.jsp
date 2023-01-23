@@ -103,6 +103,31 @@
             
         </div>
         
+        <script>
+        $(function(){
+        	<!--수강내역 결제 완료 클래스-->
+			$("#payMyClass").click(function(){
+				location.href="<%=contextPath%>/myClass.tt";
+			})
+			<!--수강내역 수강 취소 클래스-->
+			$("#refundMyClass").click(function(){
+				location.href="<%=contextPath%>/....";
+			})
+			<!--후기작성-->
+			$("#writingReview").click(function(){
+				location.href="<%=contextPath%>/....";
+			})
+			<!--내가 작성한 후기-->
+			$("#viewMyReview").click(function(){
+				location.href="<%=contextPath%>/....";
+			})
+			<!--찜목록-->
+			$("#likeList").click(function(){
+				location.href="<%=contextPath%>/....";
+			})
+		})
+        </script>
+        
         
 
 </body>
