@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MyClassViewController
+ * Servlet implementation class RefundClassListController
  */
-@WebServlet("/myClass.tt")
-public class MyClassViewController extends HttpServlet {
+@WebServlet("/refundList.tee")
+public class RefundClassListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyClassViewController() {
+    public RefundClassListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,7 @@ public class MyClassViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/member/myClassList.jsp").forward(request, response);
-	
+		request.getRequestDispatcher("views/member/refundClassList.jsp").forward(request, response);
 	}
 
 	/**
