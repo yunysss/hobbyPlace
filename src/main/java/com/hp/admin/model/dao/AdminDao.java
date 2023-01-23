@@ -19,7 +19,7 @@ import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.vo.Member;
 
-import oracle.sql.CLOB;
+
 
 public class AdminDao {
 	
@@ -58,7 +58,7 @@ public class AdminDao {
 		}finally {
 			close(rset);
 			close(pstmt);
-			
+		
 		}
 		return listCount;
 		

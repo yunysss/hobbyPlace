@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ page import = "java.util.ArrayList, com.hp.lesson.model.vo.*" %>
+
+<%
+	 ArrayList<Category> cList = (ArrayList<Category>)request.getAttribute("cList");
+    ArrayList<Dcategory> dList = (ArrayList<Dcategory>)request.getAttribute("dList");
+%>    
+    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,14 +161,22 @@
         
         margin-left: 20px;
     }
+    select{
+    	 width: 150px;
+        border: 1px solid rgb(202, 199, 199);
+        height: 32px;
+        border-radius: 5px;
+  
+    }
+    
+    }
     </style>
 
 </head>
 <body>
 
 <%@ include file="../common/tutorMenubar.jsp" %>
-
-            <!-- 여기부터-->
+      <!-- 여기부터-->
           
                 <div class="outer">
                     <form action="" id="enroll-form" method="post" class="classEnroll">
@@ -173,29 +189,26 @@
                         <tr>
                             <th width=100>카테고리</th>
                             <td>
-                                <select name="" id="" class="form-control-sm">
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-
+                                <select name="category" id="category" class="ct" >
+                                    <%for(Category c : cList){ %>
+		                            <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
+		                        	<%} %>
                                 </select>
-                                <select name="" id="" class="form-control-sm">
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
-                                    <option value="">교육</option>
+                                
+                                <select name="dCategory" id="Dcategory" class="ct">
+                                   <%for(Dcategory d : dList){ %>
+		                            <option value="<%=d.getCtDno()%>"><%=d.getCtDname() %></option>
+		                            <%} %>
 
                                 </select>
                             </td>
                         </tr>
+                      
                         <tr>
                             <th>클래스명</th>
                             <td>
                                 <br>
-                                <input type="text" name="" value="" class="form-control">
+                                <input type="text" name="className" class="form-control">
                                 
                             </td>
                         </tr>
@@ -203,11 +216,11 @@
                             <th>진행장소</th>
                             <td>
                              
-                                <input id="class_sido" type="hidden" placeholder="시/도" readonly>
-                                <input id="class_sigungu" type="hidden" placeholder="구" readonly> <br>
-                                <input id="class_addr" type="text" placeholder="주소입력" readonly>
+                                <input id="class_sido" type="hidden"  name="sido" placeholder="시/도" readonly>
+                                <input id="class_sigungu" type="hidden" name="sigungu" placeholder="구" readonly> <br>
+                                <input id="class_addr" type="text" name="address" placeholder="주소입력" readonly>
                                 <button type="button" onclick="findAddr()"  class="btn btn-secondary btn-sm">주소검색 </button><br>
-                                <input type="text" placeholder="상세주소입력"><br>
+                                <input type="text" name="Daddress" placeholder="상세주소입력"><br>
                                 <script>
                                     function findAddr(){
                                         new daum.Postcode({
@@ -246,7 +259,7 @@
                         </tr>
                         <tr>
                             <th>최대인원</th>
-                            <td><input type="number" class="form-control-sm"> 명</td>
+                            <td><input type="number" name="clMax" class="form-control-sm"> 명</td>
                         </tr>
                         <tr>
                             <th>난이도</th>
@@ -286,9 +299,9 @@
                         <tr>
                             <th width="100">일정</th>
                             <td>
-                                <input type="radio" id="everyday" name="schedule"value="everyday" class="schedule">
+                                <input type="radio" id="everyday" name="schedule"class="schedule">
                                 <label for="everyday">매일</label>
-                                <input type="radio" id="weekly" name="schedule"value="weekly" class="schedule">
+                                <input type="radio" id="weekly" name="schedule" class="schedule">
                                 <label for="weekly">매주</label>
                                 <br>
 
@@ -342,13 +355,13 @@
                                       <tbody id="table_body">
                                             <tr>
                                             <td>
-                                                <input type="number" class="form_control" >
+                                                <input type="number" name="session" class="form_control" >
                                             </td>
                                             <td>
-                                                <input type="time" class="form_control" >
+                                                <input type="time" name="startTime"class="form_control" >
                                             </td>
                                             <td>
-                                                <input type="time" class="form_control">
+                                                <input type="time" name="endTime" class="form_control">
                                             </td>
                                             <td>
                                                 <div class="action_container">
@@ -361,11 +374,7 @@
                                         </tbody>
                                     
                                     </table>
-                                    <pre>    예시 )  1 / 10:00 AM / 12:00 PM 
-            2 / 2:00 PM / 04:00 PM                               
-                                        
-                                                 
-                                    </pre>    
+   
                                   </div>
                           
                             </td>
@@ -378,7 +387,7 @@
                     <table>
                         <tr>
                             <th width="100">판매가</th>
-                            <td><input type="text" class="form-control-sm"> 원</td>
+                            <td><input type="text" class="form-control-sm" name="price"> 원</td>
                         </tr>
 
                     </table>

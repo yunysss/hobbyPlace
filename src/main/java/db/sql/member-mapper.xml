@@ -11,7 +11,6 @@
 		     , MEM_NICKNAME
 		     , MEM_EMAIL
 		     , MEM_PHONE
-		     , MEM_POST
 		     , MEM_ADDR
 		     , GENDER
 		     , MEM_BIRTH
@@ -26,6 +25,49 @@
 	     WHERE MEM_ID = ?
 	       AND MEM_PWD = ?
 	       AND MEM_STATUS = 'Y'
+	</entry>
+	
+	<entry key="insertMember">
+		INSERT
+		   INTO MEMBER
+		   (
+		   	 MEM_NO
+		   , MEM_ID
+		   , MEM_PWD
+		   , MEM_NAME
+		   , MEM_NICKNAME
+		   , MEM_EMAIL
+		   , MEM_PHONE
+		   , MEM_ADDR
+		   , GENDER
+		   , MEM_BIRTH
+		   , MEM_PROFILE
+		   , INTEREST
+		   , GRADE
+		   )
+		   VALUES 
+		   (
+		     SEQ_MBNO.NEXTVAL
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , 1
+		   )
+		   
+	</entry>
+	
+	<entry key="insertAttachment">
+		UPDATE MEMBER
+		   SET MEM_PROFILE = ?
+		 WHERE MEM_NO = SEQ_MBNO.CURRVAL
 	</entry>
 
 	

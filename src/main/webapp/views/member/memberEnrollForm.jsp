@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "java.util.ArrayList, com.hp.lesson.model.vo.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
     /*div{border:1px solid black;}*/
     div{box-sizing:border-box;}
@@ -59,14 +63,21 @@
     }
     #getCode{background:rgb(35, 104, 116); color:white; font-size:18px; font-weight:bolder;}
     .profileButton{
-        height:30px;
-        width:60px;
+        height:35px;
+        width:65px;
+        line-height: 35px;
+        display: inline-block; 
         box-sizing:border-box;  
+        vertical-align: middle;
+        text-align: center;
         border:0;
         border-radius:5px;
         background-color:rgb(200, 199, 199);
     }
     .profileButton:hover{cursor:pointer;}
+    #upProfile{
+        position:absolute; width:1px; height:1px;padding:0; margin:-1px; overflow:hidden;clip:rect(0,0,0,0);border:0; 
+    }
     .showRules{
         height:20px;
         width:100px;
@@ -93,7 +104,7 @@
 	<div class="cWrap">
         <div class="content" align="center">
             <br>
-            <form action="">
+            <form action="<%=contextPath%>/enrollMember.me" method="post" enctype="multipart/form-data">
 
                 <h1>회원가입</h1>
 
@@ -105,10 +116,10 @@
                     <tr>
                         <td class="td1">아이디 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="userId" class="fillOutForms" placeholder="영문과 숫자 조합 6~16자" onclick="check();" required>
+                            <input type="text" id="userId" class="fillOutForms" name="userId" placeholder="영문과 숫자 조합 4~16자" onclick="check();" required>
                         </td>
                         <td class="td3">
-                            <button type="button" class="doubleCheck">중복확인</button>
+                            <button type="button" class="doubleCheck" onclick="idCheck();">중복확인</button>
                         </td>
                     </tr>
                     <tr>
@@ -116,10 +127,37 @@
                         <td class="td2 checkAlert idTest"></td>
                         <td></td>
                     </tr>
+                    <script>
+                    	function idCheck(){
+                    		const $idInput = $("#userId");
+                    		
+                    		$.ajax({
+                    			url:"<%=contextPath%>/idCheck.me",
+                    			data:{checkId:$idInput.val()},
+                    			success:function(result){
+                    				if(result == "NNNNN") {
+                    					$(".idTest").html("이미 존재하거나 탈퇴한 회원의 아이디입니다.");
+                    					$idInput.focus();
+                    				}else{
+                    					$(".idTest").html("");
+                    					if(confirm("사용가능한 아이디입니다. 정말로 사용하시겠습니까?")){
+                    						$idInput.attr("readonly", true);
+                    						$("#enroll-form :submit").removeAttr("disabled");
+                    					}else {
+                    						$idInput.focus();
+                    					}
+                    				}
+                    			},
+                    			error:function(){
+                    				console.log("아이디 중복체크용 ajax 통신실패");
+                    			}
+                    		})
+                    	}
+                    </script>             
                     <tr>
                         <td class="td1">비밀번호 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="password" class="fillOutForms" id="userPwd" onclick="check();" placeholder="영문, 숫자, 특수문자 포함 12~20자" required>
+                            <input type="password" class="fillOutForms" id="userPwd" name="userPwd" onclick="check();" placeholder="영문, 숫자, 특수문자 포함 6~20자" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -143,7 +181,7 @@
                     <tr>
                         <td class="td1">이름 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="userName" class="fillOutForms" onclick="check();" placeholder="이름을 입력해주세요" required>
+                            <input type="text" id="userName" class="fillOutForms" name="userName" onclick="check();" placeholder="이름을 입력해주세요" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -155,7 +193,7 @@
                     <tr>
                         <td class="td1">닉네임 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" class="fillOutForms" onclick="check();" placeholder="8글자 이내로 입력하세요(특수문자제외)" required>
+                            <input type="text" id="userNickName" class="fillOutForms" name="userNick" onclick="check();" placeholder="8글자 이내로 입력하세요(특수문자제외)" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck">중복확인</button>
@@ -169,7 +207,7 @@
                     <tr>
                         <td class="td1">이메일 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="email" class="fillOutForms" placeholder="예) hobbyplace@hobpl.com" required>
+                            <input type="email" class="fillOutForms" name="email" placeholder="예) hobbyplace@hobpl.com" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck">중복확인</button>
@@ -183,7 +221,7 @@
                     <tr>
                         <td class="td1">휴대폰 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="phone" class="fillOutForms" onclick="check();" placeholder="-포함하여 입력해주세요" required>
+                            <input type="text" id="phone" class="fillOutForms" name="phone" onclick="check();" placeholder="-포함하여 입력해주세요" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck">인증번호 받기</button>
@@ -195,38 +233,77 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="td1" rowspan="2">주소</td>
+                        <td class="td1" rowspan="3">주소</td>
                         <td class="td2">
-                            <input type="text" id="address1" placeholder="우편번호">
-                            <button type="button" id="postCode" class="doubleCheck">우편번호 검색</button>
+                            <input type="text" id="address1" name="address" onclick="execDaumPostcode()" placeholder="우편번호">
+                            <button type="button" id="postCode" class="doubleCheck" onclick="execDaumPostcode()" >우편번호 검색</button>
                         </td>
                         <td class="td3"></td>
                     </tr>
                     <tr>
                         <td class="td2">
-                            <input type="text" id="address2"  class="fillOutForms" placeholder="상세주소">
+                            <input type="text" id="address2" name="address" class="fillOutForms" placeholder="상세주소">
                         </td>
                         <td class="td3"></td>
                     </tr>
+                    <tr>
+                        <td class="td2">
+                            <input type="text" id="address3" name="address" class="fillOutForms" placeholder="추가주소">
+                        </td>
+                        <td class="td3"></td>
+                    </tr>
+                    <script>
+                        function execDaumPostcode() {
+                            new daum.Postcode({
+                                oncomplete: function(data) {
+                                    var roadAddr = data.roadAddress; // 도로명주소변수
+                                    var extraRoadAddr = ''; // 참고항목변수
+                
+                                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                        extraRoadAddr += data.bname;
+                                    }
+                                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                                        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                    }
+                                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                    if(extraRoadAddr !== ''){
+                                        extraRoadAddr = ' (' + extraRoadAddr + ')';
+                                    }
+                                    
+                                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                    document.getElementById('address1').value = data.zonecode;
+                                    document.getElementById("address2").value = roadAddr;
+                
+                                    // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                                    if(roadAddr !== ''){
+                                        document.getElementById("address2").value += extraRoadAddr;
+                                    }
+                                }
+                            }).open();
+                        }
+                    </script>    
                     <tr>
                         <td class="td1">성별</td>
                         <td class="td2">
-                            <input type="radio" class="gender" name="gender" id="male"><label for="male">남자</label>
-                            <input type="radio" class="gender" name="gender" id="female"><label for="female">여자</label>
-                            <input type="radio" class="gender" name="gender" id="doNotSelect" checked><label for="doNotSelect">선택안함</label>
+                            <input type="radio" class="gender" name="gender" value="M" id="male"><label for="male">남자</label>
+                            <input type="radio" class="gender" name="gender" value="F" id="female"><label for="female">여자</label>
+                            <input type="radio" class="gender" name="gender" value="X" id="doNotSelect" checked><label for="doNotSelect">선택안함</label>
                         </td>
                         <td class="td3"></td>
                     </tr>
                     <tr>
                         <td class="td1">생년월일</td>
                         <td class="td2">
-                            <select class="birthDay" id="bYear">
+                            <select class="birthDay" name="memBirth" id="bYear">
                                 <option disabled selected>출생 연도</option>
                             </select>
-                            <select class="birthDay" id="bMonth">
+                            <select class="birthDay" name="memBirth" id="bMonth">
                                 <option disabled selected>월</option>
                             </select>
-                            <select class="birthDay" id="bDate">
+                            <select class="birthDay" name="memBirth" id="bDate">
                                 <option disabled selected>일</option>
                             </select>
                                                            
@@ -277,17 +354,35 @@
                     <tr>
                         <td class="td1">프로필사진</td>
                         <td class="td2">
-                            <button type="button" class="profileButton" id="uploadPicture">업로드</button>
-                            <button type="reset" class="profileButton" id="deletePicture">삭제</button>
+                        	<label for="upProfile"  class="profileButton">업로드</label>	
+                            <input type="file" id="upProfile" name="upProfile">
                         </td>
                         <td class="td3"></td>
                     </tr>
                     <tr>
                         <td class="td1"></td>
                         <td  class="td2" rowspan="2">
-                            <img src="" style="width:100px; height:100px;" class="rounded-circle">
+                            <img id="loadedProfile" src="<%=request.getContextPath()%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle">
                         </td>
                         <td class="td3"></td>
+                    </tr>
+                    <script>
+                    	function readURL(input) {
+                            if(input.files && input.files[0]) {
+                                var reader = new FileReader();
+
+                                reader.onload = function (e) {
+                                    $("#loadedProfile").attr('src', e.target.result);
+                                }
+
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                        $("#upProfile").change(function(){
+                                readURL(this);
+                        });
+                    </script>
+                    <tr>
                     </tr>
                     <tr>
                         <td class="td1"></td>
@@ -299,11 +394,11 @@
                             (중복선택 가능)
                         </td>
                         <td class="td2" rowspan="5">
-                            <input type="checkbox" name="interest" id="education"> <label for="education">학업 (외국어, IT, 자격증 등)</label> <br>
-                            <input type="checkbox" name="interest" id="diy"> <label for="diy">공예 DIY (가죽, 비누, 꽃, 뜨개질 등)</label> <br>
-                            <input type="checkbox" name="interest" id="cooking"> <label for="cooking">쿠킹 (요리, 베이킹)</label> <br>
-                            <input type="checkbox" name="interest" id="drawing"> <label for="drawing">드로잉</label> <br>
-                            <input type="checkbox" name="interest" id="sports"> <label for="sports">스포츠</label> <br>
+                            <input type="checkbox" name="interest" value="11" id="education"> <label for="education">학업 (외국어, IT, 자격증 등)</label> <br>
+                            <input type="checkbox" name="interest" value="22" id="diy"> <label for="diy">공예 DIY (가죽, 비누, 꽃, 뜨개질 등)</label> <br>
+                            <input type="checkbox" name="interest" value="33" id="cooking"> <label for="cooking">쿠킹 (요리, 베이킹)</label> <br>
+                            <input type="checkbox" name="interest" value="44" id="drawing"> <label for="drawing">드로잉</label> <br>
+                            <input type="checkbox" name="interest" value="55" id="sports"> <label for="sports">스포츠</label> <br>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -347,7 +442,7 @@
                     
                 </table>
                 <br><br>
-                <button type="submit" id="submitForm" onclick="">가입하기</button>
+                <button type="submit" id="submitForm" onclick="enrollMember();">가입하기</button>
                 <br><br><br><br>
                 
                                 
@@ -374,9 +469,10 @@
     </div>
     <script>
         function check(){
-           let idCheck = RegExp(/^[a-z\d]{6,16}$/);
-           let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{12,20}$/i);
+           let idCheck = RegExp(/^[a-z\d]{4,16}$/);
+           let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{6,20}$/i);
            let nameCheck = RegExp(/^[가-힣]{2,}$/);
+           let nickCheck = RegExp(/^[a-z\d가-힣]{1,8}$/i);
            let phoneCheck = RegExp(/^[0][1][\d]-[\d]{3,4}-[\d]{3,4}$/);
 
             $("#userId").focusout(function(){
@@ -410,25 +506,30 @@
                     $(".nameTest").html('');
                 }
             })
+            
+            $("#userNickName").focusout(function(){
+            	if(!nickCheck.test($("#userNickName").val())){
+            		$(".nickNameTest").html('유효한 닉네임 형식이 아닙니다.');
+            	}else{
+            		$(".nickNameTest").html('');
+            	}
+            })
 
             $("#phone").focusout(function(){
                 if(!phoneCheck.test($("#phone").val())){
                     $(".phoneTest").html('유효한 연락처 형식이 아닙니다.');
-                    console.log('no');
                 }else{
                     $(".phoneTest").html('');
-                    console.log('yes');
                 }
             })
         }
         
-
-
-
-
+        function enrollMember(){
+        	
+        }
         
     </script>
-    
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     
     
    <%@ include file = "../common/footerbar.jsp" %>

@@ -8,10 +8,9 @@ import com.hp.member.model.vo.Member;
 
 public class MemberService {
 
-	/**
+	/** 로그인용 서비스메소드
 	 * @author 수연
-	 * @param userId
-	 * @param userPwd
+	 * @param userId, userPwd
 	 * @return Member m
 	 */
 	public Member loginMember(String userId, String userPwd) {
@@ -19,6 +18,38 @@ public class MemberService {
 		Member m = new MemberDao().loginMember(conn, userId, userPwd);
 		close(conn);
 		return m;
+	}
+	
+	/** 회원가입용 서비스메소드
+	 * @author 수연
+	 * @param Member m
+	 * @return result
+	 */
+	public int insertMember(Member m) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().insertMember(conn, m);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 아이디 중복체크용서비스메소드
+	 * @author 수연
+	 * @param checkId
+	 * @return count
+	 */
+	public int idCheck(String checkId) {
+		Connection conn = getConnection();
+		int count = new MemberDao().idCheck(conn, checkId);
+		close(conn);
+		return count;
 	}
 	
 	

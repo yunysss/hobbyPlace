@@ -37,8 +37,11 @@
         <div class="content" align="center">
             <br><br><br>
             <form action="<%=contextPath%>/loginUser.me" method="post">
+            	
             	<h1 align="center">로그인</h1>
+            	
 	            <br>
+	            
 	            <input type="text" class="lgPage" id="userId" name="userId" required placeholder="아이디를 입력해주세요"> <br>
 	            <input type="password" class="lgPage" id="userPwd" name="userPwd" required placeholder="비밀번호를 입력해주세요">
 	            
@@ -47,9 +50,12 @@
 	                <p> | </p>
 	                <a href="<%=contextPath%>/searchPwdByPhone.me">비밀번호 찾기</a>
 	            </div>
+				
 				<p id="loginFail" style="color:red"><%=request.getAttribute("loginFail")%></p>
+	            
 	            <button type="submit" class="lgPage" id="logInUser">로그인</button> <br>
 	            <button type="button" class="lgPage" id="signInUser" onclick="enrollPage();">회원가입</button>
+            
             </form>
         </div>
     </div>

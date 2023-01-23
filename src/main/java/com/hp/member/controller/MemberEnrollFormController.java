@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class MemberEnrollFormController
  */
-@WebServlet("/enroll.me")
+@WebServlet("/enrollForm.me")
 public class MemberEnrollFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +27,8 @@ public class MemberEnrollFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		
+		// 회원가입 페이지만 띄워주는 용도
 		request.getRequestDispatcher("views/member/memberEnrollForm.jsp").forward(request, response);
 	}
 

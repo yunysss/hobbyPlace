@@ -81,7 +81,7 @@
     #category{line-height:90px;}
     #category>img, #membership>img{vertical-align:middle; cursor:pointer;}
     #category>*{margin:5px; font-size:14px;}
-    #membership>*{margin-left:20px; font-size:12px;}
+    #membership>*{margin-left:15px; font-size:12px;}
     #membership>p{display:inline-block;}
 
 
@@ -404,7 +404,7 @@
 	                <%if(loginUser.getGrade().equals("2")) {%>
 		            <a href="<%=contextPath%>/tutorMain.tt">튜터센터</a>
 		            <%}else { %>
-		            <a href="">튜터등록</a>
+		            <a href="<%=contextPath%>/enrollForm.tt">튜터등록</a>
 		            <%} %>
 	            <%} %>
 	        </div>
@@ -522,12 +522,12 @@
 	                <!-- 로그인 전 -->
 	                <%if(loginUser == null) {%>
 		                <a href="<%=contextPath%>/login.me">로그인</a>
-		                <a href="<%=contextPath%>/enroll.me">회원가입</a>
+		                <a href="<%=contextPath%>/enrollForm.me">회원가입</a>
 					<%}else{ %>
 		                <!-- 로그인 후 -->
-		                <a href="">마이클래스</a>
+		                <a href="<%=contextPath%>/myClass.tt">마이클래스</a>
 		                <p><%=loginUser.getMemNick()%>님</p> 
-						<img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+						<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
 						
 						<div class="dropdown-menu">
 						    <a class="dropdown-item" href="<%=contextPath%>/myPageMain.me">마이페이지</a>
@@ -662,12 +662,6 @@
        
     </form>
     </div>
-
-
-
-
-
-
 
 </body>
 </html>
