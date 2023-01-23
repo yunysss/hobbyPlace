@@ -52,7 +52,6 @@ public class MemberDao {
 						       rset.getString("mem_nickname"),
 						       rset.getString("mem_email"),
 						       rset.getString("mem_phone"),
-						       rset.getInt("mem_post"),
 						       rset.getString("mem_addr"),
 						       rset.getString("gender"),
 						       rset.getString("mem_birth"),
@@ -73,7 +72,12 @@ public class MemberDao {
 		return m;
 		
 	}
-
+	/** 회원가입용 dao메소드
+	 * @author 수연
+	 * @param conn
+	 * @param m
+	 * @return int result
+	 */
 	public int insertMember(Connection conn, Member m) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -87,10 +91,10 @@ public class MemberDao {
 			pstmt.setString(4, m.getMemNick());
 			pstmt.setString(5, m.getEmail());
 			pstmt.setString(6, m.getPhone());
-			pstmt.setInt(7, m.getPostcode());
-			pstmt.setString(8, m.getMemAddr());
-			pstmt.setString(9, m.getGender());
-			pstmt.setString(10, m.getMemBirth());
+			pstmt.setString(7, m.getMemAddr());
+			pstmt.setString(8, m.getGender());
+			pstmt.setString(9, m.getMemBirth());
+			pstmt.setString(10, m.getMemProfile());
 			pstmt.setString(11, m.getInterest());
 			
 			result = pstmt.executeUpdate();
@@ -102,7 +106,13 @@ public class MemberDao {
 		}
 		return result;
 	}
-
+	/** 회원가입시 프로필사진 db저장용 dao메소드
+	 * @author 수연
+	 * @param conn
+	 * @param m
+	 * @return int result
+	 */
+	/*
 	public int insertAttachment(Connection conn, Member m) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -112,6 +122,7 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m.getMemProfile());
 			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -119,7 +130,7 @@ public class MemberDao {
 		}
 		return result;
 	}
-	
+	*/
 	
 	
 	

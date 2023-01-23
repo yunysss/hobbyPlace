@@ -13,10 +13,13 @@
     
     .welcomeText{
         align-self: left;
-        margin-left:200px;
+
+
+        width:700px;
+        padding:30px 30px 30px 100px;
         color:rgb(47, 46, 46);
     }
-    .welcomeText>p{font-size:18px; font-weight:600;}
+    .welcomeText>p{font-size:20px;}
 
     .moveToGuide{
         color:white;
@@ -34,23 +37,23 @@
 
         <div class="content" align="center">
             
-            <br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br>
             
             
             <div class="welcomeText" align="left">
-                <h1>가입이 완료되었습니다!</h1>
+                <h3>🎉가입이 완료되었습니다🎉</h3><br>
                 <p>
-                    000님 환영합니다<br>
+                    000님 환영합니다😆<br>
                     합플에서 000님의 관심사를 발견하고 취미를 발전시켜보세요!
                 </p>
+
             </div>
             
 
-            <br><br><br><br>
+            <br><br><br>
 
-            <button type="button" class="moveToGuide" onclick="userGuide();">이용안내 페이지 바로가기 >></button>
-
-
+            <button type="button" class="moveToGuide" onclick="userGuide();"> 이용안내 페이지 바로가기 </button>
+            <br><br><br><br><br><br><br><br><br>
         </div>
 
     </div>
@@ -59,5 +62,7 @@
 			location.href = "<%=contextPath%>";
 		}
 	</script>
+
+    <%@ include file = "../common/footerbar.jsp" %>
 </body>
 </html>

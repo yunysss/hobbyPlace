@@ -23,26 +23,33 @@ public class MemberService {
 	/** 회원가입용 서비스메소드
 	 * @author 수연
 	 * @param Member m
-	 * @return int result
+	 * @return result
 	 */
 	public int insertMember(Member m) {
 		Connection conn = getConnection();
 		
-		int result1 = new MemberDao().insertMember(conn, m);
+		int result = new MemberDao().insertMember(conn, m);
 		
-		int result2 = 1;
-		if(m.getMemProfile() != null) {
-			result2 = new MemberDao().insertAttachment(conn, m);
-		}
-		
-	
-		if(result1 > 0 && result2 > 0) {
+		if(result > 0 ) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		
-		return result1 * result2;
+		return result;
+	}
+
+	/**
+	 * 아이디 중복체크용서비스메소드
+	 * @author 수연
+	 * @param checkId
+	 * @return count
+	 */
+	public int idCheck(String checkId) {
+		Connection conn = getConnection();
+		int count = new MemberDao().idCheck(conn, checkId);
+		close(conn);
+		return count;
 	}
 	
 	

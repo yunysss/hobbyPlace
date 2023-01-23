@@ -48,14 +48,18 @@ public class MemberInsertController extends HttpServlet {
 			String memId = multiRequest.getParameter("userId");
 			String memPwd = multiRequest.getParameter("userPwd");
 			String memName = multiRequest.getParameter("userName");
-			String memNick = multiRequest.getParameter("userNickName");
+			String memNick = multiRequest.getParameter("userNick");
 			String email = multiRequest.getParameter("email");
 			String phone = multiRequest.getParameter("phone");
-			int postcode = Integer.parseInt(multiRequest.getParameter("postcode"));
-			String memAddr = multiRequest.getParameter("address");
+			String[] memAddrArr = multiRequest.getParameterValues("address");
 			String gender = multiRequest.getParameter("gender");
 			String[] memBirthArr = multiRequest.getParameterValues("memBirth");
 			String[] interestArr = multiRequest.getParameterValues("interest");
+			
+			String memAddr = "";
+			if(memAddrArr != null) {
+				memAddr = String.join(" ", memAddrArr);
+			}
 			
 			String memBirth = "";
 			if(memBirthArr != null) {
@@ -72,22 +76,22 @@ public class MemberInsertController extends HttpServlet {
 			m.setMemNick(memNick);
 			m.setEmail(email);
 			m.setPhone(phone);
-			m.setPostcode(postcode);
 			m.setMemAddr(memAddr);
 			m.setGender(gender);
 			m.setMemBirth(memBirth);
 			m.setInterest(interest);
 			
 			if(multiRequest.getOriginalFileName("upProfile") != null) {
-				m.setMemProfile("resources/memberProfile_upfiles/" + multiRequest.getFilesystemName("upProfile"));
+				m.setMemProfile("/resources/memberProfile_upfiles/"+ multiRequest.getFilesystemName("upProfile"));
 			}
 			
 			int result = new MemberService().insertMember(m);
 			
 			//결과
 			if(result > 0) {
-				HttpSession session = request.getSession();
+				//request.getSession();
 				request.getRequestDispatcher("views/member/enrollMemberResult.jsp").forward(request, response);
+				
 			}else {
 				
 				if(m.getMemProfile() != null) {

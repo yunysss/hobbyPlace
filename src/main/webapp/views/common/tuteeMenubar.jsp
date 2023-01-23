@@ -81,7 +81,7 @@
     #category{line-height:90px;}
     #category>img, #membership>img{vertical-align:middle; cursor:pointer;}
     #category>*{margin:5px; font-size:14px;}
-    #membership>*{margin-left:20px; font-size:12px;}
+    #membership>*{margin-left:15px; font-size:12px;}
     #membership>p{display:inline-block;}
 
 
@@ -527,7 +527,7 @@
 		                <!-- 로그인 후 -->
 		                <a href="<%=contextPath%>/myClass.tt">마이클래스</a>
 		                <p><%=loginUser.getMemNick()%>님</p> 
-						<img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+						<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
 						
 						<div class="dropdown-menu">
 						    <a class="dropdown-item" href="<%=contextPath%>/myPageMain.me">마이페이지</a>

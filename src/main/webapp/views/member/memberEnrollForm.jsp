@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "java.util.ArrayList, com.hp.lesson.model.vo.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
     /*div{border:1px solid black;}*/
     div{box-sizing:border-box;}
@@ -115,7 +119,7 @@
                             <input type="text" id="userId" class="fillOutForms" name="userId" placeholder="영문과 숫자 조합 4~16자" onclick="check();" required>
                         </td>
                         <td class="td3">
-                            <button type="button" class="doubleCheck">중복확인</button>
+                            <button type="button" class="doubleCheck" onclick="idCheck();">중복확인</button>
                         </td>
                     </tr>
                     <tr>
@@ -123,6 +127,33 @@
                         <td class="td2 checkAlert idTest"></td>
                         <td></td>
                     </tr>
+                    <script>
+                    	function idCheck(){
+                    		const $idInput = $("#userId");
+                    		
+                    		$.ajax({
+                    			url:"<%=contextPath%>/idCheck.me",
+                    			data:{checkId:$idInput.val()},
+                    			success:function(result){
+                    				if(result == "NNNNN") {
+                    					$(".idTest").html("이미 존재하거나 탈퇴한 회원의 아이디입니다.");
+                    					$idInput.focus();
+                    				}else{
+                    					$(".idTest").html("");
+                    					if(confirm("사용가능한 아이디입니다. 정말로 사용하시겠습니까?")){
+                    						$idInput.attr("readonly", true);
+                    						$("#enroll-form :submit").removeAttr("disabled");
+                    					}else {
+                    						$idInput.focus();
+                    					}
+                    				}
+                    			},
+                    			error:function(){
+                    				console.log("아이디 중복체크용 ajax 통신실패");
+                    			}
+                    		})
+                    	}
+                    </script>             
                     <tr>
                         <td class="td1">비밀번호 <span class="star">*</span></td>
                         <td class="td2">
@@ -202,10 +233,10 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="td1" rowspan="2">주소</td>
+                        <td class="td1" rowspan="3">주소</td>
                         <td class="td2">
-                            <input type="text" id="address1" name="postcode" placeholder="우편번호">
-                            <button type="button" id="postCode" class="doubleCheck">우편번호 검색</button>
+                            <input type="text" id="address1" name="address" onclick="execDaumPostcode()" placeholder="우편번호">
+                            <button type="button" id="postCode" class="doubleCheck" onclick="execDaumPostcode()" >우편번호 검색</button>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -216,11 +247,50 @@
                         <td class="td3"></td>
                     </tr>
                     <tr>
+                        <td class="td2">
+                            <input type="text" id="address3" name="address" class="fillOutForms" placeholder="추가주소">
+                        </td>
+                        <td class="td3"></td>
+                    </tr>
+                    <script>
+                        function execDaumPostcode() {
+                            new daum.Postcode({
+                                oncomplete: function(data) {
+                                    var roadAddr = data.roadAddress; // 도로명주소변수
+                                    var extraRoadAddr = ''; // 참고항목변수
+                
+                                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                        extraRoadAddr += data.bname;
+                                    }
+                                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                                        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                    }
+                                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                    if(extraRoadAddr !== ''){
+                                        extraRoadAddr = ' (' + extraRoadAddr + ')';
+                                    }
+                                    
+                                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                    document.getElementById('address1').value = data.zonecode;
+                                    document.getElementById("address2").value = roadAddr;
+                
+                                    // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                                    if(roadAddr !== ''){
+                                        document.getElementById("address2").value += extraRoadAddr;
+                                    }
+                                }
+                            }).open();
+                        }
+                    </script>    
+                    <tr>
                         <td class="td1">성별</td>
                         <td class="td2">
                             <input type="radio" class="gender" name="gender" value="M" id="male"><label for="male">남자</label>
                             <input type="radio" class="gender" name="gender" value="F" id="female"><label for="female">여자</label>
-                            <input type="radio" class="gender" name="gender" id="doNotSelect" checked><label for="doNotSelect">선택안함</label>
+                            <input type="radio" class="gender" name="gender" value="X" id="doNotSelect" checked><label for="doNotSelect">선택안함</label>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -285,20 +355,35 @@
                         <td class="td1">프로필사진</td>
                         <td class="td2">
                         	<label for="upProfile"  class="profileButton">업로드</label>	
-                            <input type="file" id="upProfile" name="upProfile" onchange=>
+                            <input type="file" id="upProfile" name="upProfile">
                         </td>
                         <td class="td3"></td>
                     </tr>
                     <tr>
                         <td class="td1"></td>
                         <td  class="td2" rowspan="2">
-                            <img id="loadedProfile" style="width:100px; height:100px;" class="rounded-circle">
+                            <img id="loadedProfile" src="<%=request.getContextPath()%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle">
                         </td>
                         <td class="td3"></td>
                     </tr>
                     <script>
-                    	
+                    	function readURL(input) {
+                            if(input.files && input.files[0]) {
+                                var reader = new FileReader();
+
+                                reader.onload = function (e) {
+                                    $("#loadedProfile").attr('src', e.target.result);
+                                }
+
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                        $("#upProfile").change(function(){
+                                readURL(this);
+                        });
                     </script>
+                    <tr>
+                    </tr>
                     <tr>
                         <td class="td1"></td>
                         <td class="td3"></td>
@@ -444,7 +529,7 @@
         }
         
     </script>
-    
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     
     
    <%@ include file = "../common/footerbar.jsp" %>
