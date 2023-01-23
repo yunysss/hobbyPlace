@@ -4,6 +4,10 @@
 	Lesson le = (Lesson)request.getAttribute("le");
 	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
 	ArrayList<Review> rList = (ArrayList<Review>)request.getAttribute("rList");
+	int likeStatus = 0;
+	if((Member)session.getAttribute("loginUser") != null){
+		likeStatus = (int)request.getAttribute("likeStatus");
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -12,7 +16,7 @@
 <title>Insert title here</title>
 <style>
         div, p, form, input{box-sizing:border-box;}
-        a{text-decoration: none !important; color:black !important;}
+        a{text-decoration: none !important; color:black!important}
 
         .outer{width:1000px; margin:auto; margin-top:20px;}
 
@@ -375,7 +379,11 @@
                             <p>총 결제 금액 99,000원</p>
                         </div>
                         <div>
-                            <a href="" class="btn">🤍 찜하기</a> <!-- 찜한 목록에 추가 / 로그인회원의 찜 리스트 조회 => 있으면 빨간하트로-->
+                        	<% if(likeStatus == 0) {%>
+                            	<a class="btn" id="like-btn-n">🤍 찜하기</a> <!-- 찜한 목록에 추가 / 로그인회원의 찜 리스트 조회 => 있으면 빨간하트로-->
+                            <%}else{ %>
+                            	<a class="btn" id="like-btn-y">❤️ 찜하기</a>
+                            <%} %>
                             <a href="" class="btn">💬 1:1문의</a>
                         </div>
                         <a href="<%=contextPath %>/register.reg" class="btn">클래스 신청하기</a>
@@ -386,8 +394,43 @@
                 
             </div>
         </div>
-        	
+        
     </div>
+    <script>
+	   	$(function(){
+	   		$("#like-btn-n").click(function(){
+	   			if(<%=loginUser%> == null){
+	   				$(this).attr("data-toggle", "modal");
+	   				$(this).attr("data-target", "#myModal1");
+	   			} else{
+	   				$.ajax({
+	   					url:"<%=contextPath%>/classLike.cl",
+	   					data:{
+	   						clNo:<%=le.getClNo()%>,
+	   						mem:<%=loginUser%>
+	   					},
+	   					success:function(){
+	   						
+	   					},error:function(){
+	   						
+	   					}
+	   				})
+	   			}
+	   		})
+	   	})
+	</script>
+    <div class="modal" id="myModal1">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-body" align="center">
+                	로그인 후 이용 가능한 서비스 입니다.<br><br>
+                    <a href="" type="button" class="btn btn-sm" style="background:rgb(22, 160, 133); color:white!important;">로그인</a>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
+            	</div>  
+        	</div>
+    	</div>
+   	</div>
+    
     <br clear="both">
     <%@ include file="../common/footerbar.jsp" %>
     

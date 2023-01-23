@@ -124,5 +124,12 @@
 		 WHERE R.CL_NO = ?
 		   AND RE_STA = 'Y'
 	</entry>
+	<entry key="selectLikeStatus">
+		SELECT 
+		       COUNT(*) "LIKE_ST"
+		  FROM "LIKE"
+		 WHERE CL_NO = ?
+		   AND MEM_NO = ?
+	</entry>
 
 </properties>

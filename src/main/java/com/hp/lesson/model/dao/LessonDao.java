@@ -242,5 +242,29 @@ private Properties prop = new Properties();
 		}
 		return list;
 	}
+	
+	public int selectLikeStatus(Connection conn, int clNo, int memNo) {
+		int likeStatus = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLikeStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			pstmt.setInt(2, memNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				likeStatus = rset.getInt("like_st");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return likeStatus;
+	}
 
 }

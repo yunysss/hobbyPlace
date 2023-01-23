@@ -9,23 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.common.model.vo.Attachment;
+import com.google.gson.Gson;
 import com.hp.lesson.model.service.LessonService;
 import com.hp.lesson.model.vo.Lesson;
-import com.hp.member.model.vo.Member;
-import com.hp.review.model.vo.Review;
 
 /**
- * Servlet implementation class ClassPageController
+ * Servlet implementation class AjaxClassLikeController
  */
-@WebServlet("/page.cl")
-public class ClassPageController extends HttpServlet {
+@WebServlet("/classLike.cl")
+public class AjaxClassLikeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClassPageController() {
+    public AjaxClassLikeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +32,10 @@ public class ClassPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int clNo = Integer.parseInt(request.getParameter("no"));
+		ArrayList<Lesson> list = new LessonService().selectLikeClass();
 		
-		Lesson le = new LessonService().selectClassPage(clNo);
-		ArrayList<Attachment> aList = new LessonService().selectClassAttachment(clNo);
-		ArrayList<Review> rList = new LessonService().selectClassReview(clNo);
-		if((Member)request.getSession().getAttribute("loginUser") != null) {
-			int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
-			int likeStatus = new LessonService().selectLikeStatus(clNo, memNo);
-			request.setAttribute("likeStatus", likeStatus);
-		}
-		request.setAttribute("le", le);
-		request.setAttribute("aList", aList);
-		request.setAttribute("rList", rList);
-		
-		request.getRequestDispatcher("views/lesson/classPageView.jsp").forward(request, response);
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

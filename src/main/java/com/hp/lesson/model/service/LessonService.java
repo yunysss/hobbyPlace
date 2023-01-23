@@ -71,5 +71,12 @@ public class LessonService {
 		close(conn);
 		return list;
 	}
+	
+	public int selectLikeStatus(int clNo, int memNo) {
+		Connection conn = getConnection();
+		int likeStatus = new LessonDao().selectLikeStatus(conn, clNo, memNo);
+		close(conn);
+		return likeStatus;
+	}
 
 }
