@@ -184,12 +184,12 @@
             </div>
             <div id="header3">
                 <div class="dropdown" >
-                    <img src="<%=request.getContextPath()%>/<%=ttProfile %>" type="button" width="60"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+                    <img src="<%=request.getContextPath()%>/<%=ttProfile %>" name="ttimg" type="button" width="60"  alt="Cinque Terre" class="rounded-circle dropdown-toggle" data-toggle="dropdown">
                   
-                    </img>
+                 
                     <div class="dropdown-menu">
                       <a class="dropdown-item" href="<%=contextPath%>/profile.tt">프로필관리</a>
-                      <a class="dropdown-item" href="<%=contextPath%>/myclass.tt?cpage=1">내 클래스</a>
+                      <a class="dropdown-item" href="<%=contextPath%>/ttclass.tt?cpage=1">내 클래스</a>
                       <a class="dropdown-item" href="<%=contextPath%>">메인페이지로</a>
                       <a class="dropdown-item" href="<%=contextPath%>/logout.me">로그아웃</a>
                     </div>
@@ -206,8 +206,8 @@
             <div id="content1">
                 <div id="button-area">
                 
-                <a href="<%=contextPath %>/enrollForm.cl" class="mbtn">클래스 등록</a>
-                <a href="<%=contextPath%>/myclass.tt?cpage=1" class="mbtn">클래스 목록</a>
+                <a href="<%=contextPath %>/clenroll.tt" class="mbtn">클래스 등록</a>
+                <a href="<%=contextPath%>/ttclass.tt?cpage=1" class="mbtn">클래스 목록</a>
               
                 </div>
         
@@ -227,8 +227,8 @@
                             event_available
                             </span>&nbsp;클래스관리
                             
-                                <li><a href="<%=contextPath %>/enrollForm.cl">클래스등록</a></li>
-                                <li><a href="<%=contextPath%>/myclass.tt?cpage=1">내 클래스목록</a></li>
+                                <li><a href="<%=contextPath %>/clenroll.tt">클래스등록</a></li>
+                                <li><a href="<%=contextPath%>/ttclass.tt?cpage=1">내 클래스목록</a></li>
                                 <li><a href="<%=contextPath%>/approval.tt">예약승인</a></li>
                                 <li><a href="<%=contextPath%>/reservationList.tt">예약관리</a></li>
                                 <li><a href="">문의관리</a></li>

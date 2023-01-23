@@ -56,7 +56,22 @@
 	</entry>
 	
 
+	
+	<!-- 카테고리 대분류 조회 -->	
+	<entry key="selectCategoryList">
+		SELECT CT_NO
+			  ,CT_NAME
+		FROM  CATEGORY
 
+	</entry>
+	<!-- 세부카테고리 조회 -->
+	<entry key="selectDcategoryList">
+		SELECT CT_DNO
+		      ,CT_NO
+		      ,CT_DNAME
+		 FROM DCATEGORY     
+
+	</entry>		
 
 
 

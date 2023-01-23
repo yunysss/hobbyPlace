@@ -12,6 +12,8 @@ import java.util.Properties;
 import static com.hp.common.JDBCTemplate.*;
 
 import com.hp.common.model.vo.PageInfo;
+import com.hp.lesson.model.vo.Category;
+import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.tutor.model.vo.Tutor;
 
@@ -142,6 +144,72 @@ private Properties prop = new Properties();
 		}
 		return list;
 	
+	}
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @return cList  카테고리 조회
+	 */
+	public ArrayList<Category> selectCategoryList(Connection conn){
+		ArrayList<Category> cList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCategoryList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				cList.add(new Category(rset.getInt("ct_no"),
+									  rset.getString("ct_name")
+						));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		return cList;
+
+	}
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @return dList 세부카테고리 조회
+	 */
+	public ArrayList<Dcategory> selectDcategoryList(Connection conn){
+		ArrayList<Dcategory> dList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectDcategoryList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				dList.add(new Dcategory(rset.getInt("ct_dno"),
+										rset.getString("ct_no"),
+										rset.getString("ct_dname")
+						
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return dList;
+		
 	}
 
 

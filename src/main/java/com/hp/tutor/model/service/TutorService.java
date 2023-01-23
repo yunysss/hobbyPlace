@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import com.hp.admin.model.dao.AdminDao;
 import com.hp.common.model.vo.PageInfo;
+import com.hp.lesson.model.vo.Category;
+import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.tutor.model.dao.TutorDao;
 import com.hp.tutor.model.vo.Tutor;
@@ -39,7 +41,19 @@ public class TutorService {
 		return list;
 
 	}
+	public ArrayList<Category> selectCategoryList(){
+		Connection conn = getConnection();
+		ArrayList<Category> cList = new TutorDao().selectCategoryList(conn);
+		close(conn);
+		return cList;
+	}
 	
+	public ArrayList<Dcategory> selectDcategoryList(){
+		Connection conn = getConnection();
+		ArrayList<Dcategory> dList = new TutorDao().selectDcategoryList(conn);
+		close(conn);
+		return dList;
+	}
 	
 
 }

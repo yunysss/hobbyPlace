@@ -19,7 +19,7 @@ import com.hp.tutor.model.vo.Tutor;
 /**
  * Servlet implementation class TutorMyClassController
  */
-@WebServlet("/myclass.tt")
+@WebServlet("/ttclass.tt")
 public class TutorMyClassListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
