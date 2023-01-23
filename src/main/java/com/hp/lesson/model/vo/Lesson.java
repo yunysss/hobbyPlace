@@ -38,6 +38,7 @@ public class Lesson {
 	private int clStarCount;
 	private int likeCount;
 	private String introduce;
+	private String tutorProfile;
 	
 
 
@@ -189,7 +190,7 @@ public class Lesson {
 
 	public Lesson(String ctNo, String ctDno, String memNo, String clName, String clAddress, int clMax, String clLevel,
 			String startDate, String endDate, int clTimes, String clSchedule, String clDay, String clPrice,
-			Clob clDetail, String curriculum, String refundPolicy, String clSupplies, String clThumb, int likeCount) {
+			Clob clDetail, String curriculum, String refundPolicy, String clSupplies, String clThumb, int clStarAvg, int clStarCount, int likeCount, String tutorProfile) {
 		super();
 		this.ctNo = ctNo;
 		this.ctDno = ctDno;
@@ -209,7 +210,10 @@ public class Lesson {
 		this.refundPolicy = refundPolicy;
 		this.clSupplies = clSupplies;
 		this.clThumb = clThumb;
+		this.clStarAvg = clStarAvg;
+		this.clStarCount = clStarCount;
 		this.likeCount = likeCount;
+		this.tutorProfile = tutorProfile;
 	}
 
 
@@ -472,6 +476,18 @@ public class Lesson {
 		this.introduce = introduce;
 	}
 	
+	public String getTutorProfile() {
+		return tutorProfile;
+	}
+
+
+
+	public void setTutorProfile(String tutorProfile) {
+		this.tutorProfile = tutorProfile;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Lesson [clNo=" + clNo + ", ctNo=" + ctNo + ", ctDno=" + ctDno + ", memNo=" + memNo + ", localCode="

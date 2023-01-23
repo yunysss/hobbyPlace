@@ -64,5 +64,12 @@ public class LessonService {
 		close(conn);
 		return list;
 	}
+	
+	public ArrayList<Review> selectClassReview(int clNo){
+		Connection conn = getConnection();
+		ArrayList<Review> list = new LessonDao().selectClassReview(conn, clNo);
+		close(conn);
+		return list;
+	}
 
 }
