@@ -62,9 +62,6 @@
 </style>
 </head>
 <body>
-
-	<%@ include file="../common/tuteeMenubar.jsp" %>
-	
 	<div class="outer">
         <div id="demo" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->

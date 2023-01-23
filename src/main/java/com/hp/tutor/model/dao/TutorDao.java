@@ -244,6 +244,34 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
+	
+	
+	public int nickCheck(Connection conn, String checkNick) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("nickCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,checkNick);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+
 	public ArrayList<Register> selectTutorRegister(Connection conn, int memNo){
 		ArrayList<Register> rList = new ArrayList<>();
 		PreparedStatement pstmt = null;

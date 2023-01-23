@@ -4,9 +4,9 @@
 	String contextPath = request.getContextPath();
 
 	Member loginUser = (Member)session.getAttribute("loginUser");
-
 	// 로그인 전 : null
 	// 로그인 후 : 로그인한 회원의 정보가 담겨있는 Member객체
+
 %>
 <!DOCTYPE html>
 <html>
@@ -235,6 +235,14 @@
             border-radius: 5px;
         }
 
+        input[type="date"]{
+        width: 150px;
+        border: 1px solid rgb(202, 199, 199);
+        height: 32px;
+        border-radius: 5px;
+    }
+
+
       
         select{
             width: 100px;
@@ -265,10 +273,10 @@
         
         .slider {
             -webkit-appearance: none;
-            width: 100%;
+            width: 10px;
             height: 5px;
             border-radius: 5px;
-            background: #a3a2a2;
+            background: #9d2626;
             outline: none;
             opacity: 0.7;
             -webkit-transition: .2s;
@@ -324,64 +332,10 @@
         text-align: center;
     
     }
-    #search-area{display: none;
-       float:inherit
-    
-    }
+ 
  
     </style>
        
-    
- <script>                
-    
-    $(document).ready(function() {
-
-        //datepicker 한국어로 사용하기 위한 언어설정
-        $.datepicker.setDefaults($.datepicker.regional['ko']);     
-    
-        // Datepicker            
-        $(".datepicker").datepicker({
-            showButtonPanel: true,
-            dateFormat: "yy-mm-dd",
-            onClose : function ( selectedDate ) {
-            
-                var eleId = $(this).attr("id");
-                var optionName = "";
-
-                if(eleId.indexOf("StartDate") > 0) {
-                    eleId = eleId.replace("StartDate", "EndDate");
-                    optionName = "minDate";
-                } else {
-                    eleId = eleId.replace("EndDate", "StartDate");
-                    optionName = "maxDate";
-                }
-
-                $("#"+eleId).datepicker( "option", optionName, selectedDate );        
-                $(".searchDate").find(".chkbox2").removeClass("on"); 
-            }
-        }); 
-
-       
-
-        $(".dateclick").dateclick();    // DateClick
-    
-        
-    });
-
-   
-    // DateClick
-    jQuery.fn.dateclick = function(){
-        var $obj = $(this);
-        $obj.click(function(){
-            $(this).parent().find("input").focus();
-        });
-    }    
-
-    
-    
-
-        
-    </script>           
 
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -420,54 +374,54 @@
                     <div class="category dropdown-menu ">
                     
                             <ul class="bookmark-lists menu">
-                                <li class="bookmark"><a href=""><label>교육</label>
+                                <li class="bookmark"><a><label>교육</label>
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                     </a>
                                     <ul class="submenu">
-                                        <li><a href="">외국어</a></li>
-                                        <li><a href="">IT</a></li>
-                                        <li><a href="">자격증</a></li>
+                                        <li><a>외국어</a></li>
+                                        <li><a>IT</a></li>
+                                        <li><a>자격증</a></li>
     
                                     </ul>
                                 </li>
-                                <li class="bookmark"><a href=""><label>공예 DIY</label>
+                                <li class="bookmark"><a><label>공예 DIY</label>
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                 </a>
                                     <ul class="submenu">
-                                        <li><a href="">가죽 / 라탄</a></li>
-                                        <li><a href="">비누 / 꽃 / 향</a></li>
-                                        <li><a href="">뜨개 / 자수 </a></li>
-                                        <li><a href="">기타 </a></li>
+                                        <li><a>가죽 / 라탄</a></li>
+                                        <li><a>비누 / 꽃 / 향</a></li>
+                                        <li><a>뜨개 / 자수 </a></li>
+                                        <li><a>기타 </a></li>
                                     </ul>
                                 
                                 </li>
-                                <li class="bookmark"><a href=""><label>드로잉</label>
+                                <li class="bookmark"><a><label>드로잉</label>
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                 </a>
                                     <ul class="submenu">
-                                        <li><a href="">취미미술</a></li>
-                                        <li><a href="">캘리그래피</a></li>
-                                        <li><a href="">웹디자인 </a></li>
+                                        <li><a>취미미술</a></li>
+                                        <li><a>캘리그래피</a></li>
+                                    
                                     
                                     </ul>
                                 </li>
-                                <li class="bookmark"><a href=""><label>쿠킹</label>
+                                <li class="bookmark"><a><label>쿠킹</label>
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                 </a>
                                     <ul class="submenu">
-                                        <li><a href="">요리</a></li>
-                                        <li><a href="">베이킹</a></li>
+                                        <li><a>요리</a></li>
+                                        <li><a>베이킹</a></li>
                                     
                                     </ul>
                                 </li>
-                                <li class="bookmark"><a href=""><label>스포츠/피트니스</label>
+                                <li class="bookmark"><a><label>스포츠/피트니스</label>
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                 </a>
                                     <ul class="submenu">
-                                        <li><a href="">실내스포츠</a></li>
-                                        <li><a href="">야외스포츠</a></li>
-                                        <li><a href="">레저 / 액티비티 </a></li>
-                                        <li><a href="">요가 필라테스 / 헬스 PT</a></li>
+                                        <li><a>실내스포츠</a></li>
+                                        <li><a>야외스포츠</a></li>
+                                        <li><a>레저 / 액티비티 </a></li>
+                                        <li><a>요가 필라테스 / 헬스 PT</a></li>
                                         
                                     </ul>
                                 </li>
@@ -477,6 +431,22 @@
                         
                     </div>   
                     </div>
+                    
+             	<script>
+		        	$(function(){
+		        		$(".bookmark a").click(function(){
+		        			location.href="<%=contextPath%>/ctselect.cl?ct="+ $(this).children().eq(0).text();
+		        			
+		        		})
+		        	})
+		        	
+		        	$(function(){
+		        		$(".submenu>li a").click(function(){
+		        			location.href="<%=contextPath%>/ctselect.cl?ct="+ $(this).eq(0).text();
+		        			
+		        		})
+		        	})
+		        </script>
 
                 
                 
@@ -486,7 +456,7 @@
 	            	</a>
 	            </div>
 	            <div id="search">
-	                <form action="" id="search-form">
+	                <form action="<%=contextPath %>/keyword.cl" id="search-form">
 	                        <div id="search-text"  >
 	                            <input type="text" name="keyword" placeholder="&nbsp;검색어를 입력하세요">
 	                        </div>
@@ -525,10 +495,13 @@
 		                <a href="<%=contextPath%>/enrollForm.me">회원가입</a>
 					<%}else{ %>
 		                <!-- 로그인 후 -->
-		                <a href="<%=contextPath%>/myClass.tt">마이클래스</a>
+		                <a href="<%=contextPath%>/myClassList.tee">마이클래스</a>
 		                <p><%=loginUser.getMemNick()%>님</p> 
-						<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
-						
+		                <%if(loginUser.getMemProfile() == null) {%>
+		                	<img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+		                <%} else {%>
+							<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+						<%} %>
 						<div class="dropdown-menu">
 						    <a class="dropdown-item" href="<%=contextPath%>/myPageMain.me">마이페이지</a>
 						    <a class="dropdown-item" href="#">내가 찜한 목록</a>
@@ -542,7 +515,7 @@
     
     <div id="search-area" align="center">
         <br>
-        <form action="" id="searchForm">  
+        <form action="<%=contextPath %>/keyword.cl" id="searchForm">  
         <div class="form-group has-search">
             <span class="fa fa-search form-control-feedback"></span>
             <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요"  placeholder="Search">
@@ -553,61 +526,104 @@
             <tr>
                 <th>카테고리</th>
                 <td>
-                    <select name="category">
-                    <option value="교육">교육</option>
-                    <option value="">공예 DIY</option>
-                    <option value="">베이킹</option>
-                    <option value="">쿠킹</option>
-                    <option value="">스포츠/피트니스</option>
+                    <select name="category" id="ct" onchange="changeCt();">
+                    <option value="11">교육</option>
+                    <option value="22">공예 DIY</option>
+                    <option value="33">드로잉</option>
+                    <option value="44">쿠킹</option>
+                    <option value="55">스포츠/피트니스</option>
 
                      </select>
-                     <select name="category_detail">
-                        <option value="교육">교육</option>
-                        <option value="">공예 DIY</option>
-                        <option value="">베이킹</option>
-                        <option value="">쿠킹</option>
-                        <option value="">스포츠/피트니스</option>
-    
-                         </select>
+                     <select name="category_detail" id="dct">
+                    
+                    </select>
+                    
+                    
+                    <script>
+                        function changeCt(){
+                        	var study = ["외국어","자격증","IT"];
+                        	var diy = ["가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
+                        	var draw = ["취미미술","캘리그래피"];
+                        	var cook = ["요리","베이킹"];
+                        	var sport = ["실내스포츠","야외스포츠","레저/액티비티","요가필라테스/헬스PT"];
+     	
+                        	var changeDct;
+                        	
+                        	if( $("#ct").val() == "11"){
+                        		changeDct = study;
+                        		
+                        	}else if( $("#ct").val() == "22"){
+                        		changeDct = diy;
+                        	}else if( $("#ct").val() == "33"){
+                        		changeDct = draw;
+
+                        	}else if( $("#ct").val()  == "44"){
+                        		changeDct = cook;
+                        	}else if( $("#ct").val() == "55"){
+                        		changeDct = sport;
+                        	}
+                        	
+                        	$("#dct").empty();
+                        	for(var i=0; i<changeDct.length; i++){
+                        		var option = $("<option>"+changeDct[i]+"</option>");
+                        		$("#dct").append(option);
+                        	}
+                        	
+                        }
+                        
+                        </script>
+                    
+                    
                 </td>
             </tr>
             <tr>
                 <th>지역</th>
                 <td>
-                    <select name="region" id="region">
-                    <option value="서울">서울</option>
+                    <select name="region" id="region" onchange="changeregion();">
+                    <option value="">서울</option>
                     <option value="">경기도</option>
                     <option value="">인천</option>
-                    <option value=""></option>
+                    
                      </select>
 
-                     <select name="region" id="region" >
-                        <option value="서울">서울</option>
-                        <option value="">경기도</option>
-                        <option value="">인천</option>
-                        <option value=""></option>
-                         </select>
+                     <select name="district" id="district" >
+                       
+                     </select>
                 </td>
+                
+                <script>
+                
+                
+              
+                
+                
+                </script>
+                
+                
+                
+                
+                
             </tr>
             <tr>
                 <th height="30"width="100">날짜</th>
                 <td>
                     <div class="clearfix">
                         <!-- 시작일 -->
-                        <span class="dset">
-                            <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >
-                            <a href="#none" class="btncalendar dateclick"></a>
-                        </span>
-                        <span class="demi">-</span>
+                            <input type="date"  name="searchStartDate" id="startDate" >
                         <!-- 종료일 -->
-                        <span class="dset">
-                            <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" > 
-                            <span class="material-symbols-outlined"></span>
-                            <a href="#none" class="btncalendar dateclick"></a>
-                        </span>
-                    </div>    
+                            <input type="date"  name="searchEndDate" id="endDate" > 
 
+                    </div>    
                 </td>
+                <script>
+                    var now_utc = Date.now()
+                    var timeOff = new Date().getTimezoneOffset()*60000;
+                    var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+                    document.getElementById("startDate").setAttribute("min", today);
+                    document.getElementById("endDate").setAttribute("min", today);
+                    
+                    
+                    </script>
                 
             </tr>
             <tr>
@@ -615,7 +631,7 @@
                 <td>
                 <div class="Container" >
                                              
-                    <input style = "width:100%;" class="slider_range slider" type="range"  min="0" max="200000" ></input>
+                    <input style = "width:100%" class="slider_range slider" type="range"  min="0" max="200000" ></input>
                     <div id="tickmarks">
                         <p>0</p>
                         <p></p>
@@ -632,13 +648,17 @@
                   </div>
                 </td>
             </tr>
-
+            <tr>
+            <td colspan="2" align="center" style="width: 400px;">
+            <div id="btn-area" style="display: inline;">
+                <button>&nbsp;검색&nbsp;</button>
+                <button type="reset">초기화</button>
+            </div>
+            </td>
+             </tr>
         </table>
         <br>
-        <div id="btn-area">
-            <button>&nbsp;검색&nbsp;</button>
-            <button type="reset">초기화</a>
-        </div>
+        
         <script language = "javascript">
               
             function ShowSliderValue(sVal)

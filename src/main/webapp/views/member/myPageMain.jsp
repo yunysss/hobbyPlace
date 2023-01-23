@@ -65,6 +65,7 @@
 </head>
 <body>
 	<%@ include file="../common/tuteeMenubar.jsp" %>
+	
 	<div class="mpWrap">
 		
 	    <div class="content">
@@ -88,12 +89,16 @@
 	        <div class="contentMain">
 	            <div class="myPageProfile myPageProfile1">
 	                <div class="profileForm profileForm1" align="center">
-	                    
-	                    <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" width="100"  class="rounded-circle">
+	                
+	                    <%if(loginUser.getMemProfile() == null) {%>
+		                	<img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" width="100" class="rounded-circle">
+		                <%} else {%>
+							<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" width="100" class="rounded-circle">
+						<%} %>
                          <br><br>
 	                    <p id="helloUser">
 	                        안녕하세요 <br>
-	                        길동이 님 🥰
+	                        <%=loginUser.getMemNick()%>님 🥰
 	                    </p>
 	                </div>
 	                <div class="profileForm profileForm2">
@@ -143,7 +148,7 @@
                 })             	
                 $("#viewMyInfo").click(function(){
                     //회원정보 조회 및 수정 클릭시 이동할 페이지링크
-                    location.href = "<%=contextPath%>/.....";
+                    location.href = "<%=contextPath%>/memberInfo.me";
                 })
                 $("#viewMyQna").click(function(){
                     // 나의 문의 조회시 이동할 페이지링크(나의문의내역으로)
@@ -151,7 +156,7 @@
                 })
                 $("#viewMyClass").click(function(){
                     //마이클래스 클릭시 이동할 페이지링크
-                    location.href = "<%=contextPath%>/.....";
+                    location.href = "<%=contextPath%>/myClassList.tee";
                 })
                 $("#withdrawal").click(function(){
                     // 회원탈퇴 클릭시 이동할 페이지링크

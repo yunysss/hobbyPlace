@@ -58,7 +58,7 @@ public class MemberInsertController extends HttpServlet {
 			
 			String memAddr = "";
 			if(memAddrArr != null) {
-				memAddr = String.join(" ", memAddrArr);
+				memAddr = String.join("///", memAddrArr);
 			}
 			
 			String memBirth = "";
