@@ -495,10 +495,13 @@
 		                <a href="<%=contextPath%>/enrollForm.me">회원가입</a>
 					<%}else{ %>
 		                <!-- 로그인 후 -->
-		                <a href="<%=contextPath%>/myClass.tt">마이클래스</a>
+		                <a href="<%=contextPath%>/myClassList.tee">마이클래스</a>
 		                <p><%=loginUser.getMemNick()%>님</p> 
-						<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
-						
+		                <%if(loginUser.getMemProfile() == null) {%>
+		                	<img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+		                <%} else {%>
+							<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+						<%} %>
 						<div class="dropdown-menu">
 						    <a class="dropdown-item" href="<%=contextPath%>/myPageMain.me">마이페이지</a>
 						    <a class="dropdown-item" href="#">내가 찜한 목록</a>

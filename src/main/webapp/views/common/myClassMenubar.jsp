@@ -107,11 +107,11 @@
         $(function(){
         	<!--수강내역 결제 완료 클래스-->
 			$("#payMyClass").click(function(){
-				location.href="<%=contextPath%>/myClass.tt";
+				location.href="<%=contextPath%>/myClassList.tee";
 			})
 			<!--수강내역 수강 취소 클래스-->
 			$("#refundMyClass").click(function(){
-				location.href="<%=contextPath%>/....";
+				location.href="<%=contextPath%>/refundList.tee";
 			})
 			<!--후기작성-->
 			$("#writingReview").click(function(){
