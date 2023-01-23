@@ -14,6 +14,68 @@
 		width: 100px;
 	}
 
+	#classList{
+		margin-top: 71px;
+	}
+	#classContent p {margin-top: 5px; margin-left:18px; margin-bottom: 0;}
+	#classContent{
+		width: 80%;
+		height: 300px;
+		margin: auto;
+		border: 1px solid lightgray;
+		border-radius: 5px;
+
+	}
+	
+	#classContent img {
+		width: 200px;
+		height: 200px;
+		padding: 10px;
+	}
+
+	#classThumbnail{
+		text-align: center;
+		width: 200px;
+		float: left;
+		margin:5px;
+	}
+	#classDetail{
+		width: 400px;
+		float: left;
+		margin: 5px;;
+		
+	}
+	#classStatusAp{
+		margin: 10px;
+		background-color: rgb(26, 188, 156);
+		color: white;
+		border-radius: 5px;
+		font-size: 13px;
+		width: 75px;
+		height: 23px;
+		text-align: center;
+	}
+	table{width: 90%; margin-top: 16px;}
+
+	thead td{font-size: 12px; color: gray;}
+
+	#classTitle{
+		font-weight: bold;
+		font-size: 20px;
+		height: 43px;
+	}
+	tfoot button{
+		width: 150px;
+		height: 35px;
+		margin: 12px;
+		border-radius: 5px;
+		border: 0;
+	}
+
+	#btn1{background: rgb(35, 104, 116); color:white;}
+	
+
+
 </style>
 </head>
 <body>
@@ -22,22 +84,74 @@
 		<div class="content">
 
 			<!-- 결제한 클래스가 없을때-->
+			<!--
 			<div id="classnull">
 				<img src="<%=contextPath%>/resources/images/myClassNull.jpg" alt="">
 				<p>아직 신청 내역이 없어요!<br>
 				지금 바로 합플을 시작해 보세요.</p>
 				<button type="button" class="btn btn-light" id="findClass" onclick="">클래스 찾아보기</button>
+			</div>-->
+
+
+			<!--결제한 클래스가 있을 때-->
+			<div id="classList">
+				<div id="class-area">
+										
+					<div id="classContent">
+						<p>2023-01-03 결제</p>
+						<div id="classThumbnail">
+							<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> <!--클래스썸네일대표사진-->
+							<br>
+							<p>강보람<br>튜터</p>
+						</div>
+						<div id="classDetail">
+							<table  border="0">
+								<thead>
+									<tr>
+										<td >주문번호</td>
+										<td colspan="3">B3425R23</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="4" id="classTitle">가장 쉽게 배우는 JAVA</td>
+									</tr>
+									<tr>
+										<td colspan="4">사당 / 2023-01-07(토) 17:00</td>
+									</tr>
+									<tr>
+										<td height="50px"><div id="classStatusAp">승인완료</div></td>
+										<td colspan="3"></td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="2"><button id="btn1" onclick="">1:1문의</button></td>
+										<td colspan="2"><button id="btn2" onclick="">결제상세내역</button></td>
+									</tr>
+								</tfoot>	
+							</table>
+						</div>
+
+					</div>
+				</div>
 			</div>
-
-
 
 		</div>
       
     </div>	
+
+
+
 	<script>
 		$(function(){
 			$("#findClass").click(function(){
 				location.href="<%=contextPath%>/main.tee";
+			})
+
+			/* 1:1문의로 가는 버튼*/
+			$("#btn1").click(function(){
+				location.href="<%=contextPath%>/..";
 			})
 		})
 	</script>
