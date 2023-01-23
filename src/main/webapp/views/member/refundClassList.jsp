@@ -32,6 +32,10 @@
 		padding: 10px;
 	}
 
+	#class-area{
+		margin-bottom: 10px;
+	}
+
 	#classThumbnail{
 		text-align: center;
 		width: 200px;
@@ -55,6 +59,8 @@
 		text-align: center;
 	}
 
+	
+
 	#classStatusX{
 		margin: 10px;
 		background-color: rgb(180, 186, 185);
@@ -65,17 +71,17 @@
 		height: 23px;
 		text-align: center;
 	}
-	table{width: 90%; margin-top: 16px; }
+	#classDetail table{width: 90%; margin-top: 16px; }
 
-	thead td{font-size: 12px; color: gray;}
+	#classDetail thead td{font-size: 12px; color: gray;}
 
 	#classTitle{
 		font-weight: bold;
 		font-size: 20px;
 		height: 43px;
 	}
-	tfoot button{
-		width: 150px;
+	#classDetail tfoot button{
+		width: 270px;
 		height: 35px;
 		margin: 12px;
 		border-radius: 5px;
@@ -122,7 +128,7 @@
 							<p>강보람<br>튜터</p>
 						</div>
 						<div id="classDetail">
-							<table  border="0" margin-right: 0;>
+							<table  border="0">
 								<thead>
 									<tr>
 										<td >주문번호</td>
@@ -151,7 +157,115 @@
 
 					</div>
 				</div>
+			
+
+            <!--환불완료 클래스-->
+			
+				<div id="class-area">
+										
+					<div id="classContent">
+						<p>2023-01-03 취소</p>
+						<div id="classThumbnail">
+							<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> <!--클래스썸네일대표사진-->
+							<br>
+							<p>강보람<br>튜터</p>
+						</div>
+						<div id="classDetail">
+							<table  border="0">
+								<thead>
+									<tr>
+										<td >주문번호</td>
+										<td colspan="3">B3425R23</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="4" id="classTitle">가장 쉽게 배우는 JAVA</td>
+									</tr>
+									<tr>
+										<td colspan="4">사당 / 2023-01-07(토) 17:00</td>
+									</tr>
+									<tr>
+										<td height="50px"><div id="classStatusX">환불 완료</div></td>
+										<td colspan="3"></td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="4"><button id="btn2" data-toggle="modal" data-target="#myModal">환불 상세 내역</button></td>
+									</tr>
+								</tfoot>	
+							</table>
+						</div>
+
+					</div>
+				</div>
 			</div>
+
+		</div>
+
+		<!-- 결제상세내역 Modal -->
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog modal-dialog-centered">
+			  <div class="modal-content">
+			  
+				<!-- Modal Header -->
+				<div class="modal-header">
+				  <h5 class="modal-title" style="margin-left: 163px; font-weight: bold;">환불 상세 내역</h5>
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				
+				<!-- Modal body -->
+				<div class="modal-body" style="margin:auto">
+					<div>
+						<table class="modalTB" >
+							<tr>
+								<td rowspan="2" >결제 금액</td>
+								<td colspan="2" id="payment1">신용카드</td>
+							</tr>
+							<tr>
+								<td colspan="2" id="payment2">45,000</td>
+							</tr>
+							<tr>
+								<td colspan="3" id="detailLine">세부내용</td>
+							</tr>
+							<tr >
+								<td colspan="2" style="font-size: 11px; color: gray;">주문번호 B3425R23</td>								
+								<td rowspan="4" style="text-align: right;" width="80px">45,000원</td>
+							</tr>
+							<tr>
+								<td colspan="2">쉽게 배우는 JAVA</td>
+							</tr>
+							<tr>
+								<td colspan="2"> 강보람 튜터</td>
+							</tr>
+							<tr>
+								<td width="120px">클래스 수강권 x </td>
+								<td>1</td>
+							</tr>
+                            <tr>
+                                <td colspan="3" height="1px" style="background: gray;"></td>
+                            </tr>
+                            <tr>
+                                <td height="45px">최종 환불 금액</td>
+                                <td colspan="3" style="text-align: right;">45,000원</td>
+                            </tr>
+							
+						</table>
+                        
+                        
+					</div>
+				</div>
+				
+			  </div>
+			</div>
+		  </div>
+		  
+      
+    </div>	
+		
+	<%@ include file = "../common/footerbar.jsp" %>
+
 
 
 
