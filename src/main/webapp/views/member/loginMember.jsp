@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String loginFail = (String)session.getAttribute("loginFail");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,8 +53,12 @@
 	                <p> | </p>
 	                <a href="<%=contextPath%>/searchPwdByPhone.me">비밀번호 찾기</a>
 	            </div>
-				
-				<p id="loginFail" style="color:red"><%=request.getAttribute("loginFail")%></p>
+	            
+				<% if(loginFail != null) {%>
+					<p id="loginFail" style="color:red"><%=request.getAttribute("loginFail")%></p>
+	            <%} else{%>
+	            	<% session.removeAttribute("loginFail"); %>
+	            <%} %>
 	            
 	            <button type="submit" class="lgPage" id="logInUser">로그인</button> <br>
 	            <button type="button" class="lgPage" id="signInUser" onclick="enrollPage();">회원가입</button>

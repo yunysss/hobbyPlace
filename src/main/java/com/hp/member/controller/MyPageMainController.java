@@ -30,16 +30,19 @@ public class MyPageMainController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		request.getRequestDispatcher("views/member/myPageMain.jsp").forward(request, response);
-		/*
 		if(session.getAttribute("loginUser") == null) { // 로그인 전
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
 			response.sendRedirect(request.getContextPath());
 		}else { // 로그인 후
-			// 응답페이지 (views/member/myPageMain.jsp)
+			
+			
+			
 			request.getRequestDispatcher("views/member/myPageMain.jsp").forward(request, response);
 		}
-		*/
+		
+
+		
+
 	}
 
 	/**
