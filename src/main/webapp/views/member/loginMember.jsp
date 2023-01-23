@@ -56,9 +56,11 @@
 	            
 				<% if(loginFail != null) {%>
 					<p id="loginFail" style="color:red"><%=request.getAttribute("loginFail")%></p>
-	            <%} else{%>
+	            <%} else {%>
 	            	<% session.removeAttribute("loginFail"); %>
 	            <%} %>
+	            	
+	           
 	            
 	            <button type="submit" class="lgPage" id="logInUser">로그인</button> <br>
 	            <button type="button" class="lgPage" id="signInUser" onclick="enrollPage();">회원가입</button>

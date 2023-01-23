@@ -40,6 +40,7 @@ public class LoginMemberFormController extends HttpServlet {
 		
 		if(loginUser == null) {
 			
+			HttpSession session = request.getSession();
 			request.setAttribute("loginFail", "아이디 또는 비밀번호를 잘못 입력했습니다.\r\n" + "입력하신 내용을 다시 확인해주세요.");
 			request.getRequestDispatcher("views/member/loginMember.jsp").forward(request, response);
 			
@@ -47,7 +48,7 @@ public class LoginMemberFormController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			
-			response.sendRedirect(request.getContextPath() + "/main.tee");
+			response.sendRedirect(request.getContextPath());
 		}
 	}
 

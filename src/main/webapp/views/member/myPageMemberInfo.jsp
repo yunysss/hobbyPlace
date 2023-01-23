@@ -179,6 +179,18 @@
 </head>
 <body>
 	<%@ include file="../common/tuteeMenubar.jsp" %>
+	
+	<%
+    	String memId = loginUser.getMemId();
+    	String memName = loginUser.getMemName();
+    	String memNick = loginUser.getMemNick();
+    	String phone = loginUser.getPhone();
+    	String email = loginUser.getEmail();
+    	String gender = loginUser.getGender();
+    	String memBirth = loginUser.getMemBirth();
+    	String address = loginUser.getMemAddr() == null ? "" : loginUser.getMemAddr();
+    	String interest = loginUser.getInterest() == null ? "" : loginUser.getInterest();
+    %> 
 	<div class="cWrap">
         <div class="mpMenubar">
             <h3 align="center">마이페이지</h3>
@@ -263,7 +275,7 @@
                     <tr>
                         <td class="td1">아이디 </td>
                         <td class="td2">
-                            userId
+                            memId
                         </td>
                         <td class="td3">
                             
@@ -314,7 +326,7 @@
                     <tr>
                         <td class="td1">이름 </td>
                         <td class="td2">
-                            <%=loginUser.getMemName() %>
+                            memName
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -326,7 +338,7 @@
                     <tr>
                         <td class="td1">닉네임 </td>
                         <td class="td2">
-                            <input type="text" id="userNickName" class="fillOutForms" name="userNick" placeholder="<%=loginUser.getMemNick()%>" required>
+                            <input type="text" id="userNickName" class="fillOutForms" name="userNick" value="<%=memNick%>" placeholder="6자이내로입력하세요" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck nickDoubleCheck" onclick="nickCheck();" disabled>중복확인</button>
@@ -370,7 +382,7 @@
                     <tr>
                         <td class="td1">이메일 </td>
                         <td class="td2">
-                            <input type="email" class="fillOutForms" id="email" name="email" placeholder="<%=loginUser.getEmail()%>" required>
+                            <input type="email" class="fillOutForms" id="email" name="email" value="<%=email %>" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck emailDoubleCheck" disabled>중복확인</button>
@@ -457,6 +469,7 @@
                         </td>
                         <td class="td3"></td>
                     </tr>
+                    
                     <tr>
                         <td class="td1">생년월일</td>
                         <td class="td2">
@@ -551,11 +564,11 @@
                             (중복선택 가능)
                         </td>
                         <td class="td2" rowspan="5">
-                            <input type="checkbox" name="interest" value="11" id="education"> <label for="education">학업 (외국어, IT, 자격증 등)</label> <br>
-                            <input type="checkbox" name="interest" value="22" id="diy"> <label for="diy">공예 DIY (가죽, 비누, 꽃, 뜨개질 등)</label> <br>
-                            <input type="checkbox" name="interest" value="33" id="cooking"> <label for="cooking">쿠킹 (요리, 베이킹)</label> <br>
-                            <input type="checkbox" name="interest" value="44" id="drawing"> <label for="drawing">드로잉</label> <br>
-                            <input type="checkbox" name="interest" value="55" id="sports"> <label for="sports">스포츠</label> <br>
+                            <input type="checkbox" class="interest" name="interest" value="11" id="education"> <label for="education">학업 (외국어, IT, 자격증 등)</label> <br>
+                            <input type="checkbox" class="interest" name="interest" value="22" id="diy"> <label for="diy">공예 DIY (가죽, 비누, 꽃, 뜨개질 등)</label> <br>
+                            <input type="checkbox" class="interest" name="interest" value="33" id="cooking"> <label for="cooking">쿠킹 (요리, 베이킹)</label> <br>
+                            <input type="checkbox" class="interest" name="interest" value="44" id="drawing"> <label for="drawing">드로잉</label> <br>
+                            <input type="checkbox" class="interest" name="interest" value="55" id="sports"> <label for="sports">스포츠</label> <br>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -572,6 +585,17 @@
                         <td class="td3"></td>
                     </tr>
                 </table>
+                <script>
+                	$(function){
+                		const interest = "<%=loginUser.getInterest()%>";
+                		
+                		$(".interest").each(function(){
+                			if(interest.search($(this).val()) != -1){
+                				$(this).attr("checked", true);
+                			}
+                		})
+                	}
+                </script>
                 <br><br><br>
                 <div align="center">
                     <button id="updateButton">수정완료</button>

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, com.hp.lesson.model.vo.Lesson"%>
 <%
 	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");
-	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -63,15 +62,6 @@
 </style>
 </head>
 <body>
-	<%@ include file="../common/tuteeMenubar.jsp" %>
-	
-	<% if(alertMsg != null) { %>
-		<script>
-			alert("<%=alertMsg%>");
-		</script>
-		<% session.removeAttribute("alertMsg"); %>
-	<% } %>
-	
 	<div class="outer">
         <div id="demo" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
