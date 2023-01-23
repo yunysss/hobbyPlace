@@ -235,6 +235,14 @@
             border-radius: 5px;
         }
 
+        input[type="date"]{
+        width: 150px;
+        border: 1px solid rgb(202, 199, 199);
+        height: 32px;
+        border-radius: 5px;
+    }
+
+
       
         select{
             width: 100px;
@@ -265,10 +273,10 @@
         
         .slider {
             -webkit-appearance: none;
-            width: 100%;
+            width: 10px;
             height: 5px;
             border-radius: 5px;
-            background: #a3a2a2;
+            background: #9d2626;
             outline: none;
             opacity: 0.7;
             -webkit-transition: .2s;
@@ -324,64 +332,10 @@
         text-align: center;
     
     }
-    #search-area{display: none;
-       float:inherit
-    
-    }
+ 
  
     </style>
        
-    
- <script>                
-    
-    $(document).ready(function() {
-
-        //datepicker 한국어로 사용하기 위한 언어설정
-        $.datepicker.setDefaults($.datepicker.regional['ko']);     
-    
-        // Datepicker            
-        $(".datepicker").datepicker({
-            showButtonPanel: true,
-            dateFormat: "yy-mm-dd",
-            onClose : function ( selectedDate ) {
-            
-                var eleId = $(this).attr("id");
-                var optionName = "";
-
-                if(eleId.indexOf("StartDate") > 0) {
-                    eleId = eleId.replace("StartDate", "EndDate");
-                    optionName = "minDate";
-                } else {
-                    eleId = eleId.replace("EndDate", "StartDate");
-                    optionName = "maxDate";
-                }
-
-                $("#"+eleId).datepicker( "option", optionName, selectedDate );        
-                $(".searchDate").find(".chkbox2").removeClass("on"); 
-            }
-        }); 
-
-       
-
-        $(".dateclick").dateclick();    // DateClick
-    
-        
-    });
-
-   
-    // DateClick
-    jQuery.fn.dateclick = function(){
-        var $obj = $(this);
-        $obj.click(function(){
-            $(this).parent().find("input").focus();
-        });
-    }    
-
-    
-    
-
-        
-    </script>           
 
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -420,54 +374,54 @@
                     <div class="category dropdown-menu ">
                     
                             <ul class="bookmark-lists menu">
-                                <li class="bookmark"><a href=""><label>교육</label>
+                                <li class="bookmark"><a><label>교육</label>
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                     </a>
                                     <ul class="submenu">
-                                        <li><a href="">외국어</a></li>
-                                        <li><a href="">IT</a></li>
-                                        <li><a href="">자격증</a></li>
+                                        <li><a>외국어</a></li>
+                                        <li><a>IT</a></li>
+                                        <li><a>자격증</a></li>
     
                                     </ul>
                                 </li>
-                                <li class="bookmark"><a href=""><label>공예 DIY</label>
+                                <li class="bookmark"><a><label>공예 DIY</label>
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                 </a>
                                     <ul class="submenu">
-                                        <li><a href="">가죽 / 라탄</a></li>
-                                        <li><a href="">비누 / 꽃 / 향</a></li>
-                                        <li><a href="">뜨개 / 자수 </a></li>
-                                        <li><a href="">기타 </a></li>
+                                        <li><a>가죽 / 라탄</a></li>
+                                        <li><a>비누 / 꽃 / 향</a></li>
+                                        <li><a>뜨개 / 자수 </a></li>
+                                        <li><a>기타 </a></li>
                                     </ul>
                                 
                                 </li>
-                                <li class="bookmark"><a href=""><label>드로잉</label>
+                                <li class="bookmark"><a><label>드로잉</label>
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                 </a>
                                     <ul class="submenu">
-                                        <li><a href="">취미미술</a></li>
-                                        <li><a href="">캘리그래피</a></li>
+                                        <li><a>취미미술</a></li>
+                                        <li><a>캘리그래피</a></li>
                                     
                                     
                                     </ul>
                                 </li>
-                                <li class="bookmark"><a href=""><label>쿠킹</label>
+                                <li class="bookmark"><a><label>쿠킹</label>
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                 </a>
                                     <ul class="submenu">
-                                        <li><a href="">요리</a></li>
-                                        <li><a href="">베이킹</a></li>
+                                        <li><a>요리</a></li>
+                                        <li><a>베이킹</a></li>
                                     
                                     </ul>
                                 </li>
-                                <li class="bookmark"><a href=""><label>스포츠/피트니스</label>
+                                <li class="bookmark"><a><label>스포츠/피트니스</label>
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                 </a>
                                     <ul class="submenu">
-                                        <li><a href="">실내스포츠</a></li>
-                                        <li><a href="">야외스포츠</a></li>
-                                        <li><a href="">레저 / 액티비티 </a></li>
-                                        <li><a href="">요가 필라테스 / 헬스 PT</a></li>
+                                        <li><a>실내스포츠</a></li>
+                                        <li><a>야외스포츠</a></li>
+                                        <li><a>레저 / 액티비티 </a></li>
+                                        <li><a>요가 필라테스 / 헬스 PT</a></li>
                                         
                                     </ul>
                                 </li>
@@ -477,6 +431,22 @@
                         
                     </div>   
                     </div>
+                    
+             	<script>
+		        	$(function(){
+		        		$(".bookmark a").click(function(){
+		        			location.href="<%=contextPath%>/ctselect.cl?ct="+ $(this).children().eq(0).text();
+		        			
+		        		})
+		        	})
+		        	
+		        	$(function(){
+		        		$(".submenu>li a").click(function(){
+		        			location.href="<%=contextPath%>/ctselect.cl?ct="+ $(this).eq(0).text();
+		        			
+		        		})
+		        	})
+		        </script>
 
                 
                 
@@ -486,7 +456,7 @@
 	            	</a>
 	            </div>
 	            <div id="search">
-	                <form action="" id="search-form">
+	                <form action="<%=contextPath %>/keyword.cl" id="search-form">
 	                        <div id="search-text"  >
 	                            <input type="text" name="keyword" placeholder="&nbsp;검색어를 입력하세요">
 	                        </div>
@@ -542,7 +512,7 @@
     
     <div id="search-area" align="center">
         <br>
-        <form action="" id="searchForm">  
+        <form action="<%=contextPath %>/keyword.cl" id="searchForm">  
         <div class="form-group has-search">
             <span class="fa fa-search form-control-feedback"></span>
             <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요"  placeholder="Search">
@@ -636,20 +606,21 @@
                 <td>
                     <div class="clearfix">
                         <!-- 시작일 -->
-                        <span class="dset">
-                            <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >
-                            <a href="#none" class="btncalendar dateclick"></a>
-                        </span>
-                        <span class="demi">-</span>
+                            <input type="date"  name="searchStartDate" id="startDate" >
                         <!-- 종료일 -->
-                        <span class="dset">
-                            <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" > 
-                            <span class="material-symbols-outlined"></span>
-                            <a href="#none" class="btncalendar dateclick"></a>
-                        </span>
-                    </div>    
+                            <input type="date"  name="searchEndDate" id="endDate" > 
 
+                    </div>    
                 </td>
+                <script>
+                    var now_utc = Date.now()
+                    var timeOff = new Date().getTimezoneOffset()*60000;
+                    var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+                    document.getElementById("startDate").setAttribute("min", today);
+                    document.getElementById("endDate").setAttribute("min", today);
+                    
+                    
+                    </script>
                 
             </tr>
             <tr>
@@ -657,7 +628,7 @@
                 <td>
                 <div class="Container" >
                                              
-                    <input style = "width:100%;" class="slider_range slider" type="range"  min="0" max="200000" ></input>
+                    <input style = "width:100%" class="slider_range slider" type="range"  min="0" max="200000" ></input>
                     <div id="tickmarks">
                         <p>0</p>
                         <p></p>
@@ -674,13 +645,17 @@
                   </div>
                 </td>
             </tr>
-
+            <tr>
+            <td colspan="2" align="center" style="width: 400px;">
+            <div id="btn-area" style="display: inline;">
+                <button>&nbsp;검색&nbsp;</button>
+                <button type="reset">초기화</button>
+            </div>
+            </td>
+             </tr>
         </table>
         <br>
-        <div id="btn-area">
-            <button>&nbsp;검색&nbsp;</button>
-            <button type="reset">초기화</a>
-        </div>
+        
         <script language = "javascript">
               
             function ShowSliderValue(sVal)
