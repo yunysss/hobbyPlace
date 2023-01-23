@@ -166,7 +166,10 @@ private Properties prop = new Properties();
 						        rset.getString("refundpolicy"),
 						        rset.getString("cl_supplies"),
 						        rset.getString("cl_thumb"),
-						        rset.getInt("like_count")
+						        rset.getInt("star_avg"),
+						        rset.getInt("star_count"),
+						        rset.getInt("like_count"),
+						        rset.getString("tt_profile")
 						        );
 						        
 			}
@@ -209,6 +212,35 @@ private Properties prop = new Properties();
 		
 		return list;
 		
+	}
+	
+	public ArrayList<Review> selectClassReview(Connection conn, int clNo){
+		ArrayList<Review> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectClassReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Review(rset.getInt("re_no"),
+						            rset.getString("content"),
+						            rset.getInt("re_star"),
+						            rset.getString("re_date"),
+						            rset.getString("re_update"),
+						            rset.getString("mem_nickname"),
+						            rset.getString("mem_profile")
+						            ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }

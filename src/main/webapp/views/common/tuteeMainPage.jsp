@@ -113,13 +113,11 @@
 	                <script>
 	                	$(function(){
 	                		selectNewClassList();
-	                		selectLikeClassList();
 	                	})
 	                	
 	                	function selectNewClassList(){
 	                		$.ajax({
 	                			url:"<%=contextPath%>/listNew.cl",
-	                			async:false,
 	                			success:function(list){
 	                				let value = "";
 	                				for(let i=0; i<10; i++){
@@ -141,6 +139,15 @@
 	                </script>
                 <% } else{ %>
                 	<!-- 로그인 후 -->
+                	<div class="rec-title">
+	                    <b><%= loginUser.getMemNick() %> 님이 좋아할만한 클래스 🥰</b>
+	                </div>
+	                <div id="rec-pic">
+	                    <table>
+	                    	<tr>
+	                    	</tr>
+	                    </table>
+	                </div>
                 
                 <% } %>
                 
@@ -158,11 +165,14 @@
 	                </div>
 	                
 	                <script>
+		                $(function(){
+	                		selectLikeClassList();
+	                	})
 	                	function selectLikeClassList(){
 	                		$.ajax({
 	                			url:"<%=contextPath%>/listLike.cl",
-	                			async:false,
 	                			success:function(list){
+	                				
 	                				let value = "";
 	                				for(let i=0; i<10; i++){
 	                					value += "<td>"
@@ -201,9 +211,7 @@
 	                	function selectReviewClassList(){
 	                		$.ajax({
 	                			url:"<%=contextPath%>/listReview.cl",
-	                			async:false,
 	                			success:function(list){
-	                				console.log(list.reviewStar);
 	                				let value = "";
 	                				for(let i=0; i<list.length; i++){
 	                					value += "<td>"

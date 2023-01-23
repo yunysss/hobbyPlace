@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.service.LessonService;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.review.model.vo.Review;
 
 /**
  * Servlet implementation class ClassPageController
@@ -35,9 +36,11 @@ public class ClassPageController extends HttpServlet {
 		int clNo = Integer.parseInt(request.getParameter("no"));
 		Lesson le = new LessonService().selectClassPage(clNo);
 		ArrayList<Attachment> aList = new LessonService().selectClassAttachment(clNo);
+		ArrayList<Review> rList = new LessonService().selectClassReview(clNo);
 		
 		request.setAttribute("le", le);
 		request.setAttribute("aList", aList);
+		request.setAttribute("rList", rList);
 		
 		request.getRequestDispatcher("views/lesson/classPageView.jsp").forward(request, response);
 	}

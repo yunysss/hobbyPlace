@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.hp.lesson.model.vo.Lesson, java.util.ArrayList, com.hp.common.model.vo.Attachment"%>
+    pageEncoding="UTF-8" import="com.hp.lesson.model.vo.Lesson, java.util.ArrayList, com.hp.common.model.vo.Attachment, com.hp.review.model.vo.Review"%>
 <%
 	Lesson le = (Lesson)request.getAttribute("le");
 	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
+	ArrayList<Review> rList = (ArrayList<Review>)request.getAttribute("rList");
 %>
 <!DOCTYPE html>
 <html>
@@ -274,8 +275,8 @@
                     
                     <b>강사소개</b><br><br>
                     <a href="<%=contextPath%>/ttdetail.cl" id="classDetail-tutor">
-                	<img src="" width="75px" height="100%">
-                    <span>람보람보베이커리</span>
+                	<img src="<%= contextPath %>/<%= le.getTutorProfile() %>" width="75px" height="100%">
+                    <span><%= le.getMemNo() %></span>
                     <img src="<%= contextPath %>/resources/images/right_arrow.png" width="40px;" height="40px;">
                   	</a>
                     </div>
@@ -289,29 +290,44 @@
                     <hr>
                     <div id="section3" class="container-fluid">
                         <b>후기</b> <br>
-                        ⭐5.0 (11)
+                        <% if(rList.isEmpty()){ %>
+                        	작성된 후기가 없습니다.
+                        <%} else {%>
+                        ⭐<%= le.getClStarAvg() %>.0 (<%= le.getClStarCount() %>)
                         <br><br>
                         <table width="550" height="150">
-                            <tr>
-                                <td width="60" height="60">
-                                    <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" width="45"  class="rounded-circle">
-                                </td>
-                                <td>
-                                    홍길순 <br>
-                                    ⭐⭐⭐⭐⭐ 2022/3/11
-                                </td>
-                                <td rowspan="2" width="100">
-                                    <img src="" width="100">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">후기내용어쩌구저쩌구 솰라솰라솰라 존존존존존존존존존존존잼잼잼잼잼잼잼잼재맺ㅈ맺잼</td>
-                            </tr>
+                        	<% for(int i=0; i<rList.size(); i++){ %>
+	                            <tr>
+	                                <td width="60" height="60">
+	                                    <img src="<%=request.getContextPath()%>/<%= rList.get(i).getMemProfile() %>" width="45"  class="rounded-circle">
+	                                </td>
+	                                <td>
+	                                    <%= rList.get(i).getMemNickName() %> <br>
+	                                    <% 
+	                                    String value = "";
+	                                    for(int j=1; j<=rList.get(i).getReviewStar(); j++){
+	                						value += "⭐";
+	                					} %>
+	                					<%= value %>
+	                					<% if(rList.get(i).getReviewUpDate() == null){ %>
+	                                    	<%= rList.get(i).getReviewDate() %>
+	                                    <% } else{%>
+	                                    	<%= rList.get(i).getReviewUpDate() %>
+	                                    <% } %>
+	                                </td>
+	                                <td rowspan="2" width="100">
+	                                    <img src="" width="100"> <!-- 후기사진 -->
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td colspan="2"><%= rList.get(i).getReviewContent() %></td>
+	                            </tr>
+                            <% } %>
                         </table>
                         <div align="center">
-                            <button type="button">더보기</button>
+                            <button type="button">더보기</button> <!-- 후기 5개씩 -->
                         </div>
-                        
+                        <% } %>
                     </div>
                     <hr>
                     <div id="section4" class="container-fluid">
