@@ -86,6 +86,15 @@
 	 	WHERE MEM_NO = ?
 
 	</entry>
+	
+	<!-- 튜터 닉네임 중복체크 -->
+	<entry key="nickCheck">
+		SELECT
+			   COUNT(*) "COUNT"
+		  FROM TUTOR
+		WHERE TT_NAME = ? 
+		 
+	</entry>
 
 
 
