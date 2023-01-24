@@ -278,7 +278,7 @@
                         <tr>
                             <th width="100">판매시작일</th>
                             <td>
-                                <input type="date" name="startDate" id="startDate">
+                               <input type="radio" name="startDate" value="" id="instantly"><label for="instantly">검수완료후</label>
                             </td>
                         </tr>
                         <tr>

@@ -37,6 +37,7 @@ public class NewClassManagementList extends HttpServlet {
 		int listCount = new AdminService().selectNewClassCount();
 		
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
+		System.out.println(currentPage);
 		int pageLimit = 5;
 		int boardLimit = 10;
 		

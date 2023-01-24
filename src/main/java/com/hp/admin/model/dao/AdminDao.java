@@ -4,7 +4,6 @@ import static com.hp.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +17,7 @@ import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.vo.Member;
+import com.hp.tutor.model.vo.Tutor;
 
 
 
@@ -215,7 +215,7 @@ public class AdminDao {
 							rset.getString("cl_schedule"),
 							rset.getString("cl_day"),
 							rset.getString("cl_price"),
-							rset.getClob("cl_detail"),
+							rset.getString("cl_detail"),
 							rset.getString("curriculum"),
 							rset.getString("refundPolicy"),
 							rset.getString("cl_supplies"),
@@ -389,6 +389,61 @@ public class AdminDao {
 	
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return t (클래스 번호에 따라 튜터정보조회)
+	 */
+	public Tutor selectTutor(Connection conn, int clNo) {
+		Tutor t = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTutor");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,clNo);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				t = new Tutor(rset.getInt("mem_no"),
+							  rset.getString("tt_name"),
+							  rset.getString("introduce"),
+							  rset.getString("tt_profile")
+						
+						);
+						
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return t;
+	}
+	
+	public int classApprovalUpdate(Connection conn, int clNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("classApprovalUpdate");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
 	
 
 	

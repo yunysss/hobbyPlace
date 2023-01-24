@@ -1,7 +1,6 @@
 package com.hp.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,21 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.hp.admin.model.service.AdminService;
-import com.hp.lesson.model.vo.Lesson;
-import com.hp.lesson.model.vo.Schedule;
-import com.hp.tutor.model.vo.Tutor;
 
 /**
- * Servlet implementation class NewClassDetailController
+ * Servlet implementation class NewClassApprovalController
  */
-@WebServlet("/newde.ad")
-public class NewClassDetailController extends HttpServlet {
+@WebServlet("/approval.ad")
+public class NewClassApprovalController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewClassDetailController() {
+    public NewClassApprovalController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,25 +30,19 @@ public class NewClassDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int clNo = Integer.parseInt(request.getParameter("no"));
+		int result = new AdminService().classApprovalUpdate(clNo);
 		
-		AdminService aService = new AdminService();
-		
-		Lesson l = aService.selectClass(clNo);
-		ArrayList<Schedule> sList = aService.selectSchedule(clNo);
-		Tutor t = aService.selectTutor(clNo);
-		
-		//상세페이지 사진 조회해오기 (Attachment)
-		
-	
-		request.setAttribute("l", l);
-		request.setAttribute("sList", sList);
 		HttpSession session = request.getSession();
-		session.setAttribute("tutor",t);
-
-		request.getRequestDispatcher("views/admin/newClassDetailView.jsp").forward(request, response);
+		if(result>0) {	
+			session.setAttribute("alertMsg", "승인이 완료되었습니다.");
+			response.sendRedirect(request.getContextPath()+"/newcl.ad?capge=1"); 
+		}else {
+			session.setAttribute("alertMsg","승인 완료에 실패했습니다.");
+			response.sendRedirect(request.getContextPath()+"/newde.ad?no="+clNo);
+		}
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

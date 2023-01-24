@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.hp.lesson.model.vo.* , java.util.ArrayList" %>    
+<%@ page import = "com.hp.lesson.model.vo.* , com.hp.tutor.model.vo.*,java.util.ArrayList" %>    
     
 <% 
 	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("sList");
 	Lesson l = (Lesson)request.getAttribute("l");
+	Tutor t = (Tutor)session.getAttribute("tutor");
+	String ttProfile = t.getTtProfile() ==  null? "resources/tutorProfile_upfiles/defaultimg.jpg" : t.getTtProfile();
 
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>      
 
 <!DOCTYPE html>
@@ -79,6 +82,16 @@
     </head>
     <body>
         <%@ include file="../common/adminMenubar.jsp" %>
+        <%if(alertMsg != null) {%>
+		<script>
+			alert("<%=alertMsg%>"); // alert("") 따옴표안에 작성해야됨
+		</script>
+			<%session.removeAttribute("alertMsg");%>
+		<%} %>
+        
+        
+        
+        
         <div class="outer">
                         
             
@@ -86,9 +99,9 @@
             <br>
             <span style="font-size: 15px; font-weight:550" id="detail">클래스 상세내역
             </span> 
-           
+            <form action="<%=contextPath %>/approval.ad?no=<%=l.getClNo() %>" method="post">
             <div id="btn-area" >
-            <a href="" class="btn btn-secondary btn-sm a">승인</a>
+            <button class="btn btn-secondary btn-sm a">승인</button>
             <button  type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classReject">반려</button>
             </div>
         
@@ -122,7 +135,7 @@
                     <div id="classPrice"><h5 style="font-weight: 550;"><%=l.getClPrice() %> 원</h5></div>
                     <div id="tutorInfo">
                         <div id="tutorImg">
-                        <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg"  width="80"  class="rounded-circle" alt="Cinque Terre" >
+                        <img src="<%=request.getContextPath()%>/<%=ttProfile %>"  width="80"  class="rounded-circle" alt="Cinque Terre" >
                         <label style="font-weight: 600;"> &nbsp; <%=l.getMemNo() %></label>
                         </div>
                         
@@ -291,6 +304,7 @@
                <%=l.getRefundPolicy()%>
 
             </div>
+        </form>
             <div align="center">
                 <a href="<%=contextPath%>/newcl.ad?cpage=1"class="btn btn-secondary btn-sm a">목록으로</a>
             </div>

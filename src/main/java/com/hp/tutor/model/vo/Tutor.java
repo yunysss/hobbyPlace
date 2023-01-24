@@ -18,8 +18,18 @@ public class Tutor {
 
 	public Tutor() {}
 
-
+    
 	
+	public Tutor(int memNo, String ttName, String introduce, String ttProfile) {
+		super();
+		this.memNo = memNo;
+		this.ttName = ttName;
+		this.introduce = introduce;
+		this.ttProfile = ttProfile;
+	}
+
+
+
 	public Tutor(int memNo, String ttName, String ttPhone, String ttEmail, String introduce, Date enrollDate,
 			String pubPhone, String ttProfile, String modifyDate) {
 		super();

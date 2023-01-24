@@ -161,6 +161,33 @@
 	WHERE RNUM BETWEEN ?   AND ?
 	</entry>
 	
+	<!-- 클래스번호에 따른 튜터정보  -->
+	<entry key="selectTutor">
+		   
+	 SELECT MEM_NO
+	        ,TT_NAME
+	        ,INTRODUCE
+	        ,TT_PROFILE
+	   FROM TUTOR
+	   JOIN CLASS USING (MEM_NO)
+	  WHERE CL_NO= ?
+ 
+	
+	</entry>
+
+	<!-- 관리자 클래스 승인 -->
+	<entry key="classApprovalUpdate">
+	UPDATE CLASS
+	  SET UPDATE_DATE = SYSDATE
+	     , CL_STATUS = 2
+	WHERE  CL_NO =?   
+	
+	
+	
+	
+	
+	</entry>
+	
 		
 	
 </properties>

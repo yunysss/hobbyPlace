@@ -5,6 +5,7 @@
 %>
 <%
 	String contextPath = request.getContextPath();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -120,7 +121,7 @@
     </style>
 </head>
 <body>
-
+	
     <div class="wrap">
         <div id="header">
                     <div id="log_box">

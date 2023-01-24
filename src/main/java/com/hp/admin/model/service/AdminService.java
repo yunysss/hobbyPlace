@@ -1,20 +1,19 @@
 package com.hp.admin.model.service;
 
 import static com.hp.common.JDBCTemplate.*;
+import static com.hp.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.hp.admin.model.dao.AdminDao;
-
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.vo.Member;
-
-import oracle.sql.CLOB;
+import com.hp.tutor.model.vo.Tutor;
 
 public class AdminService {
 	
@@ -91,6 +90,24 @@ public class AdminService {
 
 	}
 	
+	public Tutor selectTutor(int clNo) {
+		Connection conn = getConnection();
+		Tutor t = new AdminDao().selectTutor(conn, clNo); 
+		close(conn);
+		return t;
+	}
+	
+	public int classApprovalUpdate(int clNo) {
+		Connection conn = getConnection();
+		int result = new AdminDao().classApprovalUpdate(conn, clNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 
 }

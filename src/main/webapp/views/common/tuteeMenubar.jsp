@@ -186,6 +186,8 @@
             font-size: 13px;
             margin: auto;
             padding: 20px;
+            display: none;
+            
         }
        
         #select>tr{
@@ -276,7 +278,7 @@
             width: 10px;
             height: 5px;
             border-radius: 5px;
-            background: #9d2626;
+            background: rgb(202, 195, 195);
             outline: none;
             opacity: 0.7;
             -webkit-transition: .2s;
@@ -590,17 +592,7 @@
                        
                      </select>
                 </td>
-                
-                <script>
-                
-                
-              
-                
-                
-                </script>
-                
-                
-                
+     
                 
                 
             </tr>
