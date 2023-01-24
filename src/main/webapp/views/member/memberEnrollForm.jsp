@@ -351,36 +351,50 @@
                                 $("#bYear").append("<option value='" + i +"'>" + i + "</option>");
                             }
 
-                            for(let i=1; i<=12; i++){
+                            for(let i=1; i<=9; i++){
+                                $("#bMonth").append("<option value='0" + i + "'>0" + i + "</option>");
+                            }
+                            for(let i=10; i<=12; i++){
                                 $("#bMonth").append("<option value='" + i + "'>" + i + "</option>");
                             }
-                            
-                            for(let i=1; i<=31; i++){
+                            for(let i=1; i<=9; i++){
+                                $("#bDate").append("<option value='0" + i + "'>0" + i + "</option>");
+                            }
+                            for(let i=10; i<=31; i++){
                                 $("#bDate").append("<option value='" + i + "'>" + i + "</option>");
                             }
                             
                             $("#bMonth").change(function(){
-                                if($(this).val() == 2){
+                                if($(this).val() == 02){
 
-                                   $("#bDate").empty();
-                                    for(let j=1; j<=29; j++){
-                                        $("#bDate").append("<option value='" + j + "'>" + j + "</option>");
-                                    }
+                                $("#bDate").empty();
+	                                for(let i=1; i<=9; i++){
+	                                    $("#bDate").append("<option value='0" + i + "'>0" + i + "</option>");
+	                                }
+	                                for(let i=10; i<=29; i++){
+	                                    $("#bDate").append("<option value='" + i + "'>" + i + "</option>");
+	                                }
                                     
-                                }else if($(this).val() == 4 || $(this).val() == 6 || $(this).val() == 9 || $(this).val() == 11){
+                                }else if($(this).val() == 04 || $(this).val() == 06 || $(this).val() == 09 || $(this).val() == 11){
 
                                     $("#bDate").empty();
-                                    for(let j=1; j<=30; j++){
-                                        $("#bDate").append("<option value='" + j + "'>" + j + "</option>");
-                                    }
+                                    for(let i=1; i<=9; i++){
+	                                    $("#bDate").append("<option value='0" + i + "'>0" + i + "</option>");
+	                                }
+	                                for(let i=10; i<=30; i++){
+	                                    $("#bDate").append("<option value='" + i + "'>" + i + "</option>");
+	                                }
 
                                 }else{
                                     $("#bDate").empty();
-                                    for(let j=1; j<=31; j++){
-                                        $("#bDate").append("<option value='" + j + "'>" + j + "</option>");
+                                    for(let i=1; i<=9; i++){
+                                        $("#bDate").append("<option value='0" + i + "'>0" + i + "</option>");
+                                    }
+                                    for(let i=10; i<=31; i++){
+                                        $("#bDate").append("<option value='" + i + "'>" + i + "</option>");
                                     }
                                 }
-                               
+                            
                             })
                         })
                     </script>
@@ -584,7 +598,7 @@
         })
     </script>
 
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
     
     
    <%@ include file = "../common/footerbar.jsp" %>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.lang.String.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -185,7 +185,7 @@
     	String memName = loginUser.getMemName();
     	String memNick = loginUser.getMemNick();
     	String phone = loginUser.getPhone();
-    	String email = loginUser.getEmail();
+    	String email = loginUser.getEmail() == null ? "" : loginUser.getEmail();
     	String gender = loginUser.getGender();
     	String memBirth = loginUser.getMemBirth();
     	String address = loginUser.getMemAddr() == null ? "" : loginUser.getMemAddr();
@@ -266,16 +266,16 @@
             <form>
                 <div align="center">
                     <% if(loginUser.getMemProfile() == null) {%>
-                        <img src="<%=request.getContextPath()%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
+                        <img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
                     <%} else {%>
-                        <img src="<%=loginUser.getMemProfile()%>" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
+                        <img src="<%=contextPath%><%=loginUser.getMemProfile()%>" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
                     <%} %>
                 </div>
                 <table>  
                     <tr>
                         <td class="td1">아이디 </td>
                         <td class="td2">
-                            memId
+                            <%=memId%>
                         </td>
                         <td class="td3">
                             
@@ -326,7 +326,7 @@
                     <tr>
                         <td class="td1">이름 </td>
                         <td class="td2">
-                            memName
+                            <%=memName%>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -396,7 +396,7 @@
                     <tr>
                         <td class="td1">휴대폰 </td>
                         <td class="td2">
-                            <input type="text" id="phone" class="fillOutForms" name="phone" onclick="check();" placeholder="<%=loginUser.getPhone()%>" required>
+                            <input type="text" id="phone" class="fillOutForms" name="phone" onclick="check();" value="<%=loginUser.getPhone()%>" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck phoneDoubleCheck" disabled>인증번호 받기</button>
@@ -459,28 +459,65 @@
                                 }
                             }).open();
                         }
-                    </script>    
+                    </script>  
+                    <script>
+		                $(function(){
+		            		const address = "<%=address%>";
+		            		
+		            		if(address.charAt(5)=="/"){
+		            			const addressArr = address.split("///");
+			            		$("#address1").val(addressArr[0]);
+			            		$("#address2").val(addressArr[1]);
+			            		if(!addressArr[2]){
+			            			$("#address3").val("");
+			            		}else{
+			            			$("#address3").val(addressArr[2]);
+			            		}
+		            		}else{
+		            			$("#address2").val(address);
+		            		}
+		            		
+		            		
+		            		
+		            			            		
+			            })
+	                </script>  
                     <tr>
                         <td class="td1">성별</td>
                         <td class="td2">
                             <input type="radio" class="gender" name="gender" value="M" id="male"><label for="male">남자</label>
                             <input type="radio" class="gender" name="gender" value="F" id="female"><label for="female">여자</label>
-                            <input type="radio" class="gender" name="gender" value="X" id="doNotSelect" checked><label for="doNotSelect">선택안함</label>
+                            <input type="radio" class="gender" name="gender" value="X" id="doNotSelect"><label for="doNotSelect">선택안함</label>
                         </td>
                         <td class="td3"></td>
                     </tr>
+                    <script>
+                    	$(function(){
+                    		const gender = "<%=gender%>";
+                    		// 현재 로그인한 회원의 관심분야들
+                    		// "sports,climbing,game" | ""
+                    		
+                    		$("input[type=radio]").each(function(){
+                    			// $(this) : 순차적으로 접근하는 체크박스input요소
+                    			// $(this).val() : 순차적으로 접근하는 체크박스input요소의 value값 (sports, climbing, ...)
+                    			if(gender.search($(this).val()) != -1){
+                    				$(this).attr("checked", true);
+                    			}
+                    		})
+                    	})
+                    </script>
                     
                     <tr>
                         <td class="td1">생년월일</td>
-                        <td class="td2">
+                        <td class="td2 bDay">
                             <select class="birthDay" name="memBirth" id="bYear">
-                                <option disabled selected>출생 연도</option>
+                                <option disabled>출생 연도</option>
                             </select>
                             <select class="birthDay" name="memBirth" id="bMonth">
-                                <option disabled selected>월</option>
+                                <option disabled>월</option>
                             </select>
                             <select class="birthDay" name="memBirth" id="bDate">
-                                <option disabled selected>일</option>
+                                <option disabled>일</option>
                             </select>
                                                         
                         </td>
@@ -494,39 +531,62 @@
                                 $("#bYear").append("<option value='" + i +"'>" + i + "</option>");
                             }
 
-                            for(let i=1; i<=12; i++){
+                            for(let i=1; i<=9; i++){
+                                $("#bMonth").append("<option value='0" + i + "'>0" + i + "</option>");
+                            }
+                            for(let i=10; i<=12; i++){
                                 $("#bMonth").append("<option value='" + i + "'>" + i + "</option>");
                             }
-                            
-                            for(let i=1; i<=31; i++){
+                            for(let i=1; i<=9; i++){
+                                $("#bDate").append("<option value='0" + i + "'>0" + i + "</option>");
+                            }
+                            for(let i=10; i<=31; i++){
                                 $("#bDate").append("<option value='" + i + "'>" + i + "</option>");
                             }
                             
                             $("#bMonth").change(function(){
-                                if($(this).val() == 2){
+                                if($(this).val() == 02){
 
                                 $("#bDate").empty();
-                                    for(let j=1; j<=29; j++){
-                                        $("#bDate").append("<option value='" + j + "'>" + j + "</option>");
-                                    }
+	                                for(let i=1; i<=9; i++){
+	                                    $("#bDate").append("<option value='0" + i + "'>0" + i + "</option>");
+	                                }
+	                                for(let i=10; i<=29; i++){
+	                                    $("#bDate").append("<option value='" + i + "'>" + i + "</option>");
+	                                }
                                     
-                                }else if($(this).val() == 4 || $(this).val() == 6 || $(this).val() == 9 || $(this).val() == 11){
+                                }else if($(this).val() == 04 || $(this).val() == 06 || $(this).val() == 09 || $(this).val() == 11){
 
                                     $("#bDate").empty();
-                                    for(let j=1; j<=30; j++){
-                                        $("#bDate").append("<option value='" + j + "'>" + j + "</option>");
-                                    }
+                                    for(let i=1; i<=9; i++){
+	                                    $("#bDate").append("<option value='0" + i + "'>0" + i + "</option>");
+	                                }
+	                                for(let i=10; i<=30; i++){
+	                                    $("#bDate").append("<option value='" + i + "'>" + i + "</option>");
+	                                }
 
                                 }else{
                                     $("#bDate").empty();
-                                    for(let j=1; j<=31; j++){
-                                        $("#bDate").append("<option value='" + j + "'>" + j + "</option>");
+                                    for(let i=1; i<=9; i++){
+                                        $("#bDate").append("<option value='0" + i + "'>0" + i + "</option>");
+                                    }
+                                    for(let i=10; i<=31; i++){
+                                        $("#bDate").append("<option value='" + i + "'>" + i + "</option>");
                                     }
                                 }
                             
                             })
                         })
                     </script>
+                    <script>
+		                $(function(){
+		            		const memBirth = "<%=memBirth%>";
+		            		const memBirthArr = memBirth.split("-");
+		            		$("#bYear").val(memBirthArr[0]).prop("selected", true);
+		            		$("#bMonth").val(memBirthArr[1]).prop("selected", true);
+		            		$("#bDate").val(memBirthArr[2]).prop("selected", true);		            		
+			            })
+	                </script>
                     <tr>
                         <td class="td1">프로필사진</td>
                         <td class="td2">
@@ -586,15 +646,20 @@
                     </tr>
                 </table>
                 <script>
-                	$(function){
-                		const interest = "<%=loginUser.getInterest()%>";
-                		
-                		$(".interest").each(function(){
-                			if(interest.search($(this).val()) != -1){
-                				$(this).attr("checked", true);
-                			}
-                		})
-                	}
+                $(function(){
+            		const interest = "<%=interest%>";
+            		// 현재 로그인한 회원의 관심분야들
+            		// "sports,climbing,game" | ""
+            		
+            		$("input[type=checkbox]").each(function(){
+            			// $(this) : 순차적으로 접근하는 체크박스input요소
+            			// $(this).val() : 순차적으로 접근하는 체크박스input요소의 value값 (sports, climbing, ...)
+            			if(interest.search($(this).val()) != -1){
+            				$(this).attr("checked", true);
+            			}
+            		})
+            		
+            	})
                 </script>
                 <br><br><br>
                 <div align="center">
@@ -607,5 +672,90 @@
 		
 		</div>
 	</div>
+	<script>
+        $(function(){
+           let idCheck = RegExp(/^[a-z\d]{4,16}$/);
+           let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{6,20}$/i);
+           let nameCheck = RegExp(/^[가-힣]{2,}$/);
+           let nickCheck = RegExp(/^[a-z\d가-힣]{1,8}$/i);
+           let phoneCheck = RegExp(/^[0][1][\d]-[\d]{3,4}-[\d]{3,4}$/);
+           let emailCheck = RegExp(/^[a-z\d+-_.]+@[a-z\d-]+\.[a-z\d.]+$/i);
+
+            $("#userId").keyup(function(){
+                if(!idCheck.test($("#userId").val())){
+                    $(".idTest").html('유효한 아이디가 아닙니다.');
+                    $(".idDoubleCheck").attr("disabled");
+                    $(".idDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
+                }else{
+                    $(".idTest").html('');
+                    $(".idDoubleCheck").removeAttr("disabled");
+                    $(".idDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
+                }
+            })
+
+            $("#userPwd").keyup(function(){
+                if(!pwdCheck.test($("#userPwd").val())){
+                    $(".pwdTest1").html('유효한 비밀번호가 아닙니다.');
+                }else{
+                    $(".pwdTest1").html('');
+                }
+            })
+
+            $("#userPwdCheck").keyup(function(){
+                if($("#userPwd").val() != $("#userPwdCheck").val()){
+                    $(".pwdTest2").html('비밀번호가 일치하지 않습니다.');
+                }else{
+                    $(".pwdTest2").html('');
+                }
+            })
+
+            $("#userName").keyup(function(){
+                if(!nameCheck.test($("#userName").val())){
+                    $(".nameTest").html('유효한 이름이 아닙니다.');
+                }else{
+                    $(".nameTest").html('');
+                }
+            })
+            
+            $("#userNickName").keyup(function(){
+            	if(!nickCheck.test($("#userNickName").val())){
+            		$(".nickNameTest").html('유효한 닉네임 형식이 아닙니다.');
+            		$(".nickDoubleCheck").attr("disabled");
+                    $(".nickDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
+            	}else{
+            		$(".nickNameTest").html('');
+                    $(".nickDoubleCheck").removeAttr("disabled");
+                    $(".nickDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
+            	}
+            })
+            
+            $("#email").keyup(function(){
+            	if(!emailCheck.test($("#email").val())){
+            		$(".emailTest").html('유효한 이메일 형식이 아닙니다.');
+            		$(".emailDoubleCheck").attr("disabled");
+            		$(".emailDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
+            	}else{
+            		$(".emailTest").html('');
+                    $(".emailDoubleCheck").removeAttr("disabled");
+                    $(".emailDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
+            	}
+            })
+
+            $("#phone").keyup(function(){
+                if(!phoneCheck.test($("#phone").val())){
+                    $(".phoneTest").html('유효한 연락처 형식이 아닙니다.');
+                    $(".phoneDoubleCheck").attr("disabled");
+                    $(".phoneDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
+                }else{
+                    $(".phoneTest").html('');
+                    $(".phoneDoubleCheck").removeAttr("disabled");
+                    $(".phoneDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
+                }
+            })
+            
+        })
+    </script>
+ 
+     <%@ include file = "../common/footerbar.jsp" %>
 </body>
 </html>
