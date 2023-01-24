@@ -322,7 +322,7 @@
 			})
 			/*환불신청 버튼*/
 			$("#refundBtn").click(function(){
-				location.href="<%=contextPath%>/..";
+				location.href="<%=contextPath%>/refundReqForm.tee";
 			})
 			/*재수강 버튼*/
 			$("#reTake").click(function(){
