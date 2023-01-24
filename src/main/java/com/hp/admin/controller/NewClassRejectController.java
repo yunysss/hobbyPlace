@@ -12,16 +12,16 @@ import javax.servlet.http.HttpSession;
 import com.hp.admin.model.service.AdminService;
 
 /**
- * Servlet implementation class NewClassApprovalController
+ * Servlet implementation class NewClassRejectController
  */
-@WebServlet("/approval.ad")
-public class NewClassApprovalController extends HttpServlet {
+@WebServlet("/refuse.ad")
+public class NewClassRejectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewClassApprovalController() {
+    public NewClassRejectController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,17 +30,22 @@ public class NewClassApprovalController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int clNo = Integer.parseInt(request.getParameter("no"));
-		int result = new AdminService().classApprovalUpdate(clNo);
+		request.setCharacterEncoding("UTF-8");
 		
-		HttpSession session = request.getSession();
-		if(result>0) {	
-			session.setAttribute("alertMsg", "승인이 완료되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/newcl.ad?cpage=1"); 
+		int clNo = Integer.parseInt(request.getParameter("classNo"));
+		String refuse = request.getParameter("causeOfReturn");
+		
+		int result = new AdminService().classRefuseUpdate(clNo,refuse);
+		
+		HttpSession session= request.getSession();
+		if(result>0) {
+			session.setAttribute("alertMsg", "클래스가 반려되었습니다.");
+			response.sendRedirect(request.getContextPath()+"/newcl.ad?cpage=1" );
 		}else {
-			session.setAttribute("alertMsg","승인 완료에 실패했습니다.");
-			response.sendRedirect(request.getContextPath()+"/newde.ad?no="+clNo);
+			session.setAttribute("alrerMsg", "클래스 반려 실패");
+			response.sendRedirect(request.getContextPath()+"/newcl.ad?cpage=1" );
 		}
+	
 	}
 
 	/**

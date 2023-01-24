@@ -181,11 +181,17 @@
 	  SET UPDATE_DATE = SYSDATE
 	     , CL_STATUS = 2
 	WHERE  CL_NO =?   
+
+	</entry>
 	
-	
-	
-	
-	
+	<!-- 관리자 클래스 반려 -->
+	<entry key="classRefuseUpdate">
+	UPDATE CLASS
+	  SET UPDATE_DATE = SYSDATE
+	     , CL_STATUS = 1
+	     , CL_REFUSE = ?
+	WHERE  CL_NO =?   
+
 	</entry>
 	
 		

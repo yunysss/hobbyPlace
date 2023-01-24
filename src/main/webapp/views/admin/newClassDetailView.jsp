@@ -82,13 +82,6 @@
     </head>
     <body>
         <%@ include file="../common/adminMenubar.jsp" %>
-        <%if(alertMsg != null) {%>
-		<script>
-			alert("<%=alertMsg%>"); // alert("") 따옴표안에 작성해야됨
-		</script>
-			<%session.removeAttribute("alertMsg");%>
-		<%} %>
-        
         
         
         
@@ -334,14 +327,14 @@
                   </div>
                   
                   <div align="center">
-                  <form action="" method="post">
+                  <form action="<%=contextPath %>/refuse.ad" method="post">
                     
-		        	<input type="hidden" name="classNo" value="">
+		        	<input type="hidden" name="classNo" value="<%=l.getClNo()%>">
 		        	반려사유 : <input type="text" name="causeOfReturn" list="list">
 		        	<datalist id="list">
                         <option>주제/내용 부적절</option>
                         <option>내용 부족</option>
-                        <option>재수없음..</option>
+                        <option>별로임..</option>
                     </datalist>
 		        	<button type="submit" class="btn btn-danger btn-sm">반려하기</button>
 		        <br><br>

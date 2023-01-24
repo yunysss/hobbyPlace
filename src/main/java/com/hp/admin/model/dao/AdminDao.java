@@ -426,6 +426,12 @@ public class AdminDao {
 		return t;
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return result 클래스 승인 결과
+	 */
 	public int classApprovalUpdate(Connection conn, int clNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -434,6 +440,26 @@ public class AdminDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, clNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public int classRefuseUpdate(Connection conn, int clNo, String refuse) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("classRefuseUpdate");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, refuse);
+			pstmt.setInt(2, clNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

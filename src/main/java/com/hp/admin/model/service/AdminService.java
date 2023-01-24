@@ -109,5 +109,17 @@ public class AdminService {
 		return result;
 	}
 	
+	public int classRefuseUpdate(int clNo, String refuse) {
+		Connection conn = getConnection();
+		int result = new AdminDao().classRefuseUpdate(conn, clNo,refuse);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
 
 }

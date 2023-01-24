@@ -4,7 +4,7 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");	
-
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>    
 <!DOCTYPE html>
 <html>
@@ -45,6 +45,14 @@
 </head>
 <body>
 <%@ include file="../common/adminMenubar.jsp"%>
+<%if(alertMsg != null) {%>
+		<script>
+			alert("<%=alertMsg%>"); // alert("") 따옴표안에 작성해야됨
+		</script>
+			<%session.removeAttribute("alertMsg");%>
+		<%} %>
+        
+        
  
 <div class="outer">
     <br>
