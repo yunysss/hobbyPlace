@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="java.util.ArrayList, com.hp.customerService.model.vo.*"%>
+    
+<%
+   	ArrayList<Faq> list  = (ArrayList<Faq>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,32 +57,28 @@
             </div>
     
             <br>
+            <%if(list.isEmpty()){ %>
+            <div>자주묻는 질문 목록이 없습니다.</div>
+            <%}else{ 
+            	for(Faq f : list){%>
             <div class="datailOuter" style="width: 800px; margin: auto;">
                     <div>
                         <div id="q">
-                            1. 자주묻는질문제목첫번째
+                            <%=f.getQuestion() %>
                         </div>
                     <br>
                     <div>
-                        자주묻는질문내용이 들어갈 자리
+                        <%=f.getAnswer() %>
                     </div>
 
                     <br>
                     <hr>
+              
                     </div>
-                        <div>
-                            <div id="q">
-                                2. 자주묻는질문제목두번째
-                            </div>
-                        <br>
-                        <div>
-                            자주묻는질문내용이 들어갈 자리
-                        </div>
-            
-                        <br>
-                        <hr>
-                        </div>
+                        
             </div>
+            	<%} %>
+            <%} %>
 
             <div class="paging-area">
 

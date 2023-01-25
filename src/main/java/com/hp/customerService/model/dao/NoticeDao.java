@@ -120,4 +120,32 @@ public class NoticeDao {
 			
 			
 		}
+		
+		public ArrayList<Faq> selectFaqList(Connection conn){
+			ArrayList<Faq> list= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql =prop.getProperty("selectFaqList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Faq(rset.getInt("faq_no"),
+									rset.getString("mem_no"),
+									rset.getString("grade"),
+									rset.getString("question"),
+									rset.getString("answer"),
+									rset.getDate("enroll_date"),
+									rset.getDate("update_date")));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
 }

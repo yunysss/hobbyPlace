@@ -47,6 +47,7 @@ public class ClassPageController extends HttpServlet {
 		request.setAttribute("le", le);
 		request.setAttribute("aList", aList);
 		request.setAttribute("rList", rList);
+	
 		
 		request.getRequestDispatcher("views/lesson/classPageView.jsp").forward(request, response);
 	}

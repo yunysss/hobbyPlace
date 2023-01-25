@@ -27,6 +27,7 @@
         .list{
             text-align: center;
         }
+        
         .paging-area{
             text-align: center;
             

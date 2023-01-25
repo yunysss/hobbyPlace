@@ -14,6 +14,7 @@ public class Review {
 	private String clThumb;
 	private String memNickName;
 	private String memProfile;
+	private int ttNo;
 	
 	
 	public Review() {}
@@ -32,6 +33,20 @@ public class Review {
 	}
 	
 	
+
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate,
+			String clName, String memNickName, String memProfile, int ttNo) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.reviewUpDate = reviewUpDate;
+		this.clName = clName;
+		this.memNickName = memNickName;
+		this.memProfile = memProfile;
+		this.ttNo = ttNo;
+	}
 
 	public Review(int reviewNo, String reviewContent, int reviewStar, int clNo, String clName, String clThumb) {
 		super();
@@ -150,6 +165,15 @@ public class Review {
 
 	public void setMemProfile(String memProfile) {
 		this.memProfile = memProfile;
+	}
+	
+
+	public int getTtNo() {
+		return ttNo;
+	}
+
+	public void setTtNo(int ttNo) {
+		this.ttNo = ttNo;
 	}
 
 	@Override

@@ -42,4 +42,14 @@ public class NoticeService {
 		
 		return list;
 	}
+	
+	public ArrayList<Faq> selectFaqList(){
+		Connection conn = getConnection();
+		
+		ArrayList<Faq> list = new NoticeDao().selectFaqListup(conn);
+		
+		close(conn);
+		
+		return list;
+	}
 }

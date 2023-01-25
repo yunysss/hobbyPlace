@@ -82,7 +82,7 @@ margin-top: 5px;
 <div id="content2">
 <div id="content2-1">
         <div id="c1">
-        <span><h3>튜터 ID 님 <br>반갑습니다 🥰</h3> </span>
+        <span><h3><%=tutorInfo.getTtName() %> 님 <br>반갑습니다 🥰</h3> </span>
         <button class="btn btn-secondary btn-sm">문의하기</button>
         <button class="btn btn-secondary btn-sm">튜터 가이드</button>
         </div>

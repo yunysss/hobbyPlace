@@ -194,20 +194,88 @@ public class MemberDao {
 		}
 		return count;
 	}
-	/** 회원정보업데이트요청시 기존프로필사진 DB에서 지우기위한 메소드
-	 * 
+	
+	/** 수정한회원정보저장요청 dao메소드
+	 * @author 수연
 	 * @param conn
-	 * @param memId
-	 * @return
+	 * @param m
+	 * @return result
 	 */
-	public Member deleteProfile(Connection conn, String memId) {
-		Member delProfile = null;
+	public int updateMember(Connection conn, Member m) {
+		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("deleteProfile");
+		String sql = prop.getProperty("updateMember");
 		
-		return delProfile;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemNick());
+			pstmt.setString(2, m.getEmail());
+			pstmt.setString(3, m.getPhone());
+			pstmt.setString(4, m.getMemAddr());
+			pstmt.setString(5, m.getGender());
+			pstmt.setString(6, m.getMemBirth());
+			pstmt.setString(7, m.getMemProfile());
+			pstmt.setString(8, m.getInterest());
+			pstmt.setString(9, m.getMemId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
+
+	/** 수정한회원정보 요청메소드
+	 * @author 수연
+	 * @param conn
+	 * @param memId
+	 * @return updTeMem
+	 */
+	public Member selectMember(Connection conn, String memId) {
+		Member updateMem = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				updateMem = new Member(rset.getInt("mem_no"),
+								       rset.getString("mem_id"),
+								       rset.getString("mem_pwd"),
+								       rset.getString("mem_name"),
+								       rset.getString("mem_nickname"),
+								       rset.getString("mem_email"),
+								       rset.getString("mem_phone"),
+								       rset.getString("mem_addr"),
+								       rset.getString("gender"),
+								       rset.getString("mem_birth"),
+								       rset.getString("mem_profile"),
+								       rset.getString("interest"),
+								       rset.getString("grade"),
+								       rset.getDate("enroll_date"),
+								       rset.getDate("mem_update"),
+								       rset.getString("mem_status"),
+								       rset.getString("mem_drop"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return updateMem;
+	}
+
+
 
 	
 	

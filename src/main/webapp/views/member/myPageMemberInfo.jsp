@@ -263,7 +263,9 @@
             <div class="contentMain">
             <div align="center"><h3>나의 회원 정보</h3></div>
             <br><br>
+            
             <form action="<%=contextPath%>/update.me" method="post">
+            	<input type="hidden" name="memId" value="<%=memId%>">
                 <div align="center">
                     <% if(loginUser.getMemProfile() == null) {%>
                         <img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
@@ -628,7 +630,7 @@
                 </script>
                 <br><br><br>
                 <div align="center">
-                    <button id="updateButton">수정완료</button>
+                    <button type="submit" id="updateButton">수정완료</button>
                 </div>
             </form>
             <br><br><br><br><br>

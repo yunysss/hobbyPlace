@@ -533,6 +533,11 @@ private Properties prop = new Properties();
 		return count;
 	}
 	
+	/**@author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return t 튜터 정보조회
+	 */
 	public Tutor selectTutorInfo(Connection conn, int clNo) {
 		Tutor t = null;
 		PreparedStatement pstmt = null;
@@ -561,6 +566,87 @@ private Properties prop = new Properties();
 
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return cList 튜터의 모든 클래스 조회
+	 */
+	public ArrayList<Lesson> selectTutorClass(Connection conn, int clNo) {
+		ArrayList<Lesson> cList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectTutorClass");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				cList.add(new Lesson(rset.getInt("cl_no"),
+						   rset.getString("local_name"),
+						   rset.getString("distr_name"),
+						   rset.getString("cl_name"),
+						   rset.getString("cl_price"),
+						   rset.getString("cl_thumb"),
+						   rset.getInt("star_avg"),
+						   rset.getInt("star_count")
+						
+						));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return cList;
+	}
 	
+	
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return rList 튜터의 모든 리뷰 조회
+	 */
+	public ArrayList<Review> selectTutorReview(Connection conn, int clNo) {
+		ArrayList<Review> rList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectTutorReview");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				rList.add(new Review(rset.getInt("re_no"),
+									rset.getString("content"),
+						            rset.getInt("re_star"),
+						            rset.getString("re_date"),
+						            rset.getString("re_update"),
+						            rset.getString("cl_name"),
+						            rset.getString("mem_nickname"),
+						            rset.getString("mem_profile"),
+						            rset.getInt("mem_no")
+
+						));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rList;
+	}
 
 }
