@@ -26,7 +26,7 @@ public class RefundRequestFinish extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/member/refundRequestFinish.jsp").forward(request, response);
+		request.getRequestDispatcher("views/refund/refundRequestFinish.jsp").forward(request, response);
 	
 	}
 
