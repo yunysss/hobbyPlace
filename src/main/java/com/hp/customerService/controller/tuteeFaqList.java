@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hp.customerService.model.Service.NoticeService;
-import com.hp.customerService.model.vo.Notice;
+import com.hp.customerService.model.vo.Faq;
 
 /**
- * Servlet implementation class tuteeNoticeListController
+ * Servlet implementation class tuteeFaqList
  */
-@WebServlet("/notice.tee")
-public class tuteeNoticeListController extends HttpServlet {
+@WebServlet("/faq.tee")
+public class tuteeFaqList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tuteeNoticeListController() {
+    public tuteeFaqList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,16 +31,14 @@ public class tuteeNoticeListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ArrayList<Notice> list = new NoticeService().selectNoticeList();
+	
+		ArrayList<Faq> list = new NoticeService().selectFaqList();
 		
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/customerService/tuteeNoticeList.jsp").forward(request, response);
 		
-		
+		request.getRequestDispatcher("views/customerService/tuteeFaqList.jsp").forward(request, response);
 	}
 
-	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

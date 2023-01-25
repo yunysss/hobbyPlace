@@ -34,6 +34,15 @@ SELECT
 	
 </entry>
 
+<entry key="selectFaqList">
+	SELECT
+	       *
+	  FROM FAQ
+	 WHERE GRADE='1'
+	 ORDER 
+	    BY FAQ_NO
+</entry>
+
 
 
 
