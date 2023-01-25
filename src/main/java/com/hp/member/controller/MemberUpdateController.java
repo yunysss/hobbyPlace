@@ -2,7 +2,6 @@ package com.hp.member.controller;
 
 import java.io.File;
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,16 +17,16 @@ import com.hp.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class MemberInsertController
+ * Servlet implementation class MemberUpdateController
  */
-@WebServlet("/enrollMember.me")
-public class MemberInsertController extends HttpServlet {
+@WebServlet("/update.me")
+public class MemberUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberInsertController() {
+    public MemberUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,9 +35,7 @@ public class MemberInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		request.setCharacterEncoding("UTF-8");
-		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10*1024*1024;
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/memberProfile_upfiles/");
@@ -46,8 +43,6 @@ public class MemberInsertController extends HttpServlet {
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
 			String memId = multiRequest.getParameter("userId");
-			String memPwd = multiRequest.getParameter("userPwd");
-			String memName = multiRequest.getParameter("userName");
 			String memNick = multiRequest.getParameter("userNick");
 			String email = multiRequest.getParameter("email");
 			String phone = multiRequest.getParameter("phone");
@@ -71,8 +66,6 @@ public class MemberInsertController extends HttpServlet {
 			}
 			Member m = new Member();
 			m.setMemId(memId);
-			m.setMemPwd(memPwd);
-			m.setMemName(memName);
 			m.setMemNick(memNick);
 			m.setEmail(email);
 			m.setPhone(phone);
@@ -85,42 +78,30 @@ public class MemberInsertController extends HttpServlet {
 				m.setMemProfile("/resources/memberProfile_upfiles/"+ multiRequest.getFilesystemName("upProfile"));
 			}
 			
+			//DB에 있는 기존프로필사진(있든없든)먼저 지워주기위한 메소드 실행
+			Member delProfile = new MemberService().deleteProfile(memId);
 			
-			Member eResult = new MemberService().checkEmail(email);
 			
-			if(eResult != null) {// 이메일중복검사시 이미 회원이 존재할경우
-				HttpSession session = request.getSession();
-				session.setAttribute("alertMsg", "이미 존재하는 이메일입니다.");
-				response.sendRedirect(request.getContextPath() + "/enrollForm.me");
-			}else { //해당 이메일을 가진 회원이 존재하지 않을경우 
+			Member updateMem = new MemberService().updateMember(m);
+			
+			
+			HttpSession session = request.getSession();
+			if(updateMem == null) { // 실패
 				
-				int result = new MemberService().insertMember(m);
-				
-				HttpSession session = request.getSession();
-				
-				//결과
-				if(result > 0) {
-					
-					session.setAttribute("enrollMember", m);
-					request.getRequestDispatcher("views/member/enrollMemberResult.jsp").forward(request, response);
-					
-				}else {
-					
-					if(m.getMemProfile() != null) {
-						new File(savePath + multiRequest.getFilesystemName("upProfile")).delete();
-					}
-					session.setAttribute("alertMsg", "회원가입에 실패했습니다.");
-					response.sendRedirect(request.getContextPath() + "/enrollForm.me");
+				if(m.getMemProfile() != null) {
+					new File(savePath + multiRequest.getFilesystemName("upProfile")).delete();
 				}
+				session.setAttribute("alertMsg", "회원정보수정에 실패했습니다.");
+				response.sendRedirect(request.getContextPath() + "/memberInfo.me");
 				
+			}else { // 성공
+				session.setAttribute("alertMsg", "성공적으로 수정되었습니다.");
+				session.setAttribute("loginUser", updateMem);
+				response.sendRedirect(request.getContextPath() + "/memberInfo.me");
 			}
 			
-			
 		}
-		
-
-		
-		
+				
 	}
 
 	/**

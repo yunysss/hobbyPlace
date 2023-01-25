@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import = "java.util.ArrayList, com.hp.lesson.model.vo.*" %>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, com.hp.lesson.model.vo.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -99,7 +98,7 @@
     #submitForm:hover, .showRules:hover, .agreeAll:hover, .agreement:hover {cursor: pointer;}
 </style>
 </head>
-<body>
+<body>	
 	<%@ include file="../common/tuteeMenubar.jsp" %>
 	<div class="cWrap">
         <div class="content" align="center">

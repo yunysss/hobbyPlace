@@ -42,8 +42,8 @@ public class LoginMemberFormController extends HttpServlet {
 		
 		if(loginUser == null) {
 
-			//session.setAttribute("loginFail", "아이디 또는 비밀번호를 잘못 입력했습니다.\r\n 입력하신 내용을 다시 확인해주세요.");
-			response.sendRedirect(request.getContextPath()+"/login.me");
+			session.setAttribute("loginFail", "아이디 또는 비밀번호를 잘못 입력했습니다.");
+			request.getRequestDispatcher("views/member/loginMember.jsp").forward(request, response);
 			
 		}else {
 

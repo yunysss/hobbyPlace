@@ -26,7 +26,7 @@ public class MemberDao {
 		}
 	}
 	
-	/**
+	/** 회원로그인용 dao메소드
 	 * @author 수연
 	 * @param userId, userPwd
 	 * @return conn, Member m
@@ -72,6 +72,38 @@ public class MemberDao {
 		return m;
 		
 	}
+	/** 회원가입버튼 클릭시 선행되는 이메일중복체크용 dao메소드
+	 * @author 수연
+	 * @param conn
+	 * @param email
+	 * @return result
+	 */
+	public Member checkEmail(Connection conn, String email) {
+		Member eResult = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				eResult = new Member();
+				eResult.setMemNo(rset.getInt("mem_no"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return eResult;
+	}
+	
 	/** 회원가입용 dao메소드
 	 * @author 수연
 	 * @param conn
@@ -134,7 +166,13 @@ public class MemberDao {
 		}
 		return count;
 	}
-	
+	/**
+	 * 닉네임 중복체크용메소드
+	 * @author 수연
+	 * @param conn
+	 * @param checkNick
+	 * @return count
+	 */
 	public int nickCheck(Connection conn, String checkNick) {
 		int count = 0;
 		PreparedStatement pstmt = null;
@@ -156,6 +194,22 @@ public class MemberDao {
 		}
 		return count;
 	}
+	/** 회원정보업데이트요청시 기존프로필사진 DB에서 지우기위한 메소드
+	 * 
+	 * @param conn
+	 * @param memId
+	 * @return
+	 */
+	public Member deleteProfile(Connection conn, String memId) {
+		Member delProfile = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("deleteProfile");
+		
+		return delProfile;
+	}
+
+	
 	
 	
 	

@@ -23,7 +23,14 @@
         color:rgb(47, 46, 46);
     }
     .welcomeText>p{font-size:20px;}
-
+    
+	.moveToLogin{
+        background-color: lightgray;
+        width:220px; height:30px;
+        border:0;
+        border-radius: 5px;
+    }
+    
     .moveToGuide{
         color:white;
         background-color: rgb(35, 104, 116);
@@ -65,7 +72,7 @@
 			location.href = "<%=contextPath%>";
 		}
 		function login(){
-			location.href = "<%=contextPath%>/loginUser.me";
+			location.href = "<%=contextPath%>/login.me";
 		}
 	</script>
 

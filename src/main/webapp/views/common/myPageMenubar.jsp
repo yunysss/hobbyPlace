@@ -29,10 +29,9 @@
            border-radius:5px;
            font-size: 14px;
        }
+
        .categoryMain:hover{
            cursor: pointer;
-           background-color:rgb(35, 104, 116);
-           font-size:15; color:white;
        }
        .mpMenubar ul{
            color:rgb(64, 64, 64);
@@ -61,40 +60,33 @@
 </style>
 <script>
        $(function(){
-           $(".categoryMain").click(function(){
-               
-               // 카테고리 div 선택시 슬라이드다운 + 선택카테고리 css변화 + 세부메뉴 중 첫번째항목 font-weight:bolder + pageRoute변화
-               if($(this)){
+            $(".categoryMain").mouseenter(function(){
+                if($(this)){
                    $(this).css("color", "white").css("background-color", "rgb(35, 104, 116)").css("font-weight", "bolder");
                    $(this).siblings("div").css("color", "rgb(64, 64, 64)").css("background-color", "white").css("font-weight", "normal");
-                   $(this).next().children('li:eq(0)').css("font-weight", "bolder");
 
-                   if($(this).next().css("display")=="none"){
-                       $(this).siblings("ul").slideUp();
-                       $(this).next().slideDown();
-                   }else{
-                       $(this).next().slideUp();
-                   }
+                    if($(this).next("ul").css("display")=="none"){
+                        $(this).siblings("ul").slideUp();
+                        $(this).next().slideDown();
+                    }
                }
-               const category1 = $(this).html();
-               if($(this).next().children().is("li")) {
-                   $(".pageRoute1").html("> " + category1 + " > " + $(this).next().children().html());
-               }else {
-                   $(".pageRoute1").html("> " + category1);
-               }
-               
-                   
-           })
+            })
+            $(".categoryMain").mouseout(function(){
+                $(this).css("color", "rgb(64, 64, 64)").css("background-color", "white").css("font-weight", "normal");
+                $("#withdrawal").css("color", "white").css("background-color", "rgb(35, 104, 116)").css("font-weight", "bolder");
 
-           // 카테고리의 세부메뉴 클릭시 css변화(font-weight:bolder) + pageRoute변화
-           $(".categoryMain").next().children("li").click(function(){
-               $(this).css("font-weight", "bolder");
-               $(this).siblings("li").css("font-weight", "normal");
+                $(this).next("ul").hover(function(){
+                    $(this).prev().css("color", "white").css("background-color", "rgb(35, 104, 116)").css("font-weight", "bolder");
+                    $("#withdrawal").css("color", "rgb(64, 64, 64)").css("background-color", "white").css("font-weight", "normal");
+                    if($("ul").css("display")=="none"){
+                        $(this).siblings("ul").slideUp();
+                        $(this).slideDown();
+                    }else{
+                        $(this).slideUp();
+                    }
+                })
+            })
 
-               const category1 = $(this).parent().prev().html();
-               const category2 = $(this).html();
-               $(".pageRoute1").html("> " + category1 + " > " + category2)
-           })   
        })
 </script>
 </head>
