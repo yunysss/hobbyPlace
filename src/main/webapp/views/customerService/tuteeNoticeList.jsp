@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="java.util.ArrayList, com.hp.customerService.model.vo.*"%>
+    
+<%
+   	ArrayList<Notice> list  = (ArrayList<Notice>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,6 +53,11 @@
         <br>
 
         <table align="center" class="list">
+        <%if(list.isEmpty()){ %>
+        	<tr>
+        		<td>등록된 공지사항이 없습니다.</td>
+        	</tr>
+        <%}else{ %>
             <tr style="background-color: lightgray;">
                 <th width="100">번호</th>
                 <th width="400" >제목</th>
@@ -55,18 +65,17 @@
             </tr>
             
             <tr>
-                <td>1</td>
-                <td>공지사항 제목1</td>
-                <td>2023-01-16</td>
+            <%for(Notice n : list){ %>
+                <td><%=n.getNtNo() %></td>
+                <td><%=n.getNtTitle() %></td>
+                <td><%=n.getEnrollDate() %></td>
             </tr>
-
-            <tr>
-                <td>2</td>
-                <td>공지사항 제목2</td>
-                <td>2023-01-14</td>
-            </tr>
+            <%} %>
+          <%} %>
 
         </table>
+        
+        <br><br><br>
 
         <div class="paging-area">
 
