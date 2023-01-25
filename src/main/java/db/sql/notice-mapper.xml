@@ -1,1 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+
+<entry key="selectNoticeListup">
+SELECT
+	   NT_NO,
+	   NT_TITLE
+  FROM NOTICE
+ WHERE NT_STA='Y'
+ ORDER 
+    BY ENROLL_DATE DESC
+</entry>
+
+
+
+
+
+
+</properties>

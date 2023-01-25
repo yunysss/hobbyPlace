@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="java.util.ArrayList, com.hp.customerService.model.vo.Notice"%>
+    
+<%
+	ArrayList<Notice> list  = (ArrayList<Notice>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,11 +58,14 @@
                 <b>공지사항</b>
             </td>
             <td style="text-align: left; line-height:200%; padding: 50px;" >
-                <li>공지사항1</li>
-                <li>공지사항2</li>
-                <li>공지사항3</li>
-                <li>공지사항4</li>
-                <li>공지사항5</li>
+                <%if(list.isEmpty()){ %>
+                <li>공지사항이 없습니다.</li>
+                <%}else{ %>
+                	<%for(int i=0; i<5; i++){ %>
+                      <li><%=list.get(i).getNtTitle() %></li>
+                      <%} %>
+                <%} %>
+                
             </td>
         </tr>
 
