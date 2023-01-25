@@ -159,7 +159,7 @@
 		     , CT_DNAME  
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 10) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 20) || '...' "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -188,7 +188,7 @@
 		     , CT_DNAME     
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 10) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 20) || '...' "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -214,12 +214,24 @@
 		SELECT CT_DNO
 		      ,CT_NO
 		      ,CT_DNAME
+		      ,CT_NAME
 		 FROM DCATEGORY
 		 JOIN CATEGORY USING (CT_NO)
 		WHERE CT_NAME = ?     
 
-	</entry>		
+	</entry>	
 	
+	 <entry key="selectCategory">
+			SELECT CT_DNO
+			      ,CT_NAME
+			      ,CT_DNAME
+			     
+			 FROM DCATEGORY
+			 JOIN CATEGORY USING (CT_NO)
+			WHERE CT_DNAME = ?     
+	
+		</entry>
+		
 	
 	
 	

@@ -407,6 +407,7 @@ private Properties prop = new Properties();
 			while(rset.next()) {
 				dctList.add(new Dcategory(rset.getInt("ct_dno"),
 										rset.getString("ct_no"),
+										rset.getString("ct_dname"),
 										rset.getString("ct_dname")
 						
 						));
@@ -421,6 +422,41 @@ private Properties prop = new Properties();
 		return dctList;
 		
 	}
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @return ctList 카테고리 조회
+	 */
+	public ArrayList<Dcategory> selectCategory(Connection conn, String dct){
+		
+		ArrayList<Dcategory> dctList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dct);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				dctList.add(new Dcategory(rset.getInt("ct_dno"),
+									rset.getString("ct_name"),
+									rset.getString("ct_dname")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return dctList;
+		
+	}
+	
 	
 	
 	

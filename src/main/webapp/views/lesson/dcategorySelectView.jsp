@@ -3,9 +3,8 @@
 <%@ page import ="java.util.ArrayList, com.hp.lesson.model.vo.*" %>    
 <%
 
-	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");
-	
-	ArrayList<Dcategory> dctList = (ArrayList<Dcategory>)request.getAttribute("dctList");
+	ArrayList<Lesson> dList = (ArrayList<Lesson>)request.getAttribute("dList");
+	ArrayList<Dcategory> ctList = (ArrayList<Dcategory>)request.getAttribute("ct");
 %>    
     
     
@@ -81,11 +80,11 @@
 <%@include file="../common/tuteeMenubar.jsp" %>
   <div class="outer">
   		
-        <h4> <a href=""><%=list.get(1).getCtNo()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
+        <h4> <a href=""><%=dList.get(1).getCtNo()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
      	
         <div id="detail-category">
          <a>전체</a>
-        <%for (Dcategory d : dctList){ %>
+        <%for (Dcategory d : ctList){ %>
        	<a><%=d.getCtDname() %></a>
        <%} %>
         </div>
@@ -104,7 +103,7 @@
         <div class="container">
         
                <div class="list-area">
-                <% for(Lesson l : list){%>
+                <% for(Lesson l : dList){%>
                 <table class="thumbnail"  >
                   <tr>
                     <td>

@@ -5,11 +5,29 @@ public class Dcategory {
 	private int ctDno;
 	private String ctNo;
 	private String ctDname;
+	private String ctName;
+	
+
+	public Dcategory(int ctDno, String ctNo, String ctDname, String ctName) {
+		super();
+		this.ctDno = ctDno;
+		this.ctNo = ctNo;
+		this.ctDname = ctDname;
+		this.ctName = ctName;
+	}
+
 	public Dcategory(int ctDno, String ctNo, String ctDname) {
 		super();
 		this.ctDno = ctDno;
 		this.ctNo = ctNo;
 		this.ctDname = ctDname;
+	}
+	
+	public String getCtName() {
+		return ctName;
+	}
+	public void setCtName(String ctName) {
+		this.ctName = ctName;
 	}
 	public int getCtDno() {
 		return ctDno;

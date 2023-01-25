@@ -390,10 +390,10 @@
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                 </a>
                                     <ul class="submenu">
-                                        <li><a>가죽 / 라탄</a></li>
-                                        <li><a>비누 / 꽃 / 향</a></li>
-                                        <li><a>뜨개 / 자수 </a></li>
-                                        <li><a>기타 </a></li>
+                                        <li><a>가죽/라탄</a></li>
+                                        <li><a>비누/꽃/향</a></li>
+                                        <li><a>뜨개/자수</a></li>
+                                        <li><a>기타</a></li>
                                     </ul>
                                 
                                 </li>
@@ -422,8 +422,8 @@
                                     <ul class="submenu">
                                         <li><a>실내스포츠</a></li>
                                         <li><a>야외스포츠</a></li>
-                                        <li><a>레저 / 액티비티 </a></li>
-                                        <li><a>요가 필라테스 / 헬스 PT</a></li>
+                                        <li><a>레저/액티비티</a></li>
+                                        <li><a>요가 필라테스/ 헬스 PT</a></li>
                                         
                                     </ul>
                                 </li>
@@ -444,7 +444,7 @@
 		        	
 		        	$(function(){
 		        		$(".submenu>li a").click(function(){
-		        			location.href="<%=contextPath%>/ctselect.cl?dct="+ $(this).eq(0).text();
+		        			location.href="<%=contextPath%>/dcselect.cl?dct="+ $(this).eq(0).text();
 		        			
 		        		})
 		        	})

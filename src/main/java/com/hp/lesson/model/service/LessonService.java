@@ -126,6 +126,13 @@ public class LessonService {
 		close(conn);
 		return dctList;
 	}
+	
+	public ArrayList<Dcategory> selectCategory(String dct){
+		Connection conn = getConnection();
+		ArrayList<Dcategory> dctList = new LessonDao().selectCategory(conn, dct);
+		close(conn);
+		return dctList;
+	}
 
 	
 	
