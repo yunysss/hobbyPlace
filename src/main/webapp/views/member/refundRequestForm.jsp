@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style>
     div{box-sizing:border-box;}
-    .outer{width:1000px; height: 1300px; margin: auto; padding:4%}
+    .outer{width:1000px; height: 1350px; margin: auto; padding:4%}
     .content{width:100%; margin-top:5px;}
 
     #class-area{
@@ -181,7 +181,7 @@
                     <td colspan="3" style="background: lightgray; height: 1px;"></td>
                 </tr>
                 <tr>
-                    <td colspan="3">환불 받을 계좌 정보</td>
+                    <td colspan="3" style="font-size:13px; color: gray;">환불 받을 계좌 정보</td>
                 </tr>
                 <tr>
                     <td><b>예금주</b></td>
@@ -189,7 +189,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td><b>입금은행</b></td>
+                    <td><b>입금 은행</b></td>
                     <td>
                         <select name="bank" id="bank">
                             <option value="국민은행">국민은행</option>
@@ -209,8 +209,16 @@
 
         </div>
          <br>
-         <button type="button" class="btn btn-primary btn-block" style="background: rgb(255, 104, 112); border: 0ch; width: 78%; margin: auto;"  >환불신청</button>
+         <button type="button" class="btn btn-primary btn-block" style="background: rgb(255, 104, 112); border: 0ch; width: 85%; margin: auto;" id="refundBtn" onclick="">환불신청</button>
     </form> 
+    
+    <script>
+    	$(function(){
+    		$("#refundBtn").click(function(){
+				location.href = "<%=contextPath%>/refundReqFinish.tee";    			
+    		})
+    	})
+    </script>
     
         
         
