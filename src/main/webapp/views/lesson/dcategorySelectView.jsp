@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="java.util.ArrayList, com.hp.lesson.model.vo.*,com.hp.common.model.vo.PageInfo" %>    
+<%@ page import ="java.util.ArrayList, com.hp.lesson.model.vo.*, com.hp.common.model.vo.PageInfo" %>    
 <%
+	ArrayList<Lesson> classList = (ArrayList<Lesson>)request.getAttribute("classList");
+	ArrayList<Dcategory> cList = (ArrayList<Dcategory>)request.getAttribute("cList");
+	
 	int count = (int)request.getAttribute("count");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");
-	ArrayList<Dcategory> dctList = (ArrayList<Dcategory>)request.getAttribute("dctList");
 %>    
     
     
@@ -73,7 +74,8 @@
       #btn-area>button:hover{
         background-color:  rgba(35, 104, 116, 0.685);
       }
-       .paging-area{
+     
+     .paging-area{
         text-align: center;
     }
     .paging-area>*{
@@ -81,7 +83,6 @@
         border-radius: 3px;
 
     }
-     
 
     </style>
 </head>
@@ -89,23 +90,24 @@
 <%@include file="../common/tuteeMenubar.jsp" %>
   <div class="outer">
   		
-        <h4> <a href="<%=contextPath %>/ctselect.cl?cpage=1&ct=<%=list.get(1).getCtNo()%>"><%=list.get(1).getCtNo()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
-     	
+        <h4> <a href="<%=contextPath %>/ctselect.cl?cpage=1&ct=<%=classList.get(0).getCtNo() %>"><%=classList.get(0).getCtNo() %></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
+     	 
         <div id="detail-category">
-        <%for (Dcategory d : dctList){ %>
+      	 <%for (Dcategory d : cList){ %>
        	<a><%=d.getCtDname() %></a>
        <%} %>
         </div>
         
-        <script>
+         <script>
         	$(function(){
         		$("#detail-category>a").click(function(){
-        			location.href = "<%=contextPath%>/dctselect.cl?cpage=1&dct="+ $(this).eq(0).text()
+        			location.href = "<%=contextPath%>/dctselect.cl?cpage=1&dct="+ $(this).eq(0).text();
+        			$(this).css("color","blue");
+        					
         		})
         		
         	})
-        
-        
+
         </script>
         
         <div id="button-area">
@@ -120,21 +122,22 @@
           <button class="btn btn-secondary btn-sm"> 평점순 </button>
         </div>
         <div class="container">
-        
                <div class="list-area">
-                <% for(Lesson l : list){%>
+          			<%if (classList.isEmpty()){ %>
+                    <h5>등록된 클래스가 없습니다. </h5>
+                 	<%} else{%>
+            	<% for(Lesson l : classList){%>
                 <table class="thumbnail"  >
                   <tr>
                     <td>
                     <div id="thumbnail">
                     <img src="<%=contextPath %>/<%=l.getClThumb() %>"  width="180" height="180">
-                    
                     </div>
                     </td>
                   </tr>
                   <tr>
                     <td style="font-size: 11px;">
-                     <%=l.getDistrCode()%>
+                    	<%=l.getDistrCode()%>
                     </td>
                   </tr>
                   <tr>
@@ -146,32 +149,34 @@
                   </tr>
 
                 </table>
-                
-                <%} %>
-              
+             <%} %>
 
+			<%} %>
               </div>   
               
-            <div class="paging-area">
+               <div class="paging-area">
         
         	<%if(pi.getCurrentPage() != 1){ %>    
         		
-            		<button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            		<button onclick="location.href='<%=contextPath%>/dctselect.cl?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
             <%} %>
 			
 			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
-           		 <button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=p%>';"><%= p %></button>
+           		 <button onclick="location.href='<%=contextPath%>/dctselect.cl?cpage=<%=p%>';"><%= p %></button>
            		 
             <%} %>
           
             <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
-            <button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/dctselect.cl?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
             <%} %>
             
-
-
-
-
+           
+       	 </div>
+              
+              
+              
+              
+			
     </div>
     <%@ include file="../common/footerbar.jsp" %>
     
