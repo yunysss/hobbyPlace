@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style>
     div{box-sizing:border-box;}
-    .outer{width:1000px; height: 1000px; margin: auto; padding:4%}
+    .outer{width:1000px; height: 1300px; margin: auto; padding:4%}
     .content{width:100%; margin-top:5px;}
 
     #class-area{
@@ -59,7 +59,18 @@
         border: 1px solid lightgray;
         border-radius: 10px;
         width: 720px;
-        height: 600px;
+        height: 555px;
+        padding: 20px;
+    }
+    #refundTB th{background: lightgray;}
+    
+    #bankForm{
+        margin: auto;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        width: 720px;
+        height: 200px;
+        padding: 20px;
     }
 
 </style>
@@ -106,10 +117,10 @@
         </div>
     </div>  
     <br>
-    <div id="refundReasonForm">
-        <p style="font-size: small; color: gray; margin: 10px;">- 환불 신청을 클릭하시면 환불이 진행됩니다. 이후 '취소 수강 목록'에서 해당 클래스를 확인하실 수 있습니다.</p>
-        
-        <form action="" id="reasonForm" style="padding: 20px;"> 
+
+    <form action="" id="reasonForm"  > 
+        <div id="refundReasonForm">
+            <p style="font-size: small; color: gray;">- 환불 신청을 클릭하시면 환불이 진행됩니다. 이후 '취소 수강 목록'에서 해당 클래스를 확인하실 수 있습니다.</p>
             <h6><b>환불 사유</b></h6>
             <hr>
             <input type="radio" name="refundReason" value="changeMind" id="changeMind">
@@ -124,21 +135,89 @@
             <input type="radio" name="refundReason" value="reason" id="reason" checked>
             <label for="reason"><input type="text" maxlength="50" placeholder="기타 (50자이하)" style="width: 440px;"></label>
             <br>
-            <table>
+            <br>
+            <table style="text-align: center; font-size: 13px; width: 500px; border: 1px solid rgb(216, 212, 212);" id="refundTB" class="table">
                 <tr>
-                    <th>클래스 3일 이전 취소</th>
-                    <td></td>
+                    <th width="100px">클래스 3일 이전 취소</th>
+                    <td width="80px">100% 환불</td>
+                    <td width="140px">~23.01.04 </td> 
+                </tr>
+                <tr>
+                    <th height="30px">클래스 2일 이전 취소</th>
+                    <td>50% 환불</td>
+                    <td>23.01.05</td>
+                </tr>
+                <tr>
+                    <th height="30px">클래스 당일<br>/하루 전 취소</th>
+                    <td style="line-height: 35px;">환불 불가</td>
+                    <td style="line-height: 35px;">23.01.06~23.01.07</td>
                 </tr>
             </table>
+            <br>
+            <input type="checkbox" name="agree" id="agree"> 
+            <label for="agree" style="color: rgb(255, 104, 112);"><u>주의 사항을 확인하였으며, 동의합니다.</u></label>
+            <br><br>
 
-        </form>
-    </div>
-      
+            <!--카드결제일때-->
+            <table width="690px">
+                <tr>
+                    <td style="font-size: 15px;"><b>환불 금액</b></td>
+                    <td  style="color: rgb(255, 104, 112); text-align: right;"><b>39,000원</b></td>
+                </tr>
+            </table>
+         </div>
+
+        <!--무통장 결제 일때-->
+         <br>
+    
+         <div id="bankForm">
+         
+            <table width="690px">
+                <tr>
+                    <td colspan="2" style="font-size: 15px;"><b>무통장입금 환불 금액</b></td>
+                    <td  style="color: rgb(255, 104, 112); text-align: right;"><b>39,000원</b></td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="background: lightgray; height: 1px;"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">환불 받을 계좌 정보</td>
+                </tr>
+                <tr>
+                    <td><b>예금주</b></td>
+                    <td><input type="text" name="name"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>입금은행</b></td>
+                    <td>
+                        <select name="bank" id="bank">
+                            <option value="국민은행">국민은행</option>
+                            <option value="신한은행">신한은행</option>
+                            <option value="하나은행">하나은행</option>
+                        </select>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>계좌 번호</b></td>
+                    <td><input type="text" name="accountNumber" placeholder="- 제외 입력"></td>
+                    <td></td>
+                </tr>
+
+            </table>
+
+        </div>
+         <br>
+         <button type="button" class="btn btn-primary btn-block" style="background: rgb(255, 104, 112); border: 0ch; width: 78%; margin: auto;"  >환불신청</button>
+    </form> 
+    
+        
+        
 </div>
 <br>
 
-
-
+<%@ include file="../common/footerbar.jsp" %>
 
 </body>
 </html>
