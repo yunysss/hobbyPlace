@@ -82,7 +82,7 @@
 	        <script>
 	        	$(function(){
 	        		$("#home").click(function(){
-	        			location.href="<%=contextPath%>/main.tee"
+	        			location.href="<%=contextPath%>/main.tee";
 	        		})
 	        	})
 	        </script>

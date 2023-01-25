@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.hp.member.model.vo.Member"%>
+<% 
+	Member enrollMember = (Member)session.getAttribute("enrollMember");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,15 +46,15 @@
             <div class="welcomeText" align="left">
                 <h3>🎉가입이 완료되었습니다🎉</h3><br>
                 <p>
-                    000님 환영합니다😆<br>
-                    합플에서 000님의 관심사를 발견하고 취미를 발전시켜보세요!
+                    <b><%=enrollMember.getMemNick()%></b>님 환영합니다😆<br>
+                    합플에서 <b><%=enrollMember.getMemNick()%></b>님의 관심사를 발견하고 취미를 발전시켜보세요!
                 </p>
 
             </div>
             
 
             <br><br><br>
-
+			<button type="button" class="moveToLogin" onclick="login();">로그인하러 가기</button>
             <button type="button" class="moveToGuide" onclick="userGuide();"> 이용안내 페이지 바로가기 </button>
             <br><br><br><br><br><br><br><br><br>
         </div>
@@ -60,6 +63,9 @@
 	<script>
 		function userGuide(){
 			location.href = "<%=contextPath%>";
+		}
+		function login(){
+			location.href = "<%=contextPath%>/loginUser.me";
 		}
 	</script>
 

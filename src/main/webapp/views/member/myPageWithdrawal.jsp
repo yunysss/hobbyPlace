@@ -226,7 +226,7 @@
                         </tr>
                     </table>
                 </div>
-                <form action="">
+                <form action="<%=contextPath%>/memDelete.me" method="post">
                     <div class="checkAgreement" align="left">
                         <input type="checkbox" id="agreeAll" required> <label for="agreeAll">회원탈퇴 유의사항을 모두 확인하였으며 동의합니다.</label>
                         
@@ -240,7 +240,7 @@
                                     &nbsp;아이디
                             </th>
                             <td>
-                                    userId
+                                    <%=loginUser.getMemId() %>
                             </td> 
                             </tr>
                             <tr>
@@ -248,7 +248,7 @@
                                     &nbsp;탈퇴사유
                                 </th>
                                 <td rowspan="10">
-                                    <textarea name="" id="" cols="70" rows="10" style=resize:none></textarea>
+                                    <textarea name="" id="" cols="70" rows="10" value="memDrop" style=resize:none></textarea>
                                 </td> 
                             </tr>
                             <tr><th></th></tr>

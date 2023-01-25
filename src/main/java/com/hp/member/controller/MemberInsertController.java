@@ -87,9 +87,13 @@ public class MemberInsertController extends HttpServlet {
 			
 			int result = new MemberService().insertMember(m);
 			
+			HttpSession session = request.getSession();
+			
 			//결과
 			if(result > 0) {
-				//request.getSession();
+				
+				session.setAttribute("enrollMember", m);
+				
 				request.getRequestDispatcher("views/member/enrollMemberResult.jsp").forward(request, response);
 				
 			}else {
@@ -98,8 +102,8 @@ public class MemberInsertController extends HttpServlet {
 					new File(savePath + multiRequest.getFilesystemName("upProfile")).delete();
 				}
 				
-				request.setAttribute("errorMsg", "회원가입 실패");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				session.setAttribute("alertMsg", "회원가입에 실패했습니다.");
+				response.sendRedirect(request.getContextPath() + "/enrollForm.me");
 				
 			}
 		}

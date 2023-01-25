@@ -243,7 +243,6 @@
                             <input type="email" class="fillOutForms" id="email" name="email" placeholder="예) hobbyplace@hobpl.com" required>
                         </td>
                         <td class="td3">
-                            <button type="button" class="doubleCheck emailDoubleCheck" disabled>중복확인</button>
                         </td>
                     </tr>
                     <tr>

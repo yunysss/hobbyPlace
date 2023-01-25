@@ -263,7 +263,7 @@
             
             <div class="contentMain">
             <h3>나의 회원 정보</h3>
-            <form>
+            <form action="<%=contextPath%>/my>">
                 <div align="center">
                     <% if(loginUser.getMemProfile() == null) {%>
                         <img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
@@ -385,7 +385,6 @@
                             <input type="email" class="fillOutForms" id="email" name="email" value="<%=email %>" required>
                         </td>
                         <td class="td3">
-                            <button type="button" class="doubleCheck emailDoubleCheck" disabled>중복확인</button>
                         </td>
                     </tr>
                     <tr>
