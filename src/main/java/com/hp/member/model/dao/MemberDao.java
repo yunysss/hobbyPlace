@@ -72,6 +72,38 @@ public class MemberDao {
 		return m;
 		
 	}
+	/** 회원가입버튼 클릭시 선행되는 이메일중복체크용 dao메소드
+	 * @author 수연
+	 * @param conn
+	 * @param email
+	 * @return result
+	 */
+	public Member checkEmail(Connection conn, String email) {
+		Member eResult = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				eResult = new Member();
+				eResult.setMemNo(rset.getInt("mem_no"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return eResult;
+	}
+	
 	/** 회원가입용 dao메소드
 	 * @author 수연
 	 * @param conn
@@ -156,6 +188,8 @@ public class MemberDao {
 		}
 		return count;
 	}
+
+	
 	
 	
 	

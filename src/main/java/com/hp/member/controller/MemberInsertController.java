@@ -85,27 +85,37 @@ public class MemberInsertController extends HttpServlet {
 				m.setMemProfile("/resources/memberProfile_upfiles/"+ multiRequest.getFilesystemName("upProfile"));
 			}
 			
-			int result = new MemberService().insertMember(m);
 			
-			HttpSession session = request.getSession();
+			Member eResult = new MemberService().checkEmail(email);
 			
-			//결과
-			if(result > 0) {
+			if(eResult != null) {// 이메일중복검사시 이미 회원이 존재할경우
+				HttpSession session = request.getSession();
+				session.setAttribute("alertMsg", "이미 존재하는 이메일입니다.");
+				response.sendRedirect(request.getContextPath() + "/enrollForm.me");
+			}else { //해당 이메일을 가진 회원이 존재하지 않을경우 
 				
-				session.setAttribute("enrollMember", m);
+				int result = new MemberService().insertMember(m);
 				
-				request.getRequestDispatcher("views/member/enrollMemberResult.jsp").forward(request, response);
+				HttpSession session = request.getSession();
 				
-			}else {
-				
-				if(m.getMemProfile() != null) {
-					new File(savePath + multiRequest.getFilesystemName("upProfile")).delete();
+				//결과
+				if(result > 0) {
+					
+					session.setAttribute("enrollMember", m);
+					request.getRequestDispatcher("views/member/enrollMemberResult.jsp").forward(request, response);
+					
+				}else {
+					
+					if(m.getMemProfile() != null) {
+						new File(savePath + multiRequest.getFilesystemName("upProfile")).delete();
+					}
+					session.setAttribute("alertMsg", "회원가입에 실패했습니다.");
+					response.sendRedirect(request.getContextPath() + "/enrollForm.me");
 				}
 				
-				session.setAttribute("alertMsg", "회원가입에 실패했습니다.");
-				response.sendRedirect(request.getContextPath() + "/enrollForm.me");
-				
 			}
+			
+			
 		}
 		
 

@@ -31,10 +31,9 @@
            font-size: 14px;
        }
        .categoryMain:hover{
-           cursor: pointer;
-           background-color:rgb(35, 104, 116);
-           font-size:15; color:white;
+           cursor: pointer;  
        }
+       #viewMyInfo{color:white; background-color:rgb(35, 104, 116); font-weight:bolder;}
        .mpMenubar ul{
            color:rgb(64, 64, 64);
            list-style-type:none;
@@ -59,122 +58,118 @@
        #home:hover{cursor:pointer;}
        .contentA{text-decoration:none; color:black;}
 
-       .contentMain{padding-left:15px; padding-top:50px;}
+       .contentMain{padding-left:15px; padding-top:30px;}
 
        form>table{width:85%; padding:0; border:0;}
-    .td1{width:25%; padding:10px;}
-    .td2{width:52%;}
-    .td3{width:25%; padding-left:10px;}
-    .checkAlert{height:12px; padding-left: 13px; font-size:8px; color:red;}
-
-    .fillOutForms{
-        width:100%;
-        height:35px;
-        box-sizing:border-box;  
-        border:1px solid rgb(35, 104, 116);
-        border-radius:5px;
-        padding:10px;
-    }
-    .fillOutForms:hover, #address1:hover, .birthDay:hover{border:2px solid rgb(35, 104, 116);}
-    #address1{
-        width:48%;
-        height:35px;
-        box-sizing:border-box;  
-        border:1px solid rgb(35, 104, 116);
-        border-radius:5px;
-        margin-right:5px;
-        padding:10px;
-    }
-    .doubleCheck{
-        width:100%;
-        height:35px;
-        box-sizing:border-box;  
-        border:1px solid rgb(143, 143, 143);
-        border-radius:5px;
-        color:rgb(143, 143, 143);
-        background: white;
-    }
-    #postCode{width:48%;}
-    
-    .gender{width:33px;}
-    .birthDay{
-        width:30%;
-        height:35px;
-        box-sizing:border-box;  
-        border:1px solid rgb(35, 104, 116);
-        border-radius:5px;
-    }
-    #getCode{background:rgb(35, 104, 116); color:white; font-size:18px; font-weight:bolder;}
-    .profileButton{
-        height:35px;
-        width:65px;
-        line-height: 35px;
-        display: inline-block; 
-        box-sizing:border-box;  
-        vertical-align: middle;
-        text-align: center;
-        border:0;
-        border-radius:5px;
-        background-color:rgb(200, 199, 199);
-    }
-    .profileButton:hover{cursor:pointer;}
-    #upProfile{
-        position:absolute; width:1px; height:1px;padding:0; margin:-1px; overflow:hidden;clip:rect(0,0,0,0);border:0; 
-    }
-    .showRules{
-        height:20px;
-        width:100px;
-        background:white;
-        border:1px black solid;
-        border-radius: 2px;
-        font-size:12px;
-        margin-left:10px;
-    }
-    .agreeAll{font-weight:bold;}
-    #changePwd{
-        height:25px; width:170px;
-        margin:auto;
-        background:rgb(35, 104, 116); color:white; 
-        border:0;
-        border-radius: 5px;
-    }
-    #updateButton:hover, .showRules:hover, .agreeAll:hover, .agreement:hover {cursor: pointer;}
-    .hiddenPwd{display: none;}
-    .profileImage{align:center;}
-    #updateButton{
-        height:45px;
-        width:150px;
-        box-sizing:border-box;  
-        background:rgb(35, 104, 116); color:white; 
-        border:0; border-radius: 10px;
-        font-size:17px;
-    }
+	    .td1{width:25%; padding:10px;}
+	    .td2{width:52%;}
+	    .td3{width:25%; padding-left:10px;}
+	    .checkAlert{height:12px; padding-left: 13px; font-size:8px; color:red;}
+	
+	    .fillOutForms{
+	        width:100%;
+	        height:35px;
+	        box-sizing:border-box;  
+	        border:1px solid rgb(35, 104, 116);
+	        border-radius:5px;
+	        padding:10px;
+	    }
+	    .fillOutForms:hover, #address1:hover, .birthDay:hover{border:2px solid rgb(35, 104, 116);}
+	    #address1{
+	        width:48%;
+	        height:35px;
+	        box-sizing:border-box;  
+	        border:1px solid rgb(35, 104, 116);
+	        border-radius:5px;
+	        margin-right:5px;
+	        padding:10px;
+	    }
+	    .doubleCheck{
+	        width:100%;
+	        height:35px;
+	        box-sizing:border-box;  
+	        border:1px solid rgb(143, 143, 143);
+	        border-radius:5px;
+	        color:rgb(143, 143, 143);
+	        background: white;
+	    }
+	    #postCode{width:48%;}
+	    
+	    .gender{width:33px;}
+	    .birthDay{
+	        width:30%;
+	        height:35px;
+	        box-sizing:border-box;  
+	        border:1px solid rgb(35, 104, 116);
+	        border-radius:5px;
+	    }
+	    #getCode{background:rgb(35, 104, 116); color:white; font-size:18px; font-weight:bolder;}
+	    .profileButton{
+	        height:35px;
+	        width:65px;
+	        line-height: 35px;
+	        display: inline-block; 
+	        box-sizing:border-box;  
+	        vertical-align: middle;
+	        text-align: center;
+	        border:0;
+	        border-radius:5px;
+	        background-color:rgb(200, 199, 199);
+	    }
+	    .profileButton:hover{cursor:pointer;}
+	    #upProfile{
+	        position:absolute; width:1px; height:1px;padding:0; margin:-1px; overflow:hidden;clip:rect(0,0,0,0);border:0; 
+	    }
+	    .showRules{
+	        height:20px;
+	        width:100px;
+	        background:white;
+	        border:1px black solid;
+	        border-radius: 2px;
+	        font-size:12px;
+	        margin-left:10px;
+	    }
+	    .agreeAll{font-weight:bold;}
+	    #changePwd{
+	        height:25px; width:170px;
+	        margin:auto;
+	        background:rgb(35, 104, 116); color:white; 
+	        border:0;
+	        border-radius: 5px;
+	    }
+	    #updateButton:hover, .showRules:hover, .agreeAll:hover, .agreement:hover {cursor: pointer;}
+	    .hiddenPwd{display: none;}
+	    .profileImage{align:center;}
+	    #updateButton{
+	        height:45px;
+	        width:150px;
+	        box-sizing:border-box;  
+	        background:rgb(35, 104, 116); color:white; 
+	        border:0; border-radius: 10px;
+	        font-size:17px;
+	    }
 </style>
 <script>
-       $(function(){
-           $(".categoryMain").click(function(){
-               
-               // 카테고리 div 선택시 슬라이드다운 + 선택카테고리 css변화 + 세부메뉴 중 첫번째항목 font-weight:bolder + pageRoute변화
-               if($(this)){
-                   $(this).css("color", "white").css("background-color", "rgb(35, 104, 116)").css("font-weight", "bolder");
-                   $(this).siblings("div").css("color", "rgb(64, 64, 64)").css("background-color", "white").css("font-weight", "normal");
-                   $(this).next().children('li:eq(0)').css("font-weight", "bolder");
+     $(function(){
+  	   $(".categoryWrap").mouseover(function(){
+              if($(this)){
+                 $(this).children("div").css("color", "white").css("background-color", "rgb(35, 104, 116)").css("font-weight", "bolder");
+                 $(this).siblings().children("div").css("color", "rgb(64, 64, 64)").css("background-color", "white").css("font-weight", "normal");
 
-                   if($(this).next().css("display")=="none"){
-                       $(this).siblings("ul").slideUp();
-                       $(this).next().slideDown();
-                   }else{
-                       $(this).next().slideUp();
-                   }
-               }              
-           })
-
-           // 카테고리의 세부메뉴 클릭시 css변화(font-weight:bolder) + pageRoute변화
-           $(".categoryMain").next().children("li").click(function(){
-               $(this).css("font-weight", "bolder");
-               $(this).siblings("li").css("font-weight", "normal");
-           })   
-       })
+                  if($(this).children("ul").css("display")=="none"){
+                      $(this).siblings().children("ul").slideUp();
+                      $(this).children("ul").slideDown();
+                  }
+             }
+          })          
+	
+          $(".categoryWrap").mouseleave(function(){
+          	$(this).children("div").css("color", "rgb(64, 64, 64)").css("background-color", "white").css("font-weight", "normal");
+              $("#viewMyInfo").css("color", "white").css("background-color", "rgb(35, 104, 116)").css("font-weight", "bolder");
+              $(this).children("ul").slideUp(); 
+          })
+          
+     })
 </script>
 </head>
 <body>
@@ -196,30 +191,34 @@
             <h3 align="center">마이페이지</h3>
 			<br><br>
 			
-            <div class="categoryMain" align="center" id="viewMyInfo">회원정보 조회 및 수정</div>
-            <ul class="categoryDetail">
-            </ul>
-            <div class="categoryMain" align="center" id="viewMyQna">나의 문의 조회</div>
-            <ul class="categoryDetail">
-                <li id="selectMyQna">나의 문의 내역</li>
-                <li id="insertMyQna">문의하기</li>
-            </ul>
-            <div class="categoryMain" align="center" id="viewMyClass">마이클래스</div>
-            <ul class="categoryDetail">
-            </ul>
-            <div class="categoryMain" align="center" id="withdrawal">회원탈퇴</div>
-            <ul class="categoryDetail">
-            </ul>
+            <div class="categoryWrap">
+				<div class="categoryMain" align="center" id="viewMyInfo">회원정보 조회 및 수정</div>
+	            <ul class="categoryDetail">
+	            </ul>
+			</div>
+            <div class="categoryWrap">
+	            <div class="categoryMain" align="center" id="viewMyQna">나의 문의 조회</div>
+	            <ul class="categoryDetail">
+	                <li id="selectMyQna" onclick="">나의 문의 내역</li>
+	                <li id="insertMyQna" onclick="">문의하기</li>
+	            </ul>
+            </div>
+            <div class="categoryWrap">
+	            <div class="categoryMain" align="center" id="viewMyClass">마이클래스</div>
+	            <ul class="categoryDetail">
+	            </ul>
+            </div>
+            <div class="categoryWrap">
+	            <div class="categoryMain" align="center" id="withdrawal">회원탈퇴</div>
+	            <ul class="categoryDetail">
+	            </ul>
+            </div>
         </div>
         <script>
             $(function(){
                 $("#viewMyInfo").click(function(){
                     //회원정보 조회 및 수정 클릭시 이동할 페이지링크
                     location.href = "<%=contextPath%>/memberInfo.me";
-                })
-                $("#viewMyQna").click(function(){
-                    // 나의 문의 조회시 이동할 페이지링크(나의문의내역으로)
-                    location.href = "<%=contextPath%>/.....";
                 })
                 $("#selectMyQna").click(function(){
                     // 나의 문의 조회>>나의 문의내역 클릭시 이동할 페이지링크
@@ -262,7 +261,8 @@
 	        </script>
             
             <div class="contentMain">
-            <h3>나의 회원 정보</h3>
+            <div align="center"><h3>나의 회원 정보</h3></div>
+            <br><br>
             <form action="<%=contextPath%>/my>">
                 <div align="center">
                     <% if(loginUser.getMemProfile() == null) {%>
@@ -754,7 +754,7 @@
             
         })
     </script>
- 
+    <br clear="both">
      <%@ include file = "../common/footerbar.jsp" %>
 </body>
 </html>

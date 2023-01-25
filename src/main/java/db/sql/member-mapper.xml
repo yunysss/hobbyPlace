@@ -27,6 +27,13 @@
 	       AND MEM_STATUS = 'Y'
 	</entry>
 	
+	<entry key="checkEmail">
+		SELECT
+		       MEM_NO
+		  FROM MEMBER
+		 WHERE MEM_EMAIL = ?
+	</entry>
+	
 	<entry key="insertMember">
 		INSERT
 		   INTO MEMBER

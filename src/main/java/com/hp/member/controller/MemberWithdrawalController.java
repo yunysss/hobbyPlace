@@ -27,8 +27,17 @@ public class MemberWithdrawalController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		HttpSession session = request.getSession();
-		request.getRequestDispatcher("views/member/myPageWithdrawal.jsp").forward(request, response);
+		
+		if(session.getAttribute("loginUser") == null) {
+			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath()+"/login.me");
+			
+		}else {
+			request.getRequestDispatcher("views/member/myPageWithdrawal.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**

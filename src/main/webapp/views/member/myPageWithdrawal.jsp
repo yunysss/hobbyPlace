@@ -6,104 +6,76 @@
 <meta charset="UTF-8">
 <title>Hobby Place</title>
 <style>
-        /*div{border:1px solid black;}*/
-        div{box-sizing:border-box;}
-        .cWrap{width:1000px; margin:auto;}
-       .content{width:80%; float:left; margin-top:5px; padding-top:100px; margin-left:200px;}
-       .mpMenubar{
-       		width:200px; padding-top:15px;float:left;
-       		position:fixed; top:130px; background: white;
-       }
-       
-       .categoryMain {
-           width:90%;
-           height:50px;
-           font-size:13px;
-           margin:auto;
-           margin-bottom:5px;
-           line-height:50px;
-           border:1px solid; border-color: rgb(35, 104, 116);  
-           color:rgb(64, 64, 64);
-           background-color: white;
-           border-radius:5px;
-           font-size: 14px;
-       }
-       .categoryMain:hover{
-           cursor: pointer;
-           background-color:rgb(35, 104, 116);
-           font-size:15; color:white;
-       }
-       .mpMenubar ul{
-           color:rgb(64, 64, 64);
-           list-style-type:none;
-           line-height:2;
-           text-align:left;
-           display:none;
-       }
-       .mpMenubar li:hover{
-           cursor: pointer;
-           color:black;
-           font-weight: bolder;
-       }
-       
-       .pageRoute{  
-       	position:fixed;
-       	top:120px;
-       	width:800px;
-       	background:white;
-       	padding-top:20px;
-       }
-       #home {width:20px; height:20px; vertical-align: text-bottom;}
-       #home:hover{cursor:pointer;}
-       .contentA{text-decoration: none; color:black;}
-        .explainForm{
-            width:700px;
-            background-color: lightgray;
-            border:0;
-            padding:30px 20px 30px 20px;
-        }
-        .explainForm>table td{padding-left:15px;}
-        .checkAgreement{width:700px; margin-top:5px; padding-left:5px;}
-        .checkAgreement>table th{width:100px; text-align:left;}
-        .tr1{height:30px;}
-        .tr1>td{font-size:15px;}
+   div{box-sizing:border-box;}
+   .cWrap{width:1000px; margin:auto;}
+   .content{width:80%; float:left; margin-top:5px; padding-top:100px; margin-left:200px;}
+   .mpMenubar{
+    		width:200px; padding-top:15px;float:left;
+    		position:fixed; top:130px; background: white;
+    }
+    
+    .categoryMain {
+        width:90%;
+        height:50px;
+        font-size:13px;
+        margin:auto;
+        margin-bottom:5px;
+        line-height:50px;
+        border:1px solid; border-color: rgb(35, 104, 116);  
+        color:rgb(64, 64, 64);
+        background-color: white;
+        border-radius:5px;
+        font-size: 14px;
+    }
+    .categoryMain:hover{
+        cursor: pointer;
+    }
+    #withdrawal{color:white; background-color:rgb(35, 104, 116); font-weight:bolder;}
+    .mpMenubar ul{
+        color:rgb(64, 64, 64);
+        list-style-type:none;
+        line-height:2;
+        text-align:left;
+        display:none;
+        padding-bottom:3px;
+    }
+    .mpMenubar li:hover{
+        cursor: pointer;
+        color:black;
+        font-weight: bolder;
+    }
+    
+    .pageRoute{  
+    	position:fixed;
+    	top:120px;
+        width:800px;
+    	background:white;
+    	padding-top:20px;
+    }
+    #home {width:20px; height:20px; vertical-align: text-bottom;}
+    #home:hover{cursor:pointer;}
+    .contentA{text-decoration: none; color:black;}
+    .explainForm{
+        width:700px;
+        background-color: lightgray;
+        border:0;
+        padding:30px 20px 30px 20px;
+    }
+    .explainForm>table td{padding-left:15px;}
+    .checkAgreement{width:700px; margin-top:5px; padding-left:5px;}
+    .checkAgreement>table th{width:100px; text-align:left;}
+    .tr1{height:30px;}
+    .tr1>td{font-size:15px;}
 
-        .leaveButton{
-            height:30px; width:140px; 
-            color:white; background-color:gray; 
-            border:0; border-radius:5px; 
-            margin-top:30px;
-            margin-left:300px;
-        }
-        .leaveButton:hover{cursor: pointer;}
-
-    </style>
-    <script>
-        $(function(){
-            $(".categoryMain").click(function(){
-                
-                // 카테고리 div 선택시 슬라이드다운 + 선택카테고리 css변화 + 세부메뉴 중 첫번째항목 font-weight:bolder + pageRoute변화
-                if($(this)){
-                    $(this).css("color", "white").css("background-color", "rgb(35, 104, 116)").css("font-weight", "bolder");
-                    $(this).siblings("div").css("color", "rgb(64, 64, 64)").css("background-color", "white").css("font-weight", "normal");
-                    $(this).next().children('li:eq(0)').css("font-weight", "bolder");
- 
-                    if($(this).next().css("display")=="none"){
-                        $(this).siblings("ul").slideUp();
-                        $(this).next().slideDown();
-                    }else{
-                        $(this).next().slideUp();
-                    }
-                }
-            })
- 
-            // 카테고리의 세부메뉴 클릭시 css변화(font-weight:bolder) + pageRoute변화
-            $(".categoryMain").next().children("li").click(function(){
-                $(this).css("font-weight", "bolder");
-                $(this).siblings("li").css("font-weight", "normal");
-            })   
-        })
- </script>
+    .leaveButton{
+        height:30px; width:140px; 
+        color:white; background-color:gray; 
+        border:0; border-radius:5px; 
+        margin-top:30px;
+        margin-left:300px;
+    }
+    .leaveButton:hover{cursor: pointer;}
+</style>
 </head>
 <body>
 	<%@ include file="../common/tuteeMenubar.jsp" %>
@@ -112,20 +84,29 @@
             <h3 align="center">마이페이지</h3>
 			<br><br>
 			
-            <div class="categoryMain" align="center" id="viewMyInfo">회원정보 조회 및 수정</div>
-            <ul class="categoryDetail">
-            </ul>
-            <div class="categoryMain" align="center" id="viewMyQna">나의 문의 조회</div>
-            <ul class="categoryDetail">
-                <li id="selectMyQna" onclick="">나의 문의 내역</li>
-                <li id="insertMyQna" onclick="">문의하기</li>
-            </ul>
-            <div class="categoryMain" align="center" id="viewMyClass">마이클래스</div>
-            <ul class="categoryDetail">
-            </ul>
-            <div class="categoryMain" align="center" id="withdrawal">회원탈퇴</div>
-            <ul class="categoryDetail">
-            </ul>
+			<div class="categoryWrap">
+				<div class="categoryMain" align="center" id="viewMyInfo">회원정보 조회 및 수정</div>
+	            <ul class="categoryDetail">
+	            </ul>
+			</div>
+            <div class="categoryWrap">
+	            <div class="categoryMain" align="center" id="viewMyQna">나의 문의 조회</div>
+	            <ul class="categoryDetail">
+	                <li id="selectMyQna" onclick="">나의 문의 내역</li>
+	                <li id="insertMyQna" onclick="">문의하기</li>
+	            </ul>
+            </div>
+            <div class="categoryWrap">
+	            <div class="categoryMain" align="center" id="viewMyClass">마이클래스</div>
+	            <ul class="categoryDetail">
+	            </ul>
+            </div>
+            <div class="categoryWrap">
+	            <div class="categoryMain" align="center" id="withdrawal">회원탈퇴</div>
+	            <ul class="categoryDetail">
+	            </ul>
+            </div>
+            
         </div>
         <script>
             $(function(){
@@ -133,12 +114,8 @@
                     //회원정보 조회 및 수정 클릭시 이동할 페이지링크
                     location.href = "<%=contextPath%>/memberInfo.me";
                 })
-                $("#viewMyQna").click(function(){
-                    // 나의 문의 조회시 이동할 페이지링크(나의문의내역으로)
-                    location.href = "<%=contextPath%>/.....";
-                })
                 $("#selectMyQna").click(function(){
-                    // 나의 문의 조회>>나의 문의내역 클릭시 이동할 페이지링크
+                    // 나의 문의 리스트 조회시 이동할 페이지링크
                     location.href = "<%=contextPath%>/.....";
                 })
                 $("#insertMyQna").click(function(){
@@ -154,10 +131,30 @@
                     location.href = "<%=contextPath%>/withdrawal.me";
                 })
 
-
             })
         </script>
+		<script>
+	       $(function(){
+	    	   $(".categoryWrap").mouseover(function(){
+	                if($(this)){
+	                   $(this).children("div").css("color", "white").css("background-color", "rgb(35, 104, 116)").css("font-weight", "bolder");
+	                   $(this).siblings().children("div").css("color", "rgb(64, 64, 64)").css("background-color", "white").css("font-weight", "normal");
 
+	                    if($(this).children("ul").css("display")=="none"){
+	                        $(this).siblings().children("ul").slideUp();
+	                        $(this).children("ul").slideDown();
+	                    }
+	               }
+	            })          
+				
+	            $(".categoryWrap").mouseleave(function(){
+	            	$(this).children("div").css("color", "rgb(64, 64, 64)").css("background-color", "white").css("font-weight", "normal");
+	                $("#withdrawal").css("color", "white").css("background-color", "rgb(35, 104, 116)").css("font-weight", "bolder");
+	                $(this).children("ul").slideUp(); 
+	            })
+	            
+	       })
+ 		</script>
 
         <div class="content">
             <div class="pageRoute">

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import = "java.util.ArrayList, com.hp.lesson.model.vo.*" %>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, com.hp.lesson.model.vo.*"%>
+<%
+	String alertMsg = (String)session.getAttribute("alertMsg");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -100,6 +102,13 @@
 </style>
 </head>
 <body>
+	<% if(alertMsg != null) { %>
+		<script>
+			alert("<%=alertMsg%>");
+		</script>
+		<% session.removeAttribute("alertMsg"); %>
+	<% } %>
+	
 	<%@ include file="../common/tuteeMenubar.jsp" %>
 	<div class="cWrap">
         <div class="content" align="center">

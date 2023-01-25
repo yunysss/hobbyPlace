@@ -20,6 +20,24 @@ public class MemberService {
 		return m;
 	}
 	
+	
+	
+	/**
+	 * 회원가입버튼 클릭시 선행되는 이메일중복체크용메소드
+	 * @author 수연
+	 * @param email
+	 * @return eResult
+	 */
+	public Member checkEmail(String email) {
+		Connection conn = getConnection();
+		Member eResult = new MemberDao().checkEmail(conn, email);
+		
+		close(conn);
+		return eResult;
+	
+	}
+	
+
 	/** 회원가입용 서비스메소드
 	 * @author 수연
 	 * @param Member m
@@ -53,6 +71,12 @@ public class MemberService {
 		return count;
 	}
 	
+	/**
+	 * 닉네임 중복체크용 서비스메소드
+	 * @author 수연
+	 * @param checkNick
+	 * @return count
+	 */
 	public int nickCheck(String checkNick) {
 		Connection conn = getConnection();
 		int count = new MemberDao().nickCheck(conn, checkNick);
@@ -60,6 +84,7 @@ public class MemberService {
 		
 		return count;
 	}
+
 	
 	
 	
