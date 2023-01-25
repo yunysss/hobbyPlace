@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectTutorInfo">
+	
+	   SELECT 
+		   	MEM_NO
+	        , TT_NAME
+	        , TT_PHONE
+	        , TT_EMAIL
+	        , INTRODUCE
+	        , PUB_PHONE
+	        , TT_PROFILE
+	    FROM TUTOR
+	    WHERE MEM_NO = ?
+
+	</entry>
+	
+	<!-- 로그인한 튜터 클래스 개수  -->
+	<entry key="selectClassCount">
+		
+		SELECT COUNT(*) "count"
+		FROM CLASS
+		WHERE MEM_NO =?
+	</entry>
+	
+	<!-- 클래스 리스트 조회 -->
+	<entry key="selectClassList">
+	
+	 SELECT *
+	 FROM
+	  (	
+		SELECT ROWNUM RNUM, A.*
+		FROM	
+			(
+			 SELECT 
+					 C.CL_NO
+					,G.CT_NAME
+					,D.CT_DNAME
+					,T.TT_NAME
+					,CL_NAME
+					,C.ENROLL_DATE
+					,C.CL_STATUS
+					,CL_REFUSE
+					
+				FROM CLASS C
+				JOIN CATEGORY G USING (CT_NO)
+				JOIN DCATEGORY D USING (CT_DNO)
+				JOIN TUTOR T USING (MEM_NO)
+				WHERE MEM_NO= ?
+			    ORDER BY CL_NO DESC
+			)A
+	  )	
+	WHERE RNUM BETWEEN ?   AND ?
+	</entry>
+	
+
+	
+	<!-- 카테고리 대분류 조회 -->	
+	<entry key="selectCategoryList">
+		SELECT CT_NO
+			  ,CT_NAME
+		FROM  CATEGORY
+
+	</entry>
+	<!-- 세부카테고리 조회 -->
+	<entry key="selectDcategoryList">
+		SELECT CT_DNO
+		      ,CT_NO
+		      ,CT_DNAME
+		 FROM DCATEGORY     
+
+	</entry>		
+
+	<!-- 튜터 프로필 수정 -->
+	<entry key="updateTutorProfile">
+	 	UPDATE TUTOR
+	 	  SET  TT_NAME =?
+	 	  	  , TT_PHONE =?
+	 	  	  , TT_EMAIL =?
+	 	  	  , INTRODUCE= ?
+	 	  	  , PUB_PHONE= ?
+	 	  	  , TT_PROFILE =?
+	 	  	  , MODIFY_DATE = SYSDATE
+	 	WHERE MEM_NO = ?
+
+	</entry>
+	
+	<!-- 튜터 닉네임 중복체크 -->
+	<entry key="nickCheck">
+		SELECT
+			   COUNT(*) "COUNT"
+		  FROM TUTOR
+		WHERE TT_NAME = ? 
+		 
+	</entry>
+
+	<entry key="selectTutorRegister">
+		SELECT
+		       REG_NO
+		     , MEM_NAME
+		     , CL_NAME
+		     , TEACH_DATE
+		     , REG_DATE
+		     , START_TIME || '-' || END_TIME "SCH_TIME"
+		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_STA
+		  FROM REGISTER
+		  JOIN MEMBER USING(MEM_NO)
+		  JOIN CLASS C USING(CL_NO)
+		  JOIN SCHEDULE USING(SCH_NO)
+		 WHERE C.MEM_NO = ?
+		   AND REG_STA != 3
+		 ORDER 
+		    BY REG_NO
+	</entry>
+	<entry key="selectTutorNewRegister">
+		SELECT
+		       REG_NO
+		     , MEM_NAME
+		     , CL_NAME
+		     , TEACH_DATE
+		     , REG_DATE
+		     , START_TIME || '-' || END_TIME "SCH_TIME"
+		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_STA
+		  FROM REGISTER
+		  JOIN MEMBER USING(MEM_NO)
+		  JOIN CLASS C USING(CL_NO)
+		  JOIN SCHEDULE USING(SCH_NO)
+		 WHERE C.MEM_NO = ?
+		   AND REG_STA = ?
+		 ORDER 
+		    BY REG_NO
+	</entry>
+	<entry key="selectTutorFinRegister">
+		SELECT
+		       REG_NO
+		     , MEM_NAME
+		     , CL_NAME
+		     , TEACH_DATE
+		     , REG_DATE
+		     , START_TIME || '-' || END_TIME "SCH_TIME"
+		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_STA
+		  FROM REGISTER
+		  JOIN MEMBER USING(MEM_NO)
+		  JOIN CLASS C USING(CL_NO)
+		  JOIN SCHEDULE USING(SCH_NO)
+		 WHERE C.MEM_NO = ?
+		   AND REG_STA IN(1,2)
+		 ORDER 
+		    BY REG_NO
+	</entry>
+	<entry key="selectDetailApproval">
+		SELECT
+		       REG_NO
+		     , MEM_NAME
+		     , CL_NAME
+		     , TEACH_DATE
+		     , REG_DATE
+		     , START_TIME || '-' || END_TIME "SCH_TIME"
+		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_COUNT || '명' "REG_COUNT"
+		     , MEM_PHONE
+		     , NVL(MEM_EMAIL, '없음') "MEM_EMAIL"
+		  FROM REGISTER
+		  JOIN MEMBER USING(MEM_NO)
+		  JOIN CLASS C USING(CL_NO)
+		  JOIN SCHEDULE USING(SCH_NO)
+		 WHERE REG_NO = ?
+	</entry>
+
+	<entry key="updateRegister">
+		UPDATE REGISTER
+		   SET REG_STA = ?
+		 WHERE REG_NO = ?
+	</entry>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</properties>

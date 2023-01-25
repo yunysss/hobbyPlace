@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<!-- 내가 남긴 리뷰수 -->
+	<entry key="reviewCount">
+		SELECT 
+		       COUNT(*) "COUNT"
+		  FROM REVIEW
+		  JOIN REGISTER USING(REG_NO)
+		 WHERE MEM_NO = ?	
+	</entry>
+
+	
+</properties>
