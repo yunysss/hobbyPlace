@@ -122,7 +122,7 @@
         <div class="container">
         
                <div class="list-area">
-               	<%if (classList.isEmpty()){ %>
+               	<%if (list.isEmpty()){ %>
                     <h5>등록된 클래스가 없습니다. </h5>
                  	<%} else{%>
                 <% for(Lesson l : list){%>
