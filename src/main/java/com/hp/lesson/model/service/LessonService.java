@@ -160,8 +160,19 @@ public class LessonService {
 		return t;
 	}
 	
-	
-	
+	public ArrayList<Lesson> selectTutorClass(int clNo) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> cList = new LessonDao().selectTutorClass(conn, clNo);
+		close(conn);
+		return cList; 
+	}
+	public ArrayList<Review> selectTutorReview(int clNo){
+		Connection conn = getConnection();
+		ArrayList<Review> rList = new LessonDao().selectTutorReview(conn, clNo);
+		close(conn);
+		return rList; 
+		
+	}
 	
 	
 	

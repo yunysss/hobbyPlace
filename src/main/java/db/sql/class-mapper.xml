@@ -339,9 +339,58 @@
 
 	</entry>
 
-
+	<entry key="selectTutorClass">
+		 SELECT 
+		       CL_NO
+		     , LOCAL_NAME
+		     , DISTR_NAME
+		     , SUBSTR(CL_NAME, 1, 15) || '...' "CL_NAME"
+		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+		     , CL_THUMB
+		     , (SELECT AVG(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		     , (SELECT COUNT(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		  FROM CLASS C
+		  JOIN LOCATION USING(LOCAL_CODE)
+		  JOIN DISTRICT USING(DISTR_CODE)
+		 WHERE CL_STATUS = 2
+          AND MEM_NO = (SELECT MEM_NO
+                      FROM CLASS
+                     WHERE CL_NO = ?)
+		 ORDER
+		    BY CL_NO DESC  
+            
+	</entry>
 	
+	<entry key="selectTutorReview">
 	
+	SELECT
+		      RE_NO
+		     , CONTENT
+			 , RE_STAR
+			 , RE_DATE
+			 , RE_UPDATE
+		     , CL_NAME
+			 , MEM_NICKNAME
+			 , MEM_PROFILE
+		     , C.MEM_NO 
+  
+		  FROM REVIEW R
+		  JOIN REGISTER G USING(REG_NO)
+		  JOIN MEMBER USING (MEM_NO)
+          JOIN CLASS C ON (C.CL_NO=R.CL_NO)
+		  WHERE RE_STA = 'Y'
+        GROUP BY C.MEM_NO, RE_NO, CONTENT, RE_STAR, RE_DATE, 
+      			  RE_UPDATE, MEM_NICKNAME, MEM_PROFILE, CL_NAME 
+          HAVING C.MEM_NO = ( SELECT MEM_NO
+                            FROM CLASS
+                             WHERE CL_NO = ?) 
+                                  
+	
+	</entry>
 	
 	
 	

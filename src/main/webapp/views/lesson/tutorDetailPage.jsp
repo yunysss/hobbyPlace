@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.hp.tutor.model.vo.Tutor" %>    
+<%@ page import="com.hp.tutor.model.vo.Tutor, java.util.ArrayList, com.hp.lesson.model.vo.Lesson,com.hp.review.model.vo.Review " %>    
 <%
    Tutor t = (Tutor)request.getAttribute("t");
    String ttProfile = t.getTtProfile() ==  null? "resources/tutorProfile_upfiles/defaultimg.jpg" : t.getTtProfile();
 
+   ArrayList<Lesson> cList = (ArrayList<Lesson>)request.getAttribute("cList");
+   ArrayList<Review> rList = (ArrayList<Review>)request.getAttribute("rList");
 %>    
 <!DOCTYPE html>
 <html>
@@ -94,8 +96,8 @@
                 <img src="<%=request.getContextPath()%>/<%=ttProfile %>" width="60" class="rounded-circle" alt="Cinque Terre">
                 <span style="font-weight: 600;"><%=t.getTtName() %></span><br>
                 <span style="font-size: 11px; color: g;">클래스 3 </span> | 
-                <span style="font-size: 11px;"> 후기 30</span>
-                <a></a><span class="badge badge-danger">문의하기</span><a/>
+                <span style="font-size: 11px;"> 후기 </span>
+                <a><span class="badge badge-danger">문의하기</span><a/>
                 
               </p>
                 
@@ -135,126 +137,37 @@
                
                 <br>
                  <div class="list-area">
-                  
+                 <% if (cList.isEmpty()){ %>
+                   <h6>등록된 클래스가 없습니다..???</h6>
+                  <%}else{ %>
+                  	 <% for (Lesson l : cList){ %>
                   <table class="thumbnail"  >
                     <tr>
                       <td>
                       <div id="thumbnail">
-                      <img src="<%=request.getContextPath()%>/resources/images/sample1.png"" alt="" width="180" height="180">
-                      
+                      <img src="<%=request.getContextPath()%>/<%=l.getClThumb() %>"  width="180" height="180">
                       </div>
                       </td>
                     </tr>
                     <tr>
                       <td style="font-size: 11px;">
-                       지역명/서울/구로구
+                       <%=l.getDistrCode() %>
                       </td>
                     </tr>
                     <tr>
-                      <th>클래스명~~~~~만들기</th>  
+                      <th><%=l.getClName() %></th>  
                     </tr>
                     <tr>
                       <td>
-                     ⭐⭐⭐⭐⭐
+                    	 <%=l.getClPrice() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small>⭐ <%=l.getClStarAvg()+".0("+ l.getClStarCount()%>)</small>
                       </td>
                       
                     </tr>
-                    <tr>
-                      <th>50,000원</th>
-                    </tr>
-
+           
                   </table>
-                  <table class="thumbnail">
-                    <tr>
-                      <td>
-                      <div id="thumbnail">
-                      <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" alt="" width="180" height="180">
-                      
-                      </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="font-size: 11px;">
-                       지역명/서울/구로구
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>클래스명~~~~~만들기</th>  
-                    </tr>
-                    <tr>
-                      <td>
-                     ⭐⭐⭐⭐⭐
-                      </td>
-                      
-                    </tr>
-                    <tr>
-                      <th>50,000원</th>
-                    </tr>
+                  <%} %>
+               	 <%} %>
 
-                  </table>
-                  <table class="thumbnail">
-                    <tr>
-                      <td>
-                      <div id="thumbnail">
-                      <img src="resources/KakaoTalk_20230111_135534500.jpg" alt="" width="180" height="180">
-                      
-                      </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="font-size: 11px;">
-                       지역명/서울/구로구
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>클래스명~~~~~만들기</th>  
-                    </tr>
-                    <tr>
-                      <td>
-                     ⭐⭐⭐⭐⭐
-                      </td>
-                      
-                    </tr>
-                    <tr>
-                      <th>50,000원</th>
-                    </tr>
-
-                  </table>
-                  <table class="thumbnail">
-                    <tr>
-                      <td>
-                      <div id="thumbnail">
-                      <img src="resources/KakaoTalk_20230111_135534500.jpg" alt=""width="180" height="180"">
-                      
-                      </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="font-size: 11px;">
-                       지역명/서울/구로구
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>클래스명~~~~~만들기</th>  
-                    </tr>
-                    <tr>
-                      <td>
-                     ⭐⭐⭐⭐⭐
-                      </td>
-                      
-                    </tr>
-                    <tr>
-                      <th>50,000원</th>
-                    </tr>
-
-                  </table>
-
-
-
-
-
-
-               
 
                 </div>   
                   
@@ -265,12 +178,32 @@
               </div>
               <div id="menu1" class="container tab-pane fade"><br>
                 <div id="review-area">
+                	<%if(rList.isEmpty()){ %>
+                	<table>
+                		<tr>
+                		<th>등록된 리뷰가 없습니다.</th>
+                		</tr>              		
+                	</table>
+                	<%}else %>
+                	<%for(Review r : rList){ %>
                     <table style="text-align: left;">
                       <tr>
-                        <th width="70" height="60"><img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" width="60" class="rounded-circle" alt="Cinque Terre"></th>
+                        <th width="70" height="60"><img src="<%=request.getContextPath()%>/<%=r.getMemProfile() %>" width="60" class="rounded-circle" alt="Cinque Terre"></th>
                         <td>
-                          <label id="review-nick" style="font-weight: 550;">닉네임1123</label> <br>
-                          ⭐⭐⭐⭐⭐ <span id="review-date" style="font-size:12px;">2023-01-21</span>
+                          <label id="review-nick" style="font-weight: 550;"></label><%=r.getMemNickName() %><br>
+                            <% 
+	                            String value = "";
+	                         for(int j=1; j<=r.getReviewStar(); j++){
+	                			value += "⭐";
+	                			} %>
+	                			<%= value %> 
+	                			<span id="review-date" style="font-size:12px;">
+	                			<% if(r.getReviewDate() == null){ %>
+	                                    	<%= r.getReviewDate() %>
+	                                    <% } else{%>
+	                                    	<%= r.getReviewUpDate() %>
+	                                    <% } %>
+	                            </span>
                       </td>
                           <td rowspan="3" width="150">
                               <img src="<%=request.getContextPath()%>/resources/images/sample1.png" width="150" height="150" alt="">
@@ -281,52 +214,24 @@
                             
                         </td>
                         <td style="font-size: 11px;" height="20">
-                            앙금플라워 떡케이크 클래스 참여
+                           <%=r.getClName() %>
                         </td>
                     </tr>
                       <tr>
                           <td colspan="2" width="700" style="font-size: 14px;">
                             <div style="width: 600px;">
-                           앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍
+                           <%=r.getReviewContent() %>
                            </div>
                           </td>
                       </tr>
                    </table>
-                   
+                    <hr>
+                    
+                 <%} %>
                   </div>
-                  <hr>
-                  
-                  <div id="review-area">
-                    <table style="text-align: left;">
-                      <tr>
-                        <th width="70" height="60"><img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" width="60" class="rounded-circle" alt="Cinque Terre"></th>
-                        <td>
-                          <label id="review-nick" style="font-weight: 550;">닉네임1123</label> <br>
-                          ⭐⭐⭐⭐⭐ <span id="review-date" style="font-size:12px;">2023-01-21</span>
-                      </td>
-                          <td rowspan="3" width="150">
-                              <img src="<%=request.getContextPath()%>/resources/images/sample1.png" width="150" height="150" alt="">
-                          </td>
-                      </tr>
-                      <tr>
-                        <td width="60">
-                            
-                        </td>
-                        <td style="font-size: 11px;" height="30">
-                            앙금플라워 떡케이크 클래스 참여
-                        </td>
-                    </tr>
-                      <tr>
-                          <td colspan="2" width="700" style="font-size: 14px;">
-                            <div style="width: 650px;">
-                                앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍 앙금백설기 짱 맛있고 선물용으로 최고에용 👍👍👍
-                                </div>
-                          </td>
-                      </tr>
-                   </table>
-                   
-                  </div>
-                  
+              
+                
+                 
                   
 
               </div>
