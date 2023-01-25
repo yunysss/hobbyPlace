@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.hp.tutor.model.vo.Tutor" %>    
+<%
+   Tutor t = (Tutor)request.getAttribute("t");
+   String ttProfile = t.getTtProfile() ==  null? "resources/tutorProfile_upfiles/defaultimg.jpg" : t.getTtProfile();
+
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,11 +90,12 @@
         <div id="profile">
             <div id="tutorProfile" align="center">
                 <p style="border: 1px solid rgb(201, 199, 199);" id="p">
-                <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg" width="60" class="rounded-circle" alt="Cinque Terre">
-                <span style="font-weight: 600;">튜터 닉네임 자리</span><br>
+            
+                <img src="<%=request.getContextPath()%>/<%=ttProfile %>" width="60" class="rounded-circle" alt="Cinque Terre">
+                <span style="font-weight: 600;"><%=t.getTtName() %></span><br>
                 <span style="font-size: 11px; color: g;">클래스 3 </span> | 
                 <span style="font-size: 11px;"> 후기 30</span>
-                <span class="badge badge-danger">문의하기</span>
+                <a></a><span class="badge badge-danger">문의하기</span><a/>
                 
               </p>
                 
@@ -96,7 +103,7 @@
             <div id="introduce">
                 <h6 style="font-weight: 600;">튜터 소개</h6>
                 <div style="font-size: 13px;">
-                    소개 고고 
+                    <%=t.getIntroduce() %>
 
                 </div>
                

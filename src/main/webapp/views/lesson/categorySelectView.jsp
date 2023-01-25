@@ -122,6 +122,9 @@
         <div class="container">
         
                <div class="list-area">
+               	<%if (list.isEmpty()){ %>
+                    <h5>등록된 클래스가 없습니다. </h5>
+                 	<%} else{%>
                 <% for(Lesson l : list){%>
                 <table class="thumbnail"  >
                	 <input type="hidden"  value="<%=l.getClNo() %>">
@@ -147,7 +150,7 @@
                   </tr>
 
                 </table>
-                
+                <%} %>
                 <%} %>
               </div>   
               <script>
@@ -156,10 +159,7 @@
               			location.href="<%=contextPath%>/page.cl?no="+$(this).children('input').val();
               		})
               	})
-              	
-              
-              
-              
+       
               </script>
               
  

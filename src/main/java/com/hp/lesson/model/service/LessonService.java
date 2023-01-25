@@ -14,6 +14,7 @@ import com.hp.lesson.model.dao.LessonDao;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.review.model.vo.Review;
+import com.hp.tutor.model.vo.Tutor;
 
 public class LessonService {
 	
@@ -151,8 +152,13 @@ public class LessonService {
 		close(conn);
 		return count;
 	}
-	
-	
+
+	public Tutor selectTutorInfo(int clNo) {
+		Connection conn = getConnection();
+		Tutor t = new LessonDao().selectTutorInfo(conn, clNo);
+		close(conn);
+		return t;
+	}
 	
 	
 	

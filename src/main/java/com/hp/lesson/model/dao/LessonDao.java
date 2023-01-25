@@ -16,6 +16,7 @@ import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.review.model.vo.Review;
+import com.hp.tutor.model.vo.Tutor;
 
 public class LessonDao {
 	
@@ -532,6 +533,33 @@ private Properties prop = new Properties();
 		return count;
 	}
 	
+	public Tutor selectTutorInfo(Connection conn, int clNo) {
+		Tutor t = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql =prop.getProperty("selectTutorInfo");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				t = new Tutor(rset.getInt("mem_no"),
+							  rset.getString("tt_name"),
+							  rset.getString("introduce"),
+							  rset.getString("tt_profile")
+						);
+				
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return t;
+
+	}
 	
 	
 

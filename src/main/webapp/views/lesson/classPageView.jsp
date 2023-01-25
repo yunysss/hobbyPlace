@@ -278,7 +278,7 @@
                     <%= le.getClSupplies() %> <br><br>
                     
                     <b>강사소개</b><br><br>
-                    <a href="<%=contextPath%>/ttdetail.cl" id="classDetail-tutor">
+                    <a href="<%=contextPath%>/ttdetail.cl?no=<%=le.getClNo() %>" id="classDetail-tutor">
                 	<img src="<%= contextPath %>/<%= le.getTutorProfile() %>" width="75px" height="100%">
                     <span><%= le.getMemNo() %></span>
                     <img src="<%= contextPath %>/resources/images/right_arrow.png" width="40px;" height="40px;">

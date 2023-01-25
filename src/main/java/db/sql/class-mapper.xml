@@ -326,6 +326,18 @@
 		)
 
 	</entry>
+	
+	<entry key="selectTutorInfo">
+	
+	SELECT MEM_NO
+	    , TT_NAME
+	    , INTRODUCE
+	    , TT_PROFILE
+	 FROM TUTOR
+	 JOIN CLASS USING (MEM_NO)
+	 WHERE CL_NO = ?
+
+	</entry>
 
 
 	

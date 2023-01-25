@@ -128,6 +128,7 @@
                  	<%} else{%>
             	<% for(Lesson l : classList){%>
                 <table class="thumbnail"  >
+                  <input type="hidden"  value="<%=l.getClNo() %>">
                   <tr>
                     <td>
                     <div id="thumbnail">
@@ -153,6 +154,18 @@
 
 			<%} %>
               </div>   
+              
+               <script>
+              	$(function(){
+              		$(".thumbnail").click(function(){
+              			location.href="<%=contextPath%>/page.cl?no="+$(this).children('input').val();
+              		})
+              	})
+       
+              </script>
+              
+              
+              
               
                <div class="paging-area">
         
