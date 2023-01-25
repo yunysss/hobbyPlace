@@ -107,6 +107,26 @@ public class CalculateDao {
 		return result;
 	}
 	
+	public int updateRegister(Connection conn, String[] regNoList) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRegister");
+		
+		try {
+			for(int i=0; i<regNoList.length; i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, regNoList[i]);
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	
 
 }

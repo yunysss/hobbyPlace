@@ -49,5 +49,11 @@
 		  , ?
 		  )
 	</entry>
+	
+	<entry key="updateRegister">
+		UPDATE REGISTER
+		   SET REG_CAL = 'W'
+		 WHERE REG_NO = ?
+	</entry>
 
 </properties>

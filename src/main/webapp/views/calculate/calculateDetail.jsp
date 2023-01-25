@@ -49,7 +49,6 @@
         <form id="cal-form" action="<%= contextPath %>/insert.cal">
         	<input type="hidden" name="calPrice" id="calPrice">
         	<input type="hidden" name="regNo" value="<%= regNo %>">
-        	<input type="hidden" name="memNo" value="<%= MemNo %>">
             <table id="cal-form-1">
                 <tr>
                     <td width="550">

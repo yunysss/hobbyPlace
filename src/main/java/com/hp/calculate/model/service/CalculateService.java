@@ -25,16 +25,17 @@ public class CalculateService {
 		return calPrice;
 	}
 	
-	public int insertCalculate(Calculate cal) {
+	public int insertCalculate(Calculate cal, String[] regNoList) {
 		Connection conn = getConnection();
-		int result = new CalculateDao().insertCalculate(conn, cal);
-		if(result > 0) {
+		int result1 = new CalculateDao().insertCalculate(conn, cal);
+		int result2 = new CalculateDao().updateRegister(conn, regNoList);
+		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		close(conn);
-		return result;
+		return result1 * result2;
 	}
 	
 }

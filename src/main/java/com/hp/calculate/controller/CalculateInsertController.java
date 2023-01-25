@@ -35,13 +35,12 @@ public class CalculateInsertController extends HttpServlet {
 		String bank = request.getParameter("bank");
 		String account = request.getParameter("account");
 		String acHolder = request.getParameter("acHolder");
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		String[] regNoList = regNo.split(",");
 		
 		Calculate cal = new Calculate(calPrice, bank, account, acHolder, regNo);
-		int result = new CalculateService().insertCalculate(cal);
+		int result = new CalculateService().insertCalculate(cal, regNoList);
 		
 		if(result > 0) {
-			String[] regNoList = regNo.split(",");
 			for(int i=0; i<regNoList.length; i++) {
 				regNoList[i] = "regNo=" + regNoList[i];
 			}
