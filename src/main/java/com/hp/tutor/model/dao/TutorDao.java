@@ -302,7 +302,7 @@ private Properties prop = new Properties();
 		return rList;
 	}
 	
-	public ArrayList<Register> selectTutorNewRegister(Connection conn, int memNo){
+	public ArrayList<Register> selectTutorNewRegister(Connection conn, int memNo, int num){
 		ArrayList<Register> nList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
@@ -311,7 +311,7 @@ private Properties prop = new Properties();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);
-			pstmt.setInt(2, 0);
+			pstmt.setInt(2, num);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				nList.add(new Register(rset.getInt("reg_no"),
@@ -361,37 +361,6 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		return fList;
-	}
-	
-	public ArrayList<Register> selectTutorRejectRegister(Connection conn, int memNo){
-		ArrayList<Register> rjList = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset =null;
-		String sql = prop.getProperty("selectTutorNewRegister");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
-			pstmt.setInt(2, 4);
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				rjList.add(new Register(rset.getInt("reg_no"),
-									  rset.getString("mem_name"),
-									  rset.getString("cl_name"),
-									  rset.getString("teach_date"),
-									  rset.getString("reg_date"),
-									  rset.getString("sch_time"),
-									  rset.getString("reg_price"),
-									  rset.getString("reg_sta")
-									  ));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return rjList;
 	}
 	
 	public Register selectDetailApproval(Connection conn, int regNo) {

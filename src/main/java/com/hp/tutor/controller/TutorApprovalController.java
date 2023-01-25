@@ -34,9 +34,9 @@ public class TutorApprovalController extends HttpServlet {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
 		ArrayList<Register> rList = new TutorService().selectTutorRegister(memNo);
-		ArrayList<Register> nList = new TutorService().selectTutorNewRegister(memNo);
+		ArrayList<Register> nList = new TutorService().selectTutorNewRegister(memNo, 0);
 		ArrayList<Register> fList = new TutorService().selectTutorFinRegister(memNo);
-		ArrayList<Register> rjList = new TutorService().selectTutorRejectRegister(memNo);
+		ArrayList<Register> rjList = new TutorService().selectTutorNewRegister(memNo, 4);
 		
 		request.setAttribute("rList", rList);
 		request.setAttribute("nList", nList);

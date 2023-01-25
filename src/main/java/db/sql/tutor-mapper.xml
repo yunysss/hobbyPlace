@@ -113,7 +113,7 @@
 		 WHERE C.MEM_NO = ?
 		   AND REG_STA != 3
 		 ORDER 
-		    BY REG_NO
+		    BY REG_NO DESC
 	</entry>
 	<entry key="selectTutorNewRegister">
 		SELECT
@@ -124,7 +124,9 @@
 		     , REG_DATE
 		     , START_TIME || '-' || END_TIME "SCH_TIME"
 		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_COUNT || '명' "REG_COUNT"
 		     , REG_STA
+		     , REG_CAL
 		  FROM REGISTER
 		  JOIN MEMBER USING(MEM_NO)
 		  JOIN CLASS C USING(CL_NO)
@@ -132,7 +134,7 @@
 		 WHERE C.MEM_NO = ?
 		   AND REG_STA = ?
 		 ORDER 
-		    BY REG_NO
+		    BY REG_NO DESC
 	</entry>
 	<entry key="selectTutorFinRegister">
 		SELECT
@@ -151,8 +153,8 @@
 		 WHERE C.MEM_NO = ?
 		   AND REG_STA IN(1,2)
 		 ORDER 
-		    BY REG_NO
-	</entry>
+		    BY REG_NO DESC
+	</entry> 
 	<entry key="selectDetailApproval">
 		SELECT
 		       REG_NO
