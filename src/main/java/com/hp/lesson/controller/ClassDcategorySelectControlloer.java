@@ -14,16 +14,16 @@ import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 
 /**
- * Servlet implementation class ClassCategorySelectController
+ * Servlet implementation class ClassDcategorySelectControlloer
  */
-@WebServlet("/dcselect.cl")
-public class ClassDcategorySelectController extends HttpServlet {
+@WebServlet("/dctselect.cl")
+public class ClassDcategorySelectControlloer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClassDcategorySelectController() {
+    public ClassDcategorySelectControlloer() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +32,14 @@ public class ClassDcategorySelectController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+
 		String dct = request.getParameter("dct");
 	
-		ArrayList<Lesson> dList = new LessonService().searchDcategoryList(dct);
-		ArrayList<Dcategory> dctList = new LessionService().searchcategory(dct);
+		ArrayList<Lesson> classList = new LessonService().searchDcategoryList(dct);
+		ArrayList<Dcategory> cList = new LessonService().selectCategory(dct);
 	
-		System.out.println(dList);
-		
+		request.setAttribute("classList", classList);
+		request.setAttribute("cList", cList);
 		request.getRequestDispatcher("views/lesson/dcategorySelectView.jsp").forward(request, response);
 		
 	}

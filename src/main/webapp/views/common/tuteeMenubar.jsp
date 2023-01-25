@@ -444,7 +444,7 @@
 		        	
 		        	$(function(){
 		        		$(".submenu>li a").click(function(){
-		        			location.href="<%=contextPath%>/dcselect.cl?dct="+ $(this).eq(0).text();
+		        			location.href="<%=contextPath%>/dctselect.cl?dct="+ $(this).eq(0).text();
 		        			
 		        		})
 		        	})

@@ -222,19 +222,30 @@
 	</entry>	
 	
 	 <entry key="selectCategory">
-			SELECT CT_DNO
-			      ,CT_NAME
-			      ,CT_DNAME
-			     
-			 FROM DCATEGORY
-			 JOIN CATEGORY USING (CT_NO)
-			WHERE CT_DNAME = ?     
+	      SELECT CT_dNO
+             ,CT_NAME
+             ,CT_DNAME
+       FROM DCATEGORY   
+       JOIN CATEGORY USING(CT_NO)
+       WHERE CT_NO = 
+	            (SELECT CT_NO 
+				 FROM DCATEGORY
+				 JOIN CATEGORY USING (CT_NO)
+				WHERE CT_DNAME = ?
+	             )  
+		       
 	
 		</entry>
 		
+
+	<!-- 총 클래스 개수 (카테고리 검색결과) -->
+	<entry key="selectClassCount">
+	
+	SELECT COUNT(*) "count"
+	FROM CLASS
 	
 	
-	
+	</entry>
 	
 
 	

@@ -351,6 +351,12 @@ private Properties prop = new Properties();
 		 
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param dct
+	 * @return dlist 세부 카테고리 결과
+	 */
 	public ArrayList<Lesson> searchDcategoryList(Connection conn, String dct){
 		ArrayList<Lesson> dList = new ArrayList<>();
 		PreparedStatement pstmt = null;

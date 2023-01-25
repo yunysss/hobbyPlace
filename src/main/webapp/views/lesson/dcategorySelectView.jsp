@@ -2,9 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import ="java.util.ArrayList, com.hp.lesson.model.vo.*" %>    
 <%
-
-	ArrayList<Lesson> dList = (ArrayList<Lesson>)request.getAttribute("dList");
-	ArrayList<Dcategory> ctList = (ArrayList<Dcategory>)request.getAttribute("ct");
+	ArrayList<Lesson> classList = (ArrayList<Lesson>)request.getAttribute("classList");
+	ArrayList<Dcategory> cList = (ArrayList<Dcategory>)request.getAttribute("cList");
 %>    
     
     
@@ -80,11 +79,11 @@
 <%@include file="../common/tuteeMenubar.jsp" %>
   <div class="outer">
   		
-        <h4> <a href=""><%=dList.get(1).getCtNo()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
+        <h4> <a href=""><%=classList.get(0).getCtNo() %></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
      	
         <div id="detail-category">
          <a>전체</a>
-        <%for (Dcategory d : ctList){ %>
+      	 <%for (Dcategory d : cList){ %>
        	<a><%=d.getCtDname() %></a>
        <%} %>
         </div>
@@ -101,9 +100,11 @@
           <button class="btn btn-secondary btn-sm"> 평점순 </button>
         </div>
         <div class="container">
-        
                <div class="list-area">
-                <% for(Lesson l : dList){%>
+          			<%if (classList.isEmpty()){ %>
+                    <h5>등록된 클래스가 없습니다. </h5>
+                 	<%} else{%>
+            	<% for(Lesson l : classList){%>
                 <table class="thumbnail"  >
                   <tr>
                     <td>
@@ -115,7 +116,7 @@
                   </tr>
                   <tr>
                     <td style="font-size: 11px;">
-                     <%=l.getDistrCode()%>
+                    	<%=l.getDistrCode()%>
                     </td>
                   </tr>
                   <tr>
@@ -127,15 +128,11 @@
                   </tr>
 
                 </table>
-                
-                <%} %>
-              
+             <%} %>
 
+			<%} %>
               </div>   
-
-
-
-
+			
     </div>
     <%@ include file="../common/footerbar.jsp" %>
     
