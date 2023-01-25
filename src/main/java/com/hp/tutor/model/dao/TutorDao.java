@@ -20,16 +20,16 @@ import com.hp.tutor.model.vo.Tutor;
 
 public class TutorDao {
 	
-private Properties prop = new Properties();
+	private Properties prop = new Properties();
 	
-	public TutorDao(){
-		String filePath = TutorDao.class.getResource("/db/sql/tutor-mapper.xml").getPath();
-		
-		try {
-			prop.loadFromXML(new FileInputStream(filePath));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		public TutorDao(){
+			String filePath = TutorDao.class.getResource("/db/sql/tutor-mapper.xml").getPath();
+			
+			try {
+				prop.loadFromXML(new FileInputStream(filePath));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	/**
@@ -321,7 +321,9 @@ private Properties prop = new Properties();
 									  rset.getString("reg_date"),
 									  rset.getString("sch_time"),
 									  rset.getString("reg_price"),
-									  rset.getString("reg_sta")
+									  rset.getString("reg_count"),
+									  rset.getString("reg_sta"),
+									  rset.getString("reg_cal")									  
 									  ));
 			}
 		} catch (SQLException e) {

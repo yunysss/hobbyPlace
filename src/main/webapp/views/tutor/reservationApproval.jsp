@@ -32,7 +32,7 @@
             margin-bottom:20px;
         }
         .rsvList-1>div, .rsvList-2>div, .rsvList-3>div, .rsvList-4>div{float:left; height:100%; width:50%}
-        .rsvList-1 span, .rsvList-2 span, .rsvList-3 span, .rsvList-4 span{
+        #rsvListAll span{
             color:white;
             border-radius:15px;
             display: inline-block;
@@ -113,7 +113,7 @@
 		                    	   case "1": case "2": regSta = "승인완료"; regColor = "rgb(22, 160, 133)"; break;
 		                           case "4": regSta = "신청반려"; regColor = "rgb(180, 180, 180)";
 		                        } %>
-		                        <span style="background:<%=regColor%>"><%= regSta %></span>
+		                        <span style="background:<%=regColor%>"><b><%= regSta %></b></span>
 		                    </div>
 		                    
 	                	</div>

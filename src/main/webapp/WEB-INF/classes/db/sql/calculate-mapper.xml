@@ -1,1 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectTutorCalculate">
+		SELECT
+		       REG_NO
+		     , CL_NAME
+		     , TEACH_DATE
+		     , REG_DATE
+		     , START_TIME || '-' || END_TIME "SCH_TIME"
+		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_COUNT || '명' "REG_COUNT"
+		     , REG_CAL
+		  FROM REGISTER
+		  JOIN CLASS C USING(CL_NO)
+		  JOIN SCHEDULE USING(SCH_NO)
+		 WHERE C.MEM_NO = ?
+		   AND REG_STA = 2
+           AND REG_CAL = ?
+		 ORDER 
+		    BY REG_NO DESC
+	</entry>
+
+</properties>
