@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import ="java.util.ArrayList, com.hp.lesson.model.vo.*" %>    
+<%
+
+	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");
+	ArrayList<Lesson> dList = (ArrayList<Lesson>)request.getAttribute("dList");
+	ArrayList<Dcategory> dctList = (ArrayList<Dcategory>)request.getAttribute("dctList");
+%>    
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,10 +80,16 @@
 <body>
 <%@include file="../common/tuteeMenubar.jsp" %>
   <div class="outer">
-        <h4> <a href="">카테고리명</a><span class="material-symbols-outlined symbol">expand_more</span></h4>
+  		
+        <h4> <a href=""><%=list.get(1).getCtNo()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
+     	
         <div id="detail-category">
-        <a>전체</a> <a>가죽/라탄</a> <a>비누/향/꽃</a> <a>뜨개/자수</a> <a>기타</a>
+         <a>전체</a>
+        <%for (Dcategory d : dctList){ %>
+       	<a><%=d.getCtDname() %></a>
+       <%} %>
         </div>
+        
         <div id="button-area">
             <button class="btn btn-secondary btn-sm"> 지역 </button>
             <button class="btn btn-secondary btn-sm"> 날짜 </button>
@@ -87,124 +102,40 @@
           <button class="btn btn-secondary btn-sm"> 평점순 </button>
         </div>
         <div class="container">
-          
-          
-          
+        
                <div class="list-area">
-                
+                <% for(Lesson l : list){%>
                 <table class="thumbnail"  >
                   <tr>
                     <td>
                     <div id="thumbnail">
-                    <img src="resources/KakaoTalk_20230111_135534500.jpg" alt="" width="180" height="180">
+                    <img src="<%=contextPath %>/<%=l.getClThumb() %>"  width="180" height="180">
                     
                     </div>
                     </td>
                   </tr>
                   <tr>
                     <td style="font-size: 11px;">
-                     지역명/서울/구로구
+                     <%=l.getDistrCode()%>
                     </td>
                   </tr>
                   <tr>
-                    <th>클래스명~~~~~만들기</th>  
+                    <th><%=l.getClName() %> </th>  
                   </tr>
                   <tr>
                     <td>
-                   ⭐⭐⭐⭐⭐
+                 	
                     </td>
                     
                   </tr>
                   <tr>
-                    <th>50,000원</th>
+                    <th><%=l.getClPrice() %></th>
                   </tr>
 
                 </table>
-                <table class="thumbnail">
-                  <tr>
-                    <td>
-                    <div id="thumbnail">
-                    <img src="resources/KakaoTalk_20230111_135534500.jpg" alt="" width="180" height="180">
-                    
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="font-size: 11px;">
-                     지역명/서울/구로구
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>클래스명~~~~~만들기</th>  
-                  </tr>
-                  <tr>
-                    <td>
-                   ⭐⭐⭐⭐⭐
-                    </td>
-                    
-                  </tr>
-                  <tr>
-                    <th>50,000원</th>
-                  </tr>
-
-                </table>
-                <table class="thumbnail">
-                  <tr>
-                    <td>
-                    <div id="thumbnail">
-                    <img src="resources/KakaoTalk_20230111_135534500.jpg" alt="" width="180" height="180">
-                    
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="font-size: 11px;">
-                     지역명/서울/구로구
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>클래스명~~~~~만들기</th>  
-                  </tr>
-                  <tr>
-                    <td>
-                   ⭐⭐⭐⭐⭐
-                    </td>
-                    
-                  </tr>
-                  <tr>
-                    <th>50,000원</th>
-                  </tr>
-
-                </table>
-                <table class="thumbnail">
-                  <tr>
-                    <td>
-                    <div id="thumbnail">
-                    <img src="resources/KakaoTalk_20230111_135534500.jpg" alt=""width="180" height="180"">
-                    
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="font-size: 11px;">
-                     지역명/서울/구로구
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>클래스명~~~~~만들기</th>  
-                  </tr>
-                  <tr>
-                    <td>
-                   ⭐⭐⭐⭐⭐
-                    </td>
-                    
-                  </tr>
-                  <tr>
-                    <th>50,000원</th>
-                  </tr>
-
-                </table>
-
+                
+                <%} %>
+              
 
 
 

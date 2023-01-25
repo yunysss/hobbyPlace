@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.hp.common.model.vo.Attachment;
+import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.review.model.vo.Review;
 
@@ -162,7 +163,7 @@ private Properties prop = new Properties();
 						        rset.getString("cl_schedule"),
 						        rset.getString("cl_day"),
 						        rset.getString("cl_price"),
-						        ((OracleResultSet)rset).getCLOB("cl_detail"),
+						        rset.getString("cl_detail"),
 						        rset.getString("curriculum"),
 						        rset.getString("refundpolicy"),
 						        rset.getString("cl_supplies"),
@@ -305,6 +306,123 @@ private Properties prop = new Properties();
 		}
 		return result;
 	}
+	
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param ct
+	 * @return list 카테고리 대분류 검색결과
+	 */
+	public ArrayList<Lesson> searchCategoryList(Connection conn,String ct){
+		 ArrayList<Lesson> list =new ArrayList<>();
+		 PreparedStatement pstmt = null;
+		 ResultSet rset = null;
+		 
+		 String sql = prop.getProperty("searchCategoryList");
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ct);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Lesson(rset.getInt("cl_no"),
+									rset.getString("ct_name"),
+									rset.getString("ct_dname"),
+									rset.getString("local_name"),
+									rset.getString("distr_name"),
+									rset.getString("cl_name"),
+									rset.getString("cl_price"),
+									rset.getString("cl_thumb"),
+									rset.getInt("star_avg"),
+									rset.getInt("star_count")
+						));
+
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		 
+		 return list;
+		 
+	}
+	
+	public ArrayList<Lesson> searchDcategoryList(Connection conn, String dct){
+		ArrayList<Lesson> dList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		 String sql = prop.getProperty("searchDcategoryList");
+		 try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, dct);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()){
+				dList.add(new Lesson(rset.getInt("cl_no"),
+									rset.getString("ct_name"),
+									rset.getString("ct_dname"),
+									rset.getString("local_name"),
+									rset.getString("distr_name"),
+									rset.getString("cl_name"),
+									rset.getString("cl_price"),
+									rset.getString("cl_thumb"),
+									rset.getInt("star_avg"),
+									rset.getInt("star_count")
+
+						));
+						
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		 return dList;
+		
+	}
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @return dctList 세부카테고리 조회
+	 */
+	public ArrayList<Dcategory> selectDcategory(Connection conn, String ct){
+		
+		ArrayList<Dcategory> dctList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectDcategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ct);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				dctList.add(new Dcategory(rset.getInt("ct_dno"),
+										rset.getString("ct_no"),
+										rset.getString("ct_dname")
+						
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return dctList;
+		
+	}
+	
+	
 	
 	
 

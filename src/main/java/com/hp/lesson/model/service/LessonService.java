@@ -5,8 +5,10 @@ import static com.hp.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.admin.model.dao.AdminDao;
 import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.dao.LessonDao;
+import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.review.model.vo.Review;
 
@@ -101,5 +103,45 @@ public class LessonService {
 		close(conn);
 		return result;
 	}
+	
+	public ArrayList<Lesson> searchCategoryList(String ct){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().searchCategoryList(conn,ct);
 
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Lesson> searchDcategoryList(String dct){
+		Connection conn = getConnection();
+		ArrayList<Lesson> dList = new LessonDao().searchDcategoryList(conn,dct);
+		close(conn);
+		return dList;
+		
+	}
+	
+	public ArrayList<Dcategory> selectDcategory(String ct){
+		Connection conn = getConnection();
+		ArrayList<Dcategory> dctList = new LessonDao().selectDcategory(conn, ct);
+		close(conn);
+		return dctList;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

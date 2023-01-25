@@ -386,7 +386,7 @@
     
                                     </ul>
                                 </li>
-                                <li class="bookmark"><a><label>공예 DIY</label>
+                                <li class="bookmark"><a><label>공예DIY</label>
                                     <span class="material-symbols-outlined"> arrow_forward_ios</span>
                                 </a>
                                     <ul class="submenu">
@@ -444,7 +444,7 @@
 		        	
 		        	$(function(){
 		        		$(".submenu>li a").click(function(){
-		        			location.href="<%=contextPath%>/ctselect.cl?ct="+ $(this).eq(0).text();
+		        			location.href="<%=contextPath%>/ctselect.cl?dct="+ $(this).eq(0).text();
 		        			
 		        		})
 		        	})
