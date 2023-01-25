@@ -12,11 +12,10 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.hp.common.model.vo.Attachment;
+import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.review.model.vo.Review;
-
-import oracle.jdbc.OracleResultSet;
 
 public class LessonDao {
 	
@@ -314,7 +313,7 @@ private Properties prop = new Properties();
 	 * @param ct
 	 * @return list 카테고리 대분류 검색결과
 	 */
-	public ArrayList<Lesson> searchCategoryList(Connection conn,String ct){
+	public ArrayList<Lesson> searchCategoryList(Connection conn,String ct,PageInfo pi){
 		 ArrayList<Lesson> list =new ArrayList<>();
 		 PreparedStatement pstmt = null;
 		 ResultSet rset = null;
@@ -322,8 +321,14 @@ private Properties prop = new Properties();
 		 String sql = prop.getProperty("searchCategoryList");
 		 try {
 			pstmt = conn.prepareStatement(sql);
+
+			int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
 			pstmt.setString(1, ct);
-			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+		
+
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Lesson(rset.getInt("cl_no"),
@@ -357,7 +362,7 @@ private Properties prop = new Properties();
 	 * @param dct
 	 * @return dlist 세부 카테고리 결과
 	 */
-	public ArrayList<Lesson> searchDcategoryList(Connection conn, String dct){
+	public ArrayList<Lesson> searchDcategoryList(Connection conn, String dct,PageInfo pi){
 		ArrayList<Lesson> dList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -365,7 +370,13 @@ private Properties prop = new Properties();
 		 String sql = prop.getProperty("searchDcategoryList");
 		 try {
 			pstmt= conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
 			pstmt.setString(1, dct);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+		
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()){
@@ -463,7 +474,63 @@ private Properties prop = new Properties();
 		
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param dct
+	 * @return count 대분류 카테고리 조회수 
+	 */
+	public int dctSearchCount(Connection conn, String dct) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql =prop.getProperty("dctSearchCount");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, dct);
+			rset= pstmt.executeQuery();
+		
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
 	
+	
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param ct
+	 * @return 소분류카테고리 조회수 
+	 */
+	public int ctSearchCount(Connection conn, String ct) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql =prop.getProperty("ctSearchCount");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, ct);
+			rset= pstmt.executeQuery();
+		
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
 	
 	
 	

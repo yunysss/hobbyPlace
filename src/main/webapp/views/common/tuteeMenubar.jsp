@@ -437,14 +437,14 @@
              	<script>
 		        	$(function(){
 		        		$(".bookmark a").click(function(){
-		        			location.href="<%=contextPath%>/ctselect.cl?ct="+ $(this).children().eq(0).text();
+		        			location.href="<%=contextPath%>/ctselect.cl?cpage=1&ct="+ $(this).children().eq(0).text();
 		        			
 		        		})
 		        	})
 		        	
 		        	$(function(){
 		        		$(".submenu>li a").click(function(){
-		        			location.href="<%=contextPath%>/dctselect.cl?dct="+ $(this).eq(0).text();
+		        			location.href="<%=contextPath%>/dctselect.cl?cpage=1&dct="+ $(this).eq(0).text()
 		        			
 		        		})
 		        	})

@@ -1,12 +1,15 @@
 package com.hp.lesson.model.service;
 
-import static com.hp.common.JDBCTemplate.*;
+import static com.hp.common.JDBCTemplate.close;
+import static com.hp.common.JDBCTemplate.commit;
+import static com.hp.common.JDBCTemplate.getConnection;
+import static com.hp.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.hp.admin.model.dao.AdminDao;
 import com.hp.common.model.vo.Attachment;
+import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.dao.LessonDao;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
@@ -104,17 +107,17 @@ public class LessonService {
 		return result;
 	}
 	
-	public ArrayList<Lesson> searchCategoryList(String ct){
+	public ArrayList<Lesson> searchCategoryList(String ct,PageInfo pi){
 		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().searchCategoryList(conn,ct);
+		ArrayList<Lesson> list = new LessonDao().searchCategoryList(conn,ct,pi);
 
 		close(conn);
 		return list;
 	}
 	
-	public ArrayList<Lesson> searchDcategoryList(String dct){
+	public ArrayList<Lesson> searchDcategoryList(String dct, PageInfo pi){
 		Connection conn = getConnection();
-		ArrayList<Lesson> dList = new LessonDao().searchDcategoryList(conn,dct);
+		ArrayList<Lesson> dList = new LessonDao().searchDcategoryList(conn,dct,pi);
 		close(conn);
 		return dList;
 		
@@ -135,6 +138,19 @@ public class LessonService {
 	}
 
 	
+	public int dctSearchCount(String dct) {
+		Connection conn = getConnection();
+		int count = new LessonDao().dctSearchCount(conn,dct);
+		close(conn);
+		return count;
+	}
+	
+	public int ctSearchCount(String ct) {
+		Connection conn = getConnection();
+		int count = new LessonDao().ctSearchCount(conn, ct);
+		close(conn);
+		return count;
+	}
 	
 	
 	

@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="java.util.ArrayList, com.hp.lesson.model.vo.*" %>    
+<%@ page import ="java.util.ArrayList, com.hp.lesson.model.vo.*, com.hp.common.model.vo.PageInfo" %>    
 <%
 	ArrayList<Lesson> classList = (ArrayList<Lesson>)request.getAttribute("classList");
 	ArrayList<Dcategory> cList = (ArrayList<Dcategory>)request.getAttribute("cList");
+	
+	int count = (int)request.getAttribute("count");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 %>    
     
     
@@ -72,6 +75,14 @@
         background-color:  rgba(35, 104, 116, 0.685);
       }
      
+     .paging-area{
+        text-align: center;
+    }
+    .paging-area>*{
+        border: none;
+        border-radius: 3px;
+
+    }
 
     </style>
 </head>
@@ -94,7 +105,7 @@
         </div>
 
         <br><br>
-        <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 10 건</span>
+        <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count %> 건</span>
         <div id="btn-area" style="border: 1px sold black;">
          <button class="btn btn-secondary btn-sm"> 인기순 </button>
           <button class="btn btn-secondary btn-sm"> 평점순 </button>
@@ -110,7 +121,6 @@
                     <td>
                     <div id="thumbnail">
                     <img src="<%=contextPath %>/<%=l.getClThumb() %>"  width="180" height="180">
-                    
                     </div>
                     </td>
                   </tr>
@@ -132,6 +142,29 @@
 
 			<%} %>
               </div>   
+              
+               <div class="paging-area">
+        
+        	<%if(pi.getCurrentPage() != 1){ %>    
+        		
+            		<button onclick="location.href='<%=contextPath%>/dctselect.cl?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <%} %>
+			
+			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+           		 <button onclick="location.href='<%=contextPath%>/dctselect.cl?cpage=<%=p%>';"><%= p %></button>
+           		 
+            <%} %>
+          
+            <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
+            <button onclick="location.href='<%=contextPath%>/dctselect.cl?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <%} %>
+            
+           
+       	 </div>
+              
+              
+              
+              
 			
     </div>
     <%@ include file="../common/footerbar.jsp" %>
