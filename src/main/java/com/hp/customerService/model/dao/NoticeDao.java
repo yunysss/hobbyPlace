@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.hp.customerService.model.vo.Faq;
 import com.hp.customerService.model.vo.Notice;
 
 import static com.hp.common.JDBCTemplate.*;
@@ -62,5 +63,29 @@ public class NoticeDao {
 			return list;
 			
 			
+		}
+		
+		public ArrayList<Faq> selectFaqListup(Connection conn){
+			ArrayList<Faq> list2= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql =prop.getProperty("selectFaqListup");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list2.add(new Faq(rset.getInt("faq_no"),
+									 rset.getString("question")));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list2;
 		}
 }

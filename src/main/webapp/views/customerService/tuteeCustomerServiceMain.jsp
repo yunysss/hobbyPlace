@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, com.hp.customerService.model.vo.Notice"%>
+    import="java.util.ArrayList, com.hp.customerService.model.vo.*"%>
     
 <%
 	ArrayList<Notice> list  = (ArrayList<Notice>)request.getAttribute("list");
+	ArrayList<Faq> list2  = (ArrayList<Faq>)request.getAttribute("list2");
 %>
 <!DOCTYPE html>
 <html>
@@ -81,11 +82,13 @@
                 <b>자주묻는질문</b>
             </td>
             <td style="text-align: left; line-height: 200%; padding: 50px;">
-                <li>질문1</li>
-                <li>질문2</li>
-                <li>질문3</li>
-                <li>질문4</li>
-                <li>질문5</li>
+                <%if(list2.isEmpty()){ %>
+                <li>자주묻는질문이 없습니다.</li>
+                <%}else{ %>
+                	<%for(int i=0; i<5; i++){ %>
+                      <li><%=list2.get(i).getQuestion() %></li>
+                      <%} %>
+                <%} %>
             </td>
         </tr>
       

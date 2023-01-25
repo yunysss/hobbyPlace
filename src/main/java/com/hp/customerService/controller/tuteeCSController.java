@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hp.customerService.model.Service.NoticeService;
+import com.hp.customerService.model.vo.Faq;
 import com.hp.customerService.model.vo.Notice;
 
 /**
@@ -35,7 +36,11 @@ public class tuteeCSController extends HttpServlet {
 		
 		ArrayList<Notice> list = new NoticeService().selectNoticeListup();
 		
+		ArrayList<Faq> list2 = new NoticeService().selectFaqListup();
+		
+		
 		request.setAttribute("list", list);
+		request.setAttribute("list2", list2);
 		request.getRequestDispatcher("views/customerService/tuteeCustomerServiceMain.jsp").forward(request, response);
 		
 	}
