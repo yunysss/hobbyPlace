@@ -85,6 +85,28 @@ public class MemberService {
 		return count;
 	}
 
+	/** 회원정보수정요청시 DB에 있는 기존 프로필사진 지워주기위한 메소드
+	 * @author 수연
+	 * @param memId
+	 * @return result
+	 */
+	public Member deleteProfile(String memId) {
+		Connection conn = getConnection();
+		Member delProfile = new MemberDao().deleteProfile(conn, memId);
+		close(conn);
+		return delProfile;
+	}
+
+
+	/** (튜티)회원정보수정용 서비스메소드
+	 * @author 수연
+	 * @param m
+	 * @return updateMem
+	 */
+	public Member updateMember(Member m) {
+		return null;
+	}
+
 	
 	
 	

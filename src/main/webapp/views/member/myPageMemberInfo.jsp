@@ -131,7 +131,7 @@
 	    }
 	    .agreeAll{font-weight:bold;}
 	    #changePwd{
-	        height:25px; width:170px;
+	        height:30px; width:170px;
 	        margin:auto;
 	        background:rgb(35, 104, 116); color:white; 
 	        border:0;
@@ -263,7 +263,7 @@
             <div class="contentMain">
             <div align="center"><h3>나의 회원 정보</h3></div>
             <br><br>
-            <form action="<%=contextPath%>/my>">
+            <form action="<%=contextPath%>/update.me" method="post">
                 <div align="center">
                     <% if(loginUser.getMemProfile() == null) {%>
                         <img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
@@ -288,41 +288,7 @@
                             <button type="button" id="changePwd" onclick="showPwd();">비밀번호 변경하기</button>
                         </td>
                         <td class="td3"></td>
-                    </tr>
-                    <tr class="hiddenPwd">
-                        <td class="td1">비밀번호 입력</td>
-                        <td class="td2">
-                            <input type="password" class="fillOutForms" id="userPwd" placeholder="영문, 숫자, 특수문자 포함 12~20자">
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr class="hiddenPwd">
-                        <td></td>
-                        <td class="td2 checkAlert pwdTest1"></td>
-                        <td></td>
-                    </tr>
-                    <tr class="hiddenPwd">
-                        <td class="td1">비밀번호 확인 </td>
-                        <td class="td2">
-                            <input type="password" class="fillOutForms" id="userPwdCheck" placeholder="영문, 숫자, 특수문자 포함 12~20자">
-                        </td>
-                        <td class="td3"></td>
-                    </tr>
-                    <tr class="hiddenPwd">
-                        <td></td>
-                        <td class="td2 checkAlert pwdTest2"></td>
-                        <td></td>
-                    </tr>
-                    <script>
-                        function showPwd(){
-                            if($(".hiddenPwd").css("display")=="none"){
-                                $(".hiddenPwd").slideDown();
-                            }else{
-                                $(".hiddenPwd").slideUp();
-                            }
-                            
-                        }
-                    </script>    
+                    </tr> 
                     <tr>
                         <td class="td1">이름 </td>
                         <td class="td2">

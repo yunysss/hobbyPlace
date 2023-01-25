@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.ArrayList, com.hp.lesson.model.vo.*"%>
-<%
-	String alertMsg = (String)session.getAttribute("alertMsg");
-%>
 
 <!DOCTYPE html>
 <html>
@@ -101,14 +98,7 @@
     #submitForm:hover, .showRules:hover, .agreeAll:hover, .agreement:hover {cursor: pointer;}
 </style>
 </head>
-<body>
-	<% if(alertMsg != null) { %>
-		<script>
-			alert("<%=alertMsg%>");
-		</script>
-		<% session.removeAttribute("alertMsg"); %>
-	<% } %>
-	
+<body>	
 	<%@ include file="../common/tuteeMenubar.jsp" %>
 	<div class="cWrap">
         <div class="content" align="center">

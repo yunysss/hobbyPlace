@@ -6,7 +6,7 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	// 로그인 전 : null
 	// 로그인 후 : 로그인한 회원의 정보가 담겨있는 Member객체
-
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -349,6 +349,12 @@
 
 </head>
 <body>
+	<% if(alertMsg != null) { %>
+		<script>
+			alert("<%=alertMsg%>");
+		</script>
+		<% session.removeAttribute("alertMsg"); %>
+	<% } %>
 	<div class="wrap">
 		<div id="menubar">
 	        <div id="menubar-1">

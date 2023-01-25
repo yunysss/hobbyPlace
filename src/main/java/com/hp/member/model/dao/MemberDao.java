@@ -26,7 +26,7 @@ public class MemberDao {
 		}
 	}
 	
-	/**
+	/** 회원로그인용 dao메소드
 	 * @author 수연
 	 * @param userId, userPwd
 	 * @return conn, Member m
@@ -166,7 +166,13 @@ public class MemberDao {
 		}
 		return count;
 	}
-	
+	/**
+	 * 닉네임 중복체크용메소드
+	 * @author 수연
+	 * @param conn
+	 * @param checkNick
+	 * @return count
+	 */
 	public int nickCheck(Connection conn, String checkNick) {
 		int count = 0;
 		PreparedStatement pstmt = null;
@@ -187,6 +193,20 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return count;
+	}
+	/** 회원정보업데이트요청시 기존프로필사진 DB에서 지우기위한 메소드
+	 * 
+	 * @param conn
+	 * @param memId
+	 * @return
+	 */
+	public Member deleteProfile(Connection conn, String memId) {
+		Member delProfile = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("deleteProfile");
+		
+		return delProfile;
 	}
 
 	
