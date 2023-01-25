@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-
+	<!-- 로그인요청 -->
 	<entry key="loginMember">
 		SELECT 
 		       MEM_NO
@@ -27,6 +27,7 @@
 	       AND MEM_STATUS = 'Y'
 	</entry>
 	
+	<!-- 이메일중복체크요청 -->
 	<entry key="checkEmail">
 		SELECT
 		       MEM_NO
@@ -34,6 +35,7 @@
 		 WHERE MEM_EMAIL = ?
 	</entry>
 	
+	<!-- 회원가입요청 -->
 	<entry key="insertMember">
 		INSERT
 		   INTO MEMBER
@@ -71,12 +73,14 @@
 		   
 	</entry>
 	
+	<!-- 프로필사진등록요청 -->
 	<entry key="insertAttachment">
 		UPDATE MEMBER
 		   SET MEM_PROFILE = ?
 		 WHERE MEM_NO = SEQ_MBNO.CURRVAL
 	</entry>
 	
+	<!-- 아이디 중복체크요청 -->
 	<entry key="idCheck">
 		SELECT 
 		       COUNT(*) "COUNT"
@@ -84,6 +88,7 @@
 		 WHERE MEM_ID = ?
 	</entry>
 	
+	<!-- 닉네임 중복체크요청 -->
 	<entry key="nickCheck">
 		SELECT 
 		       COUNT(*) "COUNT"
@@ -108,6 +113,45 @@
 		  FROM LIKE
 		 WHERE MEM_NO = ?
 	</entry>
-
+	
+	<!-- 수정한회원정보 저장 -->
+	<entry key="updateMember">
+		UPDATE MEMBER
+		   SET MEM_NICKNAME = ?
+		     , MEM_EMAIL = ?
+		     , MEM_PHONE = ?
+		     , MEM_ADDR = ?
+		     , GENDER = ?
+		     , MEM_BIRTH = ?
+		     , MEM_PROFILE = ?
+		     , INTEREST = ?
+		     , MEM_UPDATE = SYSDATE
+		 WHERE MEM_ID = ?
+	</entry>
+	
+	<!-- 수정한회원정보 요청 -->
+	<entry key="selectMember">
+		SELECT 
+		       MEM_NO
+		     , MEM_ID
+		     , MEM_PWD
+		     , MEM_NAME
+		     , MEM_NICKNAME
+		     , MEM_EMAIL
+		     , MEM_PHONE
+		     , MEM_ADDR
+		     , GENDER
+		     , MEM_BIRTH
+		     , MEM_PROFILE
+		     , INTEREST
+		     , GRADE
+		     , ENROLL_DATE
+		     , MEM_UPDATE
+		     , MEM_STATUS
+		     , MEM_DROP
+		  FROM MEMBER
+	     WHERE MEM_ID = ?
+	       AND MEM_STATUS = 'Y' 
+	</entry>
 	
 </properties>
