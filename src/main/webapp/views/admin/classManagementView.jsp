@@ -232,7 +232,7 @@
         <hr>
         
         
-        <form action="" id="class_list" method="post">  
+            <div id="select-area">
             <table id="class-select">
                 <tr>
                     <th width="100">검색어</th>
@@ -246,15 +246,13 @@
                 <tr>
                     <th width="100">카테고리</th>
                     <td>
-                        <select id="category">
+                        <select id="category"  onchange="changeCt();">
                         <%for(Category c : cList){ %>
                             <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
                         <%} %>
                         </select>
-                        <select id="dCategory">
-                        <%for(Dcategory d : dList){ %>
-                            <option value="<%=d.getCtDno()%>"><%=d.getCtDname() %></option>
-                            <%} %>
+                        <select id="Dcategory">
+                        
                         </select>
                     </td>
 
@@ -330,13 +328,16 @@
             </table>    
             <hr>
             <div align="center">
-            <button type="submit" class="btn btn-secondary btn-sm">조회하기</button>
-            
-            
+            <button class="btn btn-secondary btn-sm" onclick="searchClass()" >조회하기</button>
+
             </div>
-
-            </form>
-
+            <script>
+               function searchClass(){
+            	   alert("click");
+               }
+            
+           </script>
+		</div>
             <br><br>
         <table class="table table-hover" id="classList" >
             <thead class="thead-light">
@@ -398,6 +399,43 @@
         
         
         </script>
+        
+         <script>
+                        function changeCt(){
+                        	var study = ["외국어","자격증","IT"];
+                        	var diy = ["가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
+                        	var draw = ["취미미술","캘리그래피"];
+                        	var cook = ["요리","베이킹"];
+                        	var sport = ["실내스포츠","야외스포츠","레저/액티비티","요가필라테스/헬스PT"];
+     	
+                        	var changeDct;
+                        	
+                        	if( $("#category").val() == "11"){
+                        		changeDct = study;
+                        		
+                        	}else if( $("#category").val() == "22"){
+                        		changeDct = diy;
+                        	}else if( $("#category").val() == "33"){
+                        		changeDct = draw;
+
+                        	}else if( $("#category").val() == "44"){
+                        		changeDct = cook;
+                        	}else if( $("#category").val()== "55"){
+                        		changeDct = sport;
+                        	}
+                        	
+                        	$("#Dcategory").empty();
+                        	for(var i=0; i<changeDct.length; i++){
+                        		var option = $("<option>"+changeDct[i]+"</option>");
+                        		$("#Dcategory").append(option);
+                        	}
+                        	
+                        }
+                        
+                        </script>
+                        
+                    
+                    
         
         
 
