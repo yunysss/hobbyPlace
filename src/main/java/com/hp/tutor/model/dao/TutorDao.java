@@ -439,6 +439,7 @@ public class TutorDao {
 			pstmt.setString(7, t.getTtProfile());
 			
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			
 			e.printStackTrace();

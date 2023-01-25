@@ -29,18 +29,18 @@
         border-radius: 100px;
     }
 
-    #tutorProfile {
+    #ttProfile {
         width: 150px;
         height: 150px;
         border-radius: 50%;
         overflow: hidden;
 
     }
-   
-    
 
 </style>
 </head>
+
+
 <body>
 <%@ include file="../common/tuteeMenubar.jsp" %>
 
@@ -48,29 +48,40 @@
 <h4 style="font-weight: bold;">튜터 등록</h4>
 <hr>
 <br>
-<form class="ttInput">
+<form class="ttInput" action="<%=contextPath %>/enrolltt.tt" method="post" enctype="multiPart/form-data" >
     <h6 style="font-weight: bold">프로필 사진</h6>
     <label>프로필 사진을 등록하지 않을 경우, 기본이미지로 저장됩니다.</label><br>
     <br><br>
-    <img src="<%=request.getContextPath()%>/resources/tutorProfile_upfiles/defaultimg.jpg" id="tutorProfile" >
+    <img src="<%=request.getContextPath()%>/resources/tutorProfile_upfiles/defaultimg.jpg" id="ttProfile" >
     <br><br>
-    <input type="file">
+    <input type="file" name="tutorProfile" onchange="loadImg(this,1)">
     <br>
     <br>
     
+    <script>
+      function loadImg(inputFile,num){
+        if(inputFile.files.length == 1){
+          const reader = new FileReader();
+          reader.readAsDataURL(inputFile.files[0]);
+          reader.onload = function(e) {
+            $("#ttProfile").attr("src", e.target.result);
+          }
+          
+        }
+      }
+     
+
+    </script>
     
     
     <h6 style="font-weight: bold;">튜터명 <span style="color:rgb(194, 28, 28)">*</span></h6> 
-    <input type="text" placeholder="튜터명입력" id="tutorName" name="tutorName" required>
-    <button type="button" id="nameCheckBtn" onclick="nameCheck();" disabled>중복확인</button>
+    <input type="text" placeholder="튜터명입력" id="tutorName" name="TT_NAME" required>
+   <button type="button" id="nameCheckBtn" onclick="nameCheck();" disabled>중복확인</button>
     <br>
     <br>
     <p class="nameTest"></p>
     
-    <script>
-      
-
-    </script>
+    
     
     
     
