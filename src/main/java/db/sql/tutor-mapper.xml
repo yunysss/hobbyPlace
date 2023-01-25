@@ -177,6 +177,30 @@
 		   SET REG_STA = ?
 		 WHERE REG_NO = ?
 	</entry>
+	
+	<entry key="insertTutor">
+		INSERT
+		  INTO TUTOR
+		  (
+			    MEM_NO
+			  , TT_NAME
+			  , TT_PHONE
+			  , TT_EMAIL
+			  , INTRODUCE
+			  , PUB_PHONE
+			  , TT_PROFILE
+		  )
+		  VALUES
+		  (
+			    ?
+			  , ?
+			  , ?
+			  , ?
+			  , ?
+			  , ?
+			  , ?
+		  )
+	</entry>
 
 
 

@@ -446,6 +446,38 @@ private Properties prop = new Properties();
 		return result;
 	}
 
+	/** 튜터 등록
+	 * @author 수정
+	 * @param conn
+	 * @param t
+	 * @return result
+	 */
+	public int insertTutor(Connection conn, Tutor t) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTutor");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, t.getMemNo());
+			pstmt.setString(2, t.getTtName());
+			pstmt.setString(3,t.getTtPhone());
+			pstmt.setString(4, t.getTtEmail());
+			pstmt.setString(5, t.getIntroduce());
+			pstmt.setString(6, t.getPubPhone());
+			pstmt.setString(7, t.getTtProfile());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 	
 	

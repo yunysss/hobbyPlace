@@ -130,4 +130,22 @@ public class TutorService {
 		return result;
 	}
 
+	/** 튜터 등록 
+	 * @author 수정
+	 * @param Tutor t
+	 * @return result
+	 */
+	public int insertTutor(Tutor t) {
+		Connection conn = getConnection();
+		
+		int result = new TutorDao().insertTutor(conn, t);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 }

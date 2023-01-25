@@ -1,4 +1,4 @@
-package com.hp.tutor;
+package com.hp.tutor.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

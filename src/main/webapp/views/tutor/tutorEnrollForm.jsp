@@ -57,17 +57,31 @@
     <input type="file">
     <br>
     <br>
+    
+    
+    
     <h6 style="font-weight: bold;">튜터명 <span style="color:rgb(194, 28, 28)">*</span></h6> 
-    <input type="text" required placeholder="튜터명입력" id="tutorName" >
-    <button type="button" id="nameCheckBtn" >중복확인</button>
+    <input type="text" placeholder="튜터명입력" id="tutorName" name="tutorName" required>
+    <button type="button" id="nameCheckBtn" onclick="nameCheck();" disabled>중복확인</button>
     <br>
     <br>
+    <p class="nameTest"></p>
+    
+    <script>
+      
+
+    </script>
+    
+    
+    
     <h6 style="font-weight: bold;">휴대폰번호 <span style="color:rgb(194, 28, 28)">*</span></h6>    
     <input type="text" required placeholder="- 포함 입력" id="phone" >
     <button id="phoneCheckBtn" data-toggle="modal" data-target="#myModal">인증번호 전송</button>
     <p>클래스를 직접 운영하실 번호로 인증해 주세요.</p>
     <br>
     <br>
+    
+    
     
     <h6 style="font-weight: bold;">이메일 <span style="color:rgb(194, 28, 28)">*</span></h6>
     <input type="text" required placeholder="이메일 입력" id="emlil" >
@@ -77,14 +91,23 @@
     <br>
     <br>
 
+
     <h4 style="font-weight: bold;">추가정보(선택)</h4>
     <hr>
     <p>지금 작성하지 않으셔도 됩니다. 추후 클래스 등록하실때 작성해 주세요.</p>
     <br>
+    
+    
+    
+    
     <h6 style="font-weight: bold;">공개 연락처(선택)</h6>
     <input type="text" placeholder="공개연락처를 입력해 주세요." id="publicPhone">
     <p>튜티에게 안내되는 공개 연락처 입니다. 미입력시 인증한 휴대폰 번호가 안내됩니다.</p>
     <br><br>
+    
+    
+    
+    
     <h6 style="font-weight: bold;">소개(선택)</h6>
     <textarea id="introduce" cols="70" rows="5" placeholder="경력, 보유자격증, 수상이력, 언론활동, 강점 등 튜터님을 소개해 주세요!" style="resize: none;"></textarea>
     <p style="color: rgb(236, 27, 27); ">개인 연락처(전화번호,카카오톡ID, 개인 SNS주소, 홈페이지 등)은 입력할 수 없습니다.)</p>
