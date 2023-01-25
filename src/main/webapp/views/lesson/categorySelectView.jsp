@@ -124,6 +124,7 @@
                <div class="list-area">
                 <% for(Lesson l : list){%>
                 <table class="thumbnail"  >
+               	 <input type="hidden"  value="<%=l.getClNo() %>">
                   <tr>
                     <td>
                     <div id="thumbnail">
@@ -148,9 +149,20 @@
                 </table>
                 
                 <%} %>
-              
-
               </div>   
+              <script>
+              	$(function(){
+              		$(".thumbnail").click(function(){
+              			location.href="<%=contextPath%>/page.cl?no="+$(this).children('input').val();
+              		})
+              	})
+              	
+              
+              
+              
+              </script>
+              
+ 
               
             <div class="paging-area">
         
@@ -168,7 +180,8 @@
             <button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
             <%} %>
             
-
+			</div>
+			
 
 
 
