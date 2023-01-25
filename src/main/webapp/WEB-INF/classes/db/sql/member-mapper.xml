@@ -27,7 +27,7 @@
 	       AND MEM_STATUS = 'Y'
 	</entry>
 	
-
+	<!-- 이메일중복체크요청 -->
 	<entry key="checkEmail">
 		SELECT
 		       MEM_NO
@@ -35,6 +35,7 @@
 		 WHERE MEM_EMAIL = ?
 	</entry>
 	
+	<!-- 회원가입요청 -->
 	<entry key="insertMember">
 		INSERT
 		   INTO MEMBER

@@ -1,5 +1,6 @@
 package com.hp.tutor.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -38,6 +39,7 @@ public class TutorInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		// 요청
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10*1024*1024;
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/tutorProfile_upfiles/");
@@ -45,6 +47,7 @@ public class TutorInsertController extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			int memNo=((Member)session.getAttribute("loginUser")).getMemNo();
+			
 			
 			String ttName = multiRequest.getParameter("ttName");
 			String ttPhone = multiRequest.getParameter("ttPhone");
@@ -61,6 +64,12 @@ public class TutorInsertController extends HttpServlet {
 			t.setPubPhone(pubPhone);
 			//프로필 사진 등록 부분
 			
+			if(multiRequest.getOriginalFileName("ttProfile") != null) {
+				t.setTtProfile("/resources/tutorProfile_upfiles/"+ multiRequest.getFilesystemName("ttProfile"));
+			}
+			
+			
+			// 결과
 			int result = new TutorService().insertTutor(t);
 			
 			if(result>0) {
@@ -68,7 +77,11 @@ public class TutorInsertController extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/tutorMain.tt");
 				
 			}else { //튜터 등록 실패시
-				
+				if(t.getTtProfile() != null) {
+					new File (savePath + multiRequest.getFilesystemName("ttProfile")).delete();
+				}
+				session.setAttribute("alertMsg", "튜터 등록에 실패했습니다.");
+				response.sendRedirect(request.getContextPath() + "//enrollForm.tt");
 			}
 		}
 	
