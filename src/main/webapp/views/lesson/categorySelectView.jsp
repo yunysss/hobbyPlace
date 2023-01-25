@@ -89,14 +89,24 @@
 <%@include file="../common/tuteeMenubar.jsp" %>
   <div class="outer">
   		
-        <h4> <a href=""><%=list.get(1).getCtNo()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
+        <h4> <a href="<%=contextPath %>/ctselect.cl?cpage=1&ct=<%=list.get(1).getCtNo()%>"><%=list.get(1).getCtNo()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
      	
         <div id="detail-category">
-         <a>전체</a>
         <%for (Dcategory d : dctList){ %>
        	<a><%=d.getCtDname() %></a>
        <%} %>
         </div>
+        
+        <script>
+        	$(function(){
+        		$("#detail-category>a").click(function(){
+        			location.href = "<%=contextPath%>/dctselect.cl?cpage=1&dct="+ $(this).eq(0).text()
+        		})
+        		
+        	})
+        
+        
+        </script>
         
         <div id="button-area">
             <button class="btn btn-secondary btn-sm"> 지역 </button>
