@@ -127,6 +127,140 @@ public class CalculateDao {
 		return result;
 	}
 	
+	public ArrayList<Calculate> selectAllCalList(Connection conn, int memNo, String startDate, String endDate){
+		ArrayList<Calculate> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectAllCalList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setString(2, startDate);
+			pstmt.setString(3, endDate);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Calculate(rset.getInt("cal_no"),
+						  rset.getString("rq_dt"),
+						  rset.getString("price"),
+						  rset.getString("bank"),
+						  rset.getString("cal_acc"),
+						  rset.getString("cal_nm"),
+						  rset.getString("cal_sta")
+						  ));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
+	public ArrayList<Calculate> selectNCCalList(Connection conn, int memNo, String startDate, String endDate, String status){
+		ArrayList<Calculate> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectNCCalList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setString(2, startDate);
+			pstmt.setString(3, endDate);
+			pstmt.setString(4, status);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Calculate(rset.getInt("cal_no"),
+						  rset.getString("rq_dt"),
+						  rset.getString("price"),
+						  rset.getString("bank"),
+						  rset.getString("cal_acc"),
+						  rset.getString("cal_nm"),
+						  rset.getString("cal_sta")
+						  ));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	public ArrayList<Calculate> selectAllSeasonCalList(Connection conn, int memNo){
+		ArrayList<Calculate> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectAllSeasonCalList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Calculate(rset.getInt("cal_no"),
+						  rset.getString("rq_dt"),
+						  rset.getString("price"),
+						  rset.getString("bank"),
+						  rset.getString("cal_acc"),
+						  rset.getString("cal_nm"),
+						  rset.getString("cal_sta")
+						  ));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public ArrayList<Calculate> selectNCSeasonCalList(Connection conn, int memNo, String status){
+		ArrayList<Calculate> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectNCSeasonCalList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setString(2, status);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Calculate(rset.getInt("cal_no"),
+						  rset.getString("rq_dt"),
+						  rset.getString("price"),
+						  rset.getString("bank"),
+						  rset.getString("cal_acc"),
+						  rset.getString("cal_nm"),
+						  rset.getString("cal_sta")
+						  ));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 
 }

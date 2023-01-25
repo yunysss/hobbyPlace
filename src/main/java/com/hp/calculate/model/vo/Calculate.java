@@ -3,7 +3,7 @@ package com.hp.calculate.model.vo;
 public class Calculate {
 	
 	private int calNo;
-	private String rgDt;
+	private String rqDt;
 	private String finDt;
 	private String price;
 	private String bank;
@@ -14,11 +14,11 @@ public class Calculate {
 	
 	public Calculate() {}
 
-	public Calculate(int calNo, String rgDt, String finDt, String price, String bank, String calAcc, String calNm,
+	public Calculate(int calNo, String rqDt, String finDt, String price, String bank, String calAcc, String calNm,
 			String calSta, String calReg) {
 		super();
 		this.calNo = calNo;
-		this.rgDt = rgDt;
+		this.rqDt = rqDt;
 		this.finDt = finDt;
 		this.price = price;
 		this.bank = bank;
@@ -37,6 +37,17 @@ public class Calculate {
 		this.calReg = calReg;
 	}
 
+	public Calculate(int calNo, String rqDt, String price, String bank, String calAcc, String calNm, String calSta) {
+		super();
+		this.calNo = calNo;
+		this.rqDt = rqDt;
+		this.price = price;
+		this.bank = bank;
+		this.calAcc = calAcc;
+		this.calNm = calNm;
+		this.calSta = calSta;
+	}
+
 	public int getCalNo() {
 		return calNo;
 	}
@@ -45,12 +56,12 @@ public class Calculate {
 		this.calNo = calNo;
 	}
 
-	public String getRgDt() {
-		return rgDt;
+	public String getRqDt() {
+		return rqDt;
 	}
 
-	public void setRgDt(String rgDt) {
-		this.rgDt = rgDt;
+	public void setRqDt(String rqDt) {
+		this.rqDt = rqDt;
 	}
 
 	public String getFinDt() {
@@ -111,7 +122,7 @@ public class Calculate {
 
 	@Override
 	public String toString() {
-		return "Calculate [calNo=" + calNo + ", rgDt=" + rgDt + ", finDt=" + finDt + ", price=" + price + ", bank="
+		return "Calculate [calNo=" + calNo + ", rqDt=" + rqDt + ", finDt=" + finDt + ", price=" + price + ", bank="
 				+ bank + ", calAcc=" + calAcc + ", calNm=" + calNm + ", calSta=" + calSta + ", calReg=" + calReg + "]";
 	}
 	

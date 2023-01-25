@@ -1,11 +1,16 @@
 package com.hp.calculate.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.hp.calculate.model.service.CalculateService;
+import com.hp.calculate.model.vo.Calculate;
 
 /**
  * Servlet implementation class CalculateListController
@@ -26,6 +31,10 @@ public class CalculateListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		
+		ArrayList<Calculate> aList = new CalculateService().selectAllSeasonCalList(memNo);
+		request.setAttribute("aList", aList);
 		request.getRequestDispatcher("views/calculate/calculateList.jsp").forward(request, response);
 	}
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.hp.calculate.model.vo.Calculate"%>
+<% ArrayList<Calculate> aList = (ArrayList<Calculate>)request.getAttribute("aList"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,8 +50,8 @@
     thead td{
     background:rgb(245, 245, 245);
    }
-   input[type=radio]{display: none; margin: 10px;}
-   input[type=radio]+label{
+   .searchDate input[type=radio]{display: none; margin: 10px;}
+   .searchDate input[type=radio]+label{
        display: inline-block;
        cursor: pointer;
        padding: 5px 8px;
@@ -67,10 +68,10 @@
         height: 30px;
         border-radius: 5px;
    }
-   input[type=radio]:checked+label{
+   .searchDate input[type=radio]:checked+label{
        background-color: rgb(22, 160, 133);
    }
-   input[type=radio]:hover+label{
+   .searchDate input[type=radio]:hover+label{
        background-color: rgb(22, 160, 133);
    }
 </style>
@@ -83,7 +84,7 @@
 	<%@ include file="../common/tutorMenubar.jsp" %>
 	<div class="outer">
         <h5><b>정산 내역</b></h5><br>
-        <form id="calList-form" action="">
+        <div id="calList-form">
             <b>정산 내역 조회</b>
             <table width="850px">
                 <tr>
@@ -101,38 +102,55 @@
 	                            <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" >
 	                            <a href="#none" class="btncalendar dateclick"></a>
 	                        </span>
+	                        &nbsp;
+	                        <button type="button" class="btn btn-secondary btn-sm" onclick="resetAll();">초기화</button>
 	                    </div>    
                     </td>
                     <td>
-                        <button type="button" class="btn btn-sm" id="selectCal">조회</button>
-                        <button type="reset" class="btn btn-secondary btn-sm">초기화</button>
+                        <button type="button" class="btn btn-sm" id="selectCal" onclick="selectCalList();">조회</button>
                     </td>
                 <tr>
                     <td></td>
                     <td>
                         <div class="searchDate">
-	                    <span class="chkbox2">
-	                        <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
-	                        <label for="dateType1">&nbsp;오늘&nbsp;</label>
-	                     </span>
-	                     <span class="chkbox2">
-	                        <input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('1m')"/>
-	                        <label for="dateType5">1개월</label>
-	                     </span>
-	                     <span class="chkbox2">
-	                        <input type="radio" name="dateType" id="dateType6" onclick="setSearchDate('3m')"/>
-	                        <label for="dateType6">3개월</label>
-	                     </span>
-	                     <span class="chkbox2">
-	                        <input type="radio" name="dateType" id="dateType7" onclick="setSearchDate('6m')"/>
-	                        <label for="dateType7">6개월</label>
-	                     </span>
+		                    <span class="chkbox2">
+		                        <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
+		                        <label for="dateType1">&nbsp;오늘&nbsp;</label>
+		                     </span>
+		                     <span class="chkbox2">
+		                        <input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('1m')"/>
+		                        <label for="dateType5">1개월</label>
+		                     </span>
+		                     <span class="chkbox2">
+		                        <input type="radio" name="dateType" id="dateType6" onclick="setSearchDate('3m')"/>
+		                        <label for="dateType6">3개월</label>
+		                     </span>
+		                     <span class="chkbox2">
+		                        <input type="radio" name="dateType" id="dateType7" onclick="setSearchDate('6m')"/>
+		                        <label for="dateType7">6개월</label>
+		                     </span>
 	                    </div>   
                     </td>
                 </tr>
+                <tr>
+                	<td></td>
+                	<td>
+                		<input type="radio" name="calSta" id="checkAll" value="All" checked>
+                        <label for="checkAll">전체</label>
+                        <input type="radio" name="calSta" id="checkWait" value="W">
+                        <label for="checkWait">정산진행중</label>
+                        <input type="radio" name="calSta" id="checkComplete" value="C">
+                        <label for="checkComplete">정산완료</label>
+                	</td>
+                </tr>
             </table>
-        </form>
-		
+        </div>
+		<script>
+			function resetAll(){
+				$("input:text").val("");
+				$(".searchDate input:radio").removeAttr("checked");
+			}
+		</script>
 		<script>                
 		
 		    $(document).ready(function() {
@@ -220,14 +238,52 @@
 		
 		    }
 
+    </script>
+    <script>
+    	function selectCalList(){
+    		$.ajax({
+    			url:"<%=contextPath%>/select.cal",
+    			data:{
+    				memNo:<%=MemNo%>,
+    				startDate:$("#searchStartDate").val(),
+    				endDate:$("#searchEndDate").val(),
+    				status:$("input[name=calSta]:checked").val()
+    			},
+    			success:function(list){
+    				
+    				let value = "";
+    				$("#calList-area tbody").html("");
+    				if(list.length == 0){ 
+    					value += "<tr>"
+    							+	"<td colspan='7'>조회된 내역이 없습니다</td>"
+    							+ "</tr>"
+    				}else{
+						for(let i=0; i<list.length; i++){
+    						value += "<tr>"
+    								+	"<td>" + list[i].calNo + "</td>"
+    								+	"<td>" + list[i].calNm + "</td>"
+    								+	"<td>" + list[i].bank + "<br>" + list[i].calAcc + "</td>"
+    								+	"<td>" + list[i].price + "</td>"
+    								+	"<td>" + list[i].rqDt + "</td>"
+    								+	"<td>" + list[i].calSta + "</td>"
+    								+	"<td> <button type='button' class='btn btn-secondary btn-sm'>보기</button> </td>"
+    								+ "</tr>"
+    					}
+					}
+    				$("#calList-area tbody").html(value);
+    			},error:function(){
+    				console.log("댓글목록 조회용 ajax 통신실패");
+    			}
+    		})
+    	}
     </script>           
         <br>
         <div id="calList-result">
             <b>조회 결과</b><br><br>
-            <table width="100%" class="table">
+            <table width="100%" class="table" id="calList-area">
                 <thead>
                     <tr>
-                        <td>번호</td>
+                        <td>정산번호</td>
                         <td>예금주 성함</td>
                         <td>입금 요청 은행</td>
                         <td>정산 요청 금액 (원)</td>
@@ -237,23 +293,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>김길동</td>
-                        <td>
-                            우리은행<br>
-                            1002*****7586
-                        </td>
-                        <td>116,410원</td>
-                        <td>
-                            2023-1-15(일) <br>
-                            오후 4:43
-                        </td>
-                        <td>정산 진행중</td>
-                        <td>
-                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#calListModal">보기</button>
-                        </td>
-                    </tr>
+                	<% if(aList == null){ %>
+                		<tr>
+    						<td colspan='7'>조회된 내역이 없습니다</td>
+    					</tr>
+                	<% } else{%>
+	                	<% for(int i=0; i<aList.size(); i++){ %>
+		                   <tr>
+		                       <td><%= aList.get(i).getCalNo() %></td>
+		                       <td><%= aList.get(i).getCalNm() %></td>
+		                       <td><%= aList.get(i).getBank() %><br><%= aList.get(i).getCalAcc() %></td>
+		                       <td><%= aList.get(i).getPrice() %></td>
+		                       <td><%= aList.get(i).getRqDt() %></td>
+		                       <td><%= aList.get(i).getCalSta() %></td>
+		                       <td><button type='button' class='btn btn-secondary btn-sm'>보기</button></td>
+		                   </tr>
+	                    <% } %>
+                    <% } %>
                 </tbody>
             </table>
         </div>
