@@ -35,14 +35,16 @@ public class MemberUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("UTF-8");
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10*1024*1024;
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/memberProfile_upfiles/");
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
-			String memId = multiRequest.getParameter("userId");
+			String memId = multiRequest.getParameter("memId");
 			String memNick = multiRequest.getParameter("userNick");
 			String email = multiRequest.getParameter("email");
 			String phone = multiRequest.getParameter("phone");
@@ -78,14 +80,10 @@ public class MemberUpdateController extends HttpServlet {
 				m.setMemProfile("/resources/memberProfile_upfiles/"+ multiRequest.getFilesystemName("upProfile"));
 			}
 			
-			//DB에 있는 기존프로필사진(있든없든)먼저 지워주기위한 메소드 실행
-			Member delProfile = new MemberService().deleteProfile(memId);
-			
-			
 			Member updateMem = new MemberService().updateMember(m);
 			
-			
 			HttpSession session = request.getSession();
+			
 			if(updateMem == null) { // 실패
 				
 				if(m.getMemProfile() != null) {
