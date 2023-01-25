@@ -24,6 +24,15 @@ SELECT
 	    BY ENROLL_DATE DESC
 </entry>
 
+<entry key="selectNoticeList">
+	SELECT
+		   *
+	  FROM NOTICE
+	 WHERE NT_STA='Y'
+	 ORDER 
+	    BY NT_NO
+	
+</entry>
 
 
 

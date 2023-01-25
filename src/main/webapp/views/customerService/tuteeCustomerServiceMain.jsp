@@ -53,7 +53,8 @@
     <br>
 
     <table class="list-area">
-        <div align="right" style="width:1000px"><a href="" style="background-color:rgb(22, 160, 133); color:white; border:none">더보기+</a></div><br>
+        <div align="right" style="width:1000px"><a href="<%=request.getContextPath()%>/notice.tee?cpage=1"
+        " style="background-color:rgb(22, 160, 133); color:white; border:none">더보기+</a></div><br>
         <tr>
             <td style="background-color: lightgray; " width="200" height="200" align="center">
                 <b>공지사항</b>
