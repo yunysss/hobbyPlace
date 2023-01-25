@@ -91,9 +91,9 @@ public class TutorService {
 		return rList;
 	}
 	
-	public ArrayList<Register> selectTutorNewRegister(int memNo){
+	public ArrayList<Register> selectTutorNewRegister(int memNo, int num){
 		Connection conn = getConnection();
-		ArrayList<Register> nList = new TutorDao().selectTutorNewRegister(conn, memNo);
+		ArrayList<Register> nList = new TutorDao().selectTutorNewRegister(conn, memNo, num);
 		close(conn);
 		return nList;
 	}
@@ -103,13 +103,6 @@ public class TutorService {
 		ArrayList<Register> fList = new TutorDao().selectTutorFinRegister(conn, memNo);
 		close(conn);
 		return fList;
-	}
-	
-	public ArrayList<Register> selectTutorRejectRegister(int memNo){
-		Connection conn = getConnection();
-		ArrayList<Register> rjList = new TutorDao().selectTutorRejectRegister(conn, memNo);
-		close(conn);
-		return rjList;
 	}
 	
 	public Register selectDetailApproval(int regNo) {
