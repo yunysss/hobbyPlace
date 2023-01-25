@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.hp.calculate.model.vo.Calculate;
 import com.hp.register.model.vo.Register;
 
 public class CalculateDao {
@@ -59,5 +60,53 @@ public class CalculateDao {
 		}
 		return list;
 	}
+	
+	public int selectCalculate(Connection conn, String[] regNo) {
+		int calPrice = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectCalculate");
+		
+		try {
+			for(int i=0; i<regNo.length; i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, regNo[i]);
+				rset = pstmt.executeQuery();
+				if(rset.next()) {
+					calPrice += rset.getInt("reg_price");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return calPrice;
+	}
+	
+	public int insertCalculate(Connection conn, Calculate cal) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCalculate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cal.getPrice());
+			pstmt.setString(2, cal.getBank());
+			pstmt.setString(3, cal.getCalAcc());
+			pstmt.setString(4, cal.getCalNm());
+			pstmt.setString(5, cal.getCalReg());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 
 }

@@ -20,5 +20,34 @@
 		 ORDER 
 		    BY REG_NO DESC
 	</entry>
+	
+	<entry key="selectCalculate">
+		SELECT
+		       REG_PRICE
+		  FROM REGISTER
+		 WHERE REG_NO = ?
+	</entry>
+	
+	<entry key="insertCalculate">
+		INSERT
+		  INTO CALCULATE
+		  (
+		    CAL_NO
+		  , PRICE
+		  , BANK
+		  , CAL_ACC
+		  , CAL_NM
+		  , CAL_REG
+		  )
+		  VALUES
+		  (
+		    SEQ_CCNO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
 
 </properties>

@@ -116,7 +116,8 @@
            		})
        		
             </script>
-	        <form action="<%= contextPath %>/detail.cal" id="cal-2">
+	        <form action="<%= contextPath %>/detail.cal?" id="cal-2">
+	        	<input type="hidden" name ="sta" value="0">
 	           	<% if(rList.isEmpty()){ %>
 	           		<div align="center">
 	           			<b>조회된 내역이 없습니다.</b>
@@ -140,7 +141,7 @@
 		                        <span style="background:<%=regColor%>"><b><%= regSta %></b></span><br><br><br>	
 		                        <b><%= rList.get(i).getRegPrice() %></b>
 		                        <% if(rList.get(i).getMemEmail().equals("N")){ %>
-		                        	<input type="checkbox" name="calPrice" value="<%=rList.get(i).getRegNo()%>">
+		                        	<input type="checkbox" name="regNo" value="<%=rList.get(i).getRegNo()%>">
 		                        <%} %>
 		                    </div>
 	                    </div>
@@ -156,7 +157,7 @@
 		                    <div align="right">
 		                        <span style="background:rgb(241, 196, 15);"><b>미신청</b></span><br><br><br>	
 		                        <b><%= nList.get(i).getSchNo() %></b>
-		                        <input type="checkbox" name="calPrice" value="<%=nList.get(i).getRegNo()%>">
+		                        <input type="checkbox" name="regNo" value="<%=nList.get(i).getRegNo()%>">
 		                    </div>
 	                    </div>
                     <% } %>
@@ -194,8 +195,23 @@
                			<button type="submit" class="btn btn-sm">정산 신청</button>
                		</div>
 	            <%} %>
+               	
 	        </form>
 		</div>
+		<!-- 모달 -->
+        <div class="modal fade" id="calModal">
+          <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+        
+              <div class="modal-body" align="center">
+                정산 신청 완료되었습니다. <br><br>
+                <a href="<%= contextPath %>/views/common/tutorMainPage.jsp" class="btn btn-secondary">튜터 홈으로</a>
+                <a href="<%= contextPath %>/views/calculate/calculateList.jsp" class="btn btn-secondary">정산 내역 조회</a>
+              </div>
+        
+            </div>
+          </div>
+        </div>
 	</div>
 </body>
 </html>
