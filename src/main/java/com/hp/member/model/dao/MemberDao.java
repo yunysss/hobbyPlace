@@ -32,7 +32,7 @@ public class MemberDao {
 	 * @return conn, Member m
 	 */
 	public Member loginMember(Connection conn, String userId, String userPwd) {
-		Member m = new Member();
+		Member m = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("loginMember");

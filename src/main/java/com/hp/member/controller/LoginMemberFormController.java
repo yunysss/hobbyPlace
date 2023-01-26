@@ -37,13 +37,12 @@ public class LoginMemberFormController extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 		
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
-		
+
 		HttpSession session = request.getSession();
 		
 		if(loginUser == null) {
-
-			session.setAttribute("loginFail", "아이디 또는 비밀번호를 잘못 입력했습니다.");
-			request.getRequestDispatcher("views/member/loginMember.jsp").forward(request, response);
+			session.setAttribute("alertMsg", "로그인 실패 : 아이디와 비밀번호를 다시 입력해주세요");
+			response.sendRedirect(request.getContextPath()+"/login.me");
 			
 		}else {
 
