@@ -92,5 +92,28 @@ public class CalculateService {
 		return list;
 	}
 	
+	public String selectCalculateSta(int calNo) {
+		Connection conn = getConnection();
+		String str = new CalculateDao().selectCalculateSta(conn, calNo);
+		close(conn);
+		return str;
+	}
+	
+	public int updateCalculate(int calNo, String calSta, String[] calRegList) {
+		Connection conn = getConnection();
+		int result1 = new CalculateDao().updateCalculateSta(conn, calNo, calSta);
+		int result2 = new CalculateDao().updateRegisterCalSta(conn, calSta, calRegList);
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1 * result2;
+	}
+	
+	
+	
+	
 	
 }

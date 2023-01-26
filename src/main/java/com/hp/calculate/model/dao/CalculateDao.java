@@ -241,12 +241,13 @@ public class CalculateDao {
 			while(rset.next()) {
 				list.add(new Calculate(rset.getInt("cal_no"),
 						  rset.getString("rq_dt"),
+						  rset.getString("mem_id"),
 						  rset.getString("price"),
 						  rset.getString("bank"),
 						  rset.getString("cal_acc"),
 						  rset.getString("cal_nm"),
 						  rset.getString("cal_sta"),
-						  rset.getString("mem_id")
+						  rset.getString("cal_reg")
 						  ));
 			}
 			
@@ -275,12 +276,13 @@ public class CalculateDao {
 			while(rset.next()) {
 				list.add(new Calculate(rset.getInt("cal_no"),
 						  rset.getString("rq_dt"),
+						  rset.getString("mem_id"),
 						  rset.getString("price"),
 						  rset.getString("bank"),
 						  rset.getString("cal_acc"),
 						  rset.getString("cal_nm"),
 						  rset.getString("cal_sta"),
-						  rset.getString("mem_id")
+						  rset.getString("cal_reg")
 						  ));
 			}
 			
@@ -310,12 +312,13 @@ public class CalculateDao {
 			while(rset.next()) {
 				list.add(new Calculate(rset.getInt("cal_no"),
 						  rset.getString("rq_dt"),
+						  rset.getString("mem_id"),
 						  rset.getString("price"),
 						  rset.getString("bank"),
 						  rset.getString("cal_acc"),
 						  rset.getString("cal_nm"),
 						  rset.getString("cal_sta"),
-						  rset.getString("mem_id")
+						  rset.getString("cal_reg")
 						  ));
 			}
 			
@@ -346,12 +349,13 @@ public class CalculateDao {
 			while(rset.next()) {
 				list.add(new Calculate(rset.getInt("cal_no"),
 						  rset.getString("rq_dt"),
+						  rset.getString("mem_id"),
 						  rset.getString("price"),
 						  rset.getString("bank"),
 						  rset.getString("cal_acc"),
 						  rset.getString("cal_nm"),
 						  rset.getString("cal_sta"),
-						  rset.getString("mem_id")
+						  rset.getString("cal_reg")
 						  ));
 			}
 			
@@ -364,6 +368,71 @@ public class CalculateDao {
 		}
 		return list;
 	}
+	
+	public String selectCalculateSta(Connection conn, int calNo) {
+		String str = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCalculateSta");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, calNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				str = rset.getString("cal_reg");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return str;
+	}
+	
+	public int updateCalculateSta(Connection conn, int calNo, String calSta) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateCalculateSta");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, calSta);
+			pstmt.setInt(2, calNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateRegisterCalSta(Connection conn, String calSta, String[] calRegList) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRegisterCalSta");
+		try {
+			for(int i=0; i<calRegList.length;i++){
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, calSta);
+				pstmt.setInt(2, Integer.parseInt(calRegList[i]));
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	
 	
 
 }

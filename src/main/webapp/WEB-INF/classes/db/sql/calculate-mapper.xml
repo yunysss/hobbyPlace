@@ -120,6 +120,7 @@
 		     , CAL_NM
 		     , DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') "CAL_STA"
              , MEM_ID
+             , CAL_REG
 		  FROM CALCULATE
 		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,1) = REG_NO)
 		  JOIN CLASS C USING(CL_NO)
@@ -139,6 +140,7 @@
 		     , CAL_NM
 		     , DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') "CAL_STA"
              , MEM_ID
+             , CAL_REG
 		  FROM CALCULATE
 		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,1) = REG_NO)
 		  JOIN CLASS C USING(CL_NO)
@@ -158,6 +160,7 @@
 		     , CAL_NM
 		     , DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') "CAL_STA"
              , MEM_ID
+             , CAL_REG
 		  FROM CALCULATE
 		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,1) = REG_NO)
 		  JOIN CLASS C USING(CL_NO)
@@ -177,6 +180,7 @@
 		     , CAL_NM
 		     , DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') "CAL_STA"
              , MEM_ID
+             , CAL_REG
 		  FROM CALCULATE
 		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,1) = REG_NO)
 		  JOIN CLASS C USING(CL_NO)
@@ -186,6 +190,21 @@
            AND DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') LIKE ?
 		 ORDER 
 		    BY CAL_NO DESC
+	</entry>
+	<entry key="updateCalculateSta">
+		UPDATE CALCULATE
+		   SET CAL_STA = ?
+		 WHERE CAL_NO = ?
+	</entry>
+	<entry key="selectCalculateSta">
+		SELECT CAL_REG
+		  FROM CALCULATE
+		 WHERE CAL_NO = ?
+	</entry>
+	<entry key="updateRegisterCalSta">
+		UPDATE REGISTER
+		   SET REG_CAL = ?
+		 WHERE REG_NO =?
 	</entry>
 
 </properties>

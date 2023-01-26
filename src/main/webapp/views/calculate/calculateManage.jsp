@@ -10,7 +10,6 @@
 <title>Insert title here</title>
 <style>
     div, p, form, input, table{box-sizing:border-box;}
-    a{text-decoration: none !important; color:black !important;}
 
    .outer{width:1000px; margin:auto; padding:20px 50px;}
    #calMng-form, #calMng-result{
@@ -84,6 +83,7 @@
     background:rgb(245, 245, 245);
    }
     #calMng-result>div{float:left; width:50%;}
+    .modal-body input{margin-left:10px;}
 </style>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -282,7 +282,7 @@
 							value += "<tr class='calMngList'>"
    								+	"<td>" + list[i].calNo + "</td>"
    								+	"<td>" + list[i].rqDt + "</td>"
-   								+	"<td>" + list[i].calReg + "<br>" 
+   								+	"<td>" + list[i].finDt + "<br>" 
    								+	"<td>" + list[i].calNm + "</td>"
    								+	"<td>" + list[i].bank + "&nbsp;" + list[i].calAcc + "</td>"
    								+	"<td>" + list[i].price  + "</td>"
@@ -321,7 +321,7 @@
 	                    <tr id ='calMngList1'>
 	                        <td><%= list.get(i).getCalNo() %></td>
 	                        <td><%= list.get(i).getRqDt() %></td>
-	                        <td><%= list.get(i).getCalReg() %></td>
+	                        <td><%= list.get(i).getFinDt() %></td>
 	                        <td><%= list.get(i).getCalNm() %></td>
 	                        <td><%= list.get(i).getBank() %>&nbsp;<%= list.get(i).getCalAcc() %></td>
 	                        <td><%= list.get(i).getPrice() %></td>
@@ -336,33 +336,30 @@
         </div>
     
     </div>
-    
-    <div class="modal" id="myModal">
+    <script>
+	    $(document).on("click", ".calChange-btn", function(){
+	    	$(".calNo").val($(this).parent().siblings().eq(0).text());
+	    	$('.calChangeModal').modal('show'); 
+	    })
+    </script>
+    <div class="modal calChangeModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="">
+                <form action="<%= contextPath%>/update.cal">
                     <div class="modal-body">
                         <b>정산 처리상태 변경</b> <br><br>
-                        <input type="radio" id="calIng" value="calIng" name="calSt"> <label for="calIng">정산 진행중</label> 
-                        <input type="radio" id="calFin" value="calFin" name="calSt"> <label for="calFin">정산완료</label> <br><br>
                         <div align="center">
-                        <button type="button" class="btn btn-sm" style="background:rgb(22, 160, 133); color:white;" data-dismiss="modal">저장</button>
+                        <input type="radio" id="W" value="W" name="calSt"> <label for="W">정산 진행중</label>
+                        <input type="radio" id="C" value="C" name="calSt"> <label for="C">정산완료</label> <br><br>
+                        <button type="submit" class="btn btn-sm" style="background:rgb(22, 160, 133); color:white;">저장</button>
                         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
                         </div>
                     </div>
+                    <input type="hidden" name="calNo" class="calNo">
                 </form>
             </div>  
         </div>
     </div>
-
-    <script>
-        $(function(){
-            $(".calChange-btn").click(function(){
-                $(this).attr("data-toggle", "modal");
-                $(this).attr("data-target", "#myModal");
-            })
-        })
-    </script>
     
 </body>
 </html>
