@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.hp.member.model.service.MemberService;
 import com.hp.member.model.vo.Member;
@@ -34,6 +35,18 @@ public class AjaxPwdUpdateController extends HttpServlet {
 		String memPwd = request.getParameter("memPwd");
 		String newPwd = request.getParameter("newPwd");
 		Member updatePwdMem = new MemberService().updatePwd(memId, memPwd, newPwd);
+		
+		if(updatePwdMem != null) { // 비밀번호 수정 성공
+			HttpSession session = request.getSession();
+			
+			response.getWriter().print("NNNNY");
+			session.setAttribute("loginUser", updatePwdMem);
+			
+		}else { // 실패
+			
+			response.getWriter().print("NNNNN");
+						
+		}
 	}
 
 	/**

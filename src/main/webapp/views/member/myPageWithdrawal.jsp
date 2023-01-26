@@ -75,6 +75,7 @@
         margin-left:300px;
     }
     .leaveButton:hover{cursor: pointer;}
+    input, textarea{border-color:rgb(35, 104, 116); border-radius:5px;}
 </style>
 </head>
 <body>
@@ -177,7 +178,7 @@
 
                 <h3>정말 떠나시겠어요?</h3>
                 <br><br>
-                
+                <form action="<%=contextPath%>/memDelete.me" method="post">
                 <div class="explainForm" align="center">
                     <table>
                         <tr>
@@ -223,7 +224,7 @@
                         </tr>
                     </table>
                 </div>
-                <form action="<%=contextPath%>/memDelete.me" method="post">
+
                     <div class="checkAgreement" align="left">
                         <input type="checkbox" id="agreeAll" required> <label for="agreeAll">회원탈퇴 유의사항을 모두 확인하였으며 동의합니다.</label>
                         
@@ -240,6 +241,7 @@
                                     <%=loginUser.getMemId() %>
                             </td> 
                             </tr>
+                            <tr><th></th></tr>
                             <tr>
                                 <th>
                                     &nbsp;탈퇴사유
@@ -256,18 +258,31 @@
                             <tr><th></th></tr>
                             <tr><th></th></tr>
                             <tr><th></th></tr>
-                            <tr><th></th></tr>          
+                            <tr><th></th></tr>
+                            <tr><th></th></tr>
+                            <tr>
+                            	<th>
+                            		&nbsp;비밀번호
+                            	</th>
+                            	<td>
+                            		<input type="password" id="memPwd" name="memPwd" required>
+                            	</td>
+                            </tr>          
                         </table>
-
-                        <button type="submit" class="leaveButton">탈퇴 신청</button>
+                        
+						<br>
+						
+                        <button type="submi" class="leaveButton">탈퇴 신청</button>
                         <br><br><br><br>
                     </div>
-                </form>
-                    
-                
+				</form>
             </div>
         </div>
     </div>
+    
+    
+    
+    
     <br clear="both">
     <%@ include file = "../common/footerbar.jsp" %>
 </body>

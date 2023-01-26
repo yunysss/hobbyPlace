@@ -91,7 +91,10 @@ public class MemberService {
 	 * @return updateMem
 	 */
 	public Member updateMember(Member m) {
+
+	
 		Connection conn = getConnection();
+
 		// 일단 수정된 회원정보 insert
 		int result = new MemberDao().updateMember(conn, m);
 		
@@ -111,11 +114,27 @@ public class MemberService {
 	}
 
 
-
+	/** 비밀번호 수정용 service메소드(ajax)
+	 * @author 수연
+	 * @param memId
+	 * @param memPwd
+	 * @param newPwd
+	 * @return updatePwdMem
+	 */
 	public Member updatePwd(String memId, String memPwd, String newPwd) {
 		Connection conn = getConnection();
+		// 1. 수정된 비밀번호 update
 		int result = new MemberDao().updatePwd(conn, memId, memPwd, newPwd);
-		return null;
+		
+		Member updatePwdMem = null;
+		// 2. update 성공시 수정된 전체회원정보 select
+		if(result > 0) {
+			commit(conn);
+			updatePwdMem = new MemberDao().selectMember(conn, memId);
+		}else {
+			rollback(conn);
+		}
+		return updatePwdMem;
 	}
 
 	

@@ -37,7 +37,9 @@ public class MemberUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		
+
+		boolean check = ServletFileUpload.isMultipartContent(request);
+		System.out.println(check);
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10*1024*1024;
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/memberProfile_upfiles/");
@@ -67,6 +69,7 @@ public class MemberUpdateController extends HttpServlet {
 				interest = String.join(",", interestArr);
 			}
 			
+			System.out.println("확인");	
 			Member m = new Member();
 			m.setMemId(memId);
 			m.setMemNick(memNick);
@@ -83,7 +86,7 @@ public class MemberUpdateController extends HttpServlet {
 			
 			
 			Member updateMem = new MemberService().updateMember(m);
-		
+
 			
 			HttpSession session = request.getSession();
 			if(updateMem == null) { // 실패

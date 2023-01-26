@@ -34,7 +34,7 @@
     
 	.moveToLogin{
         background-color: lightgray;
-        width:220px; height:30px;
+        width:220px; height:40px;
         border:0;
         border-radius: 5px;
     }
@@ -42,7 +42,7 @@
     .moveToGuide{
         color:white;
         background-color: rgb(35, 104, 116);
-        width:220px; height:30px;
+        width:220px; height:40px;
         border:0;
         border-radius: 5px;
     }

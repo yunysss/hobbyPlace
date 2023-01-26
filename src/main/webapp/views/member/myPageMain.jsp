@@ -93,7 +93,7 @@
 	                    <%if(loginUser.getMemProfile() == null) {%>
 		                	<img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" width="100" class="rounded-circle">
 		                <%} else {%>
-							<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" width="100" class="rounded-circle">
+							<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" width="100" height="100" class="rounded-circle">
 						<%} %>
                          <br><br>
 	                    <p id="helloUser">
