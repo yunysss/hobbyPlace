@@ -17,14 +17,6 @@
 
     .outer{width:1000px; margin:auto; padding:30px 50px;}
     #calculate{width:800px; margin:auto;}
-    #cal-1>div{float:left; width:50%; padding:20px; margin-bottom: 10px;}
-    
-    #cal-1{
-        border:1px solid rgb(180, 180, 180); 
-        border-radius:5px;
-        background:rgb(245, 245, 245);
-    }
-    
     #cal-2{
     	padding:20px;
         overflow: auto;
@@ -88,16 +80,6 @@
 	<div class="outer">
         <h5><b>정산 신청</b></h5><br>
         <div id="calculate">
-	        <div id="cal-1" style="height:90px">
-	            <div>
-	                받을 금액 <br>
-	                120,450원
-	            </div>
-	            <div>
-	                받은 금액 <br>
-	                50,500원
-	            </div>
-	        </div>
 	        <br>
 	        <div align="center">
 	        	<input type="radio" id="selectAll" name="selectCalculate" value="all" checked><label for="selectAll">전체</label>
@@ -146,58 +128,84 @@
 		                    </div>
 	                    </div>
 	                <% } %>
-	                <% for(int i=0; i<nList.size(); i++){ %>
-		                <div class="calList-2">
-		                    <div>
-		                        결제일자 : <%= nList.get(i).getTeachDate() %> <br>
-		                        <h5><%= nList.get(i).getMemNo() %></h5> <br>
-		                        수업일자 : <%= nList.get(i).getClNo() %> <%= nList.get(i).getRegDate() %><br>
-		                        신청인원 : <%= nList.get(i).getRegPrice() %>
+	                <% if(nList.isEmpty()){ %>
+	                	<div class="calList-2" align="center">
+	           				<b>조회된 내역이 없습니다.</b>
+	           			</div>
+	                <% }else{ %>
+		                <% for(int i=0; i<nList.size(); i++){ %>
+			                <div class="calList-2">
+			                    <div>
+			                        결제일자 : <%= nList.get(i).getTeachDate() %> <br>
+			                        <h5><%= nList.get(i).getMemNo() %></h5> <br>
+			                        수업일자 : <%= nList.get(i).getClNo() %> <%= nList.get(i).getRegDate() %><br>
+			                        신청인원 : <%= nList.get(i).getRegPrice() %>
+			                    </div>
+			                    <div align="right">
+			                        <span style="background:rgb(241, 196, 15);"><b>미신청</b></span><br><br><br>	
+			                        <b><%= nList.get(i).getSchNo() %></b>
+			                        <input type="checkbox" name="regNo" value="<%=nList.get(i).getRegNo()%>">
+			                    </div>
 		                    </div>
-		                    <div align="right">
-		                        <span style="background:rgb(241, 196, 15);"><b>미신청</b></span><br><br><br>	
-		                        <b><%= nList.get(i).getSchNo() %></b>
-		                        <input type="checkbox" name="regNo" value="<%=nList.get(i).getRegNo()%>">
+	                    <% } %>
+	                <% } %>
+	                <% if(wList.isEmpty()){ %>
+	                	<div class="calList-3" align="center">
+	           				<b>조회된 내역이 없습니다.</b>
+	           			</div>
+	                <% }else{ %>
+	                    <% for(int i=0; i<wList.size(); i++){ %>
+			                <div class="calList-3">
+			                    <div>
+			                        결제일자 : <%= wList.get(i).getTeachDate() %> <br>
+			                        <h5><%= wList.get(i).getMemNo() %></h5> <br>
+			                        수업일자 : <%= wList.get(i).getClNo() %> <%= wList.get(i).getRegDate() %><br>
+			                        신청인원 : <%= wList.get(i).getRegPrice() %>
+			                    </div>
+			                    <div align="right">
+			                        <span style="background:rgb(22, 160, 133);"><b>정산진행중</b></span><br><br><br>	
+			                        <b><%= wList.get(i).getSchNo() %></b>
+			                    </div>
 		                    </div>
-	                    </div>
-                    <% } %>
-                    <% for(int i=0; i<wList.size(); i++){ %>
-		                <div class="calList-3">
-		                    <div>
-		                        결제일자 : <%= wList.get(i).getTeachDate() %> <br>
-		                        <h5><%= wList.get(i).getMemNo() %></h5> <br>
-		                        수업일자 : <%= wList.get(i).getClNo() %> <%= wList.get(i).getRegDate() %><br>
-		                        신청인원 : <%= wList.get(i).getRegPrice() %>
+	                    <% } %>
+	                <% } %>
+	                <% if(cList.isEmpty()){ %>
+	                	<div class="calList-4" align="center">
+	           				<b>조회된 내역이 없습니다.</b>
+	           			</div>
+	                <% }else{ %>
+	                    <% for(int i=0; i<cList.size(); i++){ %>
+			                <div class="calList-4">
+			                    <div>
+			                        결제일자 : <%= cList.get(i).getTeachDate() %> <br>
+			                        <h5><%= cList.get(i).getMemNo() %></h5> <br>
+			                        수업일자 : <%= cList.get(i).getClNo() %> <%= cList.get(i).getRegDate() %><br>
+			                        신청인원 : <%= cList.get(i).getRegPrice() %>
+			                    </div>
+			                    <div align="right">
+			                        <span style="background:rgb(231, 76, 60)"><b>정산완료</b></span><br><br><br>	
+			                        <b><%= cList.get(i).getSchNo() %></b>
+			                    </div>
 		                    </div>
-		                    <div align="right">
-		                        <span style="background:rgb(22, 160, 133);"><b>정산진행중</b></span><br><br><br>	
-		                        <b><%= wList.get(i).getSchNo() %></b>
-		                    </div>
-	                    </div>
-                    <% } %>
-                    <% for(int i=0; i<cList.size(); i++){ %>
-		                <div class="calList-4">
-		                    <div>
-		                        결제일자 : <%= cList.get(i).getTeachDate() %> <br>
-		                        <h5><%= cList.get(i).getMemNo() %></h5> <br>
-		                        수업일자 : <%= cList.get(i).getClNo() %> <%= cList.get(i).getRegDate() %><br>
-		                        신청인원 : <%= cList.get(i).getRegPrice() %>
-		                    </div>
-		                    <div align="right">
-		                        <span style="background:rgb(231, 76, 60)"><b>정산완료</b></span><br><br><br>	
-		                        <b><%= cList.get(i).getSchNo() %></b>
-		                    </div>
-	                    </div>
+	                    <% } %>
                     <% } %>
                	<% } %>
-               	<% if(nList != null){ %>
-               		<div align="center">
-               			<button type="submit" class="btn btn-sm">정산 신청</button>
-               		</div>
-	            <%} %>
-               	
+           		<div align="center">
+           			<button type="submit" class="btn btn-sm" id="cal-btn" disabled>정산 신청</button>
+           		</div>
 	        </form>
 		</div>
+		<script>
+			$(function(){  
+				$("input:checkbox[name='regNo']").click(function(){
+					if($("input:checkbox[name='regNo']:checked").length>0) {
+						$("#cal-btn").attr("disabled", false);
+					} else{
+						$("#cal-btn").attr("disabled", true);
+					}
+				})
+			})
+		</script>
 		<!-- 모달 -->
         <div class="modal fade" id="calModal">
           <div class="modal-dialog modal-dialog-centered modal-sm">
