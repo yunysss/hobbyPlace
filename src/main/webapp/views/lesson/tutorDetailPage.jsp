@@ -7,6 +7,10 @@
 
    ArrayList<Lesson> cList = (ArrayList<Lesson>)request.getAttribute("cList");
    ArrayList<Review> rList = (ArrayList<Review>)request.getAttribute("rList");
+   
+   int cCount = (int)request.getAttribute("cCount");
+   int rCount = (int)request.getAttribute("rCount");
+   
 %>    
 <!DOCTYPE html>
 <html>
@@ -95,8 +99,8 @@
             
                 <img src="<%=request.getContextPath()%>/<%=ttProfile %>" width="60" class="rounded-circle" alt="Cinque Terre">
                 <span style="font-weight: 600;"><%=t.getTtName() %></span><br>
-                <span style="font-size: 11px; color: g;">클래스 3 </span> | 
-                <span style="font-size: 11px;"> 후기 </span>
+                <span style="font-size: 11px; color: g;">클래스 <%=cCount %> </span> | 
+                <span style="font-size: 11px;"> 후기 <%=rCount %></span>
                 <a><span class="badge badge-danger">문의하기</span><a/>
                 
               </p>
