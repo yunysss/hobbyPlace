@@ -3,6 +3,7 @@ package com.hp.customerService.model.Service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.common.model.vo.PageInfo;
 import com.hp.customerService.model.dao.NoticeDao;
 import com.hp.customerService.model.vo.Faq;
 import com.hp.customerService.model.vo.Notice;
@@ -32,11 +33,11 @@ public class NoticeService {
 		return list2;
 	}
 	
-	public ArrayList<Notice> selectNoticeList(){
+	public ArrayList<Notice> selectNoticeList(PageInfo pi){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn);
+		ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn, pi);
 		
 		close(conn);
 		
@@ -51,5 +52,23 @@ public class NoticeService {
 		close(conn);
 		
 		return list;
+	}
+	
+	public int selectNoticeListCount() {
+		Connection conn = getConnection();
+		int listCount = new NoticeDao().selectNoticeListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+	
+	public Notice selectNoticeDetail(int ntNo) { 
+		Connection conn = getConnection();
+		Notice n = new NoticeDao().selectNoticeDetail(conn, ntNo);
+		
+		close(conn);
+		return n;
 	}
 }

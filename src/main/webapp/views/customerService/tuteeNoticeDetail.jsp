@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="com.hp.customerService.model.vo.Notice"%>
+    
+<%
+	Notice n = (Notice)request.getAttribute("n");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +60,7 @@
             <table border="1" style="border:1px solid lightgray;margin-left:auto;margin-right:auto;">
                 <tr>
                     <th style="background-color: lightgray;" width="100">제목</th>
-                    <td width="700">공지사항제목자리</td>
+                    <td width="700"><%=n.getNtTitle() %></td>
                 </tr>
             </table>
                
@@ -66,7 +71,7 @@
                     <th width="100" style="background-color: lightgray;" width="100">첨부파일</th>
                     <td width="400">파일이름자리 <button type="" style="border: none; float: right;" >다운로드</button></td>
                     <th style="background-color: lightgray;" width="100">작성날짜</th>
-                    <td width="200">2022-12-30</td>
+                    <td width="200"><%=n.getEnrollDate() %></td>
                 </tr>
 
             </table>
@@ -76,23 +81,24 @@
             <br>
 
             <div style="border: 1px solid lightgray; padding: 10px; width: 800px; margin-left:auto;margin-right:auto;">
-                <p>공지사항 내용이 들어갈 자리</p>
+                <p><%=n.getNtContent() %></p>
 
                 
             </div>
 
-            <br>
+            <br><br><br>
+            
 
             <div class="abc">
-            <div style="float: left; width: 33%; "  >
-                <button style="border: none; background-color: lightgray; ">&lt;이전글</button>
-            </div>
-            <div style="float:left; width: 33%;" >
-                <button style="border:none; background-color: lightgray;  ">목록</button>
-            </div>
-            <div style="float: left; width: 33%;">
-                <button style="border: none; background-color: lightgray;">다음글&gt;</button>
-            </div>
+	            <div style="float: left; width: 33%; "  >
+	                <a href=""><button style="border: none; background-color: lightgray; ">&lt;이전글</button></a>
+	            </div>
+	            <div style="float:left; width: 33%;" >
+	                <a href="<%=request.getContextPath()%>/notice.tee?cpage=1"><button style="border:none; background-color: lightgray;  ">목록</button></a>
+	            </div>
+	            <div style="float: left; width: 33%;">
+	                <a href=""><button style="border: none; background-color: lightgray;">다음글&gt;</button></a>
+	            </div>
            </div>
     
             
@@ -105,6 +111,7 @@
 
 
     </div>
+    <br><br><br>
     
     <%@ include file="../common/footerbar.jsp" %>
     
