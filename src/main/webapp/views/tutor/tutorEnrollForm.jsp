@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    
-     div{box-sizing:border-box;}
 
     .outer{width:1000px; margin:auto; padding:4%}
     .content{width:100%; margin-top:5px;}
@@ -44,9 +42,11 @@
 
 <div class="outer">
 <h4 style="font-weight: bold;">튜터 등록</h4>
+
 <hr>
 <br>
-<form class="ttInput" action="<%=contextPath %>/enrolltt.tt" method="post" enctype="multiPart/form-data" id="enroll-form" >
+<form class="ttInput" action="<%=contextPath %>/enrolltt.tt" method="post" enctype="multiPart/form-data" " >
+	   
     <h6 style="font-weight: bold">프로필 사진</h6>
     <label>프로필 사진을 등록하지 않을 경우, 기본이미지로 저장됩니다.</label><br>
     <br><br>
@@ -106,8 +106,8 @@
             url:"<%=contextPath%>/checknick.tt",
             data:{checkName:$nameInput.val()},
             success:function(result){
-              if(result=="0"){
-                $(".nameTestResult").html("이미 존재하는 이름입니다");
+              if(result==0){
+                $(".nameTestResult").html('사용할 수 없는 닉네임입니다.');
                 $nameInput.focus();
 
               }else{ //사용가능
@@ -125,9 +125,9 @@
                 console.log("아이디 중복체크용 ajax 통신실패");
             }
 
-        });
+        })
     	  
-      }
+      })
      
 
     </script>
@@ -162,7 +162,7 @@
     
     
     <h6 style="font-weight: bold;">이메일 <span style="color:rgb(194, 28, 28)">*</span></h6>
-    <input type="text" required placeholder="이메일 입력" id="email"  naem="ttEmail">
+    <input type="text" required placeholder="이메일 입력" id="email"  name="ttEmail">
     <p class="emailTestResult"></p>
     <p>실제 사용하시는 이메일 주소를 입력해 주세요.<br>
     해당 메일로 공지사항 및 상품 수정 요청 등 중요 알림이 발생 됩니다.</p>
@@ -196,7 +196,7 @@
     
     
     <h6 style="font-weight: bold;">공개 연락처(선택)</h6>
-    <input type="text" placeholder="공개연락처를 입력해 주세요." id="publicPhone" name="introduce">
+    <input type="text" placeholder="공개연락처를 입력해 주세요." id="publicPhone" name="pubPhone">
     <p>튜티에게 안내되는 공개 연락처 입니다. 미입력시 인증한 휴대폰 번호가 안내됩니다.</p>
     <br><br>
     
@@ -204,7 +204,7 @@
     
     
     <h6 style="font-weight: bold;">소개(선택)</h6>
-    <textarea id="introduce" cols="70" rows="5" placeholder="경력, 보유자격증, 수상이력, 언론활동, 강점 등 튜터님을 소개해 주세요!" style="resize: none;" name="pubPhone"></textarea>
+    <textarea id="introduce" cols="70" rows="5" placeholder="경력, 보유자격증, 수상이력, 언론활동, 강점 등 튜터님을 소개해 주세요!" style="resize: none;" name="introduce"></textarea>
     <p style="color: rgb(236, 27, 27); ">개인 연락처(전화번호,카카오톡ID, 개인 SNS주소, 홈페이지 등)은 입력할 수 없습니다.)</p>
     <br><br>
     <button id="submitBtn" disabled >신청</button>
