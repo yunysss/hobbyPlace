@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.hp.calculate.model.vo.Calculate"%>
-<% ArrayList<Calculate> aList = (ArrayList<Calculate>)request.getAttribute("aList"); %>
+<% 
+	ArrayList<Calculate> aList = (ArrayList<Calculate>)request.getAttribute("aList"); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,6 +75,13 @@
    }
    .searchDate input[type=radio]:hover+label{
        background-color: rgb(22, 160, 133);
+   }
+   input[name="calSta"]+label{
+   		margin-right:10px;
+   }
+   #calListModal table td{
+   		text-align:center;
+        width:320px;
    }
 </style>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
@@ -266,13 +275,13 @@
     								+	"<td>" + list[i].price + "</td>"
     								+	"<td>" + list[i].rqDt + "</td>"
     								+	"<td>" + list[i].calSta + "</td>"
-    								+	"<td> <button type='button' class='btn btn-secondary btn-sm'>보기</button> </td>"
+    								+	"<td> <button type='button' class='btn btn-secondary btn-sm detail-btn'>보기</button> </td>"
     								+ "</tr>"
     					}
 					}
     				$("#calList-area tbody").html(value);
     			},error:function(){
-    				console.log("댓글목록 조회용 ajax 통신실패");
+    				console.log("정산목록 조회용 ajax 통신실패");
     			}
     		})
     	}
@@ -288,7 +297,7 @@
                         <td>입금 요청 은행</td>
                         <td>정산 요청 금액 (원)</td>
                         <td>정산 요청 날짜</td>
-                        <td>정산 진행 상황</td>
+                        <td>정산 진행 상태</td>
                         <td>상세내역</td>
                     </tr>
                 </thead>
@@ -306,7 +315,7 @@
 		                       <td><%= aList.get(i).getPrice() %></td>
 		                       <td><%= aList.get(i).getRqDt() %></td>
 		                       <td><%= aList.get(i).getCalSta() %></td>
-		                       <td><button type='button' class='btn btn-secondary btn-sm'>보기</button></td>
+		                       <td><button type='button' class='btn btn-secondary btn-sm detail-btn'>보기</button></td>
 		                   </tr>
 	                    <% } %>
                     <% } %>
@@ -314,39 +323,64 @@
             </table>
         </div>
     </div>
+    <script>
+    	$(".detail-btn").click(function(){
+    		
+    		$.ajax({
+    			url:"<%= contextPath %>/detailView.cal",
+    			data:{calNo:$(this).parent().siblings().eq(0).text()},
+    			success:function(c){
+        			let price = Number(c.price);
+        			let price1 = Number(Math.ceil(price / 0.988));
+        			let price2 = Number(Math.ceil(price1 * 0.003));
+        			let price3 = Number(Math.ceil(price1 * 0.002));
+        			let price4 = Number(Math.ceil(price1 * 0.007));
+    				let value = "예금주 성함 : " + c.calNm + "<br>"
+    							+ "입금 요청 은행 : " + c.bank + c.calAcc + "<br>"
+    							+ "정산 요청 날짜 : " + c.rqDt + "<br>"
+    							+ "정산 진행 상태 : " + c.calSta + "<br><br>"
+    							+ "<table border='1'>"
+    							+	"<tr>"
+    							+		"<td style='background:rgb(245, 245, 245)'>정산 신청 금액</td>"
+    							+		"<td style='text-align:right;' id='calPrice'>" + CommaFormat(price1) + "원</td>"
+   								+	"</tr>"
+    							+	"<tr>"
+    							+		"<td style='background:rgb(245, 245, 245)'>원천 징수 세금 (3%)</td>"
+    							+		"<td style='text-align:right;' id='calPrice-1'>"+ CommaFormat(price2) + "원</td>"
+    							+	"</tr>"
+    							+	"<tr>"
+    							+		"<td style='background:rgb(245, 245, 245)'>카드사 수수료 (2%)</td>"
+    							+		"<td style='text-align:right;' id='calPrice-2'>"+ CommaFormat(price3) + "원</td>"
+    							+	"</tr>"
+    							+	"<tr>"
+    							+		"<td style='background:rgb(245, 245, 245)'>합플 이용료 (7%)</td>"
+    							+		"<td style='text-align:right;' id='calPrice-3'>"+ CommaFormat(price4) + "원</td>"
+    							+	"</tr>"
+    							+	"<tr>"
+    							+		"<td style='background:rgb(245, 245, 245)'>최종 정산 금액 </td>"
+    							+		"<td style='text-align:right; color:rgb(231, 76, 60);' id='calPrice-4'>"+ CommaFormat(price) + "원</td>"
+    							+	"</tr>"
+    							+ "</table>";
+    				$("#modal-inner").html(value);
+    				$('#calListModal').modal('show'); 
+    			},error:function(){
+    				console.log("정산상세내역 조회용 ajax 통신실패");
+    			}
+    		})
+    	})
+    	function CommaFormat(x) {
+		  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+    </script>
     <div class="modal fade" id="calListModal">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             
             <div class="modal-body">
                 <h5 class="modal-title"><b>정산 상세 내역</b></h5><br>
-            
-                예금주 성함 : 김길동 <br>
-                입금 요청 은행 : 우리은행 1002*****7586 <br>
-                정산 요청 날짜 : 2023-1-15(일) 오후 4:43 <br>
-                정산 진행 상황 : 정산 진행중 <br><br>
-                <table border="1" class="cal-detail">
-                    <tr>
-                        <td style="background:rgb(245, 245, 245)">정산 신청 금액</td>
-                        <td style="text-align:right;">134,300원&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="background:rgb(245, 245, 245)">원천 징수 세금 (3.3%)</td>
-                        <td style="text-align:right;">4,430원&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="background:rgb(245, 245, 245)">카드사 수수료 (2.53%)</td>
-                        <td style="text-align:right;">3,390원&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="background:rgb(245, 245, 245)">합플 이용료 (7.5%)</td>
-                        <td style="text-align:right;">10,070원&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="background:rgb(245, 245, 245)">최종 정산 금액</td>
-                        <td style="text-align:right; color:rgb(231, 76, 60);">116,410원&nbsp;</td>
-                    </tr>
-                </table>
+            	<div id="modal-inner">
+                
+                </div>
                 <br>
                 <div align="center">
                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>

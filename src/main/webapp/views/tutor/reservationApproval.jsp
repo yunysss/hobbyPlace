@@ -118,45 +118,63 @@
 		                    
 	                	</div>
 	                <% } %>
-	                <% for(int i=0; i<nList.size(); i++){ %>
-		                <div class="rsvList-2" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=nList.get(i).getRegNo()%>'">
-		                    <div>
-		                        <%= nList.get(i).getRegDate() %> <br>
-		                        <%= nList.get(i).getMemNo() %> 수강생 <br>
-		                        <h5><%= nList.get(i).getClNo() %></h5> <br>
-		                        진행일시 : <%= nList.get(i).getTeachDate() %> <%= nList.get(i).getSchNo() %>
+	                <% if(nList.isEmpty()){ %>
+	                	<div class="rsvList-2" align="center">
+	           				<b>새로운 수강 신청 내역이 없습니다.</b>
+	           			</div>
+	                <% }else{ %>
+		                <% for(int i=0; i<nList.size(); i++){ %>
+			                <div class="rsvList-2" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=nList.get(i).getRegNo()%>'">
+			                    <div>
+			                        <%= nList.get(i).getRegDate() %> <br>
+			                        <%= nList.get(i).getMemNo() %> 수강생 <br>
+			                        <h5><%= nList.get(i).getClNo() %></h5> <br>
+			                        진행일시 : <%= nList.get(i).getTeachDate() %> <%= nList.get(i).getSchNo() %>
+			                    </div>
+			                    <div align="right">
+			                        <span style="background:rgb(241, 196, 15);"><b>NEW</b></span>
+			                        
+			                    </div>
 		                    </div>
-		                    <div align="right">
-		                        <span style="background:rgb(241, 196, 15);"><b>NEW</b></span>
-		                        
-		                    </div>
-	                    </div>
+	                    <% } %>
                     <% } %>
-                    <% for(int i=0; i<fList.size(); i++){ %>
-		                <div class="rsvList-3" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=fList.get(i).getRegNo()%>'">
-		                    <div>
-		                        <%= fList.get(i).getRegDate() %> <br>
-		                        <%= fList.get(i).getMemNo() %> 수강생 <br>
-		                        <h5><%= fList.get(i).getClNo() %></h5> <br>
-		                        진행일시 : <%= fList.get(i).getTeachDate() %> <%= fList.get(i).getSchNo() %>
+                    <% if(fList.isEmpty()){ %>
+	                	<div class="rsvList-3" align="center">
+	           				<b>승인 완료 내역이 없습니다.</b>
+	           			</div>
+	                <% }else{ %>
+	                    <% for(int i=0; i<fList.size(); i++){ %>
+			                <div class="rsvList-3" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=fList.get(i).getRegNo()%>'">
+			                    <div>
+			                        <%= fList.get(i).getRegDate() %> <br>
+			                        <%= fList.get(i).getMemNo() %> 수강생 <br>
+			                        <h5><%= fList.get(i).getClNo() %></h5> <br>
+			                        진행일시 : <%= fList.get(i).getTeachDate() %> <%= fList.get(i).getSchNo() %>
+			                    </div>
+			                    <div align="right">
+			                        <span style="background:rgb(22, 160, 133);"><b>승인완료</b></span>
+			                    </div>
 		                    </div>
-		                    <div align="right">
-		                        <span style="background:rgb(22, 160, 133);"><b>승인완료</b></span>
+	                    <% } %>
+                    <%} %>
+                    <% if(rjList.isEmpty()){ %>
+	                	<div class="rsvList-4" align="center">
+	           				<b>신청 반려 내역이 없습니다.</b>
+	           			</div>
+	                <% }else{ %>
+	                    <% for(int i=0; i<rjList.size(); i++){ %>
+			                <div class="rsvList-4" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=rjList.get(i).getRegNo()%>'">
+			                    <div>
+			                        <%= rjList.get(i).getRegDate() %> <br>
+			                        <%= rjList.get(i).getMemNo() %> 수강생 <br>
+			                        <h5><%= rjList.get(i).getClNo() %></h5> <br>
+			                        진행일시 : <%= rjList.get(i).getTeachDate() %> <%= rjList.get(i).getSchNo() %>
+			                    </div>
+			                    <div align="right">
+			                        <span style="background:rgb(180, 180, 180)"><b>신청반려</b></span>
+			                    </div>
 		                    </div>
-	                    </div>
-                    <% } %>
-                    <% for(int i=0; i<rjList.size(); i++){ %>
-		                <div class="rsvList-4" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=rjList.get(i).getRegNo()%>'">
-		                    <div>
-		                        <%= rjList.get(i).getRegDate() %> <br>
-		                        <%= rjList.get(i).getMemNo() %> 수강생 <br>
-		                        <h5><%= rjList.get(i).getClNo() %></h5> <br>
-		                        진행일시 : <%= rjList.get(i).getTeachDate() %> <%= rjList.get(i).getSchNo() %>
-		                    </div>
-		                    <div align="right">
-		                        <span style="background:rgb(180, 180, 180)"><b>신청반려</b></span>
-		                    </div>
-	                    </div>
+	                    <% } %>
                     <% } %>
                 <% } %>
             </div>

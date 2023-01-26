@@ -130,7 +130,7 @@
 	                <% } %>
 	                <% if(nList.isEmpty()){ %>
 	                	<div class="calList-2" align="center">
-	           				<b>조회된 내역이 없습니다.</b>
+	           				<b>정산 미신청 내역이 없습니다.</b>
 	           			</div>
 	                <% }else{ %>
 		                <% for(int i=0; i<nList.size(); i++){ %>
@@ -151,7 +151,7 @@
 	                <% } %>
 	                <% if(wList.isEmpty()){ %>
 	                	<div class="calList-3" align="center">
-	           				<b>조회된 내역이 없습니다.</b>
+	           				<b>정산 진행중인 내역이 없습니다.</b>
 	           			</div>
 	                <% }else{ %>
 	                    <% for(int i=0; i<wList.size(); i++){ %>
@@ -171,7 +171,7 @@
 	                <% } %>
 	                <% if(cList.isEmpty()){ %>
 	                	<div class="calList-4" align="center">
-	           				<b>조회된 내역이 없습니다.</b>
+	           				<b>정산 완료된 내역이 없습니다.</b>
 	           			</div>
 	                <% }else{ %>
 	                    <% for(int i=0; i<cList.size(); i++){ %>
