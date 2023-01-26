@@ -47,6 +47,19 @@ public class Calculate {
 		this.calNm = calNm;
 		this.calSta = calSta;
 	}
+	
+	public Calculate(int calNo, String rqDt, String price, String bank, String calAcc, String calNm, String calSta, String calReg) {
+		super();
+		this.calNo = calNo;
+		this.rqDt = rqDt;
+		this.price = price;
+		this.bank = bank;
+		this.calAcc = calAcc;
+		this.calNm = calNm;
+		this.calSta = calSta;
+		this.calReg = calReg;
+	}
+	
 
 	public int getCalNo() {
 		return calNo;

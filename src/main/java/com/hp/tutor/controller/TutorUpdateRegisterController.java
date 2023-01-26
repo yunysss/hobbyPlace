@@ -31,11 +31,12 @@ public class TutorUpdateRegisterController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int regSta = Integer.parseInt(request.getParameter("regSta"));
 		int regNo = Integer.parseInt(request.getParameter("regNo"));
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
 		int result = new TutorService().updateRegister(regSta, regNo);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/regDetail.tt?no="+regNo);
+			response.sendRedirect(request.getContextPath() + "/approval.tt?memNo="+memNo);
 		}
 	}
 

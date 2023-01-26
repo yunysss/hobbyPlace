@@ -1,6 +1,9 @@
 package com.hp.calculate.model.service;
 
-import static com.hp.common.JDBCTemplate.*;
+import static com.hp.common.JDBCTemplate.close;
+import static com.hp.common.JDBCTemplate.commit;
+import static com.hp.common.JDBCTemplate.getConnection;
+import static com.hp.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -45,6 +48,7 @@ public class CalculateService {
 		return list;
 	}
 	
+	
 	public ArrayList<Calculate> selectNCCalList(int memNo, String startDate, String endDate, String status){
 		Connection conn = getConnection();
 		ArrayList<Calculate> list = new CalculateDao().selectNCCalList(conn, memNo, startDate, endDate, status);
@@ -58,6 +62,7 @@ public class CalculateService {
 		close(conn);
 		return list;
 	}
+	
 	
 	public ArrayList<Calculate> selectNCSeasonCalList(int memNo, String status){
 		Connection conn = getConnection();
@@ -73,7 +78,33 @@ public class CalculateService {
 		return c;
 	}
 	
+	public ArrayList<Calculate> selectAllSeasonCalMng(){
+		Connection conn = getConnection();
+		ArrayList<Calculate> list = new CalculateDao().selectAllSeasonCalMng(conn);
+		close(conn);
+		return list;
+	}
 	
+	public ArrayList<Calculate> selectMemSeasonCalMng(String memId){
+		Connection conn = getConnection();
+		ArrayList<Calculate> list = new CalculateDao().selectMemSeasonCalMng(conn, memId);
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Calculate> selectAllCalMng(String startDate, String endDate){
+		Connection conn = getConnection();
+		ArrayList<Calculate> list = new CalculateDao().selectAllCalMng(conn, startDate, endDate);
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Calculate> selectMemCalMng(String memId, String startDate, String endDate){
+		Connection conn = getConnection();
+		ArrayList<Calculate> list = new CalculateDao().selectMemCalMng(conn, memId,startDate, endDate);
+		close(conn);
+		return list;
+	}
 	
 	
 }

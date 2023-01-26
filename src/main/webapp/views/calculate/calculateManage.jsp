@@ -80,7 +80,7 @@
 	<%@ include file="../common/adminMenubar.jsp" %>
     <div class="outer">
         <h5><b>튜터 정산 관리</b></h5><br>
-        <form id="calMng-form" action="">
+        <div id="calMng-form" action="">
             <b>정산 내역 조회</b>
             <table width="850px">
                 <tbody>
@@ -133,14 +133,20 @@
                 <tfoot>
                     <tr>
                         <td colspan="3" align="center">
-                            <button type="button" class="btn btn-sm" id="selectCalMng-btn">조회</button>
-                            <button type="reset" class="btn btn-sm btn-secondary">초기화</button>
+                            <button type="button" class="btn btn-sm" id="selectCalMng-btn" onclick="selectCalMng();">조회</button>
+                            <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
                         </td>
                         
                     </tr>
                 </tfoot>
             </table>
-        </form>
+        </div>
+        <script>
+			function resetAll(){
+				$("input:text").val("");
+				$(".searchDate input:radio").removeAttr("checked");
+			}
+		</script>
         <script>                
 		
 		    $(document).ready(function() {
@@ -227,23 +233,68 @@
 		        $("#searchStartDate").datepicker( "option", "maxDate", endDate );
 		
 		    }
-
+        </script>
+        <script>
+        function selectCalMng(){
+    		$.ajax({
+    			url:"<%=contextPath%>/manageAjax.cal",
+    			data:{
+    				memId:$("input[name=tutorId]").val(),
+    				startDate:$("#searchStartDate").val(),
+    				endDate:$("#searchEndDate").val()
+    			},
+    			success:function(list){
+    				
+    				let value = "";
+    				$("#calMng-list tbody").html("");
+    				if(list.length == 0){ 
+    					value += "<tr>"
+    							+	"<td colspan='7'>조회된 내역이 없습니다</td>"
+    							+ "</tr>"
+    				}else{
+						for(let i=0; i<list.length; i++){
+    						value += "<tr>"
+    								+	"<td>" + list[i].calNo + "</td>"
+    								+	"<td>" + list[i].rqDt + "</td>"
+    								+	"<td>" + list[i].calReg + "<br>" 
+    								+	"<td>" + list[i].calNm + "</td>"
+    								+	"<td>" + list[i].rqDt + "</td>"
+    								+	"<td>" + list[i].bank + "&nbsp;" + list[i].calAcc + "</td>"
+    								+	"<td>" + list[i].calSta + "&nbsp;<button type='button' class='btn btn-secondary btn-sm calChange-btn'>수정</button> </td>"
+    								+ "</tr>"
+    					}
+					}
+    				$("#calMng-list tbody").html(value);
+    			},error:function(){
+    				console.log("정산목록 조회용 ajax 통신실패");
+    			}
+    		})
+    	}
         </script>
         <br>
         
-        <form action="" id="calMng-result">
+        <div id="calMng-result">
             <div>
                 <b>조회 결과</b><br><br>
+            </div>
+            <div align="right">
+            	<input type="radio" name="calSta" id="checkAll" value="All" checked>
+                <label for="checkAll"><small>전체</small></label>
+                <input type="radio" name="calSta" id="checkWait" value="W">
+                <label for="checkWait"><small>정산진행중</small></label>
+                <input type="radio" name="calSta" id="checkComplete" value="C">
+                <label for="checkComplete"><small>정산완료</small></label>
             </div>
             <br>
 
             <table width="100%" class="table" id="calMng-list">
                 <thead>
                     <tr>
-                        <td>번호</td>
+                        <td>정산번호</td>
                         <td>신청일자</td>
                         <td>튜터ID</td>
-                        <td>주문번호</td>
+                        <td>예금주 성함</td>
+                        <td>입금 요청 은행</td>
                         <td>정산금액</td>
                         <td>진행상태</td>
                     </tr>
@@ -268,7 +319,7 @@
                     </tr>
                 </tbody>
             </table>
-        </form>
+        </div>
     
     </div>
     
@@ -278,7 +329,6 @@
                 <form action="">
                     <div class="modal-body">
                         <b>정산 처리상태 변경</b> <br><br>
-                        <input type="radio" id="calNotRequest" value="calNotRequest" name="calSt"> <label for="calNotRequest">정산 미신청</label>
                         <input type="radio" id="calIng" value="calIng" name="calSt"> <label for="calIng">정산 진행중</label> 
                         <input type="radio" id="calFin" value="calFin" name="calSt"> <label for="calFin">정산완료</label> <br><br>
                         <div align="center">
