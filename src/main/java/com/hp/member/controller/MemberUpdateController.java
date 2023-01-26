@@ -66,6 +66,7 @@ public class MemberUpdateController extends HttpServlet {
 			if(interestArr != null) {
 				interest = String.join(",", interestArr);
 			}
+			
 			Member m = new Member();
 			m.setMemId(memId);
 			m.setMemNick(memNick);
@@ -80,10 +81,11 @@ public class MemberUpdateController extends HttpServlet {
 				m.setMemProfile("/resources/memberProfile_upfiles/"+ multiRequest.getFilesystemName("upProfile"));
 			}
 			
+			
 			Member updateMem = new MemberService().updateMember(m);
+		
 			
 			HttpSession session = request.getSession();
-			
 			if(updateMem == null) { // 실패
 				
 				if(m.getMemProfile() != null) {

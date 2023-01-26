@@ -114,7 +114,7 @@
 		 WHERE MEM_NO = ?
 	</entry>
 	
-	<!-- 수정한회원정보 저장 -->
+	<!-- 회원정보 수정요청 -->
 	<entry key="updateMember">
 		UPDATE MEMBER
 		   SET MEM_NICKNAME = ?

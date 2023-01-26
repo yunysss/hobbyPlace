@@ -92,9 +92,12 @@ public class MemberService {
 	 */
 	public Member updateMember(Member m) {
 		Connection conn = getConnection();
+		// 일단 수정된 회원정보 insert
 		int result = new MemberDao().updateMember(conn, m);
 		
 		Member updateMem = null;
+		
+		//insert 성공시 수정된 회원정보 select
 		if(result>0) {
 			commit(conn);
 			updateMem = new MemberDao().selectMember(conn, m.getMemId());
@@ -105,6 +108,14 @@ public class MemberService {
 		
 		close(conn);
 		return updateMem;
+	}
+
+
+
+	public Member updatePwd(String memId, String memPwd, String newPwd) {
+		Connection conn = getConnection();
+		int result = new MemberDao().updatePwd(conn, memId, memPwd, newPwd);
+		return null;
 	}
 
 	
