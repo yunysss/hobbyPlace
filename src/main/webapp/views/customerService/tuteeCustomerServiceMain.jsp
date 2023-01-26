@@ -29,6 +29,14 @@
     width: 800px;
     height: 200px;
    }
+   .NtTitle{
+   		text-decoration: none;
+   		color: black;
+   }
+   
+   		
+   		
+  
     
 </style>
 
@@ -44,9 +52,9 @@
 
 
 
-    <div align="right"  ><a href="" class="btn btn-secondary btn-sm">서비스 소개></a></div>
+    <div align="right"  ><a href="<%=request.getContextPath()%>/usage.no" class="btn btn-secondary btn-sm">서비스 소개></a></div>
     <br>
-    <div align="right" ><a href="" class="btn btn-secondary btn-sm">튜터서비스 소개></a></div>
+    <div align="right" ><a href="<%=request.getContextPath()%>/tutorUsage.no" class="btn btn-secondary btn-sm">튜터서비스 소개></a></div>
 
     
     <hr>
@@ -56,7 +64,9 @@
         <div align="right" style="width:1000px"><a href="<%=request.getContextPath()%>/notice.tee?cpage=1"
         " style="background-color:rgb(22, 160, 133); color:white; border:none">더보기+</a></div><br>
         <tr>
-            <td style="background-color: lightgray; " width="200" height="200" align="center">
+            <td 
+            	style="background-color: lightgray;" 
+            	width="200" height="200" align="center";>
                 <b>공지사항</b>
             </td>
             <td style="text-align: left; line-height:200%; padding: 50px;" >
@@ -64,12 +74,14 @@
                 <li>공지사항이 없습니다.</li>
                 <%}else{ %>
                 	<%for(int i=0; i<5; i++){ %>
-                      <li><%=list.get(i).getNtTitle() %></li>
+                	
+                      <a href="<%=request.getContextPath()%>/ntDetail.no?ntNo=<%=list.get(i).getNtNo() %>" class="NtTitle"><li><%=list.get(i).getNtTitle() %></li></a>
                       <%} %>
                 <%} %>
                 
             </td>
         </tr>
+       
 
     </table>
 

@@ -1,29 +1,23 @@
-package com.hp.lesson.controller;
+package com.hp.customerService.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.hp.lesson.model.vo.Category;
-import com.hp.lesson.model.vo.Dcategory;
 
 /**
- * Servlet implementation class ClassEnrolltest
+ * Servlet implementation class tutorUsageInformationController
  */
-@WebServlet("/test.do")
-public class ClassEnrolltest extends HttpServlet {
+@WebServlet("/tutorUsage.no")
+public class tutorUsageInformationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClassEnrolltest() {
+    public tutorUsageInformationController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +26,8 @@ public class ClassEnrolltest extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

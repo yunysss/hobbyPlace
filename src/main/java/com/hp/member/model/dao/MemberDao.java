@@ -204,7 +204,6 @@ public class MemberDao {
 	public int updateMember(Connection conn, Member m) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
 		String sql = prop.getProperty("updateMember");
 		
 		try {
@@ -273,6 +272,10 @@ public class MemberDao {
 		}
 		
 		return updateMem;
+	}
+
+	public int updatePwd(Connection conn, String memId, String memPwd, String newPwd) {
+		return 0;
 	}
 
 

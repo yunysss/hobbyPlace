@@ -25,12 +25,19 @@ SELECT
 </entry>
 
 <entry key="selectNoticeList">
-	SELECT
-		   *
-	  FROM NOTICE
-	 WHERE NT_STA='Y'
-	 ORDER 
-	    BY NT_NO
+SELECT *
+FROM(
+        SELECT ROWNUM RNUM , A.*
+        FROM(
+                SELECT
+                            *
+                      FROM NOTICE
+                     WHERE NT_STA='Y'
+                     ORDER 
+                        BY ENROLL_DATE DESC
+            ) A
+    )
+WHERE RNUM BETWEEN ? AND ?
 	
 </entry>
 
@@ -43,7 +50,23 @@ SELECT
 	    BY FAQ_NO
 </entry>
 
+<entry key="selectNoticeListCount">
+	SELECT
+	        COUNT(*) count
+	  FROM NOTICE
+	 WHERE NT_STA = 'Y'
+</entry>
 
 
+<entry key="selectNoticeDetail">
+	SELECT 
+	        NT_TITLE,
+	        NT_CONTENT,
+	        ENROLL_DATE
+	  FROM NOTICE
+	 WHERE NT_STA='Y'
+	   AND GRADE=1
+	   AND NT_NO=?
+</entry>
 
 </properties>

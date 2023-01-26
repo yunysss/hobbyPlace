@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, com.hp.customerService.model.vo.*"%>
+    import="java.util.ArrayList, com.hp.customerService.model.vo.*, com.hp.common.model.vo.PageInfo"%>
     
 <%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
    	ArrayList<Notice> list  = (ArrayList<Notice>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
@@ -27,7 +28,9 @@
         .list{
             text-align: center;
         }
-        
+        .list>tbody>tr:hover{
+        	cursor:pointer;
+        }
         .paging-area{
             text-align: center;
             
@@ -54,36 +57,53 @@
         <br>
 
         <table align="center" class="list">
-        <%if(list.isEmpty()){ %>
-        	<tr>
-        		<td>등록된 공지사항이 없습니다.</td>
-        	</tr>
-        <%}else{ %>
-            <tr style="background-color: lightgray;">
-                <th width="100">번호</th>
-                <th width="400" >제목</th>
-                <th width="300">작성날짜</th>
-            </tr>
-            
-            <tr>
-            <%for(Notice n : list){ %>
-                <td><%=n.getNtNo() %></td>
-                <td><%=n.getNtTitle() %></td>
-                <td><%=n.getEnrollDate() %></td>
-            </tr>
-            <%} %>
-          <%} %>
-
+	        <thead>
+	        	<tr style="background-color: lightgray;">
+	                <th width="100">번호</th>
+	                <th width="400" >제목</th>
+	                <th width="300">작성날짜</th>
+	            </tr>
+	         </thead>
+	         <tbody>
+		        <%if(list.isEmpty()){ %>
+		        	<tr>
+		        		<td>등록된 공지사항이 없습니다.</td>
+		        	</tr>
+		        <%}else{ %>
+		            
+		            
+		            <tr>
+		            <%for(Notice n : list){ %>
+		                <td><%=n.getNtNo() %></td>
+		                <td><%=n.getNtTitle() %></td>
+		                <td><%=n.getEnrollDate() %></td>
+		            </tr>
+		            <%} %>
+		          <%} %>
+			</tbody>
         </table>
+        
+        <script>
+        	$(function(){
+        		$(".list>tbody>tr").click(function(){
+        			location.href = '<%=contextPath%>/ntDetail.no?ntNo=' + $(this).children().eq(0).text();
+        		})
+        	})
+        </script>
         
         <br><br><br>
 
         <div class="paging-area">
-
+			
+			<%if(pi.getCurrentPage()!=1){ %>
             <button style="border: none;">&lt;</button>
+            <%} %>
+            <%for(int i=pi.getStartPage(); i<pi.getEndPage(); i++){ %>
             <button style="background-color:rgb(22, 160, 133); color:white; border:none">1</button>
+            <%} %>
+            <%if(pi.getCurrentPage()!= pi.getMaxPage()) {%>
             <button style="border: none;">&gt;</button>
-
+			<%} %>
         </div>
         
 

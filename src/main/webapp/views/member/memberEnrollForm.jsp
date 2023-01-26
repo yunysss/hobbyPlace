@@ -177,7 +177,7 @@
                     <tr>
                         <td class="td1">비밀번호 확인 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="password" class="fillOutForms" id="userPwdCheck" placeholder="영문, 숫자, 특수문자 포함 12~20자" required>
+                            <input type="password" class="fillOutForms" id="userPwdCheck" placeholder="영문, 숫자, 특수문자 포함 6~20자" required>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -768,7 +768,7 @@
 
 	        <!-- Modal body -->
 	        <div class="modal-body">
-	          <h3>개인정보 처리 방침</h3>
+	          <h3>개인정보 처리 방침</h3><br>
 	          <p><strong id="a2_2">회원가입 시점에 합플이 이용자로부터 수집하는 개인정보는 아래와 같습니다.</strong></p>
               <ul class="bu">
                   <li>회원 가입 시 필수항목으로 아이디, 비밀번호, 이름, 생년월일, 성별, 휴대전화번호를, 선택항목으로 본인확인 이메일주소를 수집합니다. 단, 비밀번호 없이 회원 가입 시에는 필수항목으로 아이디, 이름, 생년월일, 휴대전화번호를, 선택항목으로 비밀번호를 수집합니다. 만약 이용자가 입력하는 생년월일이 만14세 미만 아동일 경우에는 법정대리인 정보(법정대리인의 이름, 생년월일, 성별, 중복가입확인정보(DI), 휴대전화번호)를 추가로 수집합니다.</li>

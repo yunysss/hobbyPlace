@@ -43,9 +43,11 @@ public class TutorInsertController extends HttpServlet {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10*1024*1024;
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/tutorProfile_upfiles/");
+			
 			MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize, "UTF-8",new MyFileRenamePolicy());
 			
 			HttpSession session = request.getSession();
+
 			int memNo=((Member)session.getAttribute("loginUser")).getMemNo();
 			
 			
@@ -62,18 +64,19 @@ public class TutorInsertController extends HttpServlet {
 			t.setTtEmail(ttEmail);
 			t.setIntroduce(introduce);
 			t.setPubPhone(pubPhone);
-			//프로필 사진 등록 부분
 			
+			//프로필 사진 등록 부분
 			if(multiRequest.getOriginalFileName("ttProfile") != null) {
 				t.setTtProfile("/resources/tutorProfile_upfiles/"+ multiRequest.getFilesystemName("ttProfile"));
 			}
+			int result = new TutorService().insertTutor(t);
 			
 			
 			// 결과
-			int result = new TutorService().insertTutor(t);
 			
 			if(result>0) {
-				session.setAttribute("alertMsg", "튜터로 등록되었습니다.\n클래스를 개설해 재능을 펼쳐보세요!");
+				session.setAttribute("enrollTutor", t);
+				session.setAttribute("alertMsg", "튜터 등록에 성공했습니다. 클래스를 개설해 재능을 펼쳐보세요!");
 				response.sendRedirect(request.getContextPath()+"/tutorMain.tt");
 				
 			}else { //튜터 등록 실패시

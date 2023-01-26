@@ -1,29 +1,26 @@
-package com.hp.lesson.controller;
+package com.hp.customerService.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.lesson.model.vo.Category;
-import com.hp.lesson.model.vo.Dcategory;
-import com.hp.tutor.model.service.TutorService;
+import com.hp.customerService.model.Service.NoticeService;
+import com.hp.customerService.model.vo.Notice;
 
 /**
- * Servlet implementation class ClassEnrollFormController
+ * Servlet implementation class tuteeNoticeDetailController
  */
-@WebServlet("/clenroll.tt")
-public class ClassEnrollFormController extends HttpServlet {
+@WebServlet("/ntDetail.no")
+public class tuteeNoticeDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClassEnrollFormController() {
+    public tuteeNoticeDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,17 +29,18 @@ public class ClassEnrollFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//카테고리조회(대분류)
-		ArrayList<Category> cList = new TutorService().selectCategoryList();
-				
-		//카테고리조회(세부)
-		ArrayList<Dcategory> dList = new TutorService().selectDcategoryList();
-				
-		request.setAttribute("cList", cList);
-		request.setAttribute("dList", dList);
+	
+		int ntNo = Integer.parseInt(request.getParameter("ntNo"));
+		
+		Notice n = new NoticeService().selectNoticeDetail(ntNo);
+		
+		if(n!=null) {
+			request.setAttribute("n", n);
+			
+			request.getRequestDispatcher("views/customerService/tuteeNoticeDetail.jsp").forward(request, response);
+		}
 		
 		
-		request.getRequestDispatcher("views/lesson/classEnrollForm.jsp").forward(request, response);
 	}
 
 	/**

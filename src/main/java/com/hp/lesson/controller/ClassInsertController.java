@@ -1,4 +1,4 @@
-package com.hp.lesson;
+package com.hp.lesson.controller;
 
 import java.io.IOException;
 

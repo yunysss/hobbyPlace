@@ -130,7 +130,7 @@
 	        margin-left:10px;
 	    }
 	    .agreeAll{font-weight:bold;}
-	    #changePwd{
+	    #changePwdB{
 	        height:30px; width:170px;
 	        margin:auto;
 	        background:rgb(35, 104, 116); color:white; 
@@ -148,6 +148,8 @@
 	        border:0; border-radius: 10px;
 	        font-size:17px;
 	    }
+	    .td10{width:30%; padding-right:5px;}
+	    .td20{width:70%;}
 </style>
 <script>
      $(function(){
@@ -260,12 +262,16 @@
 	        	})
 	        </script>
             
+            
             <div class="contentMain">
+            
+            
             <div align="center"><h3>나의 회원 정보</h3></div>
             <br><br>
             
             <form action="<%=contextPath%>/update.me" method="post">
             	<input type="hidden" name="memId" value="<%=memId%>">
+            	
                 <div align="center">
                     <% if(loginUser.getMemProfile() == null) {%>
                         <img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
@@ -287,7 +293,7 @@
                     <tr>
                         <td class="td1">비밀번호 </td>
                         <td class="td2">
-                            <button type="button" id="changePwd" onclick="showPwd();">비밀번호 변경하기</button>
+                            <button type="button" id="changePwdB" data-toggle="modal" data-target="#changePwd">비밀번호 변경하기</button>
                         </td>
                         <td class="td3"></td>
                     </tr> 
@@ -350,7 +356,7 @@
                     <tr>
                         <td class="td1">이메일 </td>
                         <td class="td2">
-                            <input type="email" class="fillOutForms" id="email" name="email" value="<%=email %>" required>
+                            <input type="email" class="fillOutForms" id="email" name="email" value="<%=email%>" required>
                         </td>
                         <td class="td3">
                         </td>
@@ -363,7 +369,7 @@
                     <tr>
                         <td class="td1">휴대폰 </td>
                         <td class="td2">
-                            <input type="text" id="phone" class="fillOutForms" name="phone" onclick="check();" value="<%=loginUser.getPhone()%>" required>
+                            <input type="text" id="phone" class="fillOutForms" name="phone" onclick="check();" value="<%=phone%>" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck phoneDoubleCheck" disabled>인증번호 받기</button>
@@ -660,15 +666,15 @@
                 }
             })
 
-            $("#userPwd").keyup(function(){
-                if(!pwdCheck.test($("#userPwd").val())){
+            $("#newPwd").keyup(function(){
+                if(!pwdCheck.test($("#newPwd").val())){
                     $(".pwdTest1").html('유효한 비밀번호가 아닙니다.');
                 }else{
                     $(".pwdTest1").html('');
                 }
             })
 
-            $("#userPwdCheck").keyup(function(){
+            $("#newPwdCheck").keyup(function(){
                 if($("#userPwd").val() != $("#userPwdCheck").val()){
                     $(".pwdTest2").html('비밀번호가 일치하지 않습니다.');
                 }else{
@@ -722,6 +728,110 @@
             
         })
     </script>
+    
+    
+    
+    <!-- 비밀번호 변경 Modal -->
+	<div class="modal" id="changePwd">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	
+	      <!-- Modal Header -->
+	     <div class="modal-header">
+	       <h5 class="modal-title">비밀번호 변경</h5>
+	       <button type="button" class="close" data-dismiss="modal">&times;</button>
+	     </div>
+	
+	     <!-- Modal body -->
+	     <div class="modal-body" align="center">
+	       <table class="pwdModal">
+	       		<tr>
+	                 <td class="td10">기존 비밀번호</td>
+	                 <td class="td20">
+	                     <input type="password" class="fillOutForms" id="userPwd" name="userPwd" required>
+	                 </td>
+	             </tr>
+	             <tr>
+                    <td></td>
+                    <td class="td2 checkAlert"></td>
+                 </tr>
+	             <tr>
+	                 <td class="td10">새로운 비밀번호</td>
+	                 <td class="td20">
+	                     <input type="password" class="fillOutForms" id="newPwd" name="newPwd" placeholder="영문+숫자+특수문자(6~20)" required>
+	                 </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="td2 checkAlert pwdTest1"></td>
+                </tr>
+                <tr>
+	                 <td class="td10">비밀번호 확인</td>
+	                 <td class="td20">
+	                     <input type="password" class="fillOutForms" id="newPwdCheck" placeholder="영문+숫자+특수문자(6~20)" required>
+	                 </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="td2 checkAlert pwdTest2"></td>
+                </tr>
+	       </table>
+	       <br>
+	       <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="pwdUpdate();">변경하기</button>
+	     </div>
+	    </div>
+	  </div>
+	</div>
+	<script>
+		function pwdUpdate(){
+			const memId = <%=memId%>;
+			const $userPwd = $("#userPwd");
+			const $newPwd = $("#newPwd");
+			
+			$.ajax({
+				url:"<%=contextPath%>/pwdUpdate.me",
+				data:{
+					memId:$userId,
+					memPwd:$userPwd.val(),
+					newPwd:$newPwd.val()
+					},
+				type:"post",
+				success:function(result){
+					if(result == "NNNNN"){ //비밀번호변경실패
+						$("#alertPwd").alert().show();
+						$("#userPwd").val().focus();
+						
+					}else if(result == "NNNNY"){ //비밀번호변경성공
+						$('#changePwd').modal().hide();
+						$('#changePwdSuccess').modal('show');
+					}
+				},
+				error:function(){
+					console.log("비밀번호 업데이트용 ajax 통신실패");
+				}
+			})
+			
+		}
+	</script>
+	<!-- 비밀번호변경성공Modal -->
+	<div class="modal fade" id="changePwdSuccess">
+	   <div class="modal-dialog">
+	      <div class="modal-content" align="center">
+	      	
+	          비밀번호가 변경되었습니다
+	          <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+	        
+	      </div>
+	    </div>
+	  </div>
+	  
+	 <!-- 비밀번호변경실패 alert -->
+	 <div class="alert alert-danger" id="alertPwd">
+     <strong>비밀번호 변경 실패</strong> 기존 비밀번호를 다시 확인해주세요
+     </div>
+	  
+	  
+	
     <br clear="both">
      <%@ include file = "../common/footerbar.jsp" %>
 </body>

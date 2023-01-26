@@ -1,7 +1,6 @@
-package com.hp.lesson.controller;
+package com.hp.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.lesson.model.vo.Category;
-import com.hp.lesson.model.vo.Dcategory;
-import com.hp.tutor.model.service.TutorService;
+import com.hp.member.model.service.MemberService;
+import com.hp.member.model.vo.Member;
 
 /**
- * Servlet implementation class ClassEnrollFormController
+ * Servlet implementation class AjaxPwdUpdateController
  */
-@WebServlet("/clenroll.tt")
-public class ClassEnrollFormController extends HttpServlet {
+@WebServlet("/pwdUpdate.me")
+public class AjaxPwdUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClassEnrollFormController() {
+    public AjaxPwdUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,17 +30,10 @@ public class ClassEnrollFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//카테고리조회(대분류)
-		ArrayList<Category> cList = new TutorService().selectCategoryList();
-				
-		//카테고리조회(세부)
-		ArrayList<Dcategory> dList = new TutorService().selectDcategoryList();
-				
-		request.setAttribute("cList", cList);
-		request.setAttribute("dList", dList);
-		
-		
-		request.getRequestDispatcher("views/lesson/classEnrollForm.jsp").forward(request, response);
+		String memId = request.getParameter("memId");
+		String memPwd = request.getParameter("memPwd");
+		String newPwd = request.getParameter("newPwd");
+		Member updatePwdMem = new MemberService().updatePwd(memId, memPwd, newPwd);
 	}
 
 	/**
