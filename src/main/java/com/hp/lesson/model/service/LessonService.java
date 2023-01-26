@@ -174,6 +174,20 @@ public class LessonService {
 		
 	}
 	
+	public int selectTtClassCount(int clNo) {
+		Connection conn = getConnection();
+		int cCount = new LessonDao().selectTtClassCount(conn, clNo);
+		close(conn);
+		return cCount;
+	}
+	
+	public int selectTtReviewCount(int clNo) {
+		Connection conn = getConnection();
+		int rCount = new LessonDao().selectTtReviewCount(conn, clNo);
+		close(conn);
+		return rCount;
+	}
+	
 	
 	
 	

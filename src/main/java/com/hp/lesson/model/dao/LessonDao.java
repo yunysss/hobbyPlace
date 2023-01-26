@@ -648,5 +648,71 @@ private Properties prop = new Properties();
 		}
 		return rList;
 	}
+	
+	
+	/**@author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return cCount 튜터가 등록한 클래스 개수 
+	 */
+	public int selectTtClassCount(Connection conn, int clNo) {
+		int cCount = 0;
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTtClassCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				cCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return cCount;
+	}
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return rCount 튜터에게 등록된 리뷰개수 
+	 */
+	public int selectTtReviewCount(Connection conn, int clNo) {
+		int rCount = 0;
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTtReviewCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				rCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return rCount;
+	
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -35,15 +35,20 @@ public class TutorDetailPageController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int clNo = Integer.parseInt(request.getParameter("no"));
 		
+		int cCount = new LessonService().selectTtClassCount(clNo);
+		int rCount = new LessonService().selectTtReviewCount(clNo);
+		
 		Tutor t = new LessonService().selectTutorInfo(clNo);
 		ArrayList<Review> rList = new LessonService().selectTutorReview(clNo);
 		ArrayList<Lesson> cList =  new LessonService().selectTutorClass(clNo);
-		
-		System.out.println(rList);
+	
+		request.setAttribute("cCount",cCount);
+		request.setAttribute("rCount", rCount);
 		
 		request.setAttribute("t", t);
 		request.setAttribute("rList", rList);
 		request.setAttribute("cList", cList);
+		
 		request.getRequestDispatcher("views/lesson/tutorDetailPage.jsp").forward(request, response);
 	}
 
