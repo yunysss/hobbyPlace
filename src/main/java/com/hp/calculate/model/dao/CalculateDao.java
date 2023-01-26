@@ -262,5 +262,36 @@ public class CalculateDao {
 		return list;
 	}
 	
+	public Calculate selectCalDetail(Connection conn, int calNo) {
+		Calculate c = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectCalDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, calNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				c = new Calculate(rset.getInt("cal_no"),
+							  rset.getString("rq_dt"),
+							  rset.getString("price"),
+							  rset.getString("bank"),
+							  rset.getString("cal_acc"),
+							  rset.getString("cal_nm"),
+							  rset.getString("cal_sta")
+							  );
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return c;
+		
+	}
+	
 
 }

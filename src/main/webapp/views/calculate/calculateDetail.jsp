@@ -147,8 +147,8 @@
         
               <div class="modal-body" align="center">
                 정산 신청 완료되었습니다. <br><br>
-                <a href="<%= contextPath %>/views/common/tutorMainPage.jsp" class="btn btn-secondary">튜터 홈으로</a>
-                <a href="<%= contextPath %>/views/calculate/calculateList.jsp" class="btn btn-secondary">정산 내역 조회</a>
+                <a href="<%= contextPath %>/tutorMain.tt" class="btn btn-secondary">튜터 홈으로</a>
+                <a href="<%= contextPath %>/list.cal?memNo=<%= MemNo %>" class="btn btn-secondary">정산 내역 조회</a>
               </div>
         
             </div>

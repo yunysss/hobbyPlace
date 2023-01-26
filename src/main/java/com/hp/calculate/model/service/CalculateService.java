@@ -66,6 +66,12 @@ public class CalculateService {
 		return list;
 	}
 	
+	public Calculate selectCalDetail(int calNo) {
+		Connection conn = getConnection();
+		Calculate c = new CalculateDao().selectCalDetail(conn, calNo);
+		close(conn);
+		return c;
+	}
 	
 	
 	
