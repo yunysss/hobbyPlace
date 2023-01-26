@@ -124,6 +124,7 @@
 		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,1) = REG_NO)
 		  JOIN CLASS C USING(CL_NO)
           JOIN MEMBER M ON(C.MEM_NO = M.MEM_NO)
+         WHERE DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') LIKE ?
 		 ORDER 
 		    BY CAL_NO DESC
 	</entry>
@@ -142,7 +143,8 @@
 		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,1) = REG_NO)
 		  JOIN CLASS C USING(CL_NO)
           JOIN MEMBER M ON(C.MEM_NO = M.MEM_NO)
-         WHERE MEM_ID = ?
+         WHERE MEM_ID LIKE ?
+           AND DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') LIKE ?
 		 ORDER 
 		    BY CAL_NO DESC
 	</entry>
@@ -161,6 +163,7 @@
 		  JOIN CLASS C USING(CL_NO)
           JOIN MEMBER M ON(C.MEM_NO = M.MEM_NO)
 		 WHERE RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1
+		   AND DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') LIKE ?
 		 ORDER 
 		    BY CAL_NO DESC
 	</entry>
@@ -178,8 +181,9 @@
 		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,1) = REG_NO)
 		  JOIN CLASS C USING(CL_NO)
           JOIN MEMBER M ON(C.MEM_NO = M.MEM_NO)
-		 WHERE MEM_ID = ?
+		 WHERE MEM_ID LIKE ?
            AND RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1
+           AND DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') LIKE ?
 		 ORDER 
 		    BY CAL_NO DESC
 	</entry>

@@ -41,8 +41,8 @@
     background:rgb(22, 160, 133); 
     color:white;
    }
-   .searchDate input[type=radio]{display: none; margin: 10px;}
-   .searchDate input[type=radio]+label{
+   input[name=dateType], input[name=calSta]{display: none; margin: 10px;}
+   input[name=dateType]+label{
         display: inline-block;
         cursor: pointer;
         padding: 5px 8px;
@@ -53,17 +53,28 @@
         color: white;
         line-height: 16px;
     }
-    input[type="text"]{
+    input[type=text]{
             width: 150px;
             border: 1px solid rgb(202, 199, 199);
             height: 30px;
             border-radius: 5px;
     }
-    .searchDate input[type=radio]:checked+label{
+    input[name=dateType]:checked+label, input[name=dateType]:hover+label{
         background-color: rgb(22, 160, 133);
     }
-    .searchDate input[type=radio]:hover+label{
-        background-color: rgb(22, 160, 133);
+    
+    input[name=calSta]+label{
+        display: inline-block;
+        cursor: pointer;
+        padding: 5px 8px;
+        text-align: center;
+        border-radius: 5px;
+        background-color: lightGray;
+        line-height: 16px;
+    }
+    input[name=calSta]:checked+label, input[name=calSta]:hover+label{
+        background-color: gray;
+        color:white;
     }
     #tutorId{
         width:310px;
@@ -83,10 +94,20 @@
 	<%@ include file="../common/adminMenubar.jsp" %>
     <div class="outer">
         <h5><b>튜터 정산 관리</b></h5><br>
-        <div id="calMng-form" action="">
-            <b>정산 내역 조회</b>
+        <div id="calMng-form">
             <table width="850px">
                 <tbody>
+                	<tr>
+                    	<td>진행상태</td>
+                    	<td>
+                    		<input type="radio" name="calSta" id="checkAll" value="정산" checked>
+			                <label for="checkAll"><small>전체</small></label>
+			                <input type="radio" name="calSta" id="checkWait" value="진행">
+			                <label for="checkWait"><small>정산진행중</small></label>
+			                <input type="radio" name="calSta" id="checkComplete" value="완료">
+			                <label for="checkComplete"><small>정산완료</small></label>
+                    	</td>
+                    </tr>
                     <tr>
                         <td>튜터ID</td>
                         <td width="340">
@@ -132,6 +153,7 @@
                             
                         </td>
                     </tr>
+                    
                 </tbody>
                 <tfoot>
                     <tr>
@@ -244,7 +266,8 @@
     			data:{
     				memId:$("input[name=tutorId]").val(),
     				startDate:$("#searchStartDate").val(),
-    				endDate:$("#searchEndDate").val()
+    				endDate:$("#searchEndDate").val(),
+    				status:$("input[name=calSta]:checked").val()    				
     			},
     			success:function(list){
     				
@@ -279,14 +302,6 @@
         <div id="calMng-result">
             <div>
                 <b>조회 결과</b><br><br>
-            </div>
-            <div align="right">
-            	<input type="radio" name="calSta" id="checkAll" value="all" checked>
-                <label for="checkAll"><small>전체</small></label>
-                <input type="radio" name="calSta" id="checkWait" value="waiting">
-                <label for="checkWait"><small>정산진행중</small></label>
-                <input type="radio" name="calSta" id="checkComplete" value="complete">
-                <label for="checkComplete"><small>정산완료</small></label>
             </div>
             <br>
             <table width="100%" class="table" id="calMng-list">

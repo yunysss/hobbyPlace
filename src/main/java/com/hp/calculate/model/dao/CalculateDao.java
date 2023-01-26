@@ -227,7 +227,7 @@ public class CalculateDao {
 		
 	}
 	
-	public ArrayList<Calculate> selectAllSeasonCalMng(Connection conn){
+	public ArrayList<Calculate> selectAllSeasonCalMng(Connection conn, String status){
 		ArrayList<Calculate> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
@@ -235,6 +235,7 @@ public class CalculateDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + status + "%");
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -259,7 +260,7 @@ public class CalculateDao {
 		return list;
 	}
 	
-	public ArrayList<Calculate> selectMemSeasonCalMng(Connection conn, String memId){
+	public ArrayList<Calculate> selectMemSeasonCalMng(Connection conn, String memId, String status){
 		ArrayList<Calculate> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
@@ -267,7 +268,8 @@ public class CalculateDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memId);
+			pstmt.setString(1, "%" + memId + "%");
+			pstmt.setString(2, "%" + status + "%");
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -292,7 +294,7 @@ public class CalculateDao {
 		return list;
 	}
 	
-	public ArrayList<Calculate> selectAllCalMng(Connection conn, String startDate, String endDate){
+	public ArrayList<Calculate> selectAllCalMng(Connection conn, String startDate, String endDate, String status){
 		ArrayList<Calculate> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
@@ -302,6 +304,7 @@ public class CalculateDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, startDate);
 			pstmt.setString(2, endDate);
+			pstmt.setString(3, "%" + status + "%");
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -326,7 +329,7 @@ public class CalculateDao {
 		return list;
 	}
 	
-	public ArrayList<Calculate> selectMemCalMng(Connection conn, String memId, String startDate, String endDate){
+	public ArrayList<Calculate> selectMemCalMng(Connection conn, String memId, String startDate, String endDate, String status){
 		ArrayList<Calculate> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
@@ -334,9 +337,10 @@ public class CalculateDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memId);
+			pstmt.setString(1, "%" + memId + "%");
 			pstmt.setString(2, startDate);
 			pstmt.setString(3, endDate);
+			pstmt.setString(4, "%" + status + "%");
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

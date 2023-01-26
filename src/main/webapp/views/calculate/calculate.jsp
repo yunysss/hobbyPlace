@@ -96,7 +96,7 @@
            			case "complete": $(".calList-1").hide(); $(".calList-2").hide(); $(".calList-3").hide(); $(".calList-4").show();
            			}
            		})
-       		
+       			
             </script>
 	        <form action="<%= contextPath %>/detail.cal?" id="cal-2">
 	        	<input type="hidden" name ="sta" value="0">

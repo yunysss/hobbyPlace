@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 <style>
     div, p, form, input, table{box-sizing:border-box;}
-    a{text-decoration: none !important; color:black !important;}
+    
 
    .outer{width:1000px; margin:auto; padding:30px 50px;}
    #calList-form, #calList-result{
@@ -26,13 +26,12 @@
    }
 
    #calList-form td, #calList-result td{
-    text-align: center;
     vertical-align: middle;
-    font-size:12px;
-    padding:10px 0px;
-   }
-   #calList-form td{
     padding:10px;
+   }
+   #calList-result td{
+    text-align: center;
+    font-size:12px;
    }
    
    #selectCal{
@@ -49,37 +48,42 @@
         text-align:center;
         width:300px;
     }
-    thead td{
-    background:rgb(245, 245, 245);
-   }
-   .searchDate input[type=radio]{display: none; margin: 10px;}
-   .searchDate input[type=radio]+label{
-       display: inline-block;
-       cursor: pointer;
-       padding: 5px 8px;
-       text-align: center;
-       font-size: 12px;
-       border-radius: 5px;
-       background-color: rgb(101, 99, 99);
-       color: white;
-       line-height: 16px;
-   }
-   input[type="text"]{
-        width: 150px;
-        border: 1px solid rgb(202, 199, 199);
-        height: 30px;
+   input[type=radio]{display: none; margin: 10px;}
+   input[name=dateType]+label{
+        display: inline-block;
+        cursor: pointer;
+        padding: 5px 8px;
+        text-align: center;
+        font-size: 12px;
         border-radius: 5px;
-   }
-   .searchDate input[type=radio]:checked+label{
-       background-color: rgb(22, 160, 133);
-   }
-   .searchDate input[type=radio]:hover+label{
-       background-color: rgb(22, 160, 133);
-   }
-   input[name="calSta"]+label{
-   		margin-right:10px;
-   }
-   #calListModal table td{
+        background-color: rgb(101, 99, 99);
+        color: white;
+        line-height: 16px;
+    }
+    input[type=text]{
+            width: 160px;
+            border: 1px solid rgb(202, 199, 199);
+            height: 30px;
+            border-radius: 5px;
+    }
+    input[name=dateType]:checked+label, input[name=dateType]:hover+label{
+        background-color: rgb(22, 160, 133);
+    }
+    
+    input[name=calSta]+label{
+        display: inline-block;
+        cursor: pointer;
+        padding: 5px 8px;
+        text-align: center;
+        border-radius: 5px;
+        background-color: lightGray;
+        line-height: 16px;
+    }
+    input[name=calSta]:checked+label, input[name=calSta]:hover+label{
+        background-color: gray;
+        color:white;
+    }
+   .calListModal table td{
    		text-align:center;
         width:320px;
    }
@@ -94,8 +98,19 @@
 	<div class="outer">
         <h5><b>정산 내역</b></h5><br>
         <div id="calList-form">
-            <b>정산 내역 조회</b>
-            <table width="850px">
+            <table width="700px">
+            	<tr>
+                	<td>정산 진행 상태</td>
+                	<td>
+                		<input type="radio" name="calSta" id="checkAll" value="정산" checked>
+                        <label for="checkAll">전체</label>
+                        <input type="radio" name="calSta" id="checkWait" value="진행">
+                        <label for="checkWait">정산진행중</label>
+                        <input type="radio" name="calSta" id="checkComplete" value="완료">
+                        <label for="checkComplete">정산완료</label>
+                	</td>
+                	<td></td>
+                </tr>
                 <tr>
                     <td>조회 기간</td>
                     <td>
@@ -111,15 +126,8 @@
 	                            <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" >
 	                            <a href="#none" class="btncalendar dateclick"></a>
 	                        </span>
-	                        &nbsp;
-	                        <button type="button" class="btn btn-secondary btn-sm" onclick="resetAll();">초기화</button>
 	                    </div>    
                     </td>
-                    <td>
-                        <button type="button" class="btn btn-sm" id="selectCal" onclick="selectCalList();">조회</button>
-                    </td>
-                <tr>
-                    <td></td>
                     <td>
                         <div class="searchDate">
 		                    <span class="chkbox2">
@@ -141,18 +149,12 @@
 	                    </div>   
                     </td>
                 </tr>
-                <tr>
-                	<td></td>
-                	<td>
-                		<input type="radio" name="calSta" id="checkAll" value="정산" checked>
-                        <label for="checkAll">전체</label>
-                        <input type="radio" name="calSta" id="checkWait" value="진행">
-                        <label for="checkWait">정산진행중</label>
-                        <input type="radio" name="calSta" id="checkComplete" value="완료">
-                        <label for="checkComplete">정산완료</label>
-                	</td>
-                </tr>
             </table>
+            <br>
+            <div align="center">
+	            <button type="button" class="btn btn-sm" id="selectCal" onclick="selectCalList();">조회</button>
+	            <button type="button" class="btn btn-secondary btn-sm" onclick="resetAll();">초기화</button>
+            </div>
         </div>
 		<script>
 			function resetAll(){
@@ -324,9 +326,8 @@
         </div>
     </div>
     <script>
-    	$(".detail-btn").click(function(){
-    		
-    		$.ajax({
+	    $(document).on("click", ".detail-btn", function(){
+	    	$.ajax({
     			url:"<%= contextPath %>/detailView.cal",
     			data:{calNo:$(this).parent().siblings().eq(0).text()},
     			success:function(c){
@@ -362,17 +363,17 @@
     							+	"</tr>"
     							+ "</table>";
     				$("#modal-inner").html(value);
-    				$('#calListModal').modal('show'); 
+    				$('.calListModal').modal('show'); 
     			},error:function(){
     				console.log("정산상세내역 조회용 ajax 통신실패");
     			}
     		})
-    	})
+	    })
     	function CommaFormat(x) {
 		  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
     </script>
-    <div class="modal fade" id="calListModal">
+    <div class="modal fade calListModal">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             

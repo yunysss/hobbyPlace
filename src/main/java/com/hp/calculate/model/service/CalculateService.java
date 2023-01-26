@@ -64,30 +64,30 @@ public class CalculateService {
 		return c;
 	}
 	
-	public ArrayList<Calculate> selectAllSeasonCalMng(){
+	public ArrayList<Calculate> selectAllSeasonCalMng(String status){
 		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectAllSeasonCalMng(conn);
+		ArrayList<Calculate> list = new CalculateDao().selectAllSeasonCalMng(conn, status);
 		close(conn);
 		return list;
 	}
 	
-	public ArrayList<Calculate> selectMemSeasonCalMng(String memId){
+	public ArrayList<Calculate> selectMemSeasonCalMng(String memId, String status){
 		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectMemSeasonCalMng(conn, memId);
+		ArrayList<Calculate> list = new CalculateDao().selectMemSeasonCalMng(conn, memId, status);
 		close(conn);
 		return list;
 	}
 	
-	public ArrayList<Calculate> selectAllCalMng(String startDate, String endDate){
+	public ArrayList<Calculate> selectAllCalMng(String startDate, String endDate, String status){
 		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectAllCalMng(conn, startDate, endDate);
+		ArrayList<Calculate> list = new CalculateDao().selectAllCalMng(conn, startDate, endDate, status);
 		close(conn);
 		return list;
 	}
 	
-	public ArrayList<Calculate> selectMemCalMng(String memId, String startDate, String endDate){
+	public ArrayList<Calculate> selectMemCalMng(String memId, String startDate, String endDate, String status){
 		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectMemCalMng(conn, memId,startDate, endDate);
+		ArrayList<Calculate> list = new CalculateDao().selectMemCalMng(conn, memId,startDate, endDate, status);
 		close(conn);
 		return list;
 	}

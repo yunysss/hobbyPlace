@@ -35,22 +35,23 @@ public class AjaxCalculateMngController extends HttpServlet {
 		String memId = request.getParameter("memId");
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
+		String status = request.getParameter("status");
 		
 		response.setContentType("application/json; charset=UTF-8");
 		if(startDate.equals("") && endDate.equals("")) {
 			if(memId.equals("")) {
-				ArrayList<Calculate> list = new CalculateService().selectAllSeasonCalMng();
+				ArrayList<Calculate> list = new CalculateService().selectAllSeasonCalMng(status);
 				new Gson().toJson(list, response.getWriter());
 			} else {
-				ArrayList<Calculate> list = new CalculateService().selectMemSeasonCalMng(memId);
+				ArrayList<Calculate> list = new CalculateService().selectMemSeasonCalMng(memId, status);
 				new Gson().toJson(list, response.getWriter());
 			}
 		}else {
 			if(memId.equals("")) {
-				ArrayList<Calculate> list = new CalculateService().selectAllCalMng(startDate, endDate);
+				ArrayList<Calculate> list = new CalculateService().selectAllCalMng(startDate, endDate, status);
 				new Gson().toJson(list, response.getWriter());
 			} else {
-				ArrayList<Calculate> list = new CalculateService().selectMemCalMng(memId, startDate, endDate);
+				ArrayList<Calculate> list = new CalculateService().selectMemCalMng(memId, startDate, endDate, status);
 				new Gson().toJson(list, response.getWriter());
 			}
 		}
