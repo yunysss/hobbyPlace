@@ -164,15 +164,7 @@
             <h6 style="font-weight: 550; font-size: 15px; ">클래스 일정</h6>
             <hr>
             <table>
-                <tr>
-                    <th>판매시작일</th>
-                    <td><%=l.getStartDate() %></td>
-                </tr>
-                <tr>
-                    <th>판매종료일</th>
-                    <td> <%=l.getEndDate() %></td>
-                </tr>
-
+              
                 <tr>
                     <th>일정</th>
                     <td><%=l.getClSchedule() %> &nbsp; <%=l.getClDay() %></td>

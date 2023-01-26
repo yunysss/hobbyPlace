@@ -368,6 +368,17 @@
                     </div>
 
                 </div>
+                
+                 <script>
+		        	$(function(){
+		        		$("#clTable>tbody>tr").click(function(){
+		        			location.href="<%=contextPath%>/cldetail.tt?no="+$(this).children().eq(0).text();
+		        		})
+		        	})
+		        
+		        
+		        </script>
+                
 
          <div class="paging-area">
         	<%if(pi.getCurrentPage() != 1){ %>    

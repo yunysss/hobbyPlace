@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "com.hp.lesson.model.vo.* , com.hp.tutor.model.vo.*,java.util.ArrayList" %>        
+<% 
+	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("sList");
+	Lesson l = (Lesson)request.getAttribute("l");
+
+%>          
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
  <style>
-            .outer{
+          .outer{
                 padding: 30px 50px;
                 font-size: smaller;
     
@@ -59,190 +66,260 @@
                 font-size: small;
             }
 
+         
+    
+
     </style>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- 카카오 -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        
 </head>
 <body>
 <%@ include file="../common/tutorMenubar.jsp" %>
 
-
- <div class="outer">
-                    
-                    <form action="" id="class_list" >
-                    <h5 style="font-weight: 900;">내 클래스 목록</h5>
-                    <br>
-                    <h6 style="font-weight:600">클래스 조회</h6>
-                    <hr><br>
-                    <table id="class-select">
+  <div class="outer">
+                        
+            
+            <h5 style="font-weight: 900;">클래스 관리</h5>
+            <br>
+            <span style="font-size: 15px; font-weight:550" id="detail">클래스 상세내역
+            </span> 
+            <form action="<%=contextPath %>/" method="post">
+            <div id="btn-area" >
+            <button class="btn btn-secondary btn-sm a">수정</button>
+            <button  type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classDelete">삭제</button>
+            </div>
+        
+            <hr>
+            <div id="detail-area">
+                <div id="thumbnail">
+                    <table id="img-area">
                         <tr>
-                            <th width="100">검색어</th>
-                            <td><input type="search">
-                               
-                            </td>
-
-                        </tr>
-
-                        <tr>
-                            <th>조회기간</th>
-                            <td>
-                                <div class="clearfix">
-                                    <!-- 시작일 -->
-                                    <span class="dset">
-                                        <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >
-                                        <a href="#none" class="btncalendar dateclick"></a>
-                                    </span>
-                                    <span class="demi">-</span>
-                                    <!-- 종료일 -->
-                                    <span class="dset">
-                                        <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" >
-                                        <a href="#none" class="btncalendar dateclick"></a>
-                                    </span>
-                                </div>    
-
-                                <div class="searchDate">
-                                <span class="chkbox2">
-                                    <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
-                                    <label for="dateType1">&nbsp;오늘&nbsp;</label>
-                                 </span>
-                                 <span class="chkbox2">
-                                    <input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('1m')"/>
-                                    <label for="dateType5">1개월</label>
-                                 </span>
-                                 <span class="chkbox2">
-                                    <input type="radio" name="dateType" id="dateType6" onclick="setSearchDate('3m')"/>
-                                    <label for="dateType6">3개월</label>
-                                 </span>
-                                 <span class="chkbox2">
-                                    <input type="radio" name="dateType" id="dateType7" onclick="setSearchDate('6m')"/>
-                                    <label for="dateType7">6개월</label>
-                                 </span>
-                                </div>
-                            
-                            </td>
-                            
-                           
-                        </tr>
-                        <tr>
-                            <th>등록상태</th>
-                            <td>
-                                <input type="checkbox" name="status" id="chkAll" value="">
-                                <label for="">전체</label>
-                                <input type="checkbox" name="status" id="" value="">
-                                <label for="">검수요청</label>
-                                <input type="checkbox" name="status" id="" value="">
-                                <label for="">신청반려</label>
-                                <input type="checkbox" name="status" id="" value="">
-                                <label for="">판매중</label>
-                                <input type="checkbox" name="status" id="" value="">
-                                <label for="">판매중지</label>
+                            <td colspan="3" height="260px">
+                                <img id="mainImg" src="<%=l.getClThumb() %>" width="450" height="250" >
                             </td>
                         </tr>
-                    </table>    
-                    <script>
-                        $(function(){
-                            $("#chkAll").click(function(){
-                                if($(this).is(":checked")){
-                                    $("input[name=status]").attr("checked",true);
-                                }else{
-                                    $("input[name=status]").attr("checked",false);
-                                }
-                            })
-                        })
-                    </script>
-
-                    <br>
-                    <hr>
-                    <div align="center">
-                    <button type="submit" class="btn btn-secondary btn-sm">조회하기</button>
-                    
-                    
-                    </div>
-
-                    </form>
-                    <br><br>
-
-                    <div id="list">
-                        <h6 style="font-weight:600">조회 결과</h6>
-                        <hr>
-                        <div id="table-area" align="center">
-                        <table class="table table-hover" id="clTable">
-                            <thead class="thead-light">
-                            <tr>
-                                <th>클래스번호</th>
-                                <th width="120">카테고리</th>
-                                <th width="400">클래스명</th>
-                                <th width="100">등록일</th>
-                                <th width="80">상태</th>
-                                <th width="100">반려사유</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                          	<%if (list.isEmpty()){ %>
-                            <tr>
-                                <td colspan="5">등록된 클래스가 없습니다.</td>
-                                
-                            </tr>
-                            <%} else{%>
-                            <!-- 등록된 클래스 있을 경우 -->
-                            	<%for (Lesson l : list) {%>
-                                <tr>
-                                    <td><%=l.getClNo() %></td>
-                                    <td><%=l.getCtDno() %></td>
-                                    <td><%=l.getClName() %></td>
-                                    <td><%=l.getEnrollDate() %></td>
-                                    <td>
-                                     <%String status = l.getClStatus();
-			                            switch(String.valueOf(status)){
-			                              case "0" : status ="검수요청"; break;
-			                              case "1" : status ="검수반려"; break;
-			                              case "2" : status ="판매중"; break;
-			                              case "3" : status ="판매중지"; break;
-			                                }
-                                
-                
-                               		 %>
-                         				 <%=status %>
-
-                                    </td>
-                                    <td><%= l.getClRefuse()==null ? "" : l.getClRefuse() %></td>
-                                </tr>
-                                <%} %>
-                             <%} %>
-                            </tbody>
-                        </table>
-                        </div>
-
-                    </div>
-
+                        <tr>
+                            <div id="img">
+                                <td>
+                                    <img id="img1" src="" height="98px" width="148px"> 
+                                </td>
+                                <td>
+                                    <img id="img2" src=""height="98px" width="148px">
+                                </td>
+                                <td>
+                                    <img id="img3" src="" height="98px" width="148px">
+                                </td>
+                            </div>
+                        </tr>
+                    </table>
                 </div>
+    
+                <div id="classInfo">
+                    <div id="className"><h4 style="font-weight: 600;"><%=l.getClName() %></h4></div>
+                    <div id="classPrice"><h5 style="font-weight: 550;"><%=l.getClPrice() %> 원</h5></div>
+                    <div id="tutorInfo">
+                        <div id="tutorImg">
+                        <img src="<%=request.getContextPath()%>/<%=ttProfile %>"  width="80"  class="rounded-circle" alt="Cinque Terre" >
+                        <label style="font-weight: 600;"> &nbsp; <%=l.getMemNo() %></label>
+                        </div>
+                        
+                        <div id="tutorIntroduce">
+                            <div style="font-weight: 600"> </div>
+                            <p><%=l.getIntroduce() %></p>
+                          	
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <br><br>
+            <div id="classDetail">
+            <h6 style="font-weight: 550; font-size: 15px; ">클래스 정보</h6>
+            <hr>
+            <div>
+                <table>
+                    <tr>
+                        <th>난이도</th>
+                        <td><%=l.getClLevel() %></td>
+                    </tr>
+                    <tr>
+                        <th>최대인원</th>
+                        <td><%=l.getClMax() %> 명</td>
+                    </tr>
+                </table>
+            </div>
+    
+            <br><br>
+            <h6 style="font-weight: 550; font-size: 15px; ">클래스 일정</h6>
+            <hr>
+            <table>
+   
+                <tr>
+                    <th>일정</th>
+                    <td><%=l.getClSchedule() %> &nbsp; <%=l.getClDay() %></td>
+                </tr>
+                <tr>
+                    <th>스케줄</th>
+                    <td>
+           			<%for(Schedule s : sList) {%>
+           			<%=s.getSessionNo()%> 회차 : <%=s.getStartTime() %> - <%=s.getEndTime() %><br>
+           			<%} %>
+                    </td>
+                    
+                </tr>
+            </table>
+            <br><br>
+    
+    
+            <h6 style="font-weight: 550; font-size: 15px; ">클래스 소개</h6>
+            <hr>
+            <div>
+              <!--  clob 변환해야됨 -->
+                <%=l.getClDetail() %>
+                
+  
+            </div>
+    
+            <br><br>
+            <h6 style="font-weight: 550; font-size: 15px; ">커리큘럼</h6>
+            <hr>
+            <div>
+               <%=l.getCurriculum() %>
+                
+    
+            </div>
+            <br><br>
+            <h6 style="font-weight: 550; font-size: 15px; ">진행장소</h6>
+            <hr>
+            <div id="map" style="width:600px;height:300px;"></div>
+    
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=19e99c5794a1b621123d4304f847fd72&libraries=services"></script>
+            <script>
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                mapOption = {
+                    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                };  
+            
+            // 지도를 생성합니다    
+            var map = new kakao.maps.Map(mapContainer, mapOption); 
+            
+            // 주소-좌표 변환 객체를 생성합니다
+            var geocoder = new kakao.maps.services.Geocoder();
+            
+            // 주소로 좌표를 검색합니다
+            geocoder.addressSearch('<%=l.getClAddress()%>', function(result, status) {
+            
+                // 정상적으로 검색이 완료됐으면 
+                 if (status === kakao.maps.services.Status.OK) {
+            
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            
+                    // 결과값으로 받은 위치를 마커로 표시합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords
+                    });
+            
+                    // 인포윈도우로 장소에 대한 설명을 표시합니다
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content: '<div style="width:150px;text-align:center;padding:6px 0;">클래스장소</div>'
+                    });
+                    infowindow.open(map, marker);
+            
+                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                    map.setCenter(coords);
+                } 
+            });    
+            </script>
+         
+    
+       
+    
+    
+            <div>
+                <b>찾아오는 길</b> <br>
+                <%=l.getClAddress()%>
+                 
+            </div>
+            <br><br>
+            <h6 style="font-weight: 550;font-size: 15px; ">부가정보</h6>
+            <hr>
+            <div>
+                <table>
+                    <tr>
+                        <th>준비물</th>
+                        <td>
+                        <%String supplies = l.getClSupplies() == null? "없음" : l.getClSupplies() ;%>
+                        <%=supplies %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>검색키워드</th>
+                        <td>
+                         <%String keyword = l.getKeyword() == null? "없음" : l.getKeyword() ;%>
+                        <%=keyword %>
+                        
+                         </td>
+                    </tr>
+                </table>
+                
+            </div>
+    
+    
+            <br><br>
+            <h6 style="font-weight: 550;font-size: 15px; ">취소/환불규정</h6>
+            <hr>
+            <div style="width: 300px">
+               <%=l.getRefundPolicy()%>
 
-         <div class="paging-area">
-        	<%if(pi.getCurrentPage() != 1){ %>    
-        		
-            		<button onclick="location.href='<%=contextPath%>/myclass.tt?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
-            <%} %>
-			
-			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
-           		 <button onclick="location.href='<%=contextPath%>/myclass.tt?cpage=<%=p%>';"><%= p %></button>
-           		 
-            <%} %>
-          
-            <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
-            <button onclick="location.href='<%=contextPath%>/myclass.tt?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
-            <%} %>
-        	
-               
+            </div>
+        </form>
+            <div align="center">
+                <a href="<%=contextPath%>/ttclass.tt?cpage=1"class="btn btn-secondary btn-sm a">목록으로</a>
+            </div>
+            
+        
         </div>
-                  <%@ include file="../common/footerbar.jsp" %>
-	
-</body>
-</html>
+     
+        <div class="container">
+            <!-- The Modal -->
+            <div class="modal" id="classDelete">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                    
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h6 class="modal-title">클래스 삭제</h6>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  
+                  <!-- Modal body -->
+                  <div class="modal-body" align="center">
+                    <b>삭제 후 복구가 불가합니다.<br>
+                    정말로 삭제하시겠습니까? <br><br>
+                    </b>
+                  </div>
+                  
+                  <div align="center">
+                  <form action="<%=contextPath %>/Deletecl.tt" method="post">
+		        	<input type="hidden" name="classNo" value="<%=l.getClNo()%>">
+		        	<button type="submit" class="btn btn-danger btn-sm">삭제하기</button>
+		        <br><br>
+		        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+    
 
-
-
-
-
-
-
-
-
-
+        
+    </body>
+    </html>
+ 

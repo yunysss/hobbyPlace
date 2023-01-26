@@ -15,6 +15,7 @@ import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.lesson.model.vo.Schedule;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.vo.Tutor;
 
@@ -246,6 +247,12 @@ public class TutorDao {
 	
 	
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param checkNick
+	 * @return count 튜터 닉네임중복조회
+	 */
 	public int nickCheck(Connection conn, String checkNick) {
 		int count = 0;
 		PreparedStatement pstmt = null;
@@ -449,10 +456,102 @@ public class TutorDao {
 		
 		return result;
 	}
-
-
 	
-	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return l : Lesson객체 
+	 */
+	public Lesson selectClass(Connection conn, int clNo) {
+		Lesson l = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectClass");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			rset = pstmt.executeQuery();
+			
+			
+			if(rset.next()) {
+				
+				l = new Lesson(rset.getInt("cl_no"),
+							rset.getString("ct_name"),
+							rset.getString("ct_dname"),
+							rset.getString("tt_name"),
+							rset.getString("local_name"),
+							rset.getString("distr_name"),
+							rset.getString("cl_name"),
+							rset.getString("cl_address"),
+							rset.getInt("cl_max"),
+							rset.getString("cl_level"),
+							rset.getString("start_date"),
+							rset.getString("end_date"),
+							rset.getInt("cl_times"),
+							rset.getString("cl_schedule"),
+							rset.getString("cl_day"),
+							rset.getString("cl_price"),
+							rset.getString("cl_detail"),
+							rset.getString("curriculum"),
+							rset.getString("refundPolicy"),
+							rset.getString("cl_supplies"),
+							rset.getString("keyword"),
+							rset.getDate("enroll_date"),
+							rset.getString("cl_status"),
+							rset.getString("cl_thumb"),
+							rset.getString("introduce")
+							
+						);
+			}
+		
+	     
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		return l;
 
+	}
 
+	/**
+	 * @author 한빛
+	 * @param clNo
+	 * @return Schedule s
+	 */
+	public ArrayList<Schedule> selectSchedule(Connection conn, int clNo) {
+		
+		ArrayList<Schedule> sList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectSchedule");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				sList.add(new Schedule(rset.getInt("sch_no"),
+								 rset.getString("cl_no"),
+								 rset.getInt("session_no"),
+								 rset.getString("start_time"),
+								 rset.getString("end_time")
+						));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		return sList;
+	}
 }
