@@ -237,7 +237,7 @@
                 <tr>
                     <th width="100">검색어</th>
                     <td>
-                        <input type="search">
+                        <input type="search" name="keyword">
 
                     </td>
 
@@ -332,9 +332,7 @@
 
             </div>
             <script>
-               function searchClass(){
-            	   alert("click");
-               }
+            
             
            </script>
 		</div>

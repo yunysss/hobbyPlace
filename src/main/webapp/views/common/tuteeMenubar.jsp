@@ -587,10 +587,10 @@
             <tr>
                 <th>지역</th>
                 <td>
-                    <select name="region" id="region" onchange="changeregion();">
-                    <option value="">서울</option>
-                    <option value="">경기도</option>
-                    <option value="">인천</option>
+                    <select name="sido "id="region" onchange="sidoChange();">
+                    <option value="10">서울</option>
+                    <option value="20">인천</option>
+                    <option value="30">경기도</option>
                     
                      </select>
 
@@ -598,10 +598,10 @@
                        
                      </select>
                 </td>
-     
-                
-                
+ 
             </tr>
+
+            
             <tr>
                 <th height="30"width="100">날짜</th>
                 <td>
@@ -676,8 +676,38 @@
             RangeSlider();
             
             
-            </script>
+          </script>
+          
+            <script>
+         	function sidoChange(){
+         	var seoul = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
+         	var incheon = ["계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
+         	var gyeonggi= ["고양시","과천시","광명시","광주시","구리시","군포시","김포시","남양주시","동두천시","부천시","성남시","수원시","시흥시","안산시","안성시","안양시","양주시","오산시","용인시","의왕시","의정부시","이천시","파주시","평택시","포천시","하남시","화성시","가평군","양평군","여주군","연천군"];
+         	
+
+         	var change;
+         	
+         	if( $("#region").val() == "10"){
+         		change = seoul;
+         		
+         	}else if( $("#region").val() == "20"){
+         		change = incheon;
+         	}else if( $("#region").val() == "30"){
+         		change = gyeonggi;
+
+         	}
+         	$("#district").empty();
+         	for(var i=0; i<change.length; i++){
+         		var option = $("<option>"+change[i]+"</option>");
+         		$("#district").append(option);
+         	}
+         	
+         }
+        
+         
+         </script>   
        
+  
     </form>
     </div>
 

@@ -143,10 +143,16 @@
                             <p><%=l.getIntroduce() %></p>
                           	
                                 
-                        </div>
+                      </div>
                     </div>
                 </div>
             </div>
+            <script>
+              $(function(){
+            	  
+              })
+            
+            </script>
             
             
             <br><br>

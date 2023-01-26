@@ -88,7 +88,7 @@
             <form action="<%=contextPath %>/" method="post">
             <div id="btn-area" >
             <button class="btn btn-secondary btn-sm a">수정</button>
-            <button  type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classDelete">삭제</button>
+            <button  type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classDelete">판매중단</button>
             </div>
         
             <hr>
@@ -294,21 +294,21 @@
                     
                   <!-- Modal Header -->
                   <div class="modal-header">
-                    <h6 class="modal-title">클래스 삭제</h6>
+                    <h6 class="modal-title">클래스 판매중단</h6>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   
                   <!-- Modal body -->
                   <div class="modal-body" align="center">
-                    <b>삭제 후 복구가 불가합니다.<br>
-                    정말로 삭제하시겠습니까? <br><br>
+                    <b>판매중단 후 복구가 불가능합니다.<br>
+                    정말로 중단하시겠습니까? <br><br>
                     </b>
                   </div>
                   
                   <div align="center">
                   <form action="<%=contextPath %>/Deletecl.tt" method="post">
 		        	<input type="hidden" name="classNo" value="<%=l.getClNo()%>">
-		        	<button type="submit" class="btn btn-danger btn-sm">삭제하기</button>
+		        	<button type="submit" class="btn btn-danger btn-sm">확인</button>
 		        <br><br>
 		        </form>
                     </div>
