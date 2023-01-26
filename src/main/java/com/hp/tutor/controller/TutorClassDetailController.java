@@ -1,28 +1,30 @@
-package com.hp.member.controller;
+package com.hp.tutor.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.hp.member.model.service.MemberService;
-import com.hp.member.model.vo.Member;
+import com.hp.lesson.model.vo.Lesson;
+import com.hp.lesson.model.vo.Schedule;
+import com.hp.tutor.model.service.TutorService;
+import com.hp.tutor.model.vo.Tutor;
 
 /**
- * Servlet implementation class AjaxPwdUpdateController
+ * Servlet implementation class TutorClassDetailController
  */
-@WebServlet("/pwdUpdate.me")
-public class AjaxPwdUpdateController extends HttpServlet {
+@WebServlet("/cldetail.tt")
+public class TutorClassDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxPwdUpdateController() {
+    public TutorClassDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,24 +33,21 @@ public class AjaxPwdUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memId = request.getParameter("memId");
-		String memPwd = request.getParameter("memPwd");
-		String newPwd = request.getParameter("newPwd");
-		Member updatePwdMem = new MemberService().updatePwd(memId, memPwd, newPwd);
+	
+		int clNo = Integer.parseInt(request.getParameter("no"));
 		
-		if(updatePwdMem != null) { // 비밀번호 수정 성공
-			HttpSession session = request.getSession();
-			
-			response.getWriter().print("NNNNY");
-			session.setAttribute("loginUser", updatePwdMem);
-			
-		}else { // 실패
-			
-			response.getWriter().print("NNNNN");
-						
-		}
+		
+		Lesson l = new TutorService().selectClass(clNo);
+		ArrayList<Schedule> sList = new TutorService().selectSchedule(clNo);
+	
+		
+		request.setAttribute("l", l);
+		request.setAttribute("sList", sList);
+		
+		
+		request.getRequestDispatcher("views/tutor/tutorClassDetailView.jsp").forward(request, response);
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

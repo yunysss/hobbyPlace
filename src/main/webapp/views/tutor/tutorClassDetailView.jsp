@@ -1,29 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.hp.lesson.model.vo.* , com.hp.tutor.model.vo.*,java.util.ArrayList" %>    
-    
+<%@ page import = "com.hp.lesson.model.vo.* , com.hp.tutor.model.vo.*,java.util.ArrayList" %>        
 <% 
 	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("sList");
 	Lesson l = (Lesson)request.getAttribute("l");
-	Tutor t = (Tutor)session.getAttribute("tutor");
-	String ttProfile = t.getTtProfile() ==  null? "resources/tutorProfile_upfiles/defaultimg.jpg" : t.getTtProfile();
 
-	String alertMsg = (String)session.getAttribute("alertMsg");
-%>      
+%>          
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <!-- 카카오 -->
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-     
-    
-    <style>
-            .outer{
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <style>
+          .outer{
                 padding: 30px 50px;
                 font-size: smaller;
     
@@ -78,24 +68,27 @@
 
          
     
+
     </style>
-    </head>
-    <body>
-        <%@ include file="../common/adminMenubar.jsp" %>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- 카카오 -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         
-        
-        
-        <div class="outer">
+</head>
+<body>
+<%@ include file="../common/tutorMenubar.jsp" %>
+
+  <div class="outer">
                         
             
             <h5 style="font-weight: 900;">클래스 관리</h5>
             <br>
             <span style="font-size: 15px; font-weight:550" id="detail">클래스 상세내역
             </span> 
-            <form action="<%=contextPath %>/approval.ad?no=<%=l.getClNo() %>" method="post">
+            <form action="<%=contextPath %>/" method="post">
             <div id="btn-area" >
-            <button class="btn btn-secondary btn-sm a">승인</button>
-            <button  type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classReject">반려</button>
+            <button class="btn btn-secondary btn-sm a">수정</button>
+            <button  type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classDelete">삭제</button>
             </div>
         
             <hr>
@@ -164,7 +157,7 @@
             <h6 style="font-weight: 550; font-size: 15px; ">클래스 일정</h6>
             <hr>
             <table>
-              
+   
                 <tr>
                     <th>일정</th>
                     <td><%=l.getClSchedule() %> &nbsp; <%=l.getClDay() %></td>
@@ -188,11 +181,7 @@
               <!--  clob 변환해야됨 -->
                 <%=l.getClDetail() %>
                 
-    
-    
-    
-    
-    
+  
             </div>
     
             <br><br>
@@ -291,44 +280,35 @@
             </div>
         </form>
             <div align="center">
-                <a href="<%=contextPath%>/newcl.ad?cpage=1"class="btn btn-secondary btn-sm a">목록으로</a>
+                <a href="<%=contextPath%>/ttclass.tt?cpage=1"class="btn btn-secondary btn-sm a">목록으로</a>
             </div>
             
         
         </div>
      
-        </div>
-
         <div class="container">
             <!-- The Modal -->
-            <div class="modal" id="classReject">
+            <div class="modal" id="classDelete">
               <div class="modal-dialog">
                 <div class="modal-content">
                     
                   <!-- Modal Header -->
                   <div class="modal-header">
-                    <h6 class="modal-title">클래스반려</h6>
+                    <h6 class="modal-title">클래스 삭제</h6>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   
                   <!-- Modal body -->
                   <div class="modal-body" align="center">
-                    <b>반려 후 변경이 불가합니다.<br>
-                    정말로 반려하시겠습니까? <br><br>
+                    <b>삭제 후 복구가 불가합니다.<br>
+                    정말로 삭제하시겠습니까? <br><br>
                     </b>
                   </div>
                   
                   <div align="center">
-                  <form action="<%=contextPath %>/refuse.ad" method="post">
-                    
+                  <form action="<%=contextPath %>/Deletecl.tt" method="post">
 		        	<input type="hidden" name="classNo" value="<%=l.getClNo()%>">
-		        	반려사유 : <input type="text" name="causeOfReturn" list="list">
-		        	<datalist id="list">
-                        <option>주제/내용 부적절</option>
-                        <option>내용 부족</option>
-                        <option>별로임..</option>
-                    </datalist>
-		        	<button type="submit" class="btn btn-danger btn-sm">반려하기</button>
+		        	<button type="submit" class="btn btn-danger btn-sm">삭제하기</button>
 		        <br><br>
 		        </form>
                     </div>
@@ -338,6 +318,8 @@
             
           </div>
     
+
         
     </body>
     </html>
+ 

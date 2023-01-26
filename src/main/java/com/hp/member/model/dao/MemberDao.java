@@ -205,7 +205,7 @@ public class MemberDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateMember");
-		
+		System.out.println("회원정보수정");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m.getMemNick());
@@ -274,8 +274,34 @@ public class MemberDao {
 		return updateMem;
 	}
 
+	/** 수정된 비밀번호 insert dao
+	 * @author 수연
+	 * @param conn
+	 * @param memId
+	 * @param memPwd
+	 * @param newPwd
+	 * @return result
+	 */
 	public int updatePwd(Connection conn, String memId, String memPwd, String newPwd) {
-		return 0;
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, memId);
+			pstmt.setString(3, memPwd);
+			
+			result = pstmt.executeUpdate();
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 

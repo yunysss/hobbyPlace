@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.hp.lesson.model.vo.* , java.util.ArrayList" %>    
+<%@ page import = "com.hp.lesson.model.vo.* , java.util.ArrayList,com.hp.tutor.model.vo.*" %>    
     
 <% 
 	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("sList");
+	Tutor t = (Tutor)session.getAttribute("tutor");
+	String ttProfile = t.getTtProfile() ==  null? "resources/tutorProfile_upfiles/defaultimg.jpg" : t.getTtProfile();
 	Lesson l = (Lesson)request.getAttribute("l");
 
 %>    
@@ -132,7 +134,7 @@
                     <div id="classPrice"><h5 style="font-weight: 550;"><%=l.getClPrice() %> 원</h5></div>
                     <div id="tutorInfo">
                         <div id="tutorImg">
-                        <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg"  width="80"  class="rounded-circle" alt="Cinque Terre" >
+                        <img src="<%=request.getContextPath()%>/<%=ttProfile %>"  width="80"  class="rounded-circle" alt="Cinque Terre" >
                         <label style="font-weight: 600;"> &nbsp; <%=l.getMemNo() %></label>
                         </div>
                
@@ -168,15 +170,7 @@
             <h6 style="font-weight: 550; font-size: 15px; ">클래스 일정</h6>
             <hr>
             <table>
-                <tr>
-                    <th>판매시작일</th>
-                    <td><%=l.getStartDate() %></td>
-                </tr>
-                <tr>
-                    <th>판매종료일</th>
-                    <td> <%=l.getEndDate() %></td>
-                </tr>
-
+ 
                 <tr>
                     <th>일정</th>
                     <td><%=l.getClSchedule() %> &nbsp; <%=l.getClDay() %></td>

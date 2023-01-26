@@ -154,4 +154,13 @@
 	       AND MEM_STATUS = 'Y' 
 	</entry>
 	
+	<!-- 비밀번호 수정 요청 -->
+	<entry key="updatePwd">
+		UPDATE MEMBER
+		   SET MEM_PWD = ?
+             , MEM_UPDATE = SYSDATE
+		 WHERE MEM_ID = ?
+		   AND MEM_PWD = ?
+	</entry>
+	
 </properties>

@@ -83,7 +83,7 @@
 	        CL_TIMES,
 	        CL_SCHEDULE,
 	        CL_DAY,
-	        CL_PRICE,
+	        TO_CHAR(CL_PRICE, '999,999,999')"CL_PRICE",
 	        CL_DETAIL,
 	        CURRICULUM,
 	        REFUNDPOLICY,

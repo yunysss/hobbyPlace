@@ -8,10 +8,12 @@ import static com.hp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.admin.model.dao.AdminDao;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.lesson.model.vo.Schedule;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
 import com.hp.tutor.model.vo.Tutor;
@@ -140,5 +142,20 @@ public class TutorService {
 		}
 		return result;
 	}
+	
+	public Lesson selectClass(int clNo) {
+		Connection conn = getConnection();
+		Lesson l = new TutorDao().selectClass(conn, clNo);
+		close(conn);
+		return l;
+	}
+	
+	public ArrayList<Schedule> selectSchedule(int clNo) {
+		Connection conn = getConnection();
+		ArrayList<Schedule> sList = new TutorDao().selectSchedule(conn,clNo);
+		close(conn);
+		return sList;
+	}
+	
 
 }

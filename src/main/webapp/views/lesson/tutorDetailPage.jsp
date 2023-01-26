@@ -146,6 +146,7 @@
                   <%}else{ %>
                   	 <% for (Lesson l : cList){ %>
                   <table class="thumbnail"  >
+                    <input type="hidden" value="<%=l.getClNo() %>">
                     <tr>
                       <td>
                       <div id="thumbnail">
@@ -174,12 +175,17 @@
 
 
                 </div>   
-                  
-                  
-                  <button onclick="$('.nav-link').trigger('click');">test</button>
-                  
-                  
-                 
+
+
+                <script>
+                  $(function(){
+                    $(".thumbnail").click(function(){
+                      location.href="<%=contextPath%>/page.cl?no="+$(this).children('input').val();
+                    })
+                  })
+         
+                </script>
+ 
               </div>
               <div id="menu1" class="container tab-pane fade"><br>
                 <div id="review-area">

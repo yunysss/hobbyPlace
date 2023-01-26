@@ -201,8 +201,8 @@
             <div class="categoryWrap">
 	            <div class="categoryMain" align="center" id="viewMyQna">나의 문의 조회</div>
 	            <ul class="categoryDetail">
-	                <li id="selectMyQna" onclick="">나의 문의 내역</li>
-	                <li id="insertMyQna" onclick="">문의하기</li>
+	                <li id="selectMyQna">나의 문의 내역</li>
+	                <li id="insertMyQna">문의하기</li>
 	            </ul>
             </div>
             <div class="categoryWrap">
@@ -267,9 +267,10 @@
             
             
             <div align="center"><h3>나의 회원 정보</h3></div>
+            
             <br><br>
             
-            <form action="<%=contextPath%>/update.me" method="post">
+            <form action="<%=contextPath%>/update.me" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="memId" value="<%=memId%>">
             	
                 <div align="center">
@@ -383,8 +384,8 @@
                     <tr>
                         <td class="td1" rowspan="3">주소</td>
                         <td class="td2">
-                            <input type="text" id="address1" name="address" onclick="execDaumPostcode()" placeholder="우편번호">
-                            <button type="button" id="postCode" class="doubleCheck" onclick="execDaumPostcode()" >우편번호 검색</button>
+                            <input type="text" id="address1" name="address" onclick="execDaumPostcode();" placeholder="우편번호">
+                            <button type="button" id="postCode" class="doubleCheck" onclick="execDaumPostcode();" >우편번호 검색</button>
                         </td>
                         <td class="td3"></td>
                     </tr>
@@ -449,9 +450,6 @@
 		            		}else{
 		            			$("#address2").val(address);
 		            		}
-		            		
-		            		
-		            		
 		            			            		
 			            })
 	                </script>  
@@ -636,7 +634,7 @@
                 </script>
                 <br><br><br>
                 <div align="center">
-                    <button type="submit" id="updateButton">수정완료</button>
+                    <button type="submit" id="updateButton" disabled>수정완료</button>
                 </div>
             </form>
             <br><br><br><br><br>
@@ -647,55 +645,40 @@
 	</div>
 	<script>
         $(function(){
-           let idCheck = RegExp(/^[a-z\d]{4,16}$/);
-           let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{6,20}$/i);
-           let nameCheck = RegExp(/^[가-힣]{2,}$/);
+           let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{6,20}$/i); 
            let nickCheck = RegExp(/^[a-z\d가-힣]{1,8}$/i);
            let phoneCheck = RegExp(/^[0][1][\d]-[\d]{3,4}-[\d]{3,4}$/);
            let emailCheck = RegExp(/^[a-z\d+-_.]+@[a-z\d-]+\.[a-z\d.]+$/i);
 
-            $("#userId").keyup(function(){
-                if(!idCheck.test($("#userId").val())){
-                    $(".idTest").html('유효한 아이디가 아닙니다.');
-                    $(".idDoubleCheck").attr("disabled");
-                    $(".idDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
-                }else{
-                    $(".idTest").html('');
-                    $(".idDoubleCheck").removeAttr("disabled");
-                    $(".idDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
-                }
-            })
-
             $("#newPwd").keyup(function(){
-                if(!pwdCheck.test($("#newPwd").val())){
+                if(!pwdCheck.test($("#newPwd").val())){ // 일치x
                     $(".pwdTest1").html('유효한 비밀번호가 아닙니다.');
-                }else{
+                }else{ // 일치o
                     $(".pwdTest1").html('');
                 }
             })
 
             $("#newPwdCheck").keyup(function(){
-                if($("#userPwd").val() != $("#userPwdCheck").val()){
+                if($("#newPwd").val() != $("#newPwdCheck").val()){ // 일치x
                     $(".pwdTest2").html('비밀번호가 일치하지 않습니다.');
-                }else{
+                }else{ // 일치o
                     $(".pwdTest2").html('');
-                }
-            })
-
-            $("#userName").keyup(function(){
-                if(!nameCheck.test($("#userName").val())){
-                    $(".nameTest").html('유효한 이름이 아닙니다.');
-                }else{
-                    $(".nameTest").html('');
+                    $("#goChange").removeAttr("disabled");
                 }
             })
             
             $("#userNickName").keyup(function(){
-            	if(!nickCheck.test($("#userNickName").val())){
+            	if(!nickCheck.test($("#userNickName").val())){ // 일치x
+            		$("#updateButton").attr("disabled");
+            		$("#updateButton").css('cursor', 'default').css('background-color', 'rgb(96, 109, 112)');
+            		
             		$(".nickNameTest").html('유효한 닉네임 형식이 아닙니다.');
             		$(".nickDoubleCheck").attr("disabled");
                     $(".nickDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
-            	}else{
+            	}else{ // 일치o
+            		$("#updateButton").removeAttr("disabled");
+            		$("#updateButton").css('cursor', 'pointer').css('background-color', 'rgb(35, 104, 116)');
+            		
             		$(".nickNameTest").html('');
                     $(".nickDoubleCheck").removeAttr("disabled");
                     $(".nickDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
@@ -703,11 +686,17 @@
             })
             
             $("#email").keyup(function(){
-            	if(!emailCheck.test($("#email").val())){
+            	if(!emailCheck.test($("#email").val())){ // 일치x
+            		$("#updateButton").attr("disabled");
+            		$("#updateButton").css('cursor', 'default').css('background-color', 'rgb(96, 109, 112)');
+            		
             		$(".emailTest").html('유효한 이메일 형식이 아닙니다.');
             		$(".emailDoubleCheck").attr("disabled");
             		$(".emailDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
-            	}else{
+            	}else{ // 일치o
+            		$("#updateButton").removeAttr("disabled");
+            		$("#updateButton").css('cursor', 'pointer').css('background-color', 'rgb(35, 104, 116)');
+            		
             		$(".emailTest").html('');
                     $(".emailDoubleCheck").removeAttr("disabled");
                     $(".emailDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
@@ -715,11 +704,17 @@
             })
 
             $("#phone").keyup(function(){
-                if(!phoneCheck.test($("#phone").val())){
+                if(!phoneCheck.test($("#phone").val())){ // 일치x
+            		$("#updateButton").attr("disabled");
+            		$("#updateButton").css('cursor', 'default').css('background-color', 'rgb(96, 109, 112)');
+            		
                     $(".phoneTest").html('유효한 연락처 형식이 아닙니다.');
                     $(".phoneDoubleCheck").attr("disabled");
                     $(".phoneDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
-                }else{
+                }else{ // 일치o
+            		$("#updateButton").removeAttr("disabled");
+            		$("#updateButton").css('cursor', 'pointer').css('background-color', 'rgb(35, 104, 116)');
+            		
                     $(".phoneTest").html('');
                     $(".phoneDoubleCheck").removeAttr("disabled");
                     $(".phoneDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
@@ -777,33 +772,37 @@
                 </tr>
 	       </table>
 	       <br>
-	       <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="pwdUpdate();">변경하기</button>
+	       <button type="button" class="btn btn-danger" data-dismiss="modal" id="goChange" disabled onclick="pwdUpdate();">변경하기</button>
 	     </div>
 	    </div>
 	  </div>
 	</div>
 	<script>
 		function pwdUpdate(){
-			const memId = <%=memId%>;
+			const memId = '<%=memId%>';
 			const $userPwd = $("#userPwd");
 			const $newPwd = $("#newPwd");
 			
 			$.ajax({
 				url:"<%=contextPath%>/pwdUpdate.me",
 				data:{
-					memId:$userId,
+					memId:memId,
 					memPwd:$userPwd.val(),
-					newPwd:$newPwd.val()
-					},
-				type:"post",
+					newPwd:$newPwd.val()},
 				success:function(result){
 					if(result == "NNNNN"){ //비밀번호변경실패
-						$("#alertPwd").alert().show();
-						$("#userPwd").val().focus();
+						$("#pwdResult").css("color", "red").html("비밀번호변경실패 : 기존 비밀번호를 다시 확인해주세요");
+						$('#changePwdResult').modal('show');
+						$("#userPwd").val("");
+						$("#newPwd").val("");
+						$("#newPwdCheck").val("");
 						
 					}else if(result == "NNNNY"){ //비밀번호변경성공
-						$('#changePwd').modal().hide();
-						$('#changePwdSuccess').modal('show');
+						$("#userPwd").val("");
+						$("#newPwd").val("");
+						$("#newPwdCheck").val("");
+						$("#pwdResult").css("color", "black").html("비밀번호가 변경되었습니다");
+						$('#changePwdResult').modal('show');
 					}
 				},
 				error:function(){
@@ -814,21 +813,22 @@
 		}
 	</script>
 	<!-- 비밀번호변경성공Modal -->
-	<div class="modal fade" id="changePwdSuccess">
+	<div class="modal fade" id="changePwdResult">
 	   <div class="modal-dialog">
 	      <div class="modal-content" align="center">
+	      	<div class="modal-body" align="center">
 	      	
-	          비밀번호가 변경되었습니다
-	          <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
-	        
+	          <p id="pwdResult">비밀번호가 변경되었습니다</p>
+	          <br>
+	          
+			 <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+	        </div>
+		        		    
 	      </div>
 	    </div>
 	  </div>
 	  
-	 <!-- 비밀번호변경실패 alert -->
-	 <div class="alert alert-danger" id="alertPwd">
-     <strong>비밀번호 변경 실패</strong> 기존 비밀번호를 다시 확인해주세요
-     </div>
+
 	  
 	  
 	

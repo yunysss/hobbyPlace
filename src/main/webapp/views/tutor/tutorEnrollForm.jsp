@@ -15,9 +15,7 @@
     .ttInput p{margin: 4px; color: rgb(143, 141, 141); font-size: 12px;}
     .ttInput input { width: 400px; height: 10;}
     #nameCheckBtn, #phoneCheckBtn, #submitBtn , #modalSubmit{
-        background: rgb(35, 104, 116);
-        color: white;
-        border: 0;
+      
         padding:5px;
         border-radius: 5px;
     }
@@ -70,69 +68,120 @@
         }
       }
      
-      function nameCheck(){
-    	  // 중복 확인 버튼 클릭시 사용자가 입력한 이름 값을 넘겨서 조회요청으로 중복체크=>응답데이터 돌려받을것임
-    	  //1) 사용 불가능 (0)=> alert로 메세지 출력, 다시 입력하도록 유도
-    	  //2) 사용가능(1)=> 진짜 사용할 것인지 의사 물어볼 것임 (confirm창) 
-    	  // >사용하겠다 -> 더이상 아이디 수정 못하게끔, 회원가입 버튼 활성화
-    	  // >사용안하겠다 -> 다시 입력
-    	  
-    	  //이름 입력하는 input요소 객체
-    	  const $nameInput = $("#enroll-form input[name=ttName]");
-        $.ajax({
-            url:"<%=contextPath%>/checknick.tt",
-            data:{checkName:$nameInput.val()},
-            success:function(result){
-              if(result=="0"){
-                alert("이미 존재하는 이름 입니다.");
-                $nameInput.focus();
-
-              }else{ //사용가능
-                if(confirm("사용가능한 이름 입니다. 사용하시겠습니까?")){
-                  $nameInput.attr("readonly",true);
-                  $("#enroll-form :submit").removeAttr("disabled");
-                }else{
-                  $nameInput.focus();
-                }
-                              
-
-              }
-
-            },
-            error:function(){
-                console.log("아이디 중복체크용 ajax 통신실패")
-            }
-
-        });
-    	  
-    	  
-      }
-      
-     
     </script>
     
     
     <h6 style="font-weight: bold;">튜터명 <span style="color:rgb(194, 28, 28)">*</span></h6> 
     <input type="text" placeholder="튜터명입력" id="tutorName" name="ttName" required>
-   <button type="button" id="nameCheckBtn" onclick="nameCheck();" >중복확인</button>
+   <button type="button" id="nameCheckBtn" onclick="nameCheck();" disabled >중복확인</button>
+    <p class="nameTestResult" style="margin: 0%;"> </p>
+
+    <script>
+      $(function(){
+        let nameCheck = RegExp(/^[a-z\d가-힣]{1,15}$/);
+
+        
+        $("#tutorName").keyup(function(){
+          if(!nameCheck.test($("#tutorName").val())){
+            $(".nameTestResult").html('유효한 형식의 이름이 아닙니다.');
+            $("#nameCheckBtn").attr("disable");
+            $("#nameCheckBtn").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
+          }else{
+            $(".nameTestResult").html('');
+            $("#nameCheckBtn").removeAttr("disabled");
+            $("#nameCheckBtn").css('cursor', 'pointer').css('color', 'rgb(29, 29, 29)').css('border-color', 'rgb(35, 104, 116)');
+          }
+            
+        })
+
+        
+      })
+
+      
+      
+      function nameCheck(){
+    	  
+    	  const $nameInput = $("#tutorName");
+        $.ajax({
+            url:"<%=contextPath%>/checknick.tt",
+            data:{checkName:$nameInput.val()},
+            success:function(result){
+              if(result=="0"){
+                $(".nameTestResult").html("이미 존재하는 이름입니다");
+                $nameInput.focus();
+
+              }else{ //사용가능
+                $(".nameTestResult").html("");
+                if(confirm("사용가능한 이름 입니다. 사용하시겠습니까?")){
+                  $nameInput.attr("readonly",true);
+                  $("#submitBtn").removeAttr("disabled");
+                }else{
+                  $nameInput.focus();
+                }
+                              
+              }
+            },
+            error:function(){
+                console.log("아이디 중복체크용 ajax 통신실패");
+            }
+
+        });
+    	  
+      }
+     
+
+    </script>
+    
     <br>
     <br>
-    <p class="nameTest"></p>
-    
-    
     <h6 style="font-weight: bold;">휴대폰번호 <span style="color:rgb(194, 28, 28)">*</span></h6>    
     <input type="text" required placeholder="- 포함 입력" id="phone" name="ttPhone" >
-    <button id="phoneCheckBtn" data-toggle="modal" data-target="#myModal">인증번호 전송</button>
-    <p>클래스를 직접 운영하실 번호로 인증해 주세요.</p>
+    <button id="phoneCheckBtn" data-toggle="modal" data-target="#myModal" disabled >인증번호 전송</button>
+    <p class="phoneTestResult"></p>
+    <p>클래스를 직접 운영하실 튜터님의 휴대폰 번호로 인증해주세요.</p>
     <br>
     <br>
     
+    <script>
+      $(function(){
+        let phoneCheck = RegExp(/^[0][1][\d]-[\d]{3,4}-[\d]{3,4}$/);
+          $("#phone").keyup(function(){
+              if(!phoneCheck.test($("#phone").val())){
+                  $(".phoneTestResult").html('유효한 연락처 형식이 아닙니다.');
+                  $("#phoneCheckBtn").attr("disabled");
+                  $("#phoneCheckBtn").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
+              }else{
+                  $(".phoneTestResult").html('');
+                  $("#phoneCheckBtn").removeAttr("disabled");
+                  $("#phoneCheckBtn").css('cursor', 'pointer').css('color', 'rgb(29, 29, 29)').css('border-color', 'rgb(35, 104, 116)');
+              }
+          })
+
+        })
+    </script>
     
     
     <h6 style="font-weight: bold;">이메일 <span style="color:rgb(194, 28, 28)">*</span></h6>
-    <input type="text" required placeholder="이메일 입력" id="emlil"  naem="ttEmail">
+    <input type="text" required placeholder="이메일 입력" id="email"  naem="ttEmail">
+    <p class="emailTestResult"></p>
     <p>실제 사용하시는 이메일 주소를 입력해 주세요.<br>
     해당 메일로 공지사항 및 상품 수정 요청 등 중요 알림이 발생 됩니다.</p>
+    
+    <script>
+      $(function(){
+        let emailCheck = RegExp(/^[a-z\d+-_.]+@[a-z\d-]+\.[a-z\d.]+$/i);
+        $("#email").keyup(function(){
+              if(!emailCheck.test($("#email").val())){
+                  $(".emailTestResult").html('유효한 형식의 이메일이 아닙니다.');
+              }else{
+                  $(".emailTestResult").html('');
+              }
+          })
+
+
+    })
+
+    </script>
     
     <br>
     <br>
