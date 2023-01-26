@@ -44,10 +44,10 @@ public class NoticeService {
 		return list;
 	}
 	
-	public ArrayList<Faq> selectFaqList(){
+	public ArrayList<Faq> selectFaqList(PageInfo pi){
 		Connection conn = getConnection();
 		
-		ArrayList<Faq> list = new NoticeDao().selectFaqListup(conn);
+		ArrayList<Faq> list = new NoticeDao().selectFaqList(conn, pi);
 		
 		close(conn);
 		
@@ -57,6 +57,15 @@ public class NoticeService {
 	public int selectNoticeListCount() {
 		Connection conn = getConnection();
 		int listCount = new NoticeDao().selectNoticeListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+	public int selectFaqListCount() {
+		Connection conn = getConnection();
+		int listCount = new NoticeDao().selectFaqListCount(conn);
 		
 		close(conn);
 		

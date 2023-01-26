@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.hp.calculate.model.vo.Calculate"%>
+<%
+	ArrayList<Calculate> list = (ArrayList<Calculate>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -253,15 +256,15 @@
     							+ "</tr>"
     				}else{
 						for(let i=0; i<list.length; i++){
-    						value += "<tr>"
-    								+	"<td>" + list[i].calNo + "</td>"
-    								+	"<td>" + list[i].rqDt + "</td>"
-    								+	"<td>" + list[i].calReg + "<br>" 
-    								+	"<td>" + list[i].calNm + "</td>"
-    								+	"<td>" + list[i].rqDt + "</td>"
-    								+	"<td>" + list[i].bank + "&nbsp;" + list[i].calAcc + "</td>"
-    								+	"<td>" + list[i].calSta + "&nbsp;<button type='button' class='btn btn-secondary btn-sm calChange-btn'>수정</button> </td>"
-    								+ "</tr>"
+							value += "<tr class='calMngList'>"
+   								+	"<td>" + list[i].calNo + "</td>"
+   								+	"<td>" + list[i].rqDt + "</td>"
+   								+	"<td>" + list[i].calReg + "<br>" 
+   								+	"<td>" + list[i].calNm + "</td>"
+   								+	"<td>" + list[i].bank + "&nbsp;" + list[i].calAcc + "</td>"
+   								+	"<td>" + list[i].price  + "</td>"
+   								+	"<td>" + list[i].calSta + "&nbsp;<button type='button' class='btn btn-secondary btn-sm calChange-btn'>수정</button> </td>"
+   								+ "</tr>"
     					}
 					}
     				$("#calMng-list tbody").html(value);
@@ -278,15 +281,14 @@
                 <b>조회 결과</b><br><br>
             </div>
             <div align="right">
-            	<input type="radio" name="calSta" id="checkAll" value="All" checked>
+            	<input type="radio" name="calSta" id="checkAll" value="all" checked>
                 <label for="checkAll"><small>전체</small></label>
-                <input type="radio" name="calSta" id="checkWait" value="W">
+                <input type="radio" name="calSta" id="checkWait" value="waiting">
                 <label for="checkWait"><small>정산진행중</small></label>
-                <input type="radio" name="calSta" id="checkComplete" value="C">
+                <input type="radio" name="calSta" id="checkComplete" value="complete">
                 <label for="checkComplete"><small>정산완료</small></label>
             </div>
             <br>
-
             <table width="100%" class="table" id="calMng-list">
                 <thead>
                     <tr>
@@ -300,23 +302,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>2023-01-15</td>
-                        <td>
-                            tutor01
-                        </td>
-                        <td>B2939R23</td>
-                        <td>
-                            99,000원
-                        </td>
-                        <td>
-                            <div class="calSt">
-                                정산 미신청
-                                <button type="button" class="btn btn-sm btn-secondary calChange-btn">수정</button>
-                            </div>
-                        </td>
-                    </tr>
+                	<% for(int i = 0; i < list.size(); i++){ %>
+	                    <tr id ='calMngList1'>
+	                        <td><%= list.get(i).getCalNo() %></td>
+	                        <td><%= list.get(i).getRqDt() %></td>
+	                        <td><%= list.get(i).getCalReg() %></td>
+	                        <td><%= list.get(i).getCalNm() %></td>
+	                        <td><%= list.get(i).getBank() %>&nbsp;<%= list.get(i).getCalAcc() %></td>
+	                        <td><%= list.get(i).getPrice() %></td>
+	                        <td>
+	                        	<%= list.get(i).getCalSta()%>&nbsp;
+	                        	<button type="button" class="btn btn-sm btn-secondary calChange-btn">수정</button>
+	                        </td>
+	                    </tr>
+                    <% } %>
                 </tbody>
             </table>
         </div>

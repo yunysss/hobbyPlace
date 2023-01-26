@@ -42,12 +42,19 @@ WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 <entry key="selectFaqList">
-	SELECT
-	       *
-	  FROM FAQ
-	 WHERE GRADE='1'
-	 ORDER 
-	    BY FAQ_NO
+	  SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM , A.*
+		        FROM(
+		                SELECT
+		                       *
+		                  FROM FAQ
+		                 WHERE GRADE='1'
+		                 ORDER 
+		                    BY FAQ_NO
+		            ) A
+		    )
+		WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 <entry key="selectNoticeListCount">
@@ -55,6 +62,13 @@ WHERE RNUM BETWEEN ? AND ?
 	        COUNT(*) count
 	  FROM NOTICE
 	 WHERE NT_STA = 'Y'
+</entry>
+
+<entry key="selectFaqListCount">
+	SELECT
+	        COUNT(*) count
+	  FROM FAQ
+	 WHERE GRADE = 1
 </entry>
 
 

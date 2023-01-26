@@ -41,32 +41,18 @@ public class CalculateService {
 		return result1 * result2;
 	}
 	
-	public ArrayList<Calculate> selectAllCalList(int memNo, String startDate, String endDate){
+	
+	public ArrayList<Calculate> selectAllCalList(int memNo, String status){
 		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectAllCalList(conn, memNo, startDate, endDate);
+		ArrayList<Calculate> list = new CalculateDao().selectAllCalList(conn, memNo, status);
 		close(conn);
 		return list;
 	}
 	
 	
-	public ArrayList<Calculate> selectNCCalList(int memNo, String startDate, String endDate, String status){
+	public ArrayList<Calculate> selectSeasonCalList(int memNo, String startDate, String endDate, String status){
 		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectNCCalList(conn, memNo, startDate, endDate, status);
-		close(conn);
-		return list;
-	}
-	
-	public ArrayList<Calculate> selectAllSeasonCalList(int memNo){
-		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectAllSeasonCalList(conn, memNo);
-		close(conn);
-		return list;
-	}
-	
-	
-	public ArrayList<Calculate> selectNCSeasonCalList(int memNo, String status){
-		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectNCSeasonCalList(conn, memNo, status);
+		ArrayList<Calculate> list = new CalculateDao().selectSeasonCalList(conn, memNo, startDate, endDate, status);
 		close(conn);
 		return list;
 	}

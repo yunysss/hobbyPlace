@@ -144,11 +144,11 @@
                 <tr>
                 	<td></td>
                 	<td>
-                		<input type="radio" name="calSta" id="checkAll" value="All" checked>
+                		<input type="radio" name="calSta" id="checkAll" value="정산" checked>
                         <label for="checkAll">전체</label>
-                        <input type="radio" name="calSta" id="checkWait" value="W">
+                        <input type="radio" name="calSta" id="checkWait" value="진행">
                         <label for="checkWait">정산진행중</label>
-                        <input type="radio" name="calSta" id="checkComplete" value="C">
+                        <input type="radio" name="calSta" id="checkComplete" value="완료">
                         <label for="checkComplete">정산완료</label>
                 	</td>
                 </tr>

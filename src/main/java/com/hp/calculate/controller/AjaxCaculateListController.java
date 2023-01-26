@@ -39,21 +39,11 @@ public class AjaxCaculateListController extends HttpServlet {
 		
 		response.setContentType("application/json; charset=UTF-8");
 		if(startDate.equals("") && endDate.equals("")) {
-			if(status.equals("All")) {
-				ArrayList<Calculate> list = new CalculateService().selectAllSeasonCalList(memNo);
-				new Gson().toJson(list, response.getWriter());
-			} else {
-				ArrayList<Calculate> list = new CalculateService().selectNCSeasonCalList(memNo, status);
-				new Gson().toJson(list, response.getWriter());
-			}
+			ArrayList<Calculate> list = new CalculateService().selectAllCalList(memNo, status);
+			new Gson().toJson(list, response.getWriter());
 		}else {
-			if(status.equals("All")) {
-				ArrayList<Calculate> list = new CalculateService().selectAllCalList(memNo, startDate, endDate);
-				new Gson().toJson(list, response.getWriter());
-			} else {
-				ArrayList<Calculate> list = new CalculateService().selectNCCalList(memNo, startDate, endDate, status);
-				new Gson().toJson(list, response.getWriter());
-			}
+			ArrayList<Calculate> list = new CalculateService().selectSeasonCalList(memNo, startDate, endDate, status);
+			new Gson().toJson(list, response.getWriter());
 		}
 		
 	}
