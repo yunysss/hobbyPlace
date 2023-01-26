@@ -97,6 +97,10 @@ padding: 5px 10px;
                                         }
         
                                         reader.readAsDataURL(input.files[0]);
+                                    }else{  $("#loadedProfile").attr('src', null);
+                                         if($("#loadedProfile").attr('src') ==null){
+                                            $("#loadedProfile").attr('src', '<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg');
+                                         }
                                     }
                                 }
                                 $("#upProfile").change(function(){
