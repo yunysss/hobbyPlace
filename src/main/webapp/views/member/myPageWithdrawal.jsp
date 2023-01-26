@@ -272,14 +272,34 @@
                         
 						<br>
 						
-                        <button type="submi" class="leaveButton">탈퇴 신청</button>
+                        <button type="button" class="leaveButton" disabled>탈퇴 신청</button>
                         <br><br><br><br>
                     </div>
 				</form>
             </div>
         </div>
     </div>
-    
+    <script>
+    	$(function(){
+    		$("#agreeAll").click(function(){
+    			if($(this).is(":checked") == true){
+        			$(".leaveButton").removeAttr("disabled");
+        			$(".leaveButton").css('cursor', 'default').css('background-color', 'rgb(35, 104, 116)');
+        		}else{
+        			$(".leaveButton").attr("disabled");
+        			$(".leaveButton").css('cursor', 'pointer').css('background-color', 'gray');
+        		}
+    		})
+    		
+    		
+    		$(".leaveButton").click(function(){
+    			if($("#agreeAll").is(":checked")== false){
+    				alert("탈퇴약관에 동의해주세요");
+    				//popover?
+    			}
+    		});
+    	})
+    </script>
     
     
     
