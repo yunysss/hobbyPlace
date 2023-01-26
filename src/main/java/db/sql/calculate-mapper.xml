@@ -70,48 +70,12 @@
 		  JOIN CLASS C USING(CL_NO)
           JOIN TUTOR T ON(C.MEM_NO = T.MEM_NO)
 		 WHERE T.MEM_NO = ?
-           AND RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1
-		 ORDER 
-		    BY CAL_NO DESC
-	</entry>
-	<entry key="selectNCCalList">
-		SELECT
-		       CAL_NO
-		     , RQ_DT
-		     , TO_CHAR(PRICE, '999,999,999') || '원' "PRICE"
-		     , BANK
-		     , RPAD(SUBSTR(CAL_ACC, 1, 4), LENGTH(CAL_ACC)-4, '*') || SUBSTR(CAL_ACC, -4, 4) "CAL_ACC"
-		     , CAL_NM
-		     , DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') "CAL_STA"
-		  FROM CALCULATE
-		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,1) = REG_NO)
-		  JOIN CLASS C USING(CL_NO)
-          JOIN TUTOR T ON(C.MEM_NO = T.MEM_NO)
-		 WHERE T.MEM_NO = ?
-           AND RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1
-           AND CAL_STA = ?
-		 ORDER 
-		    BY CAL_NO DESC
-	</entry>
-	<entry key="selectAllSeasonCalList">
-		SELECT
-		       CAL_NO
-		     , RQ_DT
-		     , TO_CHAR(PRICE, '999,999,999') || '원' "PRICE"
-		     , BANK
-		     , RPAD(SUBSTR(CAL_ACC, 1, 4), LENGTH(CAL_ACC)-4, '*') || SUBSTR(CAL_ACC, -4, 4) "CAL_ACC"
-		     , CAL_NM
-		     , DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') "CAL_STA"
-		  FROM CALCULATE
-		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,1) = REG_NO)
-		  JOIN CLASS C USING(CL_NO)
-          JOIN TUTOR T ON(C.MEM_NO = T.MEM_NO)
-		 WHERE T.MEM_NO = ?
+           AND DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') LIKE ?
 		 ORDER 
 		    BY CAL_NO DESC
 	</entry>
 	
-	<entry key="selectNCSeasonCalList">
+	<entry key="selectSeasonCalList">
 		SELECT
 		       CAL_NO
 		     , RQ_DT
@@ -125,7 +89,8 @@
 		  JOIN CLASS C USING(CL_NO)
           JOIN TUTOR T ON(C.MEM_NO = T.MEM_NO)
 		 WHERE T.MEM_NO = ?
-		   AND CAL_STA = ?
+		   AND RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1
+		   AND DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') LIKE ?
 		 ORDER 
 		    BY CAL_NO DESC
 	</entry>
