@@ -108,7 +108,7 @@
                 <div id="classPrice"><h5 style="font-weight: 550;">20000 원</h5></div>
                 <div id="tutorInfo">
                     <div id="tutorImg">
-                    <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg"  width="80"  class="rounded-circle" alt="Cinque Terre" >
+                    <img src="<%=request.getContextPath()%>/resources/images/sampleimg.jpg"  width="80" height="80"</head> class="rounded-circle" alt="Cinque Terre" >
                     <label style="font-weight: 600;">&nbsp; 튜터명 감자왕</label>
                     </div>
                     <br>

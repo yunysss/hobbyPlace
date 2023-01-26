@@ -73,7 +73,7 @@ padding: 5px 10px;
                             <th rowspan="2">프로필 사진</th>
                            
                             <td>
-                                <img src="<%=request.getContextPath()%>/<%=ttProfile %>" id="loadedProfile" width="80"  class="rounded-circle" alt="Cinque Terre" >
+                                <img src="<%=request.getContextPath()%>/<%=ttProfile %>" id="loadedProfile" width="80" height="80" class="rounded-circle" alt="Cinque Terre" >
                             </td>
                         </tr>
                         <tr>
