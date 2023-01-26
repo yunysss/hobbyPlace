@@ -167,7 +167,7 @@
   
     }
     
-    }
+    
     </style>
 
 </head>
@@ -176,8 +176,8 @@
 <%@ include file="../common/tutorMenubar.jsp" %>
       <!-- 여기부터-->
           
-                <div class="outer">
-                    <form action="<%=contextPath %>/clenroll.tt" id="enroll-form" method="post" class="classEnroll">
+             <div class="outer">
+                <form action="<%=contextPath %>/" id="enroll-form" method="post" class="classEnroll">
                     <h5 style="font-weight: 900;">클래스 등록</h5>
                     <br>
                     <span style="font-size: 14px; font-weight: 600;">기본정보</span>

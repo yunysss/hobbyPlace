@@ -68,7 +68,7 @@
 
  <div id="content2">
                 <div class="outer">
-                    <form action="clinsert.tt" id="enroll-form" class="classEnroll" method="post">
+                    <form action="" id="enroll-form" class="classEnroll" method="post">
                     <h5 style="font-weight: 900; font-size: 18px;">클래스 등록</h5>
                     <br>
                     <span style="font-size: 14px; font-weight: 600;">클래스 설명</span>
@@ -133,12 +133,6 @@
                             }
                         </script>
             
-
-
-
-                        </script>
-
-
 
                         <tr>
                             <th>상세설명</th>

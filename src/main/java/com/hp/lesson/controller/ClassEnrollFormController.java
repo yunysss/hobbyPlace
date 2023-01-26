@@ -42,7 +42,7 @@ public class ClassEnrollFormController extends HttpServlet {
 		request.setAttribute("dList", dList);
 		
 		
-		request.getRequestDispatcher("views/lesson/classEnrollForm1.jsp").forward(request, response);
+		request.getRequestDispatcher("views/lesson/classEnrollForm.jsp").forward(request, response);
 	}
 
 	/**

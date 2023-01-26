@@ -176,6 +176,7 @@
                 </div>   
                   
                   
+                  <button onclick="$('.nav-link').trigger('click');">test</button>
                   
                   
                  
