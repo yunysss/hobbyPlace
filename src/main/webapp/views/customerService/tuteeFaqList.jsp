@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, com.hp.customerService.model.vo.*"%>
+    import="java.util.ArrayList, com.hp.customerService.model.vo.*, com.hp.common.model.vo.PageInfo"%>
     
 <%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
    	ArrayList<Faq> list  = (ArrayList<Faq>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
@@ -82,9 +83,15 @@
 
             <div class="paging-area">
 
-                <button style="border: none;">&lt;</button>
-                <button style="background-color:rgb(22, 160, 133); color:white; border:none">1</button>
-                <button style="border: none;">&gt;</button>
+                <%if(pi.getCurrentPage()!=1){ %>
+	            	<button style="border: none;">&lt;</button>
+	            <%} %>
+	            <%for(int i=pi.getStartPage(); i<pi.getEndPage(); i++){ %>
+	            	<button style="background-color:rgb(22, 160, 133); color:white; border:none">1</button>
+	            <%} %>
+	            <%if(pi.getCurrentPage()!= pi.getMaxPage()) {%>
+	            	<button style="border: none;">&gt;</button>
+				<%} %>
     
             </div>
 

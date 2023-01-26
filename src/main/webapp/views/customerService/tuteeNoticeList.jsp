@@ -99,7 +99,7 @@
             <button style="border: none;">&lt;</button>
             <%} %>
             <%for(int i=pi.getStartPage(); i<pi.getEndPage(); i++){ %>
-            <button style="background-color:rgb(22, 160, 133); color:white; border:none">1</button>
+            <button style="background-color:rgb(22, 160, 133); color:white; border:none"><%= i %></button>
             <%} %>
             <%if(pi.getCurrentPage()!= pi.getMaxPage()) {%>
             <button style="border: none;">&gt;</button>
