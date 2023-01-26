@@ -97,7 +97,7 @@
             <div id="tutorProfile" align="center">
                 <p style="border: 1px solid rgb(201, 199, 199);" id="p">
             
-                <img src="<%=request.getContextPath()%>/<%=ttProfile %>" width="60" class="rounded-circle" alt="Cinque Terre">
+                <img src="<%=request.getContextPath()%>/<%=ttProfile %>" width="60"height="60" class="rounded-circle" alt="Cinque Terre">
                 <span style="font-weight: 600;"><%=t.getTtName() %></span><br>
                 <span style="font-size: 11px; color: g;">클래스 <%=cCount %> </span> | 
                 <span style="font-size: 11px;"> 후기 <%=rCount %></span>
@@ -199,7 +199,7 @@
                 	<%for(Review r : rList){ %>
                     <table style="text-align: left;">
                       <tr>
-                        <th width="70" height="60"><img src="<%=request.getContextPath()%>/<%=r.getMemProfile() %>" width="60" class="rounded-circle" alt="Cinque Terre"></th>
+                        <th width="70" height="60"><img src="<%=request.getContextPath()%>/<%=r.getMemProfile() %>" width="60" height="60" class="rounded-circle" alt="Cinque Terre"></th>
                         <td>
                           <label id="review-nick" style="font-weight: 550;"></label><%=r.getMemNickName() %><br>
                             <% 

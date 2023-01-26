@@ -184,7 +184,7 @@
             </div>
             <div id="header3">
                 <div class="dropdown" >
-                    <img src="<%=request.getContextPath()%>/<%=ttProfile %>" name="ttimg" type="button" width="60"  alt="Cinque Terre" class="rounded-circle dropdown-toggle" data-toggle="dropdown">
+                    <img src="<%=request.getContextPath()%>/<%=ttProfile %>" name="ttimg" type="button" width="60" height="60"  alt="Cinque Terre" class="rounded-circle dropdown-toggle" data-toggle="dropdown">
                   
                  
                     <div class="dropdown-menu">

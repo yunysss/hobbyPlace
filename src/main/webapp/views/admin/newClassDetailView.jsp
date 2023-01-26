@@ -128,7 +128,7 @@
                     <div id="classPrice"><h5 style="font-weight: 550;"><%=l.getClPrice() %> 원</h5></div>
                     <div id="tutorInfo">
                         <div id="tutorImg">
-                        <img src="<%=request.getContextPath()%>/<%=ttProfile %>"  width="80"  class="rounded-circle" alt="Cinque Terre" >
+                        <img src="<%=request.getContextPath()%>/<%=ttProfile %>"  width="80" height="80" class="rounded-circle" alt="Cinque Terre" >
                         <label style="font-weight: 600;"> &nbsp; <%=l.getMemNo() %></label>
                         </div>
                         
