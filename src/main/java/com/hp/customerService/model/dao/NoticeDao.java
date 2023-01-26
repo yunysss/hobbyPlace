@@ -126,7 +126,7 @@ public class NoticeDao {
 			
 		}
 		
-		public ArrayList<Faq> selectFaqList(Connection conn){
+		public ArrayList<Faq> selectFaqList(Connection conn, PageInfo pi){
 			ArrayList<Faq> list= new ArrayList<>();
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
@@ -134,6 +134,10 @@ public class NoticeDao {
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
+				int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+				int endRow = startRow+10;
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
@@ -159,6 +163,30 @@ public class NoticeDao {
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
 			String sql =prop.getProperty("selectNoticeListCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt("count");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return listCount;
+			
+		}
+		
+		public int selectFaqListCount(Connection conn) {
+			int listCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql =prop.getProperty("selectFaqListCount");
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
