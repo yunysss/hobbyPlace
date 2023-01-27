@@ -163,4 +163,13 @@
 		   AND MEM_PWD = ?
 	</entry>
 	
+	<!-- 회원 탈퇴 요청 -->
+	<entry key="deleteMember">
+		UPDATE MEMBER
+		   SET MEM_DROP = ?
+		     , MEM_STATUS = 'N'
+		 WHERE MEM_ID = ?
+		   AND MEM_PWD = ?
+	</entry>
+	
 </properties>

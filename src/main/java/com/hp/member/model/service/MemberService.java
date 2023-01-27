@@ -137,6 +137,26 @@ public class MemberService {
 		return updatePwdMem;
 	}
 
+
+	/** 회원탈퇴용 service메소드(ajax)
+	 * @author 수연
+	 * @param memId
+	 * @param memPwd
+	 * @param memDrop
+	 * @return count
+	 */
+	public int deleteMember(String memId, String memPwd, String memDrop) {
+		Connection conn = getConnection();
+		int count = new MemberDao().deleteMember(conn, memId, memPwd, memDrop);
+
+		if(count > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return count;
+	}
+
 	
 	
 	

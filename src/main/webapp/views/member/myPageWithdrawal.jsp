@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Hobby Place</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
    div{box-sizing:border-box;}
    .cWrap{width:1000px; margin:auto;}
@@ -74,8 +81,8 @@
         margin-top:30px;
         margin-left:300px;
     }
-    .leaveButton:hover{cursor: pointer;}
     input, textarea{border-color:rgb(35, 104, 116); border-radius:5px;}
+    .toast{display:none;}
 </style>
 </head>
 <body>
@@ -178,7 +185,6 @@
 
                 <h3>정말 떠나시겠어요?</h3>
                 <br><br>
-                <form action="<%=contextPath%>/memDelete.me" method="post">
                 <div class="explainForm" align="center">
                     <table>
                         <tr>
@@ -226,8 +232,16 @@
                 </div>
 
                     <div class="checkAgreement" align="left">
-                        <input type="checkbox" id="agreeAll" required> <label for="agreeAll">회원탈퇴 유의사항을 모두 확인하였으며 동의합니다.</label>
-                        
+                        <input type="checkbox" id="agreeAll"> <label for="agreeAll">회원탈퇴 유의사항을 모두 확인하였으며 동의합니다.</label>
+                        <div class="toast">
+						    <div class="toast-header">
+						      필수 체크 사항
+						    </div>
+						    <div class="toast-body">
+						      탈퇴 약관에 동의해주세요		    
+						    </div>
+						</div>
+						
                         <br>
                         <br>
                         <br>
@@ -247,7 +261,7 @@
                                     &nbsp;탈퇴사유
                                 </th>
                                 <td rowspan="10">
-                                    <textarea name="" id="" cols="70" rows="10" value="memDrop" style=resize:none></textarea>
+                                    <textarea name="" id="" cols="70" rows="10" id="memDrop" name="memDrop" style=resize:none></textarea>
                                 </td> 
                             </tr>
                             <tr><th></th></tr>
@@ -260,14 +274,7 @@
                             <tr><th></th></tr>
                             <tr><th></th></tr>
                             <tr><th></th></tr>
-                            <tr>
-                            	<th>
-                            		&nbsp;비밀번호
-                            	</th>
-                            	<td>
-                            		<input type="password" id="memPwd" name="memPwd" required>
-                            	</td>
-                            </tr>          
+                                    
                         </table>
                         
 						<br>
@@ -275,32 +282,115 @@
                         <button type="button" class="leaveButton" disabled>탈퇴 신청</button>
                         <br><br><br><br>
                     </div>
-				</form>
+				
             </div>
         </div>
     </div>
+    
+      <!-- 비밀번호 입력창 modal -->
+	  <div class="modal" id="pwdInputModal">
+	    <div class="modal-dialog">
+	      <div class="modal-content" align="center">
+	      
+	        <!-- Modal Header -->
+	        <div class="modal-header">
+	          <h4 class="modal-title">회원 탈퇴 요청</h4>
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        </div>
+	        
+	        <!-- Modal body -->
+	        <div class="modal-body">
+	        	<p id="deleteFail"></p>	        	
+				비밀번호 입력 &nbsp;
+				<input type="password" id="memPwd" name="memPwd" required>
+				
+				<br><br><br>
+				
+				<button type="button" class="btn btn-dark" id="deleteMember" data-dismiss="modal" onclick="delMember();">탈퇴하기</button>
+             </div>
+	      </div>
+	    </div>
+	  </div>
+	  
+	  <!-- 회원탈퇴 실패용 modal -->
+	  <div class="modal" id="dropFailModal">
+	    <div class="modal-dialog">
+	      <div class="modal-content" align="center">
+	      
+	        <!-- Modal Header -->
+	        <div class="modal-header">
+	          <h4 class="modal-title">회원 탈퇴 요청 실패</h4>
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        </div>
+	        
+	        <!-- Modal body -->
+	        <div class="modal-body">
+	        	<br>
+	        	<p>
+	        		회원탈퇴에 실패했습니다.<br>
+	        		비밀번호를 다시 확인해주세요.
+	        	</p>				
+				<br><br>
+				
+				<button type="button" class="btn btn-dark" data-dismiss="modal">확인</button>
+             </div>
+	      </div>
+	    </div>
+	  </div>
+	  
+	  
     <script>
     	$(function(){
-    		$("#agreeAll").click(function(){
-    			if($(this).is(":checked") == true){
-        			$(".leaveButton").removeAttr("disabled");
-        			$(".leaveButton").css('cursor', 'default').css('background-color', 'rgb(35, 104, 116)');
-        		}else{
-        			$(".leaveButton").attr("disabled");
-        			$(".leaveButton").css('cursor', 'pointer').css('background-color', 'gray');
-        		}
-    		})
-    		
-    		
-    		$(".leaveButton").click(function(){
-    			if($("#agreeAll").is(":checked")== false){
-    				alert("탈퇴약관에 동의해주세요");
-    				//popover?
+    	    $(".leaveButton").click(function(){
+    			if($("#agreeAll").prop("checked")==false){
+    				$('.toast').toast('show');
+    			}else{
+    				$("#pwdInputModal").modal('show');
     			}
     		});
     	})
+
     </script>
-    
+    <script>
+    	$(function(){
+    		
+    		$("#agreeAll").click(function(){
+    			if($(this).is(":checked")){
+        			$(".leaveButton").removeAttr("disabled");
+        			$(".leaveButton").css('cursor', 'pointer').css('background-color', 'rgb(35, 104, 116)');
+        		}else{
+        			$(".leaveButton").attr("disabled");
+        			$(".leaveButton").css('cursor', 'default').css('background-color', 'gray');
+        		}
+    		});
+    	})
+    </script>
+    <script>
+    	function delMember(){
+    		const memId = '<%=loginUser.getMemId()%>';
+    		const $memPwd = $("#memPwd");
+    		const $memDrop = $("#memDrop");
+    		$.ajax({
+    			url:"<%=contextPath%>/memDelete.me",
+    			data:{memId:memId,
+    				  memPwd:$memPwd.val(),
+    				  memDrop:$memDrop.val()},
+    			success:function(result){
+    				if(result == "NNNNN"){ //탈퇴 실패
+    					$("#dropFailModal").modal('show');
+    					$("#memPwd").val("");
+    				}else{
+    					alert("성공적으로 탈퇴되었습니다.");
+    					location.href="<%=contextPath%>/main.tee";
+    				}
+    			},
+    			error:function(){
+    				console.log("회원탈퇴용 ajax 통신실패");
+    			}
+    			
+    		})
+    	}
+    </script>
     
     
     <br clear="both">
