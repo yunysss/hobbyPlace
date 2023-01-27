@@ -71,7 +71,7 @@ WHERE RNUM BETWEEN ? AND ?
 	SELECT
 	        COUNT(*) count
 	  FROM FAQ
-	 WHERE GRADE = 1
+	 WHERE GRADE = '1'
 </entry>
 
 
@@ -121,6 +121,29 @@ WHERE RNUM BETWEEN ? AND ?
 	 WHERE NT_STA='Y'
 	   AND GRADE='2'
 	   AND NT_NO=?
+</entry>
+
+<entry key="selectTutorFaqListCount">
+	SELECT
+	        COUNT(*) count
+	  FROM FAQ
+	 WHERE GRADE = '2'
+</entry>
+
+<entry key="selectTutorFaqList">
+	  SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM , A.*
+		        FROM(
+		                SELECT
+		                       *
+		                  FROM FAQ
+		                 WHERE GRADE='2'
+		                 ORDER 
+		                    BY FAQ_NO
+		            ) A
+		    )
+		WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 </properties>
