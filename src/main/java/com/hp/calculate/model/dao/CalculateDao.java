@@ -148,66 +148,33 @@ public class CalculateDao {
 		return result;
 	}
 	
-	/**
-	 * @author 예서
-	 * @param memNo 튜터회원번호
-	 * @param status 정산처리상태(전체, 정산처리중, 정산완료)
-	 * @return 처리상태별 정산 리스트 (전체기간)
-	 */
-	public ArrayList<Calculate> selectAllCalList(Connection conn, int memNo, String status){
-		ArrayList<Calculate> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset =null;
-		String sql = prop.getProperty("selectAllCalList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
-			pstmt.setString(2, "%" + status + "%");
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Calculate(rset.getInt("cal_no"),
-						  rset.getString("rq_dt"),
-						  rset.getString("price"),
-						  rset.getString("bank"),
-						  rset.getString("cal_acc"),
-						  rset.getString("cal_nm"),
-						  rset.getString("cal_sta")
-						  ));
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-		
-	}
+	
 	
 	/**
 	 * @author 예서
 	 * @param memNo 튜터회원번호
 	 * @param startDate 검색시작날짜
 	 * @param endDate 검색끝날짜
-	 * @param status 정산처리상태(전체, 정산처리중, 정산완료)
-	 * @return 처리상태별 정산 리스트 (선택한 기간)
+	 * @param status 정산처리상태
+	 * @return 튜터 검색 정산 리스트 
 	 */
-	public ArrayList<Calculate> selectSeasonCalList(Connection conn, int memNo, String startDate, String endDate, String status){
+	public ArrayList<Calculate> selectCalList(Connection conn, int memNo, String startDate, String endDate, String status){
 		ArrayList<Calculate> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
-		String sql = prop.getProperty("selectSeasonCalList");
+		String sql = prop.getProperty("selectCalList");
+		if(!startDate.equals("") && !endDate.equals("")) {
+			sql += "AND RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1";
+		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);
-			pstmt.setString(2, startDate);
-			pstmt.setString(3, endDate);
-			pstmt.setString(4, "%" + status + "%");
+			pstmt.setString(2, "%" + status + "%");
+			if(!startDate.equals("") && !endDate.equals("")) {
+				pstmt.setString(3, startDate);
+				pstmt.setString(4, endDate);
+			}
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -269,144 +236,38 @@ public class CalculateDao {
 	
 	/**
 	 * @author 예서
+	 * @param memId 검색한 튜터 아이디 키워드
+	 * @param startDate 검색시작날짜
+	 * @param endDate 검색끝날짜
 	 * @param status 정산처리상태
-	 * @return 관리자 정산관리 리스트 (전체 기간, 전체 회원, 정산상태별)
+	 * @return 관리자 검색 정산관리 리스트
 	 */
-	public ArrayList<Calculate> selectAllSeasonCalMng(Connection conn, String status){
+	public ArrayList<Calculate> selectCalMng(Connection conn, String memId, String startDate, String endDate, String status){
 		ArrayList<Calculate> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
-		String sql = prop.getProperty("selectAllSeasonCalMng");
+		String sql = prop.getProperty("selectCalMng");
+		if(!startDate.equals("") && !endDate.equals("")) {
+			sql += "AND RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1";
+		}
+		if(!memId.equals("")) {
+			sql += "AND MEM_ID LIKE ?";
+		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + status + "%");
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Calculate(rset.getInt("cal_no"),
-						  rset.getString("rq_dt"),
-						  rset.getString("price"),
-						  rset.getString("bank"),
-						  rset.getString("cal_acc"),
-						  rset.getString("cal_nm"),
-						  rset.getString("cal_sta"),
-						  rset.getString("mem_id")
-						  ));
+			if(!startDate.equals("") && !endDate.equals("")) {
+				pstmt.setString(2, startDate);
+				pstmt.setString(3, endDate);
+				if(!memId.equals("")) {
+					pstmt.setString(4, "%" + memId + "%");
+				} 
+			} else {
+				if(!memId.equals("")) {
+					pstmt.setString(2, "%" + memId + "%");
+				}
 			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-	
-	/**
-	 * @author 예서
-	 * @param memId 검색한 튜터 아이디 키워드
-	 * @param status 정산처리상태
-	 * @return 관리자 정산관리 리스트 (전체 기간, 선택한 회원, 정산상태별)
-	 */
-	public ArrayList<Calculate> selectMemSeasonCalMng(Connection conn, String memId, String status){
-		ArrayList<Calculate> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset =null;
-		String sql = prop.getProperty("selectMemSeasonCalMng");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + memId + "%");
-			pstmt.setString(2, "%" + status + "%");
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Calculate(rset.getInt("cal_no"),
-						  rset.getString("rq_dt"),
-						  rset.getString("price"),
-						  rset.getString("bank"),
-						  rset.getString("cal_acc"),
-						  rset.getString("cal_nm"),
-						  rset.getString("cal_sta"),
-						  rset.getString("mem_id")
-						  ));
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-	
-	/**
-	 * @author 예서
-	 * @param startDate 검색시작날짜
-	 * @param endDate 검색끝날짜
-	 * @param status 정산처리상태
-	 * @return 관리자 정산관리 리스트 (선택한 기간, 전체 회원, 정산상태별)
-	 */
-	public ArrayList<Calculate> selectAllCalMng(Connection conn, String startDate, String endDate, String status){
-		ArrayList<Calculate> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset =null;
-		String sql = prop.getProperty("selectAllCalMng");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, startDate);
-			pstmt.setString(2, endDate);
-			pstmt.setString(3, "%" + status + "%");
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Calculate(rset.getInt("cal_no"),
-						  rset.getString("rq_dt"),
-						  rset.getString("price"),
-						  rset.getString("bank"),
-						  rset.getString("cal_acc"),
-						  rset.getString("cal_nm"),
-						  rset.getString("cal_sta"),
-						  rset.getString("mem_id")
-						  ));
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-	
-	/**
-	 * @author 예서
-	 * @param memId 검색한 튜터 아이디 키워드
-	 * @param startDate 검색시작날짜
-	 * @param endDate 검색끝날짜
-	 * @param status 정산처리상태
-	 * @return 관리자 정산관리 리스트 (선택한 기간, 선택한 회원, 정산상태별)
-	 */
-	public ArrayList<Calculate> selectMemCalMng(Connection conn, String memId, String startDate, String endDate, String status){
-		ArrayList<Calculate> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset =null;
-		String sql = prop.getProperty("selectMemCalMng");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + memId + "%");
-			pstmt.setString(2, startDate);
-			pstmt.setString(3, endDate);
-			pstmt.setString(4, "%" + status + "%");
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

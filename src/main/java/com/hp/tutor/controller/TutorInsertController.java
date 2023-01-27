@@ -48,6 +48,7 @@ public class TutorInsertController extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+			String grade = ((Member)session.getAttribute("loginUser")).getGrade();
 			
 			String ttName = multiRequest.getParameter("ttName");
 			String ttPhone = multiRequest.getParameter("ttPhone");
@@ -63,17 +64,19 @@ public class TutorInsertController extends HttpServlet {
 			t.setIntroduce(introduce);
 			t.setPubPhone(pubPhone);
 			
+			
 			//프로필 사진 등록 부분
 			if(multiRequest.getOriginalFileName("tutorInfo") != null) {
 				t.setTtProfile("/resources/tutorProfile_upfiles/"+ multiRequest.getFilesystemName("ttProfile"));
 			}
-			int result = new TutorService().insertTutor(t);
+			int result = new TutorService().insertTutor(t,grade,memNo);
 			
+			Member tutorMem = new TutorService().selectTutor(memNo);
 			
 			// 결과
-			
-			if(result>0) {
+			if(result>0) { //성공
 				session.setAttribute("tutorInfo", t);
+				session.setAttribute("loginUser", tutorMem);
 				session.setAttribute("alertMsg", "튜터 등록에 성공했습니다. 클래스를 개설해 재능을 펼쳐보세요!");
 				response.sendRedirect(request.getContextPath()+"/tutorMain.tt");
 				

@@ -204,6 +204,13 @@
 		  )
 	</entry>
 	
+	<!-- 튜터 등급 변경 -->
+	<entry key="updateGrade">
+		UPDATE MEMBER
+    	   SET GRADE='2'
+         WHERE MEM_NO = ? 
+	</entry>
+	
 	<!-- 클래스 상세조회 -->
 	<entry key="selectClass">
 		SELECT 
