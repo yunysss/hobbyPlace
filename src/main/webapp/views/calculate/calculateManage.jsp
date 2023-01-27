@@ -150,7 +150,6 @@
                                     <label for="dateType7">6개월</label>
                                  </span>
                                 </div>  
-                            
                         </td>
                     </tr>
                     
@@ -174,7 +173,7 @@
 		</script>
         <script>                
 		
-		    $(document).ready(function() {
+		    $(function() {
 		
 		        //datepicker 한국어로 사용하기 위한 언어설정
 		        $.datepicker.setDefaults($.datepicker.regional['ko']);     
@@ -318,7 +317,7 @@
                 </thead>
                 <tbody>
                 	<% for(int i = 0; i < list.size(); i++){ %>
-	                    <tr id ='calMngList1'>
+	                    <tr>
 	                        <td><%= list.get(i).getCalNo() %></td>
 	                        <td><%= list.get(i).getRqDt() %></td>
 	                        <td><%= list.get(i).getCalReg() %></td>

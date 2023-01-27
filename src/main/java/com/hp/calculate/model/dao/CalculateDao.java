@@ -488,7 +488,7 @@ public class CalculateDao {
 	 * @author 예서
 	 * @param calNo 선택한 정산번호
 	 * @param calSta 선택한 정산처리상태
-	 * @return Register 테이블 UPDATE 결과
+	 * @return Register 테이블 UPDATE
 	 */
 	public int updateRegisterCalSta(Connection conn, String calSta, String[] calRegList) {
 		int result = 0;

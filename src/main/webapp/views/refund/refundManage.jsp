@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.hp.refund.model.vo.Refund"%>
+<% ArrayList<Refund> list = (ArrayList<Refund>)request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,6 @@
 <title>Insert title here</title>
     <style>
         div, p, form, input, table{box-sizing:border-box;}
-        a{text-decoration: none !important; color:black !important;}
 
        .outer{width:1000px; margin:auto; padding:20px 50px;}
        #refMng-form, #refMng-result{
@@ -26,7 +26,6 @@
         text-align: center;
         vertical-align: middle;
         font-size:12px;
-        padding:10px 0px;
        }
        #refMng-form td{
         padding:10px;
@@ -43,33 +42,42 @@
        }
 
         #refMng-result>div{float:left; width:50%;}
-        thead td{
-        background:rgb(245, 245, 245);
-       }
-       .searchDate input[type=radio]{display: none; margin: 10px;}
-       .searchDate input[type=radio]+label{
-            display: inline-block;
-            cursor: pointer;
-            padding: 5px 8px;
-            text-align: center;
-            font-size: 12px;
-            border-radius: 5px;
-            background-color: rgb(101, 99, 99);
-            color: white;
-            line-height: 16px;
-        }
-        input[type="text"]{
-                width: 150px;
-                border: 1px solid rgb(202, 199, 199);
-                height: 30px;
-                border-radius: 5px;
-        }
-        .searchDate input[type=radio]:checked+label{
-            background-color: rgb(22, 160, 133);
-        }
-        .searchDate input[type=radio]:hover+label{
-            background-color: rgb(22, 160, 133);
-        }
+        
+       input[name=dateType], input[name=calSta]{display: none; margin: 10px;}
+	   input[name=dateType]+label{
+	        display: inline-block;
+	        cursor: pointer;
+	        padding: 5px 8px;
+	        text-align: center;
+	        font-size: 12px;
+	        border-radius: 5px;
+	        background-color: rgb(101, 99, 99);
+	        color: white;
+	        line-height: 16px;
+	    }
+	    input[type=text]{
+	            width: 150px;
+	            border: 1px solid rgb(202, 199, 199);
+	            height: 30px;
+	            border-radius: 5px;
+	    }
+	    input[name=dateType]:checked+label, input[name=dateType]:hover+label{
+	        background-color: rgb(22, 160, 133);
+	    }
+	    
+	    input[name=calSta]+label{
+	        display: inline-block;
+	        cursor: pointer;
+	        padding: 5px 8px;
+	        text-align: center;
+	        border-radius: 5px;
+	        background-color: lightGray;
+	        line-height: 16px;
+	    }
+	    input[name=calSta]:checked+label, input[name=calSta]:hover+label{
+	        background-color: gray;
+	        color:white;
+	    }
         #tutorId{
             width:310px;
         }
@@ -88,10 +96,21 @@
 	<%@ include file="../common/adminMenubar.jsp" %>
     <div class="outer">
         <h5><b>환불 신청 관리</b></h5><br>
-        <form id="refMng-form" action="">
+        <div id="refMng-form">
             <b>환불 내역 조회</b>
             <table width="850px">
                 <tbody>
+                	<tr>
+                    	<td>진행상태</td>
+                    	<td colspan="2">
+                    		<input type="radio" name="calSta" id="checkAll" value="환불" checked>
+			                <label for="checkAll"><small>전체</small></label>
+			                <input type="radio" name="calSta" id="checkWait" value="신청">
+			                <label for="checkWait"><small>환불신청</small></label>
+			                <input type="radio" name="calSta" id="checkComplete" value="완료">
+			                <label for="checkComplete"><small>환불완료</small></label>
+                    	</td>
+                    </tr>
                     <tr>
                         <td width="150">검색어</td>
                         <td width="150px;">
@@ -151,16 +170,22 @@
                     <tr>
                         <td colspan="4" align="center">
                             <button type="button" class="btn btn-sm" id="selectRefMng-btn">조회</button>
-                            <button type="reset" class="btn btn-sm btn-secondary">초기화</button>
+                            <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
                         </td>
                         
                     </tr>
                 </tfoot>
             </table>
-        </form>
+        </div>
+        <script>
+			function resetAll(){
+				$("input:text").val("");
+				$(".searchDate input:radio").removeAttr("checked");
+			}
+		</script>
         <script>                
 		
-		    $(document).ready(function() {
+		    $(function() {
 		
 		        //datepicker 한국어로 사용하기 위한 언어설정
 		        $.datepicker.setDefaults($.datepicker.regional['ko']);     
@@ -171,8 +196,8 @@
 		            dateFormat: "yy-mm-dd",
 		            onClose : function ( selectedDate ) {
 		            
-		                var eleId = $(this).attr("id");
-		                var optionName = "";
+		                let eleId = $(this).attr("id");
+		                let optionName = "";
 		
 		                if(eleId.indexOf("StartDate") > 0) {
 		                    eleId = eleId.replace("StartDate", "EndDate");
@@ -194,8 +219,8 @@
 		
 		    // Search Date
 		    jQuery.fn.schDate = function(){
-		        var $obj = $(this);
-		        var $chk = $obj.find("input[type=radio]");
+		        let $obj = $(this);
+		        let $chk = $obj.find("input[type=radio]");
 		        $chk.click(function(){                
 		            $('input:not(:checked)').parent(".chkbox2").removeClass("on");
 		            $('input:checked').parent(".chkbox2").addClass("on");                    
@@ -204,7 +229,7 @@
 		
 		    // DateClick
 		    jQuery.fn.dateclick = function(){
-		        var $obj = $(this);
+		        let $obj = $(this);
 		        $obj.click(function(){
 		            $(this).parent().find("input").focus();
 		        });
@@ -213,16 +238,16 @@
 		    
 		    function setSearchDate(start){
 		
-		        var num = start.substring(0,1);
-		        var str = start.substring(1,2);
+		        let num = start.substring(0,1);
+		        let str = start.substring(1,2);
 		
-		        var today = new Date();
+		        let today = new Date();
 		
 		        //var year = today.getFullYear();
 		        //var month = today.getMonth() + 1;
 		        //var day = today.getDate();
 		        
-		        var endDate = $.datepicker.formatDate('yy-mm-dd', today);
+		        let endDate = $.datepicker.formatDate('yy-mm-dd', today);
 		        $('#searchEndDate').val(endDate);
 		        
 		        if(str == 'd'){
@@ -234,7 +259,7 @@
 		            today.setDate(today.getDate() + 1);
 		        }
 		
-		        var startDate = $.datepicker.formatDate('yy-mm-dd', today);
+		        let startDate = $.datepicker.formatDate('yy-mm-dd', today);
 		        $('#searchStartDate').val(startDate);
 		                
 		        // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
@@ -248,7 +273,7 @@
         </script>
         <br>
         
-        <form action="" id="refMng-result">
+        <div id="refMng-result">
             <div>
                 <b>조회 결과</b><br><br>
             </div>
@@ -261,57 +286,47 @@
                 <thead>
                     <tr>
                         <td>주문번호</td>
-                        <td>결제일자</td>
-                        <td>신청일자</td>
+                        <td width="90">결제일자</td>
+                        <td width="90">신청일자</td>
+                        <td width="90">완료일자</td>
                         <td>고객ID</td>
-                        <td>클래스명</td>
-                        <td>취소사유</td>
+                        <td width="60">클래스</td>
+                        <td width="80">취소사유</td>
                         <td>결제금액</td>
                         <td>결제방법</td>
                         <td>처리상태</td>
                     </tr>
                 </thead>
                 
-            
-                <tr>
-                    <td>B3452R23</td>
-                    <td>2023-01-15</td>
-                    <td>2023-01-16</td>
-                    <td>user01</td>
-                    <td>앙금 플라워 떡케잌 만들기</td>
-                    <td>단순변심</td>
-                    <td>99,000원</td>
-                    <td>신용/체크카드</td>
-                    <td>
-                        <div class="refSt">
-                            환불신청
-                            <button type="button" class="btn btn-sm btn-secondary refChange-btn">수정</button>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>B3452R23</td>
-                    <td>2023-01-15</td>
-                    <td>2023-01-16</td>
-                    <td>user01</td>
-                    <td>앙금 플라워 떡케잌 만들기</td>
-                    <td>단순변심</td>
-                    <td>99,000원</td>
-                    <td>
-                        무통장입금
-                        <button type="button" class="btn btn-sm btn-secondary refAcc-btn">확인</button>
-                    </td>
-                    <td>
-                        <div class="refSt">
-                            환불신청
-                            <button type="button" class="btn btn-sm btn-secondary refChange-btn">수정</button>
-                        </div>
-                    </td>
-                </tr>
-                
+            	<tbody>
+            		<% for(int i=0; i<list.size(); i++){ %>
+		                <tr>
+		                    <td><%= list.get(i).getOrderNo() %></td>
+		                    <td><%= list.get(i).getRefBank() %></td>
+		                    <td><%= list.get(i).getRefRqDt() %></td>
+		                    <td><%= list.get(i).getRefFinDt() %></td>
+		                    <td><%= list.get(i).getMemNo() %></td>
+		                    <td><%= list.get(i).getRefName() %></td>
+		                    <td><%= list.get(i).getRefRea()%></td>
+		                    <td><%= list.get(i).getRefPrice() %></td>
+		                    <td><% if(list.get(i).getRefAcc().equals("카드")){ %>
+		                    		<%= list.get(i).getRefAcc() %>
+		                    	<% } else{ %>
+		                    		<%= list.get(i).getRefAcc() %> 
+		                    		<button type="button" class="btn btn-sm btn-secondary refAcc-btn">확인</button>
+		                    	<% } %>
+		                    </td>
+		                    <td>
+		                        <div class="refSt">
+		                            <%= list.get(i).getRefSta() %>
+		                            <button type="button" class="btn btn-sm btn-secondary refChange-btn">수정</button>
+		                        </div>
+		                    </td>
+		                </tr>
+					<% } %>
+                </tbody>
             </table>
-        </form>
+        </div>
     </div>
     <div class="modal" id="refChangeModal">
         <div class="modal-dialog modal-dialog-centered">
