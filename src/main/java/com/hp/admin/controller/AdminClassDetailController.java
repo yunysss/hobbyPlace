@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hp.admin.model.service.AdminService;
+import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
+import com.hp.tutor.model.service.TutorService;
 
 /**
  * Servlet implementation class AdminClassDetailController
@@ -40,10 +42,11 @@ public class AdminClassDetailController extends HttpServlet {
 		
 
 		//상세페이지 사진 조회해오기 (Attachment)
-		
+		ArrayList<Attachment> list = aService.selectAttachmentList(clNo);
 	
 		request.setAttribute("l", l);
 		request.setAttribute("sList", sList);
+		request.setAttribute("list", list);
 	
 		
 		request.getRequestDispatcher("views/admin/adminClassDetail.jsp").forward(request, response);

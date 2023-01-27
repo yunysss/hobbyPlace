@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.hp.lesson.model.vo.* , java.util.ArrayList,com.hp.tutor.model.vo.*" %>    
+<%@ page import = "com.hp.lesson.model.vo.* , java.util.ArrayList,com.hp.tutor.model.vo.*,com.hp.common.model.vo.Attachment" %>    
     
 <% 
 	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("sList");
 	Tutor t = (Tutor)session.getAttribute("tutor");
 	String ttProfile = t.getTtProfile() ==  null? "resources/tutorProfile_upfiles/defaultimg.jpg" : t.getTtProfile();
 	Lesson l = (Lesson)request.getAttribute("l");
+	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
 
 %>    
 
@@ -115,15 +116,11 @@
                         </tr>
                         <tr>
                             <div id="img">
+                               <% for(int i=0;i<list.size();i++){ %>
                                 <td>
-                                    <img id="img1" src="" height="98px" width="148px"> 
+                                    <img id="img1" src="<%=contextPath %>/<%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" height="98px" width="148px"> 
                                 </td>
-                                <td>
-                                    <img id="img2" src=""height="98px" width="148px">
-                                </td>
-                                <td>
-                                    <img id="img3" src="" height="98px" width="148px">
-                                </td>
+                                <%} %>
                             </div>
                         </tr>
                     </table>

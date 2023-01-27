@@ -1,18 +1,19 @@
 package com.hp.admin.model.service;
 
 import static com.hp.common.JDBCTemplate.*;
-import static com.hp.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.hp.admin.model.dao.AdminDao;
+import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.vo.Member;
+import com.hp.tutor.model.dao.TutorDao;
 import com.hp.tutor.model.vo.Tutor;
 
 public class AdminService {
@@ -120,6 +121,17 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
+	
+	public ArrayList<Attachment> selectAttachmentList(int clNo) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> list = new AdminDao().selectAttachmentList(conn, clNo);
+		close(conn);
+		
+		return list;
+		
+	}
+	
+	
 	
 
 }

@@ -194,6 +194,19 @@
 
 	</entry>
 	
+	
+		<!-- 클래스 첨부파일 조회 -->
+	<entry key="selectAttachment">
+		SELECT 
+				FILE_NO
+			   ,ORIGIN_NAME
+			   ,CHANGE_NAME
+			   ,FILE_PATH
+	    FROM ATTACHMENT
+	    WHERE REF_NO = ?
+	       
+
+	</entry>
 		
 	
 </properties>
