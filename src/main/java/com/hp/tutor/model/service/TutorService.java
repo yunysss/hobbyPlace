@@ -14,9 +14,10 @@ import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
+import com.hp.member.model.dao.MemberDao;
+import com.hp.member.model.vo.Member;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
-
 import com.hp.tutor.model.vo.Tutor;
 
 public class TutorService {
@@ -144,6 +145,15 @@ public class TutorService {
 		}
 		close(conn);
 		return result1*result2;
+	}
+	
+	public Member selectTutor(int memNo) {
+		Connection conn = getConnection();
+		Member tutorMem = new MemberDao().selectTutorMember(conn, memNo);
+		
+		close(conn);
+		
+		return tutorMem;
 	}
 	
 	

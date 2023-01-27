@@ -71,10 +71,12 @@ public class TutorInsertController extends HttpServlet {
 			}
 			int result = new TutorService().insertTutor(t,grade,memNo);
 			
+			Member tutorMem = new TutorService().selectTutor(memNo);
+			
 			// 결과
 			if(result>0) { //성공
 				session.setAttribute("tutorInfo", t);
-				//session.setAttibute("loginUser", );
+				session.setAttribute("loginUser", tutorMem);
 				session.setAttribute("alertMsg", "튜터 등록에 성공했습니다. 클래스를 개설해 재능을 펼쳐보세요!");
 				response.sendRedirect(request.getContextPath()+"/tutorMain.tt");
 				
