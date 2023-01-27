@@ -8,7 +8,7 @@ import static com.hp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.hp.admin.model.dao.AdminDao;
+import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
@@ -16,6 +16,7 @@ import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
+
 import com.hp.tutor.model.vo.Tutor;
 
 public class TutorService {
@@ -174,6 +175,32 @@ public class TutorService {
 		close(conn);
 		return result;
 	}
+	
+	public int insertClass(Lesson l, ArrayList<Attachment> list) {
+		Connection conn = getConnection();
+		int result1 = new TutorDao().insertClass(conn, l);
+		int result2 = new TutorDao().insertClassAttachment(conn,list);
+		
+		
+		if(result1>0 && result2>0) {
+			commit(conn);
+		}else {
+			rollback(conn);	
+		}
+		close(conn);
+		return result1 * result2;
+	}
+	
+	public ArrayList<Attachment> selectAttachmentList(int clNo) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> list = new TutorDao().selectAttachmentList(conn, clNo);
+		close(conn);
+		
+		return list;
+		
+	}
+	
+	
 
 	
 
