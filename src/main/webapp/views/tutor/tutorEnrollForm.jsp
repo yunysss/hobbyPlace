@@ -50,9 +50,9 @@
     <h6 style="font-weight: bold">프로필 사진</h6>
     <label>프로필 사진을 등록하지 않을 경우, 기본이미지로 저장됩니다.</label><br>
     <br><br>
-    <img src="<%=request.getContextPath()%>/resources/tutorProfile_upfiles/defaultimg.jpg" id="ttProfile" >
+    <img src="<%=request.getContextPath()%>/resources/tutorProfile_upfiles/defaultimg.jpg" id="ttProfile" name="ttProfile">
     <br><br>
-    <input type="file" name="tutorProfile" onchange="loadImg(this,1)">
+    <input type="file" name="ttProfile" onchange="loadImg(this,1)">
     <br>
     <br>
     
@@ -72,7 +72,9 @@
     
     
     <h6 style="font-weight: bold;">튜터명 <span style="color:rgb(194, 28, 28)">*</span></h6> 
+    
     <input type="text" placeholder="튜터명입력" id="tutorName" name="ttName" required>
+    
    <button type="button" id="nameCheckBtn" onclick="nameCheck();" disabled >중복확인</button>
     <p class="nameTestResult" style="margin: 0%;"> </p>
 
@@ -80,11 +82,10 @@
       $(function(){
         let nameCheck = RegExp(/^[a-z\d가-힣]{1,15}$/);
 
-        
         $("#tutorName").keyup(function(){
           if(!nameCheck.test($("#tutorName").val())){
             $(".nameTestResult").html('유효한 형식의 이름이 아닙니다.');
-            $("#nameCheckBtn").attr("disable");
+            $("#nameCheckBtn").attr("disabled");
             $("#nameCheckBtn").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
           }else{
             $(".nameTestResult").html('');
@@ -97,37 +98,32 @@
         
       })
 
-      
-      
       function nameCheck(){
-    	  
     	  const $nameInput = $("#tutorName");
-        $.ajax({
-            url:"<%=contextPath%>/checknick.tt",
-            data:{checkName:$nameInput.val()},
-            success:function(result){
-              if(result==0){
-                $(".nameTestResult").html('사용할 수 없는 닉네임입니다.');
-                $nameInput.focus();
-
-              }else{ //사용가능
-                $(".nameTestResult").html("");
-                if(confirm("사용가능한 이름 입니다. 사용하시겠습니까?")){
-                  $nameInput.attr("readonly",true);
-                  $("#submitBtn").removeAttr("disabled");
-                }else{
-                  $nameInput.focus();
-                }
-                              
-              }
-            },
-            error:function(){
-                console.log("아이디 중복체크용 ajax 통신실패");
-            }
-
-        })
-    	  
-      })
+    	  $.ajax({
+    		  url:"<%=contextPath%>/checknick.tt",
+    		  data:{checkNick: $nameInput.val()},
+    		  success:function(result){
+    			  if(result=="0"){
+    				  alert("이미 존재하는 이름입니다.");
+    				  $nameInput.focus();
+    			  }else{
+    				  if(confirm("사용가능한 이름 입니다! 정말로 사용하시겠습니까?")){
+    					  $nameInput.attr("readonly",true);
+    					  
+    					  $("#submitBtn").removeAttr("disabled");
+    				  }else{
+    					  $nameInput.focus();
+    				  }
+    			  }
+    		  },
+    		  error:function(){
+    			console.log("튜터명 중복체크용 ajax통신 실패");	  
+    			  
+    		  }
+    	  })
+      }
+     
      
 
     </script>
@@ -209,6 +205,10 @@
     <br><br>
     <button id="submitBtn" disabled >신청</button>
 </form>
+
+
+
+
 
 <!-- The Modal -->
   <div class="modal fade" id="myModal">
