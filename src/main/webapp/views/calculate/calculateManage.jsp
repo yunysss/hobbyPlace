@@ -282,7 +282,7 @@
 							value += "<tr class='calMngList'>"
    								+	"<td>" + list[i].calNo + "</td>"
    								+	"<td>" + list[i].rqDt + "</td>"
-   								+	"<td>" + list[i].finDt + "<br>" 
+   								+	"<td>" + list[i].calReg + "<br>" 
    								+	"<td>" + list[i].calNm + "</td>"
    								+	"<td>" + list[i].bank + "&nbsp;" + list[i].calAcc + "</td>"
    								+	"<td>" + list[i].price  + "</td>"
@@ -321,7 +321,7 @@
 	                    <tr id ='calMngList1'>
 	                        <td><%= list.get(i).getCalNo() %></td>
 	                        <td><%= list.get(i).getRqDt() %></td>
-	                        <td><%= list.get(i).getFinDt() %></td>
+	                        <td><%= list.get(i).getCalReg() %></td>
 	                        <td><%= list.get(i).getCalNm() %></td>
 	                        <td><%= list.get(i).getBank() %>&nbsp;<%= list.get(i).getCalAcc() %></td>
 	                        <td><%= list.get(i).getPrice() %></td>

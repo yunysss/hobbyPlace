@@ -14,6 +14,12 @@ import com.hp.register.model.vo.Register;
 
 public class CalculateService {
 
+	/**
+	 * @author 예서
+	 * @param memNo 튜터회원번호
+	 * @param status 정산처리상태
+	 * @return 수강완료된 주문 리스트
+	 */
 	public ArrayList<Register> selectTutorCalculate(int memNo, String status){
 		Connection conn = getConnection();
 		ArrayList<Register> list = new CalculateDao().selectTutorCalculate(conn, memNo, status);
@@ -21,6 +27,11 @@ public class CalculateService {
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param regNo 주문번호배열
+	 * @return 정산신청금액합
+	 */
 	public int selectCalculate(String[] regNo) {
 		Connection conn = getConnection();
 		int calPrice = new CalculateDao().selectCalculate(conn, regNo);
@@ -28,6 +39,12 @@ public class CalculateService {
 		return calPrice;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param cal 신청한 정산 객체
+	 * @param regNoList 주문번호 배열
+	 * @return
+	 */
 	public int insertCalculate(Calculate cal, String[] regNoList) {
 		Connection conn = getConnection();
 		int result1 = new CalculateDao().insertCalculate(conn, cal);
@@ -42,6 +59,12 @@ public class CalculateService {
 	}
 	
 	
+	/**
+	 * @author 예서
+	 * @param memNo 튜터회원번호
+	 * @param status 정산처리상태(전체, 정산처리중, 정산완료)
+	 * @return 처리상태별 정산 리스트 (전체기간)
+	 */
 	public ArrayList<Calculate> selectAllCalList(int memNo, String status){
 		Connection conn = getConnection();
 		ArrayList<Calculate> list = new CalculateDao().selectAllCalList(conn, memNo, status);
@@ -50,6 +73,14 @@ public class CalculateService {
 	}
 	
 	
+	/**
+	 * @author 예서
+	 * @param memNo 튜터회원번호
+	 * @param startDate 검색시작날짜
+	 * @param endDate 검색끝날짜
+	 * @param status 정산처리상태(전체, 정산처리중, 정산완료)
+	 * @return 처리상태별 정산 리스트 (선택한 기간)
+	 */
 	public ArrayList<Calculate> selectSeasonCalList(int memNo, String startDate, String endDate, String status){
 		Connection conn = getConnection();
 		ArrayList<Calculate> list = new CalculateDao().selectSeasonCalList(conn, memNo, startDate, endDate, status);
@@ -57,6 +88,11 @@ public class CalculateService {
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param calNo 
+	 * @return 선택한 정산번호의 상세 내역
+	 */
 	public Calculate selectCalDetail(int calNo) {
 		Connection conn = getConnection();
 		Calculate c = new CalculateDao().selectCalDetail(conn, calNo);
@@ -64,6 +100,11 @@ public class CalculateService {
 		return c;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param status 정산처리상태
+	 * @return 관리자 정산관리 리스트 (전체 기간, 전체 회원, 정산상태별)
+	 */
 	public ArrayList<Calculate> selectAllSeasonCalMng(String status){
 		Connection conn = getConnection();
 		ArrayList<Calculate> list = new CalculateDao().selectAllSeasonCalMng(conn, status);
@@ -71,6 +112,12 @@ public class CalculateService {
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param memId 검색한 튜터 아이디 키워드
+	 * @param status 정산처리상태
+	 * @return 관리자 정산관리 리스트 (전체 기간, 선택한 회원, 정산상태별)
+	 */
 	public ArrayList<Calculate> selectMemSeasonCalMng(String memId, String status){
 		Connection conn = getConnection();
 		ArrayList<Calculate> list = new CalculateDao().selectMemSeasonCalMng(conn, memId, status);
@@ -78,6 +125,13 @@ public class CalculateService {
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param startDate 검색시작날짜
+	 * @param endDate 검색끝날짜
+	 * @param status 정산처리상태
+	 * @return 관리자 정산관리 리스트 (선택한 기간, 전체 회원, 정산상태별)
+	 */
 	public ArrayList<Calculate> selectAllCalMng(String startDate, String endDate, String status){
 		Connection conn = getConnection();
 		ArrayList<Calculate> list = new CalculateDao().selectAllCalMng(conn, startDate, endDate, status);
@@ -85,6 +139,14 @@ public class CalculateService {
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param memId 검색한 튜터 아이디 키워드
+	 * @param startDate 검색시작날짜
+	 * @param endDate 검색끝날짜
+	 * @param status 정산처리상태
+	 * @return 관리자 정산관리 리스트 (선택한 기간, 선택한 회원, 정산상태별)
+	 */
 	public ArrayList<Calculate> selectMemCalMng(String memId, String startDate, String endDate, String status){
 		Connection conn = getConnection();
 		ArrayList<Calculate> list = new CalculateDao().selectMemCalMng(conn, memId,startDate, endDate, status);
@@ -92,6 +154,11 @@ public class CalculateService {
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param calNo 선택한 정산번호
+	 * @return 선택한 정산번호의 주문번호(,로 연결된 문자열)
+	 */
 	public String selectCalculateSta(int calNo) {
 		Connection conn = getConnection();
 		String str = new CalculateDao().selectCalculateSta(conn, calNo);
@@ -99,6 +166,13 @@ public class CalculateService {
 		return str;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param calNo 선택한 정산번호
+	 * @param calSta 선택한 정산처리상태
+	 * @param calRegList 선택한 정산번호의 주문번호 배열
+	 * @return Calculate&Register 테이블 UPDATE
+	 */
 	public int updateCalculate(int calNo, String calSta, String[] calRegList) {
 		Connection conn = getConnection();
 		int result1 = new CalculateDao().updateCalculateSta(conn, calNo, calSta);
