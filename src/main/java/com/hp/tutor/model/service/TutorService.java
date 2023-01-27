@@ -130,18 +130,22 @@ public class TutorService {
 	 * @param Tutor t
 	 * @return result
 	 */
-	public int insertTutor(Tutor t) {
+	public int insertTutor(Tutor t, String grade, int memNo) {
 		Connection conn = getConnection();
 		
-		int result = new TutorDao().insertTutor(conn, t);
+		int result1 = new TutorDao().insertTutor(conn, t);
+		int result2 = new TutorDao().updateGrade(conn, grade, memNo);
 		
-		if(result>0) {
+		if(result1>0 && result2>0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
-		return result;
+		close(conn);
+		return result1*result2;
 	}
+	
+	
 	
 	public Lesson selectClass(int clNo) {
 		Connection conn = getConnection();
@@ -170,5 +174,7 @@ public class TutorService {
 		close(conn);
 		return result;
 	}
+
+	
 
 }
