@@ -55,7 +55,7 @@ public class TutorInsertController extends HttpServlet {
 			String ttEmail = multiRequest.getParameter("ttEmail");
 			String introduce = multiRequest.getParameter("introduce");
 			String pubPhone = multiRequest.getParameter("pubPhone");
-			
+					
 			Tutor t = new Tutor();
 			t.setMemNo(memNo);
 			t.setTtName(ttName);
@@ -64,16 +64,18 @@ public class TutorInsertController extends HttpServlet {
 			t.setIntroduce(introduce);
 			t.setPubPhone(pubPhone);
 			
-			
 			//프로필 사진 등록 부분
-			if(multiRequest.getOriginalFileName("tutorInfo") != null) {
+		
+			if(multiRequest.getOriginalFileName("ttProfile") != null) {
 				t.setTtProfile("/resources/tutorProfile_upfiles/"+ multiRequest.getFilesystemName("ttProfile"));
 			}
-			int result = new TutorService().insertTutor(t,grade,memNo);
 			
-			Member tutorMem = new TutorService().selectTutor(memNo);
 			
 			// 결과
+			
+			int result = new TutorService().insertTutor(t,grade,memNo);
+			Member tutorMem = new TutorService().selectTutor(memNo);
+			
 			if(result>0) { //성공
 				session.setAttribute("tutorInfo", t);
 				session.setAttribute("loginUser", tutorMem);
