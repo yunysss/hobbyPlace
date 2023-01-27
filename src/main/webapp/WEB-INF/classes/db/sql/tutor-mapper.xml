@@ -263,10 +263,109 @@
 	
 	  WHERE CL_NO =?
 	
+
+	</entry>
 	
+	<entry key="insertClass">
+	INSERT 
+			 INTO CLASS
+			    (
+			     CL_NO
+			    , CT_NO 
+			    , CT_DNO
+			    , MEM_NO
+			    , LOCAL_CODE 
+			    , DISTR_CODE
+			    , CL_NAME 
+			    , CL_ADDRESS
+			    , CL_MAX 
+			    , CL_LEVEL
+			    , CL_TIMES 
+			    , CL_SCHEDULE
+			    , CL_DAY 
+			    , CL_PRICE 
+			    , CL_DETAIL 
+			    , CURRICULUM
+			    , REFUNDPOLICY 
+			    , CL_SUPPLIES
+			    , KEYWORD
+			    , ENROLL_DATE 
+			    , CL_STATUS  
+			    , CL_THUMB 
+			    )
+			VALUES
+			 (
+			  SEQ_CLNO.NEXTVAL,
+			  ?,
+			  (SELECT CT_DNO
+			  FROM DCATEGORY
+			  WHERE CT_DNAME = ?),  
+			  ?,
+			  (SELECT LOCAL_CODE
+			  FROM LOCATION
+			  WHERE LOCAL_NAME = ?),
+			  (SELECT DISTR_CODE
+			  FROM DISTRICT
+			  WHERE DISTR_NAME = ?),
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  SYSDATE,
+			  0,
+			  ?
+			  
+			)
+
+	</entry>
+	
+	<entry key="insertClassAttachment">
+	
+	  INSERT 
+	     INTO ATTACHMENT
+	     (
+			FILE_NO
+		  ,	ORIGIN_NAME
+		  , CHANGE_NAME
+		  , FILE_PATH
+		  , UPLOAD_DATE
+		  , FILE_LEVEL
+		  , REF_TYPE
+		  , REF_NO
+	     
+	     )
+	     VALUES
+	     (
+	      SEQ_ATNO.NEXTVAL
+	      ,?
+	      ,?
+	      ,?
+	      ,SYSDATE
+	      ,?
+	      ,?
+	      ,SEQ_CLNO.CURRVAL
+
+	     )
+	     
 	
 	
 	</entry>
+	
+	
+	
+	
+	
+	
+	
 
 
 </properties>

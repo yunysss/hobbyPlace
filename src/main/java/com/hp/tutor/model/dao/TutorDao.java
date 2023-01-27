@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
@@ -555,6 +556,12 @@ public class TutorDao {
 		return sList;
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return result 클래스 중단처리 결과 
+	 */
 	public int stopClassUpdate(Connection conn, int clNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -573,7 +580,69 @@ public class TutorDao {
 
 	}
 	
+	public int insertClass(Connection conn, Lesson l) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertClass");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, l.getCtNo());
+			pstmt.setString(2,l.getCtDno());
+			pstmt.setString(3,l.getMemNo());
+			pstmt.setString(4,l.getLocalCode());
+			pstmt.setString(5, l.getDistrCode());
+			pstmt.setString(6, l.getClName());
+			pstmt.setString(7, l.getClAddress());
+			pstmt.setInt(8, l.getClMax());
+			pstmt.setString(9, l.getClLevel());
+			pstmt.setInt(10,l.getClTimes());
+			pstmt.setString(11, l.getClSchedule());
+			pstmt.setString(12, l.getClDay());
+			pstmt.setString(13,l.getClPrice());
+			pstmt.setString(14, l.getClDetail());
+			pstmt.setString(15,l.getCurriculum());
+			pstmt.setString(16, l.getRefundPolicy());
+			pstmt.setString(17, l.getClSupplies());
+			pstmt.setString(18,l.getKeyword());
+			pstmt.setString(19, l.getClThumb());
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
 	
+	public int insertClassAttachment(Connection conn, ArrayList<Attachment> list) {
+		
+		int result = 0; 
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertClassAttachment");
+		
+		try {
+			for(Attachment at : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				pstmt.setString(4, at.getFileLevel());
+				pstmt.setString(5, at.getRefType());
+				
+				result = pstmt.executeUpdate();
+			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
 	
 	
 	

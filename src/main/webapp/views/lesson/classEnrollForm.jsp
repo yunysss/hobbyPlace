@@ -221,7 +221,7 @@
   </ul>
 
   <!-- Tab panes -->
-  <form action="<%=contextPath %>/clinsert.tt" method="post" id="enroll-form" enctype="multipart/form-data">
+  <form action="<%=contextPath %>/clinsert.tt?no=<%=tutorInfo.getMemNo() %>" method="post" id="enroll-form" enctype="multipart/form-data">
 	  	<div class="tab-content">
 	  	  <div id="form1" class="container tab-pane active" ><br>
 	        <span style="font-size: 14px; font-weight: 600;">기본정보</span>
@@ -311,9 +311,9 @@
 	                <th>난이도</th>
 	                <td>
 	                    <input type="radio" name="level" value="없음" id="level"><label for="level">없음</label>
-	                    <input type="radio" name="level" value="하" id="level"><label for="level">하</label>
-	                    <input type="radio" name="level" value="중" id="level"><label for="level">중</label>
-	                    <input type="radio" name="level" value="상" id="level"><label for="level">상</label>
+	                    <input type="radio" name="level" value="하" id="level"><label for="level">쉬움</label>
+	                    <input type="radio" name="level" value="중" id="level"><label for="level">보통</label>
+	                    <input type="radio" name="level" value="상" id="level"><label for="level">어려움</label>
 	                </td>
 	            </tr>
 	
