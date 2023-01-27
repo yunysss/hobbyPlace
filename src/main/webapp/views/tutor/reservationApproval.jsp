@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.hp.register.model.vo.Register" %>
+<%@ page import="com.hp.common.model.vo.PageInfo, java.util.ArrayList, com.hp.register.model.vo.Register" %>
 <%
-	ArrayList<Register> rList = (ArrayList<Register>)request.getAttribute("rList");
-	ArrayList<Register> nList = (ArrayList<Register>)request.getAttribute("nList");
-	ArrayList<Register> fList = (ArrayList<Register>)request.getAttribute("fList");
-	ArrayList<Register> rjList = (ArrayList<Register>)request.getAttribute("rjList");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Register> list = (ArrayList<Register>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -19,10 +17,7 @@
         #rsvApproval{width:800px; margin:auto;}
         #rsvApproval>div, #rsvListAll>div{padding:20px;}
         
-        #rsvListAll{
-            overflow: auto;
-            height:500px;
-        }
+        
 
         .rsvList-1, .rsvList-2, .rsvList-3, .rsvList-4{
             border:1px solid rgb(180, 180, 180); 
@@ -67,6 +62,13 @@
 	       background-color: gray;
 	       color:white;
 	   }
+	   .paging-area{
+        	text-align: center;
+    	}
+    	.paging-area>*{
+        	border: none;
+        	border-radius: 3px;
+    	}
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
@@ -81,34 +83,24 @@
 				<input type="radio" id="selectFin" name="selectApproval" value="fin"><label for="selectFin">승인완료</label>
 				<input type="radio" id="selectReject" name="selectApproval" value="reject"><label for="selectReject">신청반려</label>
             </div>
-            <script>
-        		$("input[type=radio]").change(function(){
-           			switch($("input[type=radio]:checked").val()){
-           			case "all": $(".rsvList-1").show(); $(".rsvList-2").hide(); $(".rsvList-3").hide(); $(".rsvList-4").hide(); break;
-           			case "new": $(".rsvList-1").hide(); $(".rsvList-2").show(); $(".rsvList-3").hide(); $(".rsvList-4").hide(); break;
-           			case "fin": $(".rsvList-1").hide(); $(".rsvList-2").hide(); $(".rsvList-3").show(); $(".rsvList-4").hide(); break;
-           			case "reject": $(".rsvList-1").hide(); $(".rsvList-2").hide(); $(".rsvList-3").hide(); $(".rsvList-4").show();
-           			}
-           		})
-       		
-            </script>
+            
             <div id="rsvListAll">
-            	<% if(rList.isEmpty()){ %>
+            	<% if(list.isEmpty()){ %>
             		<div align="center">
             			<b>조회된 내역이 없습니다.</b>
             		</div>
             	<% } else{%>
-	            	<% for(int i=0; i<rList.size(); i++){ %>
-		                <div class="rsvList-1" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=rList.get(i).getRegNo()%>'">
+	            	<% for(int i=0; i<list.size(); i++){ %>
+		                <div class="rsvList-1" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=list.get(i).getRegNo()%>'">
 		                    <div>
-		                        <%= rList.get(i).getRegDate() %> <br>
-		                        <%= rList.get(i).getMemNo() %> 수강생 <br>
-		                        <h5><%= rList.get(i).getClNo() %></h5> <br>
-		                        진행일시 : <%= rList.get(i).getTeachDate() %> <%= rList.get(i).getSchNo() %>
+		                        <%= list.get(i).getRegDate() %> <br>
+		                        <%= list.get(i).getMemNo() %> 수강생 <br>
+		                        <h5><%= list.get(i).getClNo() %></h5> <br>
+		                        진행일시 : <%= list.get(i).getTeachDate() %> <%= list.get(i).getSchNo() %>
 		                    </div>
 		                    <div align="right">
 		                    	<% String regSta=""; String regColor="";
-		                    	switch(rList.get(i).getRegSta()){ 
+		                    	switch(list.get(i).getRegSta()){ 
 		                    	case "0": regSta = "NEW"; regColor = "rgb(241, 196, 15)"; break;
 		                    	   case "1": case "2": regSta = "승인완료"; regColor = "rgb(22, 160, 133)"; break;
 		                           case "4": regSta = "신청반려"; regColor = "rgb(180, 180, 180)";
@@ -118,66 +110,21 @@
 		                    
 	                	</div>
 	                <% } %>
-	                <% if(nList.isEmpty()){ %>
-	                	<div class="rsvList-2" align="center">
-	           				<b>새로운 수강 신청 내역이 없습니다.</b>
-	           			</div>
-	                <% }else{ %>
-		                <% for(int i=0; i<nList.size(); i++){ %>
-			                <div class="rsvList-2" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=nList.get(i).getRegNo()%>'">
-			                    <div>
-			                        <%= nList.get(i).getRegDate() %> <br>
-			                        <%= nList.get(i).getMemNo() %> 수강생 <br>
-			                        <h5><%= nList.get(i).getClNo() %></h5> <br>
-			                        진행일시 : <%= nList.get(i).getTeachDate() %> <%= nList.get(i).getSchNo() %>
-			                    </div>
-			                    <div align="right">
-			                        <span style="background:rgb(241, 196, 15);"><b>NEW</b></span>
-			                        
-			                    </div>
-		                    </div>
-	                    <% } %>
-                    <% } %>
-                    <% if(fList.isEmpty()){ %>
-	                	<div class="rsvList-3" align="center">
-	           				<b>승인 완료 내역이 없습니다.</b>
-	           			</div>
-	                <% }else{ %>
-	                    <% for(int i=0; i<fList.size(); i++){ %>
-			                <div class="rsvList-3" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=fList.get(i).getRegNo()%>'">
-			                    <div>
-			                        <%= fList.get(i).getRegDate() %> <br>
-			                        <%= fList.get(i).getMemNo() %> 수강생 <br>
-			                        <h5><%= fList.get(i).getClNo() %></h5> <br>
-			                        진행일시 : <%= fList.get(i).getTeachDate() %> <%= fList.get(i).getSchNo() %>
-			                    </div>
-			                    <div align="right">
-			                        <span style="background:rgb(22, 160, 133);"><b>승인완료</b></span>
-			                    </div>
-		                    </div>
-	                    <% } %>
-                    <%} %>
-                    <% if(rjList.isEmpty()){ %>
-	                	<div class="rsvList-4" align="center">
-	           				<b>신청 반려 내역이 없습니다.</b>
-	           			</div>
-	                <% }else{ %>
-	                    <% for(int i=0; i<rjList.size(); i++){ %>
-			                <div class="rsvList-4" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=rjList.get(i).getRegNo()%>'">
-			                    <div>
-			                        <%= rjList.get(i).getRegDate() %> <br>
-			                        <%= rjList.get(i).getMemNo() %> 수강생 <br>
-			                        <h5><%= rjList.get(i).getClNo() %></h5> <br>
-			                        진행일시 : <%= rjList.get(i).getTeachDate() %> <%= rjList.get(i).getSchNo() %>
-			                    </div>
-			                    <div align="right">
-			                        <span style="background:rgb(180, 180, 180)"><b>신청반려</b></span>
-			                    </div>
-		                    </div>
-	                    <% } %>
-                    <% } %>
                 <% } %>
             </div>
+            <div class="paging-area">
+				<% if(pi.getCurrentPage() != 1) { %>
+	            	<button onclick="location.href='<%= contextPath %>/approval.tt?cpage=<%= pi.getCurrentPage() - 1 %>';">&lt;</button>
+	            <% } %>
+	            
+				<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+	            	<button onclick="location.href='<%= contextPath %>/approval.tt?cpage=<%= p %>';"><%= p %></button>
+	            <% } %>
+				
+				<% if(pi.getCurrentPage() != pi.getMaxPage()){ %>
+	            	<button onclick="location.href='<%= contextPath %>/approval.tt?cpage=<%= pi.getCurrentPage() + 1 %>';">&gt;</button>
+	            <% } %>
+        </div>
         </div>
     </div>
 </body>

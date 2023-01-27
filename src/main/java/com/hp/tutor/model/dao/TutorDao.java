@@ -283,8 +283,30 @@ public class TutorDao {
 		return count;
 	}
 
-
-	public ArrayList<Register> selectTutorRegister(Connection conn, int memNo){
+	public int selectApprovalCount(Connection conn, int memNo) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectApprovalCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+		
+	}
+	
+	public ArrayList<Register> selectTutorRegister(Connection conn, PageInfo pi, int memNo, String regSta){
 		ArrayList<Register> rList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
@@ -292,7 +314,12 @@ public class TutorDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, memNo);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				rList.add(new Register(rset.getInt("reg_no"),

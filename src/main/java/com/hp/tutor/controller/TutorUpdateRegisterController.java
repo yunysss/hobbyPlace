@@ -36,7 +36,7 @@ public class TutorUpdateRegisterController extends HttpServlet {
 		int result = new TutorService().updateRegister(regSta, regNo);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/approval.tt?memNo="+memNo);
+			response.sendRedirect(request.getContextPath() + "/approval.tt?cpage=1");
 		}
 	}
 

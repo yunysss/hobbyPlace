@@ -36,7 +36,7 @@
 	        <div align="center">
 	        	<button type="button" class="btn btn-sm" style="background:rgb(22, 160, 133); color:white;" data-toggle="modal" data-target="#approveModal">예약 승인</button>
                 <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#rejectModal">신청반려</button>
-                <button type="button" class="btn btn-sm" style="border:0.1px solid" onclick="location.href='<%=contextPath%>/approval.tt?memNo=<%=loginUser.getMemNo()%>'">뒤로가기</button>
+                <button type="button" class="btn btn-sm" style="border:0.1px solid" onclick="location.href='<%=contextPath%>/approval.tt?cpage=1'">뒤로가기</button>
 	        </div>
         </div>
     </div>

@@ -88,11 +88,18 @@ public class TutorService {
 		
 	}
 	
-	public ArrayList<Register> selectTutorRegister(int memNo){
+	public int selectApprovalCount(int memNo) { // 게시글 수 조회하기
 		Connection conn = getConnection();
-		ArrayList<Register> rList = new TutorDao().selectTutorRegister(conn, memNo);
+		int listCount = new TutorDao().selectApprovalCount(conn,memNo);
 		close(conn);
-		return rList;
+		return listCount;
+	}
+	
+	public ArrayList<Register> selectTutorRegister(PageInfo pi, int memNo, String regSta){
+		Connection conn = getConnection();
+		ArrayList<Register> list = new TutorDao().selectTutorRegister(conn, pi, memNo, regSta);
+		close(conn);
+		return list;
 	}
 	
 	public ArrayList<Register> selectTutorNewRegister(int memNo, int num){

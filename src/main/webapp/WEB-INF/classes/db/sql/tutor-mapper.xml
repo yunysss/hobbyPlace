@@ -95,25 +95,40 @@
 		WHERE TT_NAME = ? 
 		 
 	</entry>
+	
+	<entry key="selectApprovalCount">
+		SELECT COUNT(*) "COUNT"
+		FROM REGISTER
+        JOIN CLASS C USING(CL_NO)
+		WHERE C.MEM_NO = ?
+		  AND REG_STA != 3
+	</entry>
 
 	<entry key="selectTutorRegister">
-		SELECT
-		       REG_NO
-		     , MEM_NAME
-		     , CL_NAME
-		     , TEACH_DATE
-		     , REG_DATE
-		     , START_TIME || '-' || END_TIME "SCH_TIME"
-		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
-		     , REG_STA
-		  FROM REGISTER
-		  JOIN MEMBER USING(MEM_NO)
-		  JOIN CLASS C USING(CL_NO)
-		  JOIN SCHEDULE USING(SCH_NO)
-		 WHERE C.MEM_NO = ?
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+		                       REG_NO
+		                     , C.MEM_NO
+		                     , MEM_NAME
+		                     , CL_NAME
+		                     , TEACH_DATE
+		                     , REG_DATE
+		                     , START_TIME || '-' || END_TIME "SCH_TIME"
+		                     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		                     , REG_STA
+		                  FROM REGISTER R
+		                  JOIN MEMBER M USING(MEM_NO)
+		                  JOIN CLASS C USING(CL_NO)
+		                  JOIN SCHEDULE USING(SCH_NO)
+		                 ORDER 
+		                    BY REG_NO DESC) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
 		   AND REG_STA != 3
-		 ORDER 
-		    BY REG_NO DESC
+		   AND MEM_NO = ?
 	</entry>
 	<entry key="selectTutorNewRegister">
 		SELECT
