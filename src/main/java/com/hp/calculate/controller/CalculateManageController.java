@@ -31,7 +31,7 @@ public class CalculateManageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Calculate> list = new CalculateService().selectAllSeasonCalMng("정산");
+		ArrayList<Calculate> list = new CalculateService().selectCalMng("", "", "", "정산");
 		
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/calculate/calculateManage.jsp").forward(request, response);

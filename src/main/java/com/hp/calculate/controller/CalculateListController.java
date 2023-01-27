@@ -33,7 +33,7 @@ public class CalculateListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		ArrayList<Calculate> aList = new CalculateService().selectAllCalList(memNo, "정산");
+		ArrayList<Calculate> aList = new CalculateService().selectCalList(memNo, "", "", "정산");
 		request.setAttribute("aList", aList);
 		request.getRequestDispatcher("views/calculate/calculateList.jsp").forward(request, response);
 	}

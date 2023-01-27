@@ -62,28 +62,14 @@ public class CalculateService {
 	/**
 	 * @author 예서
 	 * @param memNo 튜터회원번호
-	 * @param status 정산처리상태(전체, 정산처리중, 정산완료)
-	 * @return 처리상태별 정산 리스트 (전체기간)
-	 */
-	public ArrayList<Calculate> selectAllCalList(int memNo, String status){
-		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectAllCalList(conn, memNo, status);
-		close(conn);
-		return list;
-	}
-	
-	
-	/**
-	 * @author 예서
-	 * @param memNo 튜터회원번호
 	 * @param startDate 검색시작날짜
 	 * @param endDate 검색끝날짜
-	 * @param status 정산처리상태(전체, 정산처리중, 정산완료)
-	 * @return 처리상태별 정산 리스트 (선택한 기간)
+	 * @param status 정산처리상태
+	 * @return 튜터 검색 정산 리스트 
 	 */
-	public ArrayList<Calculate> selectSeasonCalList(int memNo, String startDate, String endDate, String status){
+	public ArrayList<Calculate> selectCalList(int memNo, String startDate, String endDate,String status){
 		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectSeasonCalList(conn, memNo, startDate, endDate, status);
+		ArrayList<Calculate> list = new CalculateDao().selectCalList(conn, memNo, startDate, endDate, status);
 		close(conn);
 		return list;
 	}
@@ -102,54 +88,15 @@ public class CalculateService {
 	
 	/**
 	 * @author 예서
-	 * @param status 정산처리상태
-	 * @return 관리자 정산관리 리스트 (전체 기간, 전체 회원, 정산상태별)
-	 */
-	public ArrayList<Calculate> selectAllSeasonCalMng(String status){
-		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectAllSeasonCalMng(conn, status);
-		close(conn);
-		return list;
-	}
-	
-	/**
-	 * @author 예서
-	 * @param memId 검색한 튜터 아이디 키워드
-	 * @param status 정산처리상태
-	 * @return 관리자 정산관리 리스트 (전체 기간, 선택한 회원, 정산상태별)
-	 */
-	public ArrayList<Calculate> selectMemSeasonCalMng(String memId, String status){
-		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectMemSeasonCalMng(conn, memId, status);
-		close(conn);
-		return list;
-	}
-	
-	/**
-	 * @author 예서
-	 * @param startDate 검색시작날짜
-	 * @param endDate 검색끝날짜
-	 * @param status 정산처리상태
-	 * @return 관리자 정산관리 리스트 (선택한 기간, 전체 회원, 정산상태별)
-	 */
-	public ArrayList<Calculate> selectAllCalMng(String startDate, String endDate, String status){
-		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectAllCalMng(conn, startDate, endDate, status);
-		close(conn);
-		return list;
-	}
-	
-	/**
-	 * @author 예서
 	 * @param memId 검색한 튜터 아이디 키워드
 	 * @param startDate 검색시작날짜
 	 * @param endDate 검색끝날짜
 	 * @param status 정산처리상태
-	 * @return 관리자 정산관리 리스트 (선택한 기간, 선택한 회원, 정산상태별)
+	 * @return 관리자 검색 정산관리 리스트
 	 */
-	public ArrayList<Calculate> selectMemCalMng(String memId, String startDate, String endDate, String status){
+	public ArrayList<Calculate> selectCalMng(String memId, String startDate, String endDate, String status){
 		Connection conn = getConnection();
-		ArrayList<Calculate> list = new CalculateDao().selectMemCalMng(conn, memId,startDate, endDate, status);
+		ArrayList<Calculate> list = new CalculateDao().selectCalMng(conn, memId,startDate, endDate, status);
 		close(conn);
 		return list;
 	}
