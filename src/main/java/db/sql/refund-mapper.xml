@@ -20,4 +20,16 @@
 		          BY REF_RQ_DT DESC)
 		 WHERE REF_STA LIKE ?
 	</entry>
+	
+	<entry key="updateRefund">
+		UPDATE REFUND
+		   SET REF_STA = ?
+		 WHERE ORDER_NO = ?
+	</entry>
+	
+	<entry key="updateRefFinDt">
+		UPDATE REFUND
+		   SET REF_FIN_DT = SYSDATE
+		 WHERE REF_STA = 'Y'
+	</entry>
 </properties>

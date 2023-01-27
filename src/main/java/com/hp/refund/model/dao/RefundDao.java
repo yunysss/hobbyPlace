@@ -28,7 +28,7 @@ private Properties prop = new Properties();
 	/**
 	 * @author 예서
 	 * @param status 환불상태
-	 * @return 환불상태별 리스트 (모든 회원, 모든 날짜, 정산상태별)
+	 * @return 관리자 검색 환불 리스트
 	 */
 	public ArrayList<Refund> selectRefundMng(Connection conn, String keywordType, String keyword, String dateType, String startDate, String endDate, String status){
 		ArrayList<Refund> list = new ArrayList<>();
@@ -85,6 +85,42 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public int updateRefund(Connection conn, String refNo, String refSt) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRefund");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, refSt);
+			pstmt.setString(2, refNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateRefFinDt(Connection conn) {
+		int result = 1;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRefFinDt");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

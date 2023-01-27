@@ -21,5 +21,18 @@ public class RefundService {
 		close(conn);
 		return list;
 	}
+	
+	public int updateRefund(String refNo, String refSt) {
+		Connection conn = getConnection();
+		
+		int result1 = new RefundDao().updateRefund(conn, refNo, refSt);
+		int result2 = new RefundDao().updateRefFinDt(conn);
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result1 * result2;
+	}
 
 }

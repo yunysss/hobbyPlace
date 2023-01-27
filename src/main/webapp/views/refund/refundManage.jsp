@@ -308,10 +308,8 @@
    								value += "<td>" + list[i].refAcc + "<button type='button' class='btn btn-sm btn-secondary refAcc-btn'>확인</button>";
    							}
    							value += "<td>"
-   								+		"<div class='refSt'>"
-   								+			list[i].refSta
-   								+			"<button type='button' class='btn btn-sm btn-secondary refChange-btn'>수정</button>"
-   								+		"</div>"
+ 								+		list[i].refSta
+   								+		"<button type='button' class='btn btn-sm btn-secondary refChange-btn'>수정</button>"
    								+	"</td>"
    								+ "</tr>"
     					}
@@ -327,9 +325,6 @@
             <div>
                 <b>조회 결과</b><br><br>
             </div>
-            <!-- <div align="right">
-                <button id="refChangeY-btn" style="background:rgb(22, 160, 133); color:white;">저장</button>
-            </div> -->
             <br>
 
             <table width="100%" class="table" id="refMng-list" >
@@ -365,10 +360,8 @@
 		                    	<% } %>
 		                    </td>
 		                    <td>
-		                        <div class="refSt">
-		                            <%= list.get(i).getRefSta() %>
-		                            <button type="button" class="btn btn-sm btn-secondary refChange-btn">수정</button>
-		                        </div>
+		                        <%= list.get(i).getRefSta() %>
+		                    	<button type="button" class="btn btn-sm btn-secondary refChange-btn">수정</button>
 		                    </td>
 		                </tr>
 					<% } %>
@@ -376,20 +369,26 @@
             </table>
         </div>
     </div>
-    
-    <div class="modal" id="refChangeModal">
+    <script>
+	    $(document).on("click", ".refChange-btn", function(){
+	    	$(".refNo").val($(this).parent().siblings().eq(0).text());
+	    	$('.refChangeModal').modal('show'); 
+	    })
+    </script>
+    <div class="modal refChangeModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="">
+                <form action="<%= contextPath%>/update.ref">
                     <div class="modal-body">
                         <b>환불 처리상태 변경</b> <br><br>
-                        <input type="radio" id="refRequest" value="refRequest" name="refSt"> <label for="refRequest">환불신청</label>
-                        <input type="radio" id="refFin" value="refFin" name="refSt"> <label for="refFin">환불완료</label> <br><br>
+                        <input type="radio" id="N" value="N" name="refSt"> <label for="N">환불신청</label>
+                        <input type="radio" id="Y" value="Y" name="refSt"> <label for="Y">환불완료</label> <br><br>
                         <div align="center">
-                        <button type="button" class="btn btn-sm" style="background:rgb(22, 160, 133); color:white;" data-dismiss="modal">저장</button>
+                        <button type="submit" class="btn btn-sm" style="background:rgb(22, 160, 133); color:white;">저장</button>
                         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
                         </div>
                     </div>
+                    <input type="hidden" name="refNo" class="refNo">
                 </form>
             </div>  
         </div>
@@ -411,18 +410,5 @@
             </div>  
         </div>
     </div>
-
-    <script> 
-        $(function(){
-            $(".refChange-btn").click(function(){
-                $(this).attr("data-toggle", "modal");
-                $(this).attr("data-target", "#refChangeModal");
-            })
-            $(".refAcc-btn").click(function(){
-                $(this).attr("data-toggle", "modal");
-                $(this).attr("data-target", "#refAccModal");
-            })
-        })
-    </script>
 </body>
 </html>

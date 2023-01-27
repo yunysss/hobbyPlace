@@ -325,7 +325,7 @@ public class CalculateDao {
 	 * @author 예서
 	 * @param calNo 선택한 정산번호
 	 * @param calSta 선택한 정산처리상태
-	 * @return Calculater 테이블 UPDATE
+	 * @return Calculate 테이블 UPDATE
 	 */
 	public int updateCalculateSta(Connection conn, int calNo, String calSta) {
 		int result = 0;
