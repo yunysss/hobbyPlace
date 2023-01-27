@@ -16,6 +16,7 @@ import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
+
 import com.hp.tutor.model.vo.Tutor;
 
 public class TutorService {
@@ -185,5 +186,16 @@ public class TutorService {
 		close(conn);
 		return result1 * result2;
 	}
+	
+	public ArrayList<Attachment> selectAttachmentList(int clNo) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> list = new TutorDao().selectAttachmentList(conn, clNo);
+		close(conn);
+		
+		return list;
+		
+	}
+	
+	
 
 }

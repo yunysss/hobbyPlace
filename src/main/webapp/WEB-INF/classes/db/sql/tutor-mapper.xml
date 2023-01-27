@@ -255,6 +255,7 @@
 	WHERE CL_NO = ?  
 	</entry>
 	
+	<!-- 클래스 판매중단처리 -->
 	<entry key="stopClassUpdate">
 	 UPDATE CLASS
 	    SET END_DATE = TO_CHAR(SYSDATE,'YYYY/MM/DD')
@@ -266,6 +267,7 @@
 
 	</entry>
 	
+	<!-- 클래스등록 -->
 	<entry key="insertClass">
 	INSERT 
 			 INTO CLASS
@@ -328,6 +330,7 @@
 
 	</entry>
 	
+	<!-- 클래스 첨부파일등록 -->
 	<entry key="insertClassAttachment">
 	
 	  INSERT 
@@ -358,6 +361,19 @@
 	     
 	
 	
+	</entry>
+	
+	<!-- 클래스 첨부파일 조회 -->
+	<entry key="selectAttachment">
+		SELECT 
+				FILE_NO
+			   ,ORIGIN_NAME
+			   ,CHANGE_NAME
+			   ,FILE_PATH
+	    FROM ATTACHMENT
+	    WHERE REF_NO = ?
+	       
+
 	</entry>
 	
 	

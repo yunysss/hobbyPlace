@@ -234,13 +234,13 @@
 	            <tr>
 	                <th width=100>카테고리</th>
 	                <td>
-	                    <select name="category" id="category" class="ct" onchange="changeCt();">
+	                    <select name="category" id="category" class="ct" required onchange="changeCt();">
 	                        <%for(Category c : cList){ %>
 	                        <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
 	                        <%} %>
 	                    </select>
 	                    
-	                    <select name="dCategory" id="Dcategory" class="ct">
+	                    <select name="dCategory" id="Dcategory" class="ct" required >
 	                       
 	
 	                    </select>
@@ -253,7 +253,7 @@
 	                <th>클래스명</th>
 	                <td>
 	                    <br>
-	                    <input type="text" name="className" class="form-control">
+	                    <input type="text" name="className" class="form-control" required >
 	                    
 	                </td>
 	            </tr>
@@ -264,9 +264,10 @@
 	                    <input id="class_sido" type="hidden"  name="sido" placeholder="시/도" readonly>
 	                    <input id="class_sigungu" type="hidden" name="sigungu" placeholder="구" readonly> <br>
 	                    
-	                    <input id="class_addr" type="text" name="address" placeholder="주소입력" readonly>
+	                    <input id="class_addr" type="text" name="address" required  placeholder="주소입력" readonly>
 	                    <button type="button" onclick="findAddr()"  class="btn btn-secondary btn-sm">주소검색 </button><br>
 	                    <input type="text" name="dAddress" placeholder="상세주소입력"><br>
+	                    <label style="font-size: 11px; color: red;">*서울,인천,경기 지역만 등록가능합니다.😥</label>
 	                    <script>
 	                        function findAddr(){
 	                            new daum.Postcode({
@@ -305,7 +306,7 @@
 	            </tr>
 	            <tr>
 	                <th>최대인원</th>
-	                <td><input type="number" name="clMax" class="form-control-sm"> 명</td>
+	                <td><input type="number" name="clMax" class="form-control-sm" required > 명</td>
 	            </tr>
 	            <tr>
 	                <th>난이도</th>
@@ -358,7 +359,7 @@
 	            </tr>
 	            <tr>
 	                <th>일 운영횟수</th>
-	                <td><input type="number" name="times">회</td>
+	                <td><input type="number" name="times" required >회</td>
 	            </tr>
 	            <tr>
 	                <th>운영시간</th>
@@ -411,7 +412,7 @@
 	        <table>
 	            <tr>
 	                <th width="100">판매가</th>
-	                <td><input type="text" class="form-control-sm" name="price"> 원</td>
+	                <td><input type="text" class="form-control-sm" name="price" required > 원</td>
 	            </tr>
 	
 	        </table>
@@ -581,7 +582,7 @@
 	        <tr>
 	            <th>커리큘럼</th>
 	            <td>
-	                <textarea name="curriculum"  rows="4" style="resize:none"></textarea>
+	                <textarea name="curriculum"  rows="4" style="resize:none" required ></textarea>
 	            </td>
 	        </tr>
 	        </table>

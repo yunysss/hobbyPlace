@@ -39,12 +39,12 @@ public class ClassInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		if(ServletFileUpload.isMultipartContent(request)) {
-			int maxSize = 10*1024*1024;
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/attachment_upfiles/");
-			MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
+			request.setCharacterEncoding("UTF-8");
+			HttpSession session = request.getSession();
+			if(ServletFileUpload.isMultipartContent(request)) {
+				int maxSize = 10*1024*1024;
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/classThumbnail_upfiles/");
+				MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
 		
 			
 			int memNo = Integer.parseInt(multiRequest.getParameter("no"));
@@ -96,7 +96,7 @@ public class ClassInsertController extends HttpServlet {
 		        		 Attachment at = new Attachment();
 		        		 at.setOriginName(multiRequest.getOriginalFileName(key));
 		        		 at.setChangeName(multiRequest.getFilesystemName(key));
-		        		 at.setFilePath("resorces/attachment_upfiles/");
+		        		 at.setFilePath("resources/classThumbnail_upfiles/");
 		        		 at.setFileLevel("1");
 		        		 at.setRefType("1");
 		        		
@@ -115,7 +115,7 @@ public class ClassInsertController extends HttpServlet {
 		        	 
 		         }else {
 		        	 
-		        	 if(!list.isEmpty()) {
+		        	 if(! list.isEmpty()) {
 		        		 for(Attachment at : list) {
 		        		new File(savePath + at.getChangeName()).delete();
 		        		}

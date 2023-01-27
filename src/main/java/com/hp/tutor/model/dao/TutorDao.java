@@ -20,6 +20,10 @@ import com.hp.lesson.model.vo.Schedule;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.vo.Tutor;
 
+/**
+ * @author user
+ *
+ */
 public class TutorDao {
 	
 	private Properties prop = new Properties();
@@ -580,6 +584,12 @@ public class TutorDao {
 
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param l
+	 * @return  result 클래스 등록 결과
+	 */
 	public int insertClass(Connection conn, Lesson l) {
 		int result =0;
 		PreparedStatement pstmt = null;
@@ -617,6 +627,14 @@ public class TutorDao {
 		
 	}
 	
+	
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param list
+	 * @return result 클래스 상세이미지 등록 결과 
+	 */
 	public int insertClassAttachment(Connection conn, ArrayList<Attachment> list) {
 		
 		int result = 0; 
@@ -642,6 +660,38 @@ public class TutorDao {
 		}
 		return result;
 
+	}
+	
+	/**@author 한빛
+	 * @param clNo
+	 * @return 클래스 상세이미지 조회 리스트 
+	 */
+	public ArrayList<Attachment> selectAttachmentList(Connection conn, int clNo) {
+		ArrayList<Attachment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Attachment(rset.getString("change_name"),
+										rset.getString("file_path")
+										));
+				     
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+		
 	}
 	
 	
