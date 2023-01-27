@@ -76,6 +76,10 @@
             .container{
                 font-size: small;
             }
+            #img-area img{
+                border-radius: 5px;
+            }
+
 
          
     
@@ -105,14 +109,14 @@
                     <table id="img-area">
                         <tr>
                             <td colspan="3" height="260px">
-                                <img id="mainImg" src="<%=l.getClThumb() %>" width="450" height="250" >
+                                <img id="mainImg" src="<%=l.getClThumb() %>" width="450" height="270" >
                             </td>
                         </tr>
                         <tr>
                             <div id="img">
                                 <% for(int i=0;i<list.size();i++){ %>
                                 <td>
-                                    <img id="img1" src="<%=contextPath %>/<%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" height="98px" width="148px"> 
+                                    <img id="img1" src="<%=contextPath %>/<%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" height="100px" width="148px"> 
                                 </td>
                                 <%} %>
                             </div>

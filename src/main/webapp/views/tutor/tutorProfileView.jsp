@@ -118,7 +118,7 @@ padding: 5px 10px;
                                 <hr>
                                 <input type="tel" name="phone" required size="40" value="<%=tutorInfo.getTtPhone()%>">&nbsp;&nbsp;<button class="btn btn-secondary btn-sm">재인증</button>
                             <br>
-                                <span>클래스를 직접 운영하실 튜터님의 휴대폰 번호로 인증해주세요.</span>
+                                <span>클래스를 직접 운영하실 튜터님의 휴대폰 번호로 인증해주세요.(-포함)</span>
                                
                             </td> 
                         
@@ -140,7 +140,7 @@ padding: 5px 10px;
                             <th>이메일</th>
                             <td>
                                 <hr>
-                                <input type="email" name="email"  class="form-control-sm" value="<%=tutorInfo.getTtEmail()%>">
+                                <input type="email" name="email"  required class="form-control-sm" value="<%=tutorInfo.getTtEmail()%>">
                                 <br>
                                 <span>실제 사용하는 이메일주소를 입력해주세요.<br>
                                     해당 메일로 공지사항 및 상품 수정 요청 등 중요 알림이 발생됩니다.
@@ -165,13 +165,14 @@ padding: 5px 10px;
                             <th>소개</th>
                             <td>
                                 <hr>
-                                <textarea name="introduce"  rows="6" style=resize:none; placeholder="간단한 소개와 약력을 입력해주세요."><%=introduce %></textarea>
+                                <textarea id="introduce"name="introduce"  rows="6" style=resize:none; placeholder="간단한 소개와 약력을 입력해주세요."><%=introduce %></textarea>
+                                <div class="textCount"></div>
                                 <br>
                                 <span>튜티(합플 회원)들에게 튜터님을 소개해주세요.<br>
                                 *경력, 보유 자격증, 수상이력, 대외활동 등 
                                 
                                 </span>
-                              
+                              	
                                 <hr>
                             </td>
                         </tr>
@@ -215,7 +216,53 @@ padding: 5px 10px;
 				})
 				 
 			})
+			
+			
+			
+			$('#introduce').keyup(function (e) {
+			let content = $(this).val();
+		    
+		    // 글자수 세기
+		    if (content.length == 0 || content == '') {
+		    	$('.textCount').text('0/300');
+		    } else {
+		    	$('.textCount').text(content.length + "/300");
+		    }
+		    
+		    // 글자수 제한
+		    if (content.length > 300) {
+		        $(this).val($(this).val().substring(0, 300));
+		        // 300자 넘으면 알림창 뜨도록
+		        alert('글자수는 300자까지 입력 가능합니다.');
+		    };
+		});
+					
+					
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		 </script>
+		 
+		 
+		 
+		 
+		 
+		 
   
         
         

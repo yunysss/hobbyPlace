@@ -81,6 +81,9 @@
     margin: 10px;
   }
 
+  #thumbnail img, #reimg img{ border-radius: 5px;}
+
+
 
 </style>
 </head>
@@ -216,7 +219,7 @@
 	                                    <% } %>
 	                            </span>
                       </td>
-                          <td rowspan="3" width="150">
+                          <td rowspan="3" width="150" id="reimg">
                               <img src="<%=request.getContextPath()%>/resources/images/sample1.png" width="150" height="150" alt="">
                           </td>
                       </tr>

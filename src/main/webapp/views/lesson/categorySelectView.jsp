@@ -79,8 +79,11 @@
     .paging-area>*{
         border: none;
         border-radius: 3px;
-
     }
+
+    #thumbnail img{
+      border-radius: 5px;
+     };   
      
 
     </style>

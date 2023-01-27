@@ -253,8 +253,8 @@
 	                <th>클래스명</th>
 	                <td>
 	                    <br>
-	                    <input type="text" name="className" class="form-control" required >
-	                    
+	                    <input type="text" name="className" min="10" class="form-control" required >
+	                     <label style="font-size: 11px; ">*10자 이상으로 입력해주세요.</label>
 	                </td>
 	            </tr>
 	            <tr>
