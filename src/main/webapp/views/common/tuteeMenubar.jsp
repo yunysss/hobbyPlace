@@ -109,7 +109,7 @@
             height: 31px;
             background-color: rgb(35, 104, 116);
             text-align: left;
-            line-height: 35px;
+            line-height: 31px;
             border-radius: 5px;   
             font-weight: 600;  
             font-size: 13px;
@@ -121,6 +121,7 @@
             height: 30px;
             border: 0.01px solid rgba(238, 235, 235, 0.881);
             border-radius: 5px;
+          
         }
 
         .bookmark>ul>li>a{

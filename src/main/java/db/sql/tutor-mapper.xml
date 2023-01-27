@@ -383,8 +383,44 @@
 
 	</entry>
 	
+	<!-- 클래스 등록시 스케줄 등록 -->
+	<entry key="insertSchedule">
+	
+	INSERT 
+		INTO SCHEDULE
+		         (SCH_NO
+		        , CL_NO
+		        , SESSION_NO
+		        , START_TIME
+		        , END_TIME
+		       	, CLS_HOUR
+		        )
+		VALUES 
+		        ( 
+		          SEQ_SCHNO.NEXTVAL
+		          ,	SEQ_CLNO.CURRVAL
+		          , ?
+		          , ?
+		          , ?
+		          ,(SELECT ROUND((TO_DATE(?, 'HH24:MI') - TO_DATE(?, 'HH24:MI')) * 24, 2)
+           			 FROM dual)
+  
+		        
+		            )
+    
+
+
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	</entry>
 	
 	
 	

@@ -721,6 +721,30 @@ public class TutorDao {
 		
 	}
 	
+	public int insertSchedule(Connection conn, ArrayList<Schedule> sList) {
+		 int result = 0;
+		 PreparedStatement pstmt = null;
+		 String sql = prop.getProperty("insertSchedule");
+		 try {
+			for(Schedule s : sList) {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, s.getSessionNo());
+			pstmt.setString(2, s.getStartTime());
+			pstmt.setString(3, s.getEndTime());
+			pstmt.setString(4, s.getEndTime());
+			pstmt.setString(5, s.getStartTime());
+			
+			result = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		 
+		 return result;
+	}
+	
 	
 	
 	

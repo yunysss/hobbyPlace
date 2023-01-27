@@ -16,7 +16,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.hp.common.MyFileRenamePolicy;
 import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.vo.Lesson;
-import com.hp.member.model.vo.Member;
+import com.hp.lesson.model.vo.Schedule;
 import com.hp.tutor.model.service.TutorService;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -105,8 +105,30 @@ public class ClassInsertController extends HttpServlet {
 		 
 		         }
 		         
+		         ArrayList<Schedule> sList = new ArrayList<>();
+		         //스케줄
+		         String[] sessionArr =multiRequest.getParameterValues("session");
+		         String[] startTimeArr = multiRequest.getParameterValues("startTime");
+		         String[] endTimeArr = multiRequest.getParameterValues("endTime");
+		         
+		         int[] newsession = new int[sessionArr.length];
+		         for(int j=0;j<sessionArr.length; j++) {
+		        	 newsession[j] =Integer.parseInt(sessionArr[j]);
+		         }
+		         
+		         for(int i = 0; i<newsession.length; i++) {
+		        	 Schedule sc = new Schedule();
+		        	 sc.setSessionNo(newsession[i]);
+		        	 sc.setStartTime(startTimeArr[i]);
+		        	 sc.setEndTime(endTimeArr[i]);
+		        	 
+		        	 sList.add(sc);
+		        	 
+		         }
+		         System.out.println(sList);
+		         
 		 
-		         int result = new TutorService().insertClass(l,list); 
+		         int result = new TutorService().insertClass(l,list,sList); 
 		        
 		         if(result>0) {
 		        	 //성공 => 클래스 목록 페이지로
@@ -125,16 +147,7 @@ public class ClassInsertController extends HttpServlet {
 		        	 response.sendRedirect(request.getContextPath()+"/clenroll.tt");
 		         }
 
-		         //스케줄
-		         String[] sessionArr =multiRequest.getParameterValues("session");
-		         String[] starTimeArr = multiRequest.getParameterValues("startTime");
-		         String[] endTimeArr = multiRequest.getParameterValues("endTime");
-		         
-		         String sec = ""; // ,로 연이어서 저장..
-		         if(sessionArr != null) {
-		            sec = String.join(",", sessionArr);
-		         
-		         }
+		        
 
 
 		}

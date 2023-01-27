@@ -253,11 +253,28 @@
 	                <th>클래스명</th>
 	                <td>
 	                    <br>
-	                    <input type="text" name="className" min="10" class="form-control" required >
-	                     <label style="font-size: 11px; ">*10자 이상으로 입력해주세요.</label>
+	                    <input type="text" id="clName"  name="className" min="10" max="50" class="form-control" required > 
+						 <div style="font-size: 11px; ">*10자 이상으로 입력해주세요. &nbsp;<span class="textCount"></span></div>
+        
 	                </td>
 	            </tr>
+	            
+	            <script>
+	            
+	            	 $("#clName").keyup(function(e){
+	            		 let content = $(this).val();
+	            		 
+	            		 if(content.length == 0 || content ==''){
+	            			 $(".textCount").text('0/50');
+	            		 }else{
+	            			 $(".textCount").text(content.length + "/50");
+	            		 }
+	            	 })
+	            
+	            </script>
+				
 	            <tr>
+	
 	                <th>진행장소</th>
 	                <td>
 	                 
@@ -306,15 +323,15 @@
 	            </tr>
 	            <tr>
 	                <th>최대인원</th>
-	                <td><input type="number" name="clMax" class="form-control-sm" required > 명</td>
+	                <td><input type="number" name="clMax" min="1" class="form-control-sm" required > 명</td>
 	            </tr>
 	            <tr>
 	                <th>난이도</th>
 	                <td>
-	                    <input type="radio" name="level" value="없음" id="level"><label for="level">없음</label>
-	                    <input type="radio" name="level" value="하" id="level"><label for="level">쉬움</label>
-	                    <input type="radio" name="level" value="중" id="level"><label for="level">보통</label>
-	                    <input type="radio" name="level" value="상" id="level"><label for="level">어려움</label>
+	                    <input type="radio" name="level" value="없음" id="none"><label for="none">없음</label>
+	                    <input type="radio" name="level" value="하" id="easy"><label for="easy">쉬움</label>
+	                    <input type="radio" name="level" value="중" id="normal"><label for="normal">보통</label>
+	                    <input type="radio" name="level" value="상" id="hard"><label for="hard">어려움</label>
 	                </td>
 	            </tr>
 	
@@ -359,7 +376,7 @@
 	            </tr>
 	            <tr>
 	                <th>일 운영횟수</th>
-	                <td><input type="number" name="times" required >회</td>
+	                <td><input type="number" name="times" min="1" required >회</td>
 	            </tr>
 	            <tr>
 	                <th>운영시간</th>
@@ -384,7 +401,7 @@
 	                          <tbody id="table_body">
 	                                <tr>
 	                                <td>
-	                                    <input type="number" name="session" class="form_control" >
+	                                    <input type="number" min="1" name="session" class="form_control" >
 	                                </td>
 	                                <td>
 	                                    <input type="time" name="startTime"class="form_control" >
@@ -405,7 +422,8 @@
 	                      </div>
 	                </td>
 	            </tr>
-	
+	            
+	            		
 	        </table>
 	        <h6 style="font-weight: 550;">판매가격</h6>
 	        <hr><br>
@@ -456,13 +474,14 @@
 	          </script>
 	          
 	          
+	          
 	           <script>
 	                    function changeCt(){
 	                        var study = ["외국어","자격증","IT"];
 	                        var diy = ["가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
 	                        var draw = ["취미미술","캘리그래피"];
 	                        var cook = ["요리","베이킹"];
-	                        var sport = ["실내스포츠","야외스포츠","레저/액티비티","요가필라테스/헬스PT"];
+	                        var sport = ["실내스포츠","야외스포츠","레저/액티비티","요가 필라테스/ 헬스 PT"];
 	     
 	                        var changeDct;
 	                        
@@ -488,7 +507,14 @@
 	                        
 	                    }
 	                    
+	                    
+	            
+	                    
 	                    </script>
+	                    
+	                    
+	                    	
+
 	       
 	    </div>
 	    <div id="form2" class="container tab-pane fade"><br>
@@ -629,7 +655,7 @@
 	            saveContent();
 	          
 	        });
-	    });
+		    });
 	  
 	        //데이터 저장
 	        function saveContent() {
@@ -639,11 +665,12 @@
 	            console.log("summernoteContent : " + summernoteContent);
 
 	        }
-
-
+	        
+	
 	        </script>
 	        
-	 
+	        
+	          
 	    </div>
    </div>
 

@@ -186,19 +186,19 @@ public class TutorService {
 		return result;
 	}
 	
-	public int insertClass(Lesson l, ArrayList<Attachment> list) {
+	public int insertClass(Lesson l, ArrayList<Attachment> list, ArrayList<Schedule> sList) {
 		Connection conn = getConnection();
 		int result1 = new TutorDao().insertClass(conn, l);
 		int result2 = new TutorDao().insertClassAttachment(conn,list);
+		int result3 = new TutorDao().insertSchedule(conn,sList);
 		
-		
-		if(result1>0 && result2>0) {
+		if(result1>0 && result2>0&& result3>0) {
 			commit(conn);
 		}else {
 			rollback(conn);	
 		}
 		close(conn);
-		return result1 * result2;
+		return result1 * result2* result3;
 	}
 	
 	public ArrayList<Attachment> selectAttachmentList(int clNo) {
