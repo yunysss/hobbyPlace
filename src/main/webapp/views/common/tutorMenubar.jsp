@@ -246,7 +246,7 @@
                         <span class="material-symbols-outlined">
                         support_agent
                         </span>&nbsp;고객센터
-                        <li><a href="">공지사항</a></li>
+                        <li><a href="<%=contextPath%>/noticelist.tor?cpage=1">공지사항</a></li>
                         <li><a href="">1:1문의</a></li>
                         <li><a href="">자주묻는질문</a></li>
                     </li>

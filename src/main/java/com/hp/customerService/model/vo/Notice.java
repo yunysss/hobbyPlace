@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Notice {
 	
+	private int rNum;
 	private int ntNo;
 	private String ntMem;
 	private String ntTitle;
@@ -17,9 +18,10 @@ public class Notice {
 	public Notice() {}
 
 
-	public Notice(int ntNo, String ntMem, String ntTitle, String ntContent, Date enrollDate, Date updateDate,
+	public Notice(int rNum, int ntNo, String ntMem, String ntTitle, String ntContent, Date enrollDate, Date updateDate,
 			String grade, String ntSta) {
 		super();
+		this.rNum = rNum;
 		this.ntNo = ntNo;
 		this.ntMem = ntMem;
 		this.ntTitle = ntTitle;
@@ -35,6 +37,15 @@ public class Notice {
 		super();
 		this.ntNo = ntNo;
 		this.ntTitle = ntTitle;
+	}
+	
+	public int getrNum() {
+		return rNum;
+	}
+
+
+	public void setrNum(int rNum) {
+		this.rNum = rNum;
 	}
 
 
@@ -120,7 +131,7 @@ public class Notice {
 
 	@Override
 	public String toString() {
-		return "Notice [ntNo=" + ntNo + ", ntMem=" + ntMem + ", ntTitle=" + ntTitle + ", ntContent=" + ntContent
+		return "Notice [rnum ="+ rNum + ", ntNo=" + ntNo + ", ntMem=" + ntMem + ", ntTitle=" + ntTitle + ", ntContent=" + ntContent
 				+ ", enrollDate=" + enrollDate + ", updateDate=" + updateDate + ", grade=" + grade + ", ntSta=" + ntSta
 				+ "]";
 	}

@@ -105,7 +105,8 @@ public class NoticeDao {
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
-					list.add(new Notice(rset.getInt("nt_no"),
+					list.add(new Notice(rset.getInt("rNum"),
+										rset.getInt("nt_no"),
 										rset.getString("nt_mem"),
 										rset.getString("nt_title"),
 										rset.getString("nt_content"),
@@ -233,4 +234,95 @@ public class NoticeDao {
 			}
 			return n;
 		}
+		
+		public int selectTutorNoticeListCount(Connection conn) {
+			int listCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql =prop.getProperty("selectTutorNoticeListCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt("count");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return listCount;
+			
+		}
+		
+		public ArrayList<Notice> selectTutorNoticeList(Connection conn, PageInfo pi){
+			ArrayList<Notice> list= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectTutorNoticeList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+				int endRow = startRow+10;
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Notice(rset.getInt("rNum"),
+										rset.getInt("nt_no"),
+										rset.getString("nt_mem"),
+										rset.getString("nt_title"),
+										rset.getString("nt_content"),
+										rset.getDate("enroll_date"),
+										rset.getDate("update_date"),
+										rset.getString("grade"),
+										rset.getString("nt_sta")));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+			
+			
+		}
+		
+		public Notice selectTutorNoticeDetail(Connection conn, int ntNo) {
+			Notice n = new Notice();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectTutorNoticeDetail");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, ntNo);
+				rset=pstmt.executeQuery();
+				
+				if(rset.next()) {
+					n.setNtNo(ntNo);
+					n.setNtTitle(rset.getString("nt_title"));
+					n.setNtContent(rset.getString("nt_content"));
+					n.setEnrollDate(rset.getDate("enroll_date"));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return n;
+		}
+		
+		
 }

@@ -9,6 +9,7 @@ SELECT
 	   NT_TITLE
   FROM NOTICE
  WHERE NT_STA='Y'
+   AND GRADE='1'
  ORDER 
     BY ENROLL_DATE DESC
 </entry>
@@ -33,6 +34,7 @@ FROM(
                             *
                       FROM NOTICE
                      WHERE NT_STA='Y'
+                       AND GRADE='1'
                      ORDER 
                         BY ENROLL_DATE DESC
             ) A
@@ -62,6 +64,7 @@ WHERE RNUM BETWEEN ? AND ?
 	        COUNT(*) count
 	  FROM NOTICE
 	 WHERE NT_STA = 'Y'
+	   AND GRADE='1'
 </entry>
 
 <entry key="selectFaqListCount">
@@ -79,7 +82,44 @@ WHERE RNUM BETWEEN ? AND ?
 	        ENROLL_DATE
 	  FROM NOTICE
 	 WHERE NT_STA='Y'
-	   AND GRADE=1
+	   AND GRADE='1'
+	   AND NT_NO=?
+</entry>
+
+<entry key="selectTutorNoticeListCount">
+	SELECT
+	        COUNT(*) count
+	  FROM NOTICE
+	 WHERE NT_STA = 'Y'
+	   AND GRADE='2'
+</entry>
+
+<entry key="selectTutorNoticeList">
+SELECT *
+FROM(
+        SELECT ROWNUM RNUM , A.*
+        FROM(
+                SELECT
+                            *
+                      FROM NOTICE
+                     WHERE NT_STA='Y'
+                       AND GRADE='2'
+                     ORDER 
+                        BY ENROLL_DATE DESC
+            ) A
+    )
+WHERE RNUM BETWEEN ? AND ?
+	
+</entry>
+
+<entry key="selectTutorNoticeDetail">
+	SELECT 
+	        NT_TITLE,
+	        NT_CONTENT,
+	        ENROLL_DATE
+	  FROM NOTICE
+	 WHERE NT_STA='Y'
+	   AND GRADE='2'
 	   AND NT_NO=?
 </entry>
 

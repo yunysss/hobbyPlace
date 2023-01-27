@@ -7,17 +7,20 @@
    	ArrayList<Notice> list  = (ArrayList<Notice>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <!-- Popper JS -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <style>
         .outer{
@@ -28,21 +31,24 @@
         .list{
             text-align: center;
         }
-        .list>tbody>tr:hover{
-        	cursor:pointer;
-        }
         .paging-area{
             text-align: center;
             
         }
+            
         
     </style>
 </head>
 <body>
 
-<%@ include file="../common/tuteeMenubar.jsp" %>
+<%@ include file="../common/tutorMenubar.jsp" %>
 
- <div class="outer">
+    <div class="outer">
+
+        <div>
+            <a href="" style="color: black; font-size: large; font-weight: 800;" ><img src="resources/pin-angle-fill.svg" >
+                공지사항</a>
+        </div>
 
         <div align="right">
             <input type="text">
@@ -50,43 +56,38 @@
             
         </div>
 
-        <div>
-            <a href=""><button style="background-color:rgb(22, 160, 133); color:white; border:none; width: 150px; height: 60px; font-size: large;" >공지사항</button></a>
-        </div>
-
         <br>
 
         <table align="center" class="list">
-	        <thead>
-	        	<tr style="background-color: lightgray;">
-	                <th width="100">번호</th>
-	                <th width="400" >제목</th>
-	                <th width="300">작성날짜</th>
+        	<thead>
+	            <tr style="background-color: lightgray;">
+	                <th width="150">번호</th>
+	                <th width="500" >제목</th>
+	                <th width="350">작성날짜</th>
 	            </tr>
-	         </thead>
-	         <tbody>
-		        <%if(list.isEmpty()){ %>
-		        	<tr>
-		        		<td>등록된 공지사항이 없습니다.</td>
-		        	</tr>
-		        <%}else{ %>
-		            
-		            
-		            <tr>
-		            <%for(Notice n : list){ %>
-		                <td><%=n.getrNum() %></td>
-		                <td><%=n.getNtTitle() %></td>
-		                <td><%=n.getEnrollDate() %></td>
-		            </tr>
-		            <%} %>
-		          <%} %>
+            </thead>
+            
+            <tbody>
+	            <%if(list.isEmpty()){ %>
+	            <tr>
+	                <td colspan="3">조회된 공지사항이 없습니다.</td>
+	            </tr>
+				<%}else{ %>
+					<%for(Notice n : list){ %>
+			            <tr>
+			                <td><%=n.getrNum() %></td>
+			                <td><%=n.getNtTitle() %></td>
+			                <td><%=n.getEnrollDate() %></td>
+			            </tr>
+	            	<%} %>
+				<%} %>
 			</tbody>
         </table>
-        
+
         <script>
         	$(function(){
         		$(".list>tbody>tr").click(function(){
-        			location.href = '<%=contextPath%>/ntDetail.no?ntNo=' + $(this).children().eq(0).text();
+        			location.href = '<%=contextPath%>/noticedetail.tor?ntNo=' + $(this).children().eq(0).text();
         		})
         	})
         </script>
@@ -97,15 +98,15 @@
 			
 			<%if(pi.getCurrentPage()!=1){ %>
             <button style="border: none;"
-            		onclick="location.href='<%=request.getContextPath()%>/notice.tee?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            		onclick="location.href='<%=request.getContextPath()%>/noticelist.tor?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
             <%} %>
             <%for(int i=pi.getStartPage(); i<pi.getEndPage(); i++){ %>
             <button style="background-color:rgb(22, 160, 133); color:white; border:none"
-            		onclick="location.href='<%=request.getContextPath()%>/notice.tee?cpage=<%=i%>';"><%= i %></button>
+            		onclick="location.href='<%=request.getContextPath()%>/noticelist.tor?cpage=<%=i%>';"><%= i %></button>
             <%} %>
             <%if(pi.getCurrentPage()!= pi.getMaxPage()) {%>
             <button style="border: none;"
-            		onclick="location.href='<%=request.getContextPath()%>/notice.tee?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            		onclick="location.href='<%=request.getContextPath()%>/noticelist.tor?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
 			<%} %>
         </div>
         
@@ -113,6 +114,6 @@
     </div>
     
     <%@ include file="../common/footerbar.jsp" %>
-
+    
 </body>
 </html>
