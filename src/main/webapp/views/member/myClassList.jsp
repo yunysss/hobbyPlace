@@ -108,15 +108,15 @@
 			
 		<div class="content">
 
-			<!-- 결제한 클래스가 없을때-->
-			
+			<%if(){ %> <!--로그인한 유저가 결제한 클래스가 없을 때 -->
+				
 			<div id="classnull">
 				<img src="<%=contextPath%>/resources/images/myClassNull.jpg" alt="">
 				<p>아직 신청 내역이 없어요!<br>
 				지금 바로 합플을 시작해 보세요.</p>
 				<button type="button" class="btn btn-light" id="findClass" onclick="">클래스 찾아보기</button>
 			</div>
-
+			<%}else{ %>
 
 			<!--결제한 승인완료 클래스가 있을 때-->
 			<div id="classList">
@@ -251,6 +251,7 @@
 			</div>
 		
 		</div>
+		<%} %> <!-- 로그인 유저가 결제한 클레스가 있을 때 if문 닫는 괄호 -->
 
 		<!-- 결제상세내역 Modal -->
 		<div class="modal fade" id="myModal">
