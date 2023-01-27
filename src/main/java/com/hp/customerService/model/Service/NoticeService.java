@@ -107,4 +107,24 @@ public class NoticeService {
 		close(conn);
 		return n;
 	}
+	
+	public int selectTutorFaqListCount() {
+		Connection conn = getConnection();
+		int listCount = new NoticeDao().selectTutorFaqListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+	
+	public ArrayList<Faq> selectTutorFaqList(PageInfo pi){
+		Connection conn = getConnection();
+		
+		ArrayList<Faq> list = new NoticeDao().selectTutorFaqList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
 }

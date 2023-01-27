@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class SearchIdByEmailController
+ * Servlet implementation class SearchIdByEmailFormController
  */
 @WebServlet("/searchIdByEmail.me")
-public class SearchIdByEmailController extends HttpServlet {
+public class SearchIdByEmailFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchIdByEmailController() {
+    public SearchIdByEmailFormController() {
         super();
         // TODO Auto-generated constructor stub
     }

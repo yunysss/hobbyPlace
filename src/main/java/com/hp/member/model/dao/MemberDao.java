@@ -323,6 +323,7 @@ public class MemberDao {
 		}
 		return count;
 	}
+	
 	/** 튜터등록 회원 조회
 	 * @author 수정
 	 * @param conn

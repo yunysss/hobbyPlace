@@ -99,7 +99,7 @@ public class NoticeDao {
 			try {
 				pstmt = conn.prepareStatement(sql);
 				int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-				int endRow = startRow+10;
+				int endRow = startRow+9;
 				pstmt.setInt(1, startRow);
 				pstmt.setInt(2, endRow);
 				rset = pstmt.executeQuery();
@@ -136,7 +136,7 @@ public class NoticeDao {
 			try {
 				pstmt = conn.prepareStatement(sql);
 				int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-				int endRow = startRow+10;
+				int endRow = startRow+9;
 				pstmt.setInt(1, startRow);
 				pstmt.setInt(2, endRow);
 				rset = pstmt.executeQuery();
@@ -268,7 +268,7 @@ public class NoticeDao {
 			try {
 				pstmt = conn.prepareStatement(sql);
 				int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-				int endRow = startRow+10;
+				int endRow = startRow+9;
 				pstmt.setInt(1, startRow);
 				pstmt.setInt(2, endRow);
 				rset = pstmt.executeQuery();
@@ -322,6 +322,62 @@ public class NoticeDao {
 				close(pstmt);
 			}
 			return n;
+		}
+		
+		public int selectTutorFaqListCount(Connection conn) {
+			int listCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql =prop.getProperty("selectTutorFaqListCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt("count");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return listCount;
+			
+		}
+		
+		public ArrayList<Faq> selectTutorFaqList(Connection conn, PageInfo pi){
+			ArrayList<Faq> list= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql =prop.getProperty("selectTutorFaqList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+				int endRow = startRow+9;
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Faq(rset.getInt("faq_no"),
+									rset.getString("mem_no"),
+									rset.getString("grade"),
+									rset.getString("question"),
+									rset.getString("answer"),
+									rset.getDate("enroll_date"),
+									rset.getDate("update_date")));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
 		}
 		
 		
