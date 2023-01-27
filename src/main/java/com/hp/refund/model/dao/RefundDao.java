@@ -116,15 +116,39 @@ private Properties prop = new Properties();
 	 * @author 예서
 	 * @param refNo 주문번호
 	 * @param refSt 환불상태
-	 * @return 환불처리일자 UPDATE
+	 * @return 환불완료로 수정된 주문 처리날짜 SYSDATE로 UPDATE
 	 */
-	public int updateRefFinDt(Connection conn) {
+	public int updateRefFinDt(Connection conn, String refNo) {
 		int result = 1;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateRefFinDt");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, refNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/**
+	 * @author 예서
+	 * @param refNo 주문번호
+	 * @return 환불신청으로 수정된 주문 처리날짜 NULL로 UPDATE
+	 */
+	public int updateRefFinDtNull(Connection conn, String refNo) {
+		int result = 1;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRefFinDtNull");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, refNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -152,11 +176,13 @@ private Properties prop = new Properties();
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				r = new Refund(rset.getString("ref_rq_dt"),
+				r = new Refund(rset.getInt("order_no"),
+							   rset.getString("ref_rq_dt"),
 						       rset.getString("ref_price"),
 						       rset.getString("ref_bank"),
 						       rset.getString("ref_acc"),
-						       rset.getString("ref_nm"));
+						       rset.getString("ref_nm"),
+						       rset.getString("ref_sta"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

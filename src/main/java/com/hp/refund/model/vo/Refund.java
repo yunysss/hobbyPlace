@@ -30,13 +30,15 @@ public class Refund {
 		this.refRea = refRea;
 	}
 
-	public Refund(String refRqDt, String refPrice, String refBank, String refAcc, String refName) {
+	public Refund(int orderNo, String refRqDt, String refPrice, String refBank, String refAcc, String refName, String refSta) {
 		super();
+		this.orderNo = orderNo;
 		this.refRqDt = refRqDt;
 		this.refPrice = refPrice;
 		this.refBank = refBank;
 		this.refAcc = refAcc;
 		this.refName = refName;
+		this.refSta = refSta;
 	}
 
 	public int getOrderNo() {

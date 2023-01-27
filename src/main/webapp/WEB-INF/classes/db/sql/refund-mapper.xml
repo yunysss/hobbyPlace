@@ -30,16 +30,26 @@
 	<entry key="updateRefFinDt">
 		UPDATE REFUND
 		   SET REF_FIN_DT = SYSDATE
-		 WHERE REF_STA = 'Y'
+		 WHERE ORDER_NO = ?
+		   AND REF_STA = 'Y'
+	</entry>
+	
+	<entry key="updateRefFinDtNull">
+		UPDATE REFUND
+		   SET REF_FIN_DT = NULL
+		 WHERE ORDER_NO = ?
+		   AND REF_STA = 'N'
 	</entry>
 	
 	<entry key="selectRefundDeposit">
 		SELECT
-		       TO_CHAR(REF_RQ_DT, 'YYYY-MM-DD(DY) HH24:MI:SS') "REF_RQ_DT"
+			   ORDER_NO
+		     , TO_CHAR(REF_RQ_DT, 'YYYY-MM-DD(DY) HH24:MI:SS') "REF_RQ_DT"
 		     , TO_CHAR(REF_PRICE, '999,999,999') || '원' "REF_PRICE"
 		     , REF_BANK
 		     , REF_ACC
 		     , REF_NM
+		     , DECODE(REF_STA, 'N', '환불신청', 'Y', '환불완료') "REF_STA"
 		  FROM REFUND
 		 WHERE ORDER_NO = ?
 	</entry>

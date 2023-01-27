@@ -339,10 +339,17 @@
 	    $(document).on("click", ".calChange-btn", function(){
 	    	$(".calNo").val($(this).parent().siblings().eq(0).text());
 	    	$('.calChangeModal').modal('show'); 
+	    	let calChange = $(this);
+	    	// 정산처리상태에 따라 라디오버튼 checked
+	    	$(".modal-body label").each(function(){
+				if($(calChange).parent().text().includes($(this).text())){
+					$(this).prev().attr("checked", true);
+				}
+			})
 	    })
     </script>
     <div class="modal calChangeModal">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <form action="<%= contextPath%>/update.cal">
                     <div class="modal-body">

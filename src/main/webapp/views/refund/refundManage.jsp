@@ -373,17 +373,24 @@
 	    $(document).on("click", ".refChange-btn", function(){
 	    	$(".refNo").val($(this).parent().siblings().eq(0).text());
 	    	$('.refChangeModal').modal('show'); 
+	    	let refChange = $(this);
+	    	// 환불처리상태에 따라 라디오버튼 checked
+	    	$(".modal-body label").each(function(){
+				if($(refChange).parent().text().includes($(this).text())){
+					$(this).prev().attr("checked", true);
+				}
+			})
 	    })
     </script>
     <div class="modal refChangeModal">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <form action="<%= contextPath%>/update.ref">
                     <div class="modal-body">
                         <b>환불 처리상태 변경</b> <br><br>
+                        <div align="center">
                         <input type="radio" id="N" value="N" name="refSt"> <label for="N">환불신청</label>
                         <input type="radio" id="Y" value="Y" name="refSt"> <label for="Y">환불완료</label> <br><br>
-                        <div align="center">
                         <button type="submit" class="btn btn-sm" style="background:rgb(22, 160, 133); color:white;">저장</button>
                         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
                         </div>
@@ -400,10 +407,12 @@
 	    		url:"<%=contextPath%>/selectDeposit.ref",
 	    		data:{refNo:$(this).parent().siblings().eq(0).text()},
 	    		success:function(r){
-	    			value = "예금주 성함 : " + r.refName + "<br>"
+	    			value = "주문 번호 : " + r.orderNo + "<br>"
+	    				  + "예금주 성함 : " + r.refName + "<br>"
 	    				  + "입금 요청 계좌 : " + r.refBank + "&nbsp;" + r.refAcc + "<br>"
 	    				  + "환불 금액 : " + r.refPrice + "<br>"
-	    				  + "환불 신청 날짜 : " + r.refRqDt;
+	    				  + "환불 신청 날짜 : " + r.refRqDt + "<br>"
+	    				  + "환불 처리 상태 : " + r.refSta;
 	    			$("#modal-inner").html(value);
 	    			$('.refAccModal').modal('show'); 
 	    		},error:function(){
