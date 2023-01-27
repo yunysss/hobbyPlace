@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
@@ -451,6 +452,13 @@ public class AdminDao {
 		
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @param refuse
+	 * @return 클래스 반려 상태변경결과
+	 */
 	public int classRefuseUpdate(Connection conn, int clNo, String refuse) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -468,6 +476,38 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return result;
+		
+	}
+	
+	/**@author 한빛
+	 * @param clNo
+	 * @return 클래스 상세이미지 조회 리스트 
+	 */
+	public ArrayList<Attachment> selectAttachmentList(Connection conn, int clNo) {
+		ArrayList<Attachment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Attachment(rset.getString("change_name"),
+										rset.getString("file_path")
+										));
+				     
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
 		
 	}
 	

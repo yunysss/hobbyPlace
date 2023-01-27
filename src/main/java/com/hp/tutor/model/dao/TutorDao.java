@@ -463,6 +463,32 @@ public class TutorDao {
 	}
 	
 	/**
+	 * 튜터등록시 등급이 2(튜터)로 변경
+	 * @author 수정
+	 * @param conn
+	 * @param grade
+	 * @return result
+	 */
+	public int updateGrade(Connection conn, String grade, int memNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateGrade");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,memNo);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+			
+		return result;
+	}
+	
+	/**
 	 * @author 한빛
 	 * @param conn
 	 * @param clNo
@@ -583,6 +609,7 @@ public class TutorDao {
 		return result;
 
 	}
+
 	
 	/**
 	 * @author 한빛

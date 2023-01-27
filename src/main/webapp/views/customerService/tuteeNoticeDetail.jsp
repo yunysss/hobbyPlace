@@ -29,6 +29,7 @@
          
         }
         .abc{
+        
             text-align: center;
         }
     </style>
@@ -91,13 +92,13 @@
 
             <div class="abc">
 	            <div style="float: left; width: 33%; "  >
-	                <a href=""><button style="border: none; background-color: lightgray; ">&lt;이전글</button></a>
+	                <a href="<%=request.getContextPath()%>/ntDetail.no?ntNo=<%=n.getrNum()%>"><button style="border: none; background-color: lightgray; ">&lt;이전글</button></a>
 	            </div>
 	            <div style="float:left; width: 33%;" >
 	                <a href="<%=request.getContextPath()%>/notice.tee?cpage=1"><button style="border:none; background-color: lightgray;  ">목록</button></a>
 	            </div>
 	            <div style="float: left; width: 33%;">
-	                <a href=""><button style="border: none; background-color: lightgray;">다음글&gt;</button></a>
+	                <a href="<%=request.getContextPath()%>/ntDetail.no?ntNo=<%=n.getrNum() -1%>""><button style="border: none; background-color: lightgray;">다음글&gt;</button></a>
 	            </div>
            </div>
     

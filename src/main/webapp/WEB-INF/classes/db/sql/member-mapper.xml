@@ -172,4 +172,29 @@
 		   AND MEM_PWD = ?
 	</entry>
 	
+	<!-- 튜터등록한 회원 정보 조회 -->
+	<entry key="selectTutorMember">
+		SELECT 
+		       MEM_NO
+		     , MEM_ID
+		     , MEM_PWD
+		     , MEM_NAME
+		     , MEM_NICKNAME
+		     , MEM_EMAIL
+		     , MEM_PHONE
+		     , MEM_ADDR
+		     , GENDER
+		     , MEM_BIRTH
+		     , MEM_PROFILE
+		     , INTEREST
+		     , GRADE
+		     , ENROLL_DATE
+		     , MEM_UPDATE
+		     , MEM_STATUS
+		     , MEM_DROP
+		  FROM MEMBER
+	     WHERE MEM_NO = ?
+	       AND MEM_STATUS = 'Y' 
+	</entry>
+	
 </properties>

@@ -80,4 +80,31 @@ public class NoticeService {
 		close(conn);
 		return n;
 	}
+	
+	public int selectTutorNoticeListCount() {
+		Connection conn = getConnection();
+		int listCount = new NoticeDao().selectTutorNoticeListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	public ArrayList<Notice> selectTutorNoticeList(PageInfo pi){
+		Connection conn = getConnection();
+		
+		ArrayList<Notice> list = new NoticeDao().selectTutorNoticeList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public Notice selectTutorNoticeDetail(int ntNo) { 
+		Connection conn = getConnection();
+		Notice n = new NoticeDao().selectTutorNoticeDetail(conn, ntNo);
+		
+		close(conn);
+		return n;
+	}
 }

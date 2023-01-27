@@ -14,9 +14,10 @@ import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
+import com.hp.member.model.dao.MemberDao;
+import com.hp.member.model.vo.Member;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
-
 import com.hp.tutor.model.vo.Tutor;
 
 public class TutorService {
@@ -131,18 +132,31 @@ public class TutorService {
 	 * @param Tutor t
 	 * @return result
 	 */
-	public int insertTutor(Tutor t) {
+	public int insertTutor(Tutor t, String grade, int memNo) {
 		Connection conn = getConnection();
 		
-		int result = new TutorDao().insertTutor(conn, t);
+		int result1 = new TutorDao().insertTutor(conn, t);
+		int result2 = new TutorDao().updateGrade(conn, grade, memNo);
 		
-		if(result>0) {
+		if(result1>0 && result2>0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
-		return result;
+		close(conn);
+		return result1*result2;
 	}
+	
+	public Member selectTutor(int memNo) {
+		Connection conn = getConnection();
+		Member tutorMem = new MemberDao().selectTutorMember(conn, memNo);
+		
+		close(conn);
+		
+		return tutorMem;
+	}
+	
+	
 	
 	public Lesson selectClass(int clNo) {
 		Connection conn = getConnection();
@@ -196,6 +210,8 @@ public class TutorService {
 		
 	}
 	
+	
+
 	
 
 }

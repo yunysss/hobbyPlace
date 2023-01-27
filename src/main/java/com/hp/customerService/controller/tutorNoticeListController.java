@@ -11,20 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hp.common.model.vo.PageInfo;
 import com.hp.customerService.model.Service.NoticeService;
-import com.hp.customerService.model.vo.Faq;
 import com.hp.customerService.model.vo.Notice;
 
 /**
- * Servlet implementation class tuteeFaqList
+ * Servlet implementation class tutorNoticeListController
  */
-@WebServlet("/faq.tee")
-public class tuteeFaqList extends HttpServlet {
+@WebServlet("/noticelist.tor")
+public class tutorNoticeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tuteeFaqList() {
+    public tutorNoticeListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,12 +43,12 @@ public class tuteeFaqList extends HttpServlet {
 		int endPage;		// 사용자가 요청한 페이지 하단의 페이징바의 끝수 
 		
 		
-		listCount = new NoticeService().selectFaqListCount();
+		listCount = new NoticeService().selectTutorNoticeListCount();
 			
 		//사용자가 요청한 페이지 (현재 페이지)
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 				
-		pageLimit = 10;
+		pageLimit = 5;
 		//페이지당 보여질 게시글 최대 갯수 
 		boardLimit = 10;
 		
@@ -62,14 +61,13 @@ public class tuteeFaqList extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-				
 		
-		ArrayList<Faq> list = new NoticeService().selectFaqList(pi);
+		ArrayList<Notice> list = new NoticeService().selectTutorNoticeList(pi);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("views/customerService/tuteeFaqList.jsp").forward(request, response);
+		request.getRequestDispatcher("views/customerService/tutorNoticeList.jsp").forward(request, response);
 	}
 
 	/**
