@@ -96,13 +96,16 @@
         <div class="paging-area">
 			
 			<%if(pi.getCurrentPage()!=1){ %>
-            <button style="border: none;">&lt;</button>
+            <button style="border: none;"
+            		onclick="location.href='<%=request.getContextPath()%>/notice.tee?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
             <%} %>
             <%for(int i=pi.getStartPage(); i<pi.getEndPage(); i++){ %>
-            <button style="background-color:rgb(22, 160, 133); color:white; border:none"><%= i %></button>
+            <button style="background-color:rgb(22, 160, 133); color:white; border:none"
+            		onclick="location.href='<%=request.getContextPath()%>/notice.tee?cpage=<%=i%>';"><%= i %></button>
             <%} %>
             <%if(pi.getCurrentPage()!= pi.getMaxPage()) {%>
-            <button style="border: none;">&gt;</button>
+            <button style="border: none;"
+            		onclick="location.href='<%=request.getContextPath()%>/notice.tee?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
 			<%} %>
         </div>
         
