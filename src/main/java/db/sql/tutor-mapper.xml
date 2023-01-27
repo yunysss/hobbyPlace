@@ -254,6 +254,19 @@
 	FROM SCHEDULE	
 	WHERE CL_NO = ?  
 	</entry>
+	
+	<entry key="stopClassUpdate">
+	 UPDATE CLASS
+	    SET END_DATE = TO_CHAR(SYSDATE,'YYYY/MM/DD')
+	    	,UPDATE_DATE = SYSDATE
+	    	,CL_STATUS = 3
+	
+	  WHERE CL_NO =?
+	
+	
+	
+	
+	</entry>
 
 
 </properties>

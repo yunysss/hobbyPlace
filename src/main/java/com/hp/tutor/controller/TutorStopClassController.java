@@ -1,4 +1,4 @@
-package com.hp.member.controller;
+package com.hp.tutor.controller;
 
 import java.io.IOException;
 
@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hp.member.model.service.MemberService;
+import com.hp.tutor.model.service.TutorService;
 
 /**
- * Servlet implementation class MemberDeleteController
+ * Servlet implementation class TutorStopClassController
  */
-@WebServlet("/memDelete.me")
-public class MemberDeleteController extends HttpServlet {
+@WebServlet("/stopcl.tt")
+public class TutorStopClassController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberDeleteController() {
+    public TutorStopClassController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,30 +30,19 @@ public class MemberDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memId = request.getParameter("memId");
-		String memPwd = request.getParameter("memPwd");
-		String memDrop = request.getParameter("memDrop");
+		int clNo = Integer.parseInt(request.getParameter("classNo"));
 		
-		System.out.println(memId + memPwd + memDrop);
-		
-		int count = new MemberService().deleteMember(memId, memPwd, memDrop);
-		
+		int result = new TutorService().stopClassUpdate(clNo);
 		
 		HttpSession session = request.getSession();
-		
-		if(count > 0) {
-			
-			System.out.println("회원탈퇴성공");
-			//session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
-			session.removeAttribute("loginUser");
-			//response.sendRedirect(request.getContextPath());
-			response.getWriter().print("NNNNY");
-			
+		if(result>0) {
+			session.setAttribute("alertMsg", "판매중단 처리가 완료되었습니다.");
+			response.sendRedirect(request.getContextPath()+"/ttclass.tt?cpage=1");
 		}else {
-			System.out.println("회원탈퇴실패");
-			response.getWriter().print("NNNNN");
-
+			session.setAttribute("alerMsg", "판매중단 처리 실패");
+			response.sendRedirect(request.getContextPath()+"/cldetail.tt");
 		}
+		
 	}
 
 	/**

@@ -157,5 +157,18 @@ public class TutorService {
 		return sList;
 	}
 	
+	
+	public int stopClassUpdate(int clNo) {
+		Connection conn = getConnection();
+		int result = new TutorDao().stopClassUpdate(conn, clNo);
+
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 }
