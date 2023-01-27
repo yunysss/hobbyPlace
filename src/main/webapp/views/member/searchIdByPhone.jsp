@@ -78,7 +78,7 @@
                 <input type="text" class="cInput" id="userPhone" required placeholder="휴대폰번호를 입력해주세요(-포함입력)">
                 
                 <br><br>
-                <button type="button" class="getCode cButton">인증번호 받기</button> <br><br>
+                <button type="button" class="getCode cButton" id="sendSms" onclick="sms();">인증번호 받기</button> <br><br>
 
               
                 <div class="inputCodeForm">
@@ -88,22 +88,36 @@
                     <button type="submit" class="submitCode cButton">확인</button>
                 </div>
 
-               <script>
-                    $(function(){
-                        $(".getCode").click(function(){
-                            $(this).css("background", "gray").css("border-color", "gray");
-                            $(this).attr("disabled", true);
-                            $(".inputCodeForm").show();
-
-                        })
-                    })                    
-                </script>             
+                           
 
             </form>
 
         </div>
     </div>
-
+	<script>
+		function sms(){
+			var $memName = $("#userName").val();
+			var $phone = $("#userPhone").val();
+			$.ajax({
+				url: "<%=contextPath%>/IdByPhone.me",
+				data:{memName:$memName,
+					  phone:$phone},
+				success:function(result){
+					if(result=="NNNNY"){//가입된회원
+						$("#sendSms").css("background", "gray").css("border-color", "gray");
+                        $("#sendSms").attr("disabled", true);
+						$(".inputCodeForm").show();
+						
+					}else{//가입되지않은회원
+						alert("가입된 회원이 아닙니다");
+					}
+				},
+				error: function(){
+					console.log("연락처로 아이디찾기 ajax 통신 실패");
+				}
+			})
+		}
+	</script>
 
 
 	<br><br><br><br>

@@ -1,7 +1,6 @@
 package com.hp.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class SearchIdByPhoneController
+ * Servlet implementation class SearchPwdByPhone
  */
-@WebServlet("/searchIdByPhone.me")
-public class SearchIdByPhoneController extends HttpServlet {
+@WebServlet("/searchPwdByPhone.me")
+public class SearchPwdByPhoneFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchIdByPhoneController() {
+    public SearchPwdByPhoneFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,7 +28,7 @@ public class SearchIdByPhoneController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		request.getRequestDispatcher("views/member/searchIdByPhone.jsp").forward(request, response);
+		request.getRequestDispatcher("views/member/searchPwdByPhone.jsp").forward(request, response);
 	}
 
 	/**

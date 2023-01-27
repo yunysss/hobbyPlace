@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class SearchPwdByEmailController
+ * Servlet implementation class SearchIdByEmailFormController
  */
-@WebServlet("/searchPwdByEmail.me")
-public class SearchPwdByEmailController extends HttpServlet {
+@WebServlet("/searchIdByEmail.me")
+public class SearchIdByEmailFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchPwdByEmailController() {
+    public SearchIdByEmailFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,8 +28,10 @@ public class SearchPwdByEmailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
-		request.getRequestDispatcher("views/member/searchPwdByEmail.jsp").forward(request, response);
+		request.getRequestDispatcher("views/member/searchIdByEmail.jsp").forward(request, response);
+		
 	}
 
 	/**

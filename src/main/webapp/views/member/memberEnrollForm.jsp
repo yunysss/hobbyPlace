@@ -101,7 +101,7 @@
         border-radius: 10px;
         font-size:20px;
     }
-    #submitForm:hover, .showRules:hover, .agreeAll:hover, .agreement:hover {cursor: pointer;}
+	.showRules:hover, .agreeAll:hover, .agreement:hover {cursor: pointer;}
 </style>
 </head>
 <body>	
@@ -493,7 +493,7 @@
                     
                 </table>
                 <br><br>
-                <button type="submit" id="submitForm" onclick="enrollMember();">가입하기</button>
+                <button type="submit" id="submitForm" onclick="enrollMember();" disabled>가입하기</button>
                 <br><br><br><br>
                                                 
             </form>
@@ -601,6 +601,18 @@
             })
             
         })
+    </script>
+    <script>
+    	$(function(){
+    		if($(".idTest").html('') && $(".pwdTest1").html('') && $(".pwdTest2").html('') && $(".nameTest").html('') 
+    		   		&& $(".nickNameTest").html('') && $(".emailTest").html('') && $(".phoneTest").html('')){
+    	    		 $("#submitForm").removeAttr("disabled");
+    	    		 $("#submitForm").css('cursor', 'pointer');
+    	    }else{
+    	    	$("#submitForm").attr("disabled");
+    	    	$("#submitForm").css('cursor', 'default');
+    	    }
+    	})
     </script>
 	
 	<!-- 이용약관 modal -->

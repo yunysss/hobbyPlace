@@ -59,7 +59,7 @@
             
             
             <div class="welcomeText" align="left">
-                <h3>🎉가입이 완료되었습니다🎉</h3><br>
+                <h3>가입이 완료되었습니다🎉</h3><br>
                 <p>
                     <b><%=enrollMember.getMemNick()%></b>님 환영합니다😆<br>
                     합플에서 <b><%=enrollMember.getMemNick()%></b>님의 관심사를 발견하고 취미를 발전시켜보세요!
