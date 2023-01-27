@@ -261,7 +261,7 @@
         <script>
         function selectCalMng(){
     		$.ajax({
-    			url:"<%=contextPath%>/manageAjax.cal",
+    			url:"<%=contextPath%>/manageSearch.cal",
     			data:{
     				memId:$("input[name=tutorId]").val(),
     				startDate:$("#searchStartDate").val(),

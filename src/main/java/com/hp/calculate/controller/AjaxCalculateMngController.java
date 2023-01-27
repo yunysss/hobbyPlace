@@ -16,7 +16,7 @@ import com.hp.calculate.model.vo.Calculate;
 /**
  * Servlet implementation class AjaxCalculateMngController
  */
-@WebServlet("/manageAjax.cal")
+@WebServlet("/manageSearch.cal")
 public class AjaxCalculateMngController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.hp.refund.model.service.RefundService;
 import com.hp.refund.model.vo.Refund;
 
 /**
- * Servlet implementation class RefundController
+ * Servlet implementation class AjaxRefundManageController
  */
-@WebServlet("/manage.ref")
-public class RefundManageController extends HttpServlet {
+@WebServlet("/select.ref")
+public class AjaxRefundManageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RefundManageController() {
+    public AjaxRefundManageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,11 +32,16 @@ public class RefundManageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String keywordType = request.getParameter("keywordType");
+		String keyword = request.getParameter("keyword");
+		String dateType = request.getParameter("dateType");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		String status = request.getParameter("status");
 		
-		ArrayList<Refund> list = new RefundService().selectRefundMng("", "", "", "", "", "환불");
-		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/refund/refundManage.jsp").forward(request, response);
+		response.setContentType("application/json; charset=UTF-8");
+		ArrayList<Refund> list = new RefundService().selectRefundMng(keywordType, keyword, dateType, startDate, endDate, status);
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

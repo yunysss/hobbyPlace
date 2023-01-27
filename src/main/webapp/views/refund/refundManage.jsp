@@ -114,13 +114,13 @@
                     <tr>
                         <td>검색어</td>
                         <td width="150px;">
-                            <select name="" class="form-control">
-                                <option value="">주문번호</option>
-                                <option value="">고객ID</option>
+                            <select name="keywordType" class="form-control">
+                                <option value="orderNo">주문번호</option>
+                                <option value="memId">고객ID</option>
                             </select>
                         </td>
                         <td colspan="2">
-                            <input type="text" name="tutorId" size="18">
+                            <input type="text" name="keyword" size="18">
                         </td>
                         <td>
                         </td>
@@ -128,9 +128,9 @@
                     <tr>
                         <td>조회 기간</td>
                         <td>
-                            <select name="" class="form-control">
-                                <option value="">결제일자</option>
-                                <option value="">신청일자</option>
+                            <select name="searchDateType" class="form-control">
+                                <option value="regDate">결제일자</option>
+                                <option value="refDate">신청일자</option>
                             </select>
                         </td>
                         <td colspan="2">
@@ -275,9 +275,11 @@
         <script>
         function selectRefundMng(){
     		$.ajax({
-    			url:"<%=contextPath%>/manage.ref",
+    			url:"<%=contextPath%>/select.ref",
     			data:{
-    				memId:$("input[name=tutorId]").val(),
+    				keywordType:$("select[name=keywordType]").val(),
+    				keyword:$("input[name=keyword]").val(),
+    				dateType:$("select[name=searchDateType]").val(),
     				startDate:$("#searchStartDate").val(),
     				endDate:$("#searchEndDate").val(),
     				status:$("input[name=calSta]:checked").val()    				
@@ -288,11 +290,12 @@
     				$("#calMng-list tbody").html("");
     				if(list.length == 0){ 
     					value += "<tr>"
-    							+	"<td colspan='7'>조회된 내역이 없습니다</td>"
+    							+	"<td colspan='9'>조회된 내역이 없습니다</td>"
     							+ "</tr>"
     				}else{
 						for(let i=0; i<list.length; i++){
 							value += "<tr class='calMngList'>"
+								+	"<td>" + list[i].orderNo + "</td>"
    								+	"<td>" + list[i].refBank + "</td>"
    								+	"<td>" + list[i].refRqDt + "</td>"
    								+	"<td>" + list[i].refFinDt + "<br>" 

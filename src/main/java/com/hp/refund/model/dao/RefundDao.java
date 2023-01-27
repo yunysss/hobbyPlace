@@ -30,16 +30,40 @@ private Properties prop = new Properties();
 	 * @param status 환불상태
 	 * @return 환불상태별 리스트 (모든 회원, 모든 날짜, 정산상태별)
 	 */
-	public ArrayList<Refund> selectAllRefundList(Connection conn, String status){
+	public ArrayList<Refund> selectRefundMng(Connection conn, String keywordType, String keyword, String dateType, String startDate, String endDate, String status){
 		ArrayList<Refund> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectAllRefundList");
-		
+		String sql = prop.getProperty("selectRefundMng");
+		if(!keyword.equals("")) {
+			if(keywordType.equals("orderNo")) {
+				sql += "AND ORDER_NO LIKE ?";
+			} else {
+				sql += "AND MEM_ID LIKE ?";
+			}
+		}
+		if(!startDate.equals("") && !endDate.equals("")) {
+			if(dateType.equals("regDate")) {
+				sql += "AND REG_DATE BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1";
+			} else {
+				sql += "AND REF_RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1";
+			}
+		}
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + status + "%");
-			
+			if(!keyword.equals("")) {
+				pstmt.setString(2, "%" + keyword + "%");
+				if(!startDate.equals("") && !endDate.equals("")) {
+					pstmt.setString(3, startDate);
+					pstmt.setString(4, endDate);
+				}
+			}else {
+				if(!startDate.equals("") && !endDate.equals("")) {
+					pstmt.setString(2, startDate);
+					pstmt.setString(3, endDate);
+				}
+			}
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Refund(rset.getInt("order_no"),

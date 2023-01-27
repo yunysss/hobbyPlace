@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="selectAllRefundList">
-		SELECT
-		       ORDER_NO
-		     , MEM_ID
-		     , TO_CHAR(REF_RQ_DT, 'YYYY-MM-DD') "REF_RQ_DT"
-     		 , DECODE(REF_FIN_DT, NULL, '-', TO_CHAR(REF_FIN_DT, 'YYYY-MM-DD')) "REF_FIN_DT"
-		     , TO_CHAR(REF_PRICE, '999,999,999') || '원' "REF_PRICE"
-		     , TO_CHAR(REG_DATE, 'YYYY-MM-DD') "REG_DATE"
-		     , DECODE(REG_PAY, 0, '카드', 1, '무통장') "REG_PAY"
-		     , CL_NO
-		     , DECODE(REF_STA, 'N', '환불신청', 'Y', '환불완료') "REF_STA"
-		     , REF_REA
-		  FROM REFUND RF
-		  JOIN MEMBER M ON(RF.MEM_NO = M.MEM_NO)
-		  JOIN REGISTER ON(ORDER_NO = REG_NO)
-		 WHERE DECODE(REF_STA, 'N', '환불신청', 'Y', '환불완료') LIKE ?
-		 ORDER
-    		BY REF_RQ_DT DESC
+	<entry key="selectRefundMng">
+		SELECT *
+		  FROM (SELECT ORDER_NO
+		             , MEM_ID
+		             , TO_CHAR(REF_RQ_DT, 'YYYY-MM-DD') "REF_RQ_DT"
+		             , DECODE(REF_FIN_DT, NULL, '-', TO_CHAR(REF_FIN_DT, 'YYYY-MM-DD')) "REF_FIN_DT"
+		             , TO_CHAR(REF_PRICE, '999,999,999') || '원' "REF_PRICE"
+		             , TO_CHAR(REG_DATE, 'YYYY-MM-DD') "REG_DATE"
+		             , DECODE(REG_PAY, 0, '카드', 1, '무통장') "REG_PAY"
+		             , CL_NO
+		             , DECODE(REF_STA, 'N', '환불신청', 'Y', '환불완료') "REF_STA"
+		             , REF_REA
+		         FROM REFUND RF
+		         JOIN MEMBER M ON(RF.MEM_NO = M.MEM_NO)
+		        JOIN REGISTER ON(ORDER_NO = REG_NO)
+		       ORDER
+		          BY REF_RQ_DT DESC)
+		 WHERE REF_STA LIKE ?
 	</entry>
 </properties>
