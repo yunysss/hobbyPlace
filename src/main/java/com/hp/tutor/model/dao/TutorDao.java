@@ -554,4 +554,28 @@ public class TutorDao {
 		}
 		return sList;
 	}
+	
+	public int stopClassUpdate(Connection conn, int clNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("stopClassUpdate");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,clNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+	
+	
+	
+	
+	
+	
 }

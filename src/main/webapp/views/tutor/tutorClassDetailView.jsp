@@ -87,8 +87,12 @@
             </span> 
             <form action="<%=contextPath %>/" method="post">
             <div id="btn-area" >
+
             <button class="btn btn-secondary btn-sm a">수정</button>
+             <%if (!l.getClStatus().equals("3")){ %>
             <button  type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classDelete">판매중단</button>
+			<%} %>
+		     
             </div>
         
             <hr>
@@ -306,7 +310,7 @@
                   </div>
                   
                   <div align="center">
-                  <form action="<%=contextPath %>/Deletecl.tt" method="post">
+                  <form action="<%=contextPath %>/stopcl.tt" method="post">
 		        	<input type="hidden" name="classNo" value="<%=l.getClNo()%>">
 		        	<button type="submit" class="btn btn-danger btn-sm">확인</button>
 		        <br><br>
