@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.tutor.model.service.TutorService;
-import com.hp.tutor.model.vo.Tutor;
 
 /**
  * Servlet implementation class TutorClassDetailController
@@ -39,8 +39,12 @@ public class TutorClassDetailController extends HttpServlet {
 		
 		Lesson l = new TutorService().selectClass(clNo);
 		ArrayList<Schedule> sList = new TutorService().selectSchedule(clNo);
-	
 		
+		//첨부파일 조회 =>
+		ArrayList<Attachment> list = new TutorService().selectAttachmentList(clNo);
+		
+	
+		request.setAttribute("list", list);
 		request.setAttribute("l", l);
 		request.setAttribute("sList", sList);
 		

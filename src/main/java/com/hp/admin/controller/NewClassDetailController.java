@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.hp.admin.model.service.AdminService;
+import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.tutor.model.vo.Tutor;
@@ -44,10 +45,11 @@ public class NewClassDetailController extends HttpServlet {
 		Tutor t = aService.selectTutor(clNo);
 		
 		//상세페이지 사진 조회해오기 (Attachment)
-		
+		ArrayList<Attachment> list =aService.selectAttachmentList(clNo);
 	
 		request.setAttribute("l", l);
 		request.setAttribute("sList", sList);
+		request.setAttribute("list", list);
 		HttpSession session = request.getSession();
 		session.setAttribute("tutor",t);
 

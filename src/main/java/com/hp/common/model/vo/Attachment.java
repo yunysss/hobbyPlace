@@ -28,6 +28,12 @@ public class Attachment {
 		this.refNo = refNo;
 	}
 
+	public Attachment(String changeName, String filePath) {
+		super();
+		this.changeName = changeName;
+		this.filePath = filePath;
+	}
+
 	public int getFileNo() {
 		return fileNo;
 	}

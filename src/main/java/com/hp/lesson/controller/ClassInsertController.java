@@ -1,6 +1,8 @@
 package com.hp.lesson.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +14,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.hp.common.MyFileRenamePolicy;
+import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.member.model.vo.Member;
+import com.hp.tutor.model.service.TutorService;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -35,15 +39,15 @@ public class ClassInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		if(ServletFileUpload.isMultipartContent(request)) {
-			int maxSize = 10*1024*1024;
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/attachment_upfiles/");
-			MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
+			request.setCharacterEncoding("UTF-8");
+			HttpSession session = request.getSession();
+			if(ServletFileUpload.isMultipartContent(request)) {
+				int maxSize = 10*1024*1024;
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/classThumbnail_upfiles/");
+				MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
 		
 			
-			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+			int memNo = Integer.parseInt(multiRequest.getParameter("no"));
 			
 				String ctNo = multiRequest.getParameter("category");
 		         String ctDno = multiRequest.getParameter("dCategory");
@@ -52,7 +56,7 @@ public class ClassInsertController extends HttpServlet {
 		         String distrCode = multiRequest.getParameter("sigungu");
 		         String address1 = multiRequest.getParameter("address");
 		         String address2 = multiRequest.getParameter("dAddress");
-		         String clAddress = address1 + address2;
+		         String clAddress = address1 +" "+ address2;
 		         int clMax = Integer.parseInt(multiRequest.getParameter("clMax"));
 		         String clLevel = multiRequest.getParameter("level");
 		         String clSchedule = multiRequest.getParameter("schedule");
@@ -65,7 +69,15 @@ public class ClassInsertController extends HttpServlet {
 		       
 		         int clTimes =Integer.parseInt(multiRequest.getParameter("times"));
 		         String clPrice = multiRequest.getParameter("price");
-		         String clThumb = multiRequest.getParameter("file1");
+		         
+		         String clThumb = "";
+		         if(multiRequest.getOriginalFileName("file1")!=null) {
+		        	 String filePath = "resources/classThumbnail_upfiles/";
+		        	 String changeName = multiRequest.getFilesystemName("file1");
+		        	 clThumb = filePath+changeName;
+		         }
+		         
+
 		         String clDetail = multiRequest.getParameter("editordata");
 		         String curriculum = multiRequest.getParameter("curriculum");
 		         String refundPolicy = multiRequest.getParameter("refundPolicy");
@@ -74,6 +86,45 @@ public class ClassInsertController extends HttpServlet {
 		         
 		         Lesson l = new Lesson(ctNo, ctDno,String.valueOf(memNo),localCode,distrCode,clName,clAddress,clMax,clLevel,clTimes,clSchedule,clDay,clPrice,clDetail,curriculum,refundPolicy,clSupplies,keyword,clThumb);
 		      
+		         //attachment
+		        ArrayList<Attachment> list = new ArrayList<>();
+		         
+		         for(int i=2; i<=4; i++) {
+		        	 String key = "file" +i;
+		         
+		        	 if(multiRequest.getOriginalFileName(key) != null) {
+		        		 Attachment at = new Attachment();
+		        		 at.setOriginName(multiRequest.getOriginalFileName(key));
+		        		 at.setChangeName(multiRequest.getFilesystemName(key));
+		        		 at.setFilePath("resources/classThumbnail_upfiles/");
+		        		 at.setFileLevel("1");
+		        		 at.setRefType("1");
+		        		
+		        		 list.add(at);
+		        	 }
+		 
+		         }
+		         
+		 
+		         int result = new TutorService().insertClass(l,list); 
+		        
+		         if(result>0) {
+		        	 //성공 => 클래스 목록 페이지로
+		        	 session.setAttribute("alertMsg", "클래스가 성공적으로 등록되었습니다.");
+		        	 response.sendRedirect(request.getContextPath()+"/ttclass.tt?cpage=1");
+		        	 
+		         }else {
+		        	 
+		        	 if(! list.isEmpty()) {
+		        		 for(Attachment at : list) {
+		        		new File(savePath + at.getChangeName()).delete();
+		        		}
+		        	 }
+		        	//실패 
+		        	 session.setAttribute("alertMsg", "클래스 등록에 실패했습니다.");
+		        	 response.sendRedirect(request.getContextPath()+"/clenroll.tt");
+		         }
+
 		         //스케줄
 		         String[] sessionArr =multiRequest.getParameterValues("session");
 		         String[] starTimeArr = multiRequest.getParameterValues("startTime");
@@ -85,8 +136,6 @@ public class ClassInsertController extends HttpServlet {
 		         
 		         }
 
-			
-			
 
 		}
 	}
