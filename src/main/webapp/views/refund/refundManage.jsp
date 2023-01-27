@@ -98,11 +98,11 @@
         <h5><b>환불 신청 관리</b></h5><br>
         <div id="refMng-form">
             <b>환불 내역 조회</b>
-            <table width="850px">
+            <table width="800px">
                 <tbody>
                 	<tr>
                     	<td>진행상태</td>
-                    	<td colspan="2">
+                    	<td colspan="3">
                     		<input type="radio" name="calSta" id="checkAll" value="환불" checked>
 			                <label for="checkAll"><small>전체</small></label>
 			                <input type="radio" name="calSta" id="checkWait" value="신청">
@@ -112,23 +112,27 @@
                     	</td>
                     </tr>
                     <tr>
-                        <td width="150">검색어</td>
+                        <td>검색어</td>
                         <td width="150px;">
                             <select name="" class="form-control">
                                 <option value="">주문번호</option>
                                 <option value="">고객ID</option>
-                                <option value="">클래스명</option>
                             </select>
                         </td>
-                        <td width="200">
+                        <td colspan="2">
                             <input type="text" name="tutorId" size="18">
                         </td>
                         <td>
-
                         </td>
                     </tr>
                     <tr>
                         <td>조회 기간</td>
+                        <td>
+                            <select name="" class="form-control">
+                                <option value="">결제일자</option>
+                                <option value="">신청일자</option>
+                            </select>
+                        </td>
                         <td colspan="2">
                             <div colspan="2" class="clearfix">
                                 <!-- 시작일 -->
@@ -166,16 +170,11 @@
                         </td>
                     </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="4" align="center">
-                            <button type="button" class="btn btn-sm" id="selectRefMng-btn">조회</button>
-                            <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
-                        </td>
-                        
-                    </tr>
-                </tfoot>
             </table>
+            <div align="center">
+            	<button type="button" class="btn btn-sm" id="selectRefMng-btn" onclick="selectRefundMng();">조회</button>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
+            </div>
         </div>
         <script>
 			function resetAll(){
@@ -273,6 +272,54 @@
         </script>
         <br>
         
+        <script>
+        function selectRefundMng(){
+    		$.ajax({
+    			url:"<%=contextPath%>/manage.ref",
+    			data:{
+    				memId:$("input[name=tutorId]").val(),
+    				startDate:$("#searchStartDate").val(),
+    				endDate:$("#searchEndDate").val(),
+    				status:$("input[name=calSta]:checked").val()    				
+    			},
+    			success:function(list){
+    				
+    				let value = "";
+    				$("#calMng-list tbody").html("");
+    				if(list.length == 0){ 
+    					value += "<tr>"
+    							+	"<td colspan='7'>조회된 내역이 없습니다</td>"
+    							+ "</tr>"
+    				}else{
+						for(let i=0; i<list.length; i++){
+							value += "<tr class='calMngList'>"
+   								+	"<td>" + list[i].refBank + "</td>"
+   								+	"<td>" + list[i].refRqDt + "</td>"
+   								+	"<td>" + list[i].refFinDt + "<br>" 
+   								+	"<td>" + list[i].memNo + "</td>"
+   								+	"<td>" + list[i].refRea + "</td>"
+   								+	"<td>" + list[i].refPrice  + "</td>";
+   							if(list[i].refAcc == "카드"){
+   								value += "<td>" + list[i].refAcc + "</td>";
+   							} else{
+   								value += "<td>" + list[i].refAcc + "<button type='button' class='btn btn-sm btn-secondary refAcc-btn'>확인</button>";
+   							}
+   							value += "<td>"
+   								+		"<div class='refSt'>"
+   								+			list[i].refSta
+   								+			"<button type='button' class='btn btn-sm btn-secondary refChange-btn'>수정</button>"
+   								+		"</div>"
+   								+	"</td>"
+   								+ "</tr>"
+    					}
+					}
+    				$("#refMng-result tbody").html(value);
+    			},error:function(){
+    				console.log("정산목록 조회용 ajax 통신실패");
+    			}
+    		})
+    	}
+        </script>
         <div id="refMng-result">
             <div>
                 <b>조회 결과</b><br><br>
@@ -290,7 +337,6 @@
                         <td width="90">신청일자</td>
                         <td width="90">완료일자</td>
                         <td>고객ID</td>
-                        <td width="60">클래스</td>
                         <td width="80">취소사유</td>
                         <td>결제금액</td>
                         <td>결제방법</td>
@@ -306,7 +352,6 @@
 		                    <td><%= list.get(i).getRefRqDt() %></td>
 		                    <td><%= list.get(i).getRefFinDt() %></td>
 		                    <td><%= list.get(i).getMemNo() %></td>
-		                    <td><%= list.get(i).getRefName() %></td>
 		                    <td><%= list.get(i).getRefRea()%></td>
 		                    <td><%= list.get(i).getRefPrice() %></td>
 		                    <td><% if(list.get(i).getRefAcc().equals("카드")){ %>
@@ -328,6 +373,7 @@
             </table>
         </div>
     </div>
+    
     <div class="modal" id="refChangeModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -357,7 +403,6 @@
                         환불 금액 : 99,000원 <br>
                         환불 신청 날짜 : 2023-01-15(일) 16:34 <br><br>
                         <div align="center"><button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">닫기</button></div>
-                        
                     </div>
                 </form>
             </div>  
