@@ -394,19 +394,34 @@
         </div>
     </div>
 
-    <div class="modal" id="refAccModal">
+	<script>
+	    $(document).on("click", ".refAcc-btn", function(){
+	    	$.ajax({
+	    		url:"<%=contextPath%>/selectDeposit.ref",
+	    		data:{refNo:$(this).parent().siblings().eq(0).text()},
+	    		success:function(r){
+	    			value = "예금주 성함 : " + r.refName + "<br>"
+	    				  + "입금 요청 계좌 : " + r.refBank + "&nbsp;" + r.refAcc + "<br>"
+	    				  + "환불 금액 : " + r.refPrice + "<br>"
+	    				  + "환불 신청 날짜 : " + r.refRqDt;
+	    			$("#modal-inner").html(value);
+	    			$('.refAccModal').modal('show'); 
+	    		},error:function(){
+	    			console.log("무통장상세내역 조회용 ajax 통신실패");
+	    		}
+	    	})
+	    })
+    </script>
+    <div class="modal refAccModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="">
-                    <div class="modal-body">
-                        <b>무통장입금 환불 계좌 정보</b> <br><br>
-                        예금주 성함 : 김길동 <br>
-                        입금 요청 계좌 : 우리은행 1002394857384 <br>
-                        환불 금액 : 99,000원 <br>
-                        환불 신청 날짜 : 2023-01-15(일) 16:34 <br><br>
-                        <div align="center"><button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">닫기</button></div>
-                    </div>
-                </form>
+	            <div class="modal-body">
+	                <b>무통장입금 환불 계좌 정보</b> <br><br>
+	                <div id="modal-inner">
+	                </div>
+	                <br>
+	                <div align="center"><button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">닫기</button></div>
+	            </div>
             </div>  
         </div>
     </div>

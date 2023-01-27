@@ -32,4 +32,15 @@
 		   SET REF_FIN_DT = SYSDATE
 		 WHERE REF_STA = 'Y'
 	</entry>
+	
+	<entry key="selectRefundDeposit">
+		SELECT
+		       TO_CHAR(REF_RQ_DT, 'YYYY-MM-DD(DY) HH24:MI:SS') "REF_RQ_DT"
+		     , TO_CHAR(REF_PRICE, '999,999,999') || '원' "REF_PRICE"
+		     , REF_BANK
+		     , REF_ACC
+		     , REF_NM
+		  FROM REFUND
+		 WHERE ORDER_NO = ?
+	</entry>
 </properties>

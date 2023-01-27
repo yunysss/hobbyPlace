@@ -22,6 +22,12 @@ public class RefundService {
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param refNo 주문번호
+	 * @param refSt 환불상태
+	 * @return 선택한 환불상태로 UPDATE & 환불처리일자 UPDATE
+	 */
 	public int updateRefund(String refNo, String refSt) {
 		Connection conn = getConnection();
 		
@@ -33,6 +39,19 @@ public class RefundService {
 			rollback(conn);
 		}
 		return result1 * result2;
+	}
+	
+	/**
+	 * @author 예서
+	 * @param refNo 주문번호
+	 * @return 무통장입금 상세내역
+	 */
+	public Refund selectRefundDeposit(int refNo) {
+		Connection conn = getConnection();
+		Refund r = new RefundDao().selectRefundDeposit(conn, refNo);
+		close(conn);
+		return r;
+		
 	}
 
 }

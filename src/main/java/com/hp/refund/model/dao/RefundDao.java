@@ -87,6 +87,12 @@ private Properties prop = new Properties();
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param refNo 주문번호
+	 * @param refSt 환불상태
+	 * @return 선택한 환불상태로 UPDATE
+	 */
 	public int updateRefund(Connection conn, String refNo, String refSt) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -106,6 +112,12 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param refNo 주문번호
+	 * @param refSt 환불상태
+	 * @return 환불처리일자 UPDATE
+	 */
 	public int updateRefFinDt(Connection conn) {
 		int result = 1;
 		PreparedStatement pstmt = null;
@@ -121,6 +133,38 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	/**
+	 * @author 예서
+	 * @param refNo 주문번호
+	 * @return 무통장입금 상세내역
+	 */
+	public Refund selectRefundDeposit(Connection conn, int refNo) {
+		Refund r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRefundDeposit");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, refNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				r = new Refund(rset.getString("ref_rq_dt"),
+						       rset.getString("ref_price"),
+						       rset.getString("ref_bank"),
+						       rset.getString("ref_acc"),
+						       rset.getString("ref_nm"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
 	}
 
 }
