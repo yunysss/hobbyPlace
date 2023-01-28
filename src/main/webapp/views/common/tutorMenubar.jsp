@@ -240,7 +240,7 @@
                             paid
                             </span>&nbsp;정산관리
                             <li><a href="<%=contextPath%>/calculate.cal?memNo=<%=MemNo%>">정산신청</a></li>
-                            <li><a href="<%=contextPath%>/list.cal?memNo=<%=MemNo%>">정산내역</a></li>
+                            <li><a href="<%=contextPath%>/list.cal?">정산내역</a></li>
                         </li>
                     <li style="background-color: rgb(22, 160, 133); color: aliceblue;">
                         <span class="material-symbols-outlined">

@@ -16,17 +16,19 @@
         .outer{width:1000px; margin:auto; padding:30px 50px;}
         #rsvApproval{width:800px; margin:auto;}
         #rsvApproval>div, #rsvListAll>div{padding:20px;}
-        
-        
 
-        .rsvList-1, .rsvList-2, .rsvList-3, .rsvList-4{
+        .rsvList{
             border:1px solid rgb(180, 180, 180); 
             border-radius:5px;
             height:150px;
             cursor: pointer;
             margin-bottom:20px;
         }
-        .rsvList-1>div, .rsvList-2>div, .rsvList-3>div, .rsvList-4>div{float:left; height:100%; width:50%}
+        .rsvList>div{
+        	float:left;
+        	height:100%;
+            width:50%;
+        }
         #rsvListAll span{
             color:white;
             border-radius:15px;
@@ -37,9 +39,7 @@
             font-size: 12px;
             line-height: 28px;
         }
-        .rsvList-2, .rsvList-3, .rsvList-4{
-        	display:none;
-        }
+        
         input[type=radio]{display: none;}
 	   	input[type=radio]+label{
 	   		margin:10px;
@@ -86,12 +86,12 @@
             
             <div id="rsvListAll">
             	<% if(list.isEmpty()){ %>
-            		<div align="center">
+            		<div class='rsvList' align='center'>
             			<b>조회된 내역이 없습니다.</b>
             		</div>
             	<% } else{%>
 	            	<% for(int i=0; i<list.size(); i++){ %>
-		                <div class="rsvList-1" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=list.get(i).getRegNo()%>'">
+		                <div class="rsvList" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=list.get(i).getRegNo()%>'">
 		                    <div>
 		                        <%= list.get(i).getRegDate() %> <br>
 		                        <%= list.get(i).getMemNo() %> 수강생 <br>
@@ -102,16 +102,17 @@
 		                    	<% String regSta=""; String regColor="";
 		                    	switch(list.get(i).getRegSta()){ 
 		                    	case "0": regSta = "NEW"; regColor = "rgb(241, 196, 15)"; break;
-		                    	   case "1": case "2": regSta = "승인완료"; regColor = "rgb(22, 160, 133)"; break;
-		                           case "4": regSta = "신청반려"; regColor = "rgb(180, 180, 180)";
+		                    	case "1": case "2": regSta = "승인완료"; regColor = "rgb(22, 160, 133)"; break;
+		                        case "4": regSta = "신청반려"; regColor = "rgb(180, 180, 180)";
 		                        } %>
 		                        <span style="background:<%=regColor%>"><b><%= regSta %></b></span>
 		                    </div>
-		                    
 	                	</div>
 	                <% } %>
                 <% } %>
             </div>
+            
+            
             <div class="paging-area">
 				<% if(pi.getCurrentPage() != 1) { %>
 	            	<button onclick="location.href='<%= contextPath %>/approval.tt?cpage=<%= pi.getCurrentPage() - 1 %>';">&lt;</button>
@@ -126,6 +127,8 @@
 	            <% } %>
         </div>
         </div>
+        
     </div>
+    
 </body>
 </html>
