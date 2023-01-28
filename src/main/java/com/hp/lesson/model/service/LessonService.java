@@ -214,6 +214,13 @@ public class LessonService {
 		return kList;
 	}
 	
+	public ArrayList<Lesson> selectPriceAsc(String category, PageInfo pi){
+		Connection conn= getConnection();
+		ArrayList<Lesson> ascList = new LessonDao().selectPriceAsc(conn,category,pi);
+		close(conn);
+		return ascList;
+		
+	}
 	
 	
 	

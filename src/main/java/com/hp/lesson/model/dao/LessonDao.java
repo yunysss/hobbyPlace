@@ -811,6 +811,49 @@ private Properties prop = new Properties();
 		return kList;
 	}
 	
+	public ArrayList<Lesson> selectPriceAsc(Connection conn, String category,PageInfo pi){
+		 
+		ArrayList<Lesson> ascList =new ArrayList<>();
+		 PreparedStatement pstmt = null;
+		 ResultSet rset = null;
+		 
+		 String sql = prop.getProperty("selectPriceAsc");
+		 try {
+			pstmt = conn.prepareStatement(sql);
+
+			int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			pstmt.setString(1, category);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				ascList.add(new Lesson(rset.getInt("cl_no"),
+									rset.getString("ct_name"),
+									rset.getString("ct_dname"),
+									rset.getString("local_name"),
+									rset.getString("distr_name"),
+									rset.getString("cl_name"),
+									rset.getString("cl_price"),
+									rset.getString("cl_thumb"),
+									rset.getInt("star_avg"),
+									rset.getInt("star_count")
+						));
+
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		 
+		 return ascList;
+		 
+	}
+	
 	
 	
 	

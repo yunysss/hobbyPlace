@@ -498,24 +498,7 @@
 	                </form>
 
 
-                    <script>
-                        $(function(){
-                            $("#search-text").click(function(){
-                                  $("#search-area").show();
-                             
-                            })
-
-                            document.addEventListener('mouseup', function(e){
-                            var search = document.getElementById('search-area');
-                            if(!search.contains(e.target)){
-                                search.style.display = 'none';
-                            }
-
-                        }
                 
-                        )
-                        })
-                    </script>
 	            </div>
          
 	            <div id="membership" align="center">
@@ -544,9 +527,29 @@
 		</div>
     </div>
     
+    <!--  
+    		 <script>
+                        $(function(){
+                            $("#search-text").click(function(){
+                                  $("#search-area").show();
+                             
+                            })
+
+                            document.addEventListener('mouseup', function(e){
+                            var search = document.getElementById('search-area');
+                            if(!search.contains(e.target)){
+                                search.style.display = 'none';
+                            }
+
+                        }
+                
+                        )
+                        })
+                    </script>
+    
     <div id="search-area" align="center">
         <br>
-        <form action="<%=contextPath %>" id="searchForm">  
+        <form action="" id="searchForm">  
         <div class="form-group has-search">
             <span class="fa fa-search form-control-feedback"></span>
             <input type="search" class="form-control" name="keyword" placeholder="검색어를 입력하세요"  placeholder="Search">
@@ -632,14 +635,13 @@
                          <input type="checkbox" class="schedule" name="sat" id="sat"><label for="sat">토요일</label>
                          <input type="checkbox" class="schedule" name="sun" id="sun"><label for="sun">일요일</label>
                     
-                        <!--   시작일 
+                        
                             <input type="date"  name="searchStartDate" id="startDate" >
-                          종료일 
                             <input type="date"  name="searchEndDate" id="endDate" > 
-                        --> 
+                       
                     </div>    
                 </td>
-              <!-- <script>
+               <script>
                     var now_utc = Date.now()
                     var timeOff = new Date().getTimezoneOffset()*60000;
                     var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
@@ -648,7 +650,7 @@
                     
                     
                     </script>
-                -->
+             
             </tr>
             <tr>
                 <th height="30"width="100">가격</th>
@@ -735,7 +737,10 @@
        
   
     </form>
+ 
     </div>
+    
+     -->
 
 </body>
 </html>
