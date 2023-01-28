@@ -229,7 +229,7 @@
                             
                                 <li><a href="<%=contextPath %>/clenroll.tt">클래스등록</a></li>
                                 <li><a href="<%=contextPath%>/ttclass.tt?cpage=1">내 클래스목록</a></li>
-                                <li><a href="<%=contextPath%>/approval.tt?cpage=1">예약승인</a></li>
+                                <li><a href="<%=contextPath%>/approval.tt?">예약승인</a></li>
                                 <li><a href="<%=contextPath%>/reservationList.tt">예약관리</a></li>
                                 <li><a href="">문의관리</a></li>
                                 <li><a href="">후기관리</a></li>

@@ -108,6 +108,9 @@
 			
 			    $(function () {
 				     selectApproval();
+				     $(document).on("click", ".rsvList", function(){
+				    	 location.href = "<%=contextPath%>/regDetail.tt?no=" + $(this).children("input").val();
+				     })
 			    })
 			    $("input[type=radio]").change(function(){
 			    	selectApproval();
@@ -151,11 +154,12 @@
 			    	    i++
 			    	  ) {
 			    		  value += "<div class='rsvList'>"
+			    		  		+ 	"<input type='hidden' value='"+ dataList[i].regNo + "'>"
 			    		  		+ 	"<div>"
 			    		  		+		dataList[i].regDate + "<br>"
 			    		  		+		dataList[i].memNo + " 수강생<br>"
 			    		  		+		"<h5>" + dataList[i].clNo + "</h5><br>"
-			    		  		+		"진행일시 : " + dataList[i].teachDate + "&nbsp;" + dataList.schNo
+			    		  		+		"진행일시 : " + dataList[i].teachDate + "&nbsp;" + dataList[i].schNo
 			    		  		+	"</div>"
 			    		  		+ 	"<div align='right'>";
 			    		  if(dataList[i].regSta == '0'){
@@ -168,7 +172,7 @@
 	                    		value += "<span style='background:rgb(180, 180, 180)'>"
 	                				+	"<b>신청반려</b></span>"	
 	                    	} 
-			    		  value += "</span></div></div>"
+			    		  value += "</span></div></div>";
 			    	  }
 			    	  $("#rsvListAll").html(value);
 			    	}

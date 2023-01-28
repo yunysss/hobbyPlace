@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.tutor.model.service.TutorService;
+import com.hp.member.model.vo.Member;
+import com.hp.register.model.service.RegisterService;
 
 /**
  * Servlet implementation class TutorUpdateRegister
@@ -31,12 +32,11 @@ public class TutorUpdateRegisterController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int regSta = Integer.parseInt(request.getParameter("regSta"));
 		int regNo = Integer.parseInt(request.getParameter("regNo"));
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		int result = new TutorService().updateRegister(regSta, regNo);
+		int result = new RegisterService().updateRegister(regSta, regNo);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/approval.tt?cpage=1");
+			response.sendRedirect(request.getContextPath() + "/approval.tt?");
 		}
 	}
 
