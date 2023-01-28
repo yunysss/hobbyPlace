@@ -17,11 +17,6 @@
        #refMng-form, #refMng-result{
         padding:20px;
        } 
-       #refMng-result{
-        overflow:auto;
-        height:500px;
-       }
-
        #refMng-result td{
         text-align: center;
         vertical-align: middle;
@@ -40,8 +35,6 @@
        thead td{
         background:rgb(245, 245, 245);
        }
-
-        #refMng-result>div{float:left; width:50%;}
         
        input[name=dateType], input[name=calSta]{display: none; margin: 10px;}
 	   input[name=dateType]+label{
@@ -85,7 +78,34 @@
        thead td{
         background:rgb(245, 245, 245);
        }
-        #calMng-result>div{float:left; width:50%;}
+        #paging{
+		    text-align: center;
+		    display: inline-block;
+			padding-left :0;
+		}
+		#paging li {
+		    text-align: center;
+		    float: left;
+			list-style:none;
+			border-radius:10px;
+		}
+		
+		#paging li a {
+		    display: block;
+		    font-size: 12px;
+			color: black;
+		    padding: 5px 10px;
+		    box-sizing: border-box;
+			text-decoration-line:none;
+		}
+		
+		#paging li.on {
+		    background: gray;
+		}
+		
+		#paging li.on a {
+		    color: white;
+		}
     </style>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -273,58 +293,133 @@
         <br>
         
         <script>
-        function selectRefundMng(){
-    		$.ajax({
-    			url:"<%=contextPath%>/select.ref",
-    			data:{
-    				keywordType:$("select[name=keywordType]").val(),
-    				keyword:$("input[name=keyword]").val(),
-    				dateType:$("select[name=searchDateType]").val(),
-    				startDate:$("#searchStartDate").val(),
-    				endDate:$("#searchEndDate").val(),
-    				status:$("input[name=calSta]:checked").val()    				
-    			},
-    			success:function(list){
-    				
-    				let value = "";
-    				$("#calMng-list tbody").html("");
-    				if(list.length == 0){ 
-    					value += "<tr>"
-    							+	"<td colspan='9'>조회된 내역이 없습니다</td>"
-    							+ "</tr>"
-    				}else{
-						for(let i=0; i<list.length; i++){
-							value += "<tr class='calMngList'>"
-								+	"<td>" + list[i].orderNo + "</td>"
-   								+	"<td>" + list[i].refBank + "</td>"
-   								+	"<td>" + list[i].refRqDt + "</td>"
-   								+	"<td>" + list[i].refFinDt + "<br>" 
-   								+	"<td>" + list[i].memNo + "</td>"
-   								+	"<td>" + list[i].refRea + "</td>"
-   								+	"<td>" + list[i].refPrice  + "</td>";
-   							if(list[i].refAcc == "카드"){
-   								value += "<td>" + list[i].refAcc + "</td>";
-   							} else{
-   								value += "<td>" + list[i].refAcc + "<button type='button' class='btn btn-sm btn-secondary refAcc-btn'>확인</button>";
-   							}
-   							value += "<td>"
- 								+		list[i].refSta
-   								+		"<button type='button' class='btn btn-sm btn-secondary refChange-btn'>수정</button>"
-   								+	"</td>"
-   								+ "</tr>"
-    					}
+	        let totalData; 
+		    let dataPerPage=10; 
+		    let pageCount = 10; 
+		    let globalCurrentPage=1;
+		    let dataList; 
+		
+		    $(function () {
+			     selectRefundMng();
+		    })
+	        function selectRefundMng(){
+	    		$.ajax({
+	    			url:"<%=contextPath%>/select.ref",
+	    			data:{
+	    				keywordType:$("select[name=keywordType]").val(),
+	    				keyword:$("input[name=keyword]").val(),
+	    				dateType:$("select[name=searchDateType]").val(),
+	    				startDate:$("#searchStartDate").val(),
+	    				endDate:$("#searchEndDate").val(),
+	    				status:$("input[name=calSta]:checked").val()    				
+	    			},
+	    			success:function(list){
+	    				if(list.length == 0){
+	    					let value = "<tr>"
+	    						+	"<td colspan='9'>조회된 내역이 없습니다.</td>"
+	    						+ "</tr>"
+	    					$("#refMng-result tbody").html(value);
+	    					$("#paging").html("");
+	    				} else{
+	    	 		    	   totalData = list.length;
+	    	 		           dataList=list;
+	    	 		           displayData(1, dataPerPage, totalData);
+	    	 		           paging(totalData, dataPerPage, pageCount, 1);
+	    				}
+	    			},error:function(){
+	    				console.log("정산목록 조회용 ajax 통신실패");
+	    			}
+	    		})
+	    	}
+		    function displayData(currentPage, dataPerPage, totalData) {
+		    	  let value = "";
+		    	  currentPage = Number(currentPage);
+		    	  dataPerPage = Number(dataPerPage);
+		    	  if(totalData < dataPerPage){
+		    		  dataPerPage = totalData;
+		    	  }
+		    	  for (let i = (currentPage - 1) * dataPerPage; 
+		    	    i < (currentPage - 1) * dataPerPage + dataPerPage;
+		    	    i++
+		    	  ) {
+		    		  value += "<tr class='calMngList'>"
+							+	"<td>" + dataList[i].orderNo + "</td>"
+								+	"<td>" + dataList[i].refBank + "</td>"
+								+	"<td>" + dataList[i].refRqDt + "</td>"
+								+	"<td>" + dataList[i].refFinDt + "<br>" 
+								+	"<td>" + dataList[i].memNo + "</td>"
+								+	"<td>" + dataList[i].refRea + "</td>"
+								+	"<td>" + dataList[i].refPrice  + "</td>";
+							if(dataList[i].refAcc == "카드"){
+								value += "<td>" + dataList[i].refAcc + "</td>";
+							} else{
+								value += "<td>" + dataList[i].refAcc + "<button type='button' class='btn btn-sm btn-secondary refAcc-btn'>확인</button>";
+							}
+							value += "<td>"
+							+		dataList[i].refSta
+								+		"<button type='button' class='btn btn-sm btn-secondary refChange-btn'>수정</button>"
+								+	"</td>"
+								+ "</tr>"
 					}
-    				$("#refMng-result tbody").html(value);
-    			},error:function(){
-    				console.log("정산목록 조회용 ajax 통신실패");
-    			}
-    		})
-    	}
+		    	  $("#refMng-result tbody").html(value);
+				}
+				
+	  	
+	  		function paging(totalData, dataPerPage, pageCount, currentPage) {
+	  		 
+	  			  totalPage = Math.ceil(totalData / dataPerPage); 
+	      		  
+	      		  if(totalPage<pageCount){
+	      		    pageCount=totalPage;
+	      		  }
+	      		  
+	      		  let pageGroup = Math.ceil(currentPage / pageCount); 
+	      		  let last = pageGroup * pageCount; 
+	      		  
+	      		  if (last > totalPage) {
+	      		    last = totalPage;
+	      		  }
+	
+	      		  let first = last - (pageCount - 1); 
+	      		  let next = last + 1;
+	      		  let prev = first - 1;
+	
+	      		  let pageHtml = "";
+	
+	      		  if (prev > 0) {
+	      		    pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
+	      		  }
+	
+	      		  for (let i = first; i <= last; i++) {
+	      		    if (currentPage == i) {
+	      		      pageHtml +=
+	      		        "<li class='on'><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+	      		    } else {
+	      		      pageHtml += "<li><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+	      		    }
+	      		  }
+	
+	      		  if (last < totalPage) {
+	      		    pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
+	      		  }
+	
+	      		  $("#paging").html(pageHtml);
+	
+	      		  $("#paging li a").click(function () {
+	      		    let $id = $(this).attr("id");
+	      		    selectedPage = $(this).text();
+	
+	      		    if ($id == "next") selectedPage = next;
+	      		    if ($id == "prev") selectedPage = prev;
+	      		    globalCurrentPage = selectedPage;
+	      		    paging(totalData, dataPerPage, pageCount, selectedPage);
+	      		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
+	      		  });
+	  		  
+	  		}
         </script>
         <div id="refMng-result">
-            <div>
-                <b>조회 결과</b><br><br>
-            </div>
+            <b>조회 결과</b><br>
             <br>
 
             <table width="100%" class="table" id="refMng-list" >
@@ -341,32 +436,13 @@
                         <td>처리상태</td>
                     </tr>
                 </thead>
-                
             	<tbody>
-            		<% for(int i=0; i<list.size(); i++){ %>
-		                <tr>
-		                    <td><%= list.get(i).getOrderNo() %></td>
-		                    <td><%= list.get(i).getRefBank() %></td>
-		                    <td><%= list.get(i).getRefRqDt() %></td>
-		                    <td><%= list.get(i).getRefFinDt() %></td>
-		                    <td><%= list.get(i).getMemNo() %></td>
-		                    <td><%= list.get(i).getRefRea()%></td>
-		                    <td><%= list.get(i).getRefPrice() %></td>
-		                    <td><% if(list.get(i).getRefAcc().equals("카드")){ %>
-		                    		<%= list.get(i).getRefAcc() %>
-		                    	<% } else{ %>
-		                    		<%= list.get(i).getRefAcc() %> 
-		                    		<button type="button" class="btn btn-sm btn-secondary refAcc-btn">확인</button>
-		                    	<% } %>
-		                    </td>
-		                    <td>
-		                        <%= list.get(i).getRefSta() %>
-		                    	<button type="button" class="btn btn-sm btn-secondary refChange-btn">수정</button>
-		                    </td>
-		                </tr>
-					<% } %>
                 </tbody>
             </table>
+            <div align="center">
+            	<ul id="paging">
+				</ul>
+            </div>
         </div>
     </div>
     <script>
