@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.hp.lesson.model.service.LessonService;
-import com.hp.lesson.model.vo.Lesson;
+import com.hp.member.model.vo.Member;
+import com.hp.register.model.service.RegisterService;
+import com.hp.register.model.vo.Register;
 
 /**
  * Servlet implementation class TutorRegAppListController
  */
-@WebServlet("/regAppList.tt")
+@WebServlet("/approvalList.tt")
 public class AjaxTutorRegAppListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,9 +33,12 @@ public class AjaxTutorRegAppListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
+		String status = request.getParameter("status");
 		
-		
-		
+		ArrayList<Register> list = new RegisterService().selectTutorRegister(memNo, status);
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

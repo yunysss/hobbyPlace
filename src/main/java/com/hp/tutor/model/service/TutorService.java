@@ -16,7 +16,6 @@ import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.dao.MemberDao;
 import com.hp.member.model.vo.Member;
-import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
 import com.hp.tutor.model.vo.Tutor;
 
@@ -86,52 +85,6 @@ public class TutorService {
 		close(conn);
 		return count; 
 		
-	}
-	
-	public int selectApprovalCount(int memNo) { // 게시글 수 조회하기
-		Connection conn = getConnection();
-		int listCount = new TutorDao().selectApprovalCount(conn,memNo);
-		close(conn);
-		return listCount;
-	}
-	
-	public ArrayList<Register> selectTutorRegister(PageInfo pi, int memNo, String regSta){
-		Connection conn = getConnection();
-		ArrayList<Register> list = new TutorDao().selectTutorRegister(conn, pi, memNo, regSta);
-		close(conn);
-		return list;
-	}
-	
-	public ArrayList<Register> selectTutorNewRegister(int memNo, int num){
-		Connection conn = getConnection();
-		ArrayList<Register> nList = new TutorDao().selectTutorNewRegister(conn, memNo, num);
-		close(conn);
-		return nList;
-	}
-	
-	public ArrayList<Register> selectTutorFinRegister(int memNo){
-		Connection conn = getConnection();
-		ArrayList<Register> fList = new TutorDao().selectTutorFinRegister(conn, memNo);
-		close(conn);
-		return fList;
-	}
-	
-	public Register selectDetailApproval(int regNo) {
-		Connection conn = getConnection();
-		Register r = new TutorDao().selectDetailApproval(conn, regNo);
-		close(conn);
-		return r;
-	}
-	
-	public int updateRegister(int regSta, int regNo) {
-		Connection conn = getConnection();
-		int result = new TutorDao().updateRegister(conn, regSta, regNo);
-		if(result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		return result;
 	}
 
 	/** 튜터 등록 

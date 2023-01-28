@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.hp.register.model.vo.Register" %>
-<%
-	ArrayList<Register> rList = (ArrayList<Register>)request.getAttribute("rList");
-	ArrayList<Register> nList = (ArrayList<Register>)request.getAttribute("nList");
-	ArrayList<Register> wList = (ArrayList<Register>)request.getAttribute("wList");
-	ArrayList<Register> cList = (ArrayList<Register>)request.getAttribute("cList");
-%>
 <!DOCTYPE html>
 <html>
 <head>

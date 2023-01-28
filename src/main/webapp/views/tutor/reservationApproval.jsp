@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.hp.common.model.vo.PageInfo, java.util.ArrayList, com.hp.register.model.vo.Register" %>
-<%
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	ArrayList<Register> list = (ArrayList<Register>)request.getAttribute("list");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,13 +57,34 @@
 	       background-color: gray;
 	       color:white;
 	   }
-	   .paging-area{
-        	text-align: center;
-    	}
-    	.paging-area>*{
-        	border: none;
-        	border-radius: 3px;
-    	}
+	   #paging{
+	    text-align: center;
+	    display: inline-block;
+		padding-left :0;
+		}
+		#paging li {
+		    text-align: center;
+		    float: left;
+			list-style:none;
+			border-radius:10px;
+		}
+		
+		#paging li a {
+		    display: block;
+		    font-size: 12px;
+			color: black;
+		    padding: 5px 10px;
+		    box-sizing: border-box;
+			text-decoration-line:none;
+		}
+		
+		#paging li.on {
+		    background: gray;
+		}
+		
+		#paging li.on a {
+		    color: white;
+		}
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
@@ -78,54 +94,150 @@
         <h5><b>예약 승인</b></h5><br>
         <div id="rsvApproval">
             <div align="center">
-                <input type="radio" id="selectAll" name="selectApproval" value="all" checked><label for="selectAll">전체</label>
-				<input type="radio" id="selectNew" name="selectApproval" value="new"><label for="selectNew">NEW</label>
-				<input type="radio" id="selectFin" name="selectApproval" value="fin"><label for="selectFin">승인완료</label>
-				<input type="radio" id="selectReject" name="selectApproval" value="reject"><label for="selectReject">신청반려</label>
+                <input type="radio" id="selectAll" name="appSta" value="승인" checked><label for="selectAll">전체</label>
+				<input type="radio" id="selectNew" name="appSta" value="전"><label for="selectNew">NEW</label>
+				<input type="radio" id="selectFin" name="appSta" value="완료"><label for="selectFin">승인완료</label>
+				<input type="radio" id="selectReject" name="appSta" value="반려"><label for="selectReject">신청반려</label>
             </div>
-            
+            <script>
+			    let totalData; //총 데이터 수
+			    let dataPerPage=5; //한 페이지에 나타낼 글 수
+			    let pageCount = 10; //페이징에 나타낼 페이지 수
+			    let globalCurrentPage=1; //현재 페이지
+			    let dataList; //표시하려하는 데이터 리스트
+			
+			    $(function () {
+				     selectApproval();
+			    })
+			    $("input[type=radio]").change(function(){
+			    	selectApproval();
+		    	})
+			    function selectApproval(){
+		    		$.ajax({
+		    			url:"<%=contextPath%>/approvalList.tt",
+		    			data:{
+		    				status:$("input[name=appSta]:checked").val()
+		    			},
+		    			success:function(d){
+		    				if(d.length == 0){
+		    					let value = "<div align='center'><b>조회된 내역이 없습니다.</b></div>"
+		    						
+		    					$("#rsvListAll").html(value);
+		    					$("#paging").html("");
+		    				} else{
+		    					//totalData(총 데이터 수) 구하기
+		    	 		    	   totalData = d.length;
+		    	 		               //데이터 대입
+		    	 		           dataList=d;
+		    	 		           displayData(1, dataPerPage, totalData);
+		    	 		           paging(totalData, dataPerPage, pageCount, 1);
+		    				}
+		    				
+		    			},error:function(){
+		    				console.log("정산목록 조회용 ajax 통신실패");
+		    			}
+		    		})
+		    	}
+			    function displayData(currentPage, dataPerPage, totalData) {
+			    	  let value = "";
+			    	//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
+			    	  currentPage = Number(currentPage);
+			    	  dataPerPage = Number(dataPerPage);
+			    	  if(totalData < dataPerPage){
+			    		  dataPerPage = totalData;
+			    	  }
+			    	  for (let i = (currentPage - 1) * dataPerPage; 
+			    	    i < (currentPage - 1) * dataPerPage + dataPerPage;
+			    	    i++
+			    	  ) {
+			    		  value += "<div class='rsvList'>"
+			    		  		+ 	"<div>"
+			    		  		+		dataList[i].regDate + "<br>"
+			    		  		+		dataList[i].memNo + " 수강생<br>"
+			    		  		+		"<h5>" + dataList[i].clNo + "</h5><br>"
+			    		  		+		"진행일시 : " + dataList[i].teachDate + "&nbsp;" + dataList.schNo
+			    		  		+	"</div>"
+			    		  		+ 	"<div align='right'>";
+			    		  if(dataList[i].regSta == '0'){
+	                    		value += "<span style='background:rgb(241, 196, 15)'>"
+	                    				+	"<b>NEW</b></span>"	
+	                    	} else if(dataList[i].regSta == '0' || dataList[i].regSta == '2'){
+	                    		value += "<span style='background:rgb(22, 160, 133)'>"
+	                				+	"<b>승인완료</b></span>"	
+	                    	} else if(dataList[i].regSta == '4'){
+	                    		value += "<span style='background:rgb(180, 180, 180)'>"
+	                				+	"<b>신청반려</b></span>"	
+	                    	} 
+			    		  value += "</span></div></div>"
+			    	  }
+			    	  $("#rsvListAll").html(value);
+			    	}
+		    	
+		    	function paging(totalData, dataPerPage, pageCount, currentPage) {
+		    		 
+		    			  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+		        		  
+		        		  if(totalPage<pageCount){
+		        		    pageCount=totalPage;
+		        		  }
+		        		  
+		        		  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+		        		  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+		        		  
+		        		  if (last > totalPage) {
+		        		    last = totalPage;
+		        		  }
+		
+		        		  let first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
+		        		  let next = last + 1;
+		        		  let prev = first - 1;
+		
+		        		  let pageHtml = "";
+		
+		        		  if (prev > 0) {
+		        		    pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
+		        		  }
+		
+		        		 //페이징 번호 표시 
+		        		  for (let i = first; i <= last; i++) {
+		        		    if (currentPage == i) {
+		        		      pageHtml +=
+		        		        "<li class='on'><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+		        		    } else {
+		        		      pageHtml += "<li><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+		        		    }
+		        		  }
+		
+		        		  if (last < totalPage) {
+		        		    pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
+		        		  }
+		
+		        		  $("#paging").html(pageHtml);
+		
+		
+		        		  //페이징 번호 클릭 이벤트 
+		        		  $("#paging li a").click(function () {
+		        		    let $id = $(this).attr("id");
+		        		    selectedPage = $(this).text();
+		
+		        		    if ($id == "next") selectedPage = next;
+		        		    if ($id == "prev") selectedPage = prev;
+		        		    //전역변수에 선택한 페이지 번호를 담는다...
+		        		    globalCurrentPage = selectedPage;
+		        		    //페이징 표시 재호출
+		        		    paging(totalData, dataPerPage, pageCount, selectedPage);
+		        		    //글 목록 표시 재호출
+		        		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
+		        		  });
+		    		  
+		    		}
+		    	
+    		</script>
             <div id="rsvListAll">
-            	<% if(list.isEmpty()){ %>
-            		<div class='rsvList' align='center'>
-            			<b>조회된 내역이 없습니다.</b>
-            		</div>
-            	<% } else{%>
-	            	<% for(int i=0; i<list.size(); i++){ %>
-		                <div class="rsvList" onclick="location.href='<%=contextPath%>/regDetail.tt?no=<%=list.get(i).getRegNo()%>'">
-		                    <div>
-		                        <%= list.get(i).getRegDate() %> <br>
-		                        <%= list.get(i).getMemNo() %> 수강생 <br>
-		                        <h5><%= list.get(i).getClNo() %></h5> <br>
-		                        진행일시 : <%= list.get(i).getTeachDate() %> <%= list.get(i).getSchNo() %>
-		                    </div>
-		                    <div align="right">
-		                    	<% String regSta=""; String regColor="";
-		                    	switch(list.get(i).getRegSta()){ 
-		                    	case "0": regSta = "NEW"; regColor = "rgb(241, 196, 15)"; break;
-		                    	case "1": case "2": regSta = "승인완료"; regColor = "rgb(22, 160, 133)"; break;
-		                        case "4": regSta = "신청반려"; regColor = "rgb(180, 180, 180)";
-		                        } %>
-		                        <span style="background:<%=regColor%>"><b><%= regSta %></b></span>
-		                    </div>
-	                	</div>
-	                <% } %>
-                <% } %>
             </div>
-            
-            
-            <div class="paging-area">
-				<% if(pi.getCurrentPage() != 1) { %>
-	            	<button onclick="location.href='<%= contextPath %>/approval.tt?cpage=<%= pi.getCurrentPage() - 1 %>';">&lt;</button>
-	            <% } %>
-	            
-				<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
-	            	<button onclick="location.href='<%= contextPath %>/approval.tt?cpage=<%= p %>';"><%= p %></button>
-	            <% } %>
-				
-				<% if(pi.getCurrentPage() != pi.getMaxPage()){ %>
-	            	<button onclick="location.href='<%= contextPath %>/approval.tt?cpage=<%= pi.getCurrentPage() + 1 %>';">&gt;</button>
-	            <% } %>
-        </div>
+            <div align="center">
+            	<ul id="paging"></ul>
+        	</div>
         </div>
         
     </div>
