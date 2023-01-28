@@ -9,10 +9,10 @@
     <title>My Page Main</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <style>
-        div{box-sizing:border-box; /*border: 1px solid;*/}
-        .cwrap{width:1000px; height:1000px; margin:auto; padding:2px;}
+        div{/*border: 1px solid;*/ box-sizing:border-box; }
+        .cwrap{width:1000px; height:900px; margin:auto; padding:2px;}
         
-        .menubar{width:200px; height:995px; float:left; padding-top:30px; background: white; margin: 5px;}
+        .menubar{width:200px; height:900px; float:left; padding-top:30px; background: white; }
         
         
         .categoryMain {

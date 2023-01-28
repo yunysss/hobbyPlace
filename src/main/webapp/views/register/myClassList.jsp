@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.content{width:785px; height:1000px; float:left; margin:0;}
+	.content {width: 800px; height: 900px;}
 	#classnull{
 		text-align: center;
 		margin-top: 71px;
@@ -111,12 +111,12 @@
 <body>
 	<%@ include file = "../common/myClassMenubar.jsp" %>
 			
-		<div class="content" >
+		
 
 			<!--로그인한 유저가 결제한 클래스가 없을 때 -->
 			
 			<%if(loginUser != null && list.isEmpty()) {%>				
-			<div id="classnull">
+			<div class="content" id="classnull">
 				<img src="<%=contextPath%>/resources/images/myClassNull.jpg" alt="">
 				<p>아직 신청 내역이 없어요!<br>
 				지금 바로 합플을 시작해 보세요.</p>
@@ -125,7 +125,7 @@
 			
 			<%} else { %>
 			<!--결제한 승인완료 클래스가 있을 때-->
-			<div id="classList">
+			<div class="content" id="classList">
 				<div id="class-area">
 										
 					<div id="classContent">
@@ -170,7 +170,7 @@
 
 			<!--결제한 승인 전 클래스-->
 			
-				<div id="class-area">
+				<div  class="content" id="class-area">
 										
 					<div id="classContent">
 						<p>2023-01-03 결제</p>
@@ -215,11 +215,11 @@
 		
 
 			<!--결제한 승인 전 클래스-->
-			<div id="class-area">
+			<div  class="content" id="class-area">
 									
 				<div id="classContent">
 					<p>2023-01-03 결제</p>
-					<div id="classThumbnail">
+					< id="classThumbnail">
 						<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> <!--클래스썸네일대표사진-->
 						<br>
 						<p>강보람<br>튜터</p>
@@ -256,7 +256,7 @@
 				</div>
 			</div>
 		
-		</div> 
+		
 	</div>	
 		
 		<%} %>
@@ -316,7 +316,7 @@
 		  </div>
 		  
       
-    </div>	
+    
 
 
 
