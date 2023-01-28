@@ -65,6 +65,22 @@ public class Register {
 		this.memPhone = memPhone;
 		this.memEmail = memEmail;
 	}
+	
+	
+	
+	public Register(int regNo, String clNo, String teachDate, String regDate, String schNo, String regPay,
+			String regPrice, String regCount, String regSta) {
+		super();
+		this.regNo = regNo;
+		this.clNo = clNo;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.schNo = schNo;
+		this.regPay = regPay;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+	}
 
 	public int getRegNo() {
 		return regNo;

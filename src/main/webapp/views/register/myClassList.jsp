@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.hp.register.model.vo.Register"%>
+    
+ <%
+ 	ArrayList<Register> list = (ArrayList<Register>)request.getAttribute("list");
+ %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	.content{width:785px; height:1000px; float:left; margin:0;}
 	#classnull{
 		text-align: center;
 		margin-top: 71px;
@@ -106,17 +111,19 @@
 <body>
 	<%@ include file = "../common/myClassMenubar.jsp" %>
 			
-		<div class="content">
+		<div class="content" >
 
 			<!--로그인한 유저가 결제한 클래스가 없을 때 -->
-				
+			
+			<%if(loginUser != null && list.isEmpty()) {%>				
 			<div id="classnull">
 				<img src="<%=contextPath%>/resources/images/myClassNull.jpg" alt="">
 				<p>아직 신청 내역이 없어요!<br>
 				지금 바로 합플을 시작해 보세요.</p>
 				<button type="button" class="btn btn-light" id="findClass" onclick="">클래스 찾아보기</button>
 			</div>
-
+			
+			<%} else { %>
 			<!--결제한 승인완료 클래스가 있을 때-->
 			<div id="classList">
 				<div id="class-area">
@@ -250,7 +257,9 @@
 			</div>
 		
 		</div> 
+	</div>	
 		
+		<%} %>
 		<!-- 로그인 유저가 결제한 클레스가 있을 때 if문 닫는 괄호 -->
 
 		<!-- 결제상세내역 Modal -->

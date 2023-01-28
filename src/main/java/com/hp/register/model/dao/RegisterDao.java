@@ -111,4 +111,44 @@ public class RegisterDao {
 		return result;
 	}
 
+	/**
+	 * 마이클래스 수강내역부분 조회
+	 * @author 수정
+	 * @param conn
+	 * @param memNo
+	 * @return ArrayList<Register> list
+	 */
+	public ArrayList<Register> selectRegisterList(Connection conn, int memNo) {
+		ArrayList<Register> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRegisterList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Register(rset.getInt("reg_no"),
+									  rset.getString("cl_name"),
+									  rset.getString("teach_date"),
+									  rset.getString("reg_date"),
+									  rset.getString("start_time"),
+									  rset.getString("reg_pay"),
+									  rset.getString("reg_price"),
+									  rset.getString("reg_count"),
+									  rset.getString("reg_sta")));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}return list;
+	}
+
+	
 }

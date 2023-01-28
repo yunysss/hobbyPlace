@@ -38,4 +38,11 @@ public class RegisterService {
 		return result;
 	}
 
+	public ArrayList<Register> selectMyClassList(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Register> list = new RegisterDao().selectRegisterList(conn, memNo);
+		close(conn);
+		return list;
+	}
+
 }

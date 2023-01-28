@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hp.member.model.service.MemberService;
 import com.hp.member.model.vo.Member;
+import com.hp.register.model.service.RegisterService;
 import com.hp.register.model.vo.Register;
 
 /**
@@ -33,6 +33,13 @@ public class MyClassListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		ArrayList<Register> list = new RegisterService().selectMyClassList(memNo);
+		request.setAttribute("list", list);
+		
 		
 		request.getRequestDispatcher("views/register/myClassList.jsp").forward(request, response);
 	
