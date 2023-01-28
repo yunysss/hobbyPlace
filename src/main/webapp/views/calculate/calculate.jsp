@@ -17,19 +17,17 @@
 
     .outer{width:1000px; margin:auto; padding:30px 50px;}
     #calculate{width:800px; margin:auto;}
-    #cal-2{
+    #cal-2-1{
     	padding:20px;
-        overflow: auto;
-        height:500px;
     }
-    #cal-2>div{padding:20px;}
-    .calList-1, .calList-2, .calList-3, .calList-4{
+    #cal-2-1>div{padding:20px;}
+    .calList{
         border:1px solid rgb(180, 180, 180); 
         border-radius:5px;
-        height:145px;
+        height:150px;
         margin-bottom:20px;
     }
-    .calList-1>div, .calList-2>div, .calList-3>div, .calList-4>div{float:left; height:100%; width:50%}
+    .calList>div{float:left; height:100%; width:50%}
 
     #cal-2 button{
         background:rgb(22, 160, 133);
@@ -45,9 +43,6 @@
         text-align:center;
         font-size: 12px;
         line-height: 28px;
-    }
-    .calList-2, .calList-3, .calList-4{
-    	display:none;
     }
     input[type=radio]{display: none;}
    	input[type=radio]+label{
@@ -71,6 +66,34 @@
        background-color: gray;
        color:white;
    }
+    #paging{
+	    text-align: center;
+	    display: inline-block;
+		padding-left :0;
+	}
+	#paging li {
+	    text-align: center;
+	    float: left;
+		list-style:none;
+		border-radius:10px;
+	}
+	
+	#paging li a {
+	    display: block;
+	    font-size: 12px;
+		color: black;
+	    padding: 5px 10px;
+	    box-sizing: border-box;
+		text-decoration-line:none;
+	}
+	
+	#paging li.on {
+	    background: gray;
+	}
+	
+	#paging li.on a {
+	    color: white;
+	}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -82,122 +105,166 @@
         <div id="calculate">
 	        <br>
 	        <div align="center">
-	        	<input type="radio" id="selectAll" name="selectCalculate" value="all" checked><label for="selectAll">전체</label>
-				<input type="radio" id="selectNew" name="selectCalculate" value="new"><label for="selectNew">정산 미신청</label>
-				<input type="radio" id="selectWait" name="selectCalculate" value="wait"><label for="selectWait">정산 진행중</label>
-				<input type="radio" id="selectComplete" name="selectCalculate" value="complete"><label for="selectComplete">정산완료</label>
+	        	<input type="radio" id="selectAll" name="regCal" value="정산" checked><label for="selectAll">전체</label>
+				<input type="radio" id="selectNew" name="regCal" value="미신청"><label for="selectNew">정산 미신청</label>
+				<input type="radio" id="selectWait" name="regCal" value="진행중"><label for="selectWait">정산 진행중</label>
+				<input type="radio" id="selectComplete" name="regCal" value="완료"><label for="selectComplete">정산완료</label>
 	        </div>
+	        
 	        <script>
-        		$("input[type=radio]").change(function(){
-           			switch($("input[type=radio]:checked").val()){
-           			case "all": $(".calList-1").show(); $(".calList-2").hide(); $(".calList-3").hide(); $(".calList-4").hide(); break;
-           			case "new": $(".calList-1").hide(); $(".calList-2").show(); $(".calList-3").hide(); $(".calList-4").hide(); break;
-           			case "wait": $(".calList-1").hide(); $(".calList-2").hide(); $(".calList-3").show(); $(".calList-4").hide(); break;
-           			case "complete": $(".calList-1").hide(); $(".calList-2").hide(); $(".calList-3").hide(); $(".calList-4").show();
-           			}
-           		})
-       			
-            </script>
-	        <form action="<%= contextPath %>/detail.cal?" id="cal-2">
+			    let totalData; //총 데이터 수
+			    let dataPerPage=5; //한 페이지에 나타낼 글 수
+			    let pageCount = 10; //페이징에 나타낼 페이지 수
+			    let globalCurrentPage=1; //현재 페이지
+			    let dataList; //표시하려하는 데이터 리스트
+			
+			    $(function () {
+				     selectCal();
+			    })
+			    $("input[type=radio]").change(function(){
+			    	selectCal();
+		    	})
+			    function selectCal(){
+		    		$.ajax({
+		    			url:"<%=contextPath%>/select.cal",
+		    			data:{
+		    				status:$("input[name=regCal]:checked").val()
+		    			},
+		    			success:function(d){
+		    				if(d.length == 0){
+		    					let value = "<div align='center'><b>조회된 내역이 없습니다.</b></div>"
+		    						
+		    					$("#cal-2-1").html(value);
+		    					$("#paging").html("");
+		    				} else{
+		    					//totalData(총 데이터 수) 구하기
+		    	 		    	   totalData = d.length;
+		    	 		               //데이터 대입
+		    	 		           dataList=d;
+		    	 		           displayData(1, dataPerPage, totalData);
+		    	 		           paging(totalData, dataPerPage, pageCount, 1);
+		    				}
+		    				
+		    			},error:function(){
+		    				console.log("정산목록 조회용 ajax 통신실패");
+		    			}
+		    		})
+		    	}
+			    function displayData(currentPage, dataPerPage, totalData) {
+			    	  let value = "";
+			    	//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
+			    	  currentPage = Number(currentPage);
+			    	  dataPerPage = Number(dataPerPage);
+			    	  if(totalData < dataPerPage){
+			    		  dataPerPage = totalData;
+			    	  }
+			    	  for (let i = (currentPage - 1) * dataPerPage; 
+			    	    i < (currentPage - 1) * dataPerPage + dataPerPage;
+			    	    i++
+			    	  ) {
+			    	    value += "<div class='calList'>"
+	                    		+ "<div>"
+                        		+	"결제일자 : " + dataList[i].teachDate + "<br>"
+                        		+	"<h5>" + dataList[i].memNo + "</h5> <br>"
+                        		+	"수업일자 : " + dataList[i].clNo + "&nbsp;" + dataList[i].regDate + "<br>"
+                       			+	"신청인원 : " + dataList[i].regPrice
+                    			+ "</div>"
+                    			+ "<div align='right'>";
+                    	if(dataList[i].regSta == 'N'){
+                    		value += "<span style='background:rgb(241, 196, 15)'>"
+                    				+	"<b>미신청</b></span><br><br><br><br>"	
+                    	} else if(dataList[i].regSta == 'W'){
+                    		value += "<span style='background:rgb(22, 160, 133)'>"
+                				+	"<b>정산진행중</b></span><br><br><br><br>"	
+                    	} else if(dataList[i].regSta == 'C'){
+                    		value += "<span style='background:rgb(231, 76, 60)'>"
+                				+	"<b>정산완료</b></span><br><br><br><br>"	
+                    	} 
+                    	value += 	"<b><label for='" + i + "'>" + dataList[i].schNo + "</label></b>";
+                    	if(dataList[i].regSta == 'N'){
+                    		value += "<input type='checkbox' name='regNo' id='" + i + "' value=" + dataList[i].regNo + ">"
+                    	}
+                    	value += "</span></div></div>"
+			    	  }
+			    	  $("#cal-2-1").html(value);
+			    	}
+		    	
+		    	function paging(totalData, dataPerPage, pageCount, currentPage) {
+		    		 
+		    			  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+		        		  
+		        		  if(totalPage<pageCount){
+		        		    pageCount=totalPage;
+		        		  }
+		        		  
+		        		  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+		        		  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+		        		  
+		        		  if (last > totalPage) {
+		        		    last = totalPage;
+		        		  }
+		
+		        		  let first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
+		        		  let next = last + 1;
+		        		  let prev = first - 1;
+		
+		        		  let pageHtml = "";
+		
+		        		  if (prev > 0) {
+		        		    pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
+		        		  }
+		
+		        		 //페이징 번호 표시 
+		        		  for (let i = first; i <= last; i++) {
+		        		    if (currentPage == i) {
+		        		      pageHtml +=
+		        		        "<li class='on'><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+		        		    } else {
+		        		      pageHtml += "<li><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+		        		    }
+		        		  }
+		
+		        		  if (last < totalPage) {
+		        		    pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
+		        		  }
+		
+		        		  $("#paging").html(pageHtml);
+		
+		
+		        		  //페이징 번호 클릭 이벤트 
+		        		  $("#paging li a").click(function () {
+		        		    let $id = $(this).attr("id");
+		        		    selectedPage = $(this).text();
+		
+		        		    if ($id == "next") selectedPage = next;
+		        		    if ($id == "prev") selectedPage = prev;
+		        		    //전역변수에 선택한 페이지 번호를 담는다...
+		        		    globalCurrentPage = selectedPage;
+		        		    //페이징 표시 재호출
+		        		    paging(totalData, dataPerPage, pageCount, selectedPage);
+		        		    //글 목록 표시 재호출
+		        		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
+		        		  });
+		    		  
+		    		}
+		    	
+    		</script>           
+	        <form action="<%= contextPath %>/detail.cal" id="cal-2">
 	        	<input type="hidden" name ="sta" value="0">
-	           	<% if(rList.isEmpty()){ %>
-	           		<div align="center">
-	           			<b>조회된 내역이 없습니다.</b>
-	           		</div>
-	           	<% } else{%>
-	            	<% for(int i=0; i<rList.size(); i++){ %>
-	            		<div class="calList-1">
-		                    <div>
-		                        결제일자 : <%= rList.get(i).getRegDate() %> <br>
-		                        <h5><%= rList.get(i).getClNo() %></h5> <br>
-		                        수업일자 : <%= rList.get(i).getTeachDate() %> <%= rList.get(i).getSchNo() %><br>
-		                        신청인원 : <%= rList.get(i).getRegCount() %>
-		                    </div>
-		                    <div align="right">
-		                    	<% String regSta=""; String regColor="";
-		                    	switch(rList.get(i).getMemEmail()){ 
-		                    	case "N": regSta = "미신청"; regColor = "rgb(241, 196, 15)"; break;
-		                    	case "W": regSta = "정산진행중"; regColor = "rgb(22, 160, 133)"; break;
-		                        case "C": regSta = "신청완료"; regColor = "rgb(231, 76, 60)";
-		                        } %>
-		                        <span style="background:<%=regColor%>"><b><%= regSta %></b></span><br><br><br>	
-		                        <b><%= rList.get(i).getRegPrice() %></b>
-		                        <% if(rList.get(i).getMemEmail().equals("N")){ %>
-		                        	<input type="checkbox" name="regNo" value="<%=rList.get(i).getRegNo()%>">
-		                        <%} %>
-		                    </div>
-	                    </div>
-	                <% } %>
-	                <% if(nList.isEmpty()){ %>
-	                	<div class="calList-2" align="center">
-	           				<b>정산 미신청 내역이 없습니다.</b>
-	           			</div>
-	                <% }else{ %>
-		                <% for(int i=0; i<nList.size(); i++){ %>
-			                <div class="calList-2">
-			                    <div>
-			                        결제일자 : <%= nList.get(i).getTeachDate() %> <br>
-			                        <h5><%= nList.get(i).getMemNo() %></h5> <br>
-			                        수업일자 : <%= nList.get(i).getClNo() %> <%= nList.get(i).getRegDate() %><br>
-			                        신청인원 : <%= nList.get(i).getRegPrice() %>
-			                    </div>
-			                    <div align="right">
-			                        <span style="background:rgb(241, 196, 15);"><b>미신청</b></span><br><br><br>	
-			                        <b><%= nList.get(i).getSchNo() %></b>
-			                        <input type="checkbox" name="regNo" value="<%=nList.get(i).getRegNo()%>">
-			                    </div>
-		                    </div>
-	                    <% } %>
-	                <% } %>
-	                <% if(wList.isEmpty()){ %>
-	                	<div class="calList-3" align="center">
-	           				<b>정산 진행중인 내역이 없습니다.</b>
-	           			</div>
-	                <% }else{ %>
-	                    <% for(int i=0; i<wList.size(); i++){ %>
-			                <div class="calList-3">
-			                    <div>
-			                        결제일자 : <%= wList.get(i).getTeachDate() %> <br>
-			                        <h5><%= wList.get(i).getMemNo() %></h5> <br>
-			                        수업일자 : <%= wList.get(i).getClNo() %> <%= wList.get(i).getRegDate() %><br>
-			                        신청인원 : <%= wList.get(i).getRegPrice() %>
-			                    </div>
-			                    <div align="right">
-			                        <span style="background:rgb(22, 160, 133);"><b>정산진행중</b></span><br><br><br>	
-			                        <b><%= wList.get(i).getSchNo() %></b>
-			                    </div>
-		                    </div>
-	                    <% } %>
-	                <% } %>
-	                <% if(cList.isEmpty()){ %>
-	                	<div class="calList-4" align="center">
-	           				<b>정산 완료된 내역이 없습니다.</b>
-	           			</div>
-	                <% }else{ %>
-	                    <% for(int i=0; i<cList.size(); i++){ %>
-			                <div class="calList-4">
-			                    <div>
-			                        결제일자 : <%= cList.get(i).getTeachDate() %> <br>
-			                        <h5><%= cList.get(i).getMemNo() %></h5> <br>
-			                        수업일자 : <%= cList.get(i).getClNo() %> <%= cList.get(i).getRegDate() %><br>
-			                        신청인원 : <%= cList.get(i).getRegPrice() %>
-			                    </div>
-			                    <div align="right">
-			                        <span style="background:rgb(231, 76, 60)"><b>정산완료</b></span><br><br><br>	
-			                        <b><%= cList.get(i).getSchNo() %></b>
-			                    </div>
-		                    </div>
-	                    <% } %>
-                    <% } %>
-               	<% } %>
-           		<div align="center">
+	        	<div align="right" style="width:780px">
            			<button type="submit" class="btn btn-sm" id="cal-btn" disabled>정산 신청</button>
            		</div>
+	        	<div id="cal-2-1">
+	        	
+	        	</div>
+               	<div align="center">
+               		<ul id="paging"></ul>
+               	</div>
 	        </form>
 		</div>
 		<script>
 			$(function(){  
-				$("input:checkbox[name='regNo']").click(function(){
+				$(document).on("click", "input:checkbox[name='regNo']", function(){
 					if($("input:checkbox[name='regNo']:checked").length>0) {
 						$("#cal-btn").attr("disabled", false);
 					} else{

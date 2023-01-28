@@ -18,7 +18,7 @@ public class CalculateService {
 	 * @author 예서
 	 * @param memNo 튜터회원번호
 	 * @param status 정산처리상태
-	 * @return 수강완료된 주문 리스트
+	 * @return 정산처리상태별 리스트
 	 */
 	public ArrayList<Register> selectTutorCalculate(int memNo, String status){
 		Connection conn = getConnection();

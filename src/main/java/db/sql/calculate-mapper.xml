@@ -16,7 +16,7 @@
 		  JOIN SCHEDULE USING(SCH_NO)
 		 WHERE C.MEM_NO = ?
 		   AND REG_STA = 2
-           AND REG_CAL = ?
+           AND DECODE(REG_CAL, 'N', '정산 미신청', 'W', '정산 진행중', 'C', '정산완료') LIKE ?
 		 ORDER 
 		    BY REG_NO DESC
 	</entry>

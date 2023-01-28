@@ -283,9 +283,8 @@
 	    })
 	    function selectCalList(){
     		$.ajax({
-    			url:"<%=contextPath%>/select.cal",
+    			url:"<%=contextPath%>/selectList.cal",
     			data:{
-    				memNo:<%=MemNo%>,
     				startDate:$("#searchStartDate").val(),
     				endDate:$("#searchEndDate").val(),
     				status:$("input[name=calSta]:checked").val()

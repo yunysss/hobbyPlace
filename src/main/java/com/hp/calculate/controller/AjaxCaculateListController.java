@@ -12,11 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.hp.calculate.model.service.CalculateService;
 import com.hp.calculate.model.vo.Calculate;
+import com.hp.member.model.vo.Member;
 
 /**
  * Servlet implementation class AjaxCaculateListController
  */
-@WebServlet("/select.cal")
+@WebServlet("/selectList.cal")
 public class AjaxCaculateListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,7 +33,7 @@ public class AjaxCaculateListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String status = request.getParameter("status");
