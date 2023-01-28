@@ -83,16 +83,23 @@
 
     #thumbnail img{
       border-radius: 5px;
-     };   
+     }   
+     
+     .dropdown{display:inline;}
+     .dropdown-menu a{
+     	font-size: 12px;
+     }
+     .pop{width:30px}
      
 
     </style>
+    
 </head>
 <body>
 <%@include file="../common/tuteeMenubar.jsp" %>
   <div class="outer">
   		<%if (list.isEmpty()){ %>
-          	<div align="center">
+          	<div id="empty"valign="center">
   			<h5>등록된 클래스가 없습니다.🥲</h5>
   			</div>
         <%} else{%>
@@ -123,8 +130,65 @@
         <br><br>
         <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count %> 건</span>
         <div id="btn-area" style="border: 1px sold black;">
-         <button class="btn btn-secondary btn-sm"> 인기순 </button>
-          <button class="btn btn-secondary btn-sm"> 평점순 </button>
+
+          <div class="dropdown">
+		    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+		      가격순
+		    </button>
+		    <div class="dropdown-menu price">
+		      <a class="dropdown-item" onclick="rowPrice();">가격낮은순</a>
+		      <a class="dropdown-item" href="#" onclick="highPrice();">가격높은순</a>
+		    </div>
+       	 </div>
+       	 <div class="dropdown">
+		    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+		      인기순
+		    </button>
+		    <div class="dropdown-menu pop">
+		      <a class="dropdown-item" href="#">판매량순</a>
+		      <a class="dropdown-item" href="#">평점순</a>
+		    </div>
+       	 </div>
+       	 
+       	 <script>
+       	 	function rowPrice(){
+       	 		$.ajax({
+       	 			url:"<%=contextPath%>/priceasc.cl ",
+       	 			data:{ 
+       	 			 	cpage : 1 ,      	 				
+       	 				category :'<%=list.get(1).getCtNo()%>',
+       	 				 
+       	 			},
+       	 			type:"post",
+       	 			success:function(result){
+       	 				console.log(result);
+       	 				
+       	 				let value = "";
+       	 				for(let i=0; i<result.length; i++){
+       	 					console.log(result[i]);
+       	 					value += "<tr>" +"<td>"+ "<div id='thumbnail'>"
+       	 					         +"<input type='hidden'  value="+ result[i].clNo + ">"
+       	 				             +"<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + result[i].clThumb + "'>"
+       	 				             +"</div></td></tr>"
+       	 				             + "<tr><td style='font-size: 11px;'>"+ result[i].distrCode + "</td></tr>"
+       	                             +"<tr><th>"+result[i].clName + "</th></tr>"
+       	 		                     +"<tr><th>"+result[i].clPrice + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small>⭐"+result[i].clStarAvg+".0(" + result[i].clStarCount + ")</small></th>"
+       	 		                     +"</tr>"
+
+       	 						} 
+       	                           $(".thumbnail").html(value);
+       	                 
+       	 			},error:function(){
+       	 				console.log("조회용 ajax통신 실패");
+       	 			}
+ 
+       	 		})
+       	 	}
+     
+
+       	 </script>
+
+
         </div>
         <div class="container">
         

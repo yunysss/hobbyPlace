@@ -107,7 +107,7 @@
         <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=kCount %> 건</span>
         <div id="btn-area">
           <button class="btn btn-secondary btn-sm"> 인기순 </button>
-          <button class="btn btn-secondary btn-sm"> 평점순 </button>
+          <button class="btn btn-secondary btn-sm"> 가격순 </button>
         </div>
         <div class="container">
           
@@ -156,16 +156,16 @@
         
         	<%if(pi.getCurrentPage() != 1){ %>    
         		
-            		<button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=pi.getCurrentPage()-1%>& keyword=<%=keyword%>';">&lt;</button>
+            		<button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=pi.getCurrentPage()-1%>&keyword=<%=keyword%>';">&lt;</button>
             <%} %>
 			
 			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
-           		 <button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=p%>& keyword=<%=keyword%>';"><%= p %></button>
+           		 <button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=p%>&keyword=<%=keyword%> ';"><%= p %></button>
            		 
             <%} %>
           
             <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
-            <button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=pi.getCurrentPage()+1%>& keyword=<%=keyword%>';">&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=pi.getCurrentPage()+1%>&keyword=<%=keyword%>';">&gt;</button>
             <%} %>
             
 			</div>

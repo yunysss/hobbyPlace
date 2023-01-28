@@ -127,7 +127,7 @@
         <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count %> 건</span>
         <div id="btn-area" style="border: 1px sold black;">
          <button class="btn btn-secondary btn-sm"> 인기순 </button>
-          <button class="btn btn-secondary btn-sm"> 평점순 </button>
+          <button class="btn btn-secondary btn-sm"> 가격순 </button>
         </div>
         <div class="container">
                <div class="list-area">
