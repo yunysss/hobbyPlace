@@ -120,32 +120,6 @@
 	            		})
 	            	}
 	            	
-	            	function selectInterestClassList(){
-                		$.ajax({
-                			url:"<%=contextPath%>/listInterest.cl",
-                			data:{interest:"<%=loginUser.getInterest()%>"},
-                			success:function(list){
-                				let value = "";
-                				for(let i=0; i<list.length; i++){
-                					value += "<td>"
-                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
-                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-                									+ "<small>" + list[i].distrCode + "</small><br>"
-                									+ "<b>" + list[i].clName + "</b><br>"
-                									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-               									+ "</a>"
-             								+ "</td>"
-                				}
-                				if(list.length < 5){
-                					selectNewClassList();
-                				}
-                				$("#rec-pic tr").html(value);
-                			},error:function(){
-                				console.log("클래스 조회용 ajax 통신실패");
-                			}
-                		})
-                	}
-	            	
 	            	function selectLikeClassList(){
                 		$.ajax({
                 			url:"<%=contextPath%>/listLike.cl",
@@ -225,6 +199,31 @@
 		                $(function(){
 	                		selectInterestClassList();
 	                	})
+	                	function selectInterestClassList(){
+	                		$.ajax({
+	                			url:"<%=contextPath%>/listInterest.cl",
+	                			data:{interest:"<%=loginUser.getInterest()%>"},
+	                			success:function(list){
+	                				let value = "";
+	                				for(let i=0; i<list.length; i++){
+	                					value += "<td>"
+	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+	                									+ "<small>" + list[i].distrCode + "</small><br>"
+	                									+ "<b>" + list[i].clName + "</b><br>"
+	                									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+	               									+ "</a>"
+	             								+ "</td>"
+	                				}
+	                				if(list.length < 5){
+	                					selectNewClassList();
+	                				}
+	                				$("#rec-pic tr").html(value);
+	                			},error:function(){
+	                				console.log("클래스 조회용 ajax 통신실패");
+	                			}
+	                		})
+	                	}
 	                </script>
                 <% } %>
             </div>
