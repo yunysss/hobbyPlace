@@ -1,23 +1,30 @@
-package com.hp.member.controller;
+package com.hp.register.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.hp.member.model.service.MemberService;
+import com.hp.member.model.vo.Member;
+import com.hp.register.model.vo.Register;
 
 /**
- * Servlet implementation class RefundClassListController
+ * Servlet implementation class MyClassViewController
  */
-@WebServlet("/refundList.tee")
-public class RefundClassListController extends HttpServlet {
+@WebServlet("/myClassList.reg")
+public class MyClassListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RefundClassListController() {
+    public MyClassListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +33,9 @@ public class RefundClassListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/member/refundClassList.jsp").forward(request, response);
+		
+		request.getRequestDispatcher("views/register/myClassList.jsp").forward(request, response);
+	
 	}
 
 	/**

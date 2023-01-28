@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class RefundRequestFormController
  */
-@WebServlet("/refundReqForm.tee")
+@WebServlet("/refundReqForm.ref")
 public class RefundRequestFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
