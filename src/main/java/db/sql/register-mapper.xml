@@ -18,7 +18,7 @@
 		  JOIN CLASS C USING(CL_NO)
 		  JOIN SCHEDULE USING(SCH_NO)
 		 WHERE C.MEM_NO = ?
-		   AND REG_STA = ?
+           AND DECODE(REG_STA, '0', '승인전', '1', '승인완료', '2', '승인완료', '4', '승인반려') LIKE ?
 		 ORDER 
 		    BY REG_NO DESC
 	</entry>

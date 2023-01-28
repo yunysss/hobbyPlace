@@ -59,69 +59,6 @@ public class RegisterDao {
 		return rList;
 	}
 	
-	public ArrayList<Register> selectTutorNewRegister(Connection conn, int memNo, int num){
-		ArrayList<Register> nList = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset =null;
-		String sql = prop.getProperty("selectTutorNewRegister");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
-			pstmt.setInt(2, num);
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				nList.add(new Register(rset.getInt("reg_no"),
-									  rset.getString("mem_name"),
-									  rset.getString("cl_name"),
-									  rset.getString("teach_date"),
-									  rset.getString("reg_date"),
-									  rset.getString("sch_time"),
-									  rset.getString("reg_price"),
-									  rset.getString("reg_count"),
-									  rset.getString("reg_sta"),
-									  rset.getString("reg_cal")									  
-									  ));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return nList;
-	}
-	
-	public ArrayList<Register> selectTutorFinRegister(Connection conn, int memNo){
-		ArrayList<Register> fList = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset =null;
-		String sql = prop.getProperty("selectTutorFinRegister");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				fList.add(new Register(rset.getInt("reg_no"),
-									  rset.getString("mem_name"),
-									  rset.getString("cl_name"),
-									  rset.getString("teach_date"),
-									  rset.getString("reg_date"),
-									  rset.getString("sch_time"),
-									  rset.getString("reg_price"),
-									  rset.getString("reg_sta")
-									  ));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return fList;
-	}
-	
 	public Register selectDetailApproval(Connection conn, int regNo) {
 		Register r = null;
 		PreparedStatement pstmt = null;

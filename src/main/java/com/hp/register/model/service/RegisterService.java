@@ -20,20 +20,6 @@ public class RegisterService {
 		return list;
 	}
 	
-	public ArrayList<Register> Register(int memNo, int num){
-		Connection conn = getConnection();
-		ArrayList<Register> nList = new RegisterDao().selectTutorNewRegister(conn, memNo, num);
-		close(conn);
-		return nList;
-	}
-	
-	public ArrayList<Register> selectTutorFinRegister(int memNo){
-		Connection conn = getConnection();
-		ArrayList<Register> fList = new RegisterDao().selectTutorFinRegister(conn, memNo);
-		close(conn);
-		return fList;
-	}
-	
 	public Register selectDetailApproval(int regNo) {
 		Connection conn = getConnection();
 		Register r = new RegisterDao().selectDetailApproval(conn, regNo);

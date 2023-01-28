@@ -100,11 +100,11 @@
 				<input type="radio" id="selectReject" name="appSta" value="반려"><label for="selectReject">신청반려</label>
             </div>
             <script>
-			    let totalData; //총 데이터 수
-			    let dataPerPage=5; //한 페이지에 나타낼 글 수
-			    let pageCount = 10; //페이징에 나타낼 페이지 수
-			    let globalCurrentPage=1; //현재 페이지
-			    let dataList; //표시하려하는 데이터 리스트
+			    let totalData; 
+			    let dataPerPage=5; 
+			    let pageCount = 10; 
+			    let globalCurrentPage=1; 
+			    let dataList; 
 			
 			    $(function () {
 				     selectApproval();
@@ -125,9 +125,7 @@
 		    					$("#rsvListAll").html(value);
 		    					$("#paging").html("");
 		    				} else{
-		    					//totalData(총 데이터 수) 구하기
 		    	 		    	   totalData = d.length;
-		    	 		               //데이터 대입
 		    	 		           dataList=d;
 		    	 		           displayData(1, dataPerPage, totalData);
 		    	 		           paging(totalData, dataPerPage, pageCount, 1);
@@ -140,14 +138,16 @@
 		    	}
 			    function displayData(currentPage, dataPerPage, totalData) {
 			    	  let value = "";
-			    	//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
+			    	  let num = 0;
 			    	  currentPage = Number(currentPage);
 			    	  dataPerPage = Number(dataPerPage);
 			    	  if(totalData < dataPerPage){
-			    		  dataPerPage = totalData;
+			    		  num = totalData;
+			    	  } else{
+			    		  num = dataPerPage;
 			    	  }
 			    	  for (let i = (currentPage - 1) * dataPerPage; 
-			    	    i < (currentPage - 1) * dataPerPage + dataPerPage;
+			    	    i < (currentPage - 1) * dataPerPage + num;
 			    	    i++
 			    	  ) {
 			    		  value += "<div class='rsvList'>"
@@ -161,7 +161,7 @@
 			    		  if(dataList[i].regSta == '0'){
 	                    		value += "<span style='background:rgb(241, 196, 15)'>"
 	                    				+	"<b>NEW</b></span>"	
-	                    	} else if(dataList[i].regSta == '0' || dataList[i].regSta == '2'){
+	                    	} else if(dataList[i].regSta == '1' || dataList[i].regSta == '2'){
 	                    		value += "<span style='background:rgb(22, 160, 133)'>"
 	                				+	"<b>승인완료</b></span>"	
 	                    	} else if(dataList[i].regSta == '4'){
@@ -175,20 +175,20 @@
 		    	
 		    	function paging(totalData, dataPerPage, pageCount, currentPage) {
 		    		 
-		    			  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+		    			  totalPage = Math.ceil(totalData / dataPerPage);
 		        		  
 		        		  if(totalPage<pageCount){
 		        		    pageCount=totalPage;
 		        		  }
 		        		  
-		        		  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
-		        		  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+		        		  let pageGroup = Math.ceil(currentPage / pageCount); 
+		        		  let last = pageGroup * pageCount; 
 		        		  
 		        		  if (last > totalPage) {
 		        		    last = totalPage;
 		        		  }
 		
-		        		  let first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
+		        		  let first = last - (pageCount - 1); 
 		        		  let next = last + 1;
 		        		  let prev = first - 1;
 		
@@ -198,7 +198,6 @@
 		        		    pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
 		        		  }
 		
-		        		 //페이징 번호 표시 
 		        		  for (let i = first; i <= last; i++) {
 		        		    if (currentPage == i) {
 		        		      pageHtml +=
@@ -213,20 +212,15 @@
 		        		  }
 		
 		        		  $("#paging").html(pageHtml);
-		
-		
-		        		  //페이징 번호 클릭 이벤트 
+		 
 		        		  $("#paging li a").click(function () {
 		        		    let $id = $(this).attr("id");
 		        		    selectedPage = $(this).text();
 		
 		        		    if ($id == "next") selectedPage = next;
 		        		    if ($id == "prev") selectedPage = prev;
-		        		    //전역변수에 선택한 페이지 번호를 담는다...
 		        		    globalCurrentPage = selectedPage;
-		        		    //페이징 표시 재호출
 		        		    paging(totalData, dataPerPage, pageCount, selectedPage);
-		        		    //글 목록 표시 재호출
 		        		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
 		        		  });
 		    		  

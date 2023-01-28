@@ -1,7 +1,6 @@
-package com.hp.tutor.controller;
+package com.hp.register.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,22 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.common.model.vo.PageInfo;
-import com.hp.member.model.vo.Member;
+import com.hp.register.model.service.RegisterService;
 import com.hp.register.model.vo.Register;
-import com.hp.tutor.model.service.TutorService;
 
 /**
- * Servlet implementation class ReservationApprovalController
+ * Servlet implementation class TutorApprovalDetailController
  */
-@WebServlet("/approval.tt")
-public class TutorApprovalController extends HttpServlet {
+@WebServlet("/regDetail.tt")
+public class TutorApprovalDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TutorApprovalController() {
+    public TutorApprovalDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,8 +30,10 @@ public class TutorApprovalController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("views/tutor/reservationApproval.jsp").forward(request, response);
+		int regNo = Integer.parseInt(request.getParameter("no"));
+		Register r = new RegisterService().selectDetailApproval(regNo);
+		request.setAttribute("r", r);
+		request.getRequestDispatcher("views/register/reservationApprovalDetail.jsp").forward(request, response);;
 	}
 
 	/**
