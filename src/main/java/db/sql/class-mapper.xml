@@ -22,6 +22,39 @@
 		 ORDER
 		    BY CL_NO DESC
 	</entry>
+	<entry key="selectInterestClass">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+		                       CL_NO
+		                     , LOCAL_NAME
+		                     , DISTR_NAME
+		                     , SUBSTR(CL_NAME, 1, 10) || '...' "CL_NAME"
+		                     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+		                     , CL_THUMB
+		                     , (SELECT AVG(RE_STAR) 
+		                          FROM REVIEW R
+		                         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		                     , (SELECT COUNT(RE_STAR) 
+		                          FROM REVIEW R
+		                         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		                     , (SELECT COUNT(*)
+		                          FROM "LIKE" L
+		                         WHERE L.CL_NO = C.CL_NO
+		                         GROUP BY L.CL_NO) "LIKE_COUNT"
+		                     , ROWNUM "ROWNUM"
+		                  FROM CLASS C
+		                  JOIN LOCATION USING(LOCAL_CODE)
+		                  JOIN DISTRICT USING(DISTR_CODE)
+		                 WHERE CL_STATUS = 2
+		                   AND INSTR(?, CT_NO) > 0
+		                  ORDER BY DBMS_RANDOM.VALUE
+		                ) A
+		        )
+		 WHERE RNUM BETWEEN 1 AND 10
+	</entry>
 	<entry key="selectLikeClass">
 		SELECT 
 		       CL_NO

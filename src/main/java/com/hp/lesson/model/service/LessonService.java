@@ -31,6 +31,17 @@ public class LessonService {
 	
 	/**
 	 * @author 예서
+	 * @return list : 튜티 메인페이지 '좋아할만한 클래스'에 띄울 목록
+	 */
+	public ArrayList<Lesson> selectInterestClass(String interest){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().selectInterestClass(conn, interest);
+		close(conn);
+		return list;
+	}
+	
+	/**
+	 * @author 예서
 	 * @return list : 튜티 메인페이지 '찜이 가장 많은 클래스'에 띄울 목록
 	 */
 	public ArrayList<Lesson> selectLikeClass(){
