@@ -19,10 +19,6 @@
    #calMng-form, #calMng-result{
     padding:20px;
    }
-   #calMng-result{
-    overflow:auto;
-    height:500px;
-   }
 
    #calMng-result td{
     text-align: center;
@@ -82,8 +78,35 @@
    thead td{
     background:rgb(245, 245, 245);
    }
-    #calMng-result>div{float:left; width:50%;}
     .modal-body input{margin-left:10px;}
+    #paging{
+	    text-align: center;
+	    display: inline-block;
+		padding-left :0;
+	}
+	#paging li {
+	    text-align: center;
+	    float: left;
+		list-style:none;
+		border-radius:10px;
+	}
+	
+	#paging li a {
+	    display: block;
+	    font-size: 12px;
+		color: black;
+	    padding: 5px 10px;
+	    box-sizing: border-box;
+		text-decoration-line:none;
+	}
+	
+	#paging li.on {
+	    background: gray;
+	}
+	
+	#paging li.on a {
+	    color: white;
+	}
 </style>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -259,6 +282,15 @@
 		    }
         </script>
         <script>
+        let totalData; //총 데이터 수
+	    let dataPerPage=10; //한 페이지에 나타낼 글 수
+	    let pageCount = 10; //페이징에 나타낼 페이지 수
+	    let globalCurrentPage=1; //현재 페이지
+	    let dataList; //표시하려하는 데이터 리스트
+	
+	    $(function () {
+		     selectCalMng();
+	    })
         function selectCalMng(){
     		$.ajax({
     			url:"<%=contextPath%>/manageSearch.cal",
@@ -269,39 +301,113 @@
     				status:$("input[name=calSta]:checked").val()    				
     			},
     			success:function(list){
-    				
-    				let value = "";
-    				$("#calMng-list tbody").html("");
-    				if(list.length == 0){ 
-    					value += "<tr>"
-    							+	"<td colspan='7'>조회된 내역이 없습니다</td>"
-    							+ "</tr>"
-    				}else{
-						for(let i=0; i<list.length; i++){
-							value += "<tr class='calMngList'>"
-   								+	"<td>" + list[i].calNo + "</td>"
-   								+	"<td>" + list[i].rqDt + "</td>"
-   								+	"<td>" + list[i].calReg + "<br>" 
-   								+	"<td>" + list[i].calNm + "</td>"
-   								+	"<td>" + list[i].bank + "&nbsp;" + list[i].calAcc + "</td>"
-   								+	"<td>" + list[i].price  + "</td>"
-   								+	"<td>" + list[i].calSta + "&nbsp;<button type='button' class='btn btn-secondary btn-sm calChange-btn'>수정</button> </td>"
-   								+ "</tr>"
-    					}
-					}
-    				$("#calMng-list tbody").html(value);
+    				if(list.length == 0){
+    					let value = "<tr>"
+    						+	"<td colspan='7'>조회된 내역이 없습니다.</td>"
+    						+ "</tr>"
+    					$("#calMng-list tbody").html(value);
+    					$("#paging").html("");
+    				} else{
+    					//totalData(총 데이터 수) 구하기
+    	 		    	   totalData = list.length;
+    	 		               //데이터 대입
+    	 		           dataList=list;
+    	 		           displayData(1, dataPerPage, totalData);
+    	 		           paging(totalData, dataPerPage, pageCount, 1);
+    				}
     			},error:function(){
     				console.log("정산목록 조회용 ajax 통신실패");
     			}
     		})
     	}
+	    function displayData(currentPage, dataPerPage, totalData) {
+	    	  let value = "";
+	    	//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
+	    	  currentPage = Number(currentPage);
+	    	  dataPerPage = Number(dataPerPage);
+	    	  if(totalData < dataPerPage){
+	    		  dataPerPage = totalData;
+	    	  }
+	    	  for (let i = (currentPage - 1) * dataPerPage; 
+	    	    i < (currentPage - 1) * dataPerPage + dataPerPage;
+	    	    i++
+	    	  ) {
+	    		  value += "<tr class='calMngList'>"
+							+	"<td>" + dataList[i].calNo + "</td>"
+							+	"<td>" + dataList[i].rqDt + "</td>"
+							+	"<td>" + dataList[i].calReg + "<br>" 
+							+	"<td>" + dataList[i].calNm + "</td>"
+							+	"<td>" + dataList[i].bank + "&nbsp;" + dataList[i].calAcc + "</td>"
+							+	"<td>" + dataList[i].price  + "</td>"
+							+	"<td>" + dataList[i].calSta + "&nbsp;<button type='button' class='btn btn-secondary btn-sm calChange-btn'>수정</button> </td>"
+							+ "</tr>"
+	    	  }
+	    	  $("#calMng-list tbody").html(value);
+	    	}
+  	
+  		function paging(totalData, dataPerPage, pageCount, currentPage) {
+  		 
+  			  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+      		  
+      		  if(totalPage<pageCount){
+      		    pageCount=totalPage;
+      		  }
+      		  
+      		  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+      		  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+      		  
+      		  if (last > totalPage) {
+      		    last = totalPage;
+      		  }
+
+      		  let first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
+      		  let next = last + 1;
+      		  let prev = first - 1;
+
+      		  let pageHtml = "";
+
+      		  if (prev > 0) {
+      		    pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
+      		  }
+
+      		 //페이징 번호 표시 
+      		  for (let i = first; i <= last; i++) {
+      		    if (currentPage == i) {
+      		      pageHtml +=
+      		        "<li class='on'><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+      		    } else {
+      		      pageHtml += "<li><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+      		    }
+      		  }
+
+      		  if (last < totalPage) {
+      		    pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
+      		  }
+
+      		  $("#paging").html(pageHtml);
+
+
+      		  //페이징 번호 클릭 이벤트 
+      		  $("#paging li a").click(function () {
+      		    let $id = $(this).attr("id");
+      		    selectedPage = $(this).text();
+
+      		    if ($id == "next") selectedPage = next;
+      		    if ($id == "prev") selectedPage = prev;
+      		    //전역변수에 선택한 페이지 번호를 담는다...
+      		    globalCurrentPage = selectedPage;
+      		    //페이징 표시 재호출
+      		    paging(totalData, dataPerPage, pageCount, selectedPage);
+      		    //글 목록 표시 재호출
+      		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
+      		  });
+  		  
+  		}
         </script>
         <br>
         
         <div id="calMng-result">
-            <div>
-                <b>조회 결과</b><br><br>
-            </div>
+                <b>조회 결과</b><br>
             <br>
             <table width="100%" class="table" id="calMng-list">
                 <thead>
@@ -316,23 +422,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                	<% for(int i = 0; i < list.size(); i++){ %>
-	                    <tr>
-	                        <td><%= list.get(i).getCalNo() %></td>
-	                        <td><%= list.get(i).getRqDt() %></td>
-	                        <td><%= list.get(i).getCalReg() %></td>
-	                        <td><%= list.get(i).getCalNm() %></td>
-	                        <td><%= list.get(i).getBank() %>&nbsp;<%= list.get(i).getCalAcc() %></td>
-	                        <td><%= list.get(i).getPrice() %></td>
-	                        <td>
-	                        	<%= list.get(i).getCalSta()%>&nbsp;
-	                        	<button type="button" class="btn btn-sm btn-secondary calChange-btn">수정</button>
-	                        </td>
-	                    </tr>
-                    <% } %>
                 </tbody>
             </table>
+            <div align="center">
+			    <ul id="paging">
+				</ul>
+        	</div>
         </div>
+        
     
     </div>
     <script>
