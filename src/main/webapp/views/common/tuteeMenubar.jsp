@@ -335,6 +335,27 @@
         text-align: center;
     
     }
+
+        .schedule{display: none; margin: 10pt;}
+       
+        .schedule+label{
+            display: inline-block;
+            cursor: pointer;
+            padding: 4px 10px;
+            text-align: center;
+            font-size: 13px;
+            border-radius: 5px;
+            background-color: gray;
+            color: white;
+           
+            
+        }
+        .schedule:checked+label{
+            background-color: rgb(35, 104, 116);
+        }
+		.schedule+label:hover{
+            background-color: rgb(35, 104, 116);
+        }
  
  
     </style>
@@ -465,9 +486,10 @@
 	            	</a>
 	            </div>
 	            <div id="search">
-	                <form action="<%=contextPath %>/keyword.cl" id="search-form">
+	                <form action="<%=contextPath %>/keyword.cl" id="search-form" method="get">
+	                		<input type="hidden" name="cpage" value="1">
 	                        <div id="search-text"  >
-	                            <input type="text" name="keyword" placeholder="&nbsp;검색어를 입력하세요">
+	                            <input type="search" name="keyword" placeholder="&nbsp;검색어를 입력하세요">
 	                        </div>
 
 	                        <div id="search-btn">
@@ -524,10 +546,10 @@
     
     <div id="search-area" align="center">
         <br>
-        <form action="<%=contextPath %>/keyword.cl" id="searchForm">  
+        <form action="<%=contextPath %>" id="searchForm">  
         <div class="form-group has-search">
             <span class="fa fa-search form-control-feedback"></span>
-            <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요"  placeholder="Search">
+            <input type="search" class="form-control" name="keyword" placeholder="검색어를 입력하세요"  placeholder="Search">
         </div>
         
         <table id="select">
@@ -536,6 +558,7 @@
                 <th>카테고리</th>
                 <td>
                     <select name="category" id="ct" onchange="changeCt();">
+                    <option value="00">전체</option>   
                     <option value="11">교육</option>
                     <option value="22">공예 DIY</option>
                     <option value="33">드로잉</option>
@@ -591,30 +614,32 @@
                     <select name="sido "id="region" onchange="sidoChange();">
                     <option value="10">서울</option>
                     <option value="20">인천</option>
-                    <option value="30">경기도</option>
+                    <option value="30">경기</option>
                     
                      </select>
 
-                     <select name="district" id="district" >
-                       
-                     </select>
                 </td>
  
             </tr>
 
             
             <tr>
-                <th height="30"width="100">날짜</th>
+                <th height="30"width="100">요일</th>
                 <td>
-                    <div class="clearfix">
-                        <!-- 시작일 -->
+                     <div class="clearfix">
+                    
+                         <input type="checkbox" class="schedule" name="weekday" id="weekday"><label for="weekday">평일</label>
+                         <input type="checkbox" class="schedule" name="sat" id="sat"><label for="sat">토요일</label>
+                         <input type="checkbox" class="schedule" name="sun" id="sun"><label for="sun">일요일</label>
+                    
+                        <!--   시작일 
                             <input type="date"  name="searchStartDate" id="startDate" >
-                        <!-- 종료일 -->
+                          종료일 
                             <input type="date"  name="searchEndDate" id="endDate" > 
-
+                        --> 
                     </div>    
                 </td>
-                <script>
+              <!-- <script>
                     var now_utc = Date.now()
                     var timeOff = new Date().getTimezoneOffset()*60000;
                     var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
@@ -623,7 +648,7 @@
                     
                     
                     </script>
-                
+                -->
             </tr>
             <tr>
                 <th height="30"width="100">가격</th>

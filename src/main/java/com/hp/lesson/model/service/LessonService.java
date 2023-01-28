@@ -188,7 +188,20 @@ public class LessonService {
 		return rCount;
 	}
 	
+	public int keywordSearchCount(String keyword) {
+		Connection conn= getConnection();
+		int kCount = new LessonDao().keywordSearchCount(conn, keyword);
+		close(conn);
+		return kCount;
 	
+	}
+
+	public ArrayList<Lesson> selectKeywordSearhList(String keyword, PageInfo pi){
+		Connection conn= getConnection();
+		ArrayList<Lesson> kList = new LessonDao().selectKeywordSearhList(conn,keyword,pi);
+		close(conn);
+		return kList;
+	}
 	
 	
 	
