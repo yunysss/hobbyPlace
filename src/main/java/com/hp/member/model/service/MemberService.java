@@ -164,25 +164,5 @@ public class MemberService {
 	}
 
 
-
-	/**
-	 * 마이클래스 리스트를 조회하기 위한 정보 조회
-	 * @author 수정
-	 * @return list
-	 */
-	public ArrayList<Register> selectMyClassList(int memNo) {
-		Connection conn = getConnection();
-		ArrayList<Register> list = new MemberDao().selectMyClassList(conn, memNo);
-	
-		close(conn);
-		
-		return list;
-	}
-
-	
-	
-	
-	
-	
 	
 }

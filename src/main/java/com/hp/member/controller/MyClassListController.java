@@ -33,13 +33,6 @@ public class MyClassListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 마이클래스에 보여질 데이터를 조회
-		HttpSession session = request.getSession();
-		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
-		
-		ArrayList<Register> list = new MemberService().selectMyClassList(memNo);
-		
-		request.setAttribute("list",list);
 		
 		request.getRequestDispatcher("views/member/myClassList.jsp").forward(request, response);
 	
