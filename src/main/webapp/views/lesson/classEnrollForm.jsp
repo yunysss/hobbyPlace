@@ -67,6 +67,9 @@
         .schedule:checked+label{
             background-color: rgb(22, 160, 133);
         }
+		.schedule+label:hover{
+            background-color: rgb(22, 160, 133);
+        }
 
         #form1, #form2{
         padding: 20px 50px;
@@ -158,9 +161,7 @@
         height: 32px;
         border-radius: 5px;
     }
-    input[type=radio]:hover+label{
-            background-color: rgb(22, 160, 133);
-        }
+    
    
     table{
         

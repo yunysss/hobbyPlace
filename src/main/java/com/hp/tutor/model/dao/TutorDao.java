@@ -20,6 +20,7 @@ import com.hp.lesson.model.vo.Schedule;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.vo.Tutor;
 
+
 /**
  * @author user
  *
@@ -748,6 +749,13 @@ public class TutorDao {
 		
 	}
 	
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param sList
+	 * @return result 스케줄 등록결과 
+	 */
 	public int insertSchedule(Connection conn, ArrayList<Schedule> sList) {
 		 int result = 0;
 		 PreparedStatement pstmt = null;
@@ -768,7 +776,7 @@ public class TutorDao {
 		}finally {
 			close(pstmt);
 		}
-		 
+		 System.out.println(result);
 		 return result;
 	}
 	

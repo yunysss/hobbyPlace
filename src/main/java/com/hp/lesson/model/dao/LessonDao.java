@@ -709,6 +709,73 @@ private Properties prop = new Properties();
 	}
 	
 	
+	public int keywordSearchCount(Connection conn, String keyword) {
+		int kCount = 0;
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("keywordSearchCount");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			
+			rset= pstmt.executeQuery();
+			if(rset.next()) {
+				 kCount = rset.getInt("count");
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return kCount;
+	}
+	
+	
+	public ArrayList<Lesson> selectKeywordSearhList(Connection conn, String keyword, PageInfo pi){
+		ArrayList<Lesson> kList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectKeywordSearhList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setInt(2,startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				kList.add(new Lesson(rset.getInt("cl_no"),
+									rset.getString("ct_name"),
+									rset.getString("ct_dname"),
+									rset.getString("local_name"),
+									rset.getString("distr_name"),
+									rset.getString("cl_name"),
+									rset.getString("cl_price"),
+									rset.getString("cl_thumb"),
+									rset.getInt("star_avg"),
+									rset.getInt("star_count")
+							
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return kList;
+	}
+	
 	
 	
 	
