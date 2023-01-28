@@ -152,13 +152,12 @@
         	display:inline-block;
             width:350px;
             height:100px;
-            padding:15px 30px;
+            padding:15px 0px 15px 30px;
             background:rgb(245, 245, 245);
         }
-        #classDetail-tutor span{
-            margin:15px;
-        }
-
+		#classDetail-tutor>*{
+			margin-right:20px;
+		}
     </style>
     <!-- 카카오 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -229,7 +228,7 @@
                     <b>클래스 상세</b><br><br>
                     CLOB 출력..?<br><br>
                     <b>진행 장소</b><br><br>
-                    <div id="map" style="width:600px;height:300px;"></div><br>
+                    <div id="map" style="width:550px;height:300px;"></div><br>
 
                     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=19e99c5794a1b621123d4304f847fd72&libraries=services"></script>
                     <script>
@@ -279,9 +278,13 @@
                     
                     <b>강사소개</b><br><br>
                     <a href="<%=contextPath%>/ttdetail.cl?no=<%=le.getClNo() %>" id="classDetail-tutor">
-                	<img src="<%= contextPath %>/<%= le.getTutorProfile() %>" width="75px" height="100%">
-                    <span><%= le.getMemNo() %></span>
-                    <img src="<%= contextPath %>/resources/images/right_arrow.png" width="40px;" height="40px;">
+	                    <%if(le.getTutorProfile() == null){%>
+	                    	<img src="<%= contextPath %>/resources/tutorProfile_upfiles/defaultimg.jpg" width="70" height="70" class="rounded-circle">
+	                    <% }else{ %>
+	                    	<img src="<%= contextPath %>/<%= le.getTutorProfile() %>" width="70" height="70" class="rounded-circle">
+	                	<% } %>
+	                    <span><%= le.getMemNo() %></span>
+	                    <img src="<%= contextPath %>/resources/images/right_arrow.png" width="30px;" height="30px;" style="margin-left:100px;">
                   	</a>
                     </div>
                     
