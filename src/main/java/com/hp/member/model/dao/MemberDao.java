@@ -6,11 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.hp.common.JDBCTemplate.*;
 
 import com.hp.member.model.vo.Member;
+import com.hp.register.model.vo.Register;
 
 public class MemberDao {
 	
@@ -368,6 +370,44 @@ public class MemberDao {
 		}
 				
 		return tutorMem;
+	}
+
+	/**
+	 * 마이클래스 리스트를 조회하기 위한 정보 조회
+	 * @author 수정
+	 * @return list
+	 */
+	public ArrayList<Register> selectMyClassList(Connection conn, int memNo) {
+		ArrayList<Register> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyClassList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset=pstmt.executeQuery();
+			
+	/*		while(rset.next()) {
+				list.add(new Register(rset.getInt("reg_no"),
+									  rset.getString("cl_name"),
+									  rset.getString("distr_name"),
+									  rset.getString("teach_date"),
+									  rset.getString("reg_date"),
+									  rset.getInt("reg_sta"),
+									  rset.getString("tt_name"),
+									  rset.getString("cl_thumb")
+						));
+			}
+	 */
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return list;
 	}
 
 

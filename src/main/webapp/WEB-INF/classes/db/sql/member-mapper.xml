@@ -196,5 +196,32 @@
 	     WHERE MEM_NO = ?
 	       AND MEM_STATUS = 'Y' 
 	</entry>
+	<!-- 마이클래스 리스트를 조회하기 위한 sql문 -->
+	<entry key="selectMyClassList">
+	SELECT 
+		       R.REG_NO 
+		     , C.CL_NAME 
+		     , D.DISTR_NAME 
+		     , R.TEACH_DATE 
+		     , S.START_TIME 
+		     , TO_CHAR(REG_DATE,'YYYY-MM-DD') "REG_DATE"
+		     , R.REG_STA 
+		     , T.TT_NAME 
+		     , C.CL_THUMB 
+      FROM 
+		       REGISTER R
+		     , CLASS C
+		     , DISTRICT D
+		     , SCHEDULE S
+		     , TUTOR T
+      WHERE     R.CL_NO = C.CL_NO 
+	    AND 	C.DISTR_CODE =  D.DISTR_CODE
+	    AND 	R.SCH_NO = S.SCH_NO
+	    AND 	C.MEM_NO = T.MEM_NO
+	    AND 	R.MEM_NO = ?
+	
+	</entry>
+	
+	
 	
 </properties>

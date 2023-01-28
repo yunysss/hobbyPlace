@@ -1,10 +1,16 @@
 package com.hp.member.model.service;
 
-import java.sql.Connection;
+import static com.hp.common.JDBCTemplate.close;
+import static com.hp.common.JDBCTemplate.commit;
+import static com.hp.common.JDBCTemplate.getConnection;
+import static com.hp.common.JDBCTemplate.rollback;
 
-import static com.hp.common.JDBCTemplate.*;
+import java.sql.Connection;
+import java.util.ArrayList;
+
 import com.hp.member.model.dao.MemberDao;
 import com.hp.member.model.vo.Member;
+import com.hp.register.model.vo.Register;
 
 public class MemberService {
 
@@ -155,6 +161,22 @@ public class MemberService {
 			rollback(conn);
 		}
 		return count;
+	}
+
+
+
+	/**
+	 * 마이클래스 리스트를 조회하기 위한 정보 조회
+	 * @author 수정
+	 * @return list
+	 */
+	public ArrayList<Register> selectMyClassList(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Register> list = new MemberDao().selectMyClassList(conn, memNo);
+	
+		close(conn);
+		
+		return list;
 	}
 
 	
