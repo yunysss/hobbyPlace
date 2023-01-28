@@ -10,10 +10,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.content {width: 800px; height: 900px;}
+	
+	
 	#classnull{
+		width: 100%;
+		height: 90%;
 		text-align: center;
-		margin-top: 71px;
+		margin-top: 70px;
 	}
 	#classnull img{
 		width: 100px;
@@ -111,12 +114,11 @@
 <body>
 	<%@ include file = "../common/myClassMenubar.jsp" %>
 			
-		
-
+	<div class="content">
 			<!--로그인한 유저가 결제한 클래스가 없을 때 -->
 			
 			<%if(loginUser != null && list.isEmpty()) {%>				
-			<div class="content" id="classnull">
+			<div  id="classnull">
 				<img src="<%=contextPath%>/resources/images/myClassNull.jpg" alt="">
 				<p>아직 신청 내역이 없어요!<br>
 				지금 바로 합플을 시작해 보세요.</p>
@@ -125,7 +127,7 @@
 			
 			<%} else { %>
 			<!--결제한 승인완료 클래스가 있을 때-->
-			<div class="content" id="classList">
+			<div  id="classList">
 				<div id="class-area">
 										
 					<div id="classContent">
@@ -166,11 +168,11 @@
 
 					</div>
 				</div>
-			</div>
+			</div>	
 
 			<!--결제한 승인 전 클래스-->
 			
-				<div  class="content" id="class-area">
+				<div  id="class-area">
 										
 					<div id="classContent">
 						<p>2023-01-03 결제</p>
@@ -215,11 +217,11 @@
 		
 
 			<!--결제한 승인 전 클래스-->
-			<div  class="content" id="class-area">
+			<div  id="class-area">
 									
 				<div id="classContent">
 					<p>2023-01-03 결제</p>
-					< id="classThumbnail">
+					<div id="classThumbnail">
 						<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> <!--클래스썸네일대표사진-->
 						<br>
 						<p>강보람<br>튜터</p>
@@ -255,13 +257,15 @@
 
 				</div>
 			</div>
-		
+		</div>
 		
 	</div>	
-		
+
 		<%} %>
 		<!-- 로그인 유저가 결제한 클레스가 있을 때 if문 닫는 괄호 -->
+	
 
+	
 		<!-- 결제상세내역 Modal -->
 		<div class="modal fade" id="myModal">
 			<div class="modal-dialog modal-dialog-centered">
@@ -313,11 +317,14 @@
 				
 			  </div>
 			</div>
-		  </div>
-		  
-      
-    
+		</div>
+		
+		 
 
+	
+		 
+		
+		
 
 
 	<script>
@@ -342,7 +349,7 @@
 	</script>
 	
 		
-		
-	<%@ include file = "../common/footerbar.jsp" %>
+	<%@ include file = "../common/footerbar.jsp" %>		
+	
 </body>
 </html>

@@ -10,10 +10,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <style>
         div{/*border: 1px solid;*/ box-sizing:border-box; }
-        .cwrap{width:1000px; height:900px; margin:auto; padding:2px;}
+        .cwrap{width:1000px; height:1000px; margin:auto; padding:2px;}
         
-        .menubar{width:200px; height:900px; float:left; padding-top:30px; background: white; }
-        
+        .menubar{width:200px; height:1000px; float:left; padding-top:30px; background: white; }
+        .content {width:793px; height:1000px; margin:auto; float: right; }
         
         .categoryMain {
             width:90%;
@@ -127,7 +127,11 @@
 			})
 		})
         </script>
-        
+
+
+		
+
+            
         
 
 </body>
