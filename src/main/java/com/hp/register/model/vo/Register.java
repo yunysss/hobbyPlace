@@ -17,6 +17,7 @@ public class Register {
 	public String regCal;
 	public String memPhone;
 	public String memEmail;
+	public String clName;
 	
 	public Register() {}
 
@@ -68,11 +69,12 @@ public class Register {
 	
 	
 	
-	public Register(int regNo, String clNo, String teachDate, String regDate, String schNo, String regPay,
+	public Register( String clNo, int regNo, String clName, String teachDate, String regDate, String schNo, String regPay,
 			String regPrice, String regCount, String regSta) {
 		super();
-		this.regNo = regNo;
 		this.clNo = clNo;
+		this.regNo = regNo;
+		this.clName=clName;
 		this.teachDate = teachDate;
 		this.regDate = regDate;
 		this.schNo = schNo;
@@ -201,12 +203,23 @@ public class Register {
 		this.memEmail = memEmail;
 	}
 
+	public String getClName() {
+		return clName;
+	}
+
+	public void setClName(String clName) {
+		this.clName = clName;
+	}
+
 	@Override
 	public String toString() {
 		return "Register [regNo=" + regNo + ", memNo=" + memNo + ", clNo=" + clNo + ", teachDate=" + teachDate
 				+ ", regDate=" + regDate + ", schNo=" + schNo + ", regPay=" + regPay + ", regPrice=" + regPrice
 				+ ", regCount=" + regCount + ", regSta=" + regSta + ", refuse=" + refuse + ", reEnroll=" + reEnroll
-				+ ", regCal=" + regCal + "]";
+				+ ", regCal=" + regCal + ", memPhone=" + memPhone + ", memEmail=" + memEmail + ", clName=" + clName
+				+ "]";
 	}
+
+	
 	
 }

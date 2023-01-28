@@ -131,7 +131,8 @@ public class RegisterDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Register(rset.getInt("reg_no"),
+				list.add(new Register(rset.getString("cl_no"),
+									  rset.getInt("reg_no"),
 									  rset.getString("cl_name"),
 									  rset.getString("teach_date"),
 									  rset.getString("reg_date"),

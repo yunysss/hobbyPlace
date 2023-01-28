@@ -125,15 +125,16 @@
 				<button type="button" class="btn btn-light" id="findClass" onclick="">클래스 찾아보기</button>
 			</div>
 			
-			<%} else { %>
+			<%} else{ %>
 			<!--결제한 승인완료 클래스가 있을 때-->
+			<%for(Register r :list){ %>
 			<div  id="classList">
 				<div id="class-area">
 										
 					<div id="classContent">
-						<p>2023-01-03 결제</p>
+						<p><%=r.getRegDate() %> 결제</p>
 						<div id="classThumbnail">
-							<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> <!--클래스썸네일대표사진-->
+							<img src="<%=contextPath%><%=r.getClThumb() %>"> <!--클래스썸네일대표사진-->
 							<br>
 							<p>강보람<br>튜터</p>
 						</div>
@@ -142,16 +143,17 @@
 								<thead>
 									<tr>
 										<td >주문번호</td>
-										<td colspan="3">B3425R23</td>
+										<td colspan="3"><%=r.getRegNo() %></td>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td colspan="4" id="classTitle">가장 쉽게 배우는 JAVA</td>
+										<td colspan="4" id="classTitle"><%=r.getClName() %></td>
 									</tr>
 									<tr>
-										<td colspan="4">사당 / 2023-01-07(토) 17:00</td>
+										<td colspan="4">사당 / <%=r.getTeachDate() %> <%=r.getStartTime() %></td>
 									</tr>
+									
 									<tr>
 										<td height="50px"><div id="classStatusAp">승인완료</div></td>
 										<td colspan="3"></td>
@@ -169,15 +171,15 @@
 					</div>
 				</div>
 			</div>	
-
-			<!--결제한 승인 전 클래스-->
+			<%} %>
+			<!--결제한 승인 전 클래스
 			
 				<div  id="class-area">
 										
 					<div id="classContent">
 						<p>2023-01-03 결제</p>
 						<div id="classThumbnail">
-							<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> <!--클래스썸네일대표사진-->
+							<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> 
 							<br>
 							<p>강보람<br>튜터</p>
 						</div>
@@ -211,18 +213,18 @@
 						</div>
 
 					</div>
-				</div>
+				</div>-->
 			
 
 		
 
-			<!--결제한 승인 전 클래스-->
+			<!--결제한 승인 전 클래스
 			<div  id="class-area">
 									
 				<div id="classContent">
 					<p>2023-01-03 결제</p>
 					<div id="classThumbnail">
-						<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> <!--클래스썸네일대표사진-->
+						<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt="">
 						<br>
 						<p>강보람<br>튜터</p>
 					</div>
@@ -259,9 +261,9 @@
 			</div>
 		</div>
 		
-	</div>	
+	</div>	-->
 
-		<%} %>
+		
 		<!-- 로그인 유저가 결제한 클레스가 있을 때 if문 닫는 괄호 -->
 	
 
