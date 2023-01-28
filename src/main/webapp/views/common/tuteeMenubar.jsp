@@ -509,7 +509,7 @@
 		                <a href="<%=contextPath%>/enrollForm.me">회원가입</a>
 					<%}else{ %>
 		                <!-- 로그인 후 -->
-		                <a href="<%=contextPath%>/myClassList.tee">마이클래스</a>
+		                <a href="<%=contextPath%>/myClassList.reg">마이클래스</a>
 		                <p><%=loginUser.getMemNick()%>님</p> 
 		                <%if(loginUser.getMemProfile() == null) {%>
 		                	<img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">

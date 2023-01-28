@@ -70,6 +70,41 @@ private Properties prop = new Properties();
 	/**
 	 * @author 예서
 	 * @param conn
+	 * @return list : 튜티 메인페이지 '좋아할만한 클래스'에 띄울 목록
+	 */
+	public ArrayList<Lesson> selectInterestClass(Connection conn, String interest){
+		ArrayList<Lesson> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInterestClass");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, interest);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Lesson ls = new Lesson(rset.getInt("cl_no"),
+									   rset.getString("local_name"),
+									   rset.getString("distr_name"),
+									   rset.getString("cl_name"),
+									   rset.getString("cl_price"),
+									   rset.getString("cl_thumb"),
+									   rset.getInt("star_avg"),
+									   rset.getInt("star_count"));
+				list.add(ls);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	/**
+	 * @author 예서
+	 * @param conn
 	 * @return list : 튜티 메인페이지 '찜이 가장 많은 클래스'에 띄울 목록
 	 */
 	public ArrayList<Lesson> selectLikeClass(Connection conn){

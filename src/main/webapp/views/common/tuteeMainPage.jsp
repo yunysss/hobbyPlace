@@ -96,8 +96,105 @@
 
           <div id="mainPageRec">
             <div id="mainPageRec-1">
+            	<script>
+	            	function selectNewClassList(){
+	            		$.ajax({
+	            			url:"<%=contextPath%>/listNew.cl",
+	            			success:function(list){
+	            				let value = "";
+	            				for(let i=0; i<10; i++){
+	            					value += "<td>"
+	            								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+	            									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+	            									+ "<small>" + list[i].distrCode + "</small><br>"
+	            									+ "<b>" + list[i].clName + "</b><br>"
+	            									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+	           									+ "</a>"
+	         								+ "</td>"
+	            				}
+	            				$("#rec-pic tr").append(value);
+	            				
+	            			},error:function(){
+	            				console.log("클래스 조회용 ajax 통신실패");
+	            			}
+	            		})
+	            	}
+	            	
+	            	function selectInterestClassList(){
+                		$.ajax({
+                			url:"<%=contextPath%>/listInterest.cl",
+                			data:{interest:"<%=loginUser.getInterest()%>"},
+                			success:function(list){
+                				let value = "";
+                				for(let i=0; i<list.length; i++){
+                					value += "<td>"
+                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+                									+ "<small>" + list[i].distrCode + "</small><br>"
+                									+ "<b>" + list[i].clName + "</b><br>"
+                									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+               									+ "</a>"
+             								+ "</td>"
+                				}
+                				if(list.length < 5){
+                					selectNewClassList();
+                				}
+                				$("#rec-pic tr").html(value);
+                			},error:function(){
+                				console.log("클래스 조회용 ajax 통신실패");
+                			}
+                		})
+                	}
+	            	
+	            	function selectLikeClassList(){
+                		$.ajax({
+                			url:"<%=contextPath%>/listLike.cl",
+                			success:function(list){
+                				
+                				let value = "";
+                				for(let i=0; i<10; i++){
+                					value += "<td>"
+                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+                									+ "<small>" + list[i].distrCode + "</small><br>"
+                									+ "<b>" + list[i].clName + "</b><br>"
+                									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+               									+ "</a>"
+             								+ "</td>"
+                				}
+                				$("#rec-pic-2 tr").html(value);
+                			},error:function(){
+                				console.log("클래스 조회용 ajax 통신실패");
+                			}
+                		})
+                	}
+	            	
+	            	function selectReviewClassList(){
+                		$.ajax({
+                			url:"<%=contextPath%>/listReview.cl",
+                			success:function(list){
+                				let value = "";
+                				for(let i=0; i<list.length; i++){
+                					value += "<td>"
+                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+                									+ "<b>" + list[i].clName + "</b><br>"
+                					for(let j=1; j<=list[i].reviewStar; j++){
+                						value += "⭐"
+                					}
+               						value += "<p>" + list[i].reviewContent + "</p>"
+               								+ "</a>"
+             								+ "</td>"
+                				}
+                				$("#rec-pic-3 tr").html(value);
+                			},error:function(){
+                				console.log("클래스 조회용 ajax 통신실패");
+                			}
+                		})
+                	}
+            	</script>
                 <!-- 로그인 전 -->
-                <% if(loginUser == null) {%>
+                <% if(loginUser == null || loginUser.getInterest() == null) {%>
 	                <div class="rec-title">
 	                    <b>새로운 클래스 🎁</b>
 	                </div>
@@ -112,28 +209,6 @@
 	                	$(function(){
 	                		selectNewClassList();
 	                	})
-	                	
-	                	function selectNewClassList(){
-	                		$.ajax({
-	                			url:"<%=contextPath%>/listNew.cl",
-	                			success:function(list){
-	                				let value = "";
-	                				for(let i=0; i<10; i++){
-	                					value += "<td>"
-	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
-	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-	                									+ "<small>" + list[i].distrCode + "</small><br>"
-	                									+ "<b>" + list[i].clName + "</b><br>"
-	                									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-	               									+ "</a>"
-	             								+ "</td>"
-	                				}
-	                				$("#rec-pic tr").html(value);
-	                			},error:function(){
-	                				console.log("클래스 조회용 ajax 통신실패");
-	                			}
-	                		})
-	                	}
 	                </script>
                 <% } else{ %>
                 	<!-- 로그인 후 -->
@@ -146,11 +221,13 @@
 	                    	</tr>
 	                    </table>
 	                </div>
-                
+	                <script>
+		                $(function(){
+	                		selectInterestClassList();
+	                	})
+	                </script>
                 <% } %>
-                
             </div>
-
             <div id="mainPageRec-2">
                 <div class="rec-title">
 	                    <b>찜이 가장 많은 클래스 ❤️</b>
@@ -161,33 +238,10 @@
 	                    	</tr>
 	                    </table>
 	                </div>
-	                
 	                <script>
 		                $(function(){
 	                		selectLikeClassList();
 	                	})
-	                	function selectLikeClassList(){
-	                		$.ajax({
-	                			url:"<%=contextPath%>/listLike.cl",
-	                			success:function(list){
-	                				
-	                				let value = "";
-	                				for(let i=0; i<10; i++){
-	                					value += "<td>"
-	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
-	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-	                									+ "<small>" + list[i].distrCode + "</small><br>"
-	                									+ "<b>" + list[i].clName + "</b><br>"
-	                									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-	               									+ "</a>"
-	             								+ "</td>"
-	                				}
-	                				$("#rec-pic-2 tr").html(value);
-	                			},error:function(){
-	                				console.log("클래스 조회용 ajax 통신실패");
-	                			}
-	                		})
-	                	}
 	                </script>
             </div>
 
@@ -198,37 +252,13 @@
 	                <div id="rec-pic-3">
 	                    <table>
 	                    	<tr>
-	                    		
 	                    	</tr>
 	                    </table>
 	                </div>
 	                <script>
-	                $(function(){
-                		selectReviewClassList();
-                	})
-	                	function selectReviewClassList(){
-	                		$.ajax({
-	                			url:"<%=contextPath%>/listReview.cl",
-	                			success:function(list){
-	                				let value = "";
-	                				for(let i=0; i<list.length; i++){
-	                					value += "<td>"
-	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
-	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-	                									+ "<b>" + list[i].clName + "</b><br>"
-	                					for(let j=1; j<=list[i].reviewStar; j++){
-	                						value += "⭐"
-	                					}
-	               						value += "<p>" + list[i].reviewContent + "</p>"
-	               								+ "</a>"
-	             								+ "</td>"
-	                				}
-	                				$("#rec-pic-3 tr").html(value);
-	                			},error:function(){
-	                				console.log("클래스 조회용 ajax 통신실패");
-	                			}
-	                		})
-	                	}
+		                $(function(){
+		                	selectReviewClassList();
+	                	})
 	                </script>
             </div>
           </div>

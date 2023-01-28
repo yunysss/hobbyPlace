@@ -107,15 +107,15 @@
         $(function(){
         	<!--수강내역 결제 완료 클래스-->
 			$("#payMyClass").click(function(){
-				location.href="<%=contextPath%>/myClassList.tee";
+				location.href="<%=contextPath%>/myClassList.reg";
 			})
 			<!--수강내역 수강 취소 클래스-->
 			$("#refundMyClass").click(function(){
-				location.href="<%=contextPath%>/refundList.tee";
+				location.href="<%=contextPath%>/refundList.ref";
 			})
 			<!--후기작성-->
 			$("#writingReview").click(function(){
-				location.href="<%=contextPath%>/wReviewList.tee";
+				location.href="<%=contextPath%>/wReviewList.rev";
 			})
 			<!--내가 작성한 후기-->
 			$("#viewMyReview").click(function(){
