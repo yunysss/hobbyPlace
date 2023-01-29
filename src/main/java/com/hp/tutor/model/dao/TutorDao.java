@@ -608,6 +608,12 @@ public class TutorDao {
 		 return result;
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param l
+	 * @return result 클래스 수정 
+	 */
 	public int updateClass(Connection conn, Lesson l) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -645,6 +651,12 @@ public class TutorDao {
 		return result;
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param list
+	 * @return result attachment 수정 
+	 */
 	public int updateAttachment(Connection conn, ArrayList<Attachment> list) {
 		int result =0;
 		PreparedStatement pstmt = null;
@@ -668,6 +680,11 @@ public class TutorDao {
 		return result;
 	}
 	
+	/**@author 한빛
+	 * @param conn
+	 * @param list
+	 * @return result 클래스 수정시 새로운첨부파일 insert
+	 */
 	public int insertNewAttachment(Connection conn, ArrayList<Attachment> list) {
 		int result = 0;
 		PreparedStatement pstmt= null;
@@ -694,6 +711,12 @@ public class TutorDao {
 		return result;
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param sList
+	 * @return result 클래스 수정시 스케쥴 삭제 
+	 */
 	public int deleteSchedule(Connection conn, ArrayList<Schedule> sList) {
 		
 		int result = 0;
@@ -716,8 +739,35 @@ public class TutorDao {
 
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param sList
+	 * @return result 클래스 수정시 스케줄 재등록
+	 */
 	public int insertNewSchedule(Connection conn, ArrayList<Schedule> sList) {
-		
+		 int result = 0;
+		 PreparedStatement pstmt = null;
+		 String sql = prop.getProperty("insertNewSchedule");
+		 try {
+			for(Schedule s : sList) {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,s.getClNo());
+			pstmt.setInt(2, s.getSessionNo());
+			pstmt.setString(3, s.getStartTime());
+			pstmt.setString(4, s.getEndTime());
+			pstmt.setString(5, s.getEndTime());
+			pstmt.setString(6, s.getStartTime());
+			
+			result = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		 System.out.println(result);
+		 return result;
 	}
 	
 	

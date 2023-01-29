@@ -177,26 +177,28 @@ public class TutorService {
 	    int result2 =1;
 		if(!list.isEmpty()) {
 			for(Attachment a :list) {
-			if(a.getFileNo() != 0) {
+			if(a.getFileNo() != 0) {//기존 첨부파일 있을경우
 				result2 = new TutorDao().updateAttachment(conn, list);
-			}else {
+			}else {// 기존 첨부파일 없을경우 
 				result2 = new TutorDao().insertNewAttachment(conn,list);
 			}
 			}
 		}
+		 int result3 =1;
+		 int result4 =1;
 		if(!sList.isEmpty()) {
-			int result3 = new TutorDao().deleteSchedule(conn,sList);
-			int result4 = new TutorDao().insertNewSchedule(conn,sList);
+			result3 = new TutorDao().deleteSchedule(conn,sList);
+			result4 = new TutorDao().insertNewSchedule(conn,sList);
 		
 		}
-		if(result1>0 && result2>0) {
+		if(result1>0 && result2>0 && result3>0 && result4>0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		close(conn);
 		
-		return result1*result2 ;
+		return result1*result2*result3*result4 ;
 	}
 	
 
