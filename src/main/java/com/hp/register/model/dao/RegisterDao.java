@@ -141,7 +141,8 @@ public class RegisterDao {
 									  rset.getString("reg_sta"),
 									  rset.getString("cl_thumb"),
 									  rset.getString("cl_name"),
-									  rset.getString("start_time")));
+									  rset.getString("start_time"),
+									  rset.getString("distr_name")));
 				
 			}
 		} catch (SQLException e) {

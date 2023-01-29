@@ -20,6 +20,7 @@ public class Register {
 	public String clThumb;
 	public String clName;
 	public String startTime;
+	public String distrName;
 	
 	public Register() {}
 
@@ -73,7 +74,7 @@ public class Register {
 	
 
 	public Register( String teachDate, int regNo, String regDate, String regPay, String regPrice,
-			String regCount, String regSta, String clThumb, String clName, String startTime) {
+			String regCount, String regSta, String clThumb, String clName, String startTime, String distrName) {
 		super();
 		this.teachDate = teachDate;
 		this.regNo = regNo;
@@ -85,6 +86,7 @@ public class Register {
 		this.clThumb = clThumb;
 		this.clName = clName;
 		this.startTime = startTime;
+		this.distrName = distrName;
 	}
 
 	public int getRegNo() {
@@ -233,19 +235,24 @@ public class Register {
 		this.startTime = startTime;
 	}
 
+	public String getDistrName() {
+		return distrName;
+	}
+
+	public void setDistrName(String distrName) {
+		this.distrName = distrName;
+	}
+
 	@Override
 	public String toString() {
 		return "Register [regNo=" + regNo + ", memNo=" + memNo + ", clNo=" + clNo + ", teachDate=" + teachDate
 				+ ", regDate=" + regDate + ", schNo=" + schNo + ", regPay=" + regPay + ", regPrice=" + regPrice
 				+ ", regCount=" + regCount + ", regSta=" + regSta + ", refuse=" + refuse + ", reEnroll=" + reEnroll
 				+ ", regCal=" + regCal + ", memPhone=" + memPhone + ", memEmail=" + memEmail + ", clThumb=" + clThumb
-				+ ", clName=" + clName + ", startTime=" + startTime + "]";
+				+ ", clName=" + clName + ", startTime=" + startTime + ", distrName=" + distrName + "]";
 	}
 
 	
-
-	
-
 	
 	
 }

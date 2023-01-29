@@ -152,7 +152,7 @@
 										<td colspan="4" id="classTitle"><%=r.getClName() %></td>
 									</tr>
 									<tr>
-										<td colspan="4">사당 / <%=r.getTeachDate() %> <%=r.getStartTime() %></td>
+										<td colspan="4"><%=r.getDistrName() %> / <%=r.getTeachDate() %> <%=r.getStartTime() %></td>
 									</tr>
 									
 									<tr>
@@ -160,10 +160,10 @@
 											<td height="50px"><div id="classStatusAp">승인완료</div></td>
 											<td colspan="3"></td>
 										<%} else if(r.getRegSta()=="1"){%>
-											<td height="50px"><div id="classStatusX">승인 전</div></td>
+											<td height="50px"><div id="classStatusX">승인전</div></td>
 											<td colspan="3"></td>
 										<%} else if (r.getRegSta()=="2"){%>
-											<td height="50px"><div id="classStatusDone">수강 완료</div></td>
+											<td height="50px"><div id="classStatusDone">수강완료</div></td>
 											<td colspan="3"></td>
 										<%} %>
 									
@@ -208,7 +208,7 @@
 								<td colspan="2" id="payment1">신용카드</td>
 							</tr>
 							<tr>
-								<td colspan="2" id="payment2">45,000</td>
+								<td colspan="2" id="payment2"></td>
 							</tr>
 							<tr>
 								<td colspan="3" id="detailLine">세부내용</td>
