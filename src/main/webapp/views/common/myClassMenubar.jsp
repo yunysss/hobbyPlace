@@ -9,11 +9,11 @@
     <title>My Page Main</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <style>
-        div{/*border: 1px solid;*/ box-sizing:border-box; }
-        .cwrap{width:1000px; height:1000px; margin:auto; padding:2px;}
+        div{box-sizing:border-box; }
+        .cwrap{width:1000px; height:1300px; margin:auto; padding:2px;}
         
-        .menubar{width:200px; height:1000px; float:left; padding-top:30px; background: white; }
-        .content {width:793px; height:1000px; margin:auto; float: right; }
+        .menubar{width:200px; height:1299px; float:left; padding-top:30px; background: white; }
+        .content {width:793px; height:1300px;  float: right; padding-top:65px;}
         
         .categoryMain {
             width:90%;
@@ -81,6 +81,7 @@
         })
     </script>
 </head>
+
 <body>
 	<%@ include file="../common/tuteeMenubar.jsp" %>
     <div class="cwrap">
