@@ -15,6 +15,7 @@ import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.lesson.model.vo.Schedule;
 import com.hp.review.model.vo.Review;
 import com.hp.tutor.model.vo.Tutor;
 
@@ -852,6 +853,34 @@ private Properties prop = new Properties();
 		 
 		 return ascList;
 		 
+	}
+	
+	public ArrayList<Schedule> getSchedule(Connection conn, int clNo, String calYear, String calMonth, String day){
+		ArrayList<Schedule> list =new ArrayList<>();
+		 PreparedStatement pstmt = null;
+		 ResultSet rset = null;
+		 
+		 String sql = prop.getProperty("getSchedule");
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, calYear + "/" + calMonth + "/" + day);
+			pstmt.setInt(2, clNo);
+
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Schedule(
+						));
+
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		 
+		 return list;
 	}
 	
 	

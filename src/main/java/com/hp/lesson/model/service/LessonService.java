@@ -13,6 +13,7 @@ import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.dao.LessonDao;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.lesson.model.vo.Schedule;
 import com.hp.review.model.vo.Review;
 import com.hp.tutor.model.vo.Tutor;
 
@@ -222,7 +223,12 @@ public class LessonService {
 		
 	}
 	
-	
+	public ArrayList<Schedule> getSchedule(int clNo, String calYear, String calMonth, String day){
+		Connection conn= getConnection();
+		ArrayList<Schedule> list = new LessonDao().getSchedule(conn,clNo,calYear,calMonth,day);
+		close(conn);
+		return list;
+	}
 	
 	
 	

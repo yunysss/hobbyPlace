@@ -635,7 +635,7 @@
 					                        else if(date.getDate() <= day && lastDate.getDate() >= day) {
 					                            if(new Date(calYear, calMonth, day) >= startDate && new Date(calYear, calMonth, day) <= endDate && "<%=le.getClDay()%>".includes(calDay)){
 					                            	column.firstChild.classList.add('possibleDay');
-					                            	column.onclick = function(){ calendarChoiceDay(this); }
+					                            	column.onclick = function(){ calendarChoiceDay(this,calYear, calMonth, day); }
 					                            }
 					                        }
 					                    // 현재월보다 이전인경우
@@ -650,7 +650,7 @@
 					                        if(day > 0 && day <= lastDate.getDate()) {
 					                        	if(new Date(calYear, calMonth, day) >= startDate && new Date(calYear, calMonth, day) <= endDate && "<%=le.getClDay()%>".includes(calDay)){
 					                        		column.firstChild.classList.add('possibleDay');
-					                            	column.onclick = function(){ calendarChoiceDay(this); }
+					                            	column.onclick = function(){ calendarChoiceDay(this, calYear, calMonth, day); }
 					                            }
 					                        }
 					                    }
@@ -668,7 +668,7 @@
 					                    if(day > 0 && day <= lastDate.getDate()) {
 					                    	if(new Date(calYear, calMonth, day) >= startDate && new Date(calYear, calMonth, day) <= endDate && "<%=le.getClDay()%>".includes(calDay)){
 					                    		column.firstChild.classList.add('possibleDay');
-					                        	column.onclick = function(){ calendarChoiceDay(this); }
+					                        	column.onclick = function(){ calendarChoiceDay(this, calYear, calMonth, day); }
 					                    	}
 					                    }
 					                }
@@ -678,7 +678,7 @@
 					        }
 					    
 					        // 날짜 선택
-					        function calendarChoiceDay(column) {
+					        function calendarChoiceDay(column, calYear, calMonth, day) {
 					    
 					            // 기존 선택일의 표시형식 초기화
 					            if(document.getElementsByClassName("choiceDay")[0]) {
@@ -691,6 +691,20 @@
 					            // 선택일 클래스명 변경
 					            column.firstChild.classList.add("choiceDay");
 					            
+					            $.ajax({
+					            	url:"<%=contextPath%>/getSchedule.cl",
+					            	data:{
+					            		clNo:<%=le.getClNo()%>,
+					            		calYear:calYear,
+					            		calMonth:calMonth,
+					            		day:day
+					            	},
+					            	success:function(list){
+					            		console.log(list)
+					            	},error:function(){
+					            		
+					            	}
+					            })
 					        }
 					    
 					        // 두자리수 변경
