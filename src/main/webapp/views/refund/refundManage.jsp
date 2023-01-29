@@ -336,10 +336,12 @@
 		    	  currentPage = Number(currentPage);
 		    	  dataPerPage = Number(dataPerPage);
 		    	  if(totalData < dataPerPage){
-		    		  dataPerPage = totalData;
+		    		  num = totalData;
+		    	  } else{
+		    		  num = dataPerPage;
 		    	  }
 		    	  for (let i = (currentPage - 1) * dataPerPage; 
-		    	    i < (currentPage - 1) * dataPerPage + dataPerPage;
+		    	    i < (currentPage - 1) * dataPerPage + num;
 		    	    i++
 		    	  ) {
 		    		  value += "<tr class='calMngList'>"
