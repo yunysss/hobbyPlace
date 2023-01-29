@@ -134,7 +134,8 @@
 					<div id="classContent">
 						<p><%=r.getRegDate() %> 결제</p>
 						<div id="classThumbnail">
-							<img src="<%=contextPath%><%=r.getClThumb() %>"> <!--클래스썸네일대표사진-->
+							<img src="<%=contextPath%><%=r.getClThumb() %>">
+							 <!--클래스썸네일대표사진-->
 							<br>
 							<p>강보람<br>튜터</p>
 						</div>
@@ -155,8 +156,17 @@
 									</tr>
 									
 									<tr>
-										<td height="50px"><div id="classStatusAp">승인완료</div></td>
-										<td colspan="3"></td>
+										<%if(r.getRegSta()=="0"){%>
+											<td height="50px"><div id="classStatusAp">승인완료</div></td>
+											<td colspan="3"></td>
+										<%} else if(r.getRegSta()=="1"){%>
+											<td height="50px"><div id="classStatusX">승인 전</div></td>
+											<td colspan="3"></td>
+										<%} else if (r.getRegSta()=="2"){%>
+											<td height="50px"><div id="classStatusDone">수강 완료</div></td>
+											<td colspan="3"></td>
+										<%} %>
+									
 									</tr>
 								</tbody>
 								<tfoot>
@@ -172,97 +182,7 @@
 				</div>
 			</div>	
 			<%} %>
-			<!--결제한 승인 전 클래스
-			
-				<div  id="class-area">
-										
-					<div id="classContent">
-						<p>2023-01-03 결제</p>
-						<div id="classThumbnail">
-							<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> 
-							<br>
-							<p>강보람<br>튜터</p>
-						</div>
-						<div id="classDetail">
-							<table  border="0">
-								<thead>
-									<tr>
-										<td >주문번호</td>
-										<td colspan="3">B3425R23</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td colspan="4" id="classTitle">가장 쉽게 배우는 JAVA</td>
-									</tr>
-									<tr>
-										<td colspan="4">사당 / 2023-01-07(토) 17:00</td>
-									</tr>
-									<tr>
-										<td height="50px"><div id="classStatusX">승인 전</div></td>
-										<td colspan="3"></td>
-									</tr>
-								</tbody>
-								<tfoot>
-									<tr>
-										<td colspan="2"><button id="btn1" onclick="">1:1문의</button></td>
-										<td colspan="2"><button id="btn2" data-toggle="modal" data-target="#myModal">결제상세내역</button></td>
-									</tr>
-								</tfoot>	
-							</table>
-						</div>
-
-					</div>
-				</div>-->
-			
-
-		
-
-			<!--결제한 승인 전 클래스
-			<div  id="class-area">
-									
-				<div id="classContent">
-					<p>2023-01-03 결제</p>
-					<div id="classThumbnail">
-						<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt="">
-						<br>
-						<p>강보람<br>튜터</p>
-					</div>
-					<div id="classDetail">
-						<table  border="0">
-							<thead>
-								<tr>
-									<td >주문번호</td>
-									<td colspan="3">B3425R23</td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td colspan="4" id="classTitle">가장 쉽게 배우는 JAVA</td>
-								</tr>
-								<tr>
-									<td colspan="4">사당 / 2023-01-07(토) 17:00</td>
-								</tr>
-								<tr>
-									<td height="50px"><div id="classStatusDone">수강 완료</div></td>
-									<td colspan="3"></td>
-								</tr>
-							</tbody>
-							<tfoot>
-								<tr>
-									<td colspan="2"><button id="reTake" onclick="">재수강</button></td>
-									<td colspan="2"><button id="btn2" data-toggle="modal" data-target="#myModal">결제상세내역</button></td>
-								</tr>
-							</tfoot>	
-						</table>
-					</div>
-
-				</div>
-			</div>
-		</div>
-		
-	</div>	-->
-
+			<%} %>
 		
 		<!-- 로그인 유저가 결제한 클레스가 있을 때 if문 닫는 괄호 -->
 	

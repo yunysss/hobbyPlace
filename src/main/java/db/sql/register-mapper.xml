@@ -90,20 +90,20 @@
 	
 	<entry key="selectRegisterList">
 	SELECT 
-		  R.CL_NO "CL_NO" 
+		  TEACH_DATE
 		, REG_NO
-		, CL_NAME
-		, TEACH_DATE
 		, REG_DATE
-		, S.START_TIME "START_TIME"
 		, REG_PAY
 		, TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
 		, REG_COUNT
 		, REG_STA
+		, CL_THUMB
+		, C.CL_NAME "CL_NAME"
+        , S.START_TIME "START_TIME"
 	 FROM REGISTER R
-	 JOIN CLASS  USING(CL_NO)
+	 JOIN CLASS C USING(CL_NO)
 	 JOIN SCHEDULE S USING(SCH_NO)
-	 WHERE MEM_NO= ?
+	 WHERE R.MEM_NO= ?
 	</entry>
 	
 </properties>

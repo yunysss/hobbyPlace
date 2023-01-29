@@ -17,7 +17,9 @@ public class Register {
 	public String regCal;
 	public String memPhone;
 	public String memEmail;
+	public String clThumb;
 	public String clName;
+	public String startTime;
 	
 	public Register() {}
 
@@ -69,19 +71,20 @@ public class Register {
 	
 	
 	
-	public Register( String clNo, int regNo, String clName, String teachDate, String regDate, String schNo, String regPay,
-			String regPrice, String regCount, String regSta) {
+
+	public Register( String teachDate, int regNo, String regDate, String regPay, String regPrice,
+			String regCount, String regSta, String clThumb, String clName, String startTime) {
 		super();
-		this.clNo = clNo;
-		this.regNo = regNo;
-		this.clName=clName;
 		this.teachDate = teachDate;
+		this.regNo = regNo;
 		this.regDate = regDate;
-		this.schNo = schNo;
 		this.regPay = regPay;
 		this.regPrice = regPrice;
 		this.regCount = regCount;
 		this.regSta = regSta;
+		this.clThumb = clThumb;
+		this.clName = clName;
+		this.startTime = startTime;
 	}
 
 	public int getRegNo() {
@@ -202,6 +205,7 @@ public class Register {
 	public void setMemEmail(String memEmail) {
 		this.memEmail = memEmail;
 	}
+	
 
 	public String getClName() {
 		return clName;
@@ -210,15 +214,37 @@ public class Register {
 	public void setClName(String clName) {
 		this.clName = clName;
 	}
+	
+	
+
+	public String getClThumb() {
+		return clThumb;
+	}
+
+	public void setClThumb(String clThumb) {
+		this.clThumb = clThumb;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
 
 	@Override
 	public String toString() {
 		return "Register [regNo=" + regNo + ", memNo=" + memNo + ", clNo=" + clNo + ", teachDate=" + teachDate
 				+ ", regDate=" + regDate + ", schNo=" + schNo + ", regPay=" + regPay + ", regPrice=" + regPrice
 				+ ", regCount=" + regCount + ", regSta=" + regSta + ", refuse=" + refuse + ", reEnroll=" + reEnroll
-				+ ", regCal=" + regCal + ", memPhone=" + memPhone + ", memEmail=" + memEmail + ", clName=" + clName
-				+ "]";
+				+ ", regCal=" + regCal + ", memPhone=" + memPhone + ", memEmail=" + memEmail + ", clThumb=" + clThumb
+				+ ", clName=" + clName + ", startTime=" + startTime + "]";
 	}
+
+	
+
+	
 
 	
 	

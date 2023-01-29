@@ -131,16 +131,17 @@ public class RegisterDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Register(rset.getString("cl_no"),
-									  rset.getInt("reg_no"),
-									  rset.getString("cl_name"),
+				list.add(new Register(
 									  rset.getString("teach_date"),
+									  rset.getInt("reg_no"),
 									  rset.getString("reg_date"),
-									  rset.getString("start_time"),
 									  rset.getString("reg_pay"),
 									  rset.getString("reg_price"),
 									  rset.getString("reg_count"),
-									  rset.getString("reg_sta")));
+									  rset.getString("reg_sta"),
+									  rset.getString("cl_thumb"),
+									  rset.getString("cl_name"),
+									  rset.getString("start_time")));
 				
 			}
 		} catch (SQLException e) {
