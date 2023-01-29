@@ -155,8 +155,8 @@
                     <ul id="navi">
                         <li><a href="">회원 관리</a>
                             <ul>
-                                <li><a href="<%=contextPath%>/viewEntire.me?cpage=1">전체 회원 조회</a></li>
-                                <li><a href="<%=contextPath%>/viewEntire.tt?cpage=1">튜터 관리</a></li>
+                                <li><a href="<%=contextPath%>/viewMember.ad">전체 회원 조회</a></li>
+                                <li><a href="<%=contextPath%>/viewTutor.ad">튜터 관리</a></li>
                             </ul>
                         </li>
                         <li><a href="">클래스 관리</a>
