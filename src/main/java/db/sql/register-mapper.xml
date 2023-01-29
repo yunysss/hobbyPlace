@@ -112,6 +112,8 @@
      LEFT OUTER JOIN SCHEDULE S
      ON S.SCH_NO = R.SCH_NO
 	 WHERE R.MEM_NO= ?
+	 ORDER 
+	    BY REG_NO DESC
 	</entry>
 	
 </properties>

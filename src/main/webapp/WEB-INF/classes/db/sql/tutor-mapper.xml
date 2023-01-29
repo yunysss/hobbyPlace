@@ -408,28 +408,8 @@
 	    WHERE SCH_NO =?
 
 	</entry>
-	<entry key="insertNewSchedule">
-		INSERT 
-		INTO SCHEDULE
-		         (SCH_NO
-		        , CL_NO
-		        , SESSION_NO
-		        , START_TIME
-		        , END_TIME
-		       	, CLS_HOUR
-		        )
-		VALUES 
-		        ( 
-		          SEQ_SCHNO.NEXTVAL
-		          ,	?
-		          , ?
-		          , ?
-		          , ?
-		          ,(SELECT ROUND((TO_DATE(?, 'HH24:MI') - TO_DATE(?, 'HH24:MI')) * 24, 2)
-           			 FROM dual)
-  
-		        
-		            )
+	<entry key="">
+	
 	
 	
 	
