@@ -39,7 +39,7 @@ public class Lesson {
 	private int likeCount;
 	private String introduce;
 	private String tutorProfile;
-	
+	private String Claddress2;
 
 
 	public Lesson() {}
@@ -260,6 +260,18 @@ public class Lesson {
 		this.clStarCount = clStarCount;
 		this.likeCount = likeCount;
 		this.tutorProfile = tutorProfile;
+	}
+
+
+
+	public String getCladdress2() {
+		return Claddress2;
+	}
+
+
+
+	public void setCladdress2(String claddress2) {
+		Claddress2 = claddress2;
 	}
 
 

@@ -70,6 +70,13 @@
                 border-radius: 5px;
             }
 
+            textarea{
+            border: none;
+            width: 700px;
+            resize: none;
+        
+            }
+
          
     
 
@@ -93,7 +100,7 @@
             <div id="btn-area" >
 
             <a href="<%=contextPath %>/updateForm.cl?no=<%=l.getClNo()%>" class="btn btn-secondary btn-sm a">수정</a>
-             <%if (!l.getClStatus().equals("3")){ %>
+             <%if (l.getClStatus().equals("2")){ %>
             <button type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classDelete">판매중단</button>
 			<%} %>
 		     
@@ -219,8 +226,8 @@
             <h6 style="font-weight: 550; font-size: 15px; ">커리큘럼</h6>
             <hr>
             <div>
-               <%=l.getCurriculum() %>
-                
+                <textarea rows="10" style="resize:none" ><%=l.getCurriculum() %>
+                 </textarea>
     
             </div>
             <br><br>
@@ -306,8 +313,8 @@
             <h6 style="font-weight: 550;font-size: 15px; ">취소/환불규정</h6>
             <hr>
             <div style="width: 300px">
-               <%=l.getRefundPolicy()%>
-
+              <textarea rows="5" style="resize:none"><%=l.getRefundPolicy()%>
+            </textarea>
             </div>
         </form>
             <div align="center">

@@ -299,12 +299,12 @@
 	                <th>진행장소</th>
 	                <td>
 	                 
-	                    <input id="class_sido" type="hidden"  name="sido" placeholder="시/도" readonly value=<%=l.getLocalCode() %>>
-	                    <input id="class_sigungu" type="hidden" name="sigungu" placeholder="구" readonly value=<%=l.getDistrCode() %>> <br>
+	                    <input id="class_sido" type="hidden"  name="sido" placeholder="시/도" readonly value="<%=l.getLocalCode() %>">
+	                    <input id="class_sigungu" type="hidden" name="sigungu" placeholder="구" readonly value="<%=l.getDistrCode() %>"> <br>
 	                    
-	                    <input id="class_addr" type="text" name="address" required  placeholder="주소입력" readonly>
+	                    <input id="class_addr" type="text" name="address" required  placeholder="주소입력" readonly value="<%=l.getClAddress()%>">
 	                    <button type="button" onclick="findAddr()"  class="btn btn-secondary btn-sm">주소검색 </button><br>
-	                    <input type="text" name="dAddress" placeholder="상세주소입력" value=<%=l.getClAddress() %>><br>
+	                    <input type="text" name="dAddress" placeholder="상세주소입력"><br>
 	                    <label style="font-size: 11px; color: red;">*서울,인천,경기 지역만 등록가능합니다.😥</label>
 	                    <script>
 	                        function findAddr(){
@@ -366,8 +366,7 @@
 	            	})
 	            	
 	            })
-	            
-	            
+
 	            </script>
 	
 	        </table>

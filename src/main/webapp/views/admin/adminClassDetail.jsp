@@ -4,7 +4,7 @@
     
 <% 
 	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("sList");
-	Tutor t = (Tutor)session.getAttribute("tutor");
+	Tutor t = (Tutor)request.getAttribute("tutor");
 	String ttProfile = t.getTtProfile() ==  null? "resources/tutorProfile_upfiles/defaultimg.jpg" : t.getTtProfile();
 	Lesson l = (Lesson)request.getAttribute("l");
 	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
@@ -85,6 +85,13 @@
 
             #img-area img{
                 border-radius: 5px;
+            }
+
+            textarea{
+            border: none;
+            width: 700px;
+            resize: none;
+        
             }
 
 
@@ -213,9 +220,8 @@
             <h6 style="font-weight: 550; font-size: 15px; ">커리큘럼</h6>
             <hr>
             <div>
-               <%=l.getCurriculum() %>
-                
-    
+                <textarea rows="10" style="resize:none" ><%=l.getCurriculum() %>
+                </textarea>
             </div>
             <br><br>
             <h6 style="font-weight: 550; font-size: 15px; ">진행장소</h6>
@@ -300,8 +306,8 @@
             <h6 style="font-weight: 550;font-size: 15px; ">취소/환불규정</h6>
             <hr>
             <div style="width: 300px">
-               <%=l.getRefundPolicy()%>
-
+                <textarea rows="5" style="resize:none"><%=l.getRefundPolicy()%>
+                </textarea>
             </div>
             
         

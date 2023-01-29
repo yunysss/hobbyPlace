@@ -583,7 +583,7 @@
 	            <td style="width: 100;">
 	                <br>
 	               
-	                    <textarea id="summernote" name="editordata" ></textarea>
+	                    <textarea id="summernote" name="editordata" required ></textarea>
 	                
 	                
 	                <script>
@@ -646,7 +646,7 @@
 	        <br><hr><br>
 	        <div align="center">
 	            <button type="button" class="btn btn-secondary btn-sm"  onclick="$('.form1').trigger('click');">이전</button>
-	            <button type="submit" id="save"class="btn btn-secondary btn-sm">검수요청</button>
+	            <button type="submit" id="save"class="btn btn-secondary btn-sm" onsubmit="return Checkform()">검수요청</button>
 	            
 	        </div>
 	        
@@ -677,6 +677,18 @@
 
 </form>  
 </div>
+
+	<script>
+		function Checkform(){
+			if($(input).val() == "" || $(input).val()== null){
+				alert("기본정보와 필수입력사항을 모두 입력해주세요");
+			}
+
+		}
+
+
+
+	</script>
 
   
 </div>

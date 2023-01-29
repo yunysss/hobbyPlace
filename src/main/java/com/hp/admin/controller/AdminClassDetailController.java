@@ -14,6 +14,7 @@ import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.tutor.model.service.TutorService;
+import com.hp.tutor.model.vo.Tutor;
 
 /**
  * Servlet implementation class AdminClassDetailController
@@ -36,7 +37,7 @@ public class AdminClassDetailController extends HttpServlet {
 		int clNo = Integer.parseInt(request.getParameter("no"));
 		
 		AdminService aService = new AdminService();
-		
+		Tutor t = aService.selectTutor(clNo);
 		Lesson l = aService.selectClass(clNo);
 		ArrayList<Schedule> sList = aService.selectSchedule(clNo);
 		
@@ -47,7 +48,7 @@ public class AdminClassDetailController extends HttpServlet {
 		request.setAttribute("l", l);
 		request.setAttribute("sList", sList);
 		request.setAttribute("list", list);
-	
+		request.setAttribute("tutor",t);
 		
 		request.getRequestDispatcher("views/admin/adminClassDetail.jsp").forward(request, response);
 	}
