@@ -598,6 +598,14 @@
 	                        <input type="file" name="file2" onchange="loadImg(this,2);" required>
 	                        <input type="file" name="file3" onchange="loadImg(this,3);" required> 
 	                        <input type="file" name="file4" onchange="loadImg(this,4);" required>
+	                        
+	                        <input type="hidden" name="originThumb" value="<%=l.getClThumb()%>">
+	                        <input type="hidden" name="originfile2" value="<%=atList.get(0).getFileNo()%>">
+	                        <input type="hidden" name="originfile3" value="<%=atList.get(1).getFileNo()%>">
+	                        <input type="hidden" name="originfile4" value="<%=atList.get(2).getFileNo()%>">
+	                    
+	                    
+	                    
 	                    </div>
 	                    
 	                </td>

@@ -608,7 +608,42 @@ public class TutorDao {
 		 return result;
 	}
 	
-	
+	public int updateClass(Connection conn, Lesson l) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateClass");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			
+			pstmt.setString(1, l.getCtNo());
+			pstmt.setString(2,l.getCtDno());
+			pstmt.setString(3,l.getLocalCode());
+			pstmt.setString(4, l.getDistrCode());
+			pstmt.setString(5, l.getClName());
+			pstmt.setString(6, l.getClAddress());
+			pstmt.setInt(7, l.getClMax());
+			pstmt.setString(8, l.getClLevel());
+			pstmt.setInt(9,l.getClTimes());
+			pstmt.setString(10, l.getClSchedule());
+			pstmt.setString(11, l.getClDay());
+			pstmt.setString(12,l.getClPrice());
+			pstmt.setString(13, l.getClDetail());
+			pstmt.setString(14,l.getCurriculum());
+			pstmt.setString(15, l.getRefundPolicy());
+			pstmt.setString(16, l.getClSupplies());
+			pstmt.setString(17,l.getKeyword());
+			pstmt.setString(18, l.getClThumb());
+			pstmt.setInt(19,l.getClNo());
+			
+	     result=pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 }

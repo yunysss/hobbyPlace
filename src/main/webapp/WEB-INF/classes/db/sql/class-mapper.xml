@@ -199,7 +199,7 @@
 				     , CT_DNAME  
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 20) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
@@ -241,7 +241,7 @@
 			     , CT_DNAME     
 			     , LOCAL_NAME
 			     , DISTR_NAME
-			     , SUBSTR(CL_NAME, 1, 20) || '...' "CL_NAME"
+			     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
 			     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 			     , CL_THUMB
 			     , (SELECT AVG(RE_STAR) 
@@ -338,7 +338,7 @@
 		     , CT_DNAME  
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 20) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -377,7 +377,7 @@
 		       CL_NO
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 15) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -499,7 +499,7 @@
 				     , TT_NAME
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 20) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
 				     , CL_THUMB
@@ -539,7 +539,7 @@
 				     , TT_NAME
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 20) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
 				     , CL_THUMB
@@ -578,7 +578,7 @@ SELECT *
 				     , CT_DNAME  
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 20) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 

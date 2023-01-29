@@ -325,21 +325,43 @@
   
 		        
 		            )
-    
-
-
-	
-	
-	
-	
-	
-	
-	
+  
+	</entry>
+	<entry key="updateClass">
+		   UPDATE CLASS
+       		  SET
+            	 CT_NO = ?
+			    , CT_DNO = (SELECT CT_DNO
+                            FROM DCATEGORY
+                            WHERE CT_DNAME = ?)
+			    , LOCAL_CODE =  (SELECT LOCAL_CODE
+                                  FROM LOCATION
+                                  WHERE LOCAL_NAME = ?)
+			    , DISTR_CODE = (SELECT DISTR_CODE
+                                FROM DISTRICT
+                                  WHERE DISTR_NAME = ?)
+			    , CL_NAME  = ?
+			    , CL_ADDRESS = ?
+			    , CL_MAX = ?
+			    , CL_LEVEL = ?
+			    , CL_TIMES = ?
+			    , CL_SCHEDULE = ?
+			    , CL_DAY = ?
+			    , CL_PRICE = ?
+			    , CL_DETAIL = ?
+			    , CURRICULUM = ?
+			    , REFUNDPOLICY = ?
+			    , CL_SUPPLIES = ?
+			    , KEYWORD = ?
+			    , UPDATE_DATE = SYSDATE
+			    , CL_STATUS = 0
+			    , CL_THUMB = ?
+	  WHERE  CL_NO = ?		    
+		
 	
 	
 	
 	</entry>
-	
 	
 	
 	
