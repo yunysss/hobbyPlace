@@ -125,8 +125,9 @@ public class TutorClassUpdateController extends HttpServlet {
 	        		 }
 	        		
 	         }
+	         System.out.println(list);
 	         
-	         
+	       
 	         ArrayList<Schedule> sList = new ArrayList<>();
 	         //스케줄
 	         String[] sessionArr =multiRequest.getParameterValues("session");
@@ -140,6 +141,7 @@ public class TutorClassUpdateController extends HttpServlet {
 	         
 	         for(int i = 0; i<newsession.length; i++) {
 	        	 Schedule sc = new Schedule();
+	        	 sc.setClNo(String.valueOf(clNo));
 	        	 sc.setSessionNo(newsession[i]);
 	        	 sc.setStartTime(startTimeArr[i]);
 	        	 sc.setEndTime(endTimeArr[i]);
@@ -147,7 +149,7 @@ public class TutorClassUpdateController extends HttpServlet {
 	        	 sList.add(sc);
 	        	 
 	         }
-	         
+	         System.out.println(sList);
 		
 	         int result = new TutorService().updateClass(l,list,sList); 
 	         
