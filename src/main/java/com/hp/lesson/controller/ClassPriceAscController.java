@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.service.LessonService;
+import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 
 /**
@@ -33,7 +34,7 @@ public class ClassPriceAscController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String category = request.getParameter("category");
+		String category = request.getParameter("ct");
 	
 		int count = new LessonService().ctSearchCount(category);
 		
@@ -50,11 +51,11 @@ public class ClassPriceAscController extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(count,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-
+		ArrayList<Dcategory> dctList = new LessonService().selectDcategory(category); 
 		ArrayList<Lesson> ascList = new LessonService().selectPriceAsc(category,pi);	
 		
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(ascList,response.getWriter());
+		
+		
 		
 	}
 

@@ -92,12 +92,14 @@
             <form action="<%=contextPath %>/" method="post">
             <div id="btn-area" >
 
-            <button class="btn btn-secondary btn-sm a">수정</button>
+            <a href="<%=contextPath %>/updateForm.cl?no=<%=l.getClNo()%>" class="btn btn-secondary btn-sm a">수정</a>
              <%if (!l.getClStatus().equals("3")){ %>
-            <button  type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classDelete">판매중단</button>
+            <button type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classDelete">판매중단</button>
 			<%} %>
 		     
             </div>
+            
+            
         
             <hr>
             <div id="detail-area">

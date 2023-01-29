@@ -102,8 +102,7 @@
                               case "2" : status ="판매중"; break;
                               case "3" : status ="판매중지"; break;
                                 }
-                                
-                
+
                                 %>
                           <%=status %>
 

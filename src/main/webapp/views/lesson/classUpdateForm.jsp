@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ page import = "java.util.ArrayList, com.hp.lesson.model.vo.*" %>
-
+<%@ page import = "com.hp.lesson.model.vo.* , com.hp.tutor.model.vo.*,java.util.ArrayList, com.hp.common.model.vo.Attachment" %>         
+    
 <%
-	ArrayList<Category> cList = (ArrayList<Category>)request.getAttribute("cList");
-    ArrayList<Dcategory> dList = (ArrayList<Dcategory>)request.getAttribute("dList");
-%>  
- 
+	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("sList");
+	Lesson l = (Lesson)request.getAttribute("l");
+	ArrayList<Attachment> atList = (ArrayList<Attachment>)request.getAttribute("atList");
+	ArrayList<Category> cList =(ArrayList<Category>)request.getAttribute("cList");
 
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -222,7 +223,7 @@
   </ul>
 
   <!-- Tab panes -->
-  <form action="<%=contextPath %>/clinsert.tt?no=<%=tutorInfo.getMemNo() %>" method="post" id="enroll-form" enctype="multipart/form-data">
+  <form action="<%=contextPath %>/update.cl?no=<%=l.getClNo() %>" method="post" id="enroll-form" enctype="multipart/form-data">
 	  	<div class="tab-content">
 	  	  <div id="form1" class="container tab-pane active" ><br>
 	        <span style="font-size: 14px; font-weight: 600;">기본정보</span>
@@ -245,16 +246,35 @@
 	                       
 	
 	                    </select>
-	       
 	                </td>
 	            </tr>
+	            <script>
+	            	$(function(){
+	            		$("select[name=category] option").each(function(){
+	            			if($(this).text() == "<%=l.getCtNo()%>"){
+	            				$(this).attr("selected",true);
+	            			}
+	            		})
+	            	})
+	            	
+	            	$(function(){
+	            		$("select[name=dCategory] option").each(function(){
+	            			if($(this).text()== "<%=l.getCtDno()%>"){
+	            				$(this).attr("selected",true);
+	            			}
+	            		})
+	            	})
+	            
+	            
+	            
+	            </script>
 	            
 	           
 	            <tr>
 	                <th>클래스명</th>
 	                <td>
 	                    <br>
-	                    <input type="text" id="clName"  name="className" min="10" max="50" class="form-control" required > 
+	                    <input type="text" id="clName"  name="className" min="10" max="50" class="form-control" value="<%=l.getClName()%>"required > 
 						 <div style="font-size: 11px; ">*10자 이상으로 입력해주세요. &nbsp;<span class="textCount"></span></div>
         
 	                </td>
@@ -279,12 +299,12 @@
 	                <th>진행장소</th>
 	                <td>
 	                 
-	                    <input id="class_sido" type="hidden"  name="sido" placeholder="시/도" readonly>
-	                    <input id="class_sigungu" type="hidden" name="sigungu" placeholder="구" readonly> <br>
+	                    <input id="class_sido" type="hidden"  name="sido" placeholder="시/도" readonly value=<%=l.getLocalCode() %>>
+	                    <input id="class_sigungu" type="hidden" name="sigungu" placeholder="구" readonly value=<%=l.getDistrCode() %>> <br>
 	                    
 	                    <input id="class_addr" type="text" name="address" required  placeholder="주소입력" readonly>
 	                    <button type="button" onclick="findAddr()"  class="btn btn-secondary btn-sm">주소검색 </button><br>
-	                    <input type="text" name="dAddress" placeholder="상세주소입력"><br>
+	                    <input type="text" name="dAddress" placeholder="상세주소입력" value=<%=l.getClAddress() %>><br>
 	                    <label style="font-size: 11px; color: red;">*서울,인천,경기 지역만 등록가능합니다.😥</label>
 	                    <script>
 	                        function findAddr(){
@@ -324,7 +344,7 @@
 	            </tr>
 	            <tr>
 	                <th>최대인원</th>
-	                <td><input type="number" name="clMax" min="1" class="form-control-sm" required > 명</td>
+	                <td><input type="number" name="clMax" min="1" class="form-control-sm" value="<%=l.getClMax()%>"required > 명</td>
 	            </tr>
 	            <tr>
 	                <th>난이도</th>
@@ -335,6 +355,20 @@
 	                    <input type="radio" name="level" value="상" id="hard"><label for="hard">어려움</label>
 	                </td>
 	            </tr>
+	            
+	            <script>
+	            $(function(){
+	            	const level = '<%=l.getClLevel()%>';
+	            	$("input:radio[name=level]").each(function(){
+	            		if(level.search($(this).val()) != -1){
+	            			$(this).attr("checked",true);
+	            		}
+	            	})
+	            	
+	            })
+	            
+	            
+	            </script>
 	
 	        </table>
 	        <br><br>
@@ -350,6 +384,17 @@
 	                    <input type="radio" id="weekly" name="schedule" class="schedule" value="매주">
 	                    <label for="weekly">매주</label>
 	                    <br>
+	                    <script>
+	                      $(function(){
+			            	const schedule = '<%=l.getClSchedule()%>';
+			            	$("input:radio[name=schedule]").each(function(){
+			            		if(schedule.search($(this).val()) != -1){
+			            			$(this).attr("checked",true);
+			            		}
+			            	})
+			            	
+			            })
+	            		</script>
 	
 	
 	                    <input type="checkbox" name="day" value="월" class="day" id="mon"><label for="mon">월</label>
@@ -361,6 +406,19 @@
 	                    <input type="checkbox" name="day" value="일" class="day" id="sun"><label for="sun">일</label>
 	                    
 	                </td>
+	                
+	                 <script>
+	                      $(function(){
+			            	const day = '<%=l.getClDay()%>';
+			            	$("input:checkbox[name=day]").each(function(){
+			            		if(day.search($(this).val()) != -1){
+			            			$(this).attr("checked",true);
+			            		}
+			            	})
+			            	
+			            })
+	            		</script>
+	
 	
 	                <script>
 	
@@ -377,7 +435,7 @@
 	            </tr>
 	            <tr>
 	                <th>일 운영횟수</th>
-	                <td><input type="number" name="times" min="1" required >회</td>
+	                <td><input type="number" name="times" min="1" required value="<%=l.getClTimes()%>">회</td>
 	            </tr>
 	            <tr>
 	                <th>운영시간</th>
@@ -431,7 +489,7 @@
 	        <table>
 	            <tr>
 	                <th width="100">판매가</th>
-	                <td><input type="text" class="form-control-sm" name="price" required > 원</td>
+	                <td><input type="text" class="form-control-sm" name="price" required value="<%=l.getClPrice() %>" > 원</td>
 	            </tr>
 	
 	        </table>
@@ -500,7 +558,7 @@
 	                            changeDct = sport;
 	                        }
 	                        
-	                        $("#Dcategory").empty();
+	                        
 	                        for(var i=0; i<changeDct.length; i++){
 	                            var option = $("<option>"+changeDct[i]+"</option>");
 	                            $("#Dcategory").append(option);
@@ -528,12 +586,14 @@
 	            <tr>
 	                <th width="100">대표이미지</th>
 	                <td>    
-	                    <img src="" alt="" id="titleImg" width="170" height="100" onclick="clickFile(1);">
-	                    <img src="" alt="" id="contentImg1" width="170" height="100" onclick="clickFile(2);">
-	                    <img src="" alt="" id="contentImg2" width="170" height="100" onclick="clickFile(3);">
-	                    <img src="" alt="" id="contentImg3" width="170" height="100" onclick="clickFile(4);">
+	                    <img src="<%=contextPath %>/<%=l.getClThumb()%>" alt="" id="titleImg" width="170" height="100" onclick="clickFile(1);">
+	                    <%if (!atList.isEmpty()){ %>
+	                    <img src="<%=contextPath %>/<%=atList.get(0).getFilePath()+atList.get(0).getChangeName() %>" alt="" id="contentImg1" width="170" height="100" onclick="clickFile(2);">
+	                    <img src="<%=contextPath %>/<%=atList.get(1).getFilePath()+atList.get(1).getChangeName() %>" alt="" id="contentImg2" width="170" height="100" onclick="clickFile(3);">
+	                    <img src="<%=contextPath %>/<%=atList.get(2).getFilePath()+atList.get(2).getChangeName() %>" alt="" id="contentImg3" width="170" height="100" onclick="clickFile(4);">
+	                    <%} %>
 	                    <div style="font-size:12px;">🔺첫번째 선택한 사진이 썸네일 이미지로 사용됩니다. 사진은 4장 모두 등록해주세요</div>
-	
+					
 	                    <div id="file-area" style="display: none;">
 	                        <input type="file" name="file1" onchange="loadImg(this,1);" required> 
 	                        <input type="file" name="file2" onchange="loadImg(this,2);" required>
@@ -583,7 +643,7 @@
 	            <td style="width: 100;">
 	                <br>
 	               
-	                    <textarea id="summernote" name="editordata" ></textarea>
+	                    <textarea id="summernote" name="editordata" ><%=l.getClDetail() %></textarea>
 	                
 	                
 	                <script>
@@ -596,12 +656,12 @@
 	                        maxHeight: 300,             // 최대 높이
 	                            // 에디터 로딩후 포커스를 맞출지 여부
 	                        lang: "ko-KR",					// 한글 설정
-	                        placeholder: '클래스에 대한 설명을 적어주세요.  최대 2048자까지 쓸 수 있습니다.'	//placeholder 설정
+	                        placeholder: '클래스에 대한 설명을 적어주세요.'	//placeholder 설정
 	                       
 	                    });
 	                });
 	                    
-	               
+	                    $('#summernote').summernote('pasteHTML', data);
 	                </script>
 	                
 	               
@@ -609,7 +669,7 @@
 	        <tr>
 	            <th>커리큘럼</th>
 	            <td>
-	                <textarea name="curriculum"  rows="4" style="resize:none" required ></textarea>
+	                <textarea name="curriculum"  rows="4" style="resize:none" required ><%=l.getCurriculum() %></textarea>
 	            </td>
 	        </tr>
 	        </table>
@@ -634,12 +694,12 @@
 	        <table>
 	            <tr>
 	                <th width="100">준비물</th>
-	                <td><input type="text" name="supplies" value="" class="form-control"></td>
+	                <td><input type="text" name="supplies" value="<%=l.getClSupplies()== null ? "" :l.getClSupplies() %>" class="form-control"></td>
 	                
 	            </tr>
 	            <tr>
 	                <th>검색키워드</th>
-	                <td><input type="text" name="keyword" class="form-control"></td>
+	                <td><input type="text" name="keyword" value = "<%=l.getKeyword()== null ? "" :l.getKeyword() %>"class="form-control"></td>
 	            </tr>
 	           
 	        </table>
@@ -680,6 +740,7 @@
 
   
 </div>
+
   <%@ include file="../common/footerbar.jsp" %>
   
       
