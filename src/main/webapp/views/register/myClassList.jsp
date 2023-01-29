@@ -134,10 +134,10 @@
 					<div id="classContent">
 						<p><%=r.getRegDate() %> 결제</p>
 						<div id="classThumbnail">
-							<img src="<%=contextPath%><%=r.getClThumb() %>">
+							<img src="<%=contextPath%>/<%=r.getClThumb() %>">
 							 <!--클래스썸네일대표사진-->
 							<br>
-							<p>강보람<br>튜터</p>
+							<p><%=r.getTtName() %><br>튜터</p>
 						</div>
 						<div id="classDetail">
 							<table  border="0">
@@ -156,13 +156,13 @@
 									</tr>
 									
 									<tr>
-										<%if(r.getRegSta()=="0"){%>
+										<%if(r.getRegSta().equals("0")){%>
 											<td height="50px"><div id="classStatusAp">승인완료</div></td>
 											<td colspan="3"></td>
-										<%} else if(r.getRegSta()=="1"){%>
+										<%} else if(r.getRegSta().equals("1")){%>
 											<td height="50px"><div id="classStatusX">승인전</div></td>
 											<td colspan="3"></td>
-										<%} else if (r.getRegSta()=="2"){%>
+										<%} else if (r.getRegSta().equals("2")){%>
 											<td height="50px"><div id="classStatusDone">수강완료</div></td>
 											<td colspan="3"></td>
 										<%} %>
