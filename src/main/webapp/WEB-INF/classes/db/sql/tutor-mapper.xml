@@ -325,24 +325,95 @@
   
 		        
 		            )
-    
-
-
-	
-	
-	
-	
-	
-	
-	
+  
+	</entry>
+	<entry key="updateClass">
+		   UPDATE CLASS
+       		  SET
+            	 CT_NO = ?
+			    , CT_DNO = (SELECT CT_DNO
+                            FROM DCATEGORY
+                            WHERE CT_DNAME = ?)
+			    , LOCAL_CODE =  (SELECT LOCAL_CODE
+                                  FROM LOCATION
+                                  WHERE LOCAL_NAME = ?)
+			    , DISTR_CODE = (SELECT DISTR_CODE
+                                FROM DISTRICT
+                                  WHERE DISTR_NAME = ?)
+			    , CL_NAME  = ?
+			    , CL_ADDRESS = ?
+			    , CL_MAX = ?
+			    , CL_LEVEL = ?
+			    , CL_TIMES = ?
+			    , CL_SCHEDULE = ?
+			    , CL_DAY = ?
+			    , CL_PRICE = ?
+			    , CL_DETAIL = ?
+			    , CURRICULUM = ?
+			    , REFUNDPOLICY = ?
+			    , CL_SUPPLIES = ?
+			    , KEYWORD = ?
+			    , UPDATE_DATE = SYSDATE
+			    , CL_STATUS = 0
+			    , CL_THUMB = ?
+	  WHERE  CL_NO = ?		    
+		
 	
 	
 	
 	</entry>
 	
+	<entry key="updateAttachment">
+	
+	  	UPDATE ATTACHMENT
+	  	SET ORIGIN_NAME = ?
+	  	   ,CHANGE_NAME = ?
+	  	   ,FILE_PATH =?
+		   ,UPLOAD_DATE = SYSDATE
+		WHERE FILE_NO =?	
+	
+	</entry>
+	<entry key="insertNewAttachment">
+	    INSERT 
+	     INTO ATTACHMENT
+	     (
+			FILE_NO
+		  ,	ORIGIN_NAME
+		  , CHANGE_NAME
+		  , FILE_PATH
+		  , UPLOAD_DATE
+		  , FILE_LEVEL
+		  , REF_TYPE
+		  , REF_NO
+	     
+	     )
+	     VALUES
+	     (
+	      SEQ_ATNO.NEXTVAL
+	      ,?
+	      ,?
+	      ,?
+	      ,SYSDATE
+	      ,?
+	      ,?
+	      ,?
+
+	     )
+	     
+	</entry>
+	
+	<entry key="deleteSchedule">
+	   	DELETE
+	   	FROM SCHEDULE
+	    WHERE SCH_NO =?
+
+	</entry>
+	<entry key="">
 	
 	
 	
+	
+	</entry>
 
 
 </properties>

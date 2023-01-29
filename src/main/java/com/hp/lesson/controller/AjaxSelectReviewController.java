@@ -1,4 +1,4 @@
-package com.hp.refund.controller;
+package com.hp.lesson.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,23 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.hp.member.model.vo.Member;
-import com.hp.refund.model.service.RefundService;
-import com.hp.refund.model.vo.Refund;
+import com.google.gson.Gson;
+import com.hp.lesson.model.service.LessonService;
+import com.hp.review.model.vo.Review;
 
 /**
- * Servlet implementation class RefundClassListController
+ * Servlet implementation class AjaxSelectReviewController
  */
-@WebServlet("/refundList.ref")
-public class RefundClassListController extends HttpServlet {
+@WebServlet("/selectReview.cl")
+public class AjaxSelectReviewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RefundClassListController() {
+    public AjaxSelectReviewController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,13 +32,12 @@ public class RefundClassListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		int clNo = Integer.parseInt(request.getParameter("clNo"));
 		
-		ArrayList<Refund> list = new RefundService().selectMyRefundClassList(memNo);
-		request.setAttribute("list", list);
+		ArrayList<Review> list = new LessonService().selectClassReview(clNo);
 		
-		request.getRequestDispatcher("views/refund/refundClassList.jsp").forward(request, response);
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

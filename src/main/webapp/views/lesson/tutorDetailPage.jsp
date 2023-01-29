@@ -163,7 +163,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <th><%=l.getClName() %></th>  
+                      <th height="50px"><%=l.getClName() %></th>  
                     </tr>
                     <tr>
                       <td>

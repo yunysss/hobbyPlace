@@ -512,9 +512,9 @@
 		                <a href="<%=contextPath%>/myClassList.reg">마이클래스</a>
 		                <p><%=loginUser.getMemNick()%>님</p> 
 		                <%if(loginUser.getMemProfile() == null) {%>
-		                	<img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+		                	<img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" type="button" width="45"  class="rounded-circle" class="dropdown-toggle" data-toggle="dropdown">
 		                <%} else {%>
-							<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" type="button" width="45"  class="rounded-circle" alt="Cinque Terre" class=" dropdown-toggle" data-toggle="dropdown">
+							<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" type="button" width="45"  class="rounded-circle" class="dropdown-toggle" data-toggle="dropdown">
 						<%} %>
 						<div class="dropdown-menu">
 						    <a class="dropdown-item" href="<%=contextPath%>/myPageMain.me">마이페이지</a>

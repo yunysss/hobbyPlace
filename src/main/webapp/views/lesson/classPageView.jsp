@@ -3,7 +3,6 @@
 <%
 	Lesson le = (Lesson)request.getAttribute("le");
 	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
-	ArrayList<Review> rList = (ArrayList<Review>)request.getAttribute("rList");
 	int likeStatus = 0;
 	if((Member)session.getAttribute("loginUser") != null){
 		likeStatus = (int)request.getAttribute("likeStatus");
@@ -89,10 +88,19 @@
             border-radius:5px;
             color:white;
         }
-        .calendar {text-align:center; background:white;}
+        .calendar {text-align:center; background:white; cursor:default;}
 	    .calendar > thead td { width:50px;height:50px;}
 	    .calendar > thead > tr:first-child > td { font-weight:bold;}
-	    .calendar > tbody td { width:50px;height:50px;}
+	    .calendar div {
+	    	text-align:center;
+	    	line-height:33px;
+	    	width:35px; 
+	    	height:35px; 
+	    	border-radius:50%; 
+	    	margin:auto;
+    	}
+	    .possibleDay{backGround:rgb(107, 155, 164); color:white;}
+	    .possibleDay:hover{cursor:pointer; opacity:0.5;}
         
         #classDetail-cal>table{
             background:white;
@@ -101,6 +109,8 @@
             width:50px;
             height:40px;
         }
+        
+        
         /* 날짜 선택하면 나타나는 창 */
         #classDetail-date>table{
             width:310px;
@@ -158,10 +168,44 @@
 		#classDetail-tutor>*{
 			margin-right:20px;
 		}
+		
+		#paging{
+		    text-align: center;
+		    display: inline-block;
+			padding-left :0;
+		}
+		#paging li {
+		    text-align: center;
+		    float: left;
+			list-style:none;
+			border-radius:10px;
+		}
+		
+		#paging li a {
+		    display: block;
+		    font-size: 12px;
+			color: black;
+		    padding: 5px 10px;
+		    box-sizing: border-box;
+			text-decoration-line:none;
+		}
+		
+		#paging li.on {
+		    background: gray;
+		}
+		
+		#paging li.on a {
+		    color: white!important;
+		}
+		
+		.modal-body input{
+            border: none;
+            font-size: 15px;
+            outline: none;
+        }
     </style>
     <!-- 카카오 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 
 </head>
 <body>
@@ -195,12 +239,32 @@
                         <span><%= le.getCtDno() %></span>
                         <span>난이도 <%= le.getClLevel() %></span>
                     </div>
-                    <div id="classDetail-likeShare">
+                    <div id="classDetail-likeShare" class="dropdown">
                         <span>❤️<%= le.getLikeCount() %></span>
-                        <a href=""><img src="<%= contextPath %>/resources/images/share.png" width="25px"></a>
+                        <a href="#" data-toggle="modal" data-target="#shareModal"><img src="<%= contextPath %>/resources/images/share.png" width="25px"></a>
                     </div>
                 </div>
-                
+                <div class="modal fade" id="shareModal">
+				  <div class="modal-dialog modal-sm modal-dialog-centered">
+				    <div class="modal-content">
+				      <div class="modal-body">
+				        <input id="myInput" value="http://localhost:8327<%= contextPath %>/page.cl?no=<%=le.getClNo() %>" size="35" readonly>
+				      </div>
+				      <div class="modal-footer">
+				      	<button type="button" class="btn btn-secondary btn-sm" style="background:rgb(35, 104, 116)" onclick="copy_to_clipboard()">url복사</button>
+				        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<script>
+					function copy_to_clipboard() {    
+						  const copyText = document.getElementById('myInput');
+						  copyText.select();
+						  copyText.setSelectionRange(0, 99999);
+						  document.execCommand("Copy");
+						}
+				</script>
                 <br clear="both">
                 <div>
                     <h5><b><%= le.getClName() %></b></h5>
@@ -295,46 +359,154 @@
                         <%= le.getCurriculum() %>
                     </div>
                     <hr>
+                    <script>
+				        let totalData; 
+					    let dataPerPage=5; 
+					    let pageCount = 5; 
+					    let globalCurrentPage=1;
+					    let dataList; 
+					
+					    $(function () {
+						     selectReview();
+					    })
+				        function selectReview(){
+				    		$.ajax({
+				    			url:"<%=contextPath%>/selectReview.cl",
+				    			data:{
+				    				clNo:<%=le.getClNo()%> 				
+				    			},
+				    			success:function(list){
+				    				if(list.length == 0){
+				    					let value = "<tr>"
+				    						+	"<td colspan='3'>작성된 후기가 없습니다.</td>"
+				    						+ "</tr>"
+				    					$("#reviewList tbody").html(value);
+				    					$("#paging").html("");
+				    				} else{
+				    	 		    	   totalData = list.length;
+				    	 		           dataList=list;
+				    	 		           displayData(1, dataPerPage, totalData);
+				    	 		           paging(totalData, dataPerPage, pageCount, 1);
+				    				}
+				    			},error:function(){
+				    				console.log("정산목록 조회용 ajax 통신실패");
+				    			}
+				    		})
+				    	}
+					    function displayData(currentPage, dataPerPage, totalData) {
+					    	  let value = "<tr>"
+				    		  			+	"<td width='60' height='60' colspan='3'>"
+				    		  			+		"⭐<%= le.getClStarAvg() %>.0 (<%= le.getClStarCount() %>)"
+				    		  			+	"</td>"
+				    		  			+ "</tr>";
+					    	  currentPage = Number(currentPage);
+					    	  dataPerPage = Number(dataPerPage);
+					    	  if(totalData < dataPerPage){
+					    		  num = totalData;
+					    	  } else{
+					    		  num = dataPerPage;
+					    	  }
+					    	  for (let i = (currentPage - 1) * dataPerPage; 
+					    	    i < (currentPage - 1) * dataPerPage + num;
+					    	    i++
+					    	  ) {
+					    		  value += "<tr>"
+					    		  		+	"<td>";
+					    		  if(dataList[i].memProfile == null){
+				                  	value += "<img src='<%= contextPath %>/resources/tutorProfile_upfiles/defaultimg.jpg' width='45' height='45' class='rounded-circle'>"
+					    		  }else{ 
+				                	value += "<img src='<%=contextPath%>/" + dataList[i].memProfile + " width='45' height='45' class='rounded-circle'>"
+				                  }
+				                  value += "</td>"
+		                            	+	"<td>"
+		                            	+		dataList[i].memNickName + "<br>";
+	                            	for(let j=1; j<=dataList[i].reviewStar; j++){
+	               						value += "⭐";
+	               					}
+	                            	if(dataList[i].reviewUpdate == null){
+	                            		value += dataList[i].reviewDate;
+	                            	} else{
+	                            		value += dataList[i].reviewUpdate;
+	                            	}
+                            		value += "</td>"
+                            		  		+  "<td rowspan='2' width='100'>"
+                            		  		+"<img src='' width='100'>"
+                          		  		  	+  "</td>"
+                          		  		  + "</tr>"
+                          		  		  +	"<tr>"
+                          		  		  +		"<td colspan='2'>" + dataList[i].reviewContent + "</td>"
+                          		  		  +	"</tr>"
+								}
+					    	  $("#reviewList tbody").html(value);
+							}
+							
+				  	
+				  		function paging(totalData, dataPerPage, pageCount, currentPage) {
+				  		 
+				  			  totalPage = Math.ceil(totalData / dataPerPage); 
+				      		  
+				      		  if(totalPage<pageCount){
+				      		    pageCount=totalPage;
+				      		  }
+				      		  
+				      		  let pageGroup = Math.ceil(currentPage / pageCount); 
+				      		  let last = pageGroup * pageCount; 
+				      		  
+				      		  if (last > totalPage) {
+				      		    last = totalPage;
+				      		  }
+				
+				      		  let first = last - (pageCount - 1); 
+				      		  let next = last + 1;
+				      		  let prev = first - 1;
+				
+				      		  let pageHtml = "";
+				
+				      		  if (prev > 0) {
+				      		    pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
+				      		  }
+				
+				      		  for (let i = first; i <= last; i++) {
+				      		    if (currentPage == i) {
+				      		      pageHtml +=
+				      		        "<li class='on'><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+				      		    } else {
+				      		      pageHtml += "<li><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+				      		    }
+				      		  }
+				
+				      		  if (last < totalPage) {
+				      		    pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
+				      		  }
+				
+				      		  $("#paging").html(pageHtml);
+				
+				      		  $("#paging li a").click(function () {
+				      		    let $id = $(this).attr("id");
+				      		    selectedPage = $(this).text();
+				
+				      		    if ($id == "next") selectedPage = next;
+				      		    if ($id == "prev") selectedPage = prev;
+				      		    globalCurrentPage = selectedPage;
+				      		    paging(totalData, dataPerPage, pageCount, selectedPage);
+				      		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
+				      		  });
+				  		  
+				  		}
+			        </script>
                     <div id="section3" class="container-fluid">
-                        <b>후기</b> <br>
-                        <% if(rList.isEmpty()){ %>
-                        	작성된 후기가 없습니다.
-                        <%} else {%>
-                        ⭐<%= le.getClStarAvg() %>.0 (<%= le.getClStarCount() %>)
-                        <br><br>
-                        <table width="550" height="150">
-                        	<% for(int i=0; i<rList.size(); i++){ %>
-	                            <tr>
-	                                <td width="60" height="60">
-	                                    <img src="<%=request.getContextPath()%>/<%= rList.get(i).getMemProfile() %>" width="45"  class="rounded-circle">
-	                                </td>
-	                                <td>
-	                                    <%= rList.get(i).getMemNickName() %> <br>
-	                                    <% 
-	                                    String value = "";
-	                                    for(int j=1; j<=rList.get(i).getReviewStar(); j++){
-	                						value += "⭐";
-	                					} %>
-	                					<%= value %>
-	                					<% if(rList.get(i).getReviewUpDate() == null){ %>
-	                                    	<%= rList.get(i).getReviewDate() %>
-	                                    <% } else{%>
-	                                    	<%= rList.get(i).getReviewUpDate() %>
-	                                    <% } %>
-	                                </td>
-	                                <td rowspan="2" width="100">
-	                                    <img src="" width="100"> <!-- 후기사진 -->
-	                                </td>
-	                            </tr>
-	                            <tr>
-	                                <td colspan="2"><%= rList.get(i).getReviewContent() %></td>
-	                            </tr>
-                            <% } %>
-                        </table>
-                        <div align="center">
-                            <button type="button">더보기</button> <!-- 후기 5개씩 -->
-                        </div>
-                        <% } %>
+                    	<table width="550" height="150" id="reviewList">
+                    		<thead>
+	                    		<tr>
+	                    			<td><b>후기</b></td>
+	                    		</tr>
+                    		</thead>
+                    		<tbody></tbody>
+                    	</table>
+                    	<div align="center">
+			            	<ul id="paging">
+							</ul>
+			            </div>
                     </div>
                     <hr>
                     <div id="section4" class="container-fluid">
@@ -353,8 +525,177 @@
                     <div id="classDetail-cal">
                         <div style="background:rgb(180,180,180); height:40px; line-height:40px;">
                             <b>클래스 일정</b>
-                        </div>>
-                        
+                        </div>
+                        <table class="calendar">
+					        <thead>
+					            <tr>
+					                <td onClick="prevCalendar();" style="cursor:pointer;">&lt;</td>
+					                <td colspan="5">
+					                    <span id="calYear">YYYY</span>년
+					                    <span id="calMonth">MM</span>월
+					                </td>
+					                <td onClick="nextCalendar();" style="cursor:pointer;">&gt;</td>
+					            </tr>
+					            <tr>
+					                <td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
+					            </tr>
+					        </thead>
+					        <tbody></tbody>
+					    </table>
+					    <script>
+					        $(function(){
+					            buildCalendar();
+					        });
+					    
+					        var today = new Date();
+					        var date = new Date(); 
+					    
+					        // 이전달 
+					        function prevCalendar() {
+					            this.today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+					            buildCalendar();
+					        }
+					    
+					        // 다음달
+					        function nextCalendar() {
+					            this.today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+					            buildCalendar();
+					        }
+					    
+					        function buildCalendar() {
+					    
+					            let doMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+					            let lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+					    
+					            let tbCalendar = document.querySelector(".calendar > tbody");
+					    
+					            document.getElementById("calYear").innerText = today.getFullYear();   // YYYY월
+					            document.getElementById("calMonth").innerText = today.getMonth() + 1;   // MM월
+					            while(tbCalendar.rows.length > 0) {
+					                tbCalendar.deleteRow(tbCalendar.rows.length - 1);
+					            }
+					    
+					            let row = tbCalendar.insertRow();
+					            let dom = 1;
+					    		
+					            // 시작일의 요일값( doMonth.getDay() ) + 해당월의 전체일( lastDate.getDate())을  더해준 값에서
+					            // 7로 나눈값을 올림( Math.ceil() )하고 다시 시작일의 요일값( doMonth.getDay() )을 빼준다.
+					            let daysLength = (Math.ceil((doMonth.getDay() + lastDate.getDate()) / 7) * 7) - doMonth.getDay();
+					            
+					            // 시작일, 종료일
+					            const startDate = new Date('<%= le.getStartDate() %>');
+					            const endDate = new Date('<%= le.getEndDate() %>');
+					            let calYear = $("#calYear").text().substr(0,4);
+					            let calMonth = $("#calMonth").text().substr(-2)-1;
+					            // 달력 출력
+					            // 시작값은 1일을 직접 지정하고 요일값( doMonth.getDay() )를 빼서 마이너스( - )로 for문을 시작한다.
+					            for(let day = 1 - doMonth.getDay(); day <= daysLength ; day++) {
+					    			
+					                let column = row.insertCell();
+					    			let calDay = new Date(calYear, calMonth, day).getDay();
+					    			switch(calDay){
+					    			case 0 : calDay = "일"; break;
+					    			case 1 : calDay = "월"; break;
+					    			case 2 : calDay = "화"; break;
+					    			case 3 : calDay = "수"; break;
+					    			case 4 : calDay = "목"; break;
+					    			case 5 : calDay = "금"; break;
+					    			case 6 : calDay = "토"; break;
+					    			}
+					                // 평일( 전월일과 익월일의 데이터 제외 )
+					                if(day > 0 && lastDate.getDate() >= day) {
+					                    // 평일 날짜 데이터 삽입
+					                    column.innerHTML = "<div>" + day + "</div>";
+					    
+					                    // 일요일인 경우
+					                    if(dom % 7 == 1) {
+					                        column.style.color = "#FF4D4D";
+					                    }
+					    
+					                    // 토요일인 경우
+					                    if(dom % 7 == 0) {
+					                        column.style.color = "#4D4DFF";
+					                        row = tbCalendar.insertRow();
+					                    }
+					    
+					                }
+					    
+					                // 현재년과 선택 년도가 같은경우
+					                if(today.getFullYear() == date.getFullYear()) {
+					    
+					                    // 현재월과 선택월이 같은경우
+					                    if(today.getMonth() == date.getMonth()) {
+					    
+					                        // 현재일보다 이전인 경우이면서 현재월에 포함되는 일인경우
+					                        if(date.getDate() > day && day > 0) {
+					                            column.style.color = "rgb(224, 224, 224)";
+					                        }
+					    
+					                        // 현재일보다 이후이면서 현재월에 포함되는 일인경우
+					                        else if(date.getDate() <= day && lastDate.getDate() >= day) {
+					                            if(new Date(calYear, calMonth, day) >= startDate && new Date(calYear, calMonth, day) <= endDate && "<%=le.getClDay()%>".includes(calDay)){
+					                            	column.firstChild.classList.add('possibleDay');
+					                            	column.onclick = function(){ calendarChoiceDay(this); }
+					                            }
+					                        }
+					                    // 현재월보다 이전인경우
+					                    } else if(today.getMonth() < date.getMonth()) {
+					                        if(day > 0 && day <= lastDate.getDate()) {
+					                            column.style.color = "rgb(224, 224, 224)";
+					                        }
+					                    }
+					    
+					                    // 현재월보다 이후인경우
+					                    else {
+					                        if(day > 0 && day <= lastDate.getDate()) {
+					                        	if(new Date(calYear, calMonth, day) >= startDate && new Date(calYear, calMonth, day) <= endDate && "<%=le.getClDay()%>".includes(calDay)){
+					                        		column.firstChild.classList.add('possibleDay');
+					                            	column.onclick = function(){ calendarChoiceDay(this); }
+					                            }
+					                        }
+					                    }
+					                }
+					    
+					                // 선택한년도가 현재년도보다 작은경우
+					                else if(today.getFullYear() < date.getFullYear()) {
+					                    if(day > 0 && day <= lastDate.getDate()) {
+					                        column.style.color = "rgb(224, 224, 224)";
+					                    }
+					                }
+					    
+					                // 선택한년도가 현재년도보다 큰경우
+					                else {
+					                    if(day > 0 && day <= lastDate.getDate()) {
+					                    	if(new Date(calYear, calMonth, day) >= startDate && new Date(calYear, calMonth, day) <= endDate && "<%=le.getClDay()%>".includes(calDay)){
+					                    		column.firstChild.classList.add('possibleDay');
+					                        	column.onclick = function(){ calendarChoiceDay(this); }
+					                    	}
+					                    }
+					                }
+					                dom++;
+					    
+					            }
+					        }
+					    
+					        // 날짜 선택
+					        function calendarChoiceDay(column) {
+					    
+					            // 기존 선택일의 표시형식 초기화
+					            if(document.getElementsByClassName("choiceDay")[0]) {
+					                document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "rgb(107, 155, 164)";
+					                document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+					            }
+					            // 선택일 체크 표시
+					            column.firstChild.style.backgroundColor = "rgb(213, 138, 122)";
+					            
+					            // 선택일 클래스명 변경
+					            column.firstChild.classList.add("choiceDay");
+					            
+					        }
+					    
+					        // 두자리수 변경
+					    
+					    </script>
                         <!-- 날짜 선택하면 나타나는 창 -->
                         <div id="classDetail-date">
                             <table>

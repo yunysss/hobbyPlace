@@ -255,18 +255,15 @@
 	            				$(this).attr("selected",true);
 	            			}
 	            		})
-	            	})
-	            	
-	            	$(function(){
+	            		
 	            		$("select[name=dCategory] option").each(function(){
 	            			if($(this).text()== "<%=l.getCtDno()%>"){
 	            				$(this).attr("selected",true);
 	            			}
 	            		})
 	            	})
-	            
-	            
-	            
+	            	
+	
 	            </script>
 	            
 	           
@@ -449,6 +446,9 @@
 	                              <th>시작시간</th>
 	                              <th>종료시간</th>
 	                              <th>
+	                              <%for (Schedule s : sList){ %>
+	                              <input type="hidden" name="schNo" value="<%=s.getSchNo()%>">
+	                               <%} %>
 	                                <div class="action_container">
 	                                  <button type="button" class="success" onclick="add_tr('table_body')">+
 	                                  </button>
@@ -456,16 +456,17 @@
 	                              </th>
 	                            </tr>
 	                          </thead>
+	                          <%for (Schedule s : sList){ %>
 	                          <tbody id="table_body">
 	                                <tr>
 	                                <td>
-	                                    <input type="number" min="1" name="session" class="form_control" >
+	                                    <input type="number" min="1" name="session" value="<%=s.getSessionNo() %>" class="form_control" >
 	                                </td>
 	                                <td>
-	                                    <input type="time" name="startTime"class="form_control" >
+	                                    <input type="time" name="startTime" value="<%=s.getStartTime() %>" class="form_control" >
 	                                </td>
 	                                <td>
-	                                    <input type="time" name="endTime" class="form_control">
+	                                    <input type="time" name="endTime" value="<%=s.getEndTime() %>" class="form_control">
 	                                </td>
 	                                <td>
 	                                <div class="action_container">
@@ -474,10 +475,12 @@
 	                                </div>
 	                                </td>
 	                                </tr>
-	            
+	            					<%} %>
 	                            </tbody>
 	                        </table>
 	                      </div>
+	                      
+	                    
 	                </td>
 	            </tr>
 	            
@@ -598,6 +601,14 @@
 	                        <input type="file" name="file2" onchange="loadImg(this,2);" required>
 	                        <input type="file" name="file3" onchange="loadImg(this,3);" required> 
 	                        <input type="file" name="file4" onchange="loadImg(this,4);" required>
+	                        
+	                        <input type="hidden" name="originThumb" value="<%=l.getClThumb()%>">
+	                       <%for (Attachment at : atList){ %>
+	                        <input type="hidden" name="originfile" value="<%=at.getFileNo()%>">
+	                        <%} %>
+	                    
+	                    
+	                    
 	                    </div>
 	                    
 	                </td>
@@ -660,7 +671,7 @@
 	                    });
 	                });
 	                    
-	                    $('#summernote').summernote('pasteHTML', data);
+	                    
 	                </script>
 	                
 	               
@@ -705,7 +716,7 @@
 	        <br><hr><br>
 	        <div align="center">
 	            <button type="button" class="btn btn-secondary btn-sm"  onclick="$('.form1').trigger('click');">이전</button>
-	            <button type="submit" id="save"class="btn btn-secondary btn-sm">검수요청</button>
+	            <button type="submit" id="save" class="btn btn-secondary btn-sm">수정요청</button>
 	            
 	        </div>
 	        

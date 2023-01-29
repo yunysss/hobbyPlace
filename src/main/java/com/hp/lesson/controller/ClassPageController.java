@@ -38,7 +38,6 @@ public class ClassPageController extends HttpServlet {
 		
 		Lesson le = new LessonService().selectClassPage(clNo);
 		ArrayList<Attachment> aList = new LessonService().selectClassAttachment(clNo);
-		ArrayList<Review> rList = new LessonService().selectClassReview(clNo);
 		if((Member)request.getSession().getAttribute("loginUser") != null) {
 			int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 			int likeStatus = new LessonService().selectLikeStatus(clNo, memNo);
@@ -46,8 +45,6 @@ public class ClassPageController extends HttpServlet {
 		}
 		request.setAttribute("le", le);
 		request.setAttribute("aList", aList);
-		request.setAttribute("rList", rList);
-	
 		
 		request.getRequestDispatcher("views/lesson/classPageView.jsp").forward(request, response);
 	}

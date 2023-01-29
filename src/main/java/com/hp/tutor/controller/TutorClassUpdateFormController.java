@@ -43,13 +43,12 @@ public class TutorClassUpdateFormController extends HttpServlet {
 		ArrayList<Schedule> sList = tService.selectSchedule(clNo);
 		
 		
-		System.out.println(l);
-		System.out.println(atList);
+		
 		request.setAttribute("cList", cList);
 		request.setAttribute("l", l);
 		request.setAttribute("atList", atList);
 		request.setAttribute("sList", sList);
-		
+		System.out.println(sList);
 		request.getRequestDispatcher("views/lesson/classUpdateForm.jsp").forward(request, response);		
 	
 	

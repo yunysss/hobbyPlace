@@ -23,12 +23,12 @@
 	}
 
 	#classList{
-		margin-top: 71px;
+		margin-top: 10px;
 	}
 	#classContent p {margin-top: 5px; margin-left:18px; margin-bottom: 0;}
 	#classContent{
 		width: 80%;
-		height: 300px;
+		height: 270px;
 		margin: auto;
 		border: 1px solid lightgray;
 		border-radius: 5px;
@@ -36,8 +36,8 @@
 	}
 	
 	#classContent img {
-		width: 200px;
-		height: 200px;
+		width: 180px;
+		height: 180px;
 		padding: 10px;
 	}
 
@@ -54,7 +54,7 @@
 	#classDetail{
 		width: 400px;
 		float: left;
-		margin: 5px;;
+		margin: 0;
 		
 	}
 	#classStatusAp{
@@ -114,138 +114,132 @@
 <body>
 	<%@ include file = "../common/myClassMenubar.jsp" %>
 			
-	<div class="content">
+		<div class="content">
 			<!--로그인한 유저가 결제한 클래스가 없을 때 -->
 			
 			<%if(loginUser != null && list.isEmpty()) {%>				
-			<div  id="classnull">
-				<img src="<%=contextPath%>/resources/images/myClassNull.jpg" alt="">
-				<p>아직 신청 내역이 없어요!<br>
-				지금 바로 합플을 시작해 보세요.</p>
-				<button type="button" class="btn btn-light" id="findClass" onclick="">클래스 찾아보기</button>
-			</div>
+				<div  id="classnull">
+					<img src="<%=contextPath%>/resources/images/myClassNull.jpg" alt="">
+					<p>아직 신청 내역이 없어요!<br>
+					지금 바로 합플을 시작해 보세요.</p>
+					<button type="button" class="btn btn-light" id="findClass" onclick="">클래스 찾아보기</button>
+				</div>
 			
 			<%} else{ %>
 			<!--결제한 승인완료 클래스가 있을 때-->
-			<%for(Register r :list){ %>
-			<div  id="classList">
-				<div id="class-area">
+				<%for(Register r :list){ %>
+				
+					<div id="class-area">
 										
-					<div id="classContent">
-						<p><%=r.getRegDate() %> 결제</p>
-						<div id="classThumbnail">
-							<img src="<%=contextPath%>/<%=r.getClThumb() %>">
-							 <!--클래스썸네일대표사진-->
-							<br>
-							<p><%=r.getTtName() %><br>튜터</p>
+						<div id="classContent">
+							<p><%=r.getRegDate() %> 결제</p>
+								<div id="classThumbnail">
+									<img src="<%=contextPath%>/<%=r.getClThumb() %>"> 
+									<br>
+									<p><%=r.getTtName() %> 튜터</p>
+								</div>
+							<div id="classDetail">
+								<table  border="0">
+									<thead>
+										<tr>
+											<td >주문번호</td>
+											<td colspan="3"><%=r.getRegNo() %></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td colspan="4" id="classTitle"><%=r.getClName() %></td>
+										</tr>
+										<tr>
+											<td colspan="4"><%=r.getDistrName() %>  <%=r.getTeachDate() %> <%=r.getStartTime() %></td>
+										</tr>
+										
+										<tr>
+											<%if(r.getRegSta().equals("0")){%>
+												<td height="50px"><div id="classStatusAp">승인완료</div></td>
+												<td colspan="3"></td>
+											<%} else if(r.getRegSta().equals("1")){%>
+												<td height="50px"><div id="classStatusX">승인전</div></td>
+												<td colspan="3"></td>
+											<%} else if (r.getRegSta().equals("2")){%>
+												<td height="50px"><div id="classStatusDone">수강완료</div></td>
+												<td colspan="3"></td>
+											<%} %>
+										
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="2"><button id="btn1" onclick="">1:1문의</button></td>
+											<td colspan="2"><button id="btn2" onclick="" data-toggle="modal" data-target="#myModal">결제상세내역</button></td>
+										</tr>
+									</tfoot>	
+								</table>
+							</div>
+
 						</div>
-						<div id="classDetail">
-							<table  border="0">
-								<thead>
+					</div>
+				<!-- 결제상세내역 Modal -->
+				<div class="modal fade" id="myModal">
+					<div class="modal-dialog modal-dialog-centered">
+					  <div class="modal-content">
+					  
+						<!-- Modal Header -->
+						<div class="modal-header">
+						  <h5 class="modal-title" style="margin-left: 163px; font-weight: bold;">결제 상세 내역</h5>
+						  <button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						
+						<!-- Modal body -->
+						<div class="modal-body" style="margin:auto">
+							<div>
+								<table class="modalTB" >
 									<tr>
-										<td >주문번호</td>
-										<td colspan="3"><%=r.getRegNo() %></td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td colspan="4" id="classTitle"><%=r.getClName() %></td>
-									</tr>
-									<tr>
-										<td colspan="4"><%=r.getDistrName() %> / <%=r.getTeachDate() %> <%=r.getStartTime() %></td>
-									</tr>
-									
-									<tr>
-										<%if(r.getRegSta().equals("0")){%>
-											<td height="50px"><div id="classStatusAp">승인완료</div></td>
-											<td colspan="3"></td>
+										<td rowspan="2" >결제 금액</td>
+										<%if(r.getRegPay().equals("0")){%>
+											<td colspan="2" id="payment1">신용카드</td>
 										<%} else if(r.getRegSta().equals("1")){%>
-											<td height="50px"><div id="classStatusX">승인전</div></td>
-											<td colspan="3"></td>
-										<%} else if (r.getRegSta().equals("2")){%>
-											<td height="50px"><div id="classStatusDone">수강완료</div></td>
-											<td colspan="3"></td>
+											<td colspan="2" id="payment1">무통장입금</td>
 										<%} %>
-									
 									</tr>
-								</tbody>
-								<tfoot>
 									<tr>
-										<td colspan="2"><button id="btn1" onclick="">1:1문의</button></td>
-										<td colspan="2"><button id="btn2" onclick="" data-toggle="modal" data-target="#myModal">결제상세내역</button></td>
+										<td colspan="2" id="payment2"><%=r.getRegPrice() %></td>
 									</tr>
-								</tfoot>	
-							</table>
+									<tr>
+										<td colspan="3" id="detailLine">세부내용</td>
+									</tr>
+									<tr >
+										<td colspan="2" style="font-size: 11px; color: gray;">주문번호 <%=r.getRegNo() %></td>								
+										<td rowspan="4" style="text-align: right;" width="80px"><%=r.getRegPrice() %></td>
+									</tr>
+									<tr>
+										<td colspan="2"><%=r.getClName() %></td>
+									</tr>
+									<tr>
+										<td colspan="2"> <%=r.getTtName() %> 튜터</td>
+									</tr>
+									<tr>
+										<td width="120px">클래스 수강권 x </td>
+										<td><%=r.getRegCount() %></td>
+									</tr>
+									
+								</table>
+							</div>
 						</div>
-
-					</div>
-				</div>
-			</div>	
-			<%} %>
-			<%} %>
 		
-		<!-- 로그인 유저가 결제한 클레스가 있을 때 if문 닫는 괄호 -->
-	
-
-	
-		<!-- 결제상세내역 Modal -->
-		<div class="modal fade" id="myModal">
-			<div class="modal-dialog modal-dialog-centered">
-			  <div class="modal-content">
-			  
-				<!-- Modal Header -->
-				<div class="modal-header">
-				  <h5 class="modal-title" style="margin-left: 163px; font-weight: bold;">결제 상세 내역</h5>
-				  <button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				
-				<!-- Modal body -->
-				<div class="modal-body" style="margin:auto">
-					<div>
-						<table class="modalTB" >
-							<tr>
-								<td rowspan="2" >결제 금액</td>
-								<td colspan="2" id="payment1">신용카드</td>
-							</tr>
-							<tr>
-								<td colspan="2" id="payment2"></td>
-							</tr>
-							<tr>
-								<td colspan="3" id="detailLine">세부내용</td>
-							</tr>
-							<tr >
-								<td colspan="2" style="font-size: 11px; color: gray;">주문번호 B3425R23</td>								
-								<td rowspan="4" style="text-align: right;" width="80px">45,000원</td>
-							</tr>
-							<tr>
-								<td colspan="2">쉽게 배우는 JAVA</td>
-							</tr>
-							<tr>
-								<td colspan="2"> 강보람 튜터</td>
-							</tr>
-							<tr>
-								<td width="120px">클래스 수강권 x </td>
-								<td>1</td>
-							</tr>
-							
-						</table>
+						<!-- Modal footer -->
+						<div class="modal-footer">
+						  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="refundBtn" onclick="">환불신청</button>
+						</div>
+						
+					  </div>
 					</div>
 				</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-				  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="refundBtn" onclick="">환불신청</button>
-				</div>
-				
-			  </div>
-			</div>
+				<%} %>
+			<%} %> 		
 		</div>
-		
-		 
-
-	
-		 
-		
+	</div>
+			
 		
 
 
@@ -271,7 +265,8 @@
 	</script>
 	
 		
-	<%@ include file = "../common/footerbar.jsp" %>		
-	
+	</div>
+	<%@ include file = "../common/footerbar.jsp" %>	
 </body>
+	
 </html>

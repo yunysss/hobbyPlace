@@ -608,6 +608,170 @@ public class TutorDao {
 		 return result;
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param l
+	 * @return result 클래스 수정 
+	 */
+	public int updateClass(Connection conn, Lesson l) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateClass");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			
+			pstmt.setString(1, l.getCtNo());
+			pstmt.setString(2,l.getCtDno());
+			pstmt.setString(3,l.getLocalCode());
+			pstmt.setString(4, l.getDistrCode());
+			pstmt.setString(5, l.getClName());
+			pstmt.setString(6, l.getClAddress());
+			pstmt.setInt(7, l.getClMax());
+			pstmt.setString(8, l.getClLevel());
+			pstmt.setInt(9,l.getClTimes());
+			pstmt.setString(10, l.getClSchedule());
+			pstmt.setString(11, l.getClDay());
+			pstmt.setString(12,l.getClPrice());
+			pstmt.setString(13, l.getClDetail());
+			pstmt.setString(14,l.getCurriculum());
+			pstmt.setString(15, l.getRefundPolicy());
+			pstmt.setString(16, l.getClSupplies());
+			pstmt.setString(17,l.getKeyword());
+			pstmt.setString(18, l.getClThumb());
+			pstmt.setInt(19,l.getClNo());
+			
+	     result=pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param list
+	 * @return result attachment 수정 
+	 */
+	public int updateAttachment(Connection conn, ArrayList<Attachment> list) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAttachment");
+		try {
+			for(Attachment at : list) {
+				pstmt= conn.prepareStatement(sql);
+	
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				pstmt.setInt(4, at.getFileNo());
+				
+				result = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/**@author 한빛
+	 * @param conn
+	 * @param list
+	 * @return result 클래스 수정시 새로운첨부파일 insert
+	 */
+	public int insertNewAttachment(Connection conn, ArrayList<Attachment> list) {
+		int result = 0;
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("insertNewAttachment");
+		try {
+			for(Attachment at : list) {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setString(4, at.getFileLevel());
+			pstmt.setString(5, at.getRefType());
+			pstmt.setInt(6, at.getRefNo());
+			
+			result = pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param sList
+	 * @return result 클래스 수정시 스케쥴 삭제 
+	 */
+	public int deleteSchedule(Connection conn, ArrayList<Schedule> sList) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteSchedule");
+		try {
+			for(Schedule s : sList) {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1,s.getSchNo());
+			
+			result = pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param sList
+	 * @return result 클래스 수정시 스케줄 재등록
+	 */
+	public int insertNewSchedule(Connection conn, ArrayList<Schedule> sList) {
+		 int result = 0;
+		 PreparedStatement pstmt = null;
+		 String sql = prop.getProperty("insertNewSchedule");
+		 try {
+			for(Schedule s : sList) {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,s.getClNo());
+			pstmt.setInt(2, s.getSessionNo());
+			pstmt.setString(3, s.getStartTime());
+			pstmt.setString(4, s.getEndTime());
+			pstmt.setString(5, s.getEndTime());
+			pstmt.setString(6, s.getStartTime());
+			
+			result = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		 System.out.println(result);
+		 return result;
+	}
+	
+	
+	
 	
 	
 	
