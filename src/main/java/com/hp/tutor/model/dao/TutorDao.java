@@ -645,5 +645,84 @@ public class TutorDao {
 		return result;
 	}
 	
+	public int updateAttachment(Connection conn, ArrayList<Attachment> list) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAttachment");
+		try {
+			for(Attachment at : list) {
+				pstmt= conn.prepareStatement(sql);
+	
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				pstmt.setInt(4, at.getFileNo());
+				
+				result = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertNewAttachment(Connection conn, ArrayList<Attachment> list) {
+		int result = 0;
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("insertNewAttachment");
+		try {
+			for(Attachment at : list) {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setString(4, at.getFileLevel());
+			pstmt.setString(5, at.getRefType());
+			pstmt.setInt(6, at.getRefNo());
+			
+			result = pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteSchedule(Connection conn, ArrayList<Schedule> sList) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteSchedule");
+		try {
+			for(Schedule s : sList) {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1,s.getSchNo());
+			
+			result = pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+	
+	public int insertNewSchedule(Connection conn, ArrayList<Schedule> sList) {
+		
+	}
+	
+	
+	
+	
+	
 	
 }

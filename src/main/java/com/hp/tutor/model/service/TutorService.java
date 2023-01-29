@@ -173,7 +173,30 @@ public class TutorService {
 	public int updateClass(Lesson l, ArrayList<Attachment> list, ArrayList<Schedule> sList) {
 		Connection conn= getConnection();
 		int result1 = new TutorDao().updateClass(conn, l);
-		int result2 = new TutorDao().updateAttachment(conn,list);
+		
+	    int result2 =1;
+		if(!list.isEmpty()) {
+			for(Attachment a :list) {
+			if(a.getFileNo() != 0) {
+				result2 = new TutorDao().updateAttachment(conn, list);
+			}else {
+				result2 = new TutorDao().insertNewAttachment(conn,list);
+			}
+			}
+		}
+		if(!sList.isEmpty()) {
+			int result3 = new TutorDao().deleteSchedule(conn,sList);
+			int result4 = new TutorDao().insertNewSchedule(conn,sList);
+		
+		}
+		if(result1>0 && result2>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1*result2 ;
 	}
 	
 

@@ -363,8 +363,57 @@
 	
 	</entry>
 	
+	<entry key="updateAttachment">
+	
+	  	UPDATE ATTACHMENT
+	  	SET ORIGIN_NAME = ?
+	  	   ,CHANGE_NAME = ?
+	  	   ,FILE_PATH =?
+		   ,UPLOAD_DATE = SYSDATE
+		WHERE FILE_NO =?	
+	
+	</entry>
+	<entry key="insertNewAttachment">
+	    INSERT 
+	     INTO ATTACHMENT
+	     (
+			FILE_NO
+		  ,	ORIGIN_NAME
+		  , CHANGE_NAME
+		  , FILE_PATH
+		  , UPLOAD_DATE
+		  , FILE_LEVEL
+		  , REF_TYPE
+		  , REF_NO
+	     
+	     )
+	     VALUES
+	     (
+	      SEQ_ATNO.NEXTVAL
+	      ,?
+	      ,?
+	      ,?
+	      ,SYSDATE
+	      ,?
+	      ,?
+	      ,?
+
+	     )
+	     
+	</entry>
+	
+	<entry key="deleteSchedule">
+	   	DELETE
+	   	FROM SCHEDULE
+	    WHERE SCH_NO =?
+
+	</entry>
+	<entry key="">
 	
 	
+	
+	
+	</entry>
 
 
 </properties>

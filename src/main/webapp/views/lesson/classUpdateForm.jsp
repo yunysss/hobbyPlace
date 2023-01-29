@@ -449,6 +449,8 @@
 	                              <th>시작시간</th>
 	                              <th>종료시간</th>
 	                              <th>
+	                              <%for (Schedule s : sList){ %>
+	                              <input type="hidden" name="schNo" value="<%=s.getSchNo()%>">
 	                                <div class="action_container">
 	                                  <button type="button" class="success" onclick="add_tr('table_body')">+
 	                                  </button>
@@ -459,13 +461,13 @@
 	                          <tbody id="table_body">
 	                                <tr>
 	                                <td>
-	                                    <input type="number" min="1" name="session" class="form_control" >
+	                                    <input type="number" min="1" name="session" value="<%=s.getSessionNo() %>" class="form_control" >
 	                                </td>
 	                                <td>
-	                                    <input type="time" name="startTime"class="form_control" >
+	                                    <input type="time" name="startTime" value =<%=s.getStartTime() %>class="form_control" >
 	                                </td>
 	                                <td>
-	                                    <input type="time" name="endTime" class="form_control">
+	                                    <input type="time" name="endTime" value=<%=s.getEndTime() %>class="form_control">
 	                                </td>
 	                                <td>
 	                                <div class="action_container">
@@ -474,7 +476,7 @@
 	                                </div>
 	                                </td>
 	                                </tr>
-	            
+	            					<%} %>
 	                            </tbody>
 	                        </table>
 	                      </div>
@@ -600,9 +602,9 @@
 	                        <input type="file" name="file4" onchange="loadImg(this,4);" required>
 	                        
 	                        <input type="hidden" name="originThumb" value="<%=l.getClThumb()%>">
-	                        <input type="hidden" name="originfile2" value="<%=atList.get(0).getFileNo()%>">
-	                        <input type="hidden" name="originfile3" value="<%=atList.get(1).getFileNo()%>">
-	                        <input type="hidden" name="originfile4" value="<%=atList.get(2).getFileNo()%>">
+	                       <%for (Attachment at : atList){ %>
+	                        <input type="hidden" name="originfile" value="<%=at.getFileNo()%>">
+	                        <%} %>
 	                    
 	                    
 	                    
@@ -668,7 +670,7 @@
 	                    });
 	                });
 	                    
-	                    $('#summernote').summernote('pasteHTML', data);
+	                    
 	                </script>
 	                
 	               
@@ -713,7 +715,7 @@
 	        <br><hr><br>
 	        <div align="center">
 	            <button type="button" class="btn btn-secondary btn-sm"  onclick="$('.form1').trigger('click');">이전</button>
-	            <button type="submit" id="save"class="btn btn-secondary btn-sm">검수요청</button>
+	            <button type="submit" id="save" class="btn btn-secondary btn-sm">수정요청</button>
 	            
 	        </div>
 	        

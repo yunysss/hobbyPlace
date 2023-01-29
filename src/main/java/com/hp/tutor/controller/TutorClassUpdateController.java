@@ -1,5 +1,6 @@
 package com.hp.tutor.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -8,12 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.hp.common.MyFileRenamePolicy;
 import com.hp.common.model.vo.Attachment;
-import com.hp.lesson.model.service.LessonService;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.tutor.model.service.TutorService;
@@ -92,9 +93,8 @@ public class TutorClassUpdateController extends HttpServlet {
 	         
 	         for(int i=2; i<=4; i++) {
 	        	 String key = "file" +i;
-	        	 String originfile = "originfile"+i;
-	        
-	        
+
+	        // 새로운 첨부파일 있을경우
 	        	 if(multiRequest.getOriginalFileName(key) != null) {
 		        	 Attachment at = new Attachment();
 	        		 at.setOriginName(multiRequest.getOriginalFileName(key));
@@ -103,11 +103,21 @@ public class TutorClassUpdateController extends HttpServlet {
 	        		 at.setFileLevel("1");
 	        		 at.setRefType("1");
         		
-	        		
-		        	 if(multiRequest.getParameter(originfile) != null) {
-		        		 at.setFileNo(Integer.parseInt(multiRequest.getParameter(originfile)));
+	        		// 기존 첨부파일 있을경우=> update
+		        	 if(multiRequest.getParameterValues("originfile") != null) {
+		        		 String[] fileNo = multiRequest.getParameterValues("originfile");
+		        		 
+		        		 int[] origin = new int[fileNo.length];
+				         for(int j=0;j<fileNo.length; j++) {
+				        	 origin[j] =Integer.parseInt(fileNo[j]);
+				         }
+
+		        		 for(int j=0;j<origin.length;j++) {
+		        			 at.setFileNo(origin[j]);
+		        		 }
+		        
 		      
-		        	 }else {
+		        	 }else {//기존 첨부파일 없을경우=> insert
 		        		 at.setRefNo(clNo);
 		        	 }
 		        	 
@@ -139,16 +149,30 @@ public class TutorClassUpdateController extends HttpServlet {
 	         }
 	         
 		
-	         int result = new TutorService().insertClass(l,list,sList); 
+	         int result = new TutorService().updateClass(l,list,sList); 
+	         
+	         HttpSession session = request.getSession();
+	         if(result>0) {
+	        	 session.setAttribute("alertMsg","성공적으로 수정요청되었습니다. 검수완료 후 재판매가 시작됩니다. ");
+	        	 response.sendRedirect(request.getContextPath()+"/ttclass.tt?cpage=1");
+	        	 
+	         }else {
+	        	 
+	        	 if(! list.isEmpty()) {
+	        		 for(Attachment at : list) {
+	        		new File(savePath + at.getChangeName()).delete();
+	        		}
+	        	 
+	        	 session.setAttribute("alertMsg","수정에 실패했습니다." );
+	        	 response.sendRedirect(request.getContextPath()+"/updateForm.cl?no="+clNo);
+	         }
 	         
 	         
+	         }  
 	         
 	         
-	         
-	         
-	         
-	   }
-	      
+	   
+	 }
 		
 	}
 
