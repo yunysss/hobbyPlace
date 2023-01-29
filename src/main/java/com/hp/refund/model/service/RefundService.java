@@ -56,4 +56,11 @@ public class RefundService {
 		
 	}
 
+	public ArrayList<Refund> selectMyRefundClassList(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Refund> list = new RefundDao().selectMyRefundClassList(conn, memNo);
+		close(conn);
+		return list;
+	}
+
 }
