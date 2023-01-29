@@ -255,18 +255,15 @@
 	            				$(this).attr("selected",true);
 	            			}
 	            		})
-	            	})
-	            	
-	            	$(function(){
+	            		
 	            		$("select[name=dCategory] option").each(function(){
 	            			if($(this).text()== "<%=l.getCtDno()%>"){
 	            				$(this).attr("selected",true);
 	            			}
 	            		})
 	            	})
-	            
-	            
-	            
+	            	
+	
 	            </script>
 	            
 	           
@@ -451,6 +448,7 @@
 	                              <th>
 	                              <%for (Schedule s : sList){ %>
 	                              <input type="hidden" name="schNo" value="<%=s.getSchNo()%>">
+	                               <%} %>
 	                                <div class="action_container">
 	                                  <button type="button" class="success" onclick="add_tr('table_body')">+
 	                                  </button>
@@ -458,16 +456,17 @@
 	                              </th>
 	                            </tr>
 	                          </thead>
+	                          <%for (Schedule s : sList){ %>
 	                          <tbody id="table_body">
 	                                <tr>
 	                                <td>
 	                                    <input type="number" min="1" name="session" value="<%=s.getSessionNo() %>" class="form_control" >
 	                                </td>
 	                                <td>
-	                                    <input type="time" name="startTime" value =<%=s.getStartTime() %>class="form_control" >
+	                                    <input type="time" name="startTime" value="<%=s.getStartTime() %>" class="form_control" >
 	                                </td>
 	                                <td>
-	                                    <input type="time" name="endTime" value=<%=s.getEndTime() %>class="form_control">
+	                                    <input type="time" name="endTime" value="<%=s.getEndTime() %>" class="form_control">
 	                                </td>
 	                                <td>
 	                                <div class="action_container">
@@ -480,6 +479,8 @@
 	                            </tbody>
 	                        </table>
 	                      </div>
+	                      
+	                    
 	                </td>
 	            </tr>
 	            
