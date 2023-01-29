@@ -88,10 +88,19 @@
             border-radius:5px;
             color:white;
         }
-        .calendar {text-align:center; background:white;}
+        .calendar {text-align:center; background:white; cursor:default;}
 	    .calendar > thead td { width:50px;height:50px;}
 	    .calendar > thead > tr:first-child > td { font-weight:bold;}
-	    .calendar > tbody td { width:50px;height:50px;}
+	    .calendar div {
+	    	text-align:center;
+	    	line-height:33px;
+	    	width:35px; 
+	    	height:35px; 
+	    	border-radius:50%; 
+	    	margin:auto;
+    	}
+	    .possibleDay{backGround:rgb(107, 155, 164); color:white;}
+	    .possibleDay:hover{cursor:pointer; opacity:0.5;}
         
         #classDetail-cal>table{
             background:white;
@@ -100,6 +109,8 @@
             width:50px;
             height:40px;
         }
+        
+        
         /* 날짜 선택하면 나타나는 창 */
         #classDetail-date>table{
             width:310px;
@@ -514,8 +525,177 @@
                     <div id="classDetail-cal">
                         <div style="background:rgb(180,180,180); height:40px; line-height:40px;">
                             <b>클래스 일정</b>
-                        </div>>
-                        
+                        </div>
+                        <table class="calendar">
+					        <thead>
+					            <tr>
+					                <td onClick="prevCalendar();" style="cursor:pointer;">&lt;</td>
+					                <td colspan="5">
+					                    <span id="calYear">YYYY</span>년
+					                    <span id="calMonth">MM</span>월
+					                </td>
+					                <td onClick="nextCalendar();" style="cursor:pointer;">&gt;</td>
+					            </tr>
+					            <tr>
+					                <td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
+					            </tr>
+					        </thead>
+					        <tbody></tbody>
+					    </table>
+					    <script>
+					        $(function(){
+					            buildCalendar();
+					        });
+					    
+					        var today = new Date();
+					        var date = new Date(); 
+					    
+					        // 이전달 
+					        function prevCalendar() {
+					            this.today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+					            buildCalendar();
+					        }
+					    
+					        // 다음달
+					        function nextCalendar() {
+					            this.today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+					            buildCalendar();
+					        }
+					    
+					        function buildCalendar() {
+					    
+					            let doMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+					            let lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+					    
+					            let tbCalendar = document.querySelector(".calendar > tbody");
+					    
+					            document.getElementById("calYear").innerText = today.getFullYear();   // YYYY월
+					            document.getElementById("calMonth").innerText = today.getMonth() + 1;   // MM월
+					            while(tbCalendar.rows.length > 0) {
+					                tbCalendar.deleteRow(tbCalendar.rows.length - 1);
+					            }
+					    
+					            let row = tbCalendar.insertRow();
+					            let dom = 1;
+					    		
+					            // 시작일의 요일값( doMonth.getDay() ) + 해당월의 전체일( lastDate.getDate())을  더해준 값에서
+					            // 7로 나눈값을 올림( Math.ceil() )하고 다시 시작일의 요일값( doMonth.getDay() )을 빼준다.
+					            let daysLength = (Math.ceil((doMonth.getDay() + lastDate.getDate()) / 7) * 7) - doMonth.getDay();
+					            
+					            // 시작일, 종료일
+					            const startDate = new Date('<%= le.getStartDate() %>');
+					            const endDate = new Date('<%= le.getEndDate() %>');
+					            let calYear = $("#calYear").text().substr(0,4);
+					            let calMonth = $("#calMonth").text().substr(-2)-1;
+					            // 달력 출력
+					            // 시작값은 1일을 직접 지정하고 요일값( doMonth.getDay() )를 빼서 마이너스( - )로 for문을 시작한다.
+					            for(let day = 1 - doMonth.getDay(); day <= daysLength ; day++) {
+					    			
+					                let column = row.insertCell();
+					    			let calDay = new Date(calYear, calMonth, day).getDay();
+					    			switch(calDay){
+					    			case 0 : calDay = "일"; break;
+					    			case 1 : calDay = "월"; break;
+					    			case 2 : calDay = "화"; break;
+					    			case 3 : calDay = "수"; break;
+					    			case 4 : calDay = "목"; break;
+					    			case 5 : calDay = "금"; break;
+					    			case 6 : calDay = "토"; break;
+					    			}
+					                // 평일( 전월일과 익월일의 데이터 제외 )
+					                if(day > 0 && lastDate.getDate() >= day) {
+					                    // 평일 날짜 데이터 삽입
+					                    column.innerHTML = "<div>" + day + "</div>";
+					    
+					                    // 일요일인 경우
+					                    if(dom % 7 == 1) {
+					                        column.style.color = "#FF4D4D";
+					                    }
+					    
+					                    // 토요일인 경우
+					                    if(dom % 7 == 0) {
+					                        column.style.color = "#4D4DFF";
+					                        row = tbCalendar.insertRow();
+					                    }
+					    
+					                }
+					    
+					                // 현재년과 선택 년도가 같은경우
+					                if(today.getFullYear() == date.getFullYear()) {
+					    
+					                    // 현재월과 선택월이 같은경우
+					                    if(today.getMonth() == date.getMonth()) {
+					    
+					                        // 현재일보다 이전인 경우이면서 현재월에 포함되는 일인경우
+					                        if(date.getDate() > day && day > 0) {
+					                            column.style.color = "rgb(224, 224, 224)";
+					                        }
+					    
+					                        // 현재일보다 이후이면서 현재월에 포함되는 일인경우
+					                        else if(date.getDate() <= day && lastDate.getDate() >= day) {
+					                            if(new Date(calYear, calMonth, day) >= startDate && new Date(calYear, calMonth, day) <= endDate && "<%=le.getClDay()%>".includes(calDay)){
+					                            	column.firstChild.classList.add('possibleDay');
+					                            	column.onclick = function(){ calendarChoiceDay(this); }
+					                            }
+					                        }
+					                    // 현재월보다 이전인경우
+					                    } else if(today.getMonth() < date.getMonth()) {
+					                        if(day > 0 && day <= lastDate.getDate()) {
+					                            column.style.color = "rgb(224, 224, 224)";
+					                        }
+					                    }
+					    
+					                    // 현재월보다 이후인경우
+					                    else {
+					                        if(day > 0 && day <= lastDate.getDate()) {
+					                        	if(new Date(calYear, calMonth, day) >= startDate && new Date(calYear, calMonth, day) <= endDate && "<%=le.getClDay()%>".includes(calDay)){
+					                        		column.firstChild.classList.add('possibleDay');
+					                            	column.onclick = function(){ calendarChoiceDay(this); }
+					                            }
+					                        }
+					                    }
+					                }
+					    
+					                // 선택한년도가 현재년도보다 작은경우
+					                else if(today.getFullYear() < date.getFullYear()) {
+					                    if(day > 0 && day <= lastDate.getDate()) {
+					                        column.style.color = "rgb(224, 224, 224)";
+					                    }
+					                }
+					    
+					                // 선택한년도가 현재년도보다 큰경우
+					                else {
+					                    if(day > 0 && day <= lastDate.getDate()) {
+					                    	if(new Date(calYear, calMonth, day) >= startDate && new Date(calYear, calMonth, day) <= endDate && "<%=le.getClDay()%>".includes(calDay)){
+					                    		column.firstChild.classList.add('possibleDay');
+					                        	column.onclick = function(){ calendarChoiceDay(this); }
+					                    	}
+					                    }
+					                }
+					                dom++;
+					    
+					            }
+					        }
+					    
+					        // 날짜 선택
+					        function calendarChoiceDay(column) {
+					    
+					            // 기존 선택일의 표시형식 초기화
+					            if(document.getElementsByClassName("choiceDay")[0]) {
+					                document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "rgb(107, 155, 164)";
+					                document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+					            }
+					            // 선택일 체크 표시
+					            column.firstChild.style.backgroundColor = "rgb(213, 138, 122)";
+					            
+					            // 선택일 클래스명 변경
+					            column.firstChild.classList.add("choiceDay");
+					            
+					        }
+					    
+					        // 두자리수 변경
+					    
+					    </script>
                         <!-- 날짜 선택하면 나타나는 창 -->
                         <div id="classDetail-date">
                             <table>
