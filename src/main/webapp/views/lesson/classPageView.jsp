@@ -186,10 +186,15 @@
 		#paging li.on a {
 		    color: white!important;
 		}
+		
+		.modal-body input{
+            border: none;
+            font-size: 15px;
+            outline: none;
+        }
     </style>
     <!-- 카카오 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 
 </head>
 <body>
@@ -223,12 +228,32 @@
                         <span><%= le.getCtDno() %></span>
                         <span>난이도 <%= le.getClLevel() %></span>
                     </div>
-                    <div id="classDetail-likeShare">
+                    <div id="classDetail-likeShare" class="dropdown">
                         <span>❤️<%= le.getLikeCount() %></span>
-                        <a href=""><img src="<%= contextPath %>/resources/images/share.png" width="25px"></a>
+                        <a href="#" data-toggle="modal" data-target="#shareModal"><img src="<%= contextPath %>/resources/images/share.png" width="25px"></a>
                     </div>
                 </div>
-                
+                <div class="modal fade" id="shareModal">
+				  <div class="modal-dialog modal-sm modal-dialog-centered">
+				    <div class="modal-content">
+				      <div class="modal-body">
+				        <input id="myInput" value="http://localhost:8327<%= contextPath %>/page.cl?no=<%=le.getClNo() %>" size="35" readonly>
+				      </div>
+				      <div class="modal-footer">
+				      	<button type="button" class="btn btn-secondary btn-sm" style="background:rgb(35, 104, 116)" onclick="copy_to_clipboard()">url복사</button>
+				        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<script>
+					function copy_to_clipboard() {    
+						  const copyText = document.getElementById('myInput');
+						  copyText.select();
+						  copyText.setSelectionRange(0, 99999);
+						  document.execCommand("Copy");
+						}
+				</script>
                 <br clear="both">
                 <div>
                     <h5><b><%= le.getClName() %></b></h5>
@@ -394,7 +419,7 @@
 	                            	}
                             		value += "</td>"
                             		  		+  "<td rowspan='2' width='100'>"
-                            		  		+"<img src='' width='100'"
+                            		  		+"<img src='' width='100'>"
                           		  		  	+  "</td>"
                           		  		  + "</tr>"
                           		  		  +	"<tr>"
