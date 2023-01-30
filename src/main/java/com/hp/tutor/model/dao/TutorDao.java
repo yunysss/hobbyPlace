@@ -561,8 +561,12 @@ public class TutorDao {
 			rset= pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Attachment(rset.getString("change_name"),
-										rset.getString("file_path")
+				list.add(new Attachment(
+										rset.getInt("file_no"),
+										rset.getString("origin_name"),
+										rset.getString("change_name"),
+										rset.getString("file_path"),
+										rset.getInt("ref_no")
 										));
 				     
 			}
@@ -618,6 +622,7 @@ public class TutorDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateClass");
+		System.out.println(l);
 		try {
 			pstmt= conn.prepareStatement(sql);
 			
@@ -725,8 +730,8 @@ public class TutorDao {
 		try {
 			for(Schedule s : sList) {
 			pstmt= conn.prepareStatement(sql);
-			pstmt.setInt(1,s.getSchNo());
-			
+			pstmt.setString(1,s.getClNo());
+			System.out.println(s.getClNo());
 			result = pstmt.executeUpdate();
 			}
 			

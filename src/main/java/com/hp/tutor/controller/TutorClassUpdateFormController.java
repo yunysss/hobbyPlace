@@ -48,7 +48,7 @@ public class TutorClassUpdateFormController extends HttpServlet {
 		request.setAttribute("l", l);
 		request.setAttribute("atList", atList);
 		request.setAttribute("sList", sList);
-		System.out.println(sList);
+		
 		request.getRequestDispatcher("views/lesson/classUpdateForm.jsp").forward(request, response);		
 	
 	
