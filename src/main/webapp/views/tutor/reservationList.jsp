@@ -30,6 +30,8 @@
             width: 70px; 
             height: 30px;
             border:0;
+            background:rgb(218, 217, 217);
+            border-radius:3px;
         }
         
         #click_btn{
@@ -58,6 +60,11 @@
         .paging-area{text-align: center;}
         .paging-area button {width: 25px; height: 23px;}
         
+        #bfBtn{
+		    background: rgb(22, 160, 133); 
+            color: white;
+		}
+		#af-classList{display:none;}
 
 
     </style>
@@ -68,15 +75,15 @@
         <h5><b>예약 관리</b></h5>
         <br>
         
-        <!-- 수강전 버튼을 눌렀을때-->
+        
         
         <div class="btn_area">
-            <button type="button" onclick="bfBtn()" >수강전</button>
-            <button type="button" onclick="atBtn()"> 수강완료</button>
+            <button type="button" id="bfBtn" onclick="bfBtn()" >수강전</button>
+            <button type="button" id="afBtn" onclick="atBtn()"> 수강완료</button>
         </div>
 
-
-        <div class="tb_box" id="bf.classList" id="classList"> 
+        <!-- 수강전 버튼을 눌렀을때-->
+        <div class="tb_box classList" id="bf-classList"> 
         	<table class="table-bordered" style="text-align: center;">
 		        <br>
 		        <tr>
@@ -109,23 +116,29 @@
 		        </tr>
 		        
 		    </table>
+            <br><br>
+            <!--페이징 부분-->
+            <div class="paging-area">
+                <button>&lt;</button>
+
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+                <button>&gt;</button>
+            </div>
         </div>
         
         <script>
-        function bf.list(){
-        	const bf.classList = document.getElementById("bf.classList")
+        function bfList(){
+        	const bfClassList = document.getElementById("bf-classList")
         }
         
         </script> 
                 
         <!--수강후기 버튼을 눌렀을때-->
-        <div class="btn_area">
-            <button type="button" >수강전</button>
-            <button type="button" id="click_btn" >수강완료</button>
-        </div>
-
-
-        <div class="tb_box">
+        <div class="tb_box classList" id="af-classList">
             <table class="table-bordered" style="text-align: center;">
                 <br>
                 <tr>
@@ -158,26 +171,50 @@
                     </td>
                 </tr>
                
-                
             </table>
+            
+            <br><br>
+            
+            <!--페이징 부분-->
+            <div class="paging-area">
+                <button>&lt;</button>
+
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+                <button>&gt;</button>
+            </div>
+
         </div> 
+		
+		<script>
+			$(function(){
+				$("#afBtn").click(function(){ // 수강완료버튼클릭시
+                    //버튼 스타일 변화
+					$(this).css("background-color", "rgb(22, 160, 133)").css("color", "white");
+	            	$("#bfBtn").css("background-color", "rgb(218, 217, 217)").css("color", "black");
+
+                    // div display 변화
+                    $("#bf-classList").hide();
+                    $("#af-classList").show();
+				});
+
+                $("#bfBtn").click(function(){ // 수강전버튼 클릭시
+                    //버튼 스타일 변화
+                    $(this).css("background-color", "rgb(22, 160, 133)").css("color", "white");
+	            	$("#afBtn").css("background-color", "rgb(218, 217, 217)").css("color", "black");
+
+                    // div display 변화
+                    $("#af-classList").hide();
+                    $("#bf-classList").show();
+                })
+
+			})
+		</script>
 
 
-        <!--페이징 부분-->
-        <div class="paging-area">
-            <button>&lt;</button>
-
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>&gt;</button>
-            
-            
-
-
-        </div>
 
         </div>
     </div>
