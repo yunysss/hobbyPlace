@@ -108,7 +108,7 @@
         $(function(){
         	<!--수강내역 결제 완료 클래스-->
 			$("#payMyClass").click(function(){
-				location.href="<%=contextPath%>/myClassList.reg";
+				location.href="<%=contextPath%>/myClassList.reg.?cpage=1";
 			})
 			<!--수강내역 수강 취소 클래스-->
 			$("#refundMyClass").click(function(){

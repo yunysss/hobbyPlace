@@ -114,7 +114,7 @@
 <body>
 	<%@ include file = "../common/myClassMenubar.jsp" %>
 			
-		<div class="content">
+		<div class="content" align="center">
 			<!--로그인한 유저가 결제한 클래스가 없을 때 -->
 			
 			<%if(loginUser != null && list.isEmpty()) {%>				
@@ -187,7 +187,7 @@
 						<!-- Modal Header -->
 						<div class="modal-header">
 						  <h5 class="modal-title" style="margin-left: 163px; font-weight: bold;">결제 상세 내역</h5>
-						  <button type="button" class="close" data-dismiss="modal">&times;</button>
+						  <button type="button" class="close">&times;</button>
 						</div>
 						
 						<!-- Modal body -->
@@ -247,7 +247,7 @@
 					})
 					/*환불신청 버튼*/
 					$("#refundBtn<%=i%>").click(function(){
-						location.href="<%=contextPath%>/refundReqForm.ref";
+						location.href="<%=contextPath%>/refundReqForm.ref?no=[i];
 					})
 					/*재수강 버튼*/
 					$("#reTake").click(function(){
@@ -257,9 +257,19 @@
 				</script>
 				<%} %>
 			<%} %> 		
+			<br><br>
+			<div class="paging-area" style="align:center;">
+				<button>&lt;</button>
+				<button>1</button>
+				<button>2</button>
+				<button>3</button>
+				<button>&gt;</button>
+			</div>
 		</div>
+	
 	</div>
-			
+
+	
 		
 
 
