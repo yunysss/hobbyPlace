@@ -53,6 +53,17 @@ public class RegisterService {
 		close(conn);
 		return m;
 	}
+	
+	public int reviseRegister(int memNo, String memName, String phone, String email) {
+		Connection conn = getConnection();
+		int result = new RegisterDao().reviseRegister(conn, memNo, memName, phone, email);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
 
 	public ArrayList<Register> selectMyClassList(int memNo) {
 		Connection conn = getConnection();

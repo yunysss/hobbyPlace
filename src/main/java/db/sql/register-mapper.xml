@@ -115,6 +115,14 @@
 		 WHERE MEM_NO = ?
 	</entry>
 	
+	<entry key="reviseRegister">
+		UPDATE MEMBER
+		   SET MEM_NAME = ?,
+		       MEM_EMAIL = ?,
+		       MEM_PHONE = ?
+		 WHERE MEM_NO = ?
+	</entry>
+	
 	<entry key="selectRegisterList">
 	SELECT 
 		  TEACH_DATE

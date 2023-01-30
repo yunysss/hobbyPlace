@@ -8,20 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.lesson.model.vo.Lesson;
+import com.google.gson.Gson;
+import com.hp.member.model.vo.Member;
 import com.hp.register.model.service.RegisterService;
 
 /**
- * Servlet implementation class RegisterController
+ * Servlet implementation class AjaxReviseRegisterController
  */
-@WebServlet("/register.reg")
-public class RegisterController extends HttpServlet {
+@WebServlet("/revise.reg")
+public class AjaxReviseRegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterController() {
+    public AjaxReviseRegisterController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,16 +31,16 @@ public class RegisterController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int clNo = Integer.parseInt(request.getParameter("clNo"));
-		String session = request.getParameter("session");
-		String selectDate = request.getParameter("selectDate");
-		int people = Integer.parseInt(request.getParameter("people"));
-	
-		Lesson l = new Lesson(clNo, session, selectDate, people);
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		String memName = request.getParameter("memName");
+		String phone = request.getParameter("phone");
+		String email = request.getParameter("email");
 		
-		Lesson le = new RegisterService().selectLessonRegister(l);
-		request.setAttribute("le", le);
-		request.getRequestDispatcher("views/register/classRegister.jsp").forward(request, response);
+		int result = new RegisterService().reviseRegister(memNo, memName, phone, email);
+		Member m = new RegisterService().selectRegisterMem(memNo);
+		
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(m, response.getWriter());
 	}
 
 	/**

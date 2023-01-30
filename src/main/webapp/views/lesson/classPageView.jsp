@@ -530,7 +530,6 @@
             <div>
                 <form action="<%=contextPath %>/register.reg" id="classCalenderForm">
                 	<input type="hidden" name="clNo" value="<%=le.getClNo() %>">
-                	<input type="hidden" name="memNo" value="<%=loginUser.getMemNo() %>">
                     <div id="classDetail-cal">
                         <div style="background:rgb(180,180,180); height:40px; line-height:40px;">
                             <b>클래스 일정</b>

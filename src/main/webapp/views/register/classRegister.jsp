@@ -2,7 +2,6 @@
     pageEncoding="UTF-8" import="com.hp.lesson.model.vo.Lesson"%>
 <%
 	Lesson le = (Lesson)request.getAttribute("le");
-	Member m = (Member)request.getAttribute("m");
 %>
 <!DOCTYPE html>
 <html>
@@ -95,30 +94,14 @@
                     </tbody>
                 </table>
             </div>
-            <div>
+            <div id="memProfile">
                 <table width="580px">
                     <thead>
                         <tr>
                             <td><b>개인정보 확인</b></td>
                         </tr>
                     </thead>
-    
                     <tbody>
-                        <tr>
-                        <td>
-                            <b>이메일</b><br>
-                            <%= m.getEmail() %> <br><br>
-                            <b>이름</b><br>
-                            <%= m.getMemName() %><br><br>
-                            <b>전화번호</b><br>
-                            <%= m.getPhone() %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center">
-                            <a href="" class="btn btn-sm btn-secondary">개인정보 수정</a>
-                        </th>
-                    </tr>
                     </tbody>
                     <tfoot>
                         <tr>
@@ -227,6 +210,79 @@
 	    </div>
 	  </div>
 	</div>
+	<div class="modal fade" id="edit-modal">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	
+	      <div class="modal-header">
+	        개인정보 수정
+	      </div>
+	      <div class="modal-body">
+	      	<table>
+	      		<tbody></tbody>
+	      	</table>
+	      	<div align="center">
+	      		<button type="submit" class="btn btn-secondary btn-sm" onclick="reviseReg();">수정</button>
+	        	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button><br><br>
+	        </div>
+	      </div>
+	
+	      
+			
+	    </div>
+	  </div>
+	</div>
+	<script>
+		$(function(){
+			reviseReg();
+			console.log(<%=loginUser.getMemNo()%>)
+		})
+		function reviseReg(){
+			$.ajax({
+				url:"<%=contextPath%>/revise.reg",
+				data:{
+					memNo:<%=loginUser.getMemNo()%>,
+					memName:$("input[name='memName']").val(),
+					phone:$("input[name='phone']").val(),
+					email:$("input[name='email']").val()
+				},
+				success:function(m){
+					console.log(m)
+					value1 = "<tr>"
+							+ 	"<td>"
+							+		"<b>이름</b><br>"
+							+		m.memName + "<br><br>"
+							+		"<b>전화번호</b><br>"
+							+		m.phone + "<br><br>"
+							+		"<b>이메일</b><br>"
+							+		m.email
+							+	"</td>"
+							+ "</tr>"
+							+ "<tr>"
+	                        +	"<th style='text-align:center'>"
+                            +		"<a href='' class='btn btn-sm btn-secondary' data-toggle='modal' data-target='#edit-modal'>개인정보 수정</a>"
+                            +	"</th>"
+                            + "</tr>"
+					value2 = "<tr>"
+							+ 	"<td><b>이름</b></td>"
+							+	"<td><input type='text' name='memName' value='" + m.memName + "'></td>"
+							+ "</tr>"
+							+ "<tr>"
+							+	"<td><b>전화번호</b></td>"
+							+	"<td><input type='text' name='phone' value='" + m.phone + "'></td>"
+							+ "</tr>"
+							+ "<tr>"
+							+	"<td><b>이메일</b></td>"
+							+	"<td><input type='email' name='email' value='" + m.email + "'></td>"
+							+ "</tr>"
+					$("#memProfile tbody").html(value1);
+					$("#edit-modal tbody").html(value2);
+				},error:function(){
+					console.log("실패")
+				}
+			})
+		}
+    </script>
     <br clear="both">
     <%@ include file="../common/footerbar.jsp" %>
 </body>

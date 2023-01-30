@@ -204,6 +204,27 @@ public class RegisterDao {
 		
 	}
 	
+	public int reviseRegister(Connection conn, int memNo, String memName, String phone, String email) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reviseRegister");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memName);
+			pstmt.setString(2, email);
+			pstmt.setString(3, phone);
+			pstmt.setInt(4, memNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 
 	/**
 	 * 마이클래스 수강내역부분 조회
