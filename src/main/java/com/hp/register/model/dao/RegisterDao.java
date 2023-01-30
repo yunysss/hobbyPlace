@@ -151,11 +151,13 @@ public class RegisterDao {
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				le = new Lesson(rset.getString("cl_name"),
+						rset.getString("tt_name"),
 						rset.getString("teach_date"),
 						rset.getString("teach_time"),
 						rset.getString("cl_price"),
 						rset.getInt("people"),
-						rset.getString("price"));
+						rset.getString("price"),
+						rset.getString("cl_thumb"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
