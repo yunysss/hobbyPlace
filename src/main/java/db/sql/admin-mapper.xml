@@ -209,32 +209,37 @@
 	</entry>
 	
 	<entry key="searchClass">
-		 SELECT 
-					 CL_NO
-					,G.CT_NAME
-					,T.TT_NAME
-					,CL_NAME
-					,C.ENROLL_DATE
-					,CL_STATUS
-					
-				FROM CLASS C
-				JOIN CATEGORY G USING (CT_NO)
-				JOIN TUTOR T USING (MEM_NO)
-                WHERE 
-                	( CT_NAME||TT_NAME||CL_NAME LIKE ?
-             		   and CT_NAME LIKE ?
-              		   and C.ENROLL_DATE BETWEEN ? AND ?
-              		   and CL_STATUS LIKE ?)
-              		OR  ( CT_NAME LIKE ?)
-              		
-              		
-              	
-                 
-			    ORDER BY CL_NO DESC
-			    
-        
+	SELECT
+			CL_NO
+			,G.CT_NAME
+			,T.TT_NAME
+			,CL_NAME
+			,C.ENROLL_DATE
+			,CL_STATUS
+		
+			FROM CLASS C
+			JOIN CATEGORY G USING (CT_NO)
+			JOIN TUTOR T USING (MEM_NO)
+			WHERE
+			( CT_NAME||TT_NAME||CL_NAME LIKE ?
+			and CT_NAME LIKE ?
+			and C.ENROLL_DATE BETWEEN ? AND ?
+			and CL_STATUS LIKE ?)
+			OR ( CT_NAME LIKE ?)
+		
+
+			ORDER BY CL_NO DESC
+
 	
 	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
 		
 	
 </properties>

@@ -12,20 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.service.LessonService;
-import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 
 /**
- * Servlet implementation class ClassCategorySelectController
+ * Servlet implementation class AjaxClassCategoryListController
  */
-@WebServlet("/ctselect.cl")
-public class ClassCategorySelectController extends HttpServlet {
+@WebServlet("/ctselect.ajax")
+public class AjaxClassCategoryListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClassCategorySelectController() {
+    public AjaxClassCategoryListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,9 +33,8 @@ public class ClassCategorySelectController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String ct = request.getParameter("ct");
-		//검색된 갯수 조회
+		
 		int count = new LessonService().ctSearchCount(ct);
 		request.setAttribute("count", count);
 		//페이징처리
@@ -52,17 +50,11 @@ public class ClassCategorySelectController extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(count,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-
+		
 		ArrayList<Lesson> list = new LessonService().searchCategoryList(ct,pi);
-		ArrayList<Dcategory> dctList = new LessonService().selectDcategory(ct); 
 		
-		request.setAttribute("pi", pi);
-		request.setAttribute("list", list);
-		request.setAttribute("dctList", dctList);
-		request.getRequestDispatcher("views/lesson/categorySelectView.jsp").forward(request, response);
-		
-		
-		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list,response.getWriter());
 	}
 
 	/**

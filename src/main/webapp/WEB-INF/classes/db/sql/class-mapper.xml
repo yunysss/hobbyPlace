@@ -615,6 +615,100 @@
 	</entry>
 	
 	
+
+	<entry key="selectPriceDesc">
+
+				SELECT 
+				       CL_NO
+				     , CT_NAME
+				     , CT_DNAME  
+				     , LOCAL_NAME
+				     , DISTR_NAME
+				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+				     , CL_THUMB
+				     , (SELECT AVG(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				     , (SELECT COUNT(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				  FROM CLASS C
+				  JOIN LOCATION USING(LOCAL_CODE)
+				  JOIN DISTRICT USING(DISTR_CODE)
+				  JOIN CATEGORY USING (CT_NO)
+				  JOIN DCATEGORY USING (CT_DNO)
+				 WHERE CL_STATUS = 2
+				   AND CT_NAME = ?
+				 ORDER
+				    BY CL_PRICE DESC
+		
+		
+	</entry> 
+	
+	<entry key="selectHighStarDesc">
+	SELECT
+			CL_NO
+			, CT_NAME
+			, CT_DNAME
+			, LOCAL_NAME
+			, DISTR_NAME
+			, SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+			, TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+			, CL_THUMB
+			, (SELECT AVG(RE_STAR)
+			FROM REVIEW R
+			WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+			, (SELECT COUNT(RE_STAR)
+			FROM REVIEW R
+			WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		
+			FROM CLASS C
+			JOIN LOCATION USING(LOCAL_CODE)
+			JOIN DISTRICT USING(DISTR_CODE)
+			JOIN CATEGORY USING (CT_NO)
+			JOIN DCATEGORY USING (CT_DNO)
+			WHERE CL_STATUS = 2
+			AND CT_NAME = ?
+			ORDER
+			BY STAR_AVG DESC
+			
+	</entry>
+	
+	<entry key="selectRegisterDesc">
+		 SELECT 
+				       CL_NO
+				     , CT_NAME
+				     , CT_DNAME  
+				     , LOCAL_NAME
+				     , DISTR_NAME
+				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+				     , CL_THUMB
+				     , (SELECT AVG(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				     , (SELECT COUNT(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+                     ,( select count(reg_no)
+                        from register g
+                        group by cl_no
+                        having c.cl_no =g.cl_no )"REG_COUNT"
+				  FROM CLASS C
+				  JOIN LOCATION USING(LOCAL_CODE)
+				  JOIN DISTRICT USING(DISTR_CODE)
+				  JOIN CATEGORY USING (CT_NO)
+				  JOIN DCATEGORY USING (CT_DNO)
+				 WHERE CL_STATUS = 2
+				   AND CT_NAME = ?
+                   ORDER 
+                   BY REG_COUNT DESC
+	
+	
+	</entry>
+	
+	
 	
 
 </properties>
