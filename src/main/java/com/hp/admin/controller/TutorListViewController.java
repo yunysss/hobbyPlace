@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class MemberListViewController
+ * Servlet implementation class TutorListViewController
  */
-@WebServlet("/viewMember.ad")
-public class MemberListViewController extends HttpServlet {
+@WebServlet("/viewTutor.ad")
+public class TutorListViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberListViewController() {
+    public TutorListViewController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,15 +27,13 @@ public class MemberListViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("loginAdmin") == null) { // 로그인 전
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
 			response.sendRedirect(request.getContextPath() + "/loginPage.ad");
 		}else { // 로그인 후
-			
-			request.getRequestDispatcher("views/admin/memberListView.jsp").forward(request, response);
+			request.getRequestDispatcher("views/admin/tutorListView.jsp").forward(request, response);
 		}
 	}
 
