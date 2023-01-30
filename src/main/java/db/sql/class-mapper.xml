@@ -603,7 +603,7 @@ SELECT *
 	</entry> 
 	<entry key="getSchedule">
 		SELECT
-		       S.SCH_NO
+		       S.SCH_NO "SCH_NO"
 		     , SESSION_NO
 		     , START_TIME
 		     , END_TIME
@@ -613,8 +613,8 @@ SELECT *
 		              COUNT(*)
 		         FROM REGISTER
 		        WHERE SCH_NO = S.SCH_NO
-		          AND TO_DATE(TEACH_DATE) = TO_DATE(?)
-		        GROUP BY SCH_NO)
+		          AND TO_DATE(TEACH_DATE) = TO_DATE(?, 'YYYYMMDD')
+		        GROUP BY SCH_NO) "REG_COUNT"
 		  FROM SCHEDULE S
 		  RIGHT JOIN CLASS C ON(S.CL_NO = C.CL_NO)
 		  WHERE S.CL_NO = ?

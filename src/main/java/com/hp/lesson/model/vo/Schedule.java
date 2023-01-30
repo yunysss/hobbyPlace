@@ -8,6 +8,8 @@ public class Schedule {
 	private String startTime;
 	private String endTime;
 	private String hour;
+	private int clMax;
+	private int regCount;
 	
 	public Schedule() {}
 
@@ -28,6 +30,17 @@ public class Schedule {
 		this.sessionNo = sessionNo;
 		this.startTime = startTime;
 		this.endTime = endTime;
+	}
+
+	public Schedule(int schNo, int sessionNo, String startTime, String endTime, String hour, int clMax, int regCount) {
+		super();
+		this.schNo = schNo;
+		this.sessionNo = sessionNo;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.hour = hour;
+		this.clMax = clMax;
+		this.regCount = regCount;
 	}
 
 	public int getSchNo() {
@@ -76,6 +89,22 @@ public class Schedule {
 
 	public void setHour(String hour) {
 		this.hour = hour;
+	}
+
+	public int getClMax() {
+		return clMax;
+	}
+
+	public void setClMax(int clMax) {
+		this.clMax = clMax;
+	}
+
+	public int getRegCount() {
+		return regCount;
+	}
+
+	public void setRegCount(int regCount) {
+		this.regCount = regCount;
 	}
 
 	@Override

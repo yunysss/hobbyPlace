@@ -863,13 +863,19 @@ private Properties prop = new Properties();
 		 String sql = prop.getProperty("getSchedule");
 		 try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, calYear + "/" + calMonth + "/" + day);
+			pstmt.setString(1, calYear + calMonth + day);
 			pstmt.setInt(2, clNo);
 
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				list.add(new Schedule(
-						));
+				list.add(new Schedule(rset.getInt("sch_no"),
+									  rset.getInt("session_no"),
+									  rset.getString("start_time"),
+									  rset.getString("end_time"),
+									  rset.getString("cls_hour"),
+									  rset.getInt("cl_max"),
+									  rset.getInt("reg_count")
+									  ));
 
 			}
 					
