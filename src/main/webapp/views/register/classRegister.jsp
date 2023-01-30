@@ -76,7 +76,7 @@
                     <tbody>
                         <tr>
                             <td rowspan="2" width="110px">
-                                <img src="" height="100" width="100">
+                                <img src="<%= contextPath %>/<%= le.getClThumb() %>" height="100" width="100">
                             </td>
                             <td>
                                 <b>클래스명</b><br>
@@ -86,7 +86,7 @@
                         <tr>
                             <td>
                                 <b>일시</b><br>
-                                <%= le.getStartDate() %> 토요일 오전 10:00 - 오후 12:00
+                                <%= le.getStartDate() %> <%= le.getClSchedule() %>
                             </td>
                         </tr>
                     </tbody>
@@ -104,11 +104,11 @@
                         <tr>
                         <td>
                             <b>이메일</b><br>
-                            goodee@naver.com <br><br>
+                            <%= m.getEmail() %> <br><br>
                             <b>이름</b><br>
-                            김말순<br><br>
+                            <%= m.getMemName() %><br><br>
                             <b>전화번호</b><br>
-                            010-1111-2222
+                            <%= m.getPhone() %>
                         </td>
                     </tr>
                     <tr>
@@ -191,10 +191,21 @@
                     </tr>
                 </tfoot>
             </table>
-            <button type="submit" class="btn btn-sm" id="pay-btn">결제하기</button>
+            <button type="submit" class="btn btn-sm" id="pay-btn" disabled>결제하기</button>
         </div>
     </form>
     </div>
+    <script>
+    $(function(){  
+		$(document).on("click", "input:checkbox", function(){
+			if($("input:checkbox:checked").length == 2) {
+				$("#pay-btn").attr("disabled", false);
+			} else{
+				$("#pay-btn").attr("disabled", true);
+			}
+		})
+	})
+    </script>
     
     <br clear="both">
     <%@ include file="../common/footerbar.jsp" %>

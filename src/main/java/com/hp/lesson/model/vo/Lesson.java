@@ -298,7 +298,7 @@ public class Lesson {
 		this.clDay = clDay;
 	}
 
-	public Lesson(String clName,  String startDate, String clSchedule, String clPrice, int clMax, String clStatus) {
+	public Lesson(String clName,  String startDate, String clSchedule, String clPrice, int clMax, String clStatus, String clThumb) {
 		super();
 		this.clName = clName;
 		this.startDate = startDate;
@@ -306,6 +306,7 @@ public class Lesson {
 		this.clPrice = clPrice;
 		this.clStatus = clStatus;
 		this.clMax = clMax;
+		this.clThumb = clThumb;
 	}
 
 

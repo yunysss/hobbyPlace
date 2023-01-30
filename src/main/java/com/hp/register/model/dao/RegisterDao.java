@@ -155,7 +155,8 @@ public class RegisterDao {
 						rset.getString("teach_time"),
 						rset.getString("cl_price"),
 						rset.getInt("people"),
-						rset.getString("price"));
+						rset.getString("price"),
+						rset.getString("cl_thumb"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

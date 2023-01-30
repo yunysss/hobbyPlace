@@ -91,11 +91,12 @@
 	<entry key="selectLessonRegister">
 		SELECT 
 		       CL_NAME
-		     , TO_DATE('20230127', 'YYYYMMDD') "TEACH_DATE"
+		     , TO_CHAR(TO_DATE('20230127', 'YYYYMMDD'), 'YYYY"년" MM"월" DD"일" (DY)') "TEACH_DATE"
 		     , START_TIME || ' - ' || END_TIME "TEACH_TIME"
 		     , CL_PRICE
 		     , ? "PEOPLE"
 		     , CL_PRICE * ? "PRICE"
+		     , CL_THUMB
 		  FROM CLASS
 		  JOIN SCHEDULE USING(CL_NO)
 		 WHERE CL_NO = ?
