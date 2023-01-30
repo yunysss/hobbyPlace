@@ -246,7 +246,7 @@
                         <span><%= le.getCtDno() %></span>
                         <span>난이도 <%= le.getClLevel() %></span>
                     </div>
-                    <div id="classDetail-likeShare" class="dropdown">
+                    <div id="classDetail-likeShare">
                         <span>❤️<%= le.getLikeCount() %></span>
                         <a href="#" data-toggle="modal" data-target="#shareModal"><img src="<%= contextPath %>/resources/images/share.png" width="25px"></a>
                     </div>
@@ -817,10 +817,9 @@
 		   						clNo:<%=le.getClNo()%>,
 		   						memNo:<%=loginUser.getMemNo()%>
 		   					},
-		   					success:function(result){
-		   						if(result > 0){
-		   							$(".like-btn").text("❤️ 찜하기 해제");
-		   						}
+		   					success:function(le){
+	   							$(".like-btn").text("❤️ 찜하기 해제");
+	   							$("#classDetail-likeShare span").text("❤️" + le.likeCount);
 		   					},error:function(){
 		   						
 		   					}
@@ -832,10 +831,9 @@
    		   						clNo:<%=le.getClNo()%>,
    		   						memNo:<%=loginUser.getMemNo()%>
    		   					},
-   		   					success:function(result){
-   		   						if(result > 0){
-   		   							$(".like-btn").text("🤍 찜하기");
-   		   						}
+   		   					success:function(le){ 
+   		   						$(".like-btn").text("🤍 찜하기");
+   		   						$("#classDetail-likeShare span").text("❤️" + le.likeCount);
    		   					},error:function(){
    		   						
    		   					}
@@ -857,7 +855,7 @@
 			})
 	   	})
 	</script>
-    <div class="modal" id="loginModal">
+    <div class="modal fade" id="loginModal">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-body" align="center">

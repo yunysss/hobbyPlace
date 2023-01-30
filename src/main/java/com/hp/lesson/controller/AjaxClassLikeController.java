@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.hp.lesson.model.service.LessonService;
+import com.hp.lesson.model.vo.Lesson;
 import com.hp.member.model.vo.Member;
 
 /**
@@ -32,12 +33,15 @@ public class AjaxClassLikeController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int boardNo = Integer.parseInt(request.getParameter("clNo"));
+		int clNo = Integer.parseInt(request.getParameter("clNo"));
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		int result = new LessonService().insertLikeClass(boardNo, memNo);
-		
-		response.getWriter().print(result);
+		int result = new LessonService().insertLikeClass(clNo, memNo);
+		if(result > 0) {
+			Lesson le = new LessonService().selectClassPage(clNo);
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(le, response.getWriter());
+		}
 	}
 
 	/**

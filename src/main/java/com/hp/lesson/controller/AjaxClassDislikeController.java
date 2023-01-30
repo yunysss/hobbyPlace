@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.hp.lesson.model.service.LessonService;
+import com.hp.lesson.model.vo.Lesson;
 
 /**
  * Servlet implementation class AjaxClassDislikeController
@@ -28,12 +30,15 @@ public class AjaxClassDislikeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo = Integer.parseInt(request.getParameter("clNo"));
+		int clNo = Integer.parseInt(request.getParameter("clNo"));
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		int result = new LessonService().deleteLikeClass(boardNo, memNo);
-		
-		response.getWriter().print(result);
+		int result = new LessonService().deleteLikeClass(clNo, memNo);
+		if(result > 0) {
+			Lesson le = new LessonService().selectClassPage(clNo);
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(le, response.getWriter());
+		}
 	}
 
 	/**
