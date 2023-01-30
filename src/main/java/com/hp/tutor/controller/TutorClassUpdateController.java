@@ -117,8 +117,8 @@ public class TutorClassUpdateController extends HttpServlet {
 						for (int j = 0; j < fileNo.length; j++) {
 							origin[j] = Integer.parseInt(fileNo[j]);
 							at.setFileNo(origin[j]);
-						}
-
+						}	
+					
 					} else {// 기존 첨부파일 없을경우=> insert
 						at.setRefNo(clNo);
 					}

@@ -822,11 +822,11 @@ private Properties prop = new Properties();
 		 try {
 			pstmt = conn.prepareStatement(sql);
 
-			int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() -1;
+			//int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
+			//int endRow = startRow + pi.getBoardLimit() -1;
 			pstmt.setString(1, category);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			//pstmt.setInt(2, startRow);
+			//pstmt.setInt(3, endRow);
 
 			rset = pstmt.executeQuery();
 			while(rset.next()) {

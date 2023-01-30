@@ -99,7 +99,7 @@
 <%@include file="../common/tuteeMenubar.jsp" %>
   <div class="outer">
   		<%if (list.isEmpty()){ %>
-          	<div id="empty"valign="center">
+          	<div id="empty" align="center">
   			<h5>등록된 클래스가 없습니다.🥲</h5>
   			</div>
         <%} else{%>
@@ -128,9 +128,9 @@
               지역
             </button>
             <div class="dropdown-menu region">
-              <a class="dropdown-item" href="#">서울</a>
-              <a class="dropdown-item" href="#">인천</a>
-              <a class="dropdown-item" href="#">경기</a>
+              <a class="dropdown-item" href="#" data-value="서울">서울</a>
+              <a class="dropdown-item" href="#" data-value="인천">인천</a>
+              <a class="dropdown-item" href="#"data-value="경기">경기</a>
             </div>
             </div>
             <div class="dropdown">
@@ -145,6 +145,14 @@
                 <a class="dropdown-item" href="#">오후</a>
                </div>
               </div>
+              
+              
+              <script>
+          
+              
+              
+              
+              </script>
              
             
           
@@ -160,23 +168,23 @@
 		    </button>
 		    <div class="dropdown-menu price">
 		      <a class="dropdown-item" onclick="rowPrice();">가격낮은순</a>
-		      <a class="dropdown-item" href="#" onclick="highPrice();">가격높은순</a>
+		      <a class="dropdown-item" onclick="highPrice();">가격높은순</a>
 		      <a class="dropdown-item" href="#">인기순</a>
 		      <a class="dropdown-item" href="#">평점순</a>
 		      
 		    </div>
        	 </div>
-  
-       	 
-       
-       <!--  
-       	    <script>
+
+
+
+			<script>
               function rowPrice(){
                  $.ajax({
                     url:"<%=contextPath%>/priceasc.cl ",
                     data:{ 
                         cpage : 1 ,                      
                        category :'<%=list.get(1).getCtNo()%>',
+                       clNo :'<%=list.get(1).getClNo()%>'
                         
                     },
                     type:"post",
@@ -186,33 +194,39 @@
                        let value = "";
                        for(let i=0; i<result.length; i++){
                           console.log(result[i]);
-                          
-                          
-                          value +=+"<input type='hidden'  value='"+ result[i].clNo + "'>"
-                                	 +"<tr>" +"<td>"+ "<div id='thumbnail'>"
-                                    +"<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + result[i].clThumb + "'>"
-                                    +"</div></td></tr>"
-                                    + "<tr><td style='font-size: 11px;'>"+ result[i].distrCode + "</td></tr>"
-                                       +"<tr><th>"+result[i].clName + "</th></tr>"
-                                      +"<tr><th>"+result[i].clPrice + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small>⭐"+result[i].clStarAvg+".0(" + result[i].clStarCount + ")</small></th>"
-                                      +"</tr>"
+                          value += "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + result[i].clNo + "'>"
+                                	"<tr>"+"<td>"+"<div id='thumbnail'>"
+                                    +"<img width='180' height='180' src='" + '<%=contextPath%>'+ "/"+ result[i].clThumb+ "'>"
+												+ "</div></td></tr>"
+												+ "<tr><td style='font-size: 11px;'>"
+												+ result[i].distrCode
+												+ "</td></tr>"
+												+ "<tr><th>"
+												+ result[i].clName
+												+ "</th></tr>"
+												+ "<tr><th>"
+												+ result[i].clPrice
+												+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small>⭐"
+												+ result[i].clStarAvg
+												+ ".0("
+												+ result[i].clStarCount
+												+ ")</small></th>" + "</tr>"
+												+ "</a>"
+		
+									}
+									$(".thumbnail").html(value);
 
-                             } 
-                                     $(".thumbnail").html(value);
-                           
-                    },error:function(){
-                       console.log("조회용 ajax통신 실패");
-                    }
- 
-                 })
-              }
-     
-
-           </script>
-       	 
--->
-
-        </div>
+								},
+								error : function() {
+									console.log("조회용 ajax통신 실패");
+								}
+                 
+							})
+						}
+			</script>
+			
+	
+		</div>
         <div class="container">
         
                <div class="list-area">
@@ -274,16 +288,7 @@
        
               </script>
               
-          <script>
-               function rowPrice(){
-            	   Collections.sort(list);
-            	   }
-            	   
-               }
-              
-              
-              
-           </script>
+         
                    
 
 

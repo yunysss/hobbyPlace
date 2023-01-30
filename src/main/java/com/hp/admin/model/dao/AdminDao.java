@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
@@ -507,6 +508,43 @@ public class AdminDao {
 			close(rset);
 		}
 		
+		return list;
+		
+	}
+	
+	public ArrayList<Lesson> searchClass(Connection conn, Search s){
+		ArrayList<Lesson> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchClass");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+s.getKeyword()+"%");
+			pstmt.setString(2, "%"+s.getCategory()+"%");
+			pstmt.setString(3, s.getStarDate());
+			pstmt.setString(4, s.getEndDate());
+			pstmt.setString(5, "%"+ s.getStatus()+"%");
+			pstmt.setString(6, "%"+s.getCategory()+"%");
+			
+		
+			rset= pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Lesson(rset.getInt("cl_no"),
+									rset.getString("ct_name"),
+									rset.getString("tt_name"),
+									rset.getString("cl_name"),
+									rset.getDate("enroll_date"),
+									rset.getString("cl_status")
+									
+						));
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
 		return list;
 		
 	}
