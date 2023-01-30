@@ -8,6 +8,7 @@ import static com.hp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.member.model.vo.Member;
 import com.hp.register.model.dao.RegisterDao;
@@ -70,9 +71,9 @@ public class RegisterService {
 	 * @param memNo
 	 * @return 로그인한 유저의 결제한 클래스 목록
 	 */
-	public ArrayList<Register> selectMyClassList(int memNo) {
+	public ArrayList<Register> selectMyClassList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Register> list = new RegisterDao().selectRegisterList(conn, memNo);
+		ArrayList<Register> list = new RegisterDao().selectMyClassList(conn, pi);
 		close(conn);
 		return list;
 	}

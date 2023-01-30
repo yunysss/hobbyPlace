@@ -548,6 +548,30 @@ public class AdminDao {
 		return list;
 		
 	}
+
+
+
+	/** 기본검색으로 회원조회시 회원리스트 select
+	 * @author 수연
+	 * @param conn
+	 * @param sGroup
+	 * @param fCategory
+	 * @param lineup
+	 * @return list
+	 */
+	public ArrayList<Member> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup) {
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberList1");
+		try {
+			pstmt=conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	
 
 	

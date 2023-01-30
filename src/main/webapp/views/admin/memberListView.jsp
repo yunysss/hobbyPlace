@@ -59,7 +59,7 @@
 					<option value="asc">오름차순</option>
 				</select>
 
-				<button type="button" class="sButton" id="basicSearch">검색</button>
+				<button type="button" class="sButton" id="basicSearch" onclick="bSearch();">검색</button>
 				
 				<br>
 				
@@ -134,48 +134,87 @@
 					
 					<button type="button" class="sButton" id="detailSearch">검색</button>
 					<br>
-					<script>
-						$(function(){
-							// 세부검색창에서 성별과 탈퇴여부 옵션 선택하면 텍스트검색창사라지고 select창 나타내기
-							$(".sCategory").change(function(){
-								if($(this).val()=='gender'){
-									$("#searchKey").css("display", "none");
-									$("#selectValue").show();
-									$("#selectValue").empty();
-									$("#selectValue").append("<option value='M'> 남성 </option>");
-									$("#selectValue").append("<option value='F'> 여성 </option>");
-									$("#selectValue").append("<option value='X'> 선택안함 </option>");
-								}else if($(this).val()=='memDrop'){
-									$("#searchKey").css("display", "none");
-									$("#selectValue").show();
-									$("#selectValue").empty();
-									$("#selectValue").append("<option value='N'> 탈퇴X </option>");
-									$("#selectValue").append("<option value='Y'> 탈퇴O</option>");
-								}else{
-									$("#searchKey").show();
-									$("#selectValue").empty();
-									$("#selectValue").css("display", "none");
-								}
-							});
-							
-							// 스위치 버튼 누르면 세부검색창 보여지기+기존검색버튼 사라짐
-							$("#flexSwitchCheck").click(function(){
-								var checked = $("#flexSwitchCheck").is(":checked");
-								if(checked){
-									$("#basicSearch").css("display", "none");
-									$(".dtCate").show();
-								}else{
-									$("#basicSearch").show();
-									$(".dtCate").css("display", "none");
-									//$(".dtCate").children().val('');
-								}
-							});
-								
-						})
-					</script>
 				</div>
-
 		</div>
+		<script>
+			$(function(){
+				// 세부검색창에서 성별과 탈퇴여부 옵션 선택하면 텍스트검색창사라지고 select창 나타내기
+				$(".sCategory").change(function(){
+					if($(this).val()=='gender'){
+						$("#searchKey").css("display", "none");
+						$("#selectValue").show();
+						$("#selectValue").empty();
+						$("#selectValue").append("<option value='M'> 남성 </option>");
+						$("#selectValue").append("<option value='F'> 여성 </option>");
+						$("#selectValue").append("<option value='X'> 선택안함 </option>");
+					}else if($(this).val()=='memDrop'){
+						$("#searchKey").css("display", "none");
+						$("#selectValue").show();
+						$("#selectValue").empty();
+						$("#selectValue").append("<option value='N'> 탈퇴X </option>");
+						$("#selectValue").append("<option value='Y'> 탈퇴O</option>");
+					}else{
+						$("#searchKey").show();
+						$("#selectValue").empty();
+						$("#selectValue").css("display", "none");
+					}
+				});
+				
+				// 스위치 버튼 누르면 세부검색창 보여지기+기존검색버튼 사라짐
+				$("#flexSwitchCheck").click(function(){
+					var checked = $("#flexSwitchCheck").is(":checked");
+					if(checked){
+						$("#basicSearch").css("display", "none");
+						$(".dtCate").show();
+					}else{
+						$("#basicSearch").show();
+						$(".dtCate").css("display", "none");
+						//$(".dtCate").children().val('');
+					}
+				});	
+			})
+		</script>
+		
+		<!-- 기본검색용 ajax -->
+		<script> 
+			function bSearch(){
+				$.ajax({
+					url:"<%=contextPath%>/memberBasicSearch.ad",
+					data:{
+						sGroup:$('[name=sGroup]:checked').val(),
+						fCategory:$(".fCategory").val(),
+						lineup:$(".lineup").val()
+					},
+					type:"post",
+					success:function(result){
+						console.log(result);
+						
+						let value="";
+						for(let i=0; i<result.length; i++){
+							value += "<tr>"
+					        			+ "<td>01</td>"
+								        + "<td>홍길동</td>"
+								        + "<td>N</td>"
+								        + "<td>2022-12-15</td>"
+								        + "<td>10</td>"
+								        + "<td>5</td>"
+								        + "<td>15</td>"
+								        + "<td>218600</td>"
+								        + "<td>john@example.com</td>"
+								        + "<td>010-1111-9999</td>"
+								        + "<td>서울시 양천구 목1동 XXXX-XXXX</td>"
+								        + "<td>남</td>"
+								        + "<td>X</td>"
+								        + "</tr>";
+						}
+						$(".listTable tbody").html(value);
+						
+					},error:function(){
+						console.log("ajax 통신 실패");
+					}
+				})
+			}
+		</script>
 		<div class="contentMain">
   		
 			<div class="container mt-3 table-responsive-xxl" style="overflow-x: auto;">

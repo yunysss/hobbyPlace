@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.hp.register.model.vo.Register"%>
-    
+    pageEncoding="UTF-8" %>
+<%@ page import="java.util.ArrayList, com.hp.register.model.vo.Register, com.hp.common.model.vo.PageInfo" %>
  <%
+	PageInfo pi = (PageInfo)request.getAttribute("pi"); 
  	ArrayList<Register> list = (ArrayList<Register>)request.getAttribute("list");
+ 
  %>
 <!DOCTYPE html>
 <html>
@@ -132,7 +134,7 @@
 					<div id="class-area">
 										
 						<div id="classContent">
-							<p><%=list.get(i).getRegDate() %> 결제</p>
+							<p style="text-align:left"><%=list.get(i).getRegDate() %> 결제</p>
 								<div id="classThumbnail">
 									<img src="<%=contextPath%>/<%=list.get(i).getClThumb() %>"> 
 									<br>
@@ -187,7 +189,7 @@
 						<!-- Modal Header -->
 						<div class="modal-header">
 						  <h5 class="modal-title" style="margin-left: 163px; font-weight: bold;">결제 상세 내역</h5>
-						  <button type="button" class="close">&times;</button>
+						  
 						</div>
 						
 						<!-- Modal body -->
@@ -257,14 +259,22 @@
 				</script>
 				<%} %>
 			<%} %> 		
+			
 			<br><br>
 			<div class="paging-area" style="align:center;">
+				<%if(pi.getCurrentPage()!=1){ %>
 				<button>&lt;</button>
-				<button>1</button>
-				<button>2</button>
-				<button>3</button>
+				<%} %>
+				
+				<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+					<button><%= p %></button>
+				<%} %>
+				
+				<%if(pi.getCurrentPage()!=pi.getMaxPage()){ %>
 				<button>&gt;</button>
+				<%} %>
 			</div>
+			
 		</div>
 	
 	</div>

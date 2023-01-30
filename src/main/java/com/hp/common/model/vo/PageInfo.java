@@ -9,6 +9,7 @@ public class PageInfo {
 	private int maxPage; // 가장 마지막 페이지(총 페이지 수)
 	private int startPage; // 사용자가 요청한 페이지 하단의 페이징바의 시작수
 	private int endPage;  // 사용자가 요청한 페이지 하단의 페이징바의 끝 수
+	private int memNo;
 	
 	public PageInfo() {}
 
@@ -22,6 +23,20 @@ public class PageInfo {
 		this.maxPage = maxPage;
 		this.startPage = startPage;
 		this.endPage = endPage;
+	}
+	
+
+	public PageInfo(int listCount, int currentPage, int pageLimit, int boardLimit, int maxPage, int startPage,
+			int endPage, int memNo) {
+		super();
+		this.listCount = listCount;
+		this.currentPage = currentPage;
+		this.pageLimit = pageLimit;
+		this.boardLimit = boardLimit;
+		this.maxPage = maxPage;
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.memNo = memNo;
 	}
 
 	public int getListCount() {
@@ -79,13 +94,23 @@ public class PageInfo {
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
+	
+	
+	public int getMemNo() {
+		return memNo;
+	}
+
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
+	}
 
 	@Override
 	public String toString() {
 		return "PageInfo [listCount=" + listCount + ", currentPage=" + currentPage + ", pageLimit=" + pageLimit
 				+ ", boardLimit=" + boardLimit + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
-				+ endPage + "]";
+				+ endPage + ", memNo=" + memNo + "]";
 	}
+
 	
 
 

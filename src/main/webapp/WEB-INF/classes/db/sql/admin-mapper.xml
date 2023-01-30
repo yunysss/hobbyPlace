@@ -233,13 +233,11 @@
 	
 	</entry>
 	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 기본검색으로 회원조회시 회원리스트 -->
+	<entry key="selectMemberList1">
+		
+		
+	</entry>
 		
 	
 </properties>
