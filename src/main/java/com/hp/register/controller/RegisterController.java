@@ -38,7 +38,11 @@ public class RegisterController extends HttpServlet {
 		int people = Integer.parseInt(request.getParameter("people"));
 	
 		Lesson l = new Lesson(clNo, session, selectDate, people);
+		
 		Lesson le = new RegisterService().selectLessonRegister(l);
+		Member m = new RegisterService().selectRegisterMem(memNo);
+		request.setAttribute("le", le);
+		request.setAttribute("m", m);
 		request.getRequestDispatcher("views/register/classRegister.jsp").forward(request, response);
 	}
 

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.member.model.vo.Member;
 import com.hp.register.model.dao.RegisterDao;
 import com.hp.register.model.vo.Register;
 
@@ -44,6 +45,13 @@ public class RegisterService {
 		Lesson le = new RegisterDao().selectLessonRegister(conn, l);
 		close(conn);
 		return le;
+	}
+	
+	public Member selectRegisterMem(int memNo) {
+		Connection conn = getConnection();
+		Member m = new RegisterDao().selectRegisterMem(conn, memNo);
+		close(conn);
+		return m;
 	}
 
 	public ArrayList<Register> selectMyClassList(int memNo) {

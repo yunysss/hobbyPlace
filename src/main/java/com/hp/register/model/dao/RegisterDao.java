@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.member.model.vo.Member;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
 
@@ -29,6 +30,12 @@ public class RegisterDao {
 		}
 	}
 	
+	/**
+	 * @author 예서
+	 * @param memNo 튜터 회원번호
+	 * @param status 예약 진행 상태
+	 * @return 로그인한 튜터의 예약승인 페이지에 띄울 list
+	 */
 	public ArrayList<Register> selectTutorRegister(Connection conn, int memNo, String status){
 		ArrayList<Register> rList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -60,6 +67,11 @@ public class RegisterDao {
 		return rList;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param regNo 선택한 예약번호
+	 * @return 선택한 예약번호의 상세정보
+	 */
 	public Register selectDetailApproval(Connection conn, int regNo) {
 		Register r = null;
 		PreparedStatement pstmt = null;
@@ -93,6 +105,12 @@ public class RegisterDao {
 		return r;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param regSta 예약승인/신청반려
+	 * @param regNo 예약번호
+	 * @return 예약진행상태 update
+	 */
 	public int updateRegister(Connection conn, int regSta, int regNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -112,6 +130,11 @@ public class RegisterDao {
 		return result;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param l 신청한 클래스 정보
+	 * @return 신청한 클래스 상세 정보
+	 */
 	public Lesson selectLessonRegister(Connection conn, Lesson l) {
 		Lesson le = null;
 		PreparedStatement pstmt = null;
@@ -126,14 +149,14 @@ public class RegisterDao {
 			pstmt.setString(4, l.getClSchedule());
 			
 			rset = pstmt.executeQuery();
-			
-			le = new Lesson(rset.getString("cl_name"),
-							rset.getString("teach_date"),
-							rset.getString("teach_time"),
-							rset.getString("cl_price"),
-							rset.getInt("people"),
-							rset.getString("price"));
-			
+			if(rset.next()) {
+				le = new Lesson(rset.getString("cl_name"),
+						rset.getString("teach_date"),
+						rset.getString("teach_time"),
+						rset.getString("cl_price"),
+						rset.getInt("people"),
+						rset.getString("price"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -144,6 +167,41 @@ public class RegisterDao {
 		return le;
 		
 	}
+	
+	/**
+	 * @author 예서
+	 * @param memNo 클래스 신청한 멤버번호
+	 * @return 멤버의 개인정보
+	 */
+	public Member selectRegisterMem(Connection conn, int memNo) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectRegisterMem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("mem_no"),
+								rset.getString("mem_name"),
+								rset.getString("mem_email"),
+								rset.getString("mem_phone"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+		
+	}
+	
 
 	/**
 	 * 마이클래스 수강내역부분 조회

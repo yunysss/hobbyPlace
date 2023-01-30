@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.hp.lesson.model.vo.Lesson"%>
+<%
+	Lesson le = (Lesson)request.getAttribute("le");
+	Member m = (Member)request.getAttribute("m");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,13 +80,13 @@
                             </td>
                             <td>
                                 <b>클래스명</b><br>
-                                앙금플라워떡케이크 만들기
+                                <%= le.getClName() %>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <b>일시</b><br>
-                                2023-1-27 토요일 오전 10:00 - 오후 12:00
+                                <%= le.getStartDate() %> 토요일 오전 10:00 - 오후 12:00
                             </td>
                         </tr>
                     </tbody>

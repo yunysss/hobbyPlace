@@ -82,6 +82,14 @@ public class Member {
 		this.memDrop = memDrop;
 	}
 
+	public Member(int memNo, String memName, String email, String phone) {
+		super();
+		this.memNo = memNo;
+		this.memName = memName;
+		this.email = email;
+		this.phone = phone;
+	}
+
 
 	public int getMemNo() {
 		return memNo;
