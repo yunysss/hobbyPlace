@@ -253,6 +253,7 @@
 	            		$("select[name=category] option").each(function(){
 	            			if($(this).text() == "<%=l.getCtNo()%>"){
 	            				$(this).attr("selected",true);
+	            				changeCt();
 	            			}
 	            		})
 	            		
@@ -593,21 +594,21 @@
 	                    <img src="<%=contextPath %>/<%=atList.get(0).getFilePath()+atList.get(0).getChangeName() %>" alt="" id="contentImg1" width="170" height="100" onclick="clickFile(2);">
 	                    <img src="<%=contextPath %>/<%=atList.get(1).getFilePath()+atList.get(1).getChangeName() %>" alt="" id="contentImg2" width="170" height="100" onclick="clickFile(3);">
 	                    <img src="<%=contextPath %>/<%=atList.get(2).getFilePath()+atList.get(2).getChangeName() %>" alt="" id="contentImg3" width="170" height="100" onclick="clickFile(4);">
-	                    <%} %>
+	                  	<%} %>
 	                    <div style="font-size:12px;">🔺첫번째 선택한 사진이 썸네일 이미지로 사용됩니다. 사진은 4장 모두 등록해주세요</div>
 					
 	                    <div id="file-area" style="display: none;">
-	                        <input type="file" name="file1" onchange="loadImg(this,1);" required> 
-	                        <input type="file" name="file2" onchange="loadImg(this,2);" required>
-	                        <input type="file" name="file3" onchange="loadImg(this,3);" required> 
-	                        <input type="file" name="file4" onchange="loadImg(this,4);" required>
+	                        <input type="file" name="file1" onchange="loadImg(this,1);"  value="<%=contextPath %>/<%=l.getClThumb()%>" required> 
+	                        <input type="file" name="file2" onchange="loadImg(this,2);" value="<%=contextPath %>/<%=atList.get(0).getFilePath()+atList.get(0).getChangeName() %>" required>
+	                        <input type="file" name="file3" onchange="loadImg(this,3);" value="<%=contextPath %>/<%=atList.get(1).getFilePath()+atList.get(1).getChangeName() %>"required> 
+	                        <input type="file" name="file4" onchange="loadImg(this,4);" value="<%=contextPath %>/<%=atList.get(2).getFilePath()+atList.get(2).getChangeName() %>" required>
 	                        
 	                        <input type="hidden" name="originThumb" value="<%=l.getClThumb()%>">
 	                       <%for (Attachment at : atList){ %>
 	                        <input type="hidden" name="originfile" value="<%=at.getFileNo()%>">
 	                        <%} %>
 	                    
-	                    
+	           
 	                    
 	                    </div>
 	                    

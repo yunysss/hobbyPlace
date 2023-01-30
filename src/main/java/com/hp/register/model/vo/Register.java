@@ -90,6 +90,22 @@ public class Register {
 		this.distrName = distrName;
 		this.ttName = ttName;
 	}
+	
+	
+	public Register(String regPay, int regNo, String regPrice, String regCount, String regSta, String clThumb,
+			String clName, String startTime, String distrName, String ttName) {
+		super();
+		this.regPay = regPay;
+		this.regNo = regNo;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.clThumb = clThumb;
+		this.clName = clName;
+		this.startTime = startTime;
+		this.distrName = distrName;
+		this.ttName = ttName;
+	}
 
 	public int getRegNo() {
 		return regNo;

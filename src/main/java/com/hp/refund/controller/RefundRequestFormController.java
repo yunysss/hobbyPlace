@@ -1,11 +1,17 @@
 package com.hp.refund.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.hp.member.model.vo.Member;
+import com.hp.refund.model.service.RefundService;
+import com.hp.register.model.vo.Register;
 
 /**
  * Servlet implementation class RefundRequestFormController
@@ -26,6 +32,13 @@ public class RefundRequestFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		Register r =new RefundService().selectRefundClass(memNo);
+		request.setAttribute("r", r);
+		
 		request.getRequestDispatcher("views/refund/refundRequestForm.jsp").forward(request, response);
 	
 	}

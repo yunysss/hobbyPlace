@@ -14,7 +14,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-        div, p, form, input{box-sizing:border-box;}
+        div, p, form, input, table{box-sizing:border-box;}
         a{text-decoration: none !important; color:black!important}
 
         .outer{width:1000px; margin:auto; margin-top:20px;}
@@ -99,7 +99,7 @@
 	    	border-radius:50%; 
 	    	margin:auto;
     	}
-	    .possibleDay{backGround:rgb(107, 155, 164); color:white;}
+	    .possibleDay{background:lightgray; color:white;}
 	    .possibleDay:hover{cursor:pointer; opacity:0.5;}
         
         #classDetail-cal>table{
@@ -112,25 +112,36 @@
         
         
         /* 날짜 선택하면 나타나는 창 */
+        #classDetail-date{
+            overflow-y:auto; 
+            overflow-x:hidden;
+        }
+        #classDetail-date::-webkit-scrollbar{height: 8px;}
+		#classDetail-date::-webkit-scrollbar-track{background-color: rgb(240,240,240);}
+		#classDetail-date::-webkit-scrollbar-thumb{
+		  border-radius: 3px;
+		  background-color: rgb(180, 180, 180);
+		}
         #classDetail-date>table{
-            width:310px;
-            height:100px;
+            width:100%;
             margin-top:10px;
             background:white;
             color:black;
         }
         #classDetail-date td{
             text-align:left;
+            padding-left:20px;
         }
-        #classDetail-price{
-            height:85px;
-            width:310px;
-            margin-top:10px;
+        #classDetail-date label{
+        	display:inline-block;
+        	width:300px
         }
-        #classDetail-price>*{
-            color:black;
+        #classDetail-price *{
             float:right;
-            margin:5px;
+            color:black;
+        }
+        #classDetail-price>div>p{
+        	margin-top:10px;
         }
 
         /* classDetail-cal button 스타일 */
@@ -682,15 +693,16 @@
 					    
 					            // 기존 선택일의 표시형식 초기화
 					            if(document.getElementsByClassName("choiceDay")[0]) {
-					                document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "rgb(107, 155, 164)";
+					                document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "lightgray";
 					                document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
 					            }
 					            // 선택일 체크 표시
-					            column.firstChild.style.backgroundColor = "rgb(213, 138, 122)";
+					            column.firstChild.style.backgroundColor = "rgb(107, 155, 164)";
 					            
 					            // 선택일 클래스명 변경
 					            column.firstChild.classList.add("choiceDay");
 					            
+					            $("#classDetail-date").css({width : "310", height: "80"})
 					            $.ajax({
 					            	url:"<%=contextPath%>/getSchedule.cl",
 					            	data:{
@@ -700,41 +712,63 @@
 					            		day:day
 					            	},
 					            	success:function(list){
-					            		console.log(list)
+					            		let value1 = "<table>";
+					            		let value2 = "";
+					            		for(let i=0; i<list.length; i++){
+					            			value1 += "<tr>"
+					            					+	"<td>"
+					            					+		"<input type='radio' name='session' id='session" + i + "'>"
+					            					+		"<input type='hidden' value='" + list[i].regCount + "'>"
+					            					+	"</td>"
+					            					+	"<td>"
+					            					+		"<label for='session" + i + "'>" + calYear + "년 " + calMonth + "월 " + day + "일<br>"
+					            					+		list[i].startTime + " - " + list[i].endTime 
+					            					+		" (" + list[i].regCount + "명/" + list[i].clMax + "명)</label>"
+					            					+	"</td>"
+					            					+ "</tr>"
+					            		}
+					            		value1 += "</table>"
+				            			value2 += "<div>"
+				            				+	"인원 선택&nbsp;&nbsp;&nbsp;"
+				            				+	"<select name='people'>"
+			            					+   "</select><br>"
+				            				+	"<p>총 결제 금액  0원</p>"
+				            				+ "</div>"
+					            		
+					            		$("#classDetail-date").html(value1);
+					            		$("#classDetail-price").html(value2);
+					            		
 					            	},error:function(){
 					            		
 					            	}
 					            })
 					        }
-					    
-					        // 두자리수 변경
+					        $(document).on("change", "input[name=session]", function(){
+					        	value2 = "<div>"
+		            				+	"인원 선택&nbsp;&nbsp;&nbsp;"
+		            				+	"<select name='people'>";
+		            			for(let j=1; j<=<%=le.getClMax()%> - $(this).next().val(); j++){
+		            				value2 += "<option value='" + j + "'>" + j + "명</option>"
+		            			}
+            					value2 +=   "</select><br>"
+		            				+	"<p align='right' id='totalPrice'>총 결제 금액  "+ CommaFormat(<%=le.getClPrice()%>)+"원</p>"
+		            				+ "</div>"
+	            				$("#classDetail-price").html(value2);
+					        })
+					        
+					        $(document).on("change", "select[name=people]", function(){
+					        	$("#totalPrice").text("총 결제 금액  " + CommaFormat($(this).val() * <%=le.getClPrice()%>) + "원")
+					        })
+					        function CommaFormat(x) {
+							  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							}
 					    
 					    </script>
                         <!-- 날짜 선택하면 나타나는 창 -->
                         <div id="classDetail-date">
-                            <table>
-                                <tr>
-                                    <td>
-                                        &nbsp;
-                                        <input type="radio" id="" name="session">
-                                        <label for="">날짜 시간</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        &nbsp;
-                                        <input type="radio" id="" name="session">
-                                        <label for="">날짜 시간</label>
-                                    </td>
-                                </tr>
-                            </table>
                         </div>
+                        <br>
                         <div id="classDetail-price">
-                            <div>
-                                <span style="font-size:14px;"><b>인원 선택</b></span> &nbsp;&nbsp;&nbsp;
-                                <input type="number" name="amount" min="1" max="최대인원" step="1" value="1" style="width:70px; text-align:center">
-                            </div>
-                            <p>총 결제 금액 99,000원</p>
                         </div>
                         <div>
                         	<% if(likeStatus == 0) {%>

@@ -166,8 +166,10 @@
 		      
 		    </div>
        	 </div>
+  
+       	 
        
-       
+       <!--  
        	    <script>
               function rowPrice(){
                  $.ajax({
@@ -208,7 +210,7 @@
 
            </script>
        	 
-
+-->
 
         </div>
         <div class="container">
@@ -272,6 +274,18 @@
        
               </script>
               
+          <script>
+               function rowPrice(){
+            	   Collections.sort(list);
+            	   }
+            	   
+               }
+              
+              
+              
+           </script>
+                   
+
 
 
     </div>

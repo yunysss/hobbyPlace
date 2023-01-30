@@ -1,5 +1,7 @@
 package com.hp.refund.model.dao;
 
+import static com.hp.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -8,9 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
-import static com.hp.common.JDBCTemplate.*;
 
 import com.hp.refund.model.vo.Refund;
+import com.hp.register.model.vo.Register;
 
 public class RefundDao {
 private Properties prop = new Properties();
@@ -191,6 +193,67 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		return r;
+	}
+
+	public ArrayList<Refund> selectMyRefundClassList(Connection conn, int memNo) {
+		ArrayList<Refund> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyRefundClassList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset= pstmt.executeQuery();
+			
+		
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public Register selectRefundClass(Connection conn, int memNo) {
+		//select=>한행
+		Register r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		
+		String sql = prop.getProperty("selectRefundClass");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = new Register (
+								  rset.getString("reg_pay"),
+								  rset.getInt("reg_no"),
+								  rset.getString("reg_price"),
+								  rset.getString("reg_count"),
+								  rset.getString("reg_sta"),
+								  rset.getString("cl_thumb"),
+								  rset.getString("cl_name"),
+								  rset.getString("start_time"),
+								  rset.getString("distr_name"),
+								  rset.getString("tt_name")
+								);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
+		
+		
 	}
 
 }

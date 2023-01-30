@@ -96,7 +96,7 @@
 		border: 0;
 	}
 
-	#btn1, #reTake{background: rgb(35, 104, 116); color:white;}
+	.csBtn, #reTake{background: rgb(35, 104, 116); color:white;}
 
 	.modalTB { width: 420px; margin: 0;}
 	#payment1 {text-align: right; font-size: 10px;}
@@ -127,41 +127,41 @@
 			
 			<%} else{ %>
 			<!--결제한 승인완료 클래스가 있을 때-->
-				<%for(Register r :list){ %>
+				<%for(int i=0; i<list.size(); i++){ %>
 				
 					<div id="class-area">
 										
 						<div id="classContent">
-							<p><%=r.getRegDate() %> 결제</p>
+							<p><%=list.get(i).getRegDate() %> 결제</p>
 								<div id="classThumbnail">
-									<img src="<%=contextPath%>/<%=r.getClThumb() %>"> 
+									<img src="<%=contextPath%>/<%=list.get(i).getClThumb() %>"> 
 									<br>
-									<p><%=r.getTtName() %> 튜터</p>
+									<p><%=list.get(i).getTtName() %> 튜터</p>
 								</div>
 							<div id="classDetail">
 								<table  border="0">
 									<thead>
 										<tr>
 											<td >주문번호</td>
-											<td colspan="3"><%=r.getRegNo() %></td>
+											<td colspan="3"><%=list.get(i).getRegNo() %></td>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td colspan="4" id="classTitle"><%=r.getClName() %></td>
+											<td colspan="4" id="classTitle"><%=list.get(i).getClName() %></td>
 										</tr>
 										<tr>
-											<td colspan="4"><%=r.getDistrName() %>  <%=r.getTeachDate() %> <%=r.getStartTime() %></td>
+											<td colspan="4"><%=list.get(i).getDistrName() %>  <%=list.get(i).getTeachDate() %> <%=list.get(i).getStartTime() %></td>
 										</tr>
 										
 										<tr>
-											<%if(r.getRegSta().equals("0")){%>
+											<%if(list.get(i).getRegSta().equals("0")){%>
 												<td height="50px"><div id="classStatusAp">승인완료</div></td>
 												<td colspan="3"></td>
-											<%} else if(r.getRegSta().equals("1")){%>
+											<%} else if(list.get(i).getRegSta().equals("1")){%>
 												<td height="50px"><div id="classStatusX">승인전</div></td>
 												<td colspan="3"></td>
-											<%} else if (r.getRegSta().equals("2")){%>
+											<%} else if (list.get(i).getRegSta().equals("2")){%>
 												<td height="50px"><div id="classStatusDone">수강완료</div></td>
 												<td colspan="3"></td>
 											<%} %>
@@ -170,8 +170,8 @@
 									</tbody>
 									<tfoot>
 										<tr>
-											<td colspan="2"><button id="btn1" onclick="">1:1문의</button></td>
-											<td colspan="2"><button id="btn2" onclick="" data-toggle="modal" data-target="#myModal">결제상세내역</button></td>
+											<td colspan="2"><button class="csBtn" onclick="">1:1문의</button></td>
+											<td colspan="2"><button id="btn2" onclick="" data-toggle="modal" data-target="#myModal<%=i%>">결제상세내역</button></td>
 										</tr>
 									</tfoot>	
 								</table>
@@ -180,7 +180,7 @@
 						</div>
 					</div>
 				<!-- 결제상세내역 Modal -->
-				<div class="modal fade" id="myModal">
+				<div class="modal fade" id="myModal<%=i%>">
 					<div class="modal-dialog modal-dialog-centered">
 					  <div class="modal-content">
 					  
@@ -196,31 +196,31 @@
 								<table class="modalTB" >
 									<tr>
 										<td rowspan="2" >결제 금액</td>
-										<%if(r.getRegPay().equals("0")){%>
+										<%if(list.get(i).getRegPay().equals("0")){%>
 											<td colspan="2" id="payment1">신용카드</td>
-										<%} else if(r.getRegSta().equals("1")){%>
+										<%} else if(list.get(i).getRegSta().equals("1")){%>
 											<td colspan="2" id="payment1">무통장입금</td>
 										<%} %>
 									</tr>
 									<tr>
-										<td colspan="2" id="payment2"><%=r.getRegPrice() %></td>
+										<td colspan="2" id="payment2"><%=list.get(i).getRegPrice() %></td>
 									</tr>
 									<tr>
 										<td colspan="3" id="detailLine">세부내용</td>
 									</tr>
 									<tr >
-										<td colspan="2" style="font-size: 11px; color: gray;">주문번호 <%=r.getRegNo() %></td>								
-										<td rowspan="4" style="text-align: right;" width="80px"><%=r.getRegPrice() %></td>
+										<td colspan="2" style="font-size: 11px; color: gray;">주문번호 <%=list.get(i).getRegNo() %></td>								
+										<td rowspan="4" style="text-align: right;" width="80px"><%=list.get(i).getRegPrice() %></td>
 									</tr>
 									<tr>
-										<td colspan="2"><%=r.getClName() %></td>
+										<td colspan="2"><%=list.get(i).getClName() %></td>
 									</tr>
 									<tr>
-										<td colspan="2"> <%=r.getTtName() %> 튜터</td>
+										<td colspan="2"> <%=list.get(i).getTtName() %> 튜터</td>
 									</tr>
 									<tr>
 										<td width="120px">클래스 수강권 x </td>
-										<td><%=r.getRegCount() %></td>
+										<td><%=list.get(i).getRegCount() %></td>
 									</tr>
 									
 								</table>
@@ -229,12 +229,32 @@
 		
 						<!-- Modal footer -->
 						<div class="modal-footer">
-						  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="refundBtn" onclick="">환불신청</button>
+						  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="refundBtn<%=i%>" onclick="">환불신청</button>
 						</div>
 						
 					  </div>
 					</div>
 				</div>
+				<script>
+					$(function(){
+					$("#findClass").click(function(){
+						location.href="<%=contextPath%>/main.tee";
+					})
+		
+					/* 1:1문의로 가는 버튼*/
+					$(".csBtn").click(function(){
+						location.href="<%=contextPath%>/..";
+					})
+					/*환불신청 버튼*/
+					$("#refundBtn<%=i%>").click(function(){
+						location.href="<%=contextPath%>/refundReqForm.ref";
+					})
+					/*재수강 버튼*/
+					$("#reTake").click(function(){
+						location.href="<%=contextPath%>/..";
+					})
+					})
+				</script>
 				<%} %>
 			<%} %> 		
 		</div>
@@ -243,26 +263,7 @@
 		
 
 
-	<script>
-		$(function(){
-			$("#findClass").click(function(){
-				location.href="<%=contextPath%>/main.tee";
-			})
-
-			/* 1:1문의로 가는 버튼*/
-			$("#btn1").click(function(){
-				location.href="<%=contextPath%>/..";
-			})
-			/*환불신청 버튼*/
-			$("#refundBtn").click(function(){
-				location.href="<%=contextPath%>/refundReqForm.ref";
-			})
-			/*재수강 버튼*/
-			$("#reTake").click(function(){
-				location.href="<%=contextPath%>/..";
-			})
-		})
-	</script>
+	
 	
 		
 	</div>
