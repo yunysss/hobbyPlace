@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.hp.lesson.model.vo.Lesson;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
 
@@ -109,6 +110,39 @@ public class RegisterDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public Lesson selectLessonRegister(Connection conn, Lesson l) {
+		Lesson le = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectLessonRegister");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, l.getClMax());
+			pstmt.setInt(2, l.getClMax());
+			pstmt.setInt(3, l.getClNo());
+			pstmt.setString(4, l.getClSchedule());
+			
+			rset = pstmt.executeQuery();
+			
+			le = new Lesson(rset.getString("cl_name"),
+							rset.getString("teach_date"),
+							rset.getString("teach_time"),
+							rset.getString("cl_price"),
+							rset.getInt("people"),
+							rset.getString("price"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return le;
+		
 	}
 
 	/**

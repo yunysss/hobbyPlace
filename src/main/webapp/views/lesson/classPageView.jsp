@@ -65,12 +65,6 @@
         .nav-item:hover{
             text-decoration: underline 3px;
         }
-        #section3 button{
-            background:rgb(35, 104, 116);
-            color:white;
-            height:40px;
-            width:150px;
-        }
 
         /* classDetail-2 */
         #classDetail-2>*{
@@ -90,7 +84,7 @@
         }
         .calendar {text-align:center; background:white; cursor:default;}
 	    .calendar > thead td { width:50px;height:50px;}
-	    .calendar > thead > tr:first-child > td { font-weight:bold;}
+	    .calendar > thead > tr:first-child > td {font-weight:bold;}
 	    .calendar div {
 	    	text-align:center;
 	    	line-height:33px;
@@ -110,9 +104,9 @@
             height:40px;
         }
         
-        
         /* 날짜 선택하면 나타나는 창 */
         #classDetail-date{
+        	margin-top:10px;
             overflow-y:auto; 
             overflow-x:hidden;
         }
@@ -124,13 +118,13 @@
 		}
         #classDetail-date>table{
             width:100%;
-            margin-top:10px;
             background:white;
             color:black;
         }
         #classDetail-date td{
             text-align:left;
             padding-left:20px;
+            padding-top:10px;
         }
         #classDetail-date label{
         	display:inline-block;
@@ -145,29 +139,31 @@
         }
 
         /* classDetail-cal button 스타일 */
-        #classDetail-cal button, #section3 button{
+        #classDetail-cal button{
             border-radius:5px;
             border:none;
         }
-        #classDetail-cal>table button{
-            background:rgb(245, 245, 245);
-            height:30px;
-            width:30px;
+        #classDetail-cal>table button:hover{
+        	background:lightgray;
         }
         #classDetail-cal>div>a{
             background:white;
             height:40px;
             width:150px;
-            margin-top:10px;
         }
-        #classDetail-cal>a{
+        #classDetail-cal>div>a:hover{
+        	background:lightgray;
+        }
+        #classDetail-cal>button{
             background:rgb(35, 104, 116);
             color:white!important;
             height:40px;
             width:300px;
             margin-top:10px;
         }
-        
+        #classDetail-cal>button:hover{
+        	opacity:0.8;
+        }
         /* tutor */
         #classDetail-tutor{
         	display:inline-block;
@@ -177,7 +173,7 @@
             background:rgb(245, 245, 245);
         }
 		#classDetail-tutor>*{
-			margin-right:20px;
+			margin-right:5px;
 		}
 		
 		#paging{
@@ -532,7 +528,9 @@
         </div>
         <div id="classDetail-2">
             <div>
-                <form action="" id="classCalenderForm">
+                <form action="<%=contextPath %>/register.reg" id="classCalenderForm">
+                	<input type="hidden" name="clNo" value="<%=le.getClNo() %>">
+                	<input type="hidden" name="memNo" value="<%=loginUser.getMemNo() %>">
                     <div id="classDetail-cal">
                         <div style="background:rgb(180,180,180); height:40px; line-height:40px;">
                             <b>클래스 일정</b>
@@ -596,8 +594,8 @@
 					            // 시작일, 종료일
 					            const startDate = new Date('<%= le.getStartDate() %>');
 					            const endDate = new Date('<%= le.getEndDate() %>');
-					            let calYear = $("#calYear").text().substr(0,4);
-					            let calMonth = $("#calMonth").text().substr(-2)-1;
+					            let calYear = document.getElementById("calYear").innerText.substr(0,4);
+					            let calMonth = document.getElementById("calMonth").innerText.substr(-2)-1;
 					            // 달력 출력
 					            // 시작값은 1일을 직접 지정하고 요일값( doMonth.getDay() )를 빼서 마이너스( - )로 for문을 시작한다.
 					            for(let day = 1 - doMonth.getDay(); day <= daysLength ; day++) {
@@ -703,6 +701,13 @@
 					            column.firstChild.classList.add("choiceDay");
 					            
 					            $("#classDetail-date").css({width : "310", height: "80"})
+					            
+					            if(("" + calMonth + "").length == 1){
+					            	calMonth = "0" + (calMonth+1);
+					            }
+					            if(("" + day + "").length == 1){
+					            	day = "0" + day;
+					            }
 					            $.ajax({
 					            	url:"<%=contextPath%>/getSchedule.cl",
 					            	data:{
@@ -717,9 +722,9 @@
 					            		for(let i=0; i<list.length; i++){
 					            			value1 += "<tr>"
 					            					+	"<td>"
-					            					+		"<input type='radio' name='session' id='session" + i + "'>"
+					            					+		"<input type='radio' name='session' id='session" + i + "' value='"+ list[i].schNo + "'>"
 					            					+		"<input type='hidden' value='" + list[i].regCount + "'>"
-					            					+	"</td>"
+				            						+	"</td>"
 					            					+	"<td>"
 					            					+		"<label for='session" + i + "'>" + calYear + "년 " + calMonth + "월 " + day + "일<br>"
 					            					+		list[i].startTime + " - " + list[i].endTime 
@@ -728,6 +733,7 @@
 					            					+ "</tr>"
 					            		}
 					            		value1 += "</table>"
+					            				+ "<input type='hidden' name='selectDate' value='" + calYear + calMonth + day + "'>'"
 				            			value2 += "<div>"
 				            				+	"인원 선택&nbsp;&nbsp;&nbsp;"
 				            				+	"<select name='people'>"
@@ -751,7 +757,7 @@
 		            				value2 += "<option value='" + j + "'>" + j + "명</option>"
 		            			}
             					value2 +=   "</select><br>"
-		            				+	"<p align='right' id='totalPrice'>총 결제 금액  "+ CommaFormat(<%=le.getClPrice()%>)+"원</p>"
+		            				+	"<p id='totalPrice'>총 결제 금액  "+ CommaFormat(<%=le.getClPrice()%>)+"원</p>"
 		            				+ "</div>"
 	            				$("#classDetail-price").html(value2);
 					        })
@@ -778,8 +784,7 @@
                             <%} %>
                             <a href="" class="btn">💬 1:1문의</a>
                         </div>
-                        <a href="<%=contextPath %>/register.reg" class="btn">클래스 신청하기</a>
-                        <!-- 일정 선택 전이면 alert창 띄우기 -->
+                        <button class="btn">클래스 신청하기</button>
                     </div>
                 </form>
                 <br>

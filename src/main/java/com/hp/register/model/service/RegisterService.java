@@ -8,6 +8,7 @@ import static com.hp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.lesson.model.vo.Lesson;
 import com.hp.register.model.dao.RegisterDao;
 import com.hp.register.model.vo.Register;
 
@@ -36,6 +37,13 @@ public class RegisterService {
 			rollback(conn);
 		}
 		return result;
+	}
+	
+	public Lesson selectLessonRegister(Lesson l) {
+		Connection conn = getConnection();
+		Lesson le = new RegisterDao().selectLessonRegister(conn, l);
+		close(conn);
+		return le;
 	}
 
 	public ArrayList<Register> selectMyClassList(int memNo) {

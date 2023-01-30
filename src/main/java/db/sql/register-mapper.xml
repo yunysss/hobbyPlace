@@ -88,6 +88,20 @@
 		 WHERE REG_NO = ?
 	</entry>
 	
+	<entry key="selectLessonRegister">
+		SELECT 
+		       CL_NAME
+		     , TO_DATE('20230127', 'YYYYMMDD') "TEACH_DATE"
+		     , START_TIME || ' - ' || END_TIME "TEACH_TIME"
+		     , CL_PRICE
+		     , ? "PEOPLE"
+		     , CL_PRICE * ? "PRICE"
+		  FROM CLASS
+		  JOIN SCHEDULE USING(CL_NO)
+		 WHERE CL_NO = ?
+		   AND SCH_NO = ?
+	</entry>
+	
 	<entry key="selectRegisterList">
 	SELECT 
 		  TEACH_DATE
