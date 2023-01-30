@@ -561,8 +561,12 @@ public class TutorDao {
 			rset= pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Attachment(rset.getString("change_name"),
-										rset.getString("file_path")
+				list.add(new Attachment(
+										rset.getInt("file_no"),
+										rset.getString("origin_name"),
+										rset.getString("change_name"),
+										rset.getString("file_path"),
+										rset.getInt("ref_no")
 										));
 				     
 			}
@@ -618,6 +622,7 @@ public class TutorDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateClass");
+		System.out.println(l);
 		try {
 			pstmt= conn.prepareStatement(sql);
 			
@@ -717,19 +722,18 @@ public class TutorDao {
 	 * @param sList
 	 * @return result 클래스 수정시 스케쥴 삭제 
 	 */
-	public int deleteSchedule(Connection conn, ArrayList<Schedule> sList) {
+	public int deleteSchedule(Connection conn, Lesson l) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteSchedule");
 		try {
-			for(Schedule s : sList) {
+			System.out.println(l.getClNo());
 			pstmt= conn.prepareStatement(sql);
-			pstmt.setInt(1,s.getSchNo());
+			pstmt.setInt(1,l.getClNo());
 			
 			result = pstmt.executeUpdate();
-			}
-			
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

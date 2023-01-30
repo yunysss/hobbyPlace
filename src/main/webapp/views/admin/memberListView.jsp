@@ -14,8 +14,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
 	div{box-sizing:border-box;}
-	div{border:solid 1px black;}
-	.cWrap{width:100%; padding:10px; padding-right:0; border:solid 2px red;}
+	/*div{border:solid 1px black;}*/
+	.cWrap{width:100%; padding:10px; padding-right:0;}
 	.sGroup{width:33px;}
 	.searchWrap{width:90%; border:1px solid lightgray; border-radius:10px; padding:15px; padding-left:40px;}
 	.fCategory{width:120px; height:35px; margin-left:10px; border-radius: 3px; border-color:rgb(186, 185, 185);}
@@ -29,7 +29,7 @@
 	#flexSwitchCheck{box-sizing:border-box; width:40px; margin-left:0px; height:20px;}
 	.dtCate{margin-left:68px;}
 	#selectValue{width:100px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
-	.listTable>th{width:40px;}
+	.listTable{width:auto;}
 </style>
 <body>
 	<%@ include file="../common/adminMenubar.jsp" %>
@@ -134,10 +134,6 @@
 					
 					<button type="button" class="sButton" id="detailSearch">검색</button>
 					<br>
-					<p>
-						&nbsp; 성별 선택시 입력 가능한 검색어 : M 또는 F <br>
-						&nbsp; 탈퇴여부 선택시 입력 가능한 검색어 : Y 또는 N <br>
-					</p>
 					<script>
 						$(function(){
 							// 세부검색창에서 성별과 탈퇴여부 옵션 선택하면 텍스트검색창사라지고 select창 나타내기
@@ -182,13 +178,29 @@
 		</div>
 		<div class="contentMain">
   		
-			<div class="container mt-3 table-responsive-xxl">
+			<div class="container mt-3 table-responsive-xxl" style="overflow-x: auto;">
 
-			  <table class="table table-hover listTable">
-			    <thead>
+			  <table class="table table-hover table-responsive-xxl listTable" style="table-layout:fixed;">
+			    <colgroup>
+					<col style="width:100px;">
+					<col style="width:100px;">
+					<col style="width:120px;">
+					<col style="width:120px;">
+					<col style="width:100px;">
+					<col style="width:80px;">
+					<col style="width:80px;">
+					<col style="width:130px;">
+					<col style="width:170px;">
+					<col style="width:150px;">
+					<col style="width:230px;">
+					<col style="width:80px;">
+					<col style="width:100px;">
+				</colgroup>
+				<thead>
 			      <tr>
 			        <th>회원번호</th>
 			        <th>이름</th>
+					<th>튜터등록여부</th>
 			        <th>가입일</th>
 			        <th>수강횟수</th>
 			        <th>리뷰</th>
@@ -205,6 +217,7 @@
 			      <tr>
 			        <td>01</td>
 			        <td>홍길동</td>
+					<td>N</td>
 			        <td>2022-12-15</td>
 			        <td>10</td>
 			        <td>5</td>

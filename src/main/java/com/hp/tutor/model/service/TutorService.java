@@ -171,37 +171,37 @@ public class TutorService {
 	}
 	
 	public int updateClass(Lesson l, ArrayList<Attachment> list, ArrayList<Schedule> sList) {
-		Connection conn= getConnection();
+		Connection conn = getConnection();
+		
+		System.out.println(list);
+		System.out.println(sList);
+		
 		int result1 = new TutorDao().updateClass(conn, l);
-		
-	    int result2 =1;
-		if(!list.isEmpty()) {
-			for(Attachment a :list) {
-			if(a.getFileNo() != 0) {//기존 첨부파일 있을경우
-				result2 = new TutorDao().updateAttachment(conn, list);
-			}else {// 기존 첨부파일 없을경우 
-				result2 = new TutorDao().insertNewAttachment(conn,list);
-			}
+
+		int result2 = 1;
+		if (!list.isEmpty()) {
+			for (Attachment a : list) {
+				if (a.getFileNo() != 0) {// 기존 첨부파일 있을경우
+					result2 = new TutorDao().updateAttachment(conn, list);
+				} else {// 기존 첨부파일 없을경우
+					result2 = new TutorDao().insertNewAttachment(conn, list);
+				}
 			}
 		}
-		 int result3 =1;
-		 int result4 =1;
-		if(!sList.isEmpty()) {
-			result3 = new TutorDao().deleteSchedule(conn,sList);
-			result4 = new TutorDao().insertNewSchedule(conn,sList);
+
+		int result3 = new TutorDao().deleteSchedule(conn, l);
+		int result4 = new TutorDao().insertNewSchedule(conn, sList);
 		
-		}
-		if(result1>0 && result2>0 && result3>0 && result4>0) {
+		System.out.println(result1 + " " + result2 + " " + result3 + " " + result4);
+
+		if (result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0) {
 			commit(conn);
-		}else {
+		} else {
 			rollback(conn);
 		}
 		close(conn);
-		
-		return result1*result2*result3*result4 ;
-	}
-	
 
-	
+		return result1 * result2 * result3 * result4;
+	}
 
 }
