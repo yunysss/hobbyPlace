@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.hp.refund.model.dao.RefundDao;
 import com.hp.refund.model.vo.Refund;
+import com.hp.register.model.vo.Register;
 
 public class RefundService {
 	
@@ -56,11 +57,23 @@ public class RefundService {
 		
 	}
 
+	/**
+	 * @author 수정
+	 * @param memNo
+	 * @return 취소한 클래스 조회
+	 */
 	public ArrayList<Refund> selectMyRefundClassList(int memNo) {
 		Connection conn = getConnection();
 		ArrayList<Refund> list = new RefundDao().selectMyRefundClassList(conn, memNo);
 		close(conn);
 		return list;
+	}
+
+	public Register selectRefundClass(int memNo) {		
+		Connection conn = getConnection();
+		Register r = new RefundDao().selectRefundClass(conn, memNo);
+		close(conn);
+		return r;
 	}
 
 }
