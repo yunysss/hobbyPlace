@@ -138,7 +138,7 @@
 								<div id="classThumbnail">
 									<img src="<%=contextPath%>/<%=list.get(i).getClThumb() %>"> 
 									<br>
-									<p><%=list.get(i).getTtName() %> 튜터</p>
+									<p><%=list.get(i).getTtName() %></p>
 								</div>
 							<div id="classDetail">
 								<table  border="0">
@@ -218,7 +218,7 @@
 										<td colspan="2"><%=list.get(i).getClName() %></td>
 									</tr>
 									<tr>
-										<td colspan="2"> <%=list.get(i).getTtName() %> 튜터</td>
+										<td colspan="2"> <%=list.get(i).getTtName() %></td>
 									</tr>
 									<tr>
 										<td width="120px">클래스 수강권 x </td>
@@ -231,47 +231,40 @@
 		
 						<!-- Modal footer -->
 						<div class="modal-footer">
-						  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="refundBtn<%=i%>" onclick="">환불신청</button>
+						  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="refundBtn<%=i%>" onclick="location.href='<%=contextPath%>/refundReqForm.ref?no=<%=list.get(i).getRegNo() %>'">환불신청</button>
 						</div>
 						
 					  </div>
 					</div>
 				</div>
-				<script>
-					$(function(){
-					$("#findClass").click(function(){
-						location.href="<%=contextPath%>/main.tee";
-					})
-		
-					/* 1:1문의로 가는 버튼*/
-					$(".csBtn").click(function(){
-						location.href="<%=contextPath%>/..";
-					})
-					/*환불신청 버튼*/
-					$("#refundBtn<%=i%>").click(function(){
-						location.href="<%=contextPath%>/refundReqForm.ref?no=[i];
-					})
-					/*재수강 버튼*/
-					$("#reTake").click(function(){
-						location.href="<%=contextPath%>/..";
-					})
-					})
-				</script>
+				
 				<%} %>
 			<%} %> 		
-			
+			<script>
+				$(function(){
+				$("#findClass").click(function(){
+					location.href="<%=contextPath%>/main.tee";
+				})
+	
+				/* 1:1문의로 가는 버튼*/
+				$(".csBtn").click(function(){
+					location.href="<%=contextPath%>/..";
+				})
+				
+				})
+			</script>
 			<br><br>
 			<div class="paging-area" style="align:center;">
 				<%if(pi.getCurrentPage()!=1){ %>
-				<button>&lt;</button>
+				<button onclick="location.href='<%=contextPath%>/myClassList.reg?cpage=<%=pi.getCurrentPage()-1%>'">&lt;</button>
 				<%} %>
 				
 				<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
-					<button><%= p %></button>
+					<button onclick="location.href='<%=contextPath%>/myClassList.reg?cpage=<%=p%>';"><%= p %></button>
 				<%} %>
 				
 				<%if(pi.getCurrentPage()!=pi.getMaxPage()){ %>
-				<button>&gt;</button>
+				<button onclick="location.href='<%=contextPath%>/myClassList.reg?cpage=<%=pi.getCurrentPage()+1%>'">&gt;</button>
 				<%} %>
 			</div>
 			

@@ -123,6 +123,7 @@
 		 WHERE MEM_NO = ?
 	</entry>
 	
+	<!-- 마이클래스 결제클래스 페이징 -->
 	<entry key="selectMyClassList">
 		SELECT *
  		  FROM (
@@ -156,9 +157,10 @@
 			                    BY REG_NO DESC
                         ) A 
         		)
-WHERE RNUM BETWEEN ? AND ?
+		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<!-- 결제한 모든 클래스 개수 세어줌 -->
 	<entry key="selectListCount">
 	SELECT 
 		   COUNT(*) "COUNT"
