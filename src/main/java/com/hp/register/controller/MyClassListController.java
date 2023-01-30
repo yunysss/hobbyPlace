@@ -67,10 +67,12 @@ public class MyClassListController extends HttpServlet {
 		
 		//com.hp.common.model.vo.pageInfo
 		// 페이징바를 만들 떄 필요한 객체
-		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage, memNo);
 		
 		//* 현재 사용자가 요청한 페이지(CURRENTpAGE)에 보여질 게시글 리스트 조회(boardLimit수만큼) 
-		ArrayList<Register> list = new RegisterService().selectMyClassList(memNo);
+		ArrayList<Register> list = new RegisterService().selectMyClassList(pi);
+		
+		request.setAttribute("pi",pi);
 		request.setAttribute("list", list);
 		
 		

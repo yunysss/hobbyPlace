@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.member.model.vo.Member;
 import com.hp.register.model.vo.Register;
@@ -232,15 +233,21 @@ public class RegisterDao {
 	 * @param memNo
 	 * @return ArrayList<Register> list
 	 */
-	public ArrayList<Register> selectRegisterList(Connection conn, int memNo) {
+	public ArrayList<Register> selectMyClassList(Connection conn, PageInfo pi) {
 		ArrayList<Register> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectRegisterList");
+		String sql = prop.getProperty("selectMyClassList");
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,memNo);
+			pstmt.setInt(1,pi.getMemNo());
+			
+			int startRow = (pi.getCurrentPage() -1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(2,startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
