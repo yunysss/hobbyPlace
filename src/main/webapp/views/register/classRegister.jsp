@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="com.hp.lesson.model.vo.Lesson"%>
 <%
 	Lesson le = (Lesson)request.getAttribute("le");
+	Member m = (Member)request.getAttribute("m");
 %>
 <!DOCTYPE html>
 <html>
@@ -30,8 +31,8 @@
         }
         tfoot a{
         	text-decoration:none !important;
-        	color:black !important;
-            background:rgb(245, 245, 245);
+        	color:white !important;
+            background:lightgray;
             padding:3px;
             border-radius:3px;
         }
@@ -102,6 +103,21 @@
                         </tr>
                     </thead>
                     <tbody>
+                    	<tr>
+	                        <td>
+	                        	<b>이름</b><br>
+	                            <%= m.getMemName() %><br><br>
+	                            <b>전화번호</b><br>
+	                            <%= m.getPhone() %><br><br>
+	                            <b>이메일</b><br>
+	                            <%= m.getEmail() %> 
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <th style="text-align:center">
+	                            <a href="" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#edit-modal">개인정보 수정</a>
+	                        </th>
+	                    </tr>
                     </tbody>
                     <tfoot>
                         <tr>
@@ -125,10 +141,10 @@
                     <tbody>
                         <tr>
                             <td>
-                                <input type="radio" id="card" name="payMethod" required>
+                                <input type="radio" id="card" name="payMethod" checked>
                                 <label for="card">신용/체크카드</label>
                                 
-                                <input type="radio" id="account" name="payMethod" required>
+                                <input type="radio" id="account" name="payMethod">
                                 <label for="account">무통장입금</label>
                             </td>
                         </tr>
@@ -184,11 +200,6 @@
     <div class="modal fade" id="personal-modal">
 	  <div class="modal-dialog modal-dialog-centered modal-sm">
 	    <div class="modal-content">
-	
-	      <div class="modal-header">
-	        개인정보 제공안내
-	      </div>
-	
 	      <div class="modal-body">
 	        [ 제공받는 자 ]<br>
 	        <%= le.getMemNo() %><br><br>
@@ -215,14 +226,28 @@
 	    <div class="modal-content">
 	
 	      <div class="modal-header">
-	        개인정보 수정
+	        <h5><b>개인정보 수정</b></h5>
 	      </div>
-	      <div class="modal-body">
+	      <div class="modal-body" align="center">
 	      	<table>
-	      		<tbody></tbody>
+	      		<tbody>
+	      			<tr>
+						<td><b>이름</b></td>
+						<td><input type="text" name="memName" value="<%= m.getMemName()%>"></td>
+					</tr>
+					<tr>
+						<td><b>전화번호</b></td>
+						<td><input type="text" name="phone" value="<%= m.getPhone() %>"></td>
+					</tr>
+					<tr>
+						<td><b>이메일</b></td>
+						<td><input type="email" name="email" value="<%= m.getEmail() %>"></td>
+					</tr>
+	      		</tbody>
 	      	</table>
+	      	<br>
 	      	<div align="center">
-	      		<button type="submit" class="btn btn-secondary btn-sm" onclick="reviseReg();">수정</button>
+	      		<button type="submit" class="btn btn-sm" onclick="reviseReg();" data-dismiss="modal" style="background:rgb(35, 104, 116); color:white;">수정</button>
 	        	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button><br><br>
 	        </div>
 	      </div>
@@ -233,18 +258,18 @@
 	  </div>
 	</div>
 	<script>
-		$(function(){
-			reviseReg();
-			console.log(<%=loginUser.getMemNo()%>)
-		})
 		function reviseReg(){
+			let email = $("input[name='email']").val();
+			if(email == "이메일 없음"){
+				email = null;
+			}
 			$.ajax({
 				url:"<%=contextPath%>/revise.reg",
 				data:{
 					memNo:<%=loginUser.getMemNo()%>,
 					memName:$("input[name='memName']").val(),
 					phone:$("input[name='phone']").val(),
-					email:$("input[name='email']").val()
+					email:email
 				},
 				success:function(m){
 					console.log(m)

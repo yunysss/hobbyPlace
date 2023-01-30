@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="selectTutorRegister">
+		SELECT
+		       REG_NO
+		     , MEM_NAME
+		     , CL_NAME
+		     , TEACH_DATE
+		     , REG_DATE
+		     , START_TIME || '-' || END_TIME "SCH_TIME"
+		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_COUNT || '명' "REG_COUNT"
+		     , REG_STA
+		     , REG_CAL
+		  FROM REGISTER
+		  JOIN MEMBER USING(MEM_NO)
+		  JOIN CLASS C USING(CL_NO)
+		  JOIN SCHEDULE USING(SCH_NO)
+		 WHERE C.MEM_NO = ?
+           AND DECODE(REG_STA, '0', '승인전', '1', '승인완료', '2', '승인완료', '4', '승인반려') LIKE ?
+		 ORDER 
+		    BY REG_NO DESC
+	</entry>
+	
+	<entry key="selectTutorNewRegister">
+		SELECT
+		       REG_NO
+		     , MEM_NAME
+		     , CL_NAME
+		     , TEACH_DATE
+		     , REG_DATE
+		     , START_TIME || '-' || END_TIME "SCH_TIME"
+		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_COUNT || '명' "REG_COUNT"
+		     , REG_STA
+		     , REG_CAL
+		  FROM REGISTER
+		  JOIN MEMBER USING(MEM_NO)
+		  JOIN CLASS C USING(CL_NO)
+		  JOIN SCHEDULE USING(SCH_NO)
+		 WHERE C.MEM_NO = ?
+		   AND REG_STA = ?
+		 ORDER 
+		    BY REG_NO DESC
+	</entry>
+	<entry key="selectTutorFinRegister">
+		SELECT
+		       REG_NO
+		     , MEM_NAME
+		     , CL_NAME
+		     , TEACH_DATE
+		     , REG_DATE
+		     , START_TIME || '-' || END_TIME "SCH_TIME"
+		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_STA
+		  FROM REGISTER
+		  JOIN MEMBER USING(MEM_NO)
+		  JOIN CLASS C USING(CL_NO)
+		  JOIN SCHEDULE USING(SCH_NO)
+		 WHERE C.MEM_NO = ?
+		   AND REG_STA IN(1,2)
+		 ORDER 
+		    BY REG_NO DESC
+	</entry> 
+	<entry key="selectDetailApproval">
+		SELECT
+		       REG_NO
+		     , MEM_NAME
+		     , CL_NAME
+		     , TEACH_DATE
+		     , REG_DATE
+		     , START_TIME || '-' || END_TIME "SCH_TIME"
+		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_COUNT || '명' "REG_COUNT"
+		     , MEM_PHONE
+		     , NVL(MEM_EMAIL, '없음') "MEM_EMAIL"
+		  FROM REGISTER
+		  JOIN MEMBER USING(MEM_NO)
+		  JOIN CLASS C USING(CL_NO)
+		  JOIN SCHEDULE USING(SCH_NO)
+		 WHERE REG_NO = ?
+	</entry>
+
+	<entry key="updateRegister">
+		UPDATE REGISTER
+		   SET REG_STA = ?
+		 WHERE REG_NO = ?
+	</entry>
+	
+	<entry key="selectLessonRegister">
+		SELECT 
+		       CL_NAME
+		     , TT_NAME
+		     , TO_CHAR(TO_DATE('20230127', 'YYYYMMDD'), 'YYYY"년" MM"월" DD"일" (DY)') "TEACH_DATE"
+		     , START_TIME || ' - ' || END_TIME "TEACH_TIME"
+		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+		     , ? "PEOPLE"
+		     , TO_CHAR(CL_PRICE * ?, '999,999,999') || '원' "PRICE"
+		     , CL_THUMB
+		  FROM CLASS
+		  JOIN SCHEDULE USING(CL_NO)
+		  JOIN TUTOR USING(MEM_NO)
+		 WHERE CL_NO = ?
+		   AND SCH_NO = ?
+	</entry>
+	
+	<entry key="selectRegisterMem">
+		SELECT
+			   MEM_NO
+		     , NVL(MEM_EMAIL, '이메일 없음') "MEM_EMAIL"
+		     , MEM_NAME
+		     , MEM_PHONE
+		  FROM MEMBER
+		 WHERE MEM_NO = ?
+	</entry>
+	
+	<entry key="reviseRegister">
+		UPDATE MEMBER
+		   SET MEM_NAME = ?,
+		       MEM_EMAIL = ?,
+		       MEM_PHONE = ?
+		 WHERE MEM_NO = ?
+	</entry>
+	
+	<entry key="selectRegisterList">
+	SELECT 
+		  TEACH_DATE
+		, REG_NO
+		, REG_DATE
+		, REG_PAY
+		, TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		, REG_COUNT
+		, REG_STA
+		, CL_THUMB
+		, C.CL_NAME "CL_NAME"
+        , S.START_TIME "START_TIME"
+        , D.DISTR_NAME "DISTR_NAME"
+        , T.TT_NAME "TT_NAME"
+	 FROM REGISTER R
+	 LEFT OUTER JOIN CLASS C
+     ON C.CL_NO = R.CL_NO
+     LEFT OUTER JOIN DISTRICT D
+     ON D.DISTR_CODE = C.DISTR_CODE
+     LEFT OUTER JOIN TUTOR T
+     ON T.MEM_NO = C.MEM_NO
+     LEFT OUTER JOIN SCHEDULE S
+     ON S.SCH_NO = R.SCH_NO
+	 WHERE R.MEM_NO= ?
+	   AND REG_STA NOT IN (3,4)
+	 ORDER 
+	    BY REG_NO DESC
+	</entry>
+	
+	<entry key="selectListCount">
+	SELECT 
+		   COUNT(*) "COUNT"
+	  FROM REGISTER
+  	 WHERE REG_STA NOT IN (3,4)
+  	   AND MEM_NO = ?
+	
+	</entry>
+	
+</properties>

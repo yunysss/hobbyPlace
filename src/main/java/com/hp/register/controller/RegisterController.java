@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.member.model.vo.Member;
 import com.hp.register.model.service.RegisterService;
 
 /**
@@ -30,6 +31,7 @@ public class RegisterController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		int clNo = Integer.parseInt(request.getParameter("clNo"));
 		String session = request.getParameter("session");
 		String selectDate = request.getParameter("selectDate");
@@ -38,7 +40,10 @@ public class RegisterController extends HttpServlet {
 		Lesson l = new Lesson(clNo, session, selectDate, people);
 		
 		Lesson le = new RegisterService().selectLessonRegister(l);
+		Member m = new RegisterService().selectRegisterMem(memNo);
+		
 		request.setAttribute("le", le);
+		request.setAttribute("m", m);
 		request.getRequestDispatcher("views/register/classRegister.jsp").forward(request, response);
 	}
 

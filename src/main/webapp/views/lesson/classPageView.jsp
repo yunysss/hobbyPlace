@@ -161,7 +161,7 @@
             width:300px;
             margin-top:10px;
         }
-        #classDetail-cal>button:hover{
+        #classDetail-cal>button:hover:enabled{
         	opacity:0.8;
         }
         /* tutor */
@@ -530,6 +530,9 @@
             <div>
                 <form action="<%=contextPath %>/register.reg" id="classCalenderForm">
                 	<input type="hidden" name="clNo" value="<%=le.getClNo() %>">
+                	<%if(loginUser != null){%>                		
+                		<input type="hidden" name="memNo" value="<%=loginUser.getMemNo() %>">
+               		<%} %>
                     <div id="classDetail-cal">
                         <div style="background:rgb(180,180,180); height:40px; line-height:40px;">
                             <b>클래스 일정</b>
@@ -687,67 +690,78 @@
 					    
 					        // 날짜 선택
 					        function calendarChoiceDay(column, calYear, calMonth, day) {
-					    
-					            // 기존 선택일의 표시형식 초기화
-					            if(document.getElementsByClassName("choiceDay")[0]) {
-					                document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "lightgray";
-					                document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
-					            }
-					            // 선택일 체크 표시
-					            column.firstChild.style.backgroundColor = "rgb(107, 155, 164)";
-					            
-					            // 선택일 클래스명 변경
-					            column.firstChild.classList.add("choiceDay");
-					            
-					            $("#classDetail-date").css({width : "310", height: "80"})
-					            
-					            if(("" + calMonth + "").length == 1){
-					            	calMonth = "0" + (calMonth+1);
-					            }
-					            if(("" + day + "").length == 1){
-					            	day = "0" + day;
-					            }
-					            $.ajax({
-					            	url:"<%=contextPath%>/getSchedule.cl",
-					            	data:{
-					            		clNo:<%=le.getClNo()%>,
-					            		calYear:calYear,
-					            		calMonth:calMonth,
-					            		day:day
-					            	},
-					            	success:function(list){
-					            		let value1 = "<table>";
-					            		let value2 = "";
-					            		for(let i=0; i<list.length; i++){
-					            			value1 += "<tr>"
-					            					+	"<td>"
-					            					+		"<input type='radio' name='session' id='session" + i + "' value='"+ list[i].schNo + "'>"
-					            					+		"<input type='hidden' value='" + list[i].regCount + "'>"
-				            						+	"</td>"
-					            					+	"<td>"
-					            					+		"<label for='session" + i + "'>" + calYear + "년 " + calMonth + "월 " + day + "일<br>"
-					            					+		list[i].startTime + " - " + list[i].endTime 
-					            					+		" (" + list[i].regCount + "명/" + list[i].clMax + "명)</label>"
-					            					+	"</td>"
-					            					+ "</tr>"
-					            		}
-					            		value1 += "</table>"
-					            				+ "<input type='hidden' name='selectDate' value='" + calYear + calMonth + day + "'>'"
-				            			value2 += "<div>"
-				            				+	"인원 선택&nbsp;&nbsp;&nbsp;"
-				            				+	"<select name='people'>"
-			            					+   "</select><br>"
-				            				+	"<p>총 결제 금액  0원</p>"
-				            				+ "</div>"
-					            		
-					            		$("#classDetail-date").html(value1);
-					            		$("#classDetail-price").html(value2);
-					            		
-					            	},error:function(){
-					            		
-					            	}
-					            })
-					        }
+					    		<% if(loginUser != null){%>
+					    			// 기존 선택일의 표시형식 초기화
+						            if(document.getElementsByClassName("choiceDay")[0]) {
+						                document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "lightgray";
+						                document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+						            }
+						            // 선택일 체크 표시
+						            column.firstChild.style.backgroundColor = "rgb(107, 155, 164)";
+						            
+						            // 선택일 클래스명 변경
+						            column.firstChild.classList.add("choiceDay");
+						            
+						           
+						            if((calMonth + "").length == 1){
+						            	calMonth = "0" + (calMonth+1);
+						            }
+						            if((day + "").length == 1){
+						            	day = "0" + day;
+						            }
+					            	$("#classDetail-date").css("height", "80");
+					            	$.ajax({
+						            	url:"<%=contextPath%>/getSchedule.cl",
+						            	data:{
+						            		clNo:<%=le.getClNo()%>,
+						            		calYear:calYear,
+						            		calMonth:calMonth,
+						            		day:day
+						            	},
+						            	success:function(list){
+						            		let value1 = "<table>";
+						            		let value2 = "";
+						            		
+						            			for(let i=0; i<list.length; i++){
+							            			value1 += "<tr>"
+							            					+	"<td>";
+					            					if(list[i].regCount < list[i].clMax){
+					            						value1 += "<input type='radio' name='session' id='session" + i + "' value='"+ list[i].schNo + "'>"
+						            							+ "<input type='hidden' value='" + list[i].regCount + "'>"
+					            					} else{
+					            						value1 += "마감";
+					            					}
+							            			value1 +=	"</td>"
+							            					+	"<td>"
+							            					+		"<label for='session" + i + "'>" + calYear + "년 " + calMonth + "월 " + day + "일<br>"
+							            					+		list[i].startTime + " - " + list[i].endTime 
+							            					+		" (" + list[i].regCount + "명/" + list[i].clMax + "명)</label>"
+							            					+	"</td>"
+							            					+ "</tr>";
+							            		}
+							            		value1 += "</table>"
+							            				+ "<input type='hidden' name='selectDate' value='" + calYear + calMonth + day + "'>'"
+						            		
+					            			value2 += "<div>"
+					            				+	"인원 선택&nbsp;&nbsp;&nbsp;"
+					            				+	"<select name='people'>"
+					            				+	"<option>&nbsp;--</option>"
+				            					+   "</select><br>"
+					            				+	"<p>총 결제 금액  0원</p>"
+					            				+ "</div>"
+						            		$("#classDetail-date").html(value1);
+						            		$("#classDetail-price").html(value2);
+						            		
+						            	},error:function(){
+						            		
+						            	}
+						            })
+						        <%} else{%>
+						        	$(document).on("click",".calendar tbody",function(){
+						        		$("#loginModal").modal("show")
+							        })
+						        <%}%>
+				    		}
 					        $(document).on("change", "input[name=session]", function(){
 					        	value2 = "<div>"
 		            				+	"인원 선택&nbsp;&nbsp;&nbsp;"
@@ -783,7 +797,7 @@
                             <%} %>
                             <a href="" class="btn">💬 1:1문의</a>
                         </div>
-                        <button class="btn">클래스 신청하기</button>
+                        <button class="btn" id="regi-btn" disabled>클래스 신청하기</button>
                     </div>
                 </form>
                 <br>
@@ -828,18 +842,27 @@
    		   				})
    					}	
    				<%} else{%>
-	   				$(this).attr("data-toggle", "modal");
-	   				$(this).attr("data-target", "#myModal1");
+	   				$("#loginModal").modal("show")
    				<%}%>
 	   		})
+	   		
+	   		$(document).on("click", "input:radio", function(){
+	   			<% if(loginUser != null){%>
+					if($("input:radio:checked").length == 1){
+						$("#regi-btn").attr("disabled", false);
+					} 
+				<% }else{%>
+						$("#regi-btn").attr("disabled", true);
+				<%}%>
+			})
 	   	})
 	</script>
-    <div class="modal" id="myModal1">
+    <div class="modal" id="loginModal">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-body" align="center">
                 	로그인 후 이용 가능한 서비스 입니다.<br><br>
-                    <a href="" type="button" class="btn btn-sm" style="background:rgb(22, 160, 133); color:white!important;">로그인</a>
+                    <a href="<%= contextPath %>/login.me" type="button" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">로그인</a>
                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
             	</div>  
         	</div>
