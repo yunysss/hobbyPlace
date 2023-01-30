@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.hp.register.model.vo.Register"%>
+ <%
+ 	Register r = (Register)request.getAttribute("r");
+ %>
 <!DOCTYPE html>
 <html>
 <head>

@@ -54,6 +54,32 @@
 		 WHERE ORDER_NO = ?
 	</entry>
 	
+	<entry key="selectRefundClass">
+	SELECT
+	      REG_PAY
+	    , REG_NO  
+	    , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+	    , REG_COUNT
+	    , REG_STA
+	    , CL_THUMB
+	    , C.CL_NAME "CL_NAME"
+	    , S.START_TIME "START_TIME"
+	    , D.DISTR_NAME "DISTR_NAME"
+	    , T.TT_NAME "TT_NAME"
+     FROM REGISTER R
+     LEFT OUTER JOIN CLASS C
+	   ON C.CL_NO = R.CL_NO
+	 LEFT OUTER JOIN DISTRICT D
+	  ON D.DISTR_CODE = C.DISTR_CODE
+	 LEFT OUTER JOIN TUTOR T
+	   ON T.MEM_NO = C.MEM_NO
+	 LEFT OUTER JOIN SCHEDULE S
+	   ON S.SCH_NO = R.SCH_NO
+	WHERE R.MEM_NO= ?
+	 ORDER 
+	    BY REG_NO DESC
+	</entry>
+	
 	
 	
 	
