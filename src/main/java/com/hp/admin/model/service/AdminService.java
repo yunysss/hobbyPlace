@@ -1,11 +1,15 @@
 package com.hp.admin.model.service;
 
-import static com.hp.common.JDBCTemplate.*;
+import static com.hp.common.JDBCTemplate.close;
+import static com.hp.common.JDBCTemplate.commit;
+import static com.hp.common.JDBCTemplate.getConnection;
+import static com.hp.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.hp.admin.model.dao.AdminDao;
+import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
@@ -13,7 +17,6 @@ import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.vo.Member;
-import com.hp.tutor.model.dao.TutorDao;
 import com.hp.tutor.model.vo.Tutor;
 
 public class AdminService {
@@ -128,6 +131,13 @@ public class AdminService {
 		close(conn);
 		
 		return list;
+		
+	}
+	public ArrayList<Lesson> searchClass(Search s){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new AdminDao().searchClass(conn, s);
+		close(conn);
+		return list; 
 		
 	}
 	

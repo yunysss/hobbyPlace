@@ -59,12 +59,13 @@ public class ClassManagementList extends HttpServlet {
 		ArrayList<Dcategory> dList = new AdminService().selectDcategoryList();
 		
 
-		request.setAttribute("pi", pi);
+	
 		request.setAttribute("list", list);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("cList", cList);
 		session.setAttribute("dList", dList);
+		session.setAttribute("pi", pi);
 		
 		request.getRequestDispatcher("views/admin/classManagementView.jsp").forward(request,response);
 		

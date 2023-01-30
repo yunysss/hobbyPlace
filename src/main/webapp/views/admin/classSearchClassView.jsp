@@ -6,6 +6,8 @@
 	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");
     ArrayList<Category> cList = (ArrayList<Category>)session.getAttribute("cList");
     ArrayList<Dcategory> dList = (ArrayList<Dcategory>)session.getAttribute("dList");
+    
+    
 %>    
     
 <!DOCTYPE html>
@@ -233,7 +235,7 @@
         
         
             <div id="select-area">
-            <form action="<%=contextPath %>/search.ad" method="post">
+            <form action="<%=contextPath%>/search.ad" method="post">
             <table id="class-select">
                 <tr>
                     <th width="100">검색어</th>
@@ -247,12 +249,12 @@
                 <tr>
                     <th width="100">카테고리</th>
                     <td>
-                        <select id="category" name="category" onchange="changeCt();">
+                        <select id="category"  onchange="changeCt();">
                         <%for(Category c : cList){ %>
-                            <option><%=c.getCtName() %></option>
+                            <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
                         <%} %>
                         </select>
-                        <select id="Dcategory" name="dCategory">
+                        <select id="Dcategory">
                         
                         </select>
                     </td>
@@ -266,13 +268,13 @@
                                 <div class="clearfix">
                                     <!-- 시작일 -->
                                     <span class="dset">
-                                        <input type="text" class="datepicker inpType" name="startDate" id="searchStartDate" >
+                                        <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >
                                         <a href="#none" class="btncalendar dateclick"></a>
                                     </span>
                                     <span class="demi">-</span>
                                     <!-- 종료일 -->
                                     <span class="dset">
-                                        <input type="text" class="datepicker inpType" name="endDate" id="searchEndDate" >
+                                        <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" >
                                         <a href="#none" class="btncalendar dateclick"></a>
                                     </span>
                                 </div>    
@@ -301,7 +303,7 @@
                 <tr>
                     <th>등록상태</th>
                     <td>
-                        <input type="checkbox" name="status" id="chkAll" value="4">
+                        <input type="checkbox" name="status" id="chkAll" value="">
                         <label for="">전체</label>
                         <input type="checkbox" name="status" id="beforeApproval" value="0">
                         <label for="beforeApproval">검수요청</label>
@@ -326,42 +328,17 @@
                     })
                 </script>
 
-            </table>  
-            
+            </table>    
             <hr>
             <div align="center">
-            <button type="submit" class="btn btn-secondary btn-sm" >조회하기</button>
+            <button class="btn btn-secondary btn-sm" >조회하기</button>
 
             </div>
-            
-             </form>  
-          <!-- 
+            </form>
             <script>
-            	function searchcl(){
-            		$ajax({
-            			url: "<%=contextPath%>/search.ad",
-            			data : {
-            				keyword: $("input:search[name=keyword]").val(),
-            				category : $("select[name=category]").val(),
-            				dcategory: $("select[name=dCategory]").val(),
-            				startDate : $("input[name=startDate]").val(),
-            				endDate : $("input[name=endDate]").val(),
-            				
-            			},
-            			type:"post",
-            			success : function(result){
-            				console.log(result);
-            				
-            			},
-            			error: function(){
-            				console.log("조회용 ajax통신 실패");
-            			}
-            		})
-            		
-            	}
+            
             
            </script>
-           -->
 		</div>
             <br><br>
         <table class="table table-hover" id="classList" >
@@ -465,28 +442,7 @@
         
 
 
-        <div class="paging-area">
-        
-        	<%if(pi.getCurrentPage() != 1){ %>    
-        		
-            		<button onclick="location.href='<%=contextPath%>/classmg.ad?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
-            <%} %>
-			
-			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
-           		 <button onclick="location.href='<%=contextPath%>/classmg.ad?cpage=<%=p%>';"><%= p %></button>
-           		 
-            <%} %>
-          
-            <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
-            <button onclick="location.href='<%=contextPath%>/classmg.ad?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
-            <%} %>
-            
-           
-        </div>
-
-
-
-
+     
 
 
 

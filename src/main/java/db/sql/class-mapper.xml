@@ -566,12 +566,7 @@
 	 </entry>
 	 
 	<entry key="selectPriceAsc">
-SELECT *
-	 FROM
-	  (	
-		SELECT ROWNUM RNUM, A.*
-		FROM	
-			(
+
 				SELECT 
 				       CL_NO
 				     , CT_NAME
@@ -596,9 +591,7 @@ SELECT *
 				   AND CT_NAME = ?
 				 ORDER
 				    BY CL_PRICE ASC
-			)A
-		)	
-		WHERE RNUM BETWEEN ?  AND ?
+		
 		
 	</entry> 
 	<entry key="getSchedule">

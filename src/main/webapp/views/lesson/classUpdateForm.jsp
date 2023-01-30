@@ -599,9 +599,9 @@
 					
 	                    <div id="file-area" style="display: none;">
 	                        <input type="file" name="file1" onchange="loadImg(this,1);"  value="<%=contextPath %>/<%=l.getClThumb()%>" required> 
-	                        <input type="file" name="file2" onchange="loadImg(this,2);" value="<%=contextPath %>/<%=atList.get(0).getFilePath()+atList.get(0).getChangeName() %>" required>
-	                        <input type="file" name="file3" onchange="loadImg(this,3);" value="<%=contextPath %>/<%=atList.get(1).getFilePath()+atList.get(1).getChangeName() %>"required> 
-	                        <input type="file" name="file4" onchange="loadImg(this,4);" value="<%=contextPath %>/<%=atList.get(2).getFilePath()+atList.get(2).getChangeName() %>" required>
+	                        <input type="file" name="file2" onchange="loadImg(this,2);" value="<%=contextPath %>/<%=atList.get(0).getFilePath()+atList.get(0).getChangeName() %>" >
+	                        <input type="file" name="file3" onchange="loadImg(this,3);" value="<%=contextPath %>/<%=atList.get(1).getFilePath()+atList.get(1).getChangeName() %>"> 
+	                        <input type="file" name="file4" onchange="loadImg(this,4);" value="<%=contextPath %>/<%=atList.get(2).getFilePath()+atList.get(2).getChangeName() %>" >
 	                        
 	                        <input type="hidden" name="originThumb" value="<%=l.getClThumb()%>">
 	                       <%for (Attachment at : atList){ %>
