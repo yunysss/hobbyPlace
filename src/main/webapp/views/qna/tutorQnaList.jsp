@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="java.util.ArrayList, com.hp.qna.model.vo.*"%>
+    
+<%
+	ArrayList<Qna> list  = (ArrayList<Qna>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,27 +72,25 @@
                 <th width="150">처리일</th>
                 <th width="100">상태</th>
             </tr>
-            
+            <%if(list.isEmpty()){ %>
             <tr>
-                <td>1</td>
-                <td>문의사항 제목1</td>
-                <td>2023-01-16</td>
-                <td></td>
-                <td>대기</td>
+                <td>등록된 문의사항이 없습니다.</td>
             </tr>
-
+			<%}else{ %>
+				<%for(Qna q: list){ %>
             <tr>
                 <td>2</td>
-                <td>문의사항 제목2</td>
-                <td>2023-01-14</td>
-                <td>2023-01-16</td>
-                <td>완료</td>
+                <td><%=q.getqTitle()%></td>
+                <td><%=q.getqDate() %></td>
+                <td></td>
+                <td></td>
             </tr>
-
+            	<%} %>
+			<%} %>
         </table>
 
         <br><br>
-
+		
         <div class="paging-area">
 
             <button style="border: none;">&lt;</button>

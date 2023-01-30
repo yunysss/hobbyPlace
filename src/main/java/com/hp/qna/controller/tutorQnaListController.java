@@ -1,11 +1,22 @@
 package com.hp.qna.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.hp.common.model.vo.PageInfo;
+import com.hp.customerService.model.Service.NoticeService;
+import com.hp.customerService.model.vo.Faq;
+import com.hp.member.model.vo.Member;
+import com.hp.qna.model.service.QnaService;
+import com.hp.qna.model.vo.Qna;
+import com.hp.tutor.model.vo.Tutor;
 
 /**
  * Servlet implementation class tutorQnaListController
@@ -26,7 +37,17 @@ public class tutorQnaListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
+		
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int MemNo = loginUser.getMemNo();
+		
+		ArrayList<Qna> list = new QnaService().selectTutorQnaList(MemNo);
+		
+		request.setAttribute("list", list);
+		
+		request.getRequestDispatcher("views/qna/tutorQnaList.jsp");
 		
 	}
 
