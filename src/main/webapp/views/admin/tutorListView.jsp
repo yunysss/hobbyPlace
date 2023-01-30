@@ -28,7 +28,7 @@
 	.optionWrap1, .optionWrap2{padding:0px 15px 15px 15px; border-radius:5px;}
 	.option1Detail, .option2Detail{margin-left:85px; display:none;}
 
-	#option2{width:100px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
+	#option2{width:120px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
 	.detailNum{width:80px; height:35px; border-radius:3px; margin-left:10px; border-color:rgb(186, 185, 185);}
 	#detailSearch2{margin-left:140px;}
 

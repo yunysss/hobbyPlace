@@ -140,6 +140,20 @@ public class AdminService {
 		return list; 
 		
 	}
+
+	/**	회원조회 리스트 select 
+	 * @author 수연
+	 * @param sGroup
+	 * @param fCategory
+	 * @param lineup
+	 * @return list
+	 */
+	public ArrayList<Member> selectMemberList(String sGroup, String fCategory, String lineup) {
+		Connection conn = getConnection();
+		ArrayList<Member> list = new AdminDao().selectMemberList(conn, sGroup, fCategory, lineup);
+		close(conn);
+		return list;
+	}
 	
 	
 	
