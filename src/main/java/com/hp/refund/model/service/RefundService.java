@@ -56,6 +56,20 @@ public class RefundService {
 		return r;
 		
 	}
+	
+	/**
+	 * @author 수정
+	 * @param regNo
+	 * @return r 환불하려는 클래스 정보
+	 */
+	public Register selectRefundClass(int regNo) {		
+		Connection conn = getConnection();
+		Register r = new RefundDao().selectRefundClass(conn, regNo);
+		close(conn);
+		return r;
+	}
+
+	
 
 	/**
 	 * @author 수정
@@ -69,11 +83,5 @@ public class RefundService {
 		return list;
 	}
 
-	public Register selectRefundClass(int memNo) {		
-		Connection conn = getConnection();
-		Register r = new RefundDao().selectRefundClass(conn, memNo);
-		close(conn);
-		return r;
-	}
 
 }

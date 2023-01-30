@@ -35,10 +35,8 @@ public class RefundRequestFormController extends HttpServlet {
 		
 		int regNo = Integer.parseInt(request.getParameter("no"));
 		
-		HttpSession session = request.getSession();
-		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
-		Register r =new RefundService().selectRefundClass(memNo);
+		Register r =new RefundService().selectRefundClass(regNo);
 		request.setAttribute("r", r);
 		
 		request.getRequestDispatcher("views/refund/refundRequestForm.jsp").forward(request, response);

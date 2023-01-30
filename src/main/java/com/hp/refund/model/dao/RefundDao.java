@@ -194,6 +194,48 @@ private Properties prop = new Properties();
 		}
 		return r;
 	}
+	
+	/**
+	 * @author 수정
+	 * @param regNo
+	 * @return 환불하려는 클래스 정보
+	 */
+	public Register selectRefundClass(Connection conn, int regNo) {
+		//select=>한행
+		Register r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		
+		String sql = prop.getProperty("selectRefundClass");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,regNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = new Register (								  
+								  rset.getInt("reg_no"),
+								  rset.getString("cl_no"),
+								  rset.getString("teach_date"),
+								  rset.getString("reg_pay"),
+								  rset.getString("reg_price"),
+								  rset.getString("cl_thumb"),
+								  rset.getString("cl_name"),
+								  rset.getString("start_time"),
+								  rset.getString("distr_name")
+								);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
+		
+		
+	}
 
 	public ArrayList<Refund> selectMyRefundClassList(Connection conn, int memNo) {
 		ArrayList<Refund> list = new ArrayList<>();
@@ -218,42 +260,6 @@ private Properties prop = new Properties();
 		return list;
 	}
 
-	public Register selectRefundClass(Connection conn, int memNo) {
-		//select=>한행
-		Register r = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset =null;
-		
-		String sql = prop.getProperty("selectRefundClass");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1,memNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				r = new Register (
-								  rset.getString("reg_pay"),
-								  rset.getInt("reg_no"),
-								  rset.getString("reg_price"),
-								  rset.getString("reg_count"),
-								  rset.getString("reg_sta"),
-								  rset.getString("cl_thumb"),
-								  rset.getString("cl_name"),
-								  rset.getString("start_time"),
-								  rset.getString("distr_name"),
-								  rset.getString("tt_name")
-								);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return r;
-		
-		
-	}
+	
 
 }

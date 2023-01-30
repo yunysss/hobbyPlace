@@ -91,13 +91,13 @@
     <div id="class-area">
         <div class="area1">
             <div id="classThumbnail">
-                <img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg">
+                <img src="<%=contextPath%>/<%=r.getClThumb() %>">
             </div>
             <div id="classInf">
                 <ul style="padding: 5px;">
-                    <li style="font-size: small; color: gray;">주문번호 B133R2344</li>
-                    <li style="font-size:large"><b>라탄 소품 만들기, 마음을 담아 엮어요</b></li>
-                    <li>구로 / 2023-01-07 (토) 17:00</li>
+                    <li style="font-size: small; color: gray;">주문번호 <%=r.getRegNo() %></li>
+                    <li style="font-size:large"><b><%=r.getClName() %></b></li>
+                    <li><%=r.getDistrName() %> / <%=r.getTeachDate() %> <%=r.getStartTime() %></li>
                 </ul>
             </div>
         </div>
@@ -111,10 +111,14 @@
                 </tr>
                 <tr>
                     <td rowspan="2">총 결제 금액</td>
-                    <td style="text-align: right;">39,000원</td>
+                    <td style="text-align: right;"><%=r.getRegPrice() %></td>
                 </tr>
                 <tr>
+                <%if(r.getRegPay().equals("0")){ %>
                     <td style="text-align: right; font-size: smaller; color: gray;">(신용카드)</td>
+                <%} else { %>
+                	<td style="text-align: right; font-size: smaller; color: gray;">(무통장입금)</td>
+                <%} %>
                 </tr>
             </table>
         </div>
