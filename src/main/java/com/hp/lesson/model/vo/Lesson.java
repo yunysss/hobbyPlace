@@ -298,9 +298,10 @@ public class Lesson {
 		this.clDay = clDay;
 	}
 
-	public Lesson(String clName,  String startDate, String clSchedule, String clPrice, int clMax, String clStatus, String clThumb) {
+	public Lesson(String clName, String memNo, String startDate, String clSchedule, String clPrice, int clMax, String clStatus, String clThumb) {
 		super();
 		this.clName = clName;
+		this.memNo = memNo;
 		this.startDate = startDate;
 		this.clSchedule = clSchedule;
 		this.clPrice = clPrice;

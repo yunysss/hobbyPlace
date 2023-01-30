@@ -55,6 +55,9 @@
         #payment-1 label{
             margin-right:20px;
         }
+        #personal-modal{
+        	font-size : 12px;
+        }
         
     </style>
 </head>
@@ -121,18 +124,7 @@
                         <tr>
                             <td>
                                 개인정보 제공안내 
-                                <a href="" >보기</a><br>
-                                <!-- [ 제공받는 자 ]
-
-
-                                    [ 제공 정보 ]
-                                    성명, 휴대폰 번호, 이메일 주소
-
-                                    [ 목적 ]
-                                    본인 확인을 통한 부정이용 방지, 이용자가 문의한 서비스 제공, 서비스 내 맞춤형 정보 제공
-
-                                    [ 보유 및 이용기간 ]
-                                    서비스 목적 달성 시. 단, 전자상거래 등에서의 소비자 보호에 관한 법률 및 관계 법령에 따른 보관 의무가 있을 경우 해당 기간 동안 보관함 -->
+                                <a href="" data-toggle="modal" data-target="#personal-modal">보기</a><br>
                                 <input type="checkbox" id="personal">
                                 <label for="personal">위 개인 정보 제공 안내 내용을 확인하였으며, 이에 동의합니다. (필수)</label>
                             </td>
@@ -150,10 +142,10 @@
                     <tbody>
                         <tr>
                             <td>
-                                <input type="radio" id="card" name="payMethod">
+                                <input type="radio" id="card" name="payMethod" required>
                                 <label for="card">신용/체크카드</label>
                                 
-                                <input type="radio" id="account" name="payMethod">
+                                <input type="radio" id="account" name="payMethod" required>
                                 <label for="account">무통장입금</label>
                             </td>
                         </tr>
@@ -174,11 +166,11 @@
                         <td>클래스 수강권</td>
                     </tr>
                     <tr>
-                        <td>
-                            99,000원 <br>
-                            x 1명
+                        <td align="right">
+                            <%= le.getClPrice() %> <br>
+                            x <%= le.getClMax() %>명
                             <hr>
-                            총 결제 금액 <b>99,000원</b>
+                            총 결제 금액 <b><%= le.getClStatus() %></b>
                         </td>
                     </tr>
                 </tbody>
@@ -206,7 +198,35 @@
 		})
 	})
     </script>
-    
+    <div class="modal fade" id="personal-modal">
+	  <div class="modal-dialog modal-dialog-centered modal-sm">
+	    <div class="modal-content">
+	
+	      <div class="modal-header">
+	        개인정보 제공안내
+	      </div>
+	
+	      <div class="modal-body">
+	        [ 제공받는 자 ]<br>
+	        <%= le.getMemNo() %><br><br>
+	        
+            [ 제공 정보 ]<br>
+            성명, 휴대폰 번호, 이메일 주소<br><br>
+
+            [ 목적 ]<br>
+            본인 확인을 통한 부정이용 방지, 이용자가 문의한 서비스 제공, 서비스 내 맞춤형 정보 제공<br><br>
+
+            [ 보유 및 이용기간 ]<br>
+            서비스 목적 달성 시. 단, 전자상거래 등에서의 소비자 보호에 관한 법률 및 관계 법령에 따른 보관 의무가 있을 경우 해당 기간 동안 보관함
+	      </div>
+	
+	      <div align="center">
+	        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button><br><br>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
     <br clear="both">
     <%@ include file="../common/footerbar.jsp" %>
 </body>
