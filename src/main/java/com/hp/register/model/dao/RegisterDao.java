@@ -206,7 +206,6 @@ public class RegisterDao {
 	/**
 	 * 마이클래스 수강내역부분 조회
 	 * @author 수정
-	 * @param conn
 	 * @param memNo
 	 * @return ArrayList<Register> list
 	 */
@@ -244,6 +243,36 @@ public class RegisterDao {
 			close(rset);
 			close(pstmt);
 		}return list;
+	}
+
+	/**
+	 * @author 수정
+	 * @param memNo
+	 * @return listCount
+	 * 로그인한 유저의 db에 저장되어 있는 결제 클래스 총 개수
+	 */
+	public int selectListCount(Connection conn, int memNo) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,memNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 
 	

@@ -136,8 +136,18 @@
      LEFT OUTER JOIN SCHEDULE S
      ON S.SCH_NO = R.SCH_NO
 	 WHERE R.MEM_NO= ?
+	   AND REG_STA NOT IN (3,4)
 	 ORDER 
 	    BY REG_NO DESC
+	</entry>
+	
+	<entry key="selectListCount">
+	SELECT 
+		   COUNT(*) "COUNT"
+	  FROM REGISTER
+  	 WHERE REG_STA NOT IN (3,4)
+  	   AND MEM_NO = ?
+	
 	</entry>
 	
 </properties>

@@ -54,11 +54,28 @@ public class RegisterService {
 		return m;
 	}
 
+	/**
+	 * @author 수정
+	 * @param memNo
+	 * @return 로그인한 유저의 결제한 클래스 목록
+	 */
 	public ArrayList<Register> selectMyClassList(int memNo) {
 		Connection conn = getConnection();
 		ArrayList<Register> list = new RegisterDao().selectRegisterList(conn, memNo);
 		close(conn);
 		return list;
+	}
+
+	/**
+	 * @수정
+	 * @param memNo
+	 * @return listCount
+	 */
+	public int selectListCount(int memNo) {
+		Connection conn = getConnection();
+		int listCount = new RegisterDao().selectListCount(conn, memNo);
+		close(conn);
+		return listCount;
 	}
 
 }
