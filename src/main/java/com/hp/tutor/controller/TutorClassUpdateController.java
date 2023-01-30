@@ -102,6 +102,7 @@ public class TutorClassUpdateController extends HttpServlet {
 				// 새로운 첨부파일 있을경우
 				if (multiRequest.getOriginalFileName(key) != null) {
 					Attachment at = new Attachment();
+					
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setChangeName(multiRequest.getFilesystemName(key));
 					at.setFilePath("resources/classThumbnail_upfiles/");
@@ -138,20 +139,17 @@ public class TutorClassUpdateController extends HttpServlet {
 			int[] newsession = new int[sessionArr.length];
 			int[] newSch = new int[schNoArr.length];
 			
-			
 			for (int j = 0; j < sessionArr.length; j++) {
 				newsession[j] = Integer.parseInt(sessionArr[j]);
 			}
-
 			for(int j = 0; j< schNoArr.length; j++) {// 
 				newSch[j] = Integer.parseInt(schNoArr[j]);
 				System.out.print(newSch[j]);
 			}
 
-	
-			
 			for (int i = 0; i < newsession.length; i++) {
-				Schedule sc = new Schedule();		
+				Schedule sc = new Schedule();	
+				sc.setSchNo(newSch[i]);
 				sc.setClNo(String.valueOf(clNo));
 				sc.setSessionNo(newsession[i]);
 				sc.setStartTime(startTimeArr[i]);
@@ -160,9 +158,7 @@ public class TutorClassUpdateController extends HttpServlet {
 				sList.add(sc);
 			
 			}
-			
-		
-			
+
 			int result = new TutorService().updateClass(l, list, sList);
 
 			HttpSession session = request.getSession();

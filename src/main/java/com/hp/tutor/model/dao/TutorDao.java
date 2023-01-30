@@ -722,19 +722,18 @@ public class TutorDao {
 	 * @param sList
 	 * @return result 클래스 수정시 스케쥴 삭제 
 	 */
-	public int deleteSchedule(Connection conn, ArrayList<Schedule> sList) {
+	public int deleteSchedule(Connection conn, Lesson l) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteSchedule");
 		try {
-			for(Schedule s : sList) {
+			System.out.println(l.getClNo());
 			pstmt= conn.prepareStatement(sql);
-			pstmt.setString(1,s.getClNo());
-			System.out.println(s.getClNo());
-			result = pstmt.executeUpdate();
-			}
+			pstmt.setInt(1,l.getClNo());
 			
+			result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

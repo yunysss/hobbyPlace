@@ -410,8 +410,7 @@
 
 	</entry>
 	<entry key="insertNewSchedule">
-	
-	INSERT 
+		INSERT 
 		INTO SCHEDULE
 		         (SCH_NO
 		        , CL_NO
@@ -432,6 +431,7 @@
   
 		        
 		            )
+  
 	
 	
 	

@@ -189,7 +189,7 @@ public class TutorService {
 			}
 		}
 
-		int result3 = new TutorDao().deleteSchedule(conn, sList);
+		int result3 = new TutorDao().deleteSchedule(conn, l);
 		int result4 = new TutorDao().insertNewSchedule(conn, sList);
 		
 		System.out.println(result1 + " " + result2 + " " + result3 + " " + result4);

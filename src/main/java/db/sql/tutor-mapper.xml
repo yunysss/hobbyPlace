@@ -295,6 +295,7 @@
 			   ,ORIGIN_NAME
 			   ,CHANGE_NAME
 			   ,FILE_PATH
+			   ,REF_NO
 	    FROM ATTACHMENT
 	    WHERE REF_NO = ?
 	       
@@ -405,11 +406,32 @@
 	<entry key="deleteSchedule">
 	   	DELETE
 	   	FROM SCHEDULE
-	    WHERE SCH_NO =?
+	    WHERE CL_NO =?
 
 	</entry>
-	<entry key="">
-	
+	<entry key="insertNewSchedule">
+		INSERT 
+		INTO SCHEDULE
+		         (SCH_NO
+		        , CL_NO
+		        , SESSION_NO
+		        , START_TIME
+		        , END_TIME
+		       	, CLS_HOUR
+		        )
+		VALUES 
+		        ( 
+		          SEQ_SCHNO.NEXTVAL
+		          ,	?
+		          , ?
+		          , ?
+		          , ?
+		          ,(SELECT ROUND((TO_DATE(?, 'HH24:MI') - TO_DATE(?, 'HH24:MI')) * 24, 2)
+           			 FROM dual)
+  
+		        
+		            )
+  
 	
 	
 	
