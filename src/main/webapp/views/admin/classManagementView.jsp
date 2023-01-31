@@ -12,6 +12,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!-- datepicker 한국어로 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
+
 <title>Insert title here</title>
 <style>
     .outer{
@@ -101,46 +108,38 @@
 
 </style>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<!-- datepicker 한국어로 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
 <script>                
 
-    $(document).ready(function() {
 
-        //datepicker 한국어로 사용하기 위한 언어설정
-        $.datepicker.setDefaults($.datepicker.regional['ko']);     
-    
-        // Datepicker            
-        $(".datepicker").datepicker({
-            showButtonPanel: true,
-            dateFormat: "yy-mm-dd",
-            onClose : function ( selectedDate ) {
-            
-                var eleId = $(this).attr("id");
-                var optionName = "";
+$(document).ready(function() {
 
-                if(eleId.indexOf("StartDate") > 0) {
-                    eleId = eleId.replace("StartDate", "EndDate");
-                    optionName = "minDate";
-                } else {
-                    eleId = eleId.replace("EndDate", "StartDate");
-                    optionName = "maxDate";
-                }
+    //datepicker 한국어로 사용하기 위한 언어설정
+    $.datepicker.setDefaults($.datepicker.regional['ko']);     
 
-                $("#"+eleId).datepicker( "option", optionName, selectedDate );        
-                $(".searchDate").find(".chkbox2").removeClass("on"); 
+    // Datepicker            
+    $(".datepicker").datepicker({
+        showButtonPanel: true,
+        dateFormat: "yy-mm-dd",
+        onClose : function ( selectedDate ) {
+        
+            var eleId = $(this).attr("id");
+            var optionName = "";
+
+            if(eleId.indexOf("StartDate") > 0) {
+                eleId = eleId.replace("StartDate", "EndDate");
+                optionName = "minDate";
+            } else {
+                eleId = eleId.replace("EndDate", "StartDate");
+                optionName = "maxDate";
             }
-        }); 
+
+            $("#"+eleId).datepicker( "option", optionName, selectedDate );        
+            $(".searchDate").find(".chkbox2").removeClass("on"); 
+        }
+    }); 
+
 
         //시작일.
         /*$('#searchStartDate').datepicker("option","onClose", function( selectedDate ) {    
@@ -160,66 +159,67 @@
         });
         */
 
-        $(".dateclick").dateclick();    // DateClick
-        $(".searchDate").schDate();        // searchDate
-        
-    });
 
-    // Search Date
-    jQuery.fn.schDate = function(){
-        var $obj = $(this);
-        var $chk = $obj.find("input[type=radio]");
-        $chk.click(function(){                
-            $('input:not(:checked)').parent(".chkbox2").removeClass("on");
-            $('input:checked').parent(".chkbox2").addClass("on");                    
-        });
-    };
-
-    // DateClick
-    jQuery.fn.dateclick = function(){
-        var $obj = $(this);
-        $obj.click(function(){
-            $(this).parent().find("input").focus();
-        });
-    }    
-
+    $(".dateclick").dateclick();    // DateClick
+    $(".searchDate").schDate();        // searchDate
     
-    function setSearchDate(start){
+});
 
-        var num = start.substring(0,1);
-        var str = start.substring(1,2);
+// Search Date
+jQuery.fn.schDate = function(){
+    var $obj = $(this);
+    var $chk = $obj.find("input[type=radio]");
+    $chk.click(function(){                
+        $('input:not(:checked)').parent(".chkbox2").removeClass("on");
+        $('input:checked').parent(".chkbox2").addClass("on");                    
+    });
+};
 
-        var today = new Date();
+// DateClick
+jQuery.fn.dateclick = function(){
+    var $obj = $(this);
+    $obj.click(function(){
+        $(this).parent().find("input").focus();
+    });
+}    
 
-        //var year = today.getFullYear();
-        //var month = today.getMonth() + 1;
-        //var day = today.getDate();
-        
-        var endDate = $.datepicker.formatDate('yy-mm-dd', today);
-        $('#searchEndDate').val(endDate);
-        
-        if(str == 'd'){
-            today.setDate(today.getDate() - num);
-        }else if (str == 'w'){
-            today.setDate(today.getDate() - (num*7));
-        }else if (str == 'm'){
-            today.setMonth(today.getMonth() - num);
-            today.setDate(today.getDate() + 1);
-        }
 
-        var startDate = $.datepicker.formatDate('yy-mm-dd', today);
-        $('#searchStartDate').val(startDate);
-                
-        // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
-        $("#searchEndDate").datepicker( "option", "minDate", startDate );
-        
-        // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
-        $("#searchStartDate").datepicker( "option", "maxDate", endDate );
+function setSearchDate(start){
 
+    var num = start.substring(0,1);
+    var str = start.substring(1,2);
+
+    var today = new Date();
+
+    //var year = today.getFullYear();
+    //var month = today.getMonth() + 1;
+    //var day = today.getDate();
+    
+    var endDate = $.datepicker.formatDate('yy-mm-dd', today);
+    $('#searchEndDate').val(endDate);
+    
+    if(str == 'd'){
+        today.setDate(today.getDate() - num);
+    }else if (str == 'w'){
+        today.setDate(today.getDate() - (num*7));
+    }else if (str == 'm'){
+        today.setMonth(today.getMonth() - num);
+        today.setDate(today.getDate() + 1);
     }
 
-        
-    </script>           
+    var startDate = $.datepicker.formatDate('yy-mm-dd', today);
+    $('#searchStartDate').val(startDate);
+            
+    // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
+    $("#searchEndDate").datepicker( "option", "minDate", startDate );
+    
+    // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
+    $("#searchStartDate").datepicker( "option", "maxDate", endDate );
+
+}
+
+    
+</script>           
 
 </head>
 <body>
@@ -233,7 +233,7 @@
         
         
             <div id="select-area">
-            <form action="<%=contextPath %>/search.ad" method="post">
+          
             <table id="class-select">
                 <tr>
                     <th width="100">검색어</th>
@@ -263,16 +263,16 @@
                 <tr>
                     <th>조회기간</th>
                             <td>
-                                <div class="clearfix">
+                          <div class="clearfix">
                                     <!-- 시작일 -->
                                     <span class="dset">
-                                        <input type="text" class="datepicker inpType" name="startDate" id="searchStartDate" >
+                                        <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >
                                         <a href="#none" class="btncalendar dateclick"></a>
                                     </span>
                                     <span class="demi">-</span>
                                     <!-- 종료일 -->
                                     <span class="dset">
-                                        <input type="text" class="datepicker inpType" name="endDate" id="searchEndDate" >
+                                        <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" >
                                         <a href="#none" class="btncalendar dateclick"></a>
                                     </span>
                                 </div>    
@@ -294,14 +294,14 @@
                                     <input type="radio" name="dateType" id="dateType7" onclick="setSearchDate('6m')"/>
                                     <label for="dateType7">6개월</label>
                                  </span>
-                                </div>
+                                </div>       
                             
                             </td>
                 </tr>
                 <tr>
                     <th>등록상태</th>
                     <td>
-                        <input type="checkbox" name="status" id="chkAll" value="">
+                        <input type="checkbox" name="status" id="chkAll">
                         <label for="">전체</label>
                         <input type="checkbox" name="status" id="beforeApproval" value="0">
                         <label for="beforeApproval">검수요청</label>
@@ -330,23 +330,32 @@
             
             <hr>
             <div align="center">
-            <button type="submit" class="btn btn-secondary btn-sm" >조회하기</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="searchcl();" >조회하기</button>
 
             </div>
             
-             </form>  
-        
-            <script>
+       
+           <script>
             	function searchcl(){
-            		$ajax({
+            		
+					let status = "";
+                	
+                	$("input[name=status]:checked").each(function(){
+               		 let arr = $(this).val(); 
+               		 status += arr + ","
+      
+               	})
+ 
+            		$.ajax({
             			url: "<%=contextPath%>/search.ad",
             			data : {
-            				keyword: $("input:search[name=keyword]").val(),
+            				keyword: $("input[name=keyword]").val(),
             				category : $("select[name=category]").val(),
             				dcategory: $("select[name=dCategory]").val(),
-            				startDate : $("input[name=startDate]").val(),
-            				endDate : $("input[name=endDate]").val(),
-            				
+            				startDate : $("input[name=searchStartDate]").val(),
+            				endDate : $("input[name=searchEndDate]").val(),
+            				status : status
+  
             			},
             			type:"post",
             			success : function(result){
@@ -450,7 +459,7 @@
                         	}
                         	
                         	$("#Dcategory").empty();
-                        	for(var i=0; i<changeDct.length; i++){
+                        	for(var i=0; i<changeDct.length(); i++){
                         		var option = $("<option>"+changeDct[i]+"</option>");
                         		$("#Dcategory").append(option);
                         	}

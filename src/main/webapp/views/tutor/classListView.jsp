@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -229,7 +229,7 @@
                     <table id="class-select">
                         <tr>
                             <th width="100">검색어</th>
-                            <td><input type="search">
+                            <td><input type="search" name="keyword">
                                
                             </td>
 

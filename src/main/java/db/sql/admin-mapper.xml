@@ -221,14 +221,7 @@
 			JOIN CATEGORY G USING (CT_NO)
 			JOIN TUTOR T USING (MEM_NO)
 			WHERE
-			( CT_NAME||TT_NAME||CL_NAME LIKE ?
-			and CT_NAME LIKE ?
-			and C.ENROLL_DATE BETWEEN ? AND ?
-			and CL_STATUS LIKE ?)
-			OR ( CT_NAME LIKE ?)
-		
-
-			ORDER BY CL_NO DESC
+			
 
 	
 	</entry>
