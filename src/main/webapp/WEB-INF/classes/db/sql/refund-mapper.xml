@@ -89,7 +89,6 @@
 		     , REF_BANK
 		     , REF_ACC
 		     , REF_NM
-		     , REF_STA
 		     , REF_REA
 		     )
 		VALUES
@@ -104,6 +103,13 @@
 			 , ?
 		     )
 		
+	</entry>
+	
+	<entry key="updateStatus">
+	UPDATE REGISTER 
+	   SET REG_STA = '3'
+	 WHERE REG_NO = ? 
+	
 	</entry>
 	
 	

@@ -135,6 +135,7 @@
 		
 	<form action="<%=contextPath %>/insert.ref?no=<%=r.getRegNo() %>" id="reasonForm" method="post">
     <input type="hidden" name="regPrice" value="<%=r.getRegPrice()%>">
+    <input type="hidden" name = "regSta" value="<%=r.getRegSta() %>">
         <div id="refundReasonForm">
             <p style="font-size: small; color: gray;">- 환불 신청을 클릭하시면 환불이 진행됩니다. 이후 '취소 수강 목록'에서 해당 클래스를 확인하실 수 있습니다.</p>
             <h6><b>환불 사유</b></h6>
@@ -178,7 +179,7 @@
             <table width="690px">
                 <tr>
                     <td style="font-size: 15px;"><b>환불 금액</b></td>
-                    <td  style="color: rgb(255, 104, 112); text-align: right;"><b>39,000원</b></td>
+                    <td  style="color: rgb(255, 104, 112); text-align: right;"><b><%=r.getRegPrice()%></b></td>
                 </tr>
             </table>
          </div>
@@ -193,7 +194,7 @@
             <table width="690px">
                 <tr>
                     <td colspan="2" style="font-size: 15px;"><b>무통장입금 환불 금액</b></td>
-                    <td  style="color: rgb(255, 104, 112); text-align: right;"><b>39,000원</b></td>
+                    <td  style="color: rgb(255, 104, 112); text-align: right;"><b><%=r.getRegPrice()%></b></td>
                 </tr>
                 <tr>
                     <td colspan="3" style="background: lightgray; height: 1px;"></td>
