@@ -225,7 +225,9 @@ public class AdminService {
 		return likeList;
 	}
 	
-	public int checkClassReject(String classNo, String cause) {
+	
+	
+	public int checkedClassReject(String classNo, String cause) {
 		Connection conn = getConnection();
 		int result = new AdminDao().checkedClassReject(conn, classNo, cause);
 		if(result>0) {
@@ -237,6 +239,20 @@ public class AdminService {
 		return result;
 	}
 	
+	public int checkedClassApprove(String classNo) {
+		Connection conn = getConnection();
+		int result = new AdminDao().checkedClassApprove(conn, classNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+		
+		
+	}
 	
 	
 

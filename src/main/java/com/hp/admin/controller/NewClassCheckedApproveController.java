@@ -1,7 +1,6 @@
 package com.hp.admin.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +11,16 @@ import javax.servlet.http.HttpSession;
 import com.hp.admin.model.service.AdminService;
 
 /**
- * Servlet implementation class AjaxNewClassRejectControllor
+ * Servlet implementation class NewClassCheckedApproveController
  */
-@WebServlet("/ckreject.cl")
-public class NewClassCheckedRejectControllor extends HttpServlet {
+@WebServlet("/ckapprove.cl")
+public class NewClassCheckedApproveController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewClassCheckedRejectControllor() {
+    public NewClassCheckedApproveController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,26 +29,24 @@ public class NewClassCheckedRejectControllor extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+request.setCharacterEncoding("UTF-8");
 		
-		String classNo = request.getParameter("classNo");
-		String cause = request.getParameter("causeOfReturn");
-		
+		String classNo = request.getParameter("approvecl");
+
 		System.out.println("classNo: "+ classNo);
-		int result = new AdminService().checkedClassReject(classNo, cause);
+		int result = new AdminService().checkedClassApprove(classNo);
 		
 		HttpSession session = request.getSession();
 		if(result>0) {
-			session.setAttribute("alertMsg","성공적으로 반려처리 되었습니다.");
+			session.setAttribute("alertMsg","성공적으로 승인되었습니다.");
 			response.sendRedirect(request.getContextPath()+"/newcl.ad?capge=1"); 
 			
 		}else {
 			
-			session.setAttribute("alertMsg", "반려처리에 실패했습니다.");
-			response.sendRedirect(request.getContextPath()+"/newcl.ad=cpage=1");
+			session.setAttribute("alertMsg", "승인처리에 실패했습니다.");
+			response.sendRedirect(request.getContextPath()+"/newcl.ad?cpage=1");
 		}
 		
-	
 	}
 
 	/**

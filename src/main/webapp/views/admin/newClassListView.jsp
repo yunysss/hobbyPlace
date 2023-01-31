@@ -29,9 +29,12 @@
         text-align: center;
         font-size: 12px;
     }
-    #btn-area {float: right;}
 
-    #btn-area {width: 600px;}
+
+    #btn-area {
+        width: 900px;
+        display: inline-block;
+    }
     
      .paging-area{
         text-align: center;
@@ -61,12 +64,10 @@
     <br><br>
 
     <span style="font-weight: 600;">신규클래스 목록</span>
-    
-    <div id="btn-area" align="right">
-    <button type=button class="btn btn-secondary btn-sm" onclick=";">승인</button>
+    <form action="<%=contextPath%>/ckapprove.cl">
+    <div id="btn-area"  align="right">
+    <button type="submit" class="btn btn-secondary btn-sm" onclick="approve();">승인</button>
     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#classReject" onclick="reject();">반려</button>
-    
-    
     </div>
     
 
@@ -74,7 +75,7 @@
     <table class="table table-hover" id="newClass" >
         <thead class="thead-light">
             <tr>
-            	<th><input type="checkbox" name="check" id="chkAll"></th>
+            	<th><input type="checkbox" id="chkAll"></th>
                 <th width="100">클래스번호</th>
                 <th width="100">카테고리</th>
                 <th width="400">클래스명</th>
@@ -112,13 +113,15 @@
                           <%=status %>
 
 					</td>
-
+					<input type="hidden" name="approvecl" value="">
                 </tr>
                 <%} %>
           <%} %>
          </tbody>
 
     </table>
+    
+    </form>
 			<script>
                     $(function(){
                         $("#chkAll").click(function(){
@@ -133,10 +136,10 @@
 
     
      	<script>
-			$(function() {$("#newClass>tbody>tr").click(
-				function() {
+			$(function() {$("#newClass>tbody>tr").click(function() {
 					location.href = "<%=contextPath%>/newde.ad?no="+$(this).children().eq(1).text();
-					 event.stopPropagation();
+					
+				
         		})
         	})
         
@@ -168,19 +171,6 @@
 	
 			<script type="text/javascript">
    
-				var tdArr = new Array();
-                var checkbox = $("input[name=check]:checked");
-               
-                checkbox.each(function(i){
-                var tr = checkbox.parent().parent().eq(i);
-                var td = tr.children();
-
-                var clNo = td.eq(1).text();
-                
-                
-                
-                	             		
-                })
                 
                 function reject(){
                 	let classNo = "";
@@ -188,13 +178,30 @@
                 	// 순차적으로 접근하면서 해당 value값을 매번 classNo에 ,찍어서 연이어지게끔
                 	// "21,23"
                 	
-                	$("#input[name=check]:checked").each(function(){
-                		classNo +=  $(this).val() + ","
+                	$("input[name=check]:checked").each(function(){
+                		 let arr = $(this).val(); 
                 		
+                		//console.log($(this).val());
+                		classNo += arr + ","
+                		
+                		//console.log(classNo);
                 	
                 	})
   
                    $("#classReject input[name=classNo]").val(classNo);
+                }
+                
+                
+                function approve(){
+                	let classNo = "";
+                	
+                	$("input[name=check]:checked").each(function(){
+               		 let arr = $(this).val(); 
+               		 classNo += arr + ","
+      
+               	})
+ 
+                  $("input[name=approvecl]").val(classNo);
                 }
                    
             </script>

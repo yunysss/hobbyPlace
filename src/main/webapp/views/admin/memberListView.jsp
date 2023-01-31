@@ -211,6 +211,8 @@
 						$("#resultNt").html("<br>** 총 " + result.length + "명이 조회되었습니다 **");
 						$(".listTable tbody").html(value);
 						
+						
+						
 					},error:function(){
 						console.log("ajax 통신 실패");
 					}
