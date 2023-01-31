@@ -800,6 +800,12 @@ public class AdminDao {
 		return likeList;
 	}
 	
+	
+	public int checkedClassReject(Connection conn, String classNo, String cause) {
+		
+		
+		
+	}
 
 	
 	

@@ -227,7 +227,7 @@ public class AdminService {
 	
 	public int checkClassReject(String classNo, String cause) {
 		Connection conn = getConnection();
-		int result = new AdminDao().checkClassReject(conn, classNo, cause);
+		int result = new AdminDao().checkedClassReject(conn, classNo, cause);
 		if(result>0) {
 			commit(conn);
 		}else {
