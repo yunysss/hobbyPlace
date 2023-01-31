@@ -3,6 +3,7 @@ package com.hp.customerService.model.Service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.customerService.model.dao.NoticeDao;
 import com.hp.customerService.model.vo.Faq;
@@ -168,5 +169,56 @@ public class NoticeService {
 		close(conn);
 		
 		return list;
+	}
+	
+	public int insertNotice(Notice n, Attachment at) {
+		
+		Connection conn = getConnection();
+		
+		int result1 = new NoticeDao().insertNotice(conn, n);
+		
+		int result2 = 1;
+		if(at != null) {
+			 result2 =new NoticeDao().insertAttachment(conn, at);
+		}
+		
+		if(result1>0 && result2>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2;
+		
+	}
+	
+	public Notice selectAdminNoticeDetail(int ntNo) { 
+		Connection conn = getConnection();
+		Notice n = new NoticeDao().selectAdminNoticeDetail(conn, ntNo);
+		
+		close(conn);
+		return n;
+	}
+	
+	public Attachment selectAdminNoticeAttachment(int ntNo) {
+		Connection conn = getConnection();
+		Attachment at = new NoticeDao().selectAdminNoticeAttachment(conn, ntNo);
+		
+		close(conn);
+		return at;
+	}
+	
+	public int deleteNotice(int ntNo) {
+		
+		Connection conn = getConnection();
+		int result = new NoticeDao().deleteNotice(conn, ntNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 }

@@ -11,16 +11,16 @@ import com.hp.customerService.model.Service.NoticeService;
 import com.hp.customerService.model.vo.Notice;
 
 /**
- * Servlet implementation class tuteeNoticeDetailController
+ * Servlet implementation class NoticeDeleteController
  */
-@WebServlet("/ntDetail.no")
-public class tuteeNoticeDetailController extends HttpServlet {
+@WebServlet("/delete.nt")
+public class NoticeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tuteeNoticeDetailController() {
+    public NoticeDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +32,15 @@ public class tuteeNoticeDetailController extends HttpServlet {
 	
 		int ntNo = Integer.parseInt(request.getParameter("ntNo"));
 		
-		Notice n = new NoticeService().selectNoticeDetail(ntNo);
-	
+		int result = new NoticeService().deleteNotice(ntNo);
 		
-		if(n!=null) {
-			request.setAttribute("n", n);
-			
-			request.getRequestDispatcher("views/customerService/tuteeNoticeDetail.jsp").forward(request, response);
+		if(result>0) {
+			request.getSession().setAttribute("alertMsg", "성공적으로 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/noticeList.ad?cpage=1");
+		}else {
+			request.setAttribute("errorMsg", "공지사항 삭제 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		
-		
 	}
 
 	/**

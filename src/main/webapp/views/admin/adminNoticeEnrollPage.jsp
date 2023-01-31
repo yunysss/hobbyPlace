@@ -33,7 +33,7 @@
 </style>
 </head>
 <body>
-
+<%@ include file="../common/adminMenubar.jsp"%>
     <div class="outer">
 
         <br>
@@ -41,7 +41,7 @@
         <br><br><hr>
         <div class="title">공지사항</div> <br><hr>
 
-        <form action="" method="post">
+        <form action="<%=contextPath %>/insert.nt" method="post" enctype="multipart/form-data">
             
             <table>
                 <tr>
@@ -49,7 +49,7 @@
                         제목
                     </th>
                     <td >
-                        <input type="text" style="width: 900px; height: 50px;resize: none; border-color: lightgray;" required placeholder="제목을 입력하세요.">
+                        <input type="text"  name="title" style="width: 900px; height: 50px;resize: none; border-color: lightgray;" required placeholder="제목을 입력하세요.">
                     </td>
                 </tr>
         
@@ -69,13 +69,13 @@
             <br>
             <table>
                 <tr>
-                    <td><textarea name="" rows="10" required style="resize:none; width:1000px; height: 500px; border-color: lightgray;"  ></textarea></td>
+                    <td><textarea name="content" rows="10" required style="resize:none; width:1000px; height: 500px; border-color: lightgray;"  ></textarea></td>
                 </tr>
 
             </table>
             <br>
 
-            <input type="file">
+            <input type="file" name="upfile">
 
             <div class="button">
             <button type="reset" style="background-color:lightgray; border:none; width: 120px; height: 50px; ">취소</button>

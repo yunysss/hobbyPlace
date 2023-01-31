@@ -76,7 +76,17 @@
      form{
         float: right;
     }
-    
+     .enroll{
+        background-color:rgb(50, 106, 118) ;
+        color: white;
+        width: 100px;
+        height: 30px;
+        font-size: large;
+        border: 0;
+        float: right;
+        text-align: center;
+        
+    }
    
 </style>
 </head>
@@ -88,7 +98,8 @@
         <br><hr>
 
         
-        <form action="<%=request.getContextPath()%>/search.nt?cpage=1">
+        <form action="<%=request.getContextPath()%>/search.nt?cpage=1" method="post">
+        
             <input type="text" name="keyword">
             <button type="submit">검색</button>
         </form>
@@ -98,7 +109,7 @@
             <a href="">튜터</a>
         </div>
         <div class="category2">
-            <a href="">전체</a>
+            <a href="<%=contextPath%>/noticeList.ad?cpage=1">전체</a>
         </div>
 
         
@@ -106,10 +117,12 @@
         <div class="content">
             <table>
             <%if(list.isEmpty()){ %>
-            	<tr>"<%=keyword %>"로 등록된 공지사항이 없습니다.</tr>
+            	<tr>등록된 공지사항이 없습니다.</tr>
             <%}else{ %>
             	<%for(Notice n : list){ %>
+            	
                 <tr>
+                
                     <td style="background-color:rgb(255, 251, 231); width: 100px; text-align:center;color:rgb(192, 57, 43); font-weight: bolder;">
                         <%String grade = n.getGrade();
 	                        switch(String.valueOf(grade)){
@@ -118,16 +131,21 @@
                          }%>
                          <%=grade %>
                          </td>
-                    <td><%=n.getNtTitle() %></td>
+                    <td onclick="location.href='<%=contextPath%>/ntDetail.ad?ntNo=<%=n.getNtNo()%>'"><%=n.getNtTitle() %></td>
                     <td><%=n.getEnrollDate() %></td>
                 </tr>
+                
                 <%} %>
             <%} %>
             </table>
             
         </div>
+        
+        
 
-        <br><br><br>
+        <br>
+        <a class="enroll" href="<%=contextPath%>/enroll.nt">등록하기</a>
+        <br><br>
 
         <div class="paging-area">
 			
