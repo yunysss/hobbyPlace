@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.ArrayList, com.hp.customerService.model.vo.*, com.hp.common.model.vo.PageInfo"%>
@@ -5,7 +6,7 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
    	ArrayList<Notice> list  = (ArrayList<Notice>)request.getAttribute("list");
-   	
+   	String keyword = (String)request.getAttribute("keyword");
    	
 %>
 <!DOCTYPE html>
@@ -87,8 +88,7 @@
         <br><hr>
 
         
-        <form action="<%=request.getContextPath()%>/search.nt?cpage=1" method="post">
-        
+        <form action="<%=request.getContextPath()%>/search.nt?cpage=1">
             <input type="text" name="keyword">
             <button type="submit">검색</button>
         </form>
@@ -106,7 +106,7 @@
         <div class="content">
             <table>
             <%if(list.isEmpty()){ %>
-            	<tr>등록된 공지사항이 없습니다.</tr>
+            	<tr>"<%=keyword %>"로 등록된 공지사항이 없습니다.</tr>
             <%}else{ %>
             	<%for(Notice n : list){ %>
                 <tr>
@@ -133,15 +133,15 @@
 			
 			<%if(pi.getCurrentPage()!=1){ %>
             <button style="border: none;"
-            		onclick="location.href='<%=request.getContextPath()%>/noticeList.ad?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            		onclick="location.href='<%=request.getContextPath()%>/search.nt?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
             <%} %>
             <%for(int i=pi.getStartPage(); i<pi.getEndPage(); i++){ %>
             <button style="background-color:rgb(22, 160, 133); color:white; border:none"
-            		onclick="location.href='<%=request.getContextPath()%>/noticeList.ad?cpage=<%=i%>';"><%= i %></button>
+            		onclick="location.href='<%=request.getContextPath()%>/search.nt?cpage=<%=i%>';"><%= i %></button>
             <%} %>
             <%if(pi.getCurrentPage()!= pi.getMaxPage()) {%>
             <button style="border: none;"
-            		onclick="location.href='<%=request.getContextPath()%>/noticeList.ad?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            		onclick="location.href='<%=request.getContextPath()%>/search.nt?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
 			<%} %>
         </div>
 

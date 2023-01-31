@@ -146,4 +146,54 @@ WHERE RNUM BETWEEN ? AND ?
 		WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<entry key="selectAdminNoticeListCount">
+	SELECT
+	        COUNT(*) count
+	  FROM NOTICE
+	 WHERE NT_STA = 'Y'
+</entry>
+
+<entry key="selectAdminNoticeList">
+SELECT *
+FROM(
+        SELECT ROWNUM RNUM , A.*
+        FROM(
+                SELECT
+                            *
+                      FROM NOTICE
+                     WHERE NT_STA='Y'
+                     ORDER 
+                        BY ENROLL_DATE DESC
+            ) A
+    )
+WHERE RNUM BETWEEN ? AND ?
+	
+</entry>
+
+<entry key="selectKeywordNoticeListCount">
+	SELECT
+	        COUNT(*) count
+	  FROM NOTICE
+	 WHERE NT_STA = 'Y'
+       AND NT_TITLE LIKE ?
+</entry>
+
+<entry key="selectKeywordNoticeList">
+SELECT *
+FROM(
+        SELECT ROWNUM RNUM , A.*
+        FROM(
+                SELECT
+                            *
+                      FROM NOTICE
+                     WHERE NT_STA='Y'
+                       AND NT_TITLE LIKE ?
+                     ORDER 
+                        BY ENROLL_DATE DESC
+            ) A
+    )
+WHERE RNUM BETWEEN ? AND ?
+	
+</entry>
+
 </properties>

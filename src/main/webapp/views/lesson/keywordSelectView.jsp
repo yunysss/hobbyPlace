@@ -116,10 +116,9 @@
 		margin-right: 10px;
 	}
 	
-	a {
-		text-decoration: none !important;
-		color: black !
-    
+	a {text-decoration: none !important;
+		color: black !important;
+    }
 
     </style>
 </head>
@@ -149,8 +148,8 @@
                 일정
               </button>
               <div class="dropdown-menu schedule">
-                <a class="dropdown-item" href="#">평일</a>
-                <a class="dropdown-item" href="#">주말</a>
+                <a class="dropdown-item" href="#">평일 오전</a>
+                <a class="dropdown-item" href="#">평일 오후</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">오전</a>
                 <a class="dropdown-item" href="#">오후</a>
@@ -179,7 +178,7 @@
 			<script>
               function rowPrice(){
                  $.ajax({
-                    url:"<%=contextPath%>/priceasc.cl ",
+                    url:"<%=contextPath%>/kPrice.asc",
                     data:{                      
                         keyword:'<%=keyword%>',
                     },
@@ -217,14 +216,14 @@
 			<script type="text/javascript">
 			 function highPrice(){
 				   $.ajax({
-	                    url:"<%=contextPath%>/pricedesc.cl ",
+	                    url:"<%=contextPath%>/kPrice.desc ",
 	                    data:{         
 	                    	keyword:'<%=keyword%>',
 	            
 	                    },
 	                    type:"post",
 	                    success:function(list){
-		                      // console.log(list);
+		                        // console.log(list);
 		                       
 		                       let value = "";
 		                       for(let i=0; i<list.length; i++){
@@ -251,21 +250,19 @@
 							})
 						}
 			
-				 
-				
 			</script>
 			
 			<script>
 				function highStar(){
 					
 					  $.ajax({
-		                    url:"<%=contextPath%>/starDesc.cl ",
+		                    url:"<%=contextPath%>/kstar.desc ",
 		                    data:{         
 		                    	keyword:'<%=keyword%>',
 		                    },
 		                    type:"post",
 		                    success:function(list){
-		                      // console.log(list);
+		                       //console.log(list);
 		                       
 		                       let value = "";
 		                       for(let i=0; i<list.length; i++){
@@ -299,13 +296,13 @@
 				function highReg(){
 					
 					  $.ajax({
-		                    url:"<%=contextPath%>/regDesc.cl ",
+		                    url:"<%=contextPath%>/kreg.desc ",
 		                    data:{         
 		                    	keyword:'<%=keyword%>',
 		                    },
 		                    type:"post",
 		                    success:function(list){
-		                      // console.log(list);
+		                       //console.log(list);
 		                       
 		                       let value = "";
 		                       for(let i=0; i<list.length; i++){

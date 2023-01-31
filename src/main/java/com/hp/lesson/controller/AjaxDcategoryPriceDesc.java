@@ -17,13 +17,13 @@ import com.hp.lesson.model.vo.Lesson;
  * Servlet implementation class AjaxClassDcategoryPriceDesc
  */
 @WebServlet("/dctprice.desc")
-public class AjaxClassDcategoryPriceDesc extends HttpServlet {
+public class AjaxDcategoryPriceDesc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxClassDcategoryPriceDesc() {
+    public AjaxDcategoryPriceDesc() {
         super();
         // TODO Auto-generated constructor stub
     }

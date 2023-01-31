@@ -1153,10 +1153,152 @@ public ArrayList<Lesson> dctStarDesc(Connection conn, String dct){
 	 return list;
 	 
 }
+public ArrayList<Lesson> keywordPriceAsc(Connection conn, String keyword){
+	
+	ArrayList<Lesson> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	 
+	String sql = prop.getProperty("keywordPriceAsc");
+	try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,  "%"+keyword+"%");
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				list.add(new Lesson(rset.getInt("cl_no"),
+									rset.getString("ct_name"),
+									rset.getString("ct_dname"),
+									rset.getString("local_name"),
+									rset.getString("distr_name"),
+									rset.getString("cl_name"),
+									rset.getString("cl_price"),
+									rset.getString("cl_thumb"),
+									rset.getInt("star_avg"),
+									rset.getInt("star_count")
+						));
 
+		}
+			
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rset);
+		close(pstmt);
+	}
+	 
+	 return list;
+	 
+}
 	
+public ArrayList<Lesson> keywordPriceDesc(Connection conn, String keyword){
 	
+	ArrayList<Lesson> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	 
+	String sql = prop.getProperty("keywordPriceDesc");
+	try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,  "%"+keyword+"%");
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				list.add(new Lesson(rset.getInt("cl_no"),
+									rset.getString("ct_name"),
+									rset.getString("ct_dname"),
+									rset.getString("local_name"),
+									rset.getString("distr_name"),
+									rset.getString("cl_name"),
+									rset.getString("cl_price"),
+									rset.getString("cl_thumb"),
+									rset.getInt("star_avg"),
+									rset.getInt("star_count")
+						));
+
+		}
+			
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rset);
+		close(pstmt);
+	}
+	 
+	 return list;
+	 
+}
+public ArrayList<Lesson> keywordStarDesc(Connection conn, String keyword){
 	
+	ArrayList<Lesson> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	 
+	String sql = prop.getProperty("keywordStarDesc");
+	try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,  "%"+keyword+"%");
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				list.add(new Lesson(rset.getInt("cl_no"),
+									rset.getString("ct_name"),
+									rset.getString("ct_dname"),
+									rset.getString("local_name"),
+									rset.getString("distr_name"),
+									rset.getString("cl_name"),
+									rset.getString("cl_price"),
+									rset.getString("cl_thumb"),
+									rset.getInt("star_avg"),
+									rset.getInt("star_count")
+						));
+
+		}
+			
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rset);
+		close(pstmt);
+	}
+	 
+	 return list;
+	 
+}
+
+public ArrayList<Lesson> keywordRegisterDesc(Connection conn, String keyword){
+	
+	ArrayList<Lesson> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	 
+	String sql = prop.getProperty("keywordRegisterDesc");
+	try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,  "%"+keyword+"%");
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				list.add(new Lesson(rset.getInt("cl_no"),
+									rset.getString("ct_name"),
+									rset.getString("ct_dname"),
+									rset.getString("local_name"),
+									rset.getString("distr_name"),
+									rset.getString("cl_name"),
+									rset.getString("cl_price"),
+									rset.getString("cl_thumb"),
+									rset.getInt("star_avg"),
+									rset.getInt("star_count")
+						));
+
+		}
+			
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rset);
+		close(pstmt);
+	}
+	 
+	 return list;
+	 
+}
 	
 	
 

@@ -34,7 +34,7 @@ public class ClassPriceDescController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String category = request.getParameter("category");
 		ArrayList<Lesson> descList = new LessonService().selectPriceDesc(category);	
-		System.out.println(descList);
+	
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(descList,response.getWriter());
 	}

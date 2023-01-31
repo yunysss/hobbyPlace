@@ -380,5 +380,129 @@ public class NoticeDao {
 			return list;
 		}
 		
+		public int selectAdminNoticeListCount(Connection conn) {
+			int listCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql =prop.getProperty("selectAdminNoticeListCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt("count");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return listCount;
+			
+		}
+		
+		public ArrayList<Notice> selectAdminNoticeList(Connection conn, PageInfo pi){
+			ArrayList<Notice> list= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectAdminNoticeList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+				int endRow = startRow+9;
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Notice(rset.getInt("rNum"),
+										rset.getInt("nt_no"),
+										rset.getString("nt_mem"),
+										rset.getString("nt_title"),
+										rset.getString("nt_content"),
+										rset.getDate("enroll_date"),
+										rset.getDate("update_date"),
+										rset.getString("grade"),
+										rset.getString("nt_sta")));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+			
+			
+		}
+		
+		public int selectKeywordNoticeListCount(Connection conn, String keyword) {
+			int listCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql =prop.getProperty("selectKeywordNoticeListCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "%"+keyword+"%");
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt("count");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return listCount;
+			
+		}
+		
+		public ArrayList<Notice> selectKeywordNoticeList(Connection conn, PageInfo pi, String keyword){
+			ArrayList<Notice> list= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectKeywordNoticeList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+				int endRow = startRow+9;
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Notice(rset.getInt("rNum"),
+										rset.getInt("nt_no"),
+										rset.getString("nt_mem"),
+										rset.getString("nt_title"),
+										rset.getString("nt_content"),
+										rset.getDate("enroll_date"),
+										rset.getDate("update_date"),
+										rset.getString("grade"),
+										rset.getString("nt_sta")));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+			
+			
+		}
+		
 		
 }

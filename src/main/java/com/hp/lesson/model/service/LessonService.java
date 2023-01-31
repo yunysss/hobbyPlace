@@ -289,6 +289,37 @@ public class LessonService {
 		return list;
 
 	}
+	public ArrayList<Lesson> keywordPriceAsc(String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().keywordPriceAsc(conn,keyword);
+		close(conn);
+		return list;
+
+	}
+	
+	public ArrayList<Lesson> keywordPriceDesc(String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().keywordPriceDesc(conn,keyword);
+		close(conn);
+		return list;
+
+	}
+	
+	public ArrayList<Lesson> keywordStarDesc(String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().keywordStarDesc(conn,keyword);
+		close(conn);
+		return list;
+
+	}
+	
+	public ArrayList<Lesson> keywordRegisterDesc(String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().keywordRegisterDesc(conn,keyword);
+		close(conn);
+		return list;
+
+	}
 	
 	
 
