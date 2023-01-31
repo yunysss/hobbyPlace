@@ -77,6 +77,34 @@
 		 WHERE REG_NO=?
 	</entry>
 	
+	<entry key="insertRefund">
+		INSERT
+	   	  INTO REFUND
+		     (
+		       ORDER_NO
+		     , MEM_NO
+		     , REF_RQ_DT
+		     , REF_PRICE
+		     , REF_BANK
+		     , REF_ACC
+		     , REF_NM
+		     , REF_STA
+		     , REF_REA
+		     )
+		VALUES
+		     (
+		       ?
+			 , ?
+			 , SYSDATE
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+		     )
+		
+	</entry>
+	
 	
 	
 	

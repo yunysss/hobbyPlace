@@ -121,19 +121,19 @@
 					<br><br>
 					
 					<select name="sCategory" class="sCategory">
-						<option value="memName">이름</option>
-						<option value="regCount">수강횟수</option>
-						<option value="revCount">리뷰</option>
-						<option value="likeCount">찜</option>
-						<option value="payTotal">결제금액</option>
+						<option value="mem_name">이름</option>
+						<option value="regcount">수강횟수</option>
+						<option value="revcount">리뷰</option>
+						<option value="likecount">찜</option>
+						<option value="totalpay">결제금액</option>
 						<option value="gender">성별</option>
-						<option value="memDrop">탈퇴여부</option>
+						<option value="mem_status">탈퇴여부</option>
 					</select>
 				
 					<input type="text" name="searchKey" id="searchKey">
 					<select name="selectValue" id="selectValue" style="display:none"></select>
 					
-					<button type="button" class="sButton" id="detailSearch">검색</button>
+					<button type="button" class="sButton" id="detailSearch" onclick=dSearch();>검색</button>
 					<br>
 				</div>
 		</div>
@@ -148,12 +148,12 @@
 						$("#selectValue").append("<option value='M'> 남성 </option>");
 						$("#selectValue").append("<option value='F'> 여성 </option>");
 						$("#selectValue").append("<option value='X'> 선택안함 </option>");
-					}else if($(this).val()=='memDrop'){
+					}else if($(this).val()=='mem_status'){
 						$("#searchKey").css("display", "none");
 						$("#selectValue").show();
 						$("#selectValue").empty();
-						$("#selectValue").append("<option value='N'> 탈퇴X </option>");
-						$("#selectValue").append("<option value='Y'> 탈퇴O</option>");
+						$("#selectValue").append("<option value='Y'> 탈퇴X </option>");
+						$("#selectValue").append("<option value='N'> 탈퇴O</option>");
 					}else{
 						$("#searchKey").show();
 						$("#selectValue").empty();
@@ -219,6 +219,52 @@
 				})
 			}
 		</script>
+		
+		<!-- 세부검색용 script -->
+		<script>
+			function dSearch(){
+				console.log($("#datepicker1").val());
+				$.ajax({
+					url:"<%=contextPath%>/memberDetailSearch.ad",
+					data:{
+						sGroup:$('[name=sGroup]:checked').val(),
+						fCategory:$(".fCategory").val(),
+						lineup:$(".lineup").val(),
+						enrollStart:$("#datepicker1").val(),
+						enrollEnd:$("#datepicker2").val(),
+						sCategory:$(".sCategory").val(),
+						searchKey:$("#searchKey").val(),
+						selectValue:$("#selectValue").val()
+					},
+					type:"post",
+					success:function(result){
+						let value="";
+						for(let i=1; i<result.length; i++){
+							value += "<tr>"
+					        			+ "<td>" +result[i].memNo +"</td>"
+					        			+ "<td>" +result[i].memName +"</td>"
+					        			+ "<td>" +result[i].grade +"</td>"
+					        			+ "<td>" +result[i].enrollDate +"</td>"
+					        			+ "<td>" +result[i].regCount +"</td>"
+					        			+ "<td>" +result[i].revCount +"</td>"
+					        			+ "<td>" +result[i].likeCount +"</td>"
+					        			+ "<td>" +result[i].totalpay +"</td>"
+					        			+ "<td>" +result[i].email +"</td>"
+					        			+ "<td>" +result[i].phone +"</td>"
+					        			+ "<td>" +result[i].address +"</td>"
+					        			+ "<td>" +result[i].gender +"</td>"
+					        			+ "<td>" +result[i].memDrop +"</td>"
+								        + "</tr>";
+						}
+						$("#resultNt").html("<br>** 총 " + result.length + "명이 조회되었습니다 **");
+						$(".listTable tbody").html(value);
+					},error:function(){
+						console.log("ajax 통신 실패");
+					}
+				})
+			}
+		</script>
+		
 		<div class="contentMain">
   			<p align="left" id="resultNt"></p>
 			<div class="container mt-3 table-responsive-xxl" style="overflow-x: auto;">

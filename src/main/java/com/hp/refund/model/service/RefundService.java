@@ -83,5 +83,26 @@ public class RefundService {
 		return list;
 	}
 
+	/**
+	 * @author 수정
+	 * @param r
+	 * 환불 요청 데이터 올리기
+	 * @return 
+	 */
+	public int insertRefund(Refund r) {
+		Connection conn = getConnection();
+		int result = new RefundDao().insertRefund(conn,r);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+		
+	}
+
 
 }

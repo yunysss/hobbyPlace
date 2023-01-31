@@ -196,4 +196,78 @@ WHERE RNUM BETWEEN ? AND ?
 	
 </entry>
 
+<entry key="insertNotice">
+INSERT
+  INTO NOTICE
+  (
+    NT_NO,
+    NT_MEM,
+    NT_TITLE,
+    NT_CONTENT,
+    ENROLL_DATE,
+    GRADE
+  )
+  VALUES
+  (
+    SEQ_NTNO.NEXTVAL,
+    0,
+    ?,
+    ?,
+    SYSDATE,
+    ?
+  )
+</entry>
+
+<entry key="insertAttachment">
+INSERT
+  INTO ATTACHMENT
+  (
+    FILE_NO,
+    ORIGIN_NAME,
+    CHANGE_NAME,
+    FILE_PATH,
+    UPLOAD_DATE,
+    STATUS,
+    REF_TYPE,
+    REF_NO
+  )
+  VALUES
+  (
+    SEQ_ATNO.NEXTVAL,
+    ?,
+    ?,
+    ?,
+    SYSDATE,
+    'Y',
+    0,
+    SEQ_NTNO.CURRVAL
+  )
+</entry>
+
+
+<entry key="selectAdminNoticeDetail">
+	SELECT 
+	        NT_TITLE,
+	        NT_CONTENT,
+	        ENROLL_DATE
+	  FROM NOTICE
+	 WHERE NT_STA='Y'
+	   AND NT_NO=?
+</entry>
+
+<entry key="selectAdminNoticeAttachment">
+		SELECT
+		       FILE_NO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		  FROM ATTACHMENT
+		 WHERE REF_NO = ?
+</entry>
+
+<entry key="deleteNotice">
+		UPDATE NOTICE
+		   SET NT_STA = 'N'
+		 WHERE NT_NO = ?
+	</entry>
 </properties>
