@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.hp.admin.model.service.AdminService;
-import com.hp.admin.model.vo.MemberList;
 import com.hp.member.model.vo.Member;
+import com.hp.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class AjaxMemberListBasicSearchController
+ * Servlet implementation class MemberDetailView
  */
-@WebServlet("/memberBasicSearch.ad")
-public class AjaxMemberListBasicSearchController extends HttpServlet {
+@WebServlet("/memDetail.ad")
+public class MemberDetailViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxMemberListBasicSearchController() {
+    public MemberDetailViewController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +32,20 @@ public class AjaxMemberListBasicSearchController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String sGroup = request.getParameter("sGroup");
-		String fCategory = request.getParameter("fCategory");
-		String lineup = request.getParameter("lineup");
+		int memNo = Integer.parseInt(request.getParameter("no"));
 		
-		ArrayList<MemberList> list = new AdminService().selectMemberList(sGroup, fCategory, lineup);
+		AdminService aService = new AdminService();
 		
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
-	
+		// 1) 회원기본정보조회
+		Member m = aService.selectMemberByNo(memNo);
+		// 2) qna 조회
+		ArrayList<Qna> qnaList = aService.selectAllQna(memNo);
+		
+		// 3) 수강한클래스 조회
+		
+		// 4) 작성한 후기 조회
+		
+		// 5) 찜한 클래스 조회
 	}
 
 	/**

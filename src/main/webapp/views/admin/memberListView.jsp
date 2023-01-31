@@ -30,6 +30,7 @@
 	.dtCate{margin-left:68px;}
 	#selectValue{width:100px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
 	.listTable{width:auto;}
+	.listTable>tbody>tr:hover{cursor:pointer;}
 </style>
 <body>
 	<%@ include file="../common/adminMenubar.jsp" %>
@@ -39,19 +40,19 @@
 			<h4 align="left">전체 회원 관리</h4>
 			<br>
 			<div class="searchWrap" align="left">
-				<input type="radio" name="sGroup" class="sGroup" id="entire" value="entire" checked><label for="entire">전체</label>
-				<input type="radio" name="sGroup" class="sGroup" id="tutorMem" value="tutorMem"><label for="tutorMem">튜터 등록 회원</label>
-				<input type="radio" name="sGroup" class="sGroup" id="generalMem" value="generalMem"><label for="generalMem">튜터 미등록 회원</label>
+				<input type="radio" name="sGroup" class="sGroup" id="entire" value="%%" checked><label for="entire">전체</label>
+				<input type="radio" name="sGroup" class="sGroup" id="tutorMem" value="%2%"><label for="tutorMem">튜터 등록 회원</label>
+				<input type="radio" name="sGroup" class="sGroup" id="generalMem" value="%1%"><label for="generalMem">튜터 미등록 회원</label>
 
 				<br>
 				<p>기본검색</p>
 				<select name="fCategory" class="fCategory">
-					<option value="enrollDate">회원가입일</option>
-					<option value="memName">이름</option>
-					<option value="regCount">수강횟수</option>
-					<option value="revCount">리뷰</option>
-					<option value="likeCount">찜</option>
-					<option value="payTotal">결제금액</option>
+					<option value="enroll_date">회원가입일</option>
+					<option value="mem_name">이름</option>
+					<option value="regcount">수강횟수</option>
+					<option value="revcount">리뷰</option>
+					<option value="likecount">찜</option>
+					<option value="totalpay">결제금액</option>
 				</select>
 
 				<select name="lineup" class="lineup">
@@ -187,26 +188,27 @@
 					},
 					type:"post",
 					success:function(result){
-						console.log(result);
-						
+						//console.log(result);
+					
 						let value="";
-						for(let i=0; i<result.length; i++){
+						for(let i=1; i<result.length; i++){
 							value += "<tr>"
-					        			+ "<td>01</td>"
-								        + "<td>홍길동</td>"
-								        + "<td>N</td>"
-								        + "<td>2022-12-15</td>"
-								        + "<td>10</td>"
-								        + "<td>5</td>"
-								        + "<td>15</td>"
-								        + "<td>218600</td>"
-								        + "<td>john@example.com</td>"
-								        + "<td>010-1111-9999</td>"
-								        + "<td>서울시 양천구 목1동 XXXX-XXXX</td>"
-								        + "<td>남</td>"
-								        + "<td>X</td>"
+					        			+ "<td>" +result[i].memNo +"</td>"
+					        			+ "<td>" +result[i].memName +"</td>"
+					        			+ "<td>" +result[i].grade +"</td>"
+					        			+ "<td>" +result[i].enrollDate +"</td>"
+					        			+ "<td>" +result[i].regCount +"</td>"
+					        			+ "<td>" +result[i].revCount +"</td>"
+					        			+ "<td>" +result[i].likeCount +"</td>"
+					        			+ "<td>" +result[i].totalpay +"</td>"
+					        			+ "<td>" +result[i].email +"</td>"
+					        			+ "<td>" +result[i].phone +"</td>"
+					        			+ "<td>" +result[i].address +"</td>"
+					        			+ "<td>" +result[i].gender +"</td>"
+					        			+ "<td>" +result[i].memDrop +"</td>"
 								        + "</tr>";
 						}
+						$("#resultNt").html("<br>** 총 " + result.length + "명이 조회되었습니다 **");
 						$(".listTable tbody").html(value);
 						
 					},error:function(){
@@ -216,14 +218,14 @@
 			}
 		</script>
 		<div class="contentMain">
-  		
+  			<p align="left" id="resultNt"></p>
 			<div class="container mt-3 table-responsive-xxl" style="overflow-x: auto;">
 
 			  <table class="table table-hover table-responsive-xxl listTable" style="table-layout:fixed;">
 			    <colgroup>
 					<col style="width:100px;">
 					<col style="width:100px;">
-					<col style="width:120px;">
+					<col style="width:100px;">
 					<col style="width:120px;">
 					<col style="width:100px;">
 					<col style="width:80px;">
@@ -239,7 +241,7 @@
 			      <tr>
 			        <th>회원번호</th>
 			        <th>이름</th>
-					<th>튜터등록여부</th>
+					<th>튜터등록</th>
 			        <th>가입일</th>
 			        <th>수강횟수</th>
 			        <th>리뷰</th>
@@ -253,27 +255,18 @@
 			      </tr>
 			    </thead>
 			    <tbody  class="table-group-divider">
-			      <tr>
-			        <td>01</td>
-			        <td>홍길동</td>
-					<td>N</td>
-			        <td>2022-12-15</td>
-			        <td>10</td>
-			        <td>5</td>
-			        <td>15</td>
-			        <td>218600</td>
-			        <td>john@example.com</td>
-			        <td>010-1111-9999</td>
-			        <td>서울시 양천구 목1동 XXXX-XXXX</td>
-			        <td>남</td>
-			        <td>X</td>
-			      </tr>
-			      
+			    
 			    </tbody>
 			  </table>
-
 			</div>
-			
+			<script>
+	        	$(function(){
+	        		$(".listTable>tbody>tr").click(function(){
+	        			location.href = '<%=contextPath%>/memDetail.ad?no=' + $(this).children().eq(0).text(); 
+	        			<!--클릭했을때의글번호넘겨야만 데이터조회가능 -> $(this)클릭한행의.children()자손td요소들 중에.eq(0)첫번째(BoardNo)요소의.text()텍스트값 -->
+	        		})
+	        	})
+        	</script>
 		</div>
 		
 	</div>
