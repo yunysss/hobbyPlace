@@ -369,4 +369,15 @@
 	
 	
 	
+	<entry key="checkedClassReject">
+		UPDATE CLASS
+		  SET UPDATE_DATE = SYSDATE
+		     , CL_STATUS = 1
+		     , CL_REFUSE = ?
+		WHERE  CL_NO IN (  
+
+	</entry>
+	
+	
+	
 </properties>

@@ -35,7 +35,8 @@ public class NewClassCheckedRejectControllor extends HttpServlet {
 		String classNo = request.getParameter("classNo");
 		String cause = request.getParameter("causeOfReturn");
 		
-		int result = new AdminService().CheckedClassReject(classNo, cause);
+		int result = new AdminService().checkedClassReject(classNo, cause);
+		
 	
 	}
 
