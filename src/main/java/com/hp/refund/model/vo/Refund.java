@@ -40,6 +40,8 @@ public class Refund {
 		this.refName = refName;
 		this.refSta = refSta;
 	}
+	
+	
 
 	public int getOrderNo() {
 		return orderNo;
