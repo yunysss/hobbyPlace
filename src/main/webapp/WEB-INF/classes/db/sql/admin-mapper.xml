@@ -266,16 +266,7 @@
 	</entry>
 	
 	
-	<entry key="checkClassReject">
-	
-	
-	
-	
-	
-	
-	
-	
-	</entry>	
+		
 	<!-- 회원번호로 회원정보 조회 -->
 	<entry key="selectMemberByNo">
 		SELECT 
@@ -368,7 +359,7 @@
 	</entry>
 	
 	
-	
+	<!-- 체크박스 체크된 클래스번호만 반려 -->
 	<entry key="checkedClassReject">
 		UPDATE CLASS
 		  SET UPDATE_DATE = SYSDATE
@@ -377,6 +368,24 @@
 		WHERE  CL_NO IN (  
 
 	</entry>
+	
+	<!-- 체크박스 체크된 클래스만 승인 -->
+	<entry key="checkedClassApprove">
+		UPDATE CLASS
+		  SET UPDATE_DATE = SYSDATE
+		     , CL_STATUS = 2
+		WHERE  CL_NO IN (  
+
+	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -597,7 +597,7 @@ public class AdminDao {
 			System.out.println(sql);
 			
 			rset = pstmt.executeQuery();
-
+			System.out.println(rset);
 			
 			while(rset.next()) {
 				list.add(new MemberList(rset.getInt("mem_no"),
@@ -824,10 +824,64 @@ public class AdminDao {
 	
 	
 	public int checkedClassReject(Connection conn, String classNo, String cause) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkedClassReject");
 		
+		String[] classNoArr = classNo.split(",");
 		
+		for(String no : classNoArr) {
+			sql += no + ',';
+		}
+		sql = sql.substring(0,sql.length()-1);
+		sql += ")";
+	
+	//	System.out.println(sql);
 		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, cause);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	
+	
 	}
+	
+	
+	public int checkedClassApprove(Connection conn, String classNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkedClassApprove");
+		
+		String[] classNoArr = classNo.split(",");
+		
+		for(String no : classNoArr) {
+			sql += no + ',';
+		}
+		sql = sql.substring(0,sql.length()-1);
+		sql += ")";
+	
+		System.out.println(sql);
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+
 
 
 
