@@ -17,13 +17,13 @@ import com.hp.lesson.model.vo.Lesson;
  * Servlet implementation class AjaxNewClassRejectControllor
  */
 @WebServlet("/ckreject.cl")
-public class AjaxNewClassRejectControllor extends HttpServlet {
+public class NewClassCheckedRejectControllor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxNewClassRejectControllor() {
+    public NewClassCheckedRejectControllor() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +32,11 @@ public class AjaxNewClassRejectControllor extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] clNo = request.getParameterValues("clNo");
+		String classNo = request.getParameter("classNo");
+		String cause = request.getParameter("causeOfReturn");
 		
-		System.out.println(clNo);
-		int result = new AdminService().checkClassReject(clNo); 
-		
-		
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
+		int result = new AdminService().CheckedClassReject(classNo, cause);
+	
 	}
 
 	/**

@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
@@ -20,8 +19,6 @@ import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.vo.Member;
-import com.hp.qna.model.vo.Qna;
-import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.vo.Tutor;
 
 
@@ -562,165 +559,19 @@ public class AdminDao {
 	 * @param lineup
 	 * @return list
 	 */
-	public ArrayList<MemberList> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup) {
-		ArrayList<MemberList> list = new ArrayList<>();
+	public ArrayList<Member> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup) {
+		ArrayList<Member> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberList1");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			
-			pstmt.setString(1, sGroup);
-			pstmt.setString(2, fCategory);
-			//pstmt.setString(2, lineup);
-			
-			rset = pstmt.executeQuery();
-			System.out.println(rset);
-			
-			while(rset.next()) {
-				list.add(new MemberList(rset.getInt("mem_no"),
-						            rset.getString("mem_name"),
-						            rset.getString("grade"),
-						            rset.getString("enroll_date"),
-						            rset.getInt("regcount"),
-						            rset.getInt("revcount"),
-						            rset.getInt("likecount"),
-						            rset.getInt("totalpay"),
-						            rset.getString("mem_email"),
-						            rset.getString("mem_phone"),
-						            rset.getString("mem_addr"),
-						            rset.getString("gender"),
-						            rset.getString("mem_status")));
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
-
-	/** 회원번호로 회원정보조회
-	 * @author 수연
-	 * @param conn
-	 * @param memNo
-	 * @return m
-	 */
-	public Member selectMemberByNo(Connection conn, int memNo) {
-		Member m = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectMemberByNo");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				m = new Member(rset.getInt("mem_no"),
-					       rset.getString("mem_id"),
-					       rset.getString("mem_pwd"),
-					       rset.getString("mem_name"),
-					       rset.getString("mem_nickname"),
-					       rset.getString("mem_email"),
-					       rset.getString("mem_phone"),
-					       rset.getString("mem_addr"),
-					       rset.getString("gender"),
-					       rset.getString("mem_birth"),
-					       rset.getString("mem_profile"),
-					       rset.getString("interest"),
-					       rset.getString("grade"),
-					       rset.getDate("enroll_date"),
-					       rset.getDate("mem_update"),
-					       rset.getString("mem_status"),
-					       rset.getString("mem_drop"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(conn);
-		}
-		return m;
-	}
-	
-	/** 회원번호로 qna리스트 조회 Service메소드
-	 * @author 수연
-	 * @param conn
-	 * @param memNo
-	 * @return qnaList
-	 */
-	public ArrayList<Qna> selectAllQna(Connection conn, int memNo) {
-		ArrayList<Qna> qnaList = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectAllQna");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				qnaList.add(new Qna(rset.getInt("Q_NO"),
-			            rset.getString("Q_TITLE"),
-			            rset.getString("Q_CONTENT"),
-			            rset.getDate("Q_DATE"),
-			            rset.getString("Q_STATUS"),
-			            rset.getString("Q_GRADE"),
-			            rset.getString("Q_CATEGORY"),
-			            rset.getInt("CL_NO"),
-			            rset.getInt("Q_MEM_NO"),
-			            rset.getString("A_TITLE"),
-			            rset.getString("A_CONTENT"),
-			            rset.getDate("A_DATE"),
-			            rset.getInt("A_MEM_NO")));
-				System.out.println(qnaList);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(conn);
-		}
-		return qnaList;
-	}
-
-
-
-
-	public ArrayList<Register> selectAllRegister(Connection conn, int memNo) {
-		ArrayList<Register> regList = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectAllRegister");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				regList.add(new Register(rset.getInt("REG_NO"),
-									     rset.getString("MEM_NO"),
-									     rset.getString("CL_NO"),
-									     rset.getString("teachDate"),
-									     rset.getString("reg_Date"),
-						));
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return regList;
+		return null;
 	}
-	
 	
 
 	
