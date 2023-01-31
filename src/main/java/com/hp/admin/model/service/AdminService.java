@@ -225,9 +225,9 @@ public class AdminService {
 		return likeList;
 	}
 	
-	public int checkClassReject(int clNo) {
+	public int checkClassReject(String classNo, String cause) {
 		Connection conn = getConnection();
-		int result = new AdminDao().checkClassReject(conn, clNo);
+		int result = new AdminDao().checkClassReject(conn, classNo, cause);
 		if(result>0) {
 			commit(conn);
 		}else {

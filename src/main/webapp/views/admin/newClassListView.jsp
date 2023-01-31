@@ -64,7 +64,7 @@
     
     <div id="btn-area" align="right">
     <button type=button class="btn btn-secondary btn-sm" onclick=";">승인</button>
-    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#classReject">반려</button>
+    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#classReject" onclick="reject();">반려</button>
     
     
     </div>
@@ -93,7 +93,7 @@
            <%} else{%>
            		<%for(Lesson l : list){ %>
                 <tr>
-              		<th><input type="checkbox"  name="check"></th>
+              		<th><input type="checkbox" name="check" value="<%=l.getClNo()%>"></th>
                     <td><%=l.getClNo() %></td>
                     <td><%=l.getCtNo() %></td>
                     <td><%=l.getClName() %></td>
@@ -136,6 +136,7 @@
 			$(function() {$("#newClass>tbody>tr").click(
 				function() {
 					location.href = "<%=contextPath%>/newde.ad?no="+$(this).children().eq(1).text();
+					 event.stopPropagation();
         		})
         	})
         
@@ -177,10 +178,26 @@
                 var clNo = td.eq(1).text();
                 
                 
+                
                 	             		
                 })
+                
+                function reject(){
+                	let classNo = "";
+                	// 현재 input type checkbox 인 요소들 중 checked 상태인 요소들에
+                	// 순차적으로 접근하면서 해당 value값을 매번 classNo에 ,찍어서 연이어지게끔
+                	// "21,23"
+                	
+                	$("#input[name=check]:checked").each(function(){
+                		classNo +=  $(this).val() + ","
+                		
+                	
+                	})
+  
+                   $("#classReject input[name=classNo]").val(classNo);
+                }
                    
-                </script>
+            </script>
                 
             
 	

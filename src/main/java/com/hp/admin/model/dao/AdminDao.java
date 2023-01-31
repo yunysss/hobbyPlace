@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
@@ -564,14 +563,13 @@ public class AdminDao {
 	 * @param lineup
 	 * @return list
 	 */
-	public ArrayList<MemberList> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup) {
-		ArrayList<MemberList> list = new ArrayList<>();
+	public ArrayList<Member> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup) {
+		ArrayList<Member> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberList1");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			
 			pstmt.setString(1, sGroup);
 			pstmt.setString(2, fCategory);
 			//pstmt.setString(2, lineup);
@@ -733,7 +731,7 @@ public class AdminDao {
 			close(conn);
 		}
 		
-		return regList;
+		return null;
 	}
 
 	/** 회원번호로 리뷰리스트 조회 Dao 메소드
@@ -801,7 +799,6 @@ public class AdminDao {
 		}
 		return likeList;
 	}
-	
 	
 
 	
