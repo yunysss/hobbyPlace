@@ -254,16 +254,16 @@
 			        <th>탈퇴여부</th>
 			      </tr>
 			    </thead>
-			    <tbody  class="table-group-divider">
+			    <tbody class="table-group-divider" id="tbd">
 			    
 			    </tbody>
 			  </table>
 			</div>
 			<script>
 	        	$(function(){
-	        		$(".listTable>tbody>tr").click(function(){
+	        		$("#tbd>tr").click(function(){
 	        			location.href = '<%=contextPath%>/memDetail.ad?no=' + $(this).children().eq(0).text(); 
-	        			<!--클릭했을때의글번호넘겨야만 데이터조회가능 -> $(this)클릭한행의.children()자손td요소들 중에.eq(0)첫번째(BoardNo)요소의.text()텍스트값 -->
+	        			<!--클릭했을때의글번호넘겨야만 데이터조회가능 -> $(this)클릭한행의.children()자손td요소들 중에.eq(0)첫번째(memNo)요소의.text()텍스트값 -->
 	        		})
 	        	})
         	</script>

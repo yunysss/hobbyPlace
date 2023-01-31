@@ -575,7 +575,7 @@ public class AdminDao {
 			//pstmt.setString(2, lineup);
 			
 			rset = pstmt.executeQuery();
-			System.out.println(rset);
+
 			
 			while(rset.next()) {
 				list.add(new MemberList(rset.getInt("mem_no"),
