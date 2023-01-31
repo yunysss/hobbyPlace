@@ -151,7 +151,8 @@ public class RegisterDao {
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				le = new Lesson(rset.getString("cl_name"),
+				le = new Lesson(rset.getInt("cl_no"),
+						rset.getString("cl_name"),
 						rset.getString("tt_name"),
 						rset.getString("teach_date"),
 						rset.getString("teach_time"),
@@ -205,10 +206,10 @@ public class RegisterDao {
 		
 	}
 	
-	public int reviseRegister(Connection conn, int memNo, String memName, String phone, String email) {
+	public int reviseRegisterMem(Connection conn, int memNo, String memName, String phone, String email) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("reviseRegister");
+		String sql = prop.getProperty("reviseRegisterMem");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -216,6 +217,30 @@ public class RegisterDao {
 			pstmt.setString(2, email);
 			pstmt.setString(3, phone);
 			pstmt.setInt(4, memNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertRegister(Connection conn, Register r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertRegister");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, r.getMemNo());
+			pstmt.setString(2, r.getClNo());
+			pstmt.setString(3, r.getTeachDate());
+			pstmt.setString(4, r.getSchNo());
+			pstmt.setString(5, r.getRegPay());
+			pstmt.setString(6, r.getRegPrice());
+			pstmt.setString(7, r.getRegCount());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

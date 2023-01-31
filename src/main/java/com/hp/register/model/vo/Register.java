@@ -70,9 +70,6 @@ public class Register {
 		this.memPhone = memPhone;
 		this.memEmail = memEmail;
 	}
-	
-	
-	
 
 	public Register( String teachDate, int regNo, String regDate, String regPay, String regPrice,
 			String regCount, String regSta, String clThumb, String clName, String startTime, String distrName, String ttName) {
@@ -90,10 +87,6 @@ public class Register {
 		this.distrName = distrName;
 		this.ttName = ttName;
 	}
-	
-	
-
-	
 
 	public Register(int regNo, String clNo, String teachDate, String regPay, String regPrice, String clThumb,
 			String clName, String startTime, String distrName) {
@@ -107,6 +100,18 @@ public class Register {
 		this.clName = clName;
 		this.startTime = startTime;
 		this.distrName = distrName;
+	}
+
+	public Register(String memNo, String clNo, String teachDate, String schNo, String regPay, String regPrice,
+			String regCount) {
+		super();
+		this.memNo = memNo;
+		this.clNo = clNo;
+		this.teachDate = teachDate;
+		this.schNo = schNo;
+		this.regPay = regPay;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
 	}
 
 	public int getRegNo() {

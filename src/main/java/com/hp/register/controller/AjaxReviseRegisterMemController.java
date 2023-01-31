@@ -16,13 +16,13 @@ import com.hp.register.model.service.RegisterService;
  * Servlet implementation class AjaxReviseRegisterController
  */
 @WebServlet("/revise.reg")
-public class AjaxReviseRegisterController extends HttpServlet {
+public class AjaxReviseRegisterMemController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxReviseRegisterController() {
+    public AjaxReviseRegisterMemController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +36,7 @@ public class AjaxReviseRegisterController extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		
-		int result = new RegisterService().reviseRegister(memNo, memName, phone, email);
+		int result = new RegisterService().reviseRegisterMem(memNo, memName, phone, email);
 		Member m = new RegisterService().selectRegisterMem(memNo);
 		
 			response.setContentType("application/json; charset=UTF-8");

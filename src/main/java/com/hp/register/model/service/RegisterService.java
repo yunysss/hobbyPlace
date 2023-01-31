@@ -55,15 +55,25 @@ public class RegisterService {
 		return m;
 	}
 	
-	public int reviseRegister(int memNo, String memName, String phone, String email) {
+	public int reviseRegisterMem(int memNo, String memName, String phone, String email) {
 		Connection conn = getConnection();
-		int result = new RegisterDao().reviseRegister(conn, memNo, memName, phone, email);
+		int result = new RegisterDao().reviseRegisterMem(conn, memNo, memName, phone, email);
 		if(result > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		return result;
+	}
+	
+	public Register selectRegisterFin(Register r) {
+		Connection conn = getConnection();
+		int result = new RegisterDao().insertRegister(conn, r);
+		
+		if(result > 0) {
+			
+		}
+		
 	}
 
 	/**

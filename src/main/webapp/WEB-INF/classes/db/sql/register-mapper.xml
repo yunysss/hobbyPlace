@@ -90,13 +90,14 @@
 	
 	<entry key="selectLessonRegister">
 		SELECT 
-		       CL_NAME
+			   CL_NO
+		     , CL_NAME
 		     , TT_NAME
 		     , TO_CHAR(TO_DATE('20230127', 'YYYYMMDD'), 'YYYY"년" MM"월" DD"일" (DY)') "TEACH_DATE"
 		     , START_TIME || ' - ' || END_TIME "TEACH_TIME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , ? "PEOPLE"
-		     , TO_CHAR(CL_PRICE * ?, '999,999,999') || '원' "PRICE"
+		     , CL_PRICE * ? "PRICE"
 		     , CL_THUMB
 		  FROM CLASS
 		  JOIN SCHEDULE USING(CL_NO)
@@ -115,12 +116,36 @@
 		 WHERE MEM_NO = ?
 	</entry>
 	
-	<entry key="reviseRegister">
+	<entry key="reviseRegisterMem">
 		UPDATE MEMBER
 		   SET MEM_NAME = ?,
 		       MEM_EMAIL = ?,
 		       MEM_PHONE = ?
 		 WHERE MEM_NO = ?
+	</entry>
+	
+	<entry key="insertRegister">
+		INSERT 
+		  INTO REGISTER
+		       (
+		         REG_NO
+		       , MEM_NO
+		       , CL_NO
+		       , TEACH_DATE
+		       , SCH_NO
+		       , REG_PAY
+		       , REG_PRICE
+		       , REG_COUNT
+		       )
+		VALUES (
+		         SEQ_REGNO.NEXTVAL
+		       , ?
+		       , ?
+		       , ?
+		       , ?
+		       , ?
+		       , ?
+		       )
 	</entry>
 	
 	<!-- 마이클래스 결제클래스 페이징 -->

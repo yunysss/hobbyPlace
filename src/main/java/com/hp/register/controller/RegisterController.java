@@ -44,6 +44,8 @@ public class RegisterController extends HttpServlet {
 		
 		request.setAttribute("le", le);
 		request.setAttribute("m", m);
+		request.setAttribute("session", session);
+		request.setAttribute("selectDate", selectDate);
 		request.getRequestDispatcher("views/register/classRegister.jsp").forward(request, response);
 	}
 

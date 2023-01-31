@@ -3,6 +3,8 @@
 <%
 	Lesson le = (Lesson)request.getAttribute("le");
 	Member m = (Member)request.getAttribute("m");
+	String selectSession = (String)request.getAttribute("selectSession");
+	String selectDate = (String)request.getAttribute("selectDate");
 %>
 <!DOCTYPE html>
 <html>
@@ -58,134 +60,176 @@
         #personal-modal{
         	font-size : 12px;
         }
+        #payment input{
+        	border:none;
+        	pointer-events: none;
+        }
         
     </style>
+	<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
 	<%@ include file="../common/tuteeMenubar.jsp" %>
 	<div class="outer">
-    <form action="<%=contextPath %>/fin.reg" id="payment">
-        <div id="payment-1">
-        
-            <h5><b>결제하기</b></h5>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td colspan="2"><b>클래스 정보</b></td>
-                        </tr>
-                    </thead>
-                    
-                    <tbody>
-                        <tr>
-                            <td rowspan="2" width="110px">
-                                <img src="<%= contextPath %>/<%= le.getClThumb() %>" height="100" width="100">
-                            </td>
-                            <td>
-                                <b>클래스명</b><br>
-                                <%= le.getClName() %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>일시</b><br>
-                                <%= le.getStartDate() %> <%= le.getClSchedule() %>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="memProfile">
-                <table width="580px">
-                    <thead>
-                        <tr>
-                            <td><b>개인정보 확인</b></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	<tr>
-	                        <td>
-	                        	<b>이름</b><br>
-	                            <%= m.getMemName() %><br><br>
-	                            <b>전화번호</b><br>
-	                            <%= m.getPhone() %><br><br>
-	                            <b>이메일</b><br>
-	                            <%= m.getEmail() %> 
-	                        </td>
+	    <form action="<%=contextPath %>/fin.reg" id="payment" name="payment">
+	        <div id="payment-1">
+	            <h5><b>결제하기</b></h5>
+	            <div>
+	                <table>
+	                    <thead>
+	                        <tr>
+	                            <td colspan="2"><b>클래스 정보</b></td>
+	                        </tr>
+	                    </thead>
+	                    
+	                    <tbody>
+	                        <tr>
+	                            <td rowspan="2" width="110px">
+	                                <img src="<%= contextPath %>/<%= le.getClThumb() %>" height="100" width="100">
+	                            </td>
+	                            <td>
+	                                <b>클래스명</b><br>
+	                                <%= le.getClName() %>
+	                                <input type="hidden" name="clNo" value="<%=le.getClNo()%>">
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td>
+	                                <b>일시</b><br>
+	                                <%= le.getStartDate() %> <%= le.getClSchedule() %>
+	                                <input type="hidden" name="teachDate" value="<%=selectDate%>">
+	    							<input type="hidden" name="schNo" value="<%=selectSession%>">
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	            <div id="memProfile">
+	                <table width="580px">
+	                    <thead>
+	                        <tr>
+	                            <td><b>개인정보 확인</b></td>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                    	<tr>
+		                        <td>
+		                        	<b>이름</b><br>
+		                            <%= m.getMemName() %><br><br>
+		                            <b>전화번호</b><br>
+		                            <%=m.getPhone()%>
+		                            <br><br>
+		                            <b>이메일</b><br>
+		                            <%=m.getEmail()%>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <th style="text-align:center">
+		                            <a href="" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#edit-modal">개인정보 수정</a>
+		                        </th>
+		                    </tr>
+	                    </tbody>
+	                    <tfoot>
+	                        <tr>
+	                            <td>
+	                                개인정보 제공안내 
+	                                <a href="" data-toggle="modal" data-target="#personal-modal">보기</a><br>
+	                                <input type="checkbox" id="personal">
+	                                <label for="personal">위 개인 정보 제공 안내 내용을 확인하였으며, 이에 동의합니다. (필수)</label>
+	                            </td>
+	                        </tr>
+	                    </tfoot>
+	                </table>
+	            </div>
+	            <div>
+	                <table>
+	                    <thead>
+	                        <tr>
+	                            <td><b>결제 방법</b></td>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr>
+	                            <td>
+	                                <input type="radio" id="card" name="regPay" value ="0" checked>
+	                                <label for="card">신용/체크카드</label>
+	                                
+	                                <input type="radio" id="account" name="regPay" value="1">
+	                                <label for="account">무통장입금</label>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	
+	        <div id="payment-2" align="center">
+	            <table width="330">
+	                <thead>
+	                    <tr>
+	                        <td><b>결제 정보</b></td>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <tr>
+	                        <td>클래스 수강권</td>
 	                    </tr>
 	                    <tr>
-	                        <th style="text-align:center">
-	                            <a href="" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#edit-modal">개인정보 수정</a>
-	                        </th>
+	                        <td align="right">
+	                            <%= le.getClPrice() %> <br>
+	                            x <input type="text" name="regCount" value="<%= le.getClMax() %>" size="3" style="text-align:right;" readonly>명
+	                            <hr>
+	                            총 결제 금액 
+	                            <input type="text" name="regPrice" value="<%= le.getClStatus() %>" size="10" style="text-align:right;font-weight:bold;" readonly><b>원</b>
+	                        </td>
 	                    </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td>
-                                개인정보 제공안내 
-                                <a href="" data-toggle="modal" data-target="#personal-modal">보기</a><br>
-                                <input type="checkbox" id="personal">
-                                <label for="personal">위 개인 정보 제공 안내 내용을 확인하였으며, 이에 동의합니다. (필수)</label>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td><b>결제 방법</b></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="radio" id="card" name="payMethod" checked>
-                                <label for="card">신용/체크카드</label>
-                                
-                                <input type="radio" id="account" name="payMethod">
-                                <label for="account">무통장입금</label>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="payment-2" align="center">
-            <table width="330">
-                <thead>
-                    <tr>
-                        <td><b>결제 정보</b></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>클래스 수강권</td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            <%= le.getClPrice() %> <br>
-                            x <%= le.getClMax() %>명
-                            <hr>
-                            총 결제 금액 <b><%= le.getClStatus() %></b>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <input type="checkbox" id="pay">
-                            <label for="pay">주문 내용을 확인하였으며, 결제에 동의합니다. (필수)</label>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-            <button type="submit" class="btn btn-sm" id="pay-btn" disabled>결제하기</button>
-        </div>
-    </form>
-    </div>
+	                </tbody>
+	                <tfoot>
+	                    <tr>
+	                        <td>
+	                            <input type="checkbox" id="pay">
+	                            <label for="pay">주문 내용을 확인하였으며, 결제에 동의합니다. (필수)</label>
+	                        </td>
+	                    </tr>
+	                </tfoot>
+	            </table>
+	            <button type="submit" class="btn btn-sm" id="pay-btn" disabled>결제하기</button>
+	        </div>
+	    </form>
+   	</div>
+   	<script>
+   		$(function(){
+   			$("form").submit(function(){
+   				if($("input[name=regPay]:checked").val() == 0){
+   					requestPay();
+   					return false;
+   				}else{
+   					return true;
+   				}
+   			})
+   		})
+		function requestPay(){
+   			IMP.init('imp15436753'); 
+		       IMP.request_pay({
+		           pg: "html5_inicis",
+		           pay_method: 'card',
+		           merchant_uid: 'merchant_' + new Date().getTime(),
+		           name: '<%= le.getClName() %>',
+		          amount: 100,
+		          buyer_email: '<%= m.getEmail() %>',
+		          buyer_name: '<%= m.getMemNo() %>',
+		          buyer_tel: '<%= m.getPhone()%>'
+		      }, function (rsp) {
+		          if (rsp.success) {
+		              document.payment.submit();
+		          } else {
+		              var msg = '결제에 실패하였습니다.';
+		              msg += '에러내용 : ' + rsp.error_msg;
+		              alert(msg);
+		          }
+		      })
+   		}
+    </script>
     <script>
     $(function(){  
 		$(document).on("click", "input:checkbox", function(){
@@ -251,9 +295,6 @@
 	        	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button><br><br>
 	        </div>
 	      </div>
-	
-	      
-			
 	    </div>
 	  </div>
 	</div>
@@ -308,6 +349,7 @@
 			})
 		}
     </script>
+    
     <br clear="both">
     <%@ include file="../common/footerbar.jsp" %>
 </body>

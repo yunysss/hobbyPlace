@@ -1,11 +1,16 @@
 package com.hp.register.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.hp.member.model.vo.Member;
+import com.hp.register.model.service.RegisterService;
+import com.hp.register.model.vo.Register;
 
 /**
  * Servlet implementation class RegisterFinishController
@@ -26,6 +31,16 @@ public class RegisterFinishController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String memNo = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getMemNo());
+		String clNo = request.getParameter("clNo");
+		String teachDate = request.getParameter("teachDate");
+		String schNo = request.getParameter("schNo");
+		String regPay = request.getParameter("regPay");
+		String regPrice = request.getParameter("regPrice");
+		String regCount = request.getParameter("regCount");
+		
+		Register r = new Register(memNo, clNo, teachDate, schNo, regPay, regPrice, regCount);
+		Register reg = new RegisterService().selectRegisterFin(r);
 		request.getRequestDispatcher("views/register/classRegisterFin.jsp").forward(request, response);
 	}
 
