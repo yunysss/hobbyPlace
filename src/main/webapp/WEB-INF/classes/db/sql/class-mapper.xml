@@ -6,7 +6,7 @@
 		       CL_NO
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 10) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 11) "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -31,7 +31,7 @@
 		                       CL_NO
 		                     , LOCAL_NAME
 		                     , DISTR_NAME
-		                     , SUBSTR(CL_NAME, 1, 10) || '...' "CL_NAME"
+		                     , SUBSTR(CL_NAME, 1, 11) "CL_NAME"
 		                     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		                     , CL_THUMB
 		                     , (SELECT AVG(RE_STAR) 
@@ -60,7 +60,7 @@
 		       CL_NO
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 10) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 11) "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -82,10 +82,10 @@
 	<entry key="selectReviewClass">
 		SELECT 
 		         RE_NO
-		       , SUBSTR(CONTENT, 1, 28) || '...' "CONTENT"
+		       , SUBSTR(CONTENT, 1, 27) "CONTENT"
 		       , RE_STAR
 		       , CL_NO
-		       , CL_NAME
+		       , SUBSTR(CL_NAME, 1, 13) "CL_NAME"
 		       , CL_THUMB
 		  FROM REVIEW
 		  JOIN CLASS USING(CL_NO)

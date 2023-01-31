@@ -7,7 +7,6 @@
 <title>Insert title here</title>
     <style>
         div, p, form, input, table{box-sizing:border-box;}
-        a{text-decoration: none !important; color:black !important;}
 
        .outer{width:1000px; margin:auto; padding:20px 50px;}
        #payMng-form, #payMng-result{

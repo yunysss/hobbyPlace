@@ -18,7 +18,7 @@
     #mainPageRec{height:75%;}
 
     /* 배너 */
-    .carousel-inner, .carousel-inner img{width:100%; height:100%;}
+    .carousel-inner, .carousel-inner img{width:95%; height:95%;}
 
     /* 추천 클래스 */
     #mainPageRec{margin-top:20px;}
@@ -39,7 +39,9 @@
 	  border-radius: 3px;
 	  background-color: rgb(180, 180, 180);
 	}
-	
+	#mainPageRec img{
+		border-radius: 5px;
+	}
     #mainPageRec-1 img, #mainPageRec-2 img{
         width:175px;
         height:175px;
@@ -64,7 +66,7 @@
 <body>
 	<%@ include file="../common/tuteeMenubar.jsp" %>
 	<div class="outer">
-        <div id="demo" class="carousel slide" data-ride="carousel">
+        <div id="demo" class="carousel slide" data-ride="carousel" align="center">
             <!-- Indicators -->
             <ul class="carousel-indicators">
               <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -107,10 +109,14 @@
 	            								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
 	            									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
 	            									+ "<small>" + list[i].distrCode + "</small><br>"
-	            									+ "<b>" + list[i].clName + "</b><br>"
-	            									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-	           									+ "</a>"
-	         								+ "</td>"
+	            									+ "<b>" + list[i].clName 
+   									if(list[i].clName.length == 11){
+                  							value += "...";
+                  						}
+                                   	value += "</b><br>"
+                   							+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+                  								+ "</a>"
+                								+ "</td>"
 	            				}
 	            				$("#rec-pic tr").append(value);
 	            				
@@ -131,9 +137,13 @@
                 								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
                 									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
                 									+ "<small>" + list[i].distrCode + "</small><br>"
-                									+ "<b>" + list[i].clName + "</b><br>"
-                									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-               									+ "</a>"
+                									+ "<b>" + list[i].clName 
+									if(list[i].clName.length == 11){
+               							value += "...";
+               						}
+                                	value += "</b><br>"
+                							+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+               								+ "</a>"
              								+ "</td>"
                 				}
                 				$("#rec-pic-2 tr").html(value);
@@ -152,13 +162,21 @@
                 					value += "<td>"
                 								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
                 									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-                									+ "<b>" + list[i].clName + "</b><br>"
+                									+ "<b>" + list[i].clName 
+  									if(list[i].clName.length == 13){
+               							value += "...";
+               						}
+                					value += "</b><br>"
                 					for(let j=1; j<=list[i].reviewStar; j++){
                 						value += "⭐"
                 					}
-               						value += "<p>" + list[i].reviewContent + "</p>"
-               								+ "</a>"
-             								+ "</td>"
+                					value += "<p>" + list[i].reviewContent 
+             						if(list[i].reviewContent.length == 27){
+             							value += "...";
+             						}
+               						value += "</p>"
+       										+ "</a>"
+     										+ "</td>"
                 				}
                 				$("#rec-pic-3 tr").html(value);
                 			},error:function(){
@@ -172,13 +190,6 @@
 	                <div class="rec-title">
 	                    <b>새로운 클래스 🎁</b>
 	                </div>
-	                <div id="rec-pic">
-	                    <table>
-	                    	<tr>
-	                    	</tr>
-	                    </table>
-	                </div>
-	                
 	                <script>
 	                	$(function(){
 	                		selectNewClassList();
@@ -188,12 +199,6 @@
                 	<!-- 로그인 후 -->
                 	<div class="rec-title">
 	                    <b><%= loginUser.getMemNick() %> 님이 좋아할만한 클래스 🥰</b>
-	                </div>
-	                <div id="rec-pic">
-	                    <table>
-	                    	<tr>
-	                    	</tr>
-	                    </table>
 	                </div>
 	                <script>
 		                $(function(){
@@ -210,10 +215,14 @@
 	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
 	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
 	                									+ "<small>" + list[i].distrCode + "</small><br>"
-	                									+ "<b>" + list[i].clName + "</b><br>"
-	                									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-	               									+ "</a>"
-	             								+ "</td>"
+	                									+ "<b>" + list[i].clName
+      									if(list[i].clName.length == 11){
+                     							value += "...";
+                     						}
+                                      	value += "</b><br>"
+                      							+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+                     								+ "</a>"
+                   								+ "</td>"
 	                				}
 	                				if(list.length < 5){
 	                					selectNewClassList();
@@ -226,6 +235,12 @@
 	                	}
 	                </script>
                 <% } %>
+                <div id="rec-pic">
+	                    <table>
+	                    	<tr>
+	                    	</tr>
+	                    </table>
+	                </div>
             </div>
             <div id="mainPageRec-2">
                 <div class="rec-title">
