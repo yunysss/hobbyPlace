@@ -266,7 +266,6 @@
 		  , CHANGE_NAME
 		  , FILE_PATH
 		  , UPLOAD_DATE
-		  , FILE_LEVEL
 		  , REF_TYPE
 		  , REF_NO
 	     
@@ -278,7 +277,6 @@
 	      ,?
 	      ,?
 	      ,SYSDATE
-	      ,?
 	      ,?
 	      ,SEQ_CLNO.CURRVAL
 
@@ -383,7 +381,6 @@
 		  , CHANGE_NAME
 		  , FILE_PATH
 		  , UPLOAD_DATE
-		  , FILE_LEVEL
 		  , REF_TYPE
 		  , REF_NO
 	     
@@ -395,7 +392,6 @@
 	      ,?
 	      ,?
 	      ,SYSDATE
-	      ,?
 	      ,?
 	      ,?
 

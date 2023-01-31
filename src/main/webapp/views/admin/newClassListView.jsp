@@ -14,6 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>Insert title here</title>
 <style>
     .outer{
@@ -58,13 +59,17 @@
     <br>
     <h5 style="font-weight: 900;">신규클래스 신청내역</h5>
     <br><br>
-    <form action="">
+
     <span style="font-weight: 600;">신규클래스 목록</span>
     
     <div id="btn-area" align="right">
-    <button class="btn btn-secondary btn-sm">승인</button>
-    <button class="btn btn-secondary btn-sm">반려</button>
+    <button type=button class="btn btn-secondary btn-sm" onclick=";">승인</button>
+    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#classReject">반려</button>
+    
+    
     </div>
+    
+
     <hr>
     <table class="table table-hover" id="newClass" >
         <thead class="thead-light">
@@ -88,7 +93,7 @@
            <%} else{%>
            		<%for(Lesson l : list){ %>
                 <tr>
-               		<th><input type="checkbox"  name="check"></th>
+              		<th><input type="checkbox"  name="check"></th>
                     <td><%=l.getClNo() %></td>
                     <td><%=l.getCtNo() %></td>
                     <td><%=l.getClName() %></td>
@@ -114,8 +119,7 @@
          </tbody>
 
     </table>
-    
-    			 <script>
+			<script>
                     $(function(){
                         $("#chkAll").click(function(){
                             if($(this).is(":checked")){
@@ -126,20 +130,17 @@
                         })
                     })
                 </script>
-    </form>
+
     
-     <script>
-        	$(function(){
-        		$("#newClass>tbody>tr").click(function(){
-        			location.href="<%=contextPath%>/newde.ad?no="+$(this).children().eq(1).text();
+     	<script>
+			$(function() {$("#newClass>tbody>tr").click(
+				function() {
+					location.href = "<%=contextPath%>/newde.ad?no="+$(this).children().eq(1).text();
         		})
         	})
         
         
         </script>
-    
-    
-    
     
 
     <div class="paging-area">
@@ -162,6 +163,68 @@
 
 
 </div>
+
+	
+			<script type="text/javascript">
+   
+				var tdArr = new Array();
+                var checkbox = $("input[name=check]:checked");
+               
+                checkbox.each(function(i){
+                var tr = checkbox.parent().parent().eq(i);
+                var td = tr.children();
+
+                var clNo = td.eq(1).text();
+                
+                
+                	             		
+                })
+                   
+                </script>
+                
+            
+	
+        
+            <!-- The Modal -->
+            <div class="modal" id="classReject">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                    
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h6 class="modal-title">클래스반려</h6>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  
+                  <!-- Modal body -->
+                  <div class="modal-body" align="center">
+                    <b>반려 후 변경이 불가합니다.<br>
+                    정말로 반려하시겠습니까? <br><br>
+                    </b>
+                  </div>
+                  
+                  <div align="center">
+                  <form action="<%=contextPath %>/ckreject.cl" method="post">
+                    
+		        	<input type="hidden" name="classNo" value="">
+		        	반려사유 일괄등록 : <input type="text" name="causeOfReturn" list="list">
+		        	<datalist id="list">
+                        <option>주제/내용 부적절</option>
+                        <option>내용 부족</option>
+                        <option>별로임..</option>
+                    </datalist>
+		        	<button type="submit" class="btn btn-danger btn-sm ">반려하기</button>
+		        <br><br>
+		        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            
+         
+    
 
 </body>
 </html>
