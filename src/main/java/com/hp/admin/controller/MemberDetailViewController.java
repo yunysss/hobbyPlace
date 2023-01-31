@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.hp.admin.model.service.AdminService;
 import com.hp.member.model.vo.Like;
@@ -17,7 +18,7 @@ import com.hp.register.model.vo.Register;
 import com.hp.review.model.vo.Review;
 
 /**
- * Servlet implementation class MemberDetailView
+ * Servlet implementation class MemberDetailViewController
  */
 @WebServlet("/memDetail.ad")
 public class MemberDetailViewController extends HttpServlet {
@@ -36,6 +37,7 @@ public class MemberDetailViewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("no"));
+		System.out.println(memNo);
 		
 		AdminService aService = new AdminService();
 		
@@ -53,14 +55,14 @@ public class MemberDetailViewController extends HttpServlet {
 		
 		// 5) 찜한 클래스 조회
 		ArrayList<Like> likeList = aService.selectAllLike(memNo);
-	
+		
 		request.setAttribute("m", m);
 		request.setAttribute("qnaList", qnaList);
 		request.setAttribute("regList", regList);
 		request.setAttribute("revList", revList);
 		request.setAttribute("likeList", likeList);
 		
-		request.getRequestDispatcher("views/admin/memerDetailView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/admin/memberDetailView.jsp").forward(request, response);
 	}
 
 	/**
