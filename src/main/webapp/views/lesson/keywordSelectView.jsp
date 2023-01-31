@@ -83,7 +83,42 @@
         border: none;
         border-radius: 3px;
     }   
-     
+     #thumbnail img, .a img {
+		border-radius: 5px;
+	}
+	
+	.dropdown {
+		display: inline;
+	}
+	
+	.dropdown-menu a {
+		font-size: 12px;
+	}
+	
+	.pop {
+		width: 30px
+	}
+	
+	.a {
+		width: 190px;
+		display: inline-block;
+		margin: 10px;
+		text-align: left;
+		box-sizing: border-box;
+	}
+	
+	#clName {
+		height: 50px;
+	}
+	
+	#range img {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	a {
+		text-decoration: none !important;
+		color: black !
     
 
     </style>
@@ -99,83 +134,273 @@
         <h4> <a href="">" <%=keyword %> " 검색결과</a><span class="material-symbols-outlined symbol">expand_more</span></h4>
         
         <div id="button-area">
-            <button class="btn btn-secondary btn-sm"> 지역 </button>
-            <button class="btn btn-secondary btn-sm"> 날짜 </button>
+             <div class="dropdown">
+            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
+              지역
+            </button>
+            <div class="dropdown-menu region">
+              <a class="dropdown-item" href="#" data-value="서울">서울</a>
+              <a class="dropdown-item" href="#" data-value="인천">인천</a>
+              <a class="dropdown-item" href="#"data-value="경기">경기</a>
+            </div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
+                일정
+              </button>
+              <div class="dropdown-menu schedule">
+                <a class="dropdown-item" href="#">평일</a>
+                <a class="dropdown-item" href="#">주말</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">오전</a>
+                <a class="dropdown-item" href="#">오후</a>
+               </div>
+              </div>
+    
         </div>
 
         <br><br>
         <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=kCount %> 건</span>
         <div id="btn-area">
-          <button class="btn btn-secondary btn-sm"> 인기순 </button>
-          <button class="btn btn-secondary btn-sm"> 가격순 </button>
+         <div class="dropdown">
+		    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+		      정렬
+		    </button>
+		    <div class="dropdown-menu price">
+		      <a class="dropdown-item" onclick="rowPrice();">낮은가격순</a>
+		      <a class="dropdown-item" onclick="highPrice();">높은가격순</a>
+		      <a class="dropdown-item" onclick="highReg();">인기순</a>
+		      <a class="dropdown-item" onclick="highStar();">평점순</a>
+		      
+		    </div>
+       	 </div>
         </div>
-        <div class="container">
-          
-          
-          
-               <div class="list-area">
-                
-                <% for(Lesson l : kList){%>
-                <table class="thumbnail"  >
-               	 <input type="hidden"  value="<%=l.getClNo() %>">
-                  <tr>
-                    <td>
-                    <div id="thumbnail">
-                    <img src="<%=contextPath %>/<%=l.getClThumb() %>"  width="180" height="180">
-                    
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="font-size: 11px;">
-                     <%=l.getDistrCode()%>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th height="50px"><%=l.getClName() %> </th>  
-                  </tr>
-                 
-                  <tr>
-                    <th><%=l.getClPrice() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small>⭐<%=l.getClStarAvg()+".0("+ l.getClStarCount()%>)</small> </th>
-                  </tr>
+        
+			<script>
+              function rowPrice(){
+                 $.ajax({
+                    url:"<%=contextPath%>/priceasc.cl ",
+                    data:{                      
+                        keyword:'<%=keyword%>',
+                    },
+                    type:"post",
+                    success:function(list){
+	                      // console.log(list);
+	                       
+	                       let value = "";
+	                       for(let i=0; i<list.length; i++){
+	                        //  console.log(list[i]);
+	                          value += "<table class='a'><tr><td>"
+   								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+									+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+									+ "<small  style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
+									+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
+									+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+									+ "</small></a>"
+									+ "</td>"
+									}
+	                     			$(".thumbnail").html("");
+	                     			$("#area1").html("");
+	                     			
+									$("#area1").append(value);
+										
+									},
+									error : function() {
+										console.log("조회용 ajax통신 실패");
+									}
+	                 
+							})
+					}
+		
+			</script>
+			
+			<script type="text/javascript">
+			 function highPrice(){
+				   $.ajax({
+	                    url:"<%=contextPath%>/pricedesc.cl ",
+	                    data:{         
+	                    	keyword:'<%=keyword%>',
+	            
+	                    },
+	                    type:"post",
+	                    success:function(list){
+		                      // console.log(list);
+		                       
+		                       let value = "";
+		                       for(let i=0; i<list.length; i++){
+		                        //  console.log(list[i]);
+		                          value += "<table class='a'><tr><td>"
+	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
+										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
+										+ "<b>"+list[i].clPrice +"</b>"+ "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+										+ "</small></a>"
+										+ "</td>"
+										}
+		                     			$(".thumbnail").html("");
+		                     			$("#area1").html("");
+		                     			
+										$("#area1").append(value);
+											
+										},
+										error : function() {
+											console.log("조회용 ajax통신 실패");
+										}
+		                 
+							})
+						}
+			
+				 
+				
+			</script>
+			
+			<script>
+				function highStar(){
+					
+					  $.ajax({
+		                    url:"<%=contextPath%>/starDesc.cl ",
+		                    data:{         
+		                    	keyword:'<%=keyword%>',
+		                    },
+		                    type:"post",
+		                    success:function(list){
+		                      // console.log(list);
+		                       
+		                       let value = "";
+		                       for(let i=0; i<list.length; i++){
+		                         // console.log(list[i]);
+		                          value += "<table class='a'><tr><td>"
+	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
+										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
+										+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+										+ "</small></a>"
+										+ "</td>"
+										}
+		                     			$(".thumbnail").html("");
+		                     			$("#area1").html("");
+		                     			
+										$("#area1").append(value);
+											
+										},
+										error : function() {
+											console.log("조회용 ajax통신 실패");
+										}
+		                 
+								})
+							}
+			
+			
+			</script>
+			
+			<script>
+				function highReg(){
+					
+					  $.ajax({
+		                    url:"<%=contextPath%>/regDesc.cl ",
+		                    data:{         
+		                    	keyword:'<%=keyword%>',
+		                    },
+		                    type:"post",
+		                    success:function(list){
+		                      // console.log(list);
+		                       
+		                       let value = "";
+		                       for(let i=0; i<list.length; i++){
+		                         // console.log(list[i]);
+		                          value += "<table class='a'><tr><td>"
+	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
+										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
+										+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+										+ "</small></a>"
+										+ "</td>"
+										}
+		                     			$(".thumbnail").html("");
+		                     			$("#area1").html("");
+		                     			
+		                     			
+										$("#area1").append(value);
+											
+										},
+										error : function() {
+											console.log("조회용 ajax통신 실패");
+										}
+		                 
+								})
+							}
+			
+			</script>
 
-                </table>
-                <%} %>
 
-              </div>   
-               <script>
+		<div class="container">
+
+			<div class="list-area">
+				<div id="area1"></div>
+
+				<% for(Lesson l : kList){%>
+				<table class="thumbnail">
+					<input type="hidden" value="<%=l.getClNo()%>">
+					<tr>
+						<td>
+							<div id="thumbnail">
+								<img src="<%=contextPath%>/<%=l.getClThumb()%>" width="180"
+									height="180">
+
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size: 11px;"><%=l.getDistrCode()%></td>
+					</tr>
+					<tr>
+						<th height="50px"><%=l.getClName()%></th>
+					</tr>
+
+					<tr>
+						<th><%=l.getClPrice()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small>⭐<%=l.getClStarAvg() + ".0(" + l.getClStarCount()%>)
+						</small></th>
+					</tr>
+
+				</table>
+				<%
+				}
+				%>
+
+			</div>
+			<script>
               	$(function(){
               		$(".thumbnail").click(function(){
-              			location.href="<%=contextPath%>/page.cl?no="+$(this).children('input').val();
-              		})
-              	})
-       
-              </script>
-		 
-		  <div class="paging-area">
-        
-        	<%if(pi.getCurrentPage() != 1){ %>    
-        		
-            		<button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=pi.getCurrentPage()-1%>&keyword=<%=keyword%>';">&lt;</button>
-            <%} %>
-			
-			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
-           		 <button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=p%>&keyword=<%=keyword%> ';"><%= p %></button>
-           		 
-            <%} %>
-          
-            <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
-            <button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=pi.getCurrentPage()+1%>&keyword=<%=keyword%>';">&gt;</button>
-            <%} %>
-            
+              			location.href="<%=contextPath%>/page.cl?no="+ $(this).children('input').val();
+						})
+				})
+			</script>
+
+			<div class="paging-area">
+
+				<%if (pi.getCurrentPage() != 1) {%>
+				<button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=pi.getCurrentPage() - 1%>&keyword=<%=keyword%>';">&lt;</button>
+				<%}%>
+
+				<%for (int p = pi.getStartPage(); p <= pi.getEndPage(); p++) {%>
+				<button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=p%>&keyword=<%=keyword%> ';"><%= p %></button>
+				<%} %>
+
+				<%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
+				<button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=pi.getCurrentPage()+1%>&keyword=<%=keyword%>';">&gt;</button>
+				<%} %>
+
 			</div>
-			
-		<%} %>
+
+			<%} %>
 
 
 
-    </div>
-    <%@ include file="../common/footerbar.jsp" %>
+		</div>
+		<%@ include file="../common/footerbar.jsp" %>
 
 </body>
 </html>
