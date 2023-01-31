@@ -30,7 +30,7 @@ public class Refund {
 		this.refRea = refRea;
 	}
 
-	public Refund(int orderNo, String refRqDt, String refPrice, String refBank, String refAcc, String refName, String refSta) {
+	public Refund(int orderNo, String refRqDt, String refPrice, String refBank, String refAcc, String refName, String refSta, String refRea) {
 		super();
 		this.orderNo = orderNo;
 		this.refRqDt = refRqDt;
@@ -39,6 +39,7 @@ public class Refund {
 		this.refAcc = refAcc;
 		this.refName = refName;
 		this.refSta = refSta;
+		this.refRea = refRea;
 	}
 	
 	
