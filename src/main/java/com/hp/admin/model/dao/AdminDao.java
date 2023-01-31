@@ -18,7 +18,11 @@ import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
+import com.hp.member.model.vo.Like;
 import com.hp.member.model.vo.Member;
+import com.hp.qna.model.vo.Qna;
+import com.hp.register.model.vo.Register;
+import com.hp.review.model.vo.Review;
 import com.hp.tutor.model.vo.Tutor;
 
 
@@ -566,11 +570,234 @@ public class AdminDao {
 		String sql = prop.getProperty("selectMemberList1");
 		try {
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, sGroup);
+			pstmt.setString(2, fCategory);
+			//pstmt.setString(2, lineup);
+			
+			rset = pstmt.executeQuery();
+			System.out.println(rset);
+			
+			while(rset.next()) {
+				list.add(new MemberList(rset.getInt("mem_no"),
+						            rset.getString("mem_name"),
+						            rset.getString("grade"),
+						            rset.getString("enroll_date"),
+						            rset.getInt("regcount"),
+						            rset.getInt("revcount"),
+						            rset.getInt("likecount"),
+						            rset.getInt("totalpay"),
+						            rset.getString("mem_email"),
+						            rset.getString("mem_phone"),
+						            rset.getString("mem_addr"),
+						            rset.getString("gender"),
+						            rset.getString("mem_status")));
+
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	/** 회원번호로 회원정보조회
+	 * @author 수연
+	 * @param conn
+	 * @param memNo
+	 * @return m
+	 */
+	public Member selectMemberByNo(Connection conn, int memNo) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberByNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("mem_no"),
+					       rset.getString("mem_id"),
+					       rset.getString("mem_pwd"),
+					       rset.getString("mem_name"),
+					       rset.getString("mem_nickname"),
+					       rset.getString("mem_email"),
+					       rset.getString("mem_phone"),
+					       rset.getString("mem_addr"),
+					       rset.getString("gender"),
+					       rset.getString("mem_birth"),
+					       rset.getString("mem_profile"),
+					       rset.getString("interest"),
+					       rset.getString("grade"),
+					       rset.getDate("enroll_date"),
+					       rset.getDate("mem_update"),
+					       rset.getString("mem_status"),
+					       rset.getString("mem_drop"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		return m;
+	}
+	
+	/** 회원번호로 qna리스트 조회 Service메소드
+	 * @author 수연
+	 * @param conn
+	 * @param memNo
+	 * @return qnaList
+	 */
+	public ArrayList<Qna> selectAllQna(Connection conn, int memNo) {
+		ArrayList<Qna> qnaList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				qnaList.add(new Qna(rset.getInt("Q_NO"),
+			            rset.getString("Q_TITLE"),
+			            rset.getString("Q_CONTENT"),
+			            rset.getDate("Q_DATE"),
+			            rset.getString("Q_STATUS"),
+			            rset.getString("Q_GRADE"),
+			            rset.getString("Q_CATEGORY"),
+			            rset.getInt("CL_NO"),
+			            rset.getInt("Q_MEM_NO"),
+			            rset.getString("A_TITLE"),
+			            rset.getString("A_CONTENT"),
+			            rset.getDate("A_DATE"),
+			            rset.getInt("A_MEM_NO")));
+				System.out.println(qnaList);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		return qnaList;
+	}
+
+	/** 회원번호로 수강한 클래스 리스트 조회용 dao 메소드
+	 * @author 수연
+	 * @param conn
+	 * @param memNo
+	 * @return regList
+	 */
+	public ArrayList<Register> selectAllRegister(Connection conn, int memNo) {
+		ArrayList<Register> regList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllRegister");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				regList.add(new Register(rset.getInt("REG_NO"),
+									     rset.getString("MEM_NO"),
+									     rset.getString("CL_NO"),
+									     rset.getString("TEACH_DATE"),
+									     rset.getString("reg_date"),
+									     rset.getString("sch_no"),
+									     rset.getString("reg_pay"),
+									     rset.getString("reg_price"),
+									     rset.getString("reg_count"),
+									     rset.getString("reg_sta"),
+									     rset.getString("reg_refuse"),
+									     rset.getString("re_enroll"),
+									     rset.getString("reg_cal")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
 		}
 		
 		return null;
+	}
+
+	/** 회원번호로 리뷰리스트 조회 Dao 메소드
+	 * @author 수연
+	 * @param conn
+	 * @param memNo
+	 * @return revList
+	 */
+	public ArrayList<Review> selectAllReview(Connection conn, int memNo) {
+		ArrayList<Review> revList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				revList.add(new Review(rset.getInt("re_no"),
+									   rset.getString("content"),
+									   rset.getInt("re_star"),
+									   rset.getString("re_date"),
+									   rset.getString("re_update"),
+									   rset.getString("re_sta"),
+									   rset.getInt("reg_no"),
+									   rset.getInt("cl_no"),
+									   rset.getInt("mem_no")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return revList;
+	}
+
+
+
+
+	public ArrayList<Like> selectAllLike(Connection conn, int memNo) {
+		ArrayList<Like> likeList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				likeList.add(new Like(rset.getString("cl_name"),
+						              rset.getInt("mem_no"),
+						              rset.getString("like_date")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return likeList;
 	}
 	
 

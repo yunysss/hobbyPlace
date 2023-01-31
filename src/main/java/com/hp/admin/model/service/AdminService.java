@@ -8,6 +8,8 @@ import static com.hp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.review.model.vo.Review;
+import com.hp.member.model.vo.Like;
 import com.hp.admin.model.dao.AdminDao;
 import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
@@ -20,6 +22,7 @@ import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.dao.MemberDao;
 import com.hp.member.model.vo.Member;
 import com.hp.qna.model.vo.Qna;
+import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.vo.Tutor;
 
 public class AdminService {
@@ -182,6 +185,44 @@ public class AdminService {
 		
 		close(conn);
 		return qnaList;
+	}
+	/** 회원번호로 수강한클래스리스트 조회 service메소드
+	 * @author 수연
+	 * @param memNo
+	 * @return regList
+	 */
+	public ArrayList<Register> selectAllRegister(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Register> regList = new AdminDao().selectAllRegister(conn, memNo);
+		
+		close(conn);
+		return regList;
+	}
+
+	/** 회원번호로 리뷰리스트 조회 service메소드
+	 * @author 수연
+	 * @param memNo
+	 * @return revList
+	 */
+	public ArrayList<Review> selectAllReview(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Review> revList = new AdminDao().selectAllReview(conn, memNo);
+		
+		close(conn);
+		return revList;
+	}
+
+	/** 회원번호로 찜하기 리스트 조회용 service메소드
+	 * @author 수연
+	 * @param memNo
+	 * @return likeList
+	 */
+	public ArrayList<Like> selectAllLike(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Like> likeList = new AdminDao().selectAllLike(conn, memNo);
+		
+		close(conn);
+		return likeList;
 	}
 	
 	public int checkClassReject(String classNo, String cause) {

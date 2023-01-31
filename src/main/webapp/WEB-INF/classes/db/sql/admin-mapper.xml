@@ -286,12 +286,12 @@
 		     , MEM_NICKNAME
 		     , MEM_EMAIL
 		     , MEM_PHONE
-		     , MEM_ADDR
+		     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
 		     , GENDER
 		     , MEM_BIRTH
 		     , MEM_PROFILE
 		     , INTEREST
-		     , GRADE
+		     , DECODE(GRADE, '0', '관리자', '1', 'N', '2', 'Y') "GRADE"
 		     , ENROLL_DATE
 		     , MEM_UPDATE
 		     , MEM_STATUS
@@ -299,7 +299,8 @@
 		  FROM MEMBER
 	     WHERE MEM_NO = ? 
 	</entry>
-	
+
+	<!-- 회원번호로 qna리스트 select -->	
 	<entry key="selectAllQna">
 		SELECT 
 		       Q_NO
@@ -319,6 +320,7 @@
 		 WHERE Q_MEM_NO = ?
 	</entry>
 	
+<!-- 회원번호로 수강한강의 리스트 select -->
 	<entry key="selectAllRegister">
 		SELECT
 		       REG_NO
@@ -332,10 +334,37 @@
 		     , REG_COUNT
 		     , REG_STA
 		     , REG_REFUSE
-		     , REG_ENROLL
+		     , RE_ENROLL
 		     , REG_CAL
 		  FROM REGISTER
 		 WHERE MEM_NO = ?
+	</entry>
+	
+	<!-- 회원번호로 리뷰리스트 select -->
+	<entry key="selectAllReview">
+		SELECT 
+		       RE_NO
+		     , "CONTENT"
+		     , RE_STAR
+		     , RE_DATE
+		     , RE_UPDATE
+		     , RE_STA
+		     , REG_NO
+		     , CL_NO
+		     , MEM_NO
+		  FROM REVIEW
+		 WHERE MEM_NO = ?
+	</entry>
+	
+	<!-- 회원번호로 좋아요리스트 select -->
+	<entry key="selectALlLike">
+		SELECT 
+		       C.CL_NAME "CL_NAME"
+		     , L.MEM_NO "MEM_NO"
+		     , TO_CHAR(LIKE_DATE, 'YYYY-MM-DD') "LIKE_DATE"
+		  FROM "LIKE" L
+		  JOIN CLASS C ON (L.CL_NO = C.CL_NO)
+		 WHERE L.MEM_NO = ?
 	</entry>
 	
 	
