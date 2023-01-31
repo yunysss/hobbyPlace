@@ -744,7 +744,7 @@
 						            		
 					            			value2 += "<div>"
 					            				+	"인원 선택&nbsp;&nbsp;&nbsp;"
-					            				+	"<select name='people'>"
+					            				+	"<select name='regCount'>"
 					            				+	"<option>&nbsp;--</option>"
 				            					+   "</select><br>"
 					            				+	"<p>총 결제 금액  0원</p>"
@@ -765,7 +765,7 @@
 					        $(document).on("change", "input[name=session]", function(){
 					        	value2 = "<div>"
 		            				+	"인원 선택&nbsp;&nbsp;&nbsp;"
-		            				+	"<select name='people'>";
+		            				+	"<select name='regCount'>";
 		            			for(let j=1; j<=<%=le.getClMax()%> - $(this).next().val(); j++){
 		            				value2 += "<option value='" + j + "'>" + j + "명</option>"
 		            			}
@@ -775,7 +775,7 @@
 	            				$("#classDetail-price").html(value2);
 					        })
 					        
-					        $(document).on("change", "select[name=people]", function(){
+					        $(document).on("change", "select[name=regCount]", function(){
 					        	$("#totalPrice").text("총 결제 금액  " + CommaFormat($(this).val() * <%=le.getClPrice()%>) + "원")
 					        })
 					        function CommaFormat(x) {

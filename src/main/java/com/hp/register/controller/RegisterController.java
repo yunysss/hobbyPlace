@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.member.model.vo.Member;
 import com.hp.register.model.service.RegisterService;
+import com.hp.register.model.vo.Register;
 
 /**
  * Servlet implementation class RegisterController
@@ -32,19 +33,19 @@ public class RegisterController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
-		int clNo = Integer.parseInt(request.getParameter("clNo"));
-		String session = request.getParameter("session");
+		String clNo = request.getParameter("clNo");
+		String schNo = request.getParameter("session");
 		String selectDate = request.getParameter("selectDate");
-		int people = Integer.parseInt(request.getParameter("people"));
+		String regCount = request.getParameter("regCount");
 	
-		Lesson l = new Lesson(clNo, session, selectDate, people);
+		Register r = new Register(clNo, schNo, regCount, selectDate);
 		
-		Lesson le = new RegisterService().selectLessonRegister(l);
+		Register reg = new RegisterService().selectLessonRegister(r);
 		Member m = new RegisterService().selectRegisterMem(memNo);
 		
-		request.setAttribute("le", le);
+		request.setAttribute("reg", reg);
 		request.setAttribute("m", m);
-		request.setAttribute("session", session);
+		request.setAttribute("selectSession", schNo);
 		request.setAttribute("selectDate", selectDate);
 		request.getRequestDispatcher("views/register/classRegister.jsp").forward(request, response);
 	}

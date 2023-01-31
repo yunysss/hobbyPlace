@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.hp.register.model.vo.Register"%>
+<%
+	Register r = (Register)request.getAttribute("reg");
+	int regNo = (Integer)request.getAttribute("regNo"); // 주문번호
+	String regPay = (String)request.getAttribute("regPay");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,15 +40,18 @@
 	<%@ include file="../common/tuteeMenubar.jsp" %>
     <div class="outer">
             <!-- 카드결제 -->
-            <h5><b>결제완료</b></h5>
+            <% if(regPay.equals("0")){ %>
+            	<h5><b>결제완료</b></h5>
+            <% } else{ %>
             <!-- 무통장 입금 -->
-            <!-- <b>신청완료</b> -->
+            	<h5><b>신청완료</b></h5>
+            <% } %>
             <div>
                 <table width="950">
                     <thead>
                         <tr>
                             <td colspan="4">
-                                주문 번호 B3205R23
+                                주문 번호 <%= regNo %>
                             </td>
                         </tr>
                     </thead>
@@ -54,44 +62,48 @@
                                 <b>신청한 클래스</b>
                             </td>
                             <td colspan="2">
-                                <!-- 카드결제 -->
-                                <b>결제 내역</b>
-                                <!-- 무통자입금 -->
-                                <!-- <b>입금 안내</b> -->
+                            	<!-- 카드결제 -->
+					            <% if(regPay.equals("0")){ %>
+					            	<b>결제 내역</b>
+					            <% } else{ %>
+					            <!-- 무통장 입금 -->
+					            	<b>입금 안내</b>
+					            <% } %>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <img src="" height="150" width="150">
-                                <b>앙금플라워떡케이크 만들기</b> <br>
+                                <img src="<%= contextPath %>/<%= r.getClThumb() %>" height="150" width="150">
+                                <b><%= r.getClName() %></b> <br>
                             </td>
                             <td>
-                                <!-- 카드결제 -->
-                                <small> 클래스 수강권 x 1</small>
-                                <br><br>
+                                <small> 클래스 수강권 x <%= r.getRegCount() %></small><br><br>
                                 최종 결제 금액 <br>
-                                결제 수단
-                                <br><br><br>
-                                <!-- 무통장 입금 -->
-                                <!-- 최종 결제 금액 <br>
-                                계좌 정보 <br>
-                                예금주 <br>
-                                입금기한 
-                                <br><br><br> -->
+                                <!-- 카드결제 -->
+					            <% if(regPay.equals("0")){ %>
+					            	결제 수단<br><br><br>
+					            <% } else{ %>
+					            <!-- 무통장 입금 -->
+					            	결제 수단<br>
+					            	계좌 정보 <br>
+                                	예금주 <br>
+                                	입금기한 
+                                	<br><br><br>
+					            <% } %>
                             </td>
                             <td>
+                            	<br><br><b id="regPrice"></b><br>
                                 <!-- 카드 결제 -->
-                                <br><br>
-                                <b>99,000원</b><br>
-                                신용카드
-                                <br><br><br>
-                                <!-- 무통장 입금 -->
-                                <!-- <b>99,000원</b><br>
-                                우리은행 10203948584 <br>
-                                주식회사 합플 <br>
-                                2023-01-15 23:59까지
-                                <br><br><br> -->
-
+                                <% if(regPay.equals("0")){ %>
+                                	신용/체크카드<br><br><br>
+					            <% } else{ %>
+					            <!-- 무통장 입금 -->
+					            	무통장입금 <br>
+	                                우리은행 1234567898765 <br>
+	                                주식회사 합플 <br>
+	                                <span id="payDate"></span>
+	                                <br><br><br>
+					            <% } %>
                             </td>
                         </tr>
                     </tbody>
@@ -99,8 +111,8 @@
                         <tr>
                             <td colspan="4">
                                 <small>
-                                    2023년 1월 27일 토요일 오전 10:00 - 오후 12:00 <br>
-                                    인원 : 1명
+                                    <%= r.getTeachDate() %> <%= r.getRegDate() %> <br>
+                                    인원 : <%= r.getRegCount() %>명
                                 </small>
                             </td>
                         </tr>
@@ -112,4 +124,22 @@
                 </div>
             </div>
     </div>
+    <script>
+	    function CommaFormat(x) {
+		  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+	    $(function(){
+	    	let price = <%= r.getRegSta() %>;
+		    $("#regPrice").html(CommaFormat(price)+"원");
+		    
+		   	let today = new Date();
+		   	let year = today.getFullYear();
+		   	let month = ('0' + (today.getMonth() + 1)).slice(-2);
+		   	let day = ('0' + today.getDate()).slice(-2);
+		   	
+		   	let dateString = year + '-' + month  + '-' + day;
+		   	
+		   	$("#payDate").html(dateString + " 23:59:59까지")
+	    })
+    </script>
 </html>

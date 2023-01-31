@@ -112,6 +112,28 @@ public class Register {
 		this.regPay = regPay;
 		this.regPrice = regPrice;
 		this.regCount = regCount;
+	}	
+
+	public Register(String clNo, String schNo, String regCount, String teachDate) {
+		super();
+		this.clNo = clNo;
+		this.schNo = schNo;
+		this.regCount = regCount;
+		this.teachDate = teachDate;
+	}
+
+	public Register(String clNo, String teachDate, String regDate, String regPrice, String regCount, String regSta, String clThumb,
+			String clName, String ttName) {
+		super();
+		this.clNo = clNo;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.clThumb = clThumb;
+		this.clName = clName;
+		this.ttName = ttName;
 	}
 
 	public int getRegNo() {

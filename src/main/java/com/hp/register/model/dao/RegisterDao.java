@@ -133,33 +133,34 @@ public class RegisterDao {
 	
 	/**
 	 * @author 예서
-	 * @param l 신청한 클래스 정보
+	 * @param r 신청한 클래스 정보
 	 * @return 신청한 클래스 상세 정보
 	 */
-	public Lesson selectLessonRegister(Connection conn, Lesson l) {
-		Lesson le = null;
+	public Register selectLessonRegister(Connection conn, Register r) {
+		Register reg = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
 		String sql = prop.getProperty("selectLessonRegister");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, l.getClMax());
-			pstmt.setInt(2, l.getClMax());
-			pstmt.setInt(3, l.getClNo());
-			pstmt.setString(4, l.getClSchedule());
+			pstmt.setString(1, r.getTeachDate());
+			pstmt.setString(2, r.getRegCount());
+			pstmt.setString(3, r.getRegCount());
+			pstmt.setString(4, r.getClNo());
+			pstmt.setString(5, r.getSchNo());
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				le = new Lesson(rset.getInt("cl_no"),
-						rset.getString("cl_name"),
-						rset.getString("tt_name"),
+				reg = new Register(rset.getString("cl_no"),
 						rset.getString("teach_date"),
 						rset.getString("teach_time"),
 						rset.getString("cl_price"),
-						rset.getInt("people"),
+						rset.getString("people"),
 						rset.getString("price"),
-						rset.getString("cl_thumb"));
+						rset.getString("cl_thumb"),
+						rset.getString("cl_name"),
+						rset.getString("tt_name"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -168,7 +169,7 @@ public class RegisterDao {
 			close(pstmt);
 		}
 		
-		return le;
+		return reg;
 		
 	}
 	

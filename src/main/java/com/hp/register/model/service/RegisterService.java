@@ -41,11 +41,11 @@ public class RegisterService {
 		return result;
 	}
 	
-	public Lesson selectLessonRegister(Lesson l) {
+	public Register selectLessonRegister(Register r) {
 		Connection conn = getConnection();
-		Lesson le = new RegisterDao().selectLessonRegister(conn, l);
+		Register reg = new RegisterDao().selectLessonRegister(conn, r);
 		close(conn);
-		return le;
+		return reg;
 	}
 	
 	public Member selectRegisterMem(int memNo) {

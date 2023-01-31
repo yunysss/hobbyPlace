@@ -93,7 +93,7 @@
 			   CL_NO
 		     , CL_NAME
 		     , TT_NAME
-		     , TO_CHAR(TO_DATE('20230127', 'YYYYMMDD'), 'YYYY"년" MM"월" DD"일" (DY)') "TEACH_DATE"
+		     , TO_CHAR(TO_DATE(?, 'YYYYMMDD'), 'YYYY"년" MM"월" DD"일" (DY)') "TEACH_DATE"
 		     , START_TIME || ' - ' || END_TIME "TEACH_TIME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , ? "PEOPLE"
@@ -141,6 +141,7 @@
 		         SEQ_REGNO.NEXTVAL
 		       , ?
 		       , ?
+		       , TO_CHAR(TO_DATE(?, 'YYYYMMDD'), 'YY/MM/DD')
 		       , ?
 		       , ?
 		       , ?
@@ -150,8 +151,8 @@
 	
 	<entry key="selectRegisterNo">
 		SELECT 
-			   SEQ_REGNO.CURRVAL "REG_NO"
-		  FROM DAUL
+			   MAX(REG_NO) "REG_NO"
+		  FROM REGISTER
 	</entry>
 	
 	<!-- 마이클래스 결제클래스 페이징 -->

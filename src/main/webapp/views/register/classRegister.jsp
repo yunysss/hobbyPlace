@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.hp.lesson.model.vo.Lesson"%>
+    pageEncoding="UTF-8" import="com.hp.register.model.vo.Register"%>
 <%
-	Lesson le = (Lesson)request.getAttribute("le");
+	Register reg = (Register)request.getAttribute("reg");
 	Member m = (Member)request.getAttribute("m");
 	String selectSession = (String)request.getAttribute("selectSession");
 	String selectDate = (String)request.getAttribute("selectDate");
@@ -85,18 +85,18 @@
 	                    <tbody>
 	                        <tr>
 	                            <td rowspan="2" width="110px">
-	                                <img src="<%= contextPath %>/<%= le.getClThumb() %>" height="100" width="100">
+	                                <img src="<%= contextPath %>/<%= reg.getClThumb() %>" height="100" width="100">
 	                            </td>
 	                            <td>
 	                                <b>클래스명</b><br>
-	                                <%= le.getClName() %>
-	                                <input type="hidden" name="clNo" value="<%=le.getClNo()%>">
+	                                <%=reg.getClName()%>
+	                                <input type="hidden" name="clNo" value="<%=reg.getClNo()%>">
 	                            </td>
 	                        </tr>
 	                        <tr>
 	                            <td>
 	                                <b>일시</b><br>
-	                                <%= le.getStartDate() %> <%= le.getClSchedule() %>
+	                                <%=reg.getTeachDate()%> <%=reg.getRegDate()%>
 	                                <input type="hidden" name="teachDate" value="<%=selectDate%>">
 	    							<input type="hidden" name="schNo" value="<%=selectSession%>">
 	                            </td>
@@ -176,11 +176,12 @@
 	                    </tr>
 	                    <tr>
 	                        <td align="right">
-	                            <%= le.getClPrice() %> <br>
-	                            x <input type="text" name="regCount" value="<%= le.getClMax() %>" size="3" style="text-align:right;" readonly>명
+	                            <%= reg.getRegPrice() %> <br>
+	                            x <input type="text" name="regCount" value="<%= reg.getRegCount() %>" size="3" style="text-align:right;" readonly>명
 	                            <hr>
 	                            총 결제 금액 
-	                            <input type="text" name="regPrice" value="<%= le.getClStatus() %>" size="10" style="text-align:right;font-weight:bold;" readonly><b>원</b>
+	                            <b id="regPrice"></b>
+	                            <input type="hidden" name="regPrice" value="<%= reg.getRegSta() %>">
 	                        </td>
 	                    </tr>
 	                </tbody>
@@ -214,7 +215,7 @@
 		           pg: "html5_inicis",
 		           pay_method: 'card',
 		           merchant_uid: 'merchant_' + new Date().getTime(),
-		           name: '<%= le.getClName() %>',
+		           name: '<%= reg.getClName() %>',
 		          amount: 100,
 		          buyer_email: '<%= m.getEmail() %>',
 		          buyer_name: '<%= m.getMemNo() %>',
@@ -229,6 +230,13 @@
 		          }
 		      })
    		}
+   		function CommaFormat(x) {
+  		  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  		}
+  	    $(function(){
+  	    	let price = <%= reg.getRegSta() %>;
+  		    $("#regPrice").html(CommaFormat(price)+"원");
+  	    })
     </script>
     <script>
     $(function(){  
@@ -246,7 +254,7 @@
 	    <div class="modal-content">
 	      <div class="modal-body">
 	        [ 제공받는 자 ]<br>
-	        <%= le.getMemNo() %><br><br>
+	        <%= reg.getTtName() %><br><br>
 	        
             [ 제공 정보 ]<br>
             성명, 휴대폰 번호, 이메일 주소<br><br>
@@ -313,7 +321,6 @@
 					email:email
 				},
 				success:function(m){
-					console.log(m)
 					value1 = "<tr>"
 							+ 	"<td>"
 							+		"<b>이름</b><br>"

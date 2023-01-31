@@ -40,16 +40,16 @@ public class RegisterFinishController extends HttpServlet {
 		String regCount = request.getParameter("regCount");
 		
 		Register r = new Register(memNo, clNo, teachDate, schNo, regPay, regPrice, regCount);
+		Register re = new Register(clNo, schNo, regCount, teachDate);
 		int result = new RegisterService().insertRegister(r);
-		int regNo = 0;
 		if(result > 0) {
-			regNo = new RegisterService().selectRegisterNo();
-			request.setAttribute("r", r);
+			int regNo = new RegisterService().selectRegisterNo(); // 주문번호, 신청일
+			Register reg = new RegisterService().selectLessonRegister(re);
+			request.setAttribute("reg", reg);
 			request.setAttribute("regNo", regNo);
+			request.setAttribute("regPay", regPay);
 			request.getRequestDispatcher("views/register/classRegisterFin.jsp").forward(request, response);
 		}
-		
-		
 	}
 
 	/**

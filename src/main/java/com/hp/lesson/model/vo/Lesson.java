@@ -290,26 +290,6 @@ public class Lesson {
 		this.tutorProfile = tutorProfile;
 	}
 
-	public Lesson(int clNo, String clSchedule, String clDay, int clMax) {
-		super();
-		this.clNo = clNo;
-		this.clMax = clMax;
-		this.clSchedule = clSchedule;
-		this.clDay = clDay;
-	}
-
-	public Lesson(int clNo, String clName, String memNo, String startDate, String clSchedule, String clPrice, int clMax, String clStatus, String clThumb) {
-		super();
-		this.clNo = clNo;
-		this.clName = clName;
-		this.memNo = memNo;
-		this.startDate = startDate;
-		this.clSchedule = clSchedule;
-		this.clPrice = clPrice;
-		this.clStatus = clStatus;
-		this.clMax = clMax;
-		this.clThumb = clThumb;
-	}
 	public String getCladdress2() {
 		return Claddress2;
 	}
