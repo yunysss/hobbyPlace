@@ -301,7 +301,7 @@
                 <tr>
                     <th>등록상태</th>
                     <td>
-                        <input type="checkbox" name="status" id="chkAll" value="4">
+                        <input type="checkbox" name="status" id="chkAll" value="">
                         <label for="">전체</label>
                         <input type="checkbox" name="status" id="beforeApproval" value="0">
                         <label for="beforeApproval">검수요청</label>
@@ -335,7 +335,7 @@
             </div>
             
              </form>  
-          <!-- 
+        
             <script>
             	function searchcl(){
             		$ajax({
@@ -361,7 +361,7 @@
             	}
             
            </script>
-           -->
+         
 		</div>
             <br><br>
         <table class="table table-hover" id="classList" >

@@ -530,8 +530,7 @@ public class TutorDao {
 				pstmt.setString(1, at.getOriginName());
 				pstmt.setString(2, at.getChangeName());
 				pstmt.setString(3, at.getFilePath());
-				pstmt.setString(4, at.getFileLevel());
-				pstmt.setString(5, at.getRefType());
+				pstmt.setString(4, at.getRefType());
 				
 				result = pstmt.executeUpdate();
 			
@@ -701,9 +700,8 @@ public class TutorDao {
 			pstmt.setString(1, at.getOriginName());
 			pstmt.setString(2, at.getChangeName());
 			pstmt.setString(3, at.getFilePath());
-			pstmt.setString(4, at.getFileLevel());
-			pstmt.setString(5, at.getRefType());
-			pstmt.setInt(6, at.getRefNo());
+			pstmt.setString(4, at.getRefType());
+			pstmt.setInt(5, at.getRefNo());
 			
 			result = pstmt.executeUpdate();
 			}
