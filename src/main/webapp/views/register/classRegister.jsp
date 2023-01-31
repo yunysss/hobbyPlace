@@ -216,7 +216,7 @@
 		           pay_method: 'card',
 		           merchant_uid: 'merchant_' + new Date().getTime(),
 		           name: '<%= reg.getClName() %>',
-		          amount: 100,
+		          amount: <%= reg.getRegSta()%>,
 		          buyer_email: '<%= m.getEmail() %>',
 		          buyer_name: '<%= m.getMemNo() %>',
 		          buyer_tel: '<%= m.getPhone()%>'

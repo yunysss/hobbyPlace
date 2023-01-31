@@ -66,7 +66,7 @@
 		      , DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') "CAL_STA"
 		  FROM (SELECT *
 				   FROM CALCULATE
-				   JOIN REGISTER ON(SUBSTR(CAL_REG,1,1) = REG_NO)
+				   JOIN REGISTER ON(SUBSTR(CAL_REG,1,INSTR(CAL_REG, ',') - 1) = REG_NO)
 				   JOIN CLASS C USING(CL_NO)
 		           JOIN TUTOR T ON(C.MEM_NO = T.MEM_NO)
 				  ORDER 
@@ -85,7 +85,7 @@
 		     , CAL_NM
 		     , DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') "CAL_STA"
 		  FROM CALCULATE
-		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,1) = REG_NO)
+		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,INSTR(CAL_REG, ',') - 1) = REG_NO)
 		  JOIN CLASS C USING(CL_NO)
           JOIN TUTOR T ON(C.MEM_NO = T.MEM_NO)
 		 WHERE CAL_NO = ?

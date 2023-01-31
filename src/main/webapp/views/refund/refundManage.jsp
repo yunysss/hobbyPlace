@@ -10,6 +10,9 @@
         div, p, form, input, table{box-sizing:border-box;}
 
        .outer{width:1000px; margin:auto; padding:20px 50px;}
+       .outer>*{
+       	font-size:small;
+       }
        #refMng-form, #refMng-result{
         border:1px solid rgb(180, 180, 180); 
         border-radius:5px;
@@ -35,6 +38,12 @@
        thead td{
         background:rgb(245, 245, 245);
        }
+       select{
+        width: 150px;
+        border: 1px solid rgb(202, 199, 199);
+        height: 32px;
+        border-radius: 5px;
+    }
         
        input[name=dateType], input[name=calSta]{display: none; margin: 10px;}
 	   input[name=dateType]+label{
@@ -107,21 +116,20 @@
 		    color: white;
 		}
     </style>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 </head>
 <body>
 	<%@ include file="../common/adminMenubar.jsp" %>
     <div class="outer">
-        <h5><b>환불 신청 관리</b></h5><br>
+        <h5 style="font-weight: 600; font-size:18px"><b>환불 신청 관리</b></h5><br>
         <div id="refMng-form">
-            <b>환불 내역 조회</b>
             <table width="800px">
                 <tbody>
                 	<tr>
-                    	<td>진행상태</td>
+                    	<td><b>진행상태</b></td>
                     	<td colspan="3">
                     		<input type="radio" name="calSta" id="checkAll" value="환불" checked>
 			                <label for="checkAll"><small>전체</small></label>
@@ -132,9 +140,9 @@
                     	</td>
                     </tr>
                     <tr>
-                        <td>검색어</td>
+                        <td><b>검색어</b></td>
                         <td width="150px;">
-                            <select name="keywordType" class="form-control">
+                            <select name="keywordType">
                                 <option value="orderNo">주문번호</option>
                                 <option value="memId">고객ID</option>
                             </select>
@@ -146,15 +154,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>조회 기간</td>
+                        <td><b>조회 기간</b></td>
                         <td>
-                            <select name="searchDateType" class="form-control">
+                            <select name="searchDateType">
                                 <option value="regDate">결제일자</option>
                                 <option value="refDate">신청일자</option>
                             </select>
                         </td>
                         <td colspan="2">
-                            <div colspan="2" class="clearfix">
+                            <div class="clearfix">
                                 <!-- 시작일 -->
                                 <span class="dset">
                                     <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >

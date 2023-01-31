@@ -12,6 +12,7 @@
     div, p, form, input, table{box-sizing:border-box;}
 
    .outer{width:1000px; margin:auto; padding:20px 50px;}
+   .outer>*{font-size:small;}
    #calMng-form, #calMng-result{
     border:1px solid rgb(180, 180, 180); 
     border-radius:5px;
@@ -116,12 +117,12 @@
 <body>
 	<%@ include file="../common/adminMenubar.jsp" %>
     <div class="outer">
-        <h5><b>튜터 정산 관리</b></h5><br>
+        <h5 style="font-size:18px"><b>튜터 정산 관리</b></h5><br>
         <div id="calMng-form">
             <table width="850px">
                 <tbody>
                 	<tr>
-                    	<td>진행상태</td>
+                    	<td><b>진행상태</b></td>
                     	<td>
                     		<input type="radio" name="calSta" id="checkAll" value="정산" checked>
 			                <label for="checkAll"><small>전체</small></label>
@@ -132,13 +133,13 @@
                     	</td>
                     </tr>
                     <tr>
-                        <td>튜터ID</td>
+                        <td><b>튜터ID</b></td>
                         <td width="340">
                             <input type="text" name="tutorId" id="tutorId">
                         </td>
                     </tr>
                     <tr>
-                        <td>조회 기간</td>
+                        <td><b>조회 기간</b></td>
                         <td>
                             <div class="clearfix">
                                 <!-- 시작일 -->
@@ -296,6 +297,7 @@
 	    				status:$("input[name=calSta]:checked").val()    				
 	    			},
 	    			success:function(list){
+	    				console.log(list)
 	    				if(list.length == 0){
 	    					let value = "<tr>"
 	    						+	"<td colspan='7'>조회된 내역이 없습니다.</td>"
