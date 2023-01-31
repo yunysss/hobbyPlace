@@ -127,4 +127,46 @@ public class NoticeService {
 		
 		return list;
 	}
+	
+	public int selectAdminNoticeListCount() {
+		Connection conn = getConnection();
+		int listCount = new NoticeDao().selectAdminNoticeListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+	
+	public ArrayList<Notice> selectAdminNoticeList(PageInfo pi){
+			
+			Connection conn = getConnection();
+			
+			ArrayList<Notice> list = new NoticeDao().selectAdminNoticeList(conn, pi);
+			
+			close(conn);
+			
+			return list;
+	}
+
+	public int selectKeywordNoticeListCount(String keyword) {
+		Connection conn = getConnection();
+		int listCount = new NoticeDao().selectKeywordNoticeListCount(conn, keyword);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+	
+	public ArrayList<Notice> selectKeywordNoticeList(PageInfo pi, String keyword){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Notice> list = new NoticeDao().selectKeywordNoticeList(conn, pi, keyword);
+		
+		close(conn);
+		
+		return list;
+	}
 }
