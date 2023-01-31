@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.member.model.vo.Member;
+import com.hp.refund.model.vo.Refund;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
 
@@ -255,6 +256,11 @@ public class RegisterDao {
 			pstmt.setString(5, r.getRegPay());
 			pstmt.setString(6, r.getRegPrice());
 			pstmt.setString(7, r.getRegCount());
+			if(r.getRegPay().equals("0")) {
+				pstmt.setString(8, "Y");
+			} else {
+				pstmt.setString(8, "N");
+			}
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -368,6 +374,56 @@ public class RegisterDao {
 		}
 		
 		return listCount;
+	}
+	
+	public ArrayList<Register> selectRegisterMng(Connection conn, String keywordType, String keyword, String startDate, String endDate, String status){
+		ArrayList<Register> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRegisterMng");
+		if(!keyword.equals("")) {
+			if(keywordType.equals("regNo")) {
+				sql += "AND REG_NO LIKE ?";
+			} else {
+				sql += "AND MEM_ID LIKE ?";
+			}
+		}
+		if(!startDate.equals("") && !endDate.equals("")) {
+			sql += "AND REG_DATE BETWEEN ? AND ?";
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + status + "%");
+			if(!keyword.equals("")) {
+				pstmt.setString(2, "%" + keyword + "%");
+				if(!startDate.equals("") && !endDate.equals("")) {
+					pstmt.setString(3, startDate);
+					pstmt.setString(4, endDate);
+				}
+			}else {
+				if(!startDate.equals("") && !endDate.equals("")) {
+					pstmt.setString(2, startDate);
+					pstmt.setString(3, endDate);
+				}
+			}
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Register(rset.getInt("reg_no"),
+								    rset.getString("mem_id"),
+								    rset.getString("reg_date"),
+								    rset.getString("reg_pay"),
+								    rset.getString("reg_price"),
+								    rset.getString("reg_sta"),
+								    rset.getString("deposit_sta")
+								    ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 	

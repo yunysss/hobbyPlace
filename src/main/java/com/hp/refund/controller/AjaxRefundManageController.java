@@ -16,7 +16,7 @@ import com.hp.refund.model.vo.Refund;
 /**
  * Servlet implementation class AjaxRefundManageController
  */
-@WebServlet("/select.ref")
+@WebServlet("/selectMng.ref")
 public class AjaxRefundManageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

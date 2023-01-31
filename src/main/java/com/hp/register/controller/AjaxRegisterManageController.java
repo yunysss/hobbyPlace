@@ -1,4 +1,4 @@
-package com.hp.calculate.controller;
+package com.hp.register.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.hp.calculate.model.service.CalculateService;
-import com.hp.calculate.model.vo.Calculate;
+import com.hp.register.model.service.RegisterService;
+import com.hp.register.model.vo.Register;
 
 /**
- * Servlet implementation class AjaxCalculateMngController
+ * Servlet implementation class AjaxRegisterManageController
  */
-@WebServlet("/selectMng.cal")
-public class AjaxCalculateMngController extends HttpServlet {
+@WebServlet("/selectMng.reg")
+public class AjaxRegisterManageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCalculateMngController() {
+    public AjaxRegisterManageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +32,14 @@ public class AjaxCalculateMngController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memId = request.getParameter("memId");
+		String keywordType = request.getParameter("keywordType");
+		String keyword = request.getParameter("keyword");
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String status = request.getParameter("status");
 		
 		response.setContentType("application/json; charset=UTF-8");
-		ArrayList<Calculate> list = new CalculateService().selectCalMng(memId, startDate, endDate, status);
+		ArrayList<Register> list = new RegisterService().selectRegisterMng(keywordType, keyword, startDate, endDate, status);
 		new Gson().toJson(list, response.getWriter());
 	}
 

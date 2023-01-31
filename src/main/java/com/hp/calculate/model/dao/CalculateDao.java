@@ -164,7 +164,7 @@ public class CalculateDao {
 		ResultSet rset =null;
 		String sql = prop.getProperty("selectCalList");
 		if(!startDate.equals("") && !endDate.equals("")) {
-			sql += "AND RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1";
+			sql += "AND RQ_DT BETWEEN ? AND ?";
 		}
 		
 		try {

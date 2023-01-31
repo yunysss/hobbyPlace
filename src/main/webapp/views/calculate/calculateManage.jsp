@@ -119,7 +119,7 @@
     <div class="outer">
         <h5 style="font-size:18px"><b>튜터 정산 관리</b></h5><br>
         <div id="calMng-form">
-            <table width="850px">
+            <table width="700px">
                 <tbody>
                 	<tr>
                     	<td><b>진행상태</b></td>
@@ -178,16 +178,12 @@
                     </tr>
                     
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3" align="center">
-                            <button type="button" class="btn btn-sm" id="selectCalMng-btn" onclick="selectCalMng();">조회</button>
-                            <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
-                        </td>
-                        
-                    </tr>
-                </tfoot>
             </table>
+            <br>
+            <div align="center">
+                    <button type="button" class="btn btn-sm" id="selectCalMng-btn" onclick="selectCalMng();">조회</button>
+                    <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
+            </div>
         </div>
         <script>
 			function resetAll(){
@@ -289,7 +285,7 @@
 		    })
 	        function selectCalMng(){
 	    		$.ajax({
-	    			url:"<%=contextPath%>/manageSearch.cal",
+	    			url:"<%=contextPath%>/selectMng.cal",
 	    			data:{
 	    				memId:$("input[name=tutorId]").val(),
 	    				startDate:$("#searchStartDate").val(),

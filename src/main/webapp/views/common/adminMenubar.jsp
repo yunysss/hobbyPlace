@@ -169,7 +169,7 @@
                         </li>
                         <li><a href="">결제 관리</a>
                             <ul>
-                                <li><a href="<%=contextPath%>/manage.reg">결제 내역</a></li>
+                                <li><a href="<%=contextPath%>/manage.reg">결제 내역 관리</a></li>
                                 <li><a href="<%=contextPath%>/manage.cal">튜터 정산 관리</a></li>
                                 <li><a href="<%=contextPath %>/manage.ref">환불 신청 관리</a></li>
                             </ul>

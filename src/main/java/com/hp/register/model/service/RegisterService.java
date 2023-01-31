@@ -109,5 +109,12 @@ public class RegisterService {
 		close(conn);
 		return listCount;
 	}
+	
+	public ArrayList<Register> selectRegisterMng(String keywordType, String keyword, String startDate, String endDate, String status) {
+		Connection conn = getConnection();
+		ArrayList<Register> list = new RegisterDao().selectRegisterMng(conn, keywordType, keyword, startDate, endDate, status);
+		close(conn);
+		return list;
+	}
 
 }

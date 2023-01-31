@@ -199,6 +199,7 @@
                     </tr>
                 </tbody>
             </table>
+            <br>
             <div align="center">
             	<button type="button" class="btn btn-sm" id="selectRefMng-btn" onclick="selectRefundMng();">조회</button>
                 <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
@@ -312,7 +313,7 @@
 		    })
 	        function selectRefundMng(){
 	    		$.ajax({
-	    			url:"<%=contextPath%>/select.ref",
+	    			url:"<%=contextPath%>/selectMng.ref",
 	    			data:{
 	    				keywordType:$("select[name=keywordType]").val(),
 	    				keyword:$("input[name=keyword]").val(),

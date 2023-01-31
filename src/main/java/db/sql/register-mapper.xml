@@ -136,12 +136,14 @@
 		       , REG_PAY
 		       , REG_PRICE
 		       , REG_COUNT
+		       , DEPOSIT_STA
 		       )
 		VALUES (
 		         SEQ_REGNO.NEXTVAL
 		       , ?
 		       , ?
 		       , TO_CHAR(TO_DATE(?, 'YYYYMMDD'), 'YY/MM/DD')
+		       , ?
 		       , ?
 		       , ?
 		       , ?
@@ -200,6 +202,25 @@
   	 WHERE REG_STA NOT IN (3,4)
   	   AND MEM_NO = ?
 	
+	</entry>
+	
+	<entry key="selectRegisterMng">
+		SELECT *
+		  FROM (SELECT REG_NO
+		             , MEM_ID
+		             , TO_CHAR(REG_DATE, 'YYYY-MM-DD') "REG_DATE"
+                     , DECODE(REG_PAY, 0, '카드', 1, '무통장') "REG_PAY"
+		             , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		             , DECODE(REG_STA, 0, '승인전', 1, '수강전', 2, '수강완료', 3, '예약취소', 4, '신청반려') "REG_STA"
+                     , DECODE(DEPOSIT_STA, 'N', '입금대기', 'Y', '결제완료') "DEPOSIT_STA"
+		         FROM REGISTER R
+		         JOIN MEMBER M ON(R.MEM_NO = M.MEM_NO)
+                 JOIN CLASS USING(CL_NO)
+                 WHERE DECODE(DEPOSIT_STA, 'N', '입금대기', 'Y', '입금완료') LIKE ?
+		       ORDER
+		          BY REG_DATE DESC)
+		  WHERE 1 = 1
+		 
 	</entry>
 	
 </properties>

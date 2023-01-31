@@ -15,6 +15,7 @@ public class Register {
 	public String refuse;
 	public String reEnroll;
 	public String regCal;
+	public String depositSta;
 	public String memPhone;
 	public String memEmail;
 	public String clThumb;
@@ -134,6 +135,18 @@ public class Register {
 		this.clThumb = clThumb;
 		this.clName = clName;
 		this.ttName = ttName;
+	}
+
+	public Register(int regNo, String memNo, String regDate, String regPay, String regPrice, String regSta,
+			String depositSta) {
+		super();
+		this.regNo = regNo;
+		this.memNo = memNo;
+		this.regDate = regDate;
+		this.regPay = regPay;
+		this.regPrice = regPrice;
+		this.regSta = regSta;
+		this.depositSta = depositSta;
 	}
 
 	public int getRegNo() {
@@ -297,6 +310,14 @@ public class Register {
 
 	public void setTtName(String ttName) {
 		this.ttName = ttName;
+	}
+
+	public String getDepositSta() {
+		return depositSta;
+	}
+
+	public void setDepositSta(String depositSta) {
+		this.depositSta = depositSta;
 	}
 
 	@Override

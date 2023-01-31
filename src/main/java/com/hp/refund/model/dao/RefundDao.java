@@ -46,9 +46,9 @@ private Properties prop = new Properties();
 		}
 		if(!startDate.equals("") && !endDate.equals("")) {
 			if(dateType.equals("regDate")) {
-				sql += "AND REG_DATE BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1";
+				sql += "AND REG_DATE BETWEEN ? AND ?";
 			} else {
-				sql += "AND REF_RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1";
+				sql += "AND REF_RQ_DT BETWEEN ? AND ?";
 			}
 		}
 		try {
