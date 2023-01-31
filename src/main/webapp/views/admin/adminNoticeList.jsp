@@ -123,6 +123,7 @@
             <%}else{ %>
             	<%for(Notice n : list){ %>
             	
+            	
                 <tr>
                 
                     <td style="background-color:rgb(255, 251, 231); width: 100px; text-align:center;color:rgb(192, 57, 43); font-weight: bolder;">
