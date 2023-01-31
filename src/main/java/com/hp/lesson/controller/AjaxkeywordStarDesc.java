@@ -14,16 +14,16 @@ import com.hp.lesson.model.service.LessonService;
 import com.hp.lesson.model.vo.Lesson;
 
 /**
- * Servlet implementation class ClassPriceDescController
+ * Servlet implementation class AjaxkeywordStarDesc
  */
-@WebServlet("/pricedesc.cl")
-public class ClassPriceDescController extends HttpServlet {
+@WebServlet("/kstar.desc")
+public class AjaxkeywordStarDesc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClassPriceDescController() {
+    public AjaxkeywordStarDesc() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +32,11 @@ public class ClassPriceDescController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String category = request.getParameter("category");
-		ArrayList<Lesson> descList = new LessonService().selectPriceDesc(category);	
-	
+		String keyword = request.getParameter("keyword");
+		ArrayList<Lesson> list = new LessonService().keywordStarDesc(keyword);	
+		
 		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(descList,response.getWriter());
+		new Gson().toJson(list,response.getWriter());
 	}
 
 	/**
