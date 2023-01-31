@@ -196,6 +196,7 @@
 	     WHERE MEM_NO = ?
 	       AND MEM_STATUS = 'Y' 
 	</entry>
+	
 
 	
 	

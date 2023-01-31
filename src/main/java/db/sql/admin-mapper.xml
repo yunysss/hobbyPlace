@@ -235,9 +235,98 @@
 	
 	<!-- 기본검색으로 회원조회시 회원리스트 -->
 	<entry key="selectMemberList1">
-		
-		
+		SELECT
+		       MEM_NO
+		     , MEM_NAME
+		     , DECODE(GRADE, '0', '관리자', '1', '등록안함', '2', '튜터') "GRADE"
+		     , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE"
+		     , (SELECT COUNT(REG_NO)
+		          FROM REGISTER R
+		         WHERE REG_STA = '2'
+		           AND MEM_NO = M.MEM_NO) "REGCOUNT"   
+		     , (SELECT COUNT(RE_NO) 
+		          FROM REVIEW
+		         WHERE RE_STA = 'Y'
+		           AND MEM_NO = M.MEM_NO) "REVCOUNT"
+		     , (SELECT COUNT(CL_NO)
+		          FROM "LIKE"
+		         WHERE MEM_NO = M.MEM_NO) "LIKECOUNT"
+		     , (SELECT SUM(REG_PRICE)
+		          FROM REGISTER
+		         WHERE REG_STA = '2'
+		          AND MEM_NO = M.MEM_NO) "TOTALPAY"
+		     , NVL(MEM_EMAIL, '미등록') "MEM_EMAIL"
+		     , MEM_PHONE
+		     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
+		     , GENDER
+		     , MEM_STATUS
+		  FROM MEMBER M
+		 WHERE GRADE LIKE ?
+		 ORDER BY ?
 	</entry>
-		
+	
+	<!-- 회원번호로 회원정보 조회 -->
+	<entry key="selectMemberByNo">
+		SELECT 
+		       MEM_NO
+		     , MEM_ID
+		     , MEM_PWD
+		     , MEM_NAME
+		     , MEM_NICKNAME
+		     , MEM_EMAIL
+		     , MEM_PHONE
+		     , MEM_ADDR
+		     , GENDER
+		     , MEM_BIRTH
+		     , MEM_PROFILE
+		     , INTEREST
+		     , GRADE
+		     , ENROLL_DATE
+		     , MEM_UPDATE
+		     , MEM_STATUS
+		     , MEM_DROP
+		  FROM MEMBER
+	     WHERE MEM_NO = ? 
+	</entry>
+	
+	<entry key="selectAllQna">
+		SELECT 
+		       Q_NO
+		     , Q_TITLE
+		     , Q_CONTENT
+		     , TO_CHAR(Q_DATE, 'YYYY-MM-DD') "Q_DATE"
+		     , Q_STATUS
+		     , Q_GRADE
+		     , Q_CATEGORY
+		     , CL_NO
+		     , Q_MEM_NO
+		     , A_TITLE
+		     , A_CONTENT
+		     , TO_CHAR(A_DATE, 'YYYY-MM-DD') "A_DATE"
+		     , A_MEM_NO
+		  FROM QNA
+		 WHERE Q_MEM_NO = ?
+	</entry>
+	
+	<entry key="selectAllRegister">
+		SELECT
+		       REG_NO
+		     , MEM_NO
+		     , CL_NO
+		     , TEACH_DATE
+		     , TO_CHAR(REG_DATE, 'YYYY-MM-DD') "REG_DATE"
+		     , SCH_NO
+		     , REG_PAY
+		     , REG_PRICE
+		     , REG_COUNT
+		     , REG_STA
+		     , REG_REFUSE
+		     , REG_ENROLL
+		     , REG_CAL
+		  FROM REGISTER
+		 WHERE MEM_NO = ?
+	</entry>
+	
+	
 	
 </properties>

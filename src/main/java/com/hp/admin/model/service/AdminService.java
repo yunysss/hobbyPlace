@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.hp.admin.model.dao.AdminDao;
+import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
@@ -16,7 +17,9 @@ import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
+import com.hp.member.model.dao.MemberDao;
 import com.hp.member.model.vo.Member;
+import com.hp.qna.model.vo.Qna;
 import com.hp.tutor.model.vo.Tutor;
 
 public class AdminService {
@@ -141,18 +144,44 @@ public class AdminService {
 		
 	}
 
-	/**	회원조회 리스트 select 
+	/**	기본검색으로 회원조회시 회원리스트 select 
 	 * @author 수연
 	 * @param sGroup
 	 * @param fCategory
 	 * @param lineup
 	 * @return list
 	 */
-	public ArrayList<Member> selectMemberList(String sGroup, String fCategory, String lineup) {
+	public ArrayList<MemberList> selectMemberList(String sGroup, String fCategory, String lineup) {
 		Connection conn = getConnection();
-		ArrayList<Member> list = new AdminDao().selectMemberList(conn, sGroup, fCategory, lineup);
+		ArrayList<MemberList> list = new AdminDao().selectMemberList(conn, sGroup, fCategory, lineup);
 		close(conn);
 		return list;
+	}
+
+	/** 회원번호로 회원기본정보 조회 Service메소드
+	 * @author 수연
+	 * @param memNo
+	 * @return m
+	 */
+	public Member selectMemberByNo(int memNo) {
+		Connection conn = getConnection();
+		Member m = new AdminDao().selectMemberByNo(conn, memNo);
+		
+		close(conn);
+		return m;
+	}
+	
+	/** 회원번호로 qna리스트 조회 Service메소드
+	 * @author 수연
+	 * @param memNo
+	 * @return qnaList
+	 */
+	public ArrayList<Qna> selectAllQna(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Qna> qnaList = new AdminDao().selectAllQna(conn, memNo);
+		
+		close(conn);
+		return qnaList;
 	}
 	
 	
