@@ -148,6 +148,12 @@
 		       )
 	</entry>
 	
+	<entry key="selectRegisterNo">
+		SELECT 
+			   SEQ_REGNO.CURRVAL "REG_NO"
+		  FROM DAUL
+	</entry>
+	
 	<!-- 마이클래스 결제클래스 페이징 -->
 	<entry key="selectMyClassList">
 		SELECT *

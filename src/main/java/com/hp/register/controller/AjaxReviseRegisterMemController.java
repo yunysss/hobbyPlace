@@ -37,10 +37,11 @@ public class AjaxReviseRegisterMemController extends HttpServlet {
 		String email = request.getParameter("email");
 		
 		int result = new RegisterService().reviseRegisterMem(memNo, memName, phone, email);
-		Member m = new RegisterService().selectRegisterMem(memNo);
-		
+		if(result > 0) {
+			Member m = new RegisterService().selectRegisterMem(memNo);
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(m, response.getWriter());
+		}
 	}
 
 	/**

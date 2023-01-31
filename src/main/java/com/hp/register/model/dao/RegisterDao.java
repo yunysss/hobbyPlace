@@ -206,6 +206,14 @@ public class RegisterDao {
 		
 	}
 	
+	/**
+	 * @author 예서
+	 * @param memNo 수정할 멤버번호
+	 * @param memName 수정할 이름
+	 * @param phone 수정할 전화번호
+	 * @param email 수정할 이메일
+	 * @return 멤버 개인정보 UPDATE
+	 */
 	public int reviseRegisterMem(Connection conn, int memNo, String memName, String phone, String email) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -227,6 +235,11 @@ public class RegisterDao {
 		return result;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param r 주문정보
+	 * @return 주문테이블 INSERT
+	 */
 	public int insertRegister(Connection conn, Register r) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -250,7 +263,33 @@ public class RegisterDao {
 		}
 		return result;
 	}
-	
+
+	/**
+	 * @author 예서
+	 * @return 주문번호
+	 */
+	public int selectRegisterNo(Connection conn) {
+		int regNo = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectRegisterNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				regNo = rset.getInt("reg_no");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return regNo;
+	}
 
 	/**
 	 * 마이클래스 수강내역부분 조회

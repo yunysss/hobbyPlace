@@ -66,14 +66,24 @@ public class RegisterService {
 		return result;
 	}
 	
-	public Register selectRegisterFin(Register r) {
+	public int insertRegister(Register r) {
 		Connection conn = getConnection();
 		int result = new RegisterDao().insertRegister(conn, r);
 		
 		if(result > 0) {
-			
+			commit(conn);
+		} else {
+			rollback(conn);
 		}
 		
+		return result;
+	}
+	
+	public int selectRegisterNo() {
+		Connection conn = getConnection();
+		int regNo = new RegisterDao().selectRegisterNo(conn);
+		close(conn);
+		return regNo;
 	}
 
 	/**
