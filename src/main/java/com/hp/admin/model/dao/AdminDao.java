@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
+import com.hp.admin.model.vo.SearchMember;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
@@ -806,6 +807,13 @@ public class AdminDao {
 		
 		
 		
+	}
+
+
+
+
+	public ArrayList<MemberList> selectMemberList2(Connection conn, SearchMember sm) {
+		return null;
 	}
 
 	
