@@ -260,20 +260,27 @@ private Properties prop = new Properties();
 		return list;
 	}
 
-	public int insertRefund(Connection conn, Refund r) {
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param r
+	 * @return 환불요청페이지에서 전달(insert)되는 정보
+	 */
+	public int insertRefund(Connection conn, Refund ref) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertRefund");
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, r.getOrderNo());
-			pstmt.setString(2, r.getMemNo());
-			pstmt.setString(3, r.getRefPrice());
-			pstmt.setString(4, r.getRefBank());
-			pstmt.setString(5, r.getRefAcc());
-			pstmt.setString(6, r.getRefName());
-			pstmt.setString(7, r.getRefRea());
+			
+			pstmt.setInt(1, ref.getOrderNo());
+			pstmt.setString(2, ref.getMemNo());
+			pstmt.setString(3, ref.getRefPrice());
+			pstmt.setString(4, ref.getRefBank());
+			pstmt.setString(5, ref.getRefAcc());
+			pstmt.setString(6, ref.getRefName());
+			pstmt.setString(7, ref.getRefRea());
 			
 			result=pstmt.executeUpdate();
 			
@@ -283,6 +290,33 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param memNo
+	 * @param regSta
+	 * @return
+	 * 환불요청하면 수강상태 3번(예약취소)로 update
+	 */
+	public int updateStatus(Connection conn, int orderNo, String regSta) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateStatus");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,orderNo);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		return result;
 	}
 

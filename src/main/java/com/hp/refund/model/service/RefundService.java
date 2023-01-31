@@ -86,13 +86,15 @@ public class RefundService {
 	/**
 	 * @author 수정
 	 * @param r
-	 * 환불 요청 데이터 올리기
+	 * 환불 요청 데이터 올리기, 글상태 변경
 	 * @return 
 	 */
-	public int insertRefund(Refund r) {
+	public int insertRefund(Refund ref, int orderNo, String regSta) {
 		Connection conn = getConnection();
-		int result = new RefundDao().insertRefund(conn,r);
-		if(result>0) {
+		int result1 = new RefundDao().insertRefund(conn,ref);
+		int result2 = new RefundDao().updateStatus(conn, orderNo, regSta);
+		
+		if(result1>0 && result2>0) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -100,7 +102,7 @@ public class RefundService {
 		
 		close(conn);
 		
-		return result;
+		return result1*result2;
 		
 	}
 

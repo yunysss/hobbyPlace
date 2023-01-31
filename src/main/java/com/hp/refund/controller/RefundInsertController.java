@@ -39,27 +39,35 @@ public class RefundInsertController extends HttpServlet {
 		HttpSession session = request.getSession();
 		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
-		int refPrice = Integer.parseInt(request.getParameter("regPrice"));
+		String refPrice = request.getParameter("regPrice");
 		
 		String refBank = request.getParameter("refBank");
 		String refAcc = request.getParameter("refAcc");
-		String refNm = request.getParameter("refNm"); 
+		String refName = request.getParameter("refName"); 
 		String refRea = request.getParameter("refRea");
+		String regSta = request.getParameter("regSta");
 		
-		Refund r = new Refund();
-		r.setOrderNo(orderNo);
-		r.setMemNo(String.valueOf(memNo));
-		r.setRefPrice(String.valueOf(refPrice));
-		r.setRefBank(refBank);
-		r.setRefAcc(refAcc);
-		r.setRefName(refNm);
-		r.setRefRea(refRea);
+		Refund ref = new Refund();
+		ref.setOrderNo(orderNo);
+		ref.setMemNo(String.valueOf(memNo));
+		ref.setRefPrice(refPrice);
+		ref.setRefBank(refBank);
+		ref.setRefAcc(refAcc);
+		ref.setRefName(refName);
+		ref.setRefRea(refRea);
 		
 		
-		int result = new RefundService().insertRefund(r);
+		
+		
+		int result = new RefundService().insertRefund(ref, orderNo, regSta);
 		
 		if(result>0) {
-			
+			session.setAttribute("refundFormInfo", ref);
+			session.setAttribute("alertMsg", "환불신청이 완료되었습니다." );
+			response.sendRedirect(request.getContextPath()+"/refundReqFin.ref?no="+orderNo);
+		}else {
+			session.setAttribute("alertMsg", "환불 요청에 실패했습니다.");
+			response.sendRedirect(request.getContextPath() + "/myClassList.reg?cpage=1");
 		}
 		
 		

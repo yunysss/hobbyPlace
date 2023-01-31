@@ -157,10 +157,10 @@
 										</tr>
 										
 										<tr>
-											<%if(list.get(i).getRegSta().equals("0")){%>
+											<%if(list.get(i).getRegSta().equals("1")){%>
 												<td height="50px"><div id="classStatusAp">승인완료</div></td>
 												<td colspan="3"></td>
-											<%} else if(list.get(i).getRegSta().equals("1")){%>
+											<%} else if(list.get(i).getRegSta().equals("0")){%>
 												<td height="50px"><div id="classStatusX">승인전</div></td>
 												<td colspan="3"></td>
 											<%} else if (list.get(i).getRegSta().equals("2")){%>
