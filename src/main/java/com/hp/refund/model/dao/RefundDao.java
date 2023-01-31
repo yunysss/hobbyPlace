@@ -184,7 +184,8 @@ private Properties prop = new Properties();
 						       rset.getString("ref_bank"),
 						       rset.getString("ref_acc"),
 						       rset.getString("ref_nm"),
-						       rset.getString("ref_sta"));
+						       rset.getString("ref_sta"),
+						       rset.getString("ref_rea"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

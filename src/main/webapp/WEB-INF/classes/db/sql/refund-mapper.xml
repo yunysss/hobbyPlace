@@ -50,6 +50,7 @@
 		     , REF_ACC
 		     , REF_NM
 		     , DECODE(REF_STA, 'N', '환불신청', 'Y', '환불완료') "REF_STA"
+		     , REF_REA
 		  FROM REFUND
 		 WHERE ORDER_NO = ?
 	</entry>

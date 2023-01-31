@@ -357,9 +357,13 @@
 								+	"<td>" + dataList[i].refBank + "</td>"
 								+	"<td>" + dataList[i].refRqDt + "</td>"
 								+	"<td>" + dataList[i].refFinDt + "<br>" 
-								+	"<td>" + dataList[i].memNo + "</td>"
-								+	"<td>" + dataList[i].refRea + "</td>"
-								+	"<td>" + dataList[i].refPrice  + "</td>";
+								+	"<td>" + dataList[i].memNo + "</td>";
+							if(dataList[i].refRea.includes('기타')){
+								value += "<td>" + "<button type='button' class='btn btn-sm btn-outline-secondary refRea-btn'>기타</button>";
+							}else{
+								value += "<td>" + dataList[i].refRea
+							}
+							value += "</td><td>" + dataList[i].refPrice  + "</td>";
 							if(dataList[i].refAcc == "카드"){
 								value += "<td>" + dataList[i].refAcc + "</td>";
 							} else{
@@ -499,8 +503,21 @@
 	    				  + "환불 금액 : " + r.refPrice + "<br>"
 	    				  + "환불 신청 날짜 : " + r.refRqDt + "<br>"
 	    				  + "환불 처리 상태 : " + r.refSta;
-	    			$("#modal-inner").html(value);
+	    			$("#refAcc-inner").html(value);
 	    			$('.refAccModal').modal('show'); 
+	    		},error:function(){
+	    			console.log("무통장상세내역 조회용 ajax 통신실패");
+	    		}
+	    	})
+	    })
+	    $(document).on("click", ".refRea-btn", function(){
+	    	$.ajax({
+	    		url:"<%=contextPath%>/selectDeposit.ref",
+	    		data:{refNo:$(this).parent().siblings().eq(0).text()},
+	    		success:function(r){
+	    			value = r.refRea.substring(3,r.refRea.length-1);
+	    			$("#refRea-inner").html(value);
+	    			$('.refReaModal').modal('show'); 
 	    		},error:function(){
 	    			console.log("무통장상세내역 조회용 ajax 통신실패");
 	    		}
@@ -512,7 +529,20 @@
             <div class="modal-content">
 	            <div class="modal-body">
 	                <b>무통장입금 환불 계좌 정보</b> <br><br>
-	                <div id="modal-inner">
+	                <div id="refAcc-inner">
+	                </div>
+	                <br>
+	                <div align="center"><button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">닫기</button></div>
+	            </div>
+            </div>  
+        </div>
+    </div>
+    <div class="modal refReaModal">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+	            <div class="modal-body">
+	                <b>취소사유</b> <br><br>
+	                <div id="refRea-inner" align="center">
 	                </div>
 	                <br>
 	                <div align="center"><button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">닫기</button></div>

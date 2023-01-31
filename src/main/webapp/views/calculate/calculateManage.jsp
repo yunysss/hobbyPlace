@@ -297,7 +297,6 @@
 	    				status:$("input[name=calSta]:checked").val()    				
 	    			},
 	    			success:function(list){
-	    				console.log(list)
 	    				if(list.length == 0){
 	    					let value = "<tr>"
 	    						+	"<td colspan='7'>조회된 내역이 없습니다.</td>"
