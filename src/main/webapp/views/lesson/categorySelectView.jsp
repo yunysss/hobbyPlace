@@ -15,113 +15,133 @@
 <meta charset="UTF-8">
  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <title>Insert title here</title>
- <style>
-        .outer{
-            width: 1000px;
-            margin: auto;
-
-
-        }
-        h4>a{
-          color: rgb(65, 64, 64);
-          margin-right: 5px;
-          text-decoration: none;
-          font-size: 20px;
-          font-weight: 550;
-        
-        }
-        h4>a:hover{
-          text-decoration: none;
-          cursor: pointer;
-          color:  rgb(35, 104, 116);
-        
-        }
-        .thumbnail{
-        width: 190px;
-        display: inline-block;
-        margin: 10px;
-        text-align: left;
-      }
-      #detail-category a{
-          color: rgb(65, 64, 64);
-          font-size: 12px;
-          margin-right: 5px;
-      }
-      #detail-category a:hover{
-        cursor: pointer;
-        color: black;
-        font-size: 12.5px;
-      }
-      #button-area{
-        margin-top: 10px;
-      }
-      #btn-area{
-        display: inline-block;
-        width: 770px;
-        text-align: right;
-      }
-      #btn-area>button{
-        width: 60px;
-        height: 30px;
-        line-height: 10px;
-        background-color: rgb(35, 104, 116);
-        border: none;
-        font-size: 13px;
-        color: whitesmoke;
-        border-radius: 5px;
-      }
-      #btn-area>button:hover{
-        background-color:  rgba(35, 104, 116, 0.685);
-      }
-       .paging-area{
-        text-align: center;
-    }
-    .paging-area>*{
-        border: none;
-        border-radius: 3px;
-    }
-
-    #thumbnail img, .a img{
-      border-radius: 5px;
-     }   
-     
-     .dropdown{display:inline;}
-     .dropdown-menu a{
-     	font-size: 12px;
-     }
-     .pop{width:30px}
-     
-     .a{
-        width: 190px;
-        display: inline-block;
-        margin: 10px;
-        text-align: left;
-        box-sizing:border-box;
-      }
-     
-     #clName{
-       height :50px;}
-      
-     #range img{
-     	margin-left:10px;
-        margin-right:10px;
-     
-     }
-     a{text-decoration: none !important; color:black !important;}	
-
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+	.outer {
+		width: 1000px;
+		margin: auto;
+	}
+	
+	h4>a {
+		color: rgb(65, 64, 64);
+		margin-right: 5px;
+		text-decoration: none;
+		font-size: 20px;
+		font-weight: 550;
+	}
+	
+	h4>a:hover {
+		text-decoration: none;
+		cursor: pointer;
+		color: rgb(35, 104, 116);
+	}
+	
+	.thumbnail {
+		width: 190px;
+		display: inline-block;
+		margin: 10px;
+		text-align: left;
+	}
+	
+	#detail-category a {
+		color: rgb(65, 64, 64);
+		font-size: 12px;
+		margin-right: 5px;
+	}
+	
+	#detail-category a:hover {
+		cursor: pointer;
+		color: black;
+		font-size: 12.5px;
+	}
+	
+	#button-area {
+		margin-top: 10px;
+	}
+	
+	#btn-area {
+		display: inline-block;
+		width: 770px;
+		text-align: right;
+	}
+	
+	#btn-area>button {
+		width: 60px;
+		height: 30px;
+		line-height: 10px;
+		background-color: rgb(35, 104, 116);
+		border: none;
+		font-size: 13px;
+		color: whitesmoke;
+		border-radius: 5px;
+	}
+	
+	#btn-area>button:hover {
+		background-color: rgba(35, 104, 116, 0.685);
+	}
+	
+	.paging-area {
+		text-align: center;
+	}
+	
+	.paging-area>* {
+		border: none;
+		border-radius: 3px;
+	}
+	
+	#thumbnail img, .a img {
+		border-radius: 5px;
+	}
+	
+	.dropdown {
+		display: inline;
+	}
+	
+	.dropdown-menu a {
+		font-size: 12px;
+	}
+	
+	.pop {
+		width: 30px
+	}
+	
+	.a {
+		width: 190px;
+		display: inline-block;
+		margin: 10px;
+		text-align: left;
+		box-sizing: border-box;
+	}
+	
+	#clName {
+		height: 50px;
+	}
+	
+	#range img {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	a {
+		text-decoration: none !important;
+		color: black !important;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
 </head>
 <body>
 <%@include file="../common/tuteeMenubar.jsp" %>
   <div class="outer">
-  		<%if (list.isEmpty()){ %>
+  		<%
+  		if (list.isEmpty()) {
+  		%>
           	<div id="empty" align="center">
   			<h5>등록된 클래스가 없습니다.🥲</h5>
   			</div>
-        <%} else{%>
-        <h4> <a href="<%=contextPath %>/ctselect.cl?cpage=1&ct=<%=list.get(1).getCtNo()%>"><%=list.get(1).getCtNo()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
+        <%
+        } else {
+        %>
+        <h4> <a href="<%=contextPath%>/ctselect.cl?cpage=1&ct=<%=list.get(1).getCtNo()%>"><%=list.get(1).getCtNo()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
      	
         <div id="detail-category">
 	        <%for (Dcategory d : dctList){ %>
@@ -194,24 +214,24 @@
                     url:"<%=contextPath%>/priceasc.cl ",
                     data:{ 
                         cpage : 1 ,                      
-                       category :'<%=list.get(1).getCtNo()%>',
+                        category :'<%=list.get(1).getCtNo()%>',
                      
                         
                     },
                     type:"post",
                     success:function(list){
-	                       console.log(list);
+	                      // console.log(list);
 	                       
 	                       let value = "";
 	                       for(let i=0; i<list.length; i++){
-	                          console.log(list[i]);
+	                        //  console.log(list[i]);
 	                          value += "<table class='a'><tr><td>"
    								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
 									+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
 									+ "<small  style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
 									+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
-									+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-									+ "</a>"
+									+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+									+ "</small></a>"
 									+ "</td>"
 									}
 	                     			$(".thumbnail").html("");
@@ -224,8 +244,8 @@
 										console.log("조회용 ajax통신 실패");
 									}
 	                 
-								})
-						}
+							})
+					}
 		
 			</script>
 			
@@ -235,23 +255,22 @@
 	                    url:"<%=contextPath%>/pricedesc.cl ",
 	                    data:{         
 	                       category :'<%=list.get(1).getCtNo()%>',
-	                      
-	                        
+	            
 	                    },
 	                    type:"post",
 	                    success:function(list){
-		                       console.log(list);
+		                      // console.log(list);
 		                       
 		                       let value = "";
 		                       for(let i=0; i<list.length; i++){
-		                          console.log(list[i]);
+		                        //  console.log(list[i]);
 		                          value += "<table class='a'><tr><td>"
 	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
 										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
 										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
 										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
-										+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-										+ "</a>"
+										+ "<b>"+list[i].clPrice +"</b>"+ "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+										+ "</small></a>"
 										+ "</td>"
 										}
 		                     			$(".thumbnail").html("");
@@ -264,8 +283,8 @@
 											console.log("조회용 ajax통신 실패");
 										}
 		                 
-									})
-							}
+							})
+						}
 			
 				 
 				
@@ -281,18 +300,18 @@
 		                    },
 		                    type:"post",
 		                    success:function(list){
-		                       console.log(list);
+		                      // console.log(list);
 		                       
 		                       let value = "";
 		                       for(let i=0; i<list.length; i++){
-		                          console.log(list[i]);
+		                         // console.log(list[i]);
 		                          value += "<table class='a'><tr><td>"
 	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
 										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
 										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
 										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
-										+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-										+ "</a>"
+										+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+										+ "</small></a>"
 										+ "</td>"
 										}
 		                     			$(".thumbnail").html("");
@@ -305,7 +324,7 @@
 											console.log("조회용 ajax통신 실패");
 										}
 		                 
-									})
+								})
 							}
 			
 			
@@ -321,18 +340,18 @@
 		                    },
 		                    type:"post",
 		                    success:function(list){
-		                       console.log(list);
+		                      // console.log(list);
 		                       
 		                       let value = "";
 		                       for(let i=0; i<list.length; i++){
-		                          console.log(list[i]);
+		                         // console.log(list[i]);
 		                          value += "<table class='a'><tr><td>"
 	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
 										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
 										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
 										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
-										+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-										+ "</a>"
+										+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+										+ "</small></a>"
 										+ "</td>"
 										}
 		                     			$(".thumbnail").html("");
@@ -346,14 +365,10 @@
 											console.log("조회용 ajax통신 실패");
 										}
 		                 
-									})
+								})
 							}
 			
-			
 			</script>
-			
-			
-			
 			
 			
 	
@@ -361,38 +376,41 @@
         <div class="container">
         
                <div class="list-area">
-               	
-                <% for(Lesson l : list){%>
-                <table class="thumbnail"  >
-               	 <input type="hidden"  value="<%=l.getClNo() %>">
-                  <tr>
-                    <td>
-                    <div id="thumbnail">
-                    <img src="<%=contextPath %>/<%=l.getClThumb() %>"  width="180" height="180">
-                    
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="font-size: 11px;">
-                     <%=l.getDistrCode()%>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th height="50px"><%=l.getClName() %> </th>  
-                  </tr>
-                 
-                  <tr>
-                    <th><%=l.getClPrice() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small>⭐<%=l.getClStarAvg()+".0("+ l.getClStarCount()%>)</small> </th>
-                  </tr>
-
-                </table>
-               <%} %>
-               
-               <div id="area1" >
+               	<div id="area1" >
            
              	</div>
              	
+                <% for(Lesson l : list){%>
+				<table class="thumbnail">
+					<input type="hidden" value="<%=l.getClNo()%>">
+					<tr>
+						<td>
+							<div id="thumbnail">
+								<img src="<%=contextPath%>/<%=l.getClThumb()%>" width="180"
+									height="180">
+
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size: 11px;"><%=l.getDistrCode()%></td>
+					</tr>
+					<tr>
+						<th height="50px"><%=l.getClName()%></th>
+					</tr>
+
+					<tr>
+						<th><%=l.getClPrice()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small>⭐<%=l.getClStarAvg() + ".0(" + l.getClStarCount()%>)
+						</small>
+						</th>
+					</tr>
+
+				</table>
+				<%
+				}
+				%>
+               
+              
              
               </div>   
               
@@ -400,9 +418,8 @@
   
             <div class="paging-area">
         
-        	<%if(pi.getCurrentPage() != 1){ %>    
-        		
-            		<button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+        	<%if (pi.getCurrentPage() != 1) {%>    
+            	<button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=pi.getCurrentPage() - 1%>';">&lt;</button>
             <%} %>
 			
 			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
@@ -411,7 +428,7 @@
             <%} %>
           
             <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
-            <button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            	<button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
             <%} %>
             
 			</div>

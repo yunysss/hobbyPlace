@@ -61,6 +61,7 @@ public class ClassDcategorySelectControlloer extends HttpServlet {
 	
 		request.setAttribute("classList", classList);
 		request.setAttribute("cList", cList);
+		request.setAttribute("dct",dct);
 		request.getRequestDispatcher("views/lesson/dcategorySelectView.jsp").forward(request, response);
 		
 	}

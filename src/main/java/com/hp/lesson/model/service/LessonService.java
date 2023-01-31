@@ -258,5 +258,38 @@ public class LessonService {
 		return list;
 
 	}
+	
+	public ArrayList<Lesson> dctPriceAsc(String dct) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().dctPriceAsc(conn,dct);
+		close(conn);
+		return list;
+
+	}
+	
+	public ArrayList<Lesson> dctPriceDesc(String dct) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().dctPriceDesc(conn,dct);
+		close(conn);
+		return list;
+
+	}
+	
+	public ArrayList<Lesson> dctRegisterDesc(String dct) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().dctRegisterDesc(conn, dct);
+		close(conn);
+		return list;
+
+	}
+	public ArrayList<Lesson> dctStarDesc(String dct) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().dctStarDesc(conn, dct);
+		close(conn);
+		return list;
+
+	}
+	
+	
 
 }
