@@ -262,7 +262,7 @@
 		     , MEM_STATUS
 		  FROM MEMBER M
 		 WHERE GRADE LIKE ?
-		 ORDER BY ?
+		 ORDER BY
 	</entry>
 	
 	

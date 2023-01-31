@@ -570,11 +570,31 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberList1");
+		
 		try {
+			if(fCategory.equals("mem_name")) {
+				sql += " mem_name ";
+			}else if(fCategory.equals("enroll_date")) {
+				sql += " enroll_date ";
+			}else if(fCategory.equals("regcount")) {
+				sql += " regcount ";
+			}else if(fCategory.equals("likecount")) {
+				sql += " likecount ";
+			}else if(fCategory.equals("totalpay")) {
+				sql += " totalpay ";
+			}
+			
+			
+			if(lineup.equals("desc")) {
+				sql += "desc";
+			}else if(lineup.equals("asc")) {
+				sql += "asc";
+			}
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, sGroup);
-			pstmt.setString(2, fCategory);
-			//pstmt.setString(2, lineup);
+
+			
+			System.out.println(sql);
 			
 			rset = pstmt.executeQuery();
 
@@ -813,7 +833,20 @@ public class AdminDao {
 
 
 	public ArrayList<MemberList> selectMemberList2(Connection conn, SearchMember sm) {
-		return null;
+		ArrayList<MemberList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberList2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 	
