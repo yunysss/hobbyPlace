@@ -1,4 +1,4 @@
-package com.hp.admin.controller;
+package com.hp.refund.controller;
 
 import java.io.IOException;
 
@@ -9,19 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hp.admin.model.service.AdminService;
+import com.hp.member.model.vo.Member;
+import com.hp.refund.model.service.RefundService;
+import com.hp.refund.model.vo.Refund;
 
 /**
- * Servlet implementation class AjaxNewClassRejectControllor
+ * Servlet implementation class RefundInsertController
  */
-@WebServlet("/ckreject.cl")
-public class NewClassCheckedRejectControllor extends HttpServlet {
+@WebServlet("/insert.ref")
+public class RefundInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewClassCheckedRejectControllor() {
+    public RefundInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,24 +34,41 @@ public class NewClassCheckedRejectControllor extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		String classNo = request.getParameter("classNo");
-		String cause = request.getParameter("causeOfReturn");
-		
-		System.out.println("classNo: "+ classNo);
-		int result = new AdminService().checkedClassReject(classNo, cause);
+		int orderNo = Integer.parseInt(request.getParameter("no"));
 		
 		HttpSession session = request.getSession();
+		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		int refPrice = Integer.parseInt(request.getParameter("regPrice"));
+		
+		String refBank = request.getParameter("refBank");
+		String refAcc = request.getParameter("refAcc");
+		String refNm = request.getParameter("refNm"); 
+		String refRea = request.getParameter("refRea");
+		
+		Refund r = new Refund();
+		r.setOrderNo(orderNo);
+		r.setMemNo(String.valueOf(memNo));
+		r.setRefPrice(String.valueOf(refPrice));
+		r.setRefBank(refBank);
+		r.setRefAcc(refAcc);
+		r.setRefName(refNm);
+		r.setRefRea(refRea);
+		
+		
+		int result = new RefundService().insertRefund(r);
+		
 		if(result>0) {
-			session.setAttribute("alertMsg","성공적으로 반려처리 되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/newcl.ad?capge=1"); 
 			
-		}else {
-			
-			session.setAttribute("alertMsg", "반려처리에 실패했습니다.");
-			response.sendRedirect(request.getContextPath()+"/newcl.ad=cpage=1");
 		}
 		
-	
+		
+		
+		
+		
+				
+				
+		
 	}
 
 	/**

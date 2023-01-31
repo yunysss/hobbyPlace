@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.customerService.model.vo.Faq;
 import com.hp.customerService.model.vo.Notice;
@@ -502,6 +503,125 @@ public class NoticeDao {
 			return list;
 			
 			
+		}
+		
+		public int insertNotice(Connection conn, Notice n) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertNotice");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1,n.getNtTitle());
+				pstmt.setString(2, n.getNtContent());
+				pstmt.setString(3, n.getGrade());
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+			
+		}
+		
+		public int insertAttachment(Connection conn, Attachment at) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertAttachment");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		public Notice selectAdminNoticeDetail(Connection conn, int ntNo) {
+			Notice n = new Notice();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectAdminNoticeDetail");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, ntNo);
+				rset=pstmt.executeQuery();
+				
+				if(rset.next()) {
+					n.setNtNo(ntNo);
+					n.setNtTitle(rset.getString("nt_title"));
+					n.setNtContent(rset.getString("nt_content"));
+					n.setEnrollDate(rset.getDate("enroll_date"));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return n;
+		}
+		
+		public Attachment selectAdminNoticeAttachment(Connection conn, int ntNo) {
+			Attachment at = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectAdminNoticeAttachment");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, ntNo);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					at = new Attachment(rset.getInt("file_no"),
+												rset.getString("origin_name"),
+												rset.getString("change_name"),
+												rset.getString("file_path")
+							);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return at;
+		}
+		
+		public int deleteNotice(Connection conn, int ntNo) {
+			// update => 처리된행수
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("deleteNotice");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, ntNo);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+			return result;
 		}
 		
 		

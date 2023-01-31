@@ -200,7 +200,7 @@
 										<td rowspan="2" >결제 금액</td>
 										<%if(list.get(i).getRegPay().equals("0")){%>
 											<td colspan="2" id="payment1">신용카드</td>
-										<%} else if(list.get(i).getRegSta().equals("1")){%>
+										<%} else {%>
 											<td colspan="2" id="payment1">무통장입금</td>
 										<%} %>
 									</tr>

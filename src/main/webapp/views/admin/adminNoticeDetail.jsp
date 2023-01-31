@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="com.hp.customerService.model.vo.Notice, com.hp.common.model.vo.*"%>
+    
+<%
+	Notice n = (Notice)request.getAttribute("n");
+	Attachment at = (Attachment)request.getAttribute("at");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,12 +48,25 @@
         width: 800px;
         margin-left: auto;
         margin-right: auto;
+        height: 500px;
+    }
+    .reset{
+        background-color: rgb(230, 126, 34);
+        color: white;
+        border: none;
+        float: right;
+    
+    }
+    .button{
+        width: 800px;
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>
 
 </head>
 <body>
-
+<%@ include file="../common/adminMenubar.jsp"%>
     <div class="outer">
         <br>
         <h1><b>고객센터</b></h1> 
@@ -58,7 +77,7 @@
             <table>
                 <tr>
                     <th style="background-color: lightgray;" width="100">제목</th>
-                    <td width="700">공지사항제목자리</td>
+                    <td width="700"><%=n.getNtTitle() %></td>
                 </tr>
             </table>
                
@@ -67,9 +86,17 @@
             <table >
                 <tr>
                     <th width="100" style="background-color: lightgray;" width="100">첨부파일</th>
-                    <td width="400">파일이름자리 <button type="" style="border: none; float: right;" >다운로드</button></td>
+                    <td width="400">
+                    <% if(at==null){ %>
+                    <!-- case1. 첨부파일 없을 경우 -->
+                    첨부파일이 없습니다.
+					<%}else{ %>
+                    <!-- case2. 첨부파일 있을 경우 -->
+                    <a download="<%= at.getOriginName() %>" href="<%=contextPath%>/<%=at.getFilePath()+ at.getChangeName() %>"><%= at.getOriginName() %></a>
+					<%} %>
+					</td>
                     <th style="background-color: lightgray;" width="100">작성날짜</th>
-                    <td width="200">2022-12-30</td>
+                    <td width="200"><%=n.getEnrollDate() %></td>
                 </tr>
 
             </table>
@@ -79,19 +106,22 @@
             <br>
 
             <div class="content">
-                <p>공지사항 내용이 들어갈 자리</p>
-                <button>삭제하기</button>
+                <p><%=n.getNtContent() %></p>
+               
                 
+            </div><br>
+            <div class="button">
+            <a href="<%=contextPath%>/delete.nt?ntNo=<%=n.getNtNo()%>"><button class="reset">삭제하기</button></a>
             </div>
 
-            <br>
+            <br><br>
 
             <div class="paging-area">
             <div style="float: left; width: 33%; "  >
                 <button style="border: none; background-color: lightgray; ">&lt;이전글</button>
             </div>
             <div style="float:left; width: 33%;" >
-                <button style="border:none; background-color: lightgray;  ">목록</button>
+                <a href="<%=contextPath%>/noticeList.ad?cpage=1"><button style="border:none; background-color: lightgray;" >목록</button></a>
             </div>
             <div style="float: left; width: 33%;">
                 <button style="border: none; background-color: lightgray;">다음글&gt;</button>
@@ -100,6 +130,8 @@
     
 
     </div>
+    
+    <br><br><br><br><br><br>
     
 </body>
 </html>

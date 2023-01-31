@@ -75,6 +75,13 @@
         height: 200px;
         padding: 20px;
     }
+    .next-button{
+        background: rgb(255, 104, 112); 
+        border: 0ch; 
+        width: 83%;
+        margin-left: 9%;
+        border-radius: 5px; 
+    }
 
 </style>
 </head>
@@ -97,7 +104,7 @@
                 <ul style="padding: 5px;">
                     <li style="font-size: small; color: gray;">주문번호 <%=r.getRegNo() %></li>
                     <li style="font-size:large"><b><%=r.getClName() %></b></li>
-                    <li><%=r.getDistrName() %> / <%=r.getTeachDate() %> <%=r.getStartTime() %></li>
+                    <li><%=r.getDistrName() %>  <%=r.getTeachDate() %> <%=r.getStartTime() %></li>
                 </ul>
             </div>
         </div>
@@ -124,22 +131,24 @@
         </div>
     </div>  
     <br>
-
-    <form action="" id="reasonForm"  > 
+    
+		
+	<form action="<%=contextPath %>/insert.ref?no=<%=r.getRegNo() %>" id="reasonForm" method="post">
+    <input type="hidden" name="regPrice" value="<%=r.getRegPrice()%>">
         <div id="refundReasonForm">
             <p style="font-size: small; color: gray;">- 환불 신청을 클릭하시면 환불이 진행됩니다. 이후 '취소 수강 목록'에서 해당 클래스를 확인하실 수 있습니다.</p>
             <h6><b>환불 사유</b></h6>
             <hr>
-            <input type="radio" name="refundReason" value="changeMind" id="changeMind">
+            <input type="radio" name="refundReason" value="단순변심" id="changeMind">
             <label for="changeMind">단순변심</label>
             <br>
-            <input type="radio" name="refundReason" value="mistake" id="mistake">
+            <input type="radio" name="refundReason" value="주문실수" id="mistake">
             <label for="mistake">클래스 시간 착오 등과 같은 주문 실수</label>
             <br>
-            <input type="radio" name="refundReason" value="refuse" id="refuse">
+            <input type="radio" name="refundReason" value="신청반려" id="refuse">
             <label for="refuse">튜터의 신청 반려</label>
             <br>
-            <input type="radio" name="refundReason" value="reason" id="reason" checked>
+            <input type="radio" name="refundReason" id="reason" checked>
             <label for="reason"><input type="text" maxlength="50" placeholder="기타 (50자이하)" style="width: 440px;"></label>
             <br>
             <br>
@@ -161,8 +170,8 @@
                 </tr>
             </table>
             <br>
-            <input type="checkbox" name="agree" id="agree"> 
-            <label for="agree" style="color: rgb(255, 104, 112);"><u>주의 사항을 확인하였으며, 동의합니다.</u></label>
+            <input type="checkbox" name="agreement" id="checkagreement" required> 
+            <label class="required" for="checkagreement" style="color: rgb(255, 104, 112);"><u>주의 사항을 확인하였으며, 동의합니다.</u></label>
             <br><br>
 
             <!--카드결제일때-->
@@ -175,6 +184,8 @@
          </div>
 
         <!--무통장 결제 일때-->
+
+        <%if(r.getRegPay().equals("1")){ %>
          <br>
     
          <div id="bankForm">
@@ -192,45 +203,39 @@
                 </tr>
                 <tr>
                     <td><b>예금주</b></td>
-                    <td><input type="text" name="name"></td>
+                    <td><input type="text" name="name" required></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td><b>입금 은행</b></td>
                     <td>
-                        <select name="bank" id="bank">
+                        <select name="bank" id="bank" required>
                             <option value="국민은행">국민은행</option>
+                            <option value="농협은행">농협은행</option>
+                            <option value="우리은행">우리은행</option>
                             <option value="신한은행">신한은행</option>
                             <option value="하나은행">하나은행</option>
+                            <option value="기업은행">기업은행</option>
+                            <option value="카카오뱅크">카카오뱅크</option>
+
                         </select>
                     </td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td><b>계좌 번호</b></td>
-                    <td><input type="text" name="accountNumber" placeholder="- 제외 입력"></td>
+                    <td ><b>계좌 번호</b></td>
+                    <td><input type="text" name="accountNumber" placeholder="- 제외 입력" required></td>
                     <td></td>
                 </tr>
 
             </table>
-
         </div>
+         <%} %>
          <br>
-         <button type="button" class="btn btn-primary btn-block" style="background: rgb(255, 104, 112); border: 0ch; width: 85%; margin: auto;" id="refundBtn" onclick="">환불신청</button>
+         <button type="submit" value="동의" class="next-button" >환불신청</button>
     </form> 
-    
-    <script>
-    	$(function(){
-    		$("#refundBtn").click(function(){
-				location.href = "<%=contextPath%>/refundReqFinish.tee";    			
-    		})
-    	})
-    </script>
-    
-        
-        
 </div>
-<br>
+    
 
 <%@ include file="../common/footerbar.jsp" %>
 

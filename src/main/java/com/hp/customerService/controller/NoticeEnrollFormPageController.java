@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.customerService.model.Service.NoticeService;
-import com.hp.customerService.model.vo.Notice;
-
 /**
- * Servlet implementation class tuteeNoticeDetailController
+ * Servlet implementation class NoticeEnrollFormPageController
  */
-@WebServlet("/ntDetail.no")
-public class tuteeNoticeDetailController extends HttpServlet {
+@WebServlet("/enroll.nt")
+public class NoticeEnrollFormPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tuteeNoticeDetailController() {
+    public NoticeEnrollFormPageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +27,7 @@ public class tuteeNoticeDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		int ntNo = Integer.parseInt(request.getParameter("ntNo"));
-		
-		Notice n = new NoticeService().selectNoticeDetail(ntNo);
-	
-		
-		if(n!=null) {
-			request.setAttribute("n", n);
-			
-			request.getRequestDispatcher("views/customerService/tuteeNoticeDetail.jsp").forward(request, response);
-		}
-		
-		
+		request.getRequestDispatcher("views/admin/adminNoticeEnrollPage.jsp").forward(request, response);
 	}
 
 	/**

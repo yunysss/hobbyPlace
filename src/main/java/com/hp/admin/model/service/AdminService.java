@@ -13,6 +13,7 @@ import com.hp.member.model.vo.Like;
 import com.hp.admin.model.dao.AdminDao;
 import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
+import com.hp.admin.model.vo.SearchMember;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
@@ -225,7 +226,9 @@ public class AdminService {
 		return likeList;
 	}
 	
-	public int checkClassReject(String classNo, String cause) {
+	
+	
+	public int checkedClassReject(String classNo, String cause) {
 		Connection conn = getConnection();
 		int result = new AdminDao().checkedClassReject(conn, classNo, cause);
 		if(result>0) {
@@ -236,7 +239,34 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
+
+	/** 회원 세부검색용 service
+	 * @author 수연
+	 * @param sm
+	 * @return list
+	 */
+	public ArrayList<MemberList> selectMemberList2(SearchMember sm) {
+		Connection conn = getConnection();
+		ArrayList<MemberList> list = new AdminDao().selectMemberList2(conn, sm);
+		
+		close(conn);
+		return list;
+	}
 	
+	public int checkedClassApprove(String classNo) {
+		Connection conn = getConnection();
+		int result = new AdminDao().checkedClassApprove(conn, classNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+		
+		
+	}
 	
 	
 

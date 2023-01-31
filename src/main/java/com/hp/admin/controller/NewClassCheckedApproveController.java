@@ -1,4 +1,4 @@
-package com.hp.customerService.controller;
+package com.hp.admin.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,21 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.hp.customerService.model.Service.NoticeService;
-import com.hp.customerService.model.vo.Notice;
+import com.hp.admin.model.service.AdminService;
 
 /**
- * Servlet implementation class tuteeNoticeDetailController
+ * Servlet implementation class NewClassCheckedApproveController
  */
-@WebServlet("/ntDetail.no")
-public class tuteeNoticeDetailController extends HttpServlet {
+@WebServlet("/ckapprove.cl")
+public class NewClassCheckedApproveController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tuteeNoticeDetailController() {
+    public NewClassCheckedApproveController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,18 +29,23 @@ public class tuteeNoticeDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		int ntNo = Integer.parseInt(request.getParameter("ntNo"));
+request.setCharacterEncoding("UTF-8");
 		
-		Notice n = new NoticeService().selectNoticeDetail(ntNo);
-	
+		String classNo = request.getParameter("approvecl");
+
+		System.out.println("classNo: "+ classNo);
+		int result = new AdminService().checkedClassApprove(classNo);
 		
-		if(n!=null) {
-			request.setAttribute("n", n);
+		HttpSession session = request.getSession();
+		if(result>0) {
+			session.setAttribute("alertMsg","성공적으로 승인되었습니다.");
+			response.sendRedirect(request.getContextPath()+"/newcl.ad?capge=1"); 
 			
-			request.getRequestDispatcher("views/customerService/tuteeNoticeDetail.jsp").forward(request, response);
+		}else {
+			
+			session.setAttribute("alertMsg", "승인처리에 실패했습니다.");
+			response.sendRedirect(request.getContextPath()+"/newcl.ad?cpage=1");
 		}
-		
 		
 	}
 

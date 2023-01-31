@@ -260,6 +260,32 @@ private Properties prop = new Properties();
 		return list;
 	}
 
+	public int insertRefund(Connection conn, Refund r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertRefund");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getOrderNo());
+			pstmt.setString(2, r.getMemNo());
+			pstmt.setString(3, r.getRefPrice());
+			pstmt.setString(4, r.getRefBank());
+			pstmt.setString(5, r.getRefAcc());
+			pstmt.setString(6, r.getRefName());
+			pstmt.setString(7, r.getRefRea());
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace(); 
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 
 }

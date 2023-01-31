@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
+import com.hp.admin.model.vo.SearchMember;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
@@ -569,14 +570,34 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberList1");
+		
 		try {
+			if(fCategory.equals("mem_name")) {
+				sql += " mem_name ";
+			}else if(fCategory.equals("enroll_date")) {
+				sql += " enroll_date ";
+			}else if(fCategory.equals("regcount")) {
+				sql += " regcount ";
+			}else if(fCategory.equals("likecount")) {
+				sql += " likecount ";
+			}else if(fCategory.equals("totalpay")) {
+				sql += " totalpay ";
+			}
+			
+			
+			if(lineup.equals("desc")) {
+				sql += "desc";
+			}else if(lineup.equals("asc")) {
+				sql += "asc";
+			}
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, sGroup);
-			pstmt.setString(2, fCategory);
-			//pstmt.setString(2, lineup);
+
+			
+			System.out.println(sql);
 			
 			rset = pstmt.executeQuery();
-
+			System.out.println(rset);
 			
 			while(rset.next()) {
 				list.add(new MemberList(rset.getInt("mem_no"),
@@ -803,9 +824,83 @@ public class AdminDao {
 	
 	
 	public int checkedClassReject(Connection conn, String classNo, String cause) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkedClassReject");
 		
+		String[] classNoArr = classNo.split(",");
 		
+		for(String no : classNoArr) {
+			sql += no + ',';
+		}
+		sql = sql.substring(0,sql.length()-1);
+		sql += ")";
+	
+	//	System.out.println(sql);
 		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, cause);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	
+	
+	}
+	
+	
+	public int checkedClassApprove(Connection conn, String classNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkedClassApprove");
+		
+		String[] classNoArr = classNo.split(",");
+		
+		for(String no : classNoArr) {
+			sql += no + ',';
+		}
+		sql = sql.substring(0,sql.length()-1);
+		sql += ")";
+	
+		System.out.println(sql);
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+
+
+
+
+
+	public ArrayList<MemberList> selectMemberList2(Connection conn, SearchMember sm) {
+		ArrayList<MemberList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberList2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 	
