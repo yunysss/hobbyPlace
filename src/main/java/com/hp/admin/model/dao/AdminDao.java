@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
@@ -563,8 +564,8 @@ public class AdminDao {
 	 * @param lineup
 	 * @return list
 	 */
-	public ArrayList<Member> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup) {
-		ArrayList<Member> list = new ArrayList<>();
+	public ArrayList<MemberList> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup) {
+		ArrayList<MemberList> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberList1");
