@@ -19,9 +19,11 @@ import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
+import com.hp.member.model.vo.Like;
 import com.hp.member.model.vo.Member;
 import com.hp.qna.model.vo.Qna;
 import com.hp.register.model.vo.Register;
+import com.hp.review.model.vo.Review;
 import com.hp.tutor.model.vo.Tutor;
 
 
@@ -692,9 +694,12 @@ public class AdminDao {
 		return qnaList;
 	}
 
-
-
-
+	/** 회원번호로 수강한 클래스 리스트 조회용 dao 메소드
+	 * @author 수연
+	 * @param conn
+	 * @param memNo
+	 * @return regList
+	 */
 	public ArrayList<Register> selectAllRegister(Connection conn, int memNo) {
 		ArrayList<Register> regList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -710,15 +715,91 @@ public class AdminDao {
 				regList.add(new Register(rset.getInt("REG_NO"),
 									     rset.getString("MEM_NO"),
 									     rset.getString("CL_NO"),
-									     rset.getString("teachDate"),
-									     rset.getString("reg_Date"),
-						));
+									     rset.getString("TEACH_DATE"),
+									     rset.getString("reg_date"),
+									     rset.getString("sch_no"),
+									     rset.getString("reg_pay"),
+									     rset.getString("reg_price"),
+									     rset.getString("reg_count"),
+									     rset.getString("reg_sta"),
+									     rset.getString("reg_refuse"),
+									     rset.getString("re_enroll"),
+									     rset.getString("reg_cal")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
 		}
 		
 		return regList;
+	}
+
+	/** 회원번호로 리뷰리스트 조회 Dao 메소드
+	 * @author 수연
+	 * @param conn
+	 * @param memNo
+	 * @return revList
+	 */
+	public ArrayList<Review> selectAllReview(Connection conn, int memNo) {
+		ArrayList<Review> revList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				revList.add(new Review(rset.getInt("re_no"),
+									   rset.getString("content"),
+									   rset.getInt("re_star"),
+									   rset.getString("re_date"),
+									   rset.getString("re_update"),
+									   rset.getString("re_sta"),
+									   rset.getInt("reg_no"),
+									   rset.getInt("cl_no"),
+									   rset.getInt("mem_no")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return revList;
+	}
+
+
+
+
+	public ArrayList<Like> selectAllLike(Connection conn, int memNo) {
+		ArrayList<Like> likeList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				likeList.add(new Like(rset.getString("cl_name"),
+						              rset.getInt("mem_no"),
+						              rset.getString("like_date")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return likeList;
 	}
 	
 

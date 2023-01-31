@@ -10,6 +10,7 @@ public class Review {
 	private String reviewStatus;
 	private int regNo;
 	private int clNo;
+	private int memNo;
 	private String clName;
 	private String clThumb;
 	private String memNickName;
@@ -18,6 +19,24 @@ public class Review {
 	
 	
 	public Review() {}
+	
+	
+
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate,
+			String reviewStatus, int regNo, int clNo, int memNo) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.reviewUpDate = reviewUpDate;
+		this.reviewStatus = reviewStatus;
+		this.regNo = regNo;
+		this.clNo = clNo;
+		this.memNo = memNo;
+	}
+
+
 
 	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate,
 			String reviewStatus, int regNo, int clNo) {

@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.hp.member.model.vo.Like, com.hp.qna.model.vo.Qna, com.hp.member.model.vo.Member, com.hp.review.model.vo.Review, com.hp.register.model.vo.Register" %>
+<%
+	Member m = (Member)request.getAttribute("m");
+	ArrayList<Qna> qnaList = (ArrayList<Qna>)request.getAttribute("qnaList");
+	ArrayList<Register> regList = (ArrayList<Register>)request.getAttribute("regList");
+	ArrayList<Review> revList = (ArrayList<Review>)request.getAttribute("revList");
+	ArrayList<Like> likeList = (ArrayList<Like>)request.getAttribute("likeList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +46,7 @@
 
             </div>
             <div class="memInfo">
-                <p id="profile1">홍길동 길똥길똥</p>
+                <p id="profile1"><%=m.getMemName()%> <%=m.getMemNick() %></p>
                 <table>
                     <colgroup>
                         <col style="width:150px;">
@@ -46,39 +54,39 @@
                     </colgroup>
                     <tr>
                         <td>회원번호</td>
-                        <td>01</td>
+                        <td><%=m.getMemNo()%> </td>
                     </tr>
                     <tr>
                         <td>아이디</td>
-                        <td>gildong01</td>
+                        <td><%=m.getMemId() %> </td>
                     </tr>
                     <tr>
                         <td>연락처</td>
-                        <td>010-0000-0000</td>
+                        <td><%=m.getPhone() %></td>
                     </tr>
                     <tr>
                         <td>이메일</td>
-                        <td>gildong@gd.com</td>
+                        <td><%=m.getEmail() %></td>
                     </tr>
                     <tr>
                         <td>주소</td>
-                        <td>서울시 용산구 한강로 3가 40-999</td>
+                        <td><%=m.getMemAddr() %></td>
                     </tr>
                     <tr>
                         <td>회원가입일</td>
-                        <td>2022-12-01</td>
+                        <td><%=m.getEnrollDate() %></td>
                     </tr>
                     <tr>
                         <td>마지막 정보수정일</td>
-                        <td>2023-01-23</td>
+                        <td><%=m.getMemUpdate() %></td>
                     </tr>
                     <tr>
                         <td>관심 카테고리</td>
-                        <td>쿠킹,스포츠</td>
+                        <td><%=m.getInterest() %></td>
                     </tr>
                     <tr>
                         <td>튜터 등록여부</td>
-                        <td>Y</td>
+                        <td><%=m.getGrade() %></td>
                     </tr>
                     <tr>
                         <td>누적 수강횟수</td>
