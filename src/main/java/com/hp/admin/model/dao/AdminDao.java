@@ -523,14 +523,46 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("searchClass");
+	
 		try {
+			String keyword = s.getKeyword();
+			String category = s.getCategory();
+			String startDate = s.getStarDate();
+			String endDate = s.getEndDate();
+			String[] status = s.getStatus().split(",");
+
+			if(keyword != null) {
+				sql += "cl_name||ct_name||tt_name like" + "'%"+ keyword + "%'";
+			}else if(keyword == null) {
+				sql += "cl_name||ct_name||tt_name like" + "'%%'";
+			}
+			
+			if(category != null) {
+			    sql +=  "and ct_name = " + "'"+ category + "'";
+			 }else if(category == null) {
+				sql += "";
+			 }
+			    
+			if(startDate != null && endDate != null) {
+				 sql += "and enroll_date between '" + startDate + "' and '" + endDate +"'";
+			}else if(startDate == null && endDate == null){
+				sql += "";
+			}
+			
+			if(status != null) {
+				 sql += "and cl_status in ("; 
+		                   for(String str : status) {
+		                       sql += str + ','; 
+		                    }
+		              sql = sql.substring(0,sql.length()-1);
+		              sql += ")";
+			}else if(status == null){
+				sql += "";
+			}
+			
+			System.out.println(sql);
+	
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+s.getKeyword()+"%");
-			pstmt.setString(2, "%"+s.getCategory()+"%");
-			pstmt.setString(3, s.getStarDate());
-			pstmt.setString(4, s.getEndDate());
-			pstmt.setString(5, "%"+ s.getStatus()+"%");
-			pstmt.setString(6, "%"+s.getCategory()+"%");
 			
 		
 			rset= pstmt.executeQuery();
@@ -823,6 +855,13 @@ public class AdminDao {
 	}
 	
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param classNo
+	 * @param cause
+	 * @return 체크된 클래스 반려 
+	 */
 	public int checkedClassReject(Connection conn, String classNo, String cause) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -854,6 +893,12 @@ public class AdminDao {
 	}
 	
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param classNo
+	 * @return result 체크된 클래스 수락
+	 */
 	public int checkedClassApprove(Connection conn, String classNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -902,6 +947,10 @@ public class AdminDao {
 		
 		return list;
 	}
+	
+	
+	
+	
 
 	
 	

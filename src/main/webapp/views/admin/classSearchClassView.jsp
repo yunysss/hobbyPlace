@@ -249,12 +249,12 @@
                 <tr>
                     <th width="100">카테고리</th>
                     <td>
-                        <select id="category"  onchange="changeCt();">
+                        <select id="category" name="category" onchange="changeCt();">
                         <%for(Category c : cList){ %>
                             <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
                         <%} %>
                         </select>
-                        <select id="Dcategory">
+                        <select id="Dcategory" name ="dCategory">
                         
                         </select>
                     </td>
@@ -268,13 +268,13 @@
                                 <div class="clearfix">
                                     <!-- 시작일 -->
                                     <span class="dset">
-                                        <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >
+                                        <input type="text" class="datepicker inpType" name="startDate" id="searchStartDate" >
                                         <a href="#none" class="btncalendar dateclick"></a>
                                     </span>
                                     <span class="demi">-</span>
                                     <!-- 종료일 -->
                                     <span class="dset">
-                                        <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" >
+                                        <input type="text" class="datepicker inpType" name="endDate" id="searchEndDate" >
                                         <a href="#none" class="btncalendar dateclick"></a>
                                     </span>
                                 </div>    

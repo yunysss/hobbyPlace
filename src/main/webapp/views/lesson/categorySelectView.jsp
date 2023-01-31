@@ -132,15 +132,11 @@
 <body>
 <%@include file="../common/tuteeMenubar.jsp" %>
   <div class="outer">
-  		<%
-  		if (list.isEmpty()) {
-  		%>
+  		<%if (list.isEmpty()) {%>
           	<div id="empty" align="center">
   			<h5>등록된 클래스가 없습니다.🥲</h5>
   			</div>
-        <%
-        } else {
-        %>
+        <%} else {%>
         <h4> <a href="<%=contextPath%>/ctselect.cl?cpage=1&ct=<%=list.get(1).getCtNo()%>"><%=list.get(1).getCtNo()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
      	
         <div id="detail-category">

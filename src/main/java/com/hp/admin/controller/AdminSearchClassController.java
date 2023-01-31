@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.hp.admin.model.service.AdminService;
 import com.hp.admin.model.vo.Search;
 import com.hp.lesson.model.vo.Lesson;
@@ -35,7 +36,6 @@ public class AdminSearchClassController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		
 		String keyword = request.getParameter("keyword");
 		String category = request.getParameter("category");
 		String dcategory  = request.getParameter("dCategory");
@@ -46,13 +46,15 @@ public class AdminSearchClassController extends HttpServlet {
 		if(statusArr!=null) {
 			status = String.join(",", statusArr);
 		}
+		System.out.println(keyword);
+		System.out.println("s:"+status);
+		System.out.println("t:"+startDate);
 		
 		Search s = new Search(keyword,category,dcategory,startDate,endDate,status);
 		ArrayList<Lesson> list = new AdminService().searchClass(s);
 		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/admin/classSearchClassView.jsp").forward(request, response);
-		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list,response.getWriter());
 		
 		
 	}
