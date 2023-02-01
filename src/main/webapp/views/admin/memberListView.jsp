@@ -22,7 +22,9 @@
 	.sCategory{width:120px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
 
 	.lineup{width:120px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
-	#searchKey{width:250px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
+	#searchKey1{width:250px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
+	#searchKey2{width:150px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185); margin-bottom:0; padding-bottom:0;}
+	#warningInfo{margin-left:130px; margin-top:0; padding-top:0;}
 	.sButton{width:80px; height:35px; border:0; background-color: lightgray; border-radius: 3px; margin-left:10px;}
 	.dtButton{float:left;}
 	.switchButton{box-sizing:border-box; width:50px; padding-top:0px; float:left;}
@@ -48,6 +50,7 @@
 				<p>기본검색</p>
 				<select name="fCategory" class="fCategory">
 					<option value="enroll_date">회원가입일</option>
+					<option value="mem_no">회원번호</option>
 					<option value="mem_name">이름</option>
 					<option value="regcount">수강횟수</option>
 					<option value="revcount">리뷰</option>
@@ -103,7 +106,7 @@
 				                ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
 				                ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
 				                ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
-				                ,minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+				                ,minDate: "-2Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
 				                ,maxDate: "TODAY" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                    
 				            });
 				 
@@ -112,7 +115,7 @@
 				            $("#datepicker2").datepicker();
 				            
 				            //From의 초기값을 오늘 날짜로 설정
-				            $('#datepicker1').datepicker('setDate', '-1M'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+				            $('#datepicker1').datepicker('setDate', '-2Y'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 				            //To의 초기값을 내일로 설정
 				            $('#datepicker2').datepicker('setDate', 'TODAY'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 				        });
@@ -122,6 +125,9 @@
 					
 					<select name="sCategory" class="sCategory">
 						<option value="mem_name">이름</option>
+						<option value="mem_email">이메일</option>
+						<option value="mem_addr">주소</option>
+						<option value="mem_phone">연락처</option>
 						<option value="regcount">수강횟수</option>
 						<option value="revcount">리뷰</option>
 						<option value="likecount">찜</option>
@@ -130,10 +136,13 @@
 						<option value="mem_status">탈퇴여부</option>
 					</select>
 				
-					<input type="text" name="searchKey" id="searchKey">
+					<input type="text" name="searchKey1" id="searchKey1">
+					<input type="text" name="searchKey2" id="searchKey2" style="display:none">
 					<select name="selectValue" id="selectValue" style="display:none"></select>
 					
-					<button type="button" class="sButton" id="detailSearch" onclick=dSearch();>검색</button>
+					<button type="button" class="sButton" id="detailSearch" onclick="dSearch();">검색</button>
+					<br>
+					<p id="warningInfo"></p>
 					<br>
 				</div>
 		</div>
@@ -142,20 +151,39 @@
 				// 세부검색창에서 성별과 탈퇴여부 옵션 선택하면 텍스트검색창사라지고 select창 나타내기
 				$(".sCategory").change(function(){
 					if($(this).val()=='gender'){
-						$("#searchKey").css("display", "none");
+						$("#searchKey1").empty();
+						$("#searchKey1").css("display", "none");
+						$("#searchKey2").empty();
+						$("#searchKey2").css("display", "none");
+						$("#warningInfo").html("");
 						$("#selectValue").show();
 						$("#selectValue").empty();
 						$("#selectValue").append("<option value='M'> 남성 </option>");
 						$("#selectValue").append("<option value='F'> 여성 </option>");
 						$("#selectValue").append("<option value='X'> 선택안함 </option>");
 					}else if($(this).val()=='mem_status'){
-						$("#searchKey").css("display", "none");
+						$("#searchKey1").empty();
+						$("#searchKey1").css("display", "none");
+						$("#searchKey2").empty();
+						$("#searchKey2").css("display", "none");
+						$("#warningInfo").html("");
 						$("#selectValue").show();
 						$("#selectValue").empty();
 						$("#selectValue").append("<option value='Y'> 탈퇴X </option>");
 						$("#selectValue").append("<option value='N'> 탈퇴O</option>");
+					}else if($(this).val()=='regcount' || $(this).val()=='revcount' || $(this).val()=='likecount' ||  $(this).val()=='totalpay'){
+						$("#searchKey1").empty();
+						$("#searchKey1").css("display", "none");
+						$("#searchKey2").show();
+						$("#warningInfo").html("숫자만 입력하세요").css("color", "red");
+						$("#selectValue").empty();
+						$("#selectValue").css("display", "none");
 					}else{
-						$("#searchKey").show();
+						$("#searchKey1").empty();
+						$("#searchKey1").show();
+						$("#searchKey2").empty();
+						$("#searchKey2").css("display", "none");
+						$("#warningInfo").html("");
 						$("#selectValue").empty();
 						$("#selectValue").css("display", "none");
 					}
@@ -191,7 +219,7 @@
 						//console.log(result);
 					
 						let value="";
-						for(let i=1; i<result.length; i++){
+						for(let i=0; i<result.length; i++){
 							value += "<tr>"
 					        			+ "<td>" +result[i].memNo +"</td>"
 					        			+ "<td>" +result[i].memName +"</td>"
@@ -233,13 +261,14 @@
 						enrollStart:$("#datepicker1").val(),
 						enrollEnd:$("#datepicker2").val(),
 						sCategory:$(".sCategory").val(),
-						searchKey:$("#searchKey").val(),
+						searchKey1:$("#searchKey1").val(),
+						searchKey2:$("#searchKey2").val(),
 						selectValue:$("#selectValue").val()
 					},
 					type:"post",
 					success:function(result){
 						let value="";
-						for(let i=1; i<result.length; i++){
+						for(let i=0; i<result.length; i++){
 							value += "<tr>"
 					        			+ "<td>" +result[i].memNo +"</td>"
 					        			+ "<td>" +result[i].memName +"</td>"
@@ -309,10 +338,9 @@
 			</div>
 			<script>
 	        	$(function(){
-	        		$("#tbd>tr").click(function(){
-	        			location.href = '<%=contextPath%>/memDetail.ad?no=' + $(this).children().eq(0).text(); 
-	        			<!--클릭했을때의글번호넘겨야만 데이터조회가능 -> $(this)클릭한행의.children()자손td요소들 중에.eq(0)첫번째(memNo)요소의.text()텍스트값 -->
-	        		})
+	        		 $("#tbd").on("click", "tr", function(){
+	        			 location.href = '<%=contextPath%>/memDetail.ad?no=' + $(this).children().eq(0).text(); 
+	                 })
 	        	})
         	</script>
 		</div>

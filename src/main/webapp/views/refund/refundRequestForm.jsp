@@ -140,17 +140,33 @@
             <p style="font-size: small; color: gray;">- 환불 신청을 클릭하시면 환불이 진행됩니다. 이후 '취소 수강 목록'에서 해당 클래스를 확인하실 수 있습니다.</p>
             <h6><b>환불 사유</b></h6>
             <hr>
-            <input type="radio" name="refundReason" value="단순변심" id="changeMind">
+            <input type="radio" class="radio-Reason" name="refRea" value="단순변심" >
             <label for="changeMind">단순변심</label>
             <br>
-            <input type="radio" name="refundReason" value="주문실수" id="mistake">
+            <input type="radio" class="radio-Reason" name="refRea" value="주문실수" >
             <label for="mistake">클래스 시간 착오 등과 같은 주문 실수</label>
             <br>
-            <input type="radio" name="refundReason" value="신청반려" id="refuse">
+            <input type="radio" class="radio-Reason" name="refRea" value="신청반려" >
             <label for="refuse">튜터의 신청 반려</label>
             <br>
-            <input type="radio" name="refundReason" id="reason" checked>
-            <label for="reason"><input type="text" maxlength="50" placeholder="기타 (50자이하)" style="width: 440px;"></label>
+            <input type="radio" class="radio-Reason" name="refRea"  value="기타">
+            <label for="reason"><input type="text" id="inputReason" maxlength="50" placeholder="기타 (50자이하)" name="etc" style="width: 440px;"></label>
+            
+            <script>
+                $('.radio-Reason').on('click', function(){
+                    var reasonChecked = $('.radio-Reason:checked').val();
+                    if(reasonChecked == "기타"){
+                        $('#inputReason').attr('disabled',false);
+                        $('#inputReason').focus();
+                    }else{
+                        $('#inputReason').val(''); 
+                        $('#inputReason').attr('disabled',true);
+                    }
+                })
+
+            </script>
+
+
             <br>
             <br>
             <table style="text-align: center; font-size: 13px; width: 500px; border: 1px solid rgb(216, 212, 212);" id="refundTB" class="table">
@@ -204,13 +220,13 @@
                 </tr>
                 <tr>
                     <td><b>예금주</b></td>
-                    <td><input type="text" name="name" required></td>
+                    <td><input type="text" name="refName" required></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td><b>입금 은행</b></td>
                     <td>
-                        <select name="bank" id="bank" required>
+                        <select name="refBank" id="bank" required>
                             <option value="국민은행">국민은행</option>
                             <option value="농협은행">농협은행</option>
                             <option value="우리은행">우리은행</option>
@@ -225,7 +241,7 @@
                 </tr>
                 <tr>
                     <td ><b>계좌 번호</b></td>
-                    <td><input type="text" name="accountNumber" placeholder="- 제외 입력" required></td>
+                    <td><input type="text" name="refAcc" placeholder="- 제외 입력" required></td>
                     <td></td>
                 </tr>
 

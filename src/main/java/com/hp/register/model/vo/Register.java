@@ -2,27 +2,29 @@ package com.hp.register.model.vo;
 
 public class Register {
 
-	public int regNo;
-	public String memNo;
-	public String clNo;
-	public String teachDate;
-	public String regDate;
-	public String schNo;
-	public String regPay;
-	public String regPrice;
-	public String regCount;
-	public String regSta;
-	public String refuse;
-	public String reEnroll;
-	public String regCal;
-	public String depositSta;
-	public String memPhone;
-	public String memEmail;
-	public String clThumb;
-	public String clName;
-	public String startTime;
-	public String distrName;
-	public String ttName;
+	private int regNo;
+	private String memNo;
+	private String clNo;
+	private String teachDate;
+	private String regDate;
+	private String schNo;
+	private String regPay;
+	private String regPrice;
+	private String regCount;
+	private String regSta;
+	private String refuse;
+	private String reEnroll;
+	private String regCal;
+	private String depositSta;
+	private String memPhone;
+	private String memEmail;
+	private String clThumb;
+	private String clName;
+	private String startTime;
+	private String distrName;
+	private String ttName;
+	private String ctName;
+	private String ctDname;
 	
 	public Register() {}
 
@@ -147,6 +149,29 @@ public class Register {
 		this.regPrice = regPrice;
 		this.regSta = regSta;
 		this.depositSta = depositSta;
+	}
+	
+
+	public Register(int regNo, String memNo, String clNo, String teachDate, String regDate, String schNo, String regPay,
+			String regPrice, String regCount, String regSta, String refuse, String reEnroll, String regCal,
+			String ttName, String ctName, String ctDname) {
+		super();
+		this.regNo = regNo;
+		this.memNo = memNo;
+		this.clNo = clNo;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.schNo = schNo;
+		this.regPay = regPay;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.refuse = refuse;
+		this.reEnroll = reEnroll;
+		this.regCal = regCal;
+		this.ttName = ttName;
+		this.ctName = ctName;
+		this.ctDname = ctDname;
 	}
 
 	public int getRegNo() {
@@ -319,17 +344,36 @@ public class Register {
 	public void setDepositSta(String depositSta) {
 		this.depositSta = depositSta;
 	}
+	
+	
+
+	public String getCtName() {
+		return ctName;
+	}
+
+	public void setCtName(String ctName) {
+		this.ctName = ctName;
+	}
+
+	public String getCtDname() {
+		return ctDname;
+	}
+
+	public void setCtDname(String ctDname) {
+		this.ctDname = ctDname;
+	}
 
 	@Override
 	public String toString() {
 		return "Register [regNo=" + regNo + ", memNo=" + memNo + ", clNo=" + clNo + ", teachDate=" + teachDate
 				+ ", regDate=" + regDate + ", schNo=" + schNo + ", regPay=" + regPay + ", regPrice=" + regPrice
 				+ ", regCount=" + regCount + ", regSta=" + regSta + ", refuse=" + refuse + ", reEnroll=" + reEnroll
-				+ ", regCal=" + regCal + ", memPhone=" + memPhone + ", memEmail=" + memEmail + ", clThumb=" + clThumb
-				+ ", clName=" + clName + ", startTime=" + startTime + ", distrName=" + distrName + ", ttName=" + ttName
-				+ "]";
+				+ ", regCal=" + regCal + ", depositSta=" + depositSta + ", memPhone=" + memPhone + ", memEmail="
+				+ memEmail + ", clThumb=" + clThumb + ", clName=" + clName + ", startTime=" + startTime + ", distrName="
+				+ distrName + ", ttName=" + ttName + ", ctName=" + ctName + ", ctDname=" + ctDname + "]";
 	}
 
+	
 	
 	
 	

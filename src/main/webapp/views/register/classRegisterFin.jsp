@@ -32,7 +32,7 @@
             color:white;
             background:rgb(35, 104, 116);
         }
-
+		img{border-radius:5px;}
         
     </style>
 </head>
@@ -72,9 +72,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td style="vertical-align : top;">
                                 <img src="<%= contextPath %>/<%= r.getClThumb() %>" height="150" width="150">
                                 <b><%= r.getClName() %></b> <br>
+                                <small>
+                                    <%= r.getTeachDate() %> <%= r.getRegDate() %> <br>
+                                    인원 : <%= r.getRegCount() %>명
+                                </small>
                             </td>
                             <td>
                                 <small> 클래스 수강권 x <%= r.getRegCount() %></small><br><br>
@@ -110,17 +114,14 @@
                     <tfoot>
                         <tr>
                             <td colspan="4">
-                                <small>
-                                    <%= r.getTeachDate() %> <%= r.getRegDate() %> <br>
-                                    인원 : <%= r.getRegCount() %>명
-                                </small>
+                                
                             </td>
                         </tr>
                     </tfoot>
                 </table>
                 <div align="center">
                     <a href="<%=contextPath %>/main.tee" class="btn btn-secondary btn-sm">홈으로 이동</a>
-                    <a href="" class="btn btn-sm" id="checkbutton">수강 내역 확인</a>
+                    <a href="<%=contextPath %>/myClassList.reg?cpage=1" class="btn btn-sm" id="checkbutton">수강 내역 확인</a>
                 </div>
             </div>
     </div>

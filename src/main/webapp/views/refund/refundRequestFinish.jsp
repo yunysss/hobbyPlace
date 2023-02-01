@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
+<%@
+	page import="com.hp.register.model.vo.Register, com.hp.refund.model.vo.Refund"
+%>
+    
+<%
+ 	Register r = (Register)request.getAttribute("r");
+	Refund ref = (Refund)request.getAttribute("ref");
+ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,13 +96,13 @@
     <div id="class-area">
         <div class="area1">
             <div id="classThumbnail">
-                <img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg">
+                <img src="<%=contextPath%>/<%=r.getClThumb() %>">
             </div>
             <div id="classInf">
                 <ul style="padding: 5px;">
-                    <li style="font-size: small; color: gray;">주문번호 B133R2344</li>
-                    <li style="font-size:large"><b>라탄 소품 만들기, 마음을 담아 엮어요</b></li>
-                    <li>구로 / 2023-01-07 (토) 17:00</li>
+                    <li style="font-size: small; color: gray;">주문번호 <%=r.getRegNo() %></li>
+                    <li style="font-size:large"><b><%=r.getClName() %></b></li>
+                    <li><%=r.getDistrName() %>  <%=r.getTeachDate() %> <%=r.getStartTime() %></li>
                 </ul>
             </div>
         </div>
@@ -108,10 +116,14 @@
                 </tr>
                 <tr>
                     <td rowspan="2">총 결제 금액</td>
-                    <td style="text-align: right;">39,000원</td>
+                    <td style="text-align: right;"><%=r.getRegPrice() %></td>
                 </tr>
                 <tr>
+                <%if(r.getRegPay().equals("0")){ %>
                     <td style="text-align: right; font-size: smaller; color: gray;">(신용카드)</td>
+                <%} else { %>
+                	<td style="text-align: right; font-size: smaller; color: gray;">(무통장입금)</td>
+                <%} %>
                 </tr>
             </table>
         </div>
@@ -119,21 +131,22 @@
     <br>
 
     <div id="refundCard">
-        <!--카드결제 \;'.일때-->
+        <!--카드결제 일때-->
         <table width="690px">
             <tr>
                 <td style="font-size: 15px;"><b>환불 금액</b></td>
-                <td  style="color: rgb(255, 104, 112); text-align: right;"><b>39,000원</b></td>
+                <td  style="color: rgb(255, 104, 112); text-align: right;"><b><%=ref.getRefPrice() %>원</b></td>
             </tr>
         </table>
     </div>
 
         <!--무통장 결제 일때-->
+    <%if(r.getRegPay().equals("1")){ %>
     <div id="refundBank">
         <table width="690px" >
             <tr>
                 <td colspan="2" style="font-size: 15px;"><b>무통장입금 환불 금액</b></td>
-                <td  style="color: rgb(255, 104, 112); text-align: right;"><b>39,000원</b></td>
+                <td  style="color: rgb(255, 104, 112); text-align: right;"><b><%=ref.getRefPrice() %>원</b></td>
             </tr>
             <tr>
                 <td colspan="3" style="background:lightgray; height: 1px;"></td>
@@ -143,18 +156,18 @@
             </tr>
             <tr>
                 <td width="100px"><b>예금주</b></td>
-                <td>김수정</td>
+                <td><%=ref.getRefName() %></td>
                 <td></td>
             </tr>
             <tr>
                 <td><b>입금 은행</b></td>
-                <td>신한은행</td>
+                <td><%=ref.getRefBank() %></td>
                 <td></td>
             </tr>
 
             <tr>
                 <td><b>계좌 번호</b></td>
-                <td>110366737611</td>
+                <td><%=ref.getRefAcc() %></td>
                 <td></td>
             </tr>
 
@@ -162,7 +175,7 @@
 
 
     </div>
-
+	<%} %>
 
 
 
@@ -173,7 +186,7 @@
     <script>
     	$(function(){
     		$("#refundListBtn").click(function(){
-				location.href = "<%=contextPath%>/refundList.tee";    			
+				location.href = "<%=contextPath%>/refundList.ref";    			
     		})
     	})
     </script>

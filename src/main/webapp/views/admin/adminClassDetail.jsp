@@ -38,7 +38,7 @@
     
             #detail-area * {box-sizing: border-box;}
             #img-area{
-                width: 410px;
+                width: 460px;
                 margin: auto;
                 margin-top: 10px;
                 text-align: center;
@@ -53,14 +53,15 @@
             #thumbnail, #classInfo{float: left;}    
             #thumbnail{
                 width: 500px;
-                height: 400px;
+                height: 480px;
                 position: relative;
             }
     
            
             #classInfo{
                 padding: 20px 0px;
-                width: 350px;
+                margin-left: 20px;
+                width: 320px;
                 height: 100%;
             }
             #classDetail{
@@ -87,14 +88,18 @@
                 border-radius: 5px;
             }
 
-            textarea{
+          #classDetail textarea{
             border: none;
             width: 700px;
             resize: none;
         
             }
-
-
+            #tutorIntroduce textarea{
+            border: none;
+            width: 350px;
+            resize: none;
+            margin-top : 10px
+            }
          
     
     </style>
@@ -123,20 +128,32 @@
                     <table id="img-area">
                         <tr>
                             <td colspan="3" height="260px">
-                                <img id="mainImg" src="<%=l.getClThumb() %>" width="450" height="270"  >
+                                <img id="mainImg" src="<%=l.getClThumb() %>" width="480" height="300"  >
                             </td>
                         </tr>
                         <tr>
                             <div id="img">
                                <% for(int i=0;i<list.size();i++){ %>
                                 <td>
-                                    <img id="img1" src="<%=contextPath %>/<%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" height="100px" width="148px"> 
+                                    <img id="img1" class="imgs" src="<%=contextPath %>/<%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" height="110px" width="115px"> 
+                              	<%} %>
+                              		<img class="imgs" src="<%=l.getClThumb() %>" height="110px" width="115px">
                                 </td>
-                                <%} %>
+                                
                             </div>
                         </tr>
                     </table>
                 </div>
+                    
+                     <script>
+                    	$(document).on("click", ".imgs", function(){
+                    		$("#mainImg").attr("src", $(this).attr("src"));
+                    	})
+                    </script>
+                
+                
+                
+                
     
                 <div id="classInfo">
                     <div id="className"><h4 style="font-weight: 600;"><%=l.getClName() %></h4></div>
@@ -149,7 +166,7 @@
                
                         <div id="tutorIntroduce">
                             <div style="font-weight: 600"> </div>
-                            <p><%=l.getIntroduce() %></p>
+                            <textarea rows="10"style="font-size:12px"><%=l.getIntroduce() %></textarea>
                           	
                                 
                       </div>

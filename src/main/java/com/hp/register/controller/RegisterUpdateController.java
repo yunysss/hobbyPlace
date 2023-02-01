@@ -1,23 +1,26 @@
-package com.hp.refund.controller;
+package com.hp.register.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hp.register.model.service.RegisterService;
+
 /**
- * Servlet implementation class RefundRequestFinish
+ * Servlet implementation class RegisterUpdateController
  */
-@WebServlet("/refundReqFinish.ref")
-public class RefundRequestFinish extends HttpServlet {
+@WebServlet("/update.reg")
+public class RegisterUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RefundRequestFinish() {
+    public RegisterUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +29,14 @@ public class RefundRequestFinish extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/refund/refundRequestFinish.jsp").forward(request, response);
-	
+		String regNo = request.getParameter("regNo");
+		String regSt = request.getParameter("regSt");		
+		
+		int result = new RegisterService().updateRegister(regNo, regSt);
+		
+		if(result > 0) {
+			response.sendRedirect(request.getContextPath() + "/manage.reg");
+		}
 	}
 
 	/**

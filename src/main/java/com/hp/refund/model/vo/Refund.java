@@ -43,6 +43,16 @@ public class Refund {
 	}
 	
 	
+	
+
+	public Refund(String memNo, String refPrice, String refBank, String refAcc, String refName) {
+		super();
+		this.memNo = memNo;
+		this.refPrice = refPrice;
+		this.refBank = refBank;
+		this.refAcc = refAcc;
+		this.refName = refName;
+	}
 
 	public int getOrderNo() {
 		return orderNo;
