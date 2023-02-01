@@ -44,7 +44,7 @@ public class ClassDetailSearchController extends HttpServlet {
 		 
 		 Search s = new Search(keyword,category,dcategory,sido,sigungu,day,price);
 		 
-		 ArrayList<Lesson> list = new LessonService().seachDetailClass(s);
+		 ArrayList<Lesson> list = new LessonService().searchDetailClass(s);
 				 
 	}
 

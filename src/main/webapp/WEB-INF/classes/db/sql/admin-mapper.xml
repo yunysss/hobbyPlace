@@ -213,15 +213,17 @@
 	SELECT
 			CL_NO
 			,G.CT_NAME
+			,CT_DNAME
 			,T.TT_NAME
 			,CL_NAME
 			,TO_CHAR(C.ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE"
-			,CL_STATUS
-		
+			,DECODE(CL_STATUS,'0','검수요청','1','신청반려','2','판매중','3','판매중단') "cl_status"
 			FROM CLASS C
-			JOIN CATEGORY G USING (CT_NO)
+			JOIN CATEGORY G on (C.CT_NO =G.CT_NO)
+			JOIN DCATEGORY D ON (D.CT_DNO = C.CT_DNO)
 			JOIN TUTOR T USING (MEM_NO)
 			WHERE 1=1
+			
 			
 
 	

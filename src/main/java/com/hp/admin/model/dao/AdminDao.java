@@ -15,8 +15,6 @@ import java.util.Properties;
 import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
 import com.hp.admin.model.vo.SearchMember;
-import com.hp.admin.model.vo.SearchTutor;
-import com.hp.admin.model.vo.TutorList;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
@@ -542,13 +540,19 @@ public class AdminDao {
 				sql += "and cl_name||ct_name||tt_name like" + "'%%'";
 			}
 			
-			if(category != null && !category.equals(""))  {
-			    sql +=  "and ct_no= " + "'"+ category + "'";
-			 }else if(category == null) {
+			if(category.equals("00")) {
+				sql += "";
+			}else if(category != null && !category.equals(""))  {
+			    sql +=  "and G.ct_no= " + "'"+ category + "'";
+			 }else{
 				sql += "";
 			 }
 			
-			if(dcategory.equals("전체")) {
+			if(category.equals("00") && dcategory.equals("전체")) {
+				 sql +="";
+			}
+			
+			if(!category.equals("00") && dcategory.equals("전체")) {
 				sql += "and ct_no = " + "'"+ category +"'";
 			}else if(dcategory != null && !dcategory.equals("")) {
 				sql += "and ct_dname= " + "'"+ dcategory +"'";
@@ -598,7 +602,6 @@ public class AdminDao {
 									rset.getString("cl_status")
 								
 						));
-		
 			}
 		  System.out.println(list);
 		} catch (SQLException e) {
@@ -855,12 +858,9 @@ public class AdminDao {
 		return revList;
 	}
 
-	/** 회원번호로 좋아요 리스트 조회용 dao
-	 * @author 수연
-	 * @param conn
-	 * @param memNo
-	 * @return likeList
-	 */
+
+
+
 	public ArrayList<Like> selectAllLike(Connection conn, int memNo) {
 		ArrayList<Like> likeList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -875,10 +875,7 @@ public class AdminDao {
 			while(rset.next()) {
 				likeList.add(new Like(rset.getString("cl_name"),
 						              rset.getInt("mem_no"),
-						              rset.getString("like_date"),
-						              rset.getString("ct_name"),
-						              rset.getString("ct_dname"),
-						              rset.getString("tt_name")));
+						              rset.getString("like_date")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1063,61 +1060,6 @@ public class AdminDao {
 
 			}
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
-
-	/** 튜터리스트 기본검색시 조회되는 list 
-	 * @author 수연
-	 * @param st
-	 * @return list
-	 */
-	public ArrayList<TutorList> selectTutorList1(Connection conn, SearchTutor st) {
-		ArrayList<TutorList> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectTutorList1");
-		
-		try {
-			switch(st.getfCategory()) {
-			case "classActive" : sql += " CLASSACTIVE "; break;
-			case "classTotal" : sql += " CLASSTOTAL "; break;
-			case "tuteeTotal" : sql += " TUTEETOTAL "; break;
-			case "lessonTotal" : sql += " LIKECOUNT "; break;
-			case "incomeTotal" : sql += " REVCOUNT "; break;
-			}
-			
-			if(st.getLineup().equals("desc")) {
-				sql += "desc";
-			}else if(st.getLineup().equals("asc")) {
-				sql += "asc";
-			}
-			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, st.getEnrollStart());
-			pstmt.setString(2, st.getEnrollEnd());
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new TutorList(rset.getInt("mem_no"),
-							            rset.getString("mem_name"),
-							            rset.getString("mem_id"),
-							            rset.getString("tt_name"),
-							            rset.getInt("classactive"),
-							            rset.getInt("classtotal"),
-							            rset.getInt("tuteetotal"),
-							            rset.getInt("likecount"),
-							            rset.getInt("revcount"),
-							            rset.getInt("incometotal"),
-							            rset.getString("tutoraddr")));
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

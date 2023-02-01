@@ -47,6 +47,9 @@ public class AdminSearchClassController extends HttpServlet {
 			status = String.join(",", statusArr);
 		}
 		
+		System.out.println("c:"+category);
+		System.out.println("d:"+ dcategory);
+		
 		Search s = new Search(keyword,category,dcategory,startDate,endDate,status);
 		ArrayList<Lesson> list = new AdminService().searchClass(s);
 		

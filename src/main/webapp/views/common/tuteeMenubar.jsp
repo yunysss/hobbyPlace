@@ -193,6 +193,7 @@ div, p, form, input {
 
 .bookmark>ul>li {
 	height: 30px;
+	width :210px;
 	border: 0.01px solid rgba(238, 235, 235, 0.881);
 	border-radius: 5px;
 }

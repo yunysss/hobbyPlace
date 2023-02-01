@@ -109,6 +109,7 @@ public class NoticeService {
 		return n;
 	}
 	
+	
 	public int selectTutorFaqListCount() {
 		Connection conn = getConnection();
 		int listCount = new NoticeDao().selectTutorFaqListCount(conn);
