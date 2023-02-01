@@ -452,8 +452,8 @@
                     <div class="modal-body">
                         <b>결제 상태 변경</b> <br><br>
                         <div align="center">
-                        <input type="radio" id="N" value="N" name="regSt"> <label for="N">입금대기</label>
-                        <input type="radio" id="Y" value="Y" name="regSt"> <label for="Y">결제완료</label> <br><br>
+                        <input type="radio" id="N" value="N" name="depositSt"> <label for="N">입금대기</label>
+                        <input type="radio" id="Y" value="Y" name="depositSt"> <label for="Y">결제완료</label> <br><br>
                         <button type="submit" class="btn btn-sm" style="background:rgb(22, 160, 133); color:white;">저장</button>
                         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
                         </div>

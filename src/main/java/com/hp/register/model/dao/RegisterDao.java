@@ -425,10 +425,10 @@ public class RegisterDao {
 		return list;
 	}
 	
-	public int updateRegister(Connection conn, String regNo, String regSt) {
+	public int updateRegisterMng(Connection conn, String regNo, String regSt) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateRegister");
+		String sql = prop.getProperty("updateRegisterMng");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
