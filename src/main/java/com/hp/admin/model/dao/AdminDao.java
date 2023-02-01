@@ -518,6 +518,7 @@ public class AdminDao {
 		
 	}
 	
+	
 	public ArrayList<Lesson> searchClass(Connection conn, Search s){
 		ArrayList<Lesson> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -527,40 +528,61 @@ public class AdminDao {
 		try {
 			String keyword = s.getKeyword();
 			String category = s.getCategory();
+			String dcategory = s.getDcategory();
 			String startDate = s.getStarDate();
 			String endDate = s.getEndDate();
-			String[] status = s.getStatus().split(",");
+			String status = s.getStatus(); // "21,23" || ""
 
-			if(keyword != null) {
-				sql += "cl_name||ct_name||tt_name like" + "'%"+ keyword + "%'";
+			if(keyword != null && !keyword.equals("")) {
+				sql += "and cl_name||ct_name||tt_name like" + "'%"+ keyword + "%'";
 			}else if(keyword == null) {
-				sql += "cl_name||ct_name||tt_name like" + "'%%'";
+				sql += "and cl_name||ct_name||tt_name like" + "'%%'";
 			}
 			
-			if(category != null) {
-			    sql +=  "and ct_name = " + "'"+ category + "'";
+			if(category != null && !category.equals(""))  {
+			    sql +=  "and ct_no= " + "'"+ category + "'";
 			 }else if(category == null) {
 				sql += "";
 			 }
+			
+			if(dcategory.equals("전체")) {
+				sql += "and ct_no = " + "'"+ category +"'";
+			}else if(dcategory != null && !dcategory.equals("")) {
+				sql += "and ct_dname= " + "'"+ dcategory +"'";
+			}else{
+				sql +=  "";
+			}
 			    
-			if(startDate != null && endDate != null) {
-				 sql += "and enroll_date between '" + startDate + "' and '" + endDate +"'";
+			if(startDate != null && endDate != null && !startDate.equals("") && !endDate.equals("")) {
+				 sql += "and c.enroll_date between '" + startDate + "' and '" + endDate +"'";
 			}else if(startDate == null && endDate == null){
 				sql += "";
 			}
 			
-			if(status != null) {
+			
+			/*
+			System.out.println(status.length);
+			if(status != null && status.length!=0) {
 				 sql += "and cl_status in ("; 
 		                   for(String str : status) {
 		                       sql += str + ','; 
 		                    }
 		              sql = sql.substring(0,sql.length()-1);
 		              sql += ")";
-			}else if(status == null){
+			}else{
 				sql += "";
 			}
+			*/
+			if(status.length() != 0) {
+				sql += "and cl_status in (" + status ;
+			    sql.substring(0,sql.length()-1);
+				sql += ")"; 
+			}
 			
-			System.out.println(sql);
+			
+			
+			
+			//System.out.println(sql);
 	
 			pstmt=conn.prepareStatement(sql);
 			
@@ -573,10 +595,10 @@ public class AdminDao {
 									rset.getString("cl_name"),
 									rset.getDate("enroll_date"),
 									rset.getString("cl_status")
-									
+								
 						));
 			}
-		
+		  System.out.println(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
