@@ -13,74 +13,92 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
  <style>
-          .outer{
-                padding: 30px 50px;
-                font-size: smaller;
-    
-            }
-    
-            #detail-area * {box-sizing: border-box;}
-            #img-area{
-                width: 410px;
-                margin: auto;
-                margin-top: 10px;
-                text-align: center;
-            }
-    
-           #btn-area{
-              
-                width: 900px;
-                text-align: right;
-           }
-    
-            #thumbnail, #classInfo{float: left;}    
-            #thumbnail{
-                width: 500px;
-                height: 400px;
-                position: relative;
-            }
-    
-           
-            #classInfo{
-                padding: 20px 0px;
-                width: 350px;
-                height: 100%;
-            }
-            #classDetail{
-                clear: both;
-            }
-            #className{
-                height: 120px;
-            }
-            #classPrice{height: 50px;}
-            #tutorInfo{
-                height: 200px;
-    
-            }
-    
-            th{width: 100px;
-                height: 30px;
-            }
+.outer {
+	padding: 30px 50px;
+	font-size: smaller;
+}
 
-            .container{
-                font-size: small;
-            }
+#detail-area * {
+	box-sizing: border-box;
+}
 
-            #img-area img{
-                border-radius: 5px;
-            }
+#img-area {
+	width: 460px;
+	margin: auto;
+	margin-top: 10px;
+	text-align: center;
+}
 
-            textarea{
-            border: none;
-            width: 700px;
-            resize: none;
-        
-            }
+#btn-area {
+	width: 900px;
+	text-align: right;
+}
 
-         
-    
+#thumbnail, #classInfo {
+	float: left;
+}
 
-    </style>
+#thumbnail {
+	width: 500px;
+	height: 500px;
+	position: relative;
+}
+
+#classInfo {
+	padding: 20px 0px;
+	margin-left: 20px;
+	width: 350px;
+	height: 100%;
+}
+
+#classDetail {
+	clear: both;
+}
+
+#className {
+	height: 120px;
+}
+
+#classPrice {
+	height: 50px;
+}
+
+#tutorInfo {
+	height: 200px;
+}
+
+th {
+	width: 100px;
+	height: 30px;
+}
+
+.container {
+	font-size: small;
+}
+
+#img-area img {
+	border-radius: 5px;
+}
+
+textarea {
+	border: none;
+	width: 700px;
+	resize: none;
+}
+
+#classDetail textarea {
+	border: none;
+	width: 700px;
+	resize: none;
+}
+
+#tutorIntroduce textarea {
+	border: none;
+	width: 350px;
+	resize: none;
+	margin-top: 10px
+}
+</style>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!-- 카카오 -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -96,10 +114,10 @@
             <br>
             <span style="font-size: 15px; font-weight:550" id="detail">클래스 상세내역
             </span> 
-            <form action="<%=contextPath %>/" method="post">
+            <form action="<%=contextPath%>/" method="post">
             <div id="btn-area" >
 
-            <a href="<%=contextPath %>/updateForm.cl?no=<%=l.getClNo()%>" class="btn btn-secondary btn-sm a">수정</a>
+            <a href="<%=contextPath%>/updateForm.cl?no=<%=l.getClNo()%>" class="btn btn-secondary btn-sm a">수정</a>
              <%if (l.getClStatus().equals("2")){ %>
             <button type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classDelete">판매중단</button>
 			<%} %>
@@ -114,16 +132,18 @@
                     <table id="img-area">
                         <tr>
                             <td colspan="3" height="260px">
-                                <img id="mainImg" src="<%=l.getClThumb() %>" width="450" height="270" >
+                                <img id="mainImg" src="<%=l.getClThumb() %>" width="480" height="300" >
                             </td>
                         </tr>
                         <tr>
                             <div id="img">
                             	<% for(int i=0;i<list.size();i++){ %>
                                 <td>
-                                    <img id="img1" class="imgs" src="<%=contextPath %>/<%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" height="100px" width="148px"> 
+                                    <img id="img1" class="imgs" src="<%=contextPath %>/<%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" height="110px" width="115px"> 
+                               <%} %>
+                                   <img class="imgs" src="<%=l.getClThumb() %>" height="110px" width="115.5px">
                                 </td>
-                                <%} %>
+                              
                             </div>
                         </tr>
                     </table>
@@ -140,9 +160,7 @@
                             thumb.setAttribute("src",smallAttribute);
 
                         }
-                         
                      
-                
 
 
                     </script>
@@ -164,10 +182,10 @@
                         </div>
                         
                         <div id="tutorIntroduce">
-                            <div style="font-weight: 600"> </div>
-                            <p><%=l.getIntroduce() %></p>
+                            <div > 
+                             <textarea rows="10"style="font-size:12px"><%=l.getIntroduce() %></textarea>
                           	
-                                
+                             </div>   
                         </div>
                     </div>
                 </div>
