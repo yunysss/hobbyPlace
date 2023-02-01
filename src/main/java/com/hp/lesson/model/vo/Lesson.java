@@ -40,7 +40,7 @@ public class Lesson {
 	private String introduce;
 	private String tutorProfile;
 	private String Claddress2;
-
+	private String date;
 
 	public Lesson() {}
 
@@ -70,6 +70,31 @@ public class Lesson {
 		this.clSupplies = clSupplies;
 		this.keyword = keyword;
 		this.clThumb = clThumb;
+	}
+ 
+  
+
+	public Lesson(int clNo, String ctNo, String memNo, String clName, String clStatus, String date) {
+		super();
+		this.clNo = clNo;
+		this.ctNo = ctNo;
+		this.memNo = memNo;
+		this.clName = clName;
+		this.clStatus = clStatus;
+		this.date = date;
+	}
+
+
+
+	public Lesson(int clNo, String ctDno, String clName, Date enrollDate, Date updateDate, String clStatus, String clRefuse) {
+		super();
+		this.clNo = clNo;
+		this.ctDno = ctDno;
+		this.clName = clName;
+		this.enrollDate = enrollDate;
+		this.updateDate = updateDate;
+		this.clStatus = clStatus;
+		this.clRefuse = clRefuse;
 	}
 
 

@@ -82,7 +82,7 @@
 	<entry key="selectReviewClass">
 		SELECT 
 		         RE_NO
-		       , SUBSTR(CONTENT, 1, 27) "CONTENT"
+		       , SUBSTR(CONTENT, 1, 25) "CONTENT"
 		       , RE_STAR
 		       , CL_NO
 		       , SUBSTR(CL_NAME, 1, 13) "CL_NAME"
@@ -152,10 +152,9 @@
 		     , RE_UPDATE
 		     , MEM_NICKNAME
 		     , MEM_PROFILE
-		  FROM REVIEW R
-		  JOIN REGISTER USING(REG_NO)
+		  FROM REVIEW 
 		  JOIN MEMBER USING(MEM_NO)
-		 WHERE R.CL_NO = ?
+		 WHERE CL_NO = ?
 		   AND RE_STA = 'Y'
 	</entry>
 	<entry key="selectLikeStatus">

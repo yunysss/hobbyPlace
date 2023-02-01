@@ -69,19 +69,6 @@ public class RefundService {
 		return r;
 	}
 
-	
-
-	/**
-	 * @author 수정
-	 * @param memNo
-	 * @return 취소한 클래스 조회
-	 */
-	public ArrayList<Refund> selectMyRefundClassList(int memNo) {
-		Connection conn = getConnection();
-		ArrayList<Refund> list = new RefundDao().selectMyRefundClassList(conn, memNo);
-		close(conn);
-		return list;
-	}
 
 	/**
 	 * @author 수정
@@ -121,5 +108,6 @@ public class RefundService {
 	}
 
 
+	
 
 }

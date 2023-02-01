@@ -1,7 +1,6 @@
-package com.hp.refund.controller;
+package com.hp.register.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,20 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.hp.member.model.vo.Member;
-import com.hp.refund.model.service.RefundService;
-import com.hp.refund.model.vo.Refund;
+import com.hp.register.model.service.RegisterService;
 
 /**
- * Servlet implementation class RefundClassListController
+ * Servlet implementation class MyRefundClassListController
  */
-@WebServlet("/refundList.ref")
-public class RefundClassListController extends HttpServlet {
+@WebServlet("/refundList.reg")
+public class MyRefundClassListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RefundClassListController() {
+    public MyRefundClassListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,10 +34,12 @@ public class RefundClassListController extends HttpServlet {
 		HttpSession session = request.getSession();
 		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
-		ArrayList<Refund> list = new RefundService().selectMyRefundClassList(memNo);
-		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("views/refund/refundClassList.jsp").forward(request, response);
+		
+		
+		request.getRequestDispatcher("views/register/myRefundClassList.jsp").forward(request, response);
+	
+	
 	}
 
 	/**

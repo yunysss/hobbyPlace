@@ -326,6 +326,8 @@
 		            )
   
 	</entry>
+	
+	<!-- 클래스 수정  -->
 	<entry key="updateClass">
 		   UPDATE CLASS
        		  SET
@@ -361,7 +363,7 @@
 	
 	
 	</entry>
-	
+	<!-- 클래스 수정시 첨부파일 수정 -->
 	<entry key="updateAttachment">
 	
 	  	UPDATE ATTACHMENT
@@ -372,6 +374,7 @@
 		WHERE FILE_NO =?	
 	
 	</entry>
+	<!-- 클래스 수정시 첨부파일 인서트  -->
 	<entry key="insertNewAttachment">
 	    INSERT 
 	     INTO ATTACHMENT
@@ -398,13 +401,14 @@
 	     )
 	     
 	</entry>
-	
+	<!-- 클래스 수정시 스케줄 삭제 -->
 	<entry key="deleteSchedule">
 	   	DELETE
 	   	FROM SCHEDULE
 	    WHERE CL_NO =?
 
 	</entry>
+	<!-- 클래스 수정시 스케줄 등록 -->
 	<entry key="insertNewSchedule">
 		INSERT 
 		INTO SCHEDULE
@@ -429,9 +433,30 @@
 		            )
   
 	
+	</entry>
 	
+	<!-- 튜터 클래스 조회 -->
+	<entry key="searchClass">
+	
+		SELECT
+			CL_NO
+			,CT_NAME
+			,CT_DNAME
+			,CL_NAME
+			,TO_CHAR(c.enroll_date, 'YYYY-MM-DD') "enroll_date"
+			,TO_CHAR(c.update_date, 'YYYY-MM-DD') "update_date"
+			,decode(CL_STATUS,'0','검수요청','1','신청반려','2','판매중','3','판매중단') "cl_status"
+			,NVL(CL_REFUSE,'') "cl_refuse"
+		
+			FROM CLASS C
+			JOIN CATEGORY G ON (C.CT_NO  = G.CT_NO)
+		    JOIN DCATEGORY D ON (C.CT_DNO = D.CT_DNO )
+			JOIN TUTOR T USING (MEM_NO)
+			WHERE MEM_NO = ?	
+			
 	
 	</entry>
+	
 
 
 </properties>

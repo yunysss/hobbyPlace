@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.member.model.vo.Member;
 import com.hp.refund.model.dao.RefundDao;
+import com.hp.refund.model.vo.Refund;
 import com.hp.register.model.dao.RegisterDao;
 import com.hp.register.model.vo.Register;
 
@@ -129,5 +130,7 @@ public class RegisterService {
 		}
 		return result;
 	}
+	
+
 
 }

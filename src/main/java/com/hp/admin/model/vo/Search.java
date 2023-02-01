@@ -27,8 +27,17 @@ public class Search {
 		this.status = status;
 	}
 
-
+  
 	
+	public Search(String keyword, String starDate, String endDate, String status) {
+		super();
+		this.keyword = keyword;
+		this.starDate = starDate;
+		this.endDate = endDate;
+		this.status = status;
+	}
+
+
 	public String getKeyword() {
 		return keyword;
 	}

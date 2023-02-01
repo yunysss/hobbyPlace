@@ -301,7 +301,7 @@ function setSearchDate(start){
                 <tr>
                     <th>등록상태</th>
                     <td>
-                        <input type="checkbox" name="status" id="chkAll">
+                        <input type="checkbox" name=all" id="chkAll" value= "전체">
                         <label for="">전체</label>
                         <input type="checkbox" name="status" id="beforeApproval" value="0">
                         <label for="beforeApproval">검수요청</label>
@@ -373,7 +373,7 @@ function setSearchDate(start){
             							   + "<td>" + result[i].clNo  + "</td>"
             							   + "<td>" + result[i].ctNo + "</td>"
             							   + "<td>" + result[i].clName + "</td>"   
-            							   + "<td>" + result[i].enrollDate + "</td>"
+            							   + "<td>" + result[i].enrollDate  + "</td>"
             							   + "<td>" + result[i].memNo + "</td>"
             							   + "<td>" + result[i].clStatus + "</td>"
             							   +"</tr>"

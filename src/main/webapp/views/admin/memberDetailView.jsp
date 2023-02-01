@@ -167,34 +167,75 @@
                         <th>답변여부</th>
                     </tr>
 					<% if(qnaList.isEmpty()){ %>
-		                <!-- case1. 문의가 없을 경우 -->
 		                <tr>
-		                    <td colspan="4">조회된 문의가 없습니다.</td>
+		                    <td colspan="4">작성된 문의가 없습니다.</td>
 		                </tr>
-				<% }else { %>
-	                <!-- case2. 게시글이 있을 경우 -->
-	                <% for(Qna q : qnaList) { %>
-		                <tr>
-		                    <td>
-		                    <% if(q.getqGrade().equals("0")) {%>
-		                    	관리자
-		                    <%}else { %>
-		                    	<%=q.getaMemNick() %>
-		                    <%} %>
-		                    </td>
-		                    <td><%=q.getqTitle() %></td>
-		                    <td><%=q.getqDate()  %></td>
-		                    <td>
-		                    <% if(q.getaTitle()==null) { %>
-		                    	답변대기
-		                    <%}else {%>
-		                    	답변완료
-		                    <%} %>
-		                    </td>
-
-		                </tr>
+					<% }else { %>
+						<%if(qnaList.size() >= 3) {%>
+							<% for(int i=1; i<=3; i++) { %>
+				                <tr>
+				                    <td>
+				                    <% if((((Qna)qnaList.get(i)).getqGrade()).equals("0")) {%>
+				                    	관리자
+				                    <%}else { %>
+				                    	<%=((Qna)qnaList.get(i)).getaMemNick() %>
+				                    <%} %>
+				                    </td>
+				                    <td><%=((Qna)qnaList.get(i)).getqTitle() %></td>
+				                    <td><%=((Qna)qnaList.get(i)).getqDate()  %></td>
+				                    <td>
+				                    <% if(((Qna)qnaList.get(i)).getaTitle()==null) { %>
+				                    	답변대기
+				                    <%}else {%>
+				                    	답변완료
+				                    <%} %>
+				                    </td>
+			               		</tr>
+		                	<% } %>
+		                	
+						<%} else if(qnaList.size() == 2) {%>
+							<% for(int i=1; i<=2; i++) { %>
+				                <tr>
+				                    <td>
+				                    <% if((((Qna)qnaList.get(i)).getqGrade()).equals("0")) {%>
+				                    	관리자
+				                    <%}else { %>
+				                    	<%=((Qna)qnaList.get(i)).getaMemNick() %>
+				                    <%} %>
+				                    </td>
+				                    <td><%=((Qna)qnaList.get(i)).getqTitle() %></td>
+				                    <td><%=((Qna)qnaList.get(i)).getqDate()  %></td>
+				                    <td>
+				                    <% if(((Qna)qnaList.get(i)).getaTitle()==null) { %>
+				                    	답변대기
+				                    <%}else {%>
+				                    	답변완료
+				                    <%} %>
+				                    </td>
+				                </tr>
+		                	<% } %>
+						<%} else {%>
+			                <tr>
+			                    <td>
+			                    <% if((((Qna)qnaList.get(0)).getqGrade()).equals("0")) {%>
+			                    	관리자
+			                    <%}else { %>
+			                    	<%=((Qna)qnaList.get(0)).getaMemNick() %>
+			                    <%} %>
+			                    </td>
+			                    <td><%=((Qna)qnaList.get(0)).getqTitle() %></td>
+			                    <td><%=((Qna)qnaList.get(0)).getqDate() %></td>
+			                    <td>
+			                    <% if(((Qna)qnaList.get(0)).getaTitle()==null) { %>
+			                    	답변대기
+			                    <%}else {%>
+			                    	답변완료
+			                    <%} %>
+			                    </td>
+			                </tr>
+		                <% } %>
+		                
 	                <% } %>
-                <% } %>
                 </table>   
             </div>
         </div>
@@ -208,9 +249,9 @@
             <div class="tbList">
                 <table class="listTable">
                     <colgroup>
-                        <col style="width:150px;">
-                        <col style="width:350px;">
-                        <col style="width:150px;">
+                        <col style="width:250px;">
+                        <col style="width:300px;">
+                        <col style="width:100px;">
                         <col style="width:100px;">
                         <col style="width:100px;">
                         <col style="width:100px;">
@@ -225,22 +266,89 @@
                     </tr>
                     <tbody>
 	            	<% if(regList.isEmpty()){ %>
-		                <!-- case1. 게시글이 없을 경우 -->
 		                <tr>
-		                    <td colspan="6">조회된 게시글이 없습니다.</td>
+		                    <td colspan="6">수강한 클래스가 없습니다.</td>
 		                </tr>
 					<% }else { %>
-		                <!-- case2. 게시글이 있을 경우 -->
-		                <% for(Register rg : regList) { %>
+					
+						<% if(regList.size() >= 3) {%>
+							<% for(int i=1; i<=3; i++) {%>
+								<tr>
+				                    <td>
+				                    <%= ((Register)regList.get(i)).getCtName() %> 
+				                    > 
+				                    <%=((Register)regList.get(i)).getCtDname() %>
+				                    </td>
+				                    <td><%= ((Register)regList.get(i)).getClName() %></td>
+				                    <td><%= ((Register)regList.get(i)).getTtName() %></td>
+				                    <td><%= ((Register)regList.get(i)).getTeachDate() %></td>
+				                    <td>
+				                     <%if(((Register)regList.get(i)).getRegSta().equals("0")) {%>
+					                     승인전  
+					                 <%} else if(((Register)regList.get(i)).getRegSta().equals("1")) {%>
+				                     	수강전 
+				                     <%} else if(((Register)regList.get(i)).getRegSta().equals("2")) {%>
+				                        수강완료 
+				                     <%} else if(((Register)regList.get(i)).getRegSta().equals("3")) {%>
+				                     	예약취소
+				                     <%} else if(((Register)regList.get(i)).getRegSta().equals("4")) {%>
+					                     튜터반려 			                     
+				                     <%} %>
+				                    </td>
+				                    <td><%= ((Register)regList.get(i)).getReEnroll() %></td>
+				                </tr>
+							<%} %>
+						<%} else if(regList.size() == 2) {%>
+							<% for(int i=1; i<=2; i++) {%>
+								<tr>
+				                    <td>
+				                    <%= ((Register)regList.get(i)).getCtName() %> 
+				                    > 
+				                    <%=((Register)regList.get(i)).getCtDname() %>
+				                    </td>
+				                    <td><%= ((Register)regList.get(i)).getClName() %></td>
+				                    <td><%= ((Register)regList.get(i)).getTtName() %></td>
+				                    <td><%= ((Register)regList.get(i)).getTeachDate() %></td>
+				                    <td>
+				                     <%if(((Register)regList.get(i)).getRegSta().equals("0")) {%>
+					                     승인전  
+					                 <%} else if(((Register)regList.get(i)).getRegSta().equals("1")) {%>
+				                     	수강전 
+				                     <%} else if(((Register)regList.get(i)).getRegSta().equals("2")) {%>
+				                        수강완료 
+				                     <%} else if(((Register)regList.get(i)).getRegSta().equals("3")) {%>
+				                     	예약취소
+				                     <%} else if(((Register)regList.get(i)).getRegSta().equals("4")) {%>
+					                     튜터반려 			                     
+				                     <%} %>
+				                    </td>
+				                    <td><%= ((Register)regList.get(i)).getReEnroll() %></td>
+				                </tr>
+							<%} %>							
+						<%} else { %>
 			                <tr>
 			                    <td>
-			                    <%= rg.getCtName() %> > <%=rg.getCtDname() %>
+			                    <%= ((Register)regList.get(0)).getCtName() %> 
+			                    > 
+			                    <%=((Register)regList.get(0)).getCtDname() %>
 			                    </td>
-			                    <td><%= rg.getClName() %></td>
-			                    <td><%= rg.getTtName() %></td>
-			                    <td><%= rg.getTeachDate() %></td>
-			                    <td><%= rg.getRegSta() %></td>
-			                    <td><%= rg.getRegCount() %></td>
+			                    <td><%= ((Register)regList.get(0)).getClName() %></td>
+			                    <td><%= ((Register)regList.get(0)).getTtName() %></td>
+			                    <td><%= ((Register)regList.get(0)).getTeachDate() %></td>
+			                    <td>
+			                     <%if(((Register)regList.get(0)).getRegSta().equals("0")) {%>
+				                     승인전  
+				                 <%} else if(((Register)regList.get(0)).getRegSta().equals("1")) {%>
+			                     	수강전 
+			                     <%} else if(((Register)regList.get(0)).getRegSta().equals("2")) {%>
+			                        수강완료 
+			                     <%} else if(((Register)regList.get(0)).getRegSta().equals("3")) {%>
+			                     	예약취소
+			                     <%} else if(((Register)regList.get(0)).getRegSta().equals("4")) {%>
+				                     튜터반려 			                     
+			                     <%} %>
+			                    </td>
+			                    <td><%= ((Register)regList.get(0)).getReEnroll() %></td>
 			                </tr>
 		                <% } %>
 	                
@@ -272,18 +380,39 @@
                         <th>작성일</th>
                     </tr>
                     <tbody>
-                        <tr>
-                            <td>앙금플라워로 떡케이크...</td>
-                            <td>기념일에 하기 너무 좋아요! 오랜만에 힐링...</td>
-                            <td>5.0</td>
-                            <td>2023-01-01</td>
-                        </tr>
-                        <tr>
-                            <td>원데이 스케이트...</td>
-                            <td>오랜만에 스트레스 풀고 너무 좋았어요</td>
-                            <td>5.0</td>
-                            <td>2023-01-05</td>
-                        </tr>
+                        <% if(revList.isEmpty()){ %>
+			                <tr>
+			                    <td colspan="4">작성한 후기가 없습니다.</td>
+			                </tr>
+						<% }else { %>
+			                <%if(revList.size() >= 3) {%>
+			                	<% for(int i=1; i<=3; i++) { %>
+					                <tr>
+					                    <td><%= ((Review)revList.get(i)).getClName() %></td>
+					                    <td><%= ((Review)revList.get(i)).getReviewContent() %></td>
+					                    <td><%= ((Review)revList.get(i)).getReviewStar() %></td>
+					                    <td><%= ((Review)revList.get(i)).getReviewDate() %></td>
+					                </tr>
+			                	<% } %>
+			                <%} else if(revList.size() == 2) {%>
+				                <% for(int i=1; i<=2; i++) { %>
+					                <tr>
+					                    <td><%= ((Review)revList.get(i)).getClName() %></td>
+					                    <td><%= ((Review)revList.get(i)).getReviewContent() %></td>
+					                    <td><%= ((Review)revList.get(i)).getReviewStar() %></td>
+					                    <td><%= ((Review)revList.get(i)).getReviewDate() %></td>
+					                </tr>
+				                <% } %>			                
+			                <%} else {%>
+				                <tr>
+				                    <td><%= ((Review)revList.get(0)).getClName() %></td>
+				                    <td><%= ((Review)revList.get(0)).getReviewContent() %></td>
+				                    <td><%= ((Review)revList.get(0)).getReviewStar() %></td>
+				                    <td><%= ((Review)revList.get(0)).getReviewDate() %></td>
+				                </tr>
+			                <% } %>
+		                
+		                <% } %>
                     </tbody>
                 </table>   
             </div>
@@ -310,18 +439,51 @@
                         <th>찜한날짜</th>
                     </tr>
                     <tbody>
-                        <tr>
-                            <td>쿠킹>베이킹</td>
-                            <td>앙금플러워 떡케이크 만들기</td>
-                            <td>람보람보</td>
-                            <td>2023-01-01</td>
-                        </tr>
-                        <tr>
-                            <td>스포츠>실외</td>
-                            <td>원데이 스케이트 보드 핵심 기술</td>
-                            <td>보드신</td>
-                            <td>2023-01-05</td>
-                        </tr>
+                       <% if(likeList.isEmpty()){ %>
+		                <tr>
+		                    <td colspan="4">찜한 클래스가 없습니다.</td>
+		                </tr>
+						<% }else { %>
+							<%if(likeList.size() >= 3) {%>
+								<% for(int i=1;i<=3;i++) { %>
+					                <tr>
+					                    <td>
+					                    <%= ((Like)likeList.get(i)).getCtName() %>
+					                    >
+					                    <%= ((Like)likeList.get(i)).getCtDname() %>
+					                    </td>
+					                    <td><%= ((Like)likeList.get(i)).getClName() %></td>
+					                    <td><%= ((Like)likeList.get(i)).getTtName() %></td>
+					                    <td><%= ((Like)likeList.get(i)).getLikeDate() %></td>
+					                </tr>
+				                <% } %>
+							<%} else if(likeList.size() == 2) {%>
+								<% for(int i=1;i<=2;i++) { %>
+					                <tr>
+					                    <td>
+					                    <%= ((Like)likeList.get(i)).getCtName() %>
+					                    >
+					                    <%= ((Like)likeList.get(i)).getCtDname() %>
+					                    </td>
+					                    <td><%= ((Like)likeList.get(i)).getClName() %></td>
+					                    <td><%= ((Like)likeList.get(i)).getTtName() %></td>
+					                    <td><%= ((Like)likeList.get(i)).getLikeDate() %></td>
+					                </tr>
+				                <% } %>							
+							<%} else{%>
+				                <tr>
+				                    <td>
+				                    <%= ((Like)likeList.get(0)).getCtName() %>
+				                    >
+				                    <%= ((Like)likeList.get(0)).getCtDname() %>
+				                    </td>
+				                    <td><%= ((Like)likeList.get(0)).getClName() %></td>
+				                    <td><%= ((Like)likeList.get(0)).getTtName() %></td>
+				                    <td><%= ((Like)likeList.get(0)).getLikeDate() %></td>
+				                </tr>
+			                <% } %>
+		                
+		                <% } %>
                     </tbody>
                 </table>   
             </div>

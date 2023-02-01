@@ -576,14 +576,12 @@ public class AdminDao {
 			*/
 			if(status.length() != 0) {
 				sql += "and cl_status in (" + status ;
-			    sql.substring(0,sql.length()-1);
+			    sql = sql.substring(0,sql.length()-1);
 				sql += ")"; 
 			}
 			
-			
-			
-			
-			//System.out.println(sql);
+	
+			System.out.println(sql);
 	
 			pstmt=conn.prepareStatement(sql);
 			
@@ -598,6 +596,7 @@ public class AdminDao {
 									rset.getString("cl_status")
 								
 						));
+		
 			}
 		  System.out.println(list);
 		} catch (SQLException e) {
@@ -790,6 +789,7 @@ public class AdminDao {
 				regList.add(new Register(rset.getInt("REG_NO"),
 									     rset.getString("MEM_NO"),
 									     rset.getString("CL_NO"),
+									     rset.getString("CL_NAME"),
 									     rset.getString("TEACH_DATE"),
 									     rset.getString("reg_date"),
 									     rset.getString("sch_no"),
@@ -811,7 +811,7 @@ public class AdminDao {
 			close(conn);
 		}
 		
-		return null;
+		return regList;
 	}
 
 	/** 회원번호로 리뷰리스트 조회 Dao 메소드
@@ -840,7 +840,8 @@ public class AdminDao {
 									   rset.getString("re_sta"),
 									   rset.getInt("reg_no"),
 									   rset.getInt("cl_no"),
-									   rset.getInt("mem_no")));
+									   rset.getInt("mem_no"),
+									   rset.getString("cl_name")));
 			}
 			
 		} catch (SQLException e) {
@@ -852,9 +853,12 @@ public class AdminDao {
 		return revList;
 	}
 
-
-
-
+	/** 회원번호로 좋아요 리스트 조회용 dao
+	 * @author 수연
+	 * @param conn
+	 * @param memNo
+	 * @return likeList
+	 */
 	public ArrayList<Like> selectAllLike(Connection conn, int memNo) {
 		ArrayList<Like> likeList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -869,7 +873,10 @@ public class AdminDao {
 			while(rset.next()) {
 				likeList.add(new Like(rset.getString("cl_name"),
 						              rset.getInt("mem_no"),
-						              rset.getString("like_date")));
+						              rset.getString("like_date"),
+						              rset.getString("ct_name"),
+						              rset.getString("ct_dname"),
+						              rset.getString("tt_name")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

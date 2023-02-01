@@ -5,13 +5,13 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");	
-
+	int memNo = (int)request.getAttribute("no");
 %>        
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -221,7 +221,7 @@
 <%@ include file="../common/tutorMenubar.jsp" %>
 	  <div class="outer">
                     
-                    <form action="" id="class_list" >
+                   
                     <h5 style="font-weight: 900;">내 클래스 목록</h5>
                     <br>
                     <h6 style="font-weight:600">클래스 조회</h6>
@@ -229,6 +229,7 @@
                     <table id="class-select">
                         <tr>
                             <th width="100">검색어</th>
+                            <input type="hidden" name ="no" value="<%=memNo %>">
                             <td><input type="search" name="keyword">
                                
                             </td>
@@ -278,15 +279,15 @@
                         <tr>
                             <th>등록상태</th>
                             <td>
-                                <input type="checkbox" name="status" id="chkAll" value="">
+                                <input type="checkbox" name="all" id="chkAll" >
                                 <label for="">전체</label>
-                                <input type="checkbox" name="status" id="" value="">
+                                <input type="checkbox" name="status" id="" value="0">
                                 <label for="">검수요청</label>
-                                <input type="checkbox" name="status" id="" value="">
+                                <input type="checkbox" name="status" id="" value="1">
                                 <label for="">신청반려</label>
-                                <input type="checkbox" name="status" id="" value="">
+                                <input type="checkbox" name="status" id="" value="2">
                                 <label for="">판매중</label>
-                                <input type="checkbox" name="status" id="" value="">
+                                <input type="checkbox" name="status" id="" value="3">
                                 <label for="">판매중지</label>
                             </td>
                         </tr>
@@ -306,12 +307,89 @@
                     <br>
                     <hr>
                     <div align="center">
-                    <button type="submit" class="btn btn-secondary btn-sm">조회하기</button>
-                    
+                    <button type="submit" class="btn btn-secondary btn-sm" onclick="searchcl();" >조회하기</button>
                     
                     </div>
+                    
+              <script>
+            	function searchcl(){
+            		
+					let status = "";
+                	
+                	$("input[name=status]:checked").each(function(){
+               		 let arr = $(this).val(); 
+               		 status += arr + ","
+      
+               	})
+ 
+            		$.ajax({
+            			url: "<%=contextPath%>/search.tt",
+            			data : {
+            				keyword: $("input[name=keyword]").val(),
+            				startDate : $("input[name=searchStartDate]").val(),
+            				endDate : $("input[name=searchEndDate]").val(),
+            				status : status,
+            				no : $("input[name=no]").val()
+  								
+            			},
+            			type:"post",
+            			success : function(result){
+            				console.log(result);
+            				
+            				let value = "";
+            				if(result.length == 0){
+            					value += "<tr>"
+            					      + "<td colspan='5'> 조회된 클래스가 없습니다."
+            					      + "</tr>"
+            					      
+            				}else{
+            					for(let i=0; i<result.length; i++){
+            						value += "<tr>"
+            							   + "<td>" + result[i].clNo  + "</td>"
+            							   + "<td>" + result[i].ctDno + "</td>"
+            							   + "<td>" + result[i].clName + "</td>"  
+            							
+            							   
+            							   if(result[i].enrollDate <= result[i].updateDate){
+            							   	value+= "<td>" + result[i].updateDate + "</td>"
+            								}else{
+            									value +=  "<td>" + result[i].enrollDate + "</td>"
+            								}
+            							   
+            						value  += "<td>" + result[i].clStatus + "</td>"
+            							   
+            						       if(result[i].clRefuse !=null){
+            						    	  value += "<td>" + result[i].clRefuse + "</td>"
+            						       } else{
+            						    	   value += "<td> </td>"
+            						       }
+            							   + "</tr>"
+            							   
+            					}
+            				
+            				}
+            				$("#clTable tbody").html("");
+            				$(".paging-area").html("");
+            				$("#clTable tbody").html(value);
+            				
+            				
+            				$(function(){
+        		        		$("#clTable>tbody>tr").click(function(){
+        		        			location.href="<%=contextPath%>/cldetail.tt?no="+$(this).children().eq(0).text();
+        		        		})
+        		        	})
+            			
+            			},
+            			error: function(){
+            				console.log("조회용 ajax통신 실패");
+            			}
+            		})
+            		
+            	}
+            
+           </script>
 
-                    </form>
+                   
                     <br><br>
 
                     <div id="list">
