@@ -89,6 +89,35 @@ public class Review {
 		this.memProfile = memProfile;
 	}
 
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate,
+			String reviewStatus, int regNo, int clNo, int memNo, String clName) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.reviewUpDate = reviewUpDate;
+		this.reviewStatus = reviewStatus;
+		this.regNo = regNo;
+		this.clNo = clNo;
+		this.memNo = memNo;
+		this.clName = clName;
+	}
+
+
+
+	public int getMemNo() {
+		return memNo;
+	}
+
+
+
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
+	}
+
+
+
 	public int getReviewNo() {
 		return reviewNo;
 	}

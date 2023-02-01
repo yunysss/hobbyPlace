@@ -152,13 +152,14 @@ public class Register {
 	}
 	
 
-	public Register(int regNo, String memNo, String clNo, String teachDate, String regDate, String schNo, String regPay,
+	public Register(int regNo, String memNo, String clNo, String clName, String teachDate, String regDate, String schNo, String regPay,
 			String regPrice, String regCount, String regSta, String refuse, String reEnroll, String regCal,
 			String ttName, String ctName, String ctDname) {
 		super();
 		this.regNo = regNo;
 		this.memNo = memNo;
 		this.clNo = clNo;
+		this.clName = clName;
 		this.teachDate = teachDate;
 		this.regDate = regDate;
 		this.schNo = schNo;

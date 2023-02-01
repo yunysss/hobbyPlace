@@ -790,6 +790,7 @@ public class AdminDao {
 				regList.add(new Register(rset.getInt("REG_NO"),
 									     rset.getString("MEM_NO"),
 									     rset.getString("CL_NO"),
+									     rset.getString("CL_NAME"),
 									     rset.getString("TEACH_DATE"),
 									     rset.getString("reg_date"),
 									     rset.getString("sch_no"),
@@ -811,7 +812,7 @@ public class AdminDao {
 			close(conn);
 		}
 		
-		return null;
+		return regList;
 	}
 
 	/** 회원번호로 리뷰리스트 조회 Dao 메소드
@@ -840,7 +841,8 @@ public class AdminDao {
 									   rset.getString("re_sta"),
 									   rset.getInt("reg_no"),
 									   rset.getInt("cl_no"),
-									   rset.getInt("mem_no")));
+									   rset.getInt("mem_no"),
+									   rset.getString("cl_name")));
 			}
 			
 		} catch (SQLException e) {
