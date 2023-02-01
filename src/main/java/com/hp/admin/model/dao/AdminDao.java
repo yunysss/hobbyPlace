@@ -852,9 +852,12 @@ public class AdminDao {
 		return revList;
 	}
 
-
-
-
+	/** 회원번호로 좋아요 리스트 조회용 dao
+	 * @author 수연
+	 * @param conn
+	 * @param memNo
+	 * @return likeList
+	 */
 	public ArrayList<Like> selectAllLike(Connection conn, int memNo) {
 		ArrayList<Like> likeList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -869,7 +872,10 @@ public class AdminDao {
 			while(rset.next()) {
 				likeList.add(new Like(rset.getString("cl_name"),
 						              rset.getInt("mem_no"),
-						              rset.getString("like_date")));
+						              rset.getString("like_date"),
+						              rset.getString("ct_name"),
+						              rset.getString("ct_dname"),
+						              rset.getString("tt_name")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
