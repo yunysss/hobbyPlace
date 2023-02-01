@@ -21,6 +21,7 @@ SELECT
 		   QUESTION
 	  FROM FAQ
 	 WHERE GRADE='1'
+	   AND STATUS='Y'
 	 ORDER 
 	    BY ENROLL_DATE DESC
 </entry>
@@ -52,8 +53,9 @@ WHERE RNUM BETWEEN ? AND ?
 		                       *
 		                  FROM FAQ
 		                 WHERE GRADE='1'
+		                   AND STATUS='Y'
 		                 ORDER 
-		                    BY FAQ_NO
+		                    BY ENROLL_DATE DESC
 		            ) A
 		    )
 		WHERE RNUM BETWEEN ? AND ?
@@ -72,6 +74,7 @@ WHERE RNUM BETWEEN ? AND ?
 	        COUNT(*) count
 	  FROM FAQ
 	 WHERE GRADE = '1'
+	   AND STATUS='Y'
 </entry>
 
 
@@ -128,6 +131,7 @@ WHERE RNUM BETWEEN ? AND ?
 	        COUNT(*) count
 	  FROM FAQ
 	 WHERE GRADE = '2'
+	   AND STATUS='Y'
 </entry>
 
 <entry key="selectTutorFaqList">
@@ -139,6 +143,7 @@ WHERE RNUM BETWEEN ? AND ?
 		                       *
 		                  FROM FAQ
 		                 WHERE GRADE='2'
+		                   AND STATUS='Y'
 		                 ORDER 
 		                    BY ENROLL_DATE DESC
 		            ) A
@@ -280,8 +285,9 @@ INSERT
 			                       *
 			                  FROM FAQ
 			                 WHERE GRADE='2'
+			                   AND STATUS='Y'
 			                 ORDER 
-			                    BY FAQ_NO
+			                    BY ENROLL_DATE DESC
 			            ) A
 			    )
 			WHERE RNUM BETWEEN 1 AND 5
@@ -296,8 +302,9 @@ INSERT
 			                       *
 			                  FROM FAQ
 			                 WHERE GRADE='1'
+			                   AND STATUS='Y'
 			                 ORDER 
-			                    BY FAQ_NO
+			                    BY ENROLL_DATE DESC
 			            ) A
 			    )
 			WHERE RNUM BETWEEN 1 AND 5
@@ -325,12 +332,35 @@ INSERT
 	  )
 </entry>
 
+<entry key="insertFaqTutee">
+	INSERT
+	  INTO FAQ
+	  (
+	    FAQ_NO,
+	    MEM_NO,
+	    GRADE,
+	    QUESTION,
+	    ANSWER,
+	    ENROLL_DATE
+	  )
+	  VALUES
+	  (
+	    SEQ_FAQNO.NEXTVAL,
+	    0,
+	    1,
+	    ?,
+	    ?,
+	    SYSDATE
+	  )
+</entry>
+
 <entry key="selectTutorFaqDetail">
 	SELECT 
 	        QUESTION,
 	        ANSWER
 	  FROM FAQ
 	 WHERE FAQ_NO = ?
+	   AND STATUS='Y'
 		  
 </entry>
 
@@ -339,5 +369,11 @@ INSERT
 	   SET QUESTION = ?,
 	       ANSWER = ?
 	 WHERE FAQ_NO = ?
+</entry>
+
+<entry key="deleteFaq">
+	UPDATE FAQ
+		   SET STATUS = 'N'
+		 WHERE FAQ_NO = ?
 </entry>
 </properties>
