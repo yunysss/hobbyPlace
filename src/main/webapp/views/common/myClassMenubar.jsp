@@ -112,7 +112,7 @@
 			})
 			<!--수강내역 수강 취소 클래스-->
 			$("#refundMyClass").click(function(){
-				location.href="<%=contextPath%>/refundList.ref";
+				location.href="<%=contextPath%>/refundList.reg?cpage=1";
 			})
 			<!--후기작성-->
 			$("#writingReview").click(function(){

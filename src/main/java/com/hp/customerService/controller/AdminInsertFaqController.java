@@ -33,6 +33,7 @@ public class AdminInsertFaqController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		

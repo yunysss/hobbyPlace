@@ -443,8 +443,8 @@
 			,CT_NAME
 			,CT_DNAME
 			,CL_NAME
-			,TO_date(c.enroll_date, 'YYYY-MM-DD') "enroll_date"
-			,TO_date(c.update_date, 'YYYY-MM-DD') "update_date"
+			,TO_CHAR(c.enroll_date, 'YYYY-MM-DD') "enroll_date"
+			,TO_CHAR(c.update_date, 'YYYY-MM-DD') "update_date"
 			,decode(CL_STATUS,'0','검수요청','1','신청반려','2','판매중','3','판매중단') "cl_status"
 			,NVL(CL_REFUSE,'') "cl_refuse"
 		

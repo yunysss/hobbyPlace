@@ -254,6 +254,18 @@ public class NoticeService {
 		return result;
 	}
 	
+	public int insertFaqTutee(String title, String content) {
+		Connection conn = getConnection();
+		int result = new NoticeDao().insertFaqTutee(conn, title, content);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
 	public Faq selectTutorFaqDetail(int no) {
 		Connection conn = getConnection();
 		Faq f= new NoticeDao().selectTutorFaqDetail(conn, no);
@@ -274,5 +286,18 @@ public class NoticeService {
 		close(conn);
 		return result;
 		
+	}
+	
+	public int deleteFaq(int no) {
+		
+		Connection conn = getConnection();
+		int result = new NoticeDao().deleteFaq(conn, no);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 }

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, com.hp.customerService.model.vo.*"%>
+    import="java.util.ArrayList, com.hp.customerService.model.vo.*, com.hp.common.model.vo.PageInfo"%>
     
 <%
-	ArrayList<Faq> list1  = (ArrayList<Faq>)request.getAttribute("list1");
-	ArrayList<Faq> list2  = (ArrayList<Faq>)request.getAttribute("list2");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+   	ArrayList<Faq> list  = (ArrayList<Faq>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,6 +73,10 @@
         border: 1px solid gray;
         padding: 10px;
     }
+    .paging-area{
+            text-align: center;
+            
+        }
     
 </style>
 </head>
@@ -80,87 +84,63 @@
 <%@ include file="../common/adminMenubar.jsp"%>
     <div class="outer">
 
-        
+        <br>
         <h1><b>고객센터</b></h1> 
         <br><br><hr>
         <div class="title">자주묻는질문</div> <br><hr>
-
-        <div class="tutor">
-            튜터
-        </div>
-
-        <a href="<%=contextPath%>/faqEnroll.ad"><div class="enroll">작성하기</div></a>
-        <a href="<%=contextPath%>/faqListTutor.ad?cpage=1"><div class="detail">더보기+</div></a>
-        
-        <br><br>
-
-        <table>
-            <tr>
-                <th width="80">번호</th>
-                <th width="600">제목</th>
-                <th>작성날짜</th>
-                <th></th>
-            </tr>
-			
-			<%if(list1.isEmpty()) {%>
-            <tr>
-                <td>등록된 내용이 없습니다.</td>
-            </tr>
-			<%}else{ %>
-				<%for(int i=0; i<5; i++){ %>
-		            <tr>
-		                <td><%=list1.get(i).getrNum() %></td>
-		                <td onclick="location.href='selectFaq.ad?no=<%=list1.get(i).getFaqNO()%>'"><%=list1.get(i).getQuestion() %></td>
-		                <td><%=list1.get(i).getEnrollDate() %></td>
-		                <td><button onclick="location.href='<%=contextPath%>/updateFaq.ad?no=<%=list1.get(i).getFaqNO()%>'">수정하기</button></td>
-		            </tr>
-            	<%} %>
-			<%} %>
-            
-        </table><br><br><br>
-
 
         <div class="tutor">
             튜티
         </div>
 
         <a href="<%=contextPath%>/faqEnrollTutee.ad"><div class="enroll">작성하기</div></a>
-        <a href="<%=contextPath%>/faqListTutee.ad?cpage=1"><div class="detail">더보기+</div></a>
+        
         
         <br><br>
 
         <table>
             <tr>
                 <th width="80">번호</th>
+                
                 <th width="600">제목</th>
                 <th>작성날짜</th>
+                
                 <th></th>
             </tr>
-
-            <%if(list2.isEmpty()) {%>
+		<%if(list.isEmpty()){ %>
             <tr>
-                <td>등록된 내용이 없습니다.</td>
+                <td>조회된 내용이 없습니다.</td>
             </tr>
-			<%}else{ %>
-				<%for(int i=0; i<5; i++){ %>
-		            <tr>
-		                <td><%=list2.get(i).getrNum() %></td>
-		                <td onclick="location.href='selectFaq.ad?no=<%=list2.get(i).getFaqNO()%>'"><%=list2.get(i).getQuestion() %></td>
-		                <td><%=list2.get(i).getEnrollDate() %></td>
-		                <td><button onclick="location.href='<%=contextPath%>/updateFaq.ad?no=<%=list2.get(i).getFaqNO()%>'">수정하기</button></td>
-		            </tr>
-            	<%} %>
-			<%} %>
+		<%}else{ %>
+			<%for(Faq f : list){ %>
+	            <tr>
+	                <td><%=f.getrNum() %></td>
+	                <td><%=f.getQuestion() %></td>
+	                <td><%=f.getEnrollDate() %></td>
+	                <td ><button onclick="location.href='<%=contextPath%>/updateFaq.ad?no=<%=f.getFaqNO()%>'">수정하기</button></td>
+	            </tr>
+            <%} %>
+		<%} %>
             
         </table>
-        
 
 
-        
+    </div><br><br><br>
 
+    <div class="paging-area">
 
-
-
+        <%if(pi.getCurrentPage()!=1){ %>
+	            	<button style="border: none; " 
+	            			onclick="location.href='<%=request.getContextPath()%>//faqListTutee.ad?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+	            <%} %>
+	            <%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++){ %>
+	            	<button style="background-color:rgb(22, 160, 133); color:white; border:none"
+	            			onclick="location.href='<%=request.getContextPath()%>/faqListTutee.ad?cpage=<%=i%>';"><%=i %></button>
+	            <%} %>
+	            <%if(pi.getCurrentPage()!= pi.getMaxPage()) {%>
+	            	<button style="border: none;"
+	            			onclick="location.href='<%=request.getContextPath()%>/faqListTutee.ad?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+				<%} %>
 
     </div>
     

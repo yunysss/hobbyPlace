@@ -693,6 +693,28 @@ public class NoticeDao {
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, title);
+				pstmt.setString(2, content);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		public int insertFaqTutee(Connection conn, String title, String content) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertFaqTutee");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
 				pstmt.setString(1, title);
 				pstmt.setString(2, content);
 				
@@ -751,6 +773,26 @@ public class NoticeDao {
 			}finally {
 				close(pstmt);
 			}
+			return result;
+		}
+		
+		public int deleteFaq(Connection conn, int no) {
+			// update => 처리된행수
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("deleteFaq");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, no);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
 			return result;
 		}
 		
