@@ -43,8 +43,10 @@ public class ClassPageController extends HttpServlet {
 			int likeStatus = new LessonService().selectLikeStatus(clNo, memNo);
 			request.setAttribute("likeStatus", likeStatus);
 		}
+		ArrayList<Review> rList = new LessonService().selectClassReview(clNo);
 		request.setAttribute("le", le);
 		request.setAttribute("aList", aList);
+		request.setAttribute("rList", rList);
 		
 		request.getRequestDispatcher("views/lesson/classPageView.jsp").forward(request, response);
 	}

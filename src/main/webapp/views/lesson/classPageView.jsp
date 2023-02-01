@@ -3,6 +3,7 @@
 <%
 	Lesson le = (Lesson)request.getAttribute("le");
 	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
+	ArrayList<Review> rList = (ArrayList<Review>)request.getAttribute("rList");
 	int likeStatus = 0;
 	if((Member)session.getAttribute("loginUser") != null){
 		likeStatus = (int)request.getAttribute("likeStatus");
@@ -42,7 +43,7 @@
         }
         .smallImg:hover{
         	cursor:pointer;
-        	opacity:0.5;
+        	opacity:0.8;
         }
         #classDetail-short{float:left;}
         #classDetail-likeShare{float:right;}
@@ -70,6 +71,15 @@
         }
         .nav-item:hover{
             text-decoration: underline 3px;
+        }
+        #section3 button{
+            background:rgb(35, 104, 116);
+            color:white;
+            height:40px;
+            width:150px;
+        }
+        #section3 table td{
+        	padding-bottom:10px;
         }
 
         /* classDetail-2 */
@@ -100,7 +110,7 @@
 	    	margin:auto;
     	}
 	    .possibleDay{background:rgb(192, 221, 226); color:white;}
-	    .possibleDay:hover{cursor:pointer; opacity:0.5;}
+	    .possibleDay:hover{cursor:pointer; opacity:0.8;}
         
         #classDetail-cal>table{
             background:white;
@@ -387,141 +397,7 @@
                         <%= le.getCurriculum() %>
                     </div>
                     <hr>
-                    <script>
-				        let totalData; 
-					    let dataPerPage=5; 
-					    let pageCount = 5; 
-					    let globalCurrentPage=1;
-					    let dataList; 
-					
-					    $(function () {
-						     selectReview();
-					    })
-				        function selectReview(){
-				    		$.ajax({
-				    			url:"<%=contextPath%>/selectReview.cl",
-				    			data:{
-				    				clNo:<%=le.getClNo()%> 				
-				    			},
-				    			success:function(list){
-				    				if(list.length == 0){
-				    					let value = "<tr>"
-				    						+	"<td colspan='3'>작성된 후기가 없습니다.</td>"
-				    						+ "</tr>"
-				    					$("#reviewList tbody").html(value);
-				    					$("#paging").html("");
-				    				} else{
-				    	 		    	   totalData = list.length;
-				    	 		           dataList=list;
-				    	 		           displayData(1, dataPerPage, totalData);
-				    	 		           paging(totalData, dataPerPage, pageCount, 1);
-				    				}
-				    			},error:function(){
-				    				console.log("정산목록 조회용 ajax 통신실패");
-				    			}
-				    		})
-				    	}
-					    function displayData(currentPage, dataPerPage, totalData) {
-					    	  let value = "<tr>"
-				    		  			+	"<td width='60' height='60' colspan='3'>"
-				    		  			+		"⭐<%= le.getClStarAvg() %>.0 (<%= le.getClStarCount() %>)"
-				    		  			+	"</td>"
-				    		  			+ "</tr>";
-					    	  currentPage = Number(currentPage);
-					    	  dataPerPage = Number(dataPerPage);
-					    	  if(totalData < dataPerPage){
-					    		  num = totalData;
-					    	  } else{
-					    		  num = dataPerPage;
-					    	  }
-					    	  for (let i = (currentPage - 1) * dataPerPage; 
-					    	    i < (currentPage - 1) * dataPerPage + num;
-					    	    i++
-					    	  ) {
-					    		  value += "<tr>"
-					    		  		+	"<td>";
-					    		  if(dataList[i].memProfile == null){
-				                  	value += "<img src='<%= contextPath %>/resources/tutorProfile_upfiles/defaultimg.jpg' width='45' height='45' class='rounded-circle'>"
-					    		  }else{ 
-				                	value += "<img src='<%=contextPath%>/" + dataList[i].memProfile + " width='45' height='45' class='rounded-circle'>"
-				                  }
-				                  value += "</td>"
-		                            	+	"<td>"
-		                            	+		dataList[i].memNickName + "<br>";
-	                            	for(let j=1; j<=dataList[i].reviewStar; j++){
-	               						value += "⭐";
-	               					}
-	                            	if(dataList[i].reviewUpdate == null){
-	                            		value += dataList[i].reviewDate;
-	                            	} else{
-	                            		value += dataList[i].reviewUpdate;
-	                            	}
-                            		value += "</td>"
-                            		  		+  "<td rowspan='2' width='100'>"
-                            		  		+"<img src='' width='100'>"
-                          		  		  	+  "</td>"
-                          		  		  + "</tr>"
-                          		  		  +	"<tr>"
-                          		  		  +		"<td colspan='2'>" + dataList[i].reviewContent + "</td>"
-                          		  		  +	"</tr>"
-								}
-					    	  $("#reviewList tbody").html(value);
-							}
-							
-				  	
-				  		function paging(totalData, dataPerPage, pageCount, currentPage) {
-				  		 
-				  			  totalPage = Math.ceil(totalData / dataPerPage); 
-				      		  
-				      		  if(totalPage<pageCount){
-				      		    pageCount=totalPage;
-				      		  }
-				      		  
-				      		  let pageGroup = Math.ceil(currentPage / pageCount); 
-				      		  let last = pageGroup * pageCount; 
-				      		  
-				      		  if (last > totalPage) {
-				      		    last = totalPage;
-				      		  }
-				
-				      		  let first = last - (pageCount - 1); 
-				      		  let next = last + 1;
-				      		  let prev = first - 1;
-				
-				      		  let pageHtml = "";
-				
-				      		  if (prev > 0) {
-				      		    pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
-				      		  }
-				
-				      		  for (let i = first; i <= last; i++) {
-				      		    if (currentPage == i) {
-				      		      pageHtml +=
-				      		        "<li class='on'><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
-				      		    } else {
-				      		      pageHtml += "<li><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
-				      		    }
-				      		  }
-				
-				      		  if (last < totalPage) {
-				      		    pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
-				      		  }
-				
-				      		  $("#paging").html(pageHtml);
-				
-				      		  $("#paging li a").click(function () {
-				      		    let $id = $(this).attr("id");
-				      		    selectedPage = $(this).text();
-				
-				      		    if ($id == "next") selectedPage = next;
-				      		    if ($id == "prev") selectedPage = prev;
-				      		    globalCurrentPage = selectedPage;
-				      		    paging(totalData, dataPerPage, pageCount, selectedPage);
-				      		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
-				      		  });
-				  		  
-				  		}
-			        </script>
+                    
                     <div id="section3" class="container-fluid">
                     	<table width="550" id="reviewList">
                     		<thead>
@@ -529,7 +405,45 @@
 	                    			<td><b style="font-size:14px">후기</b></td>
 	                    		</tr>
                     		</thead>
-                    		<tbody></tbody>
+                    		<tbody>
+                    			<% if(rList.size() == 0){ %>
+                    				<tr>
+									<td colspan="3">작성된 후기가 없습니다.</td>
+									</tr>
+                    			<% }else{ %>
+                    				<% int reCount = 5; 
+                    				if(rList.size() < 5){
+                    					reCount = rList.size();}
+	                    				for(int i=0; i<reCount; i++){%>
+	                    					<tr>
+	                    					<td>
+					  							<% if(rList.get(i).getMemProfile() == null){%>
+						  							<img src="<%= contextPath %>/resources/tutorProfile_upfiles/defaultimg.jpg" width="45" height="45" class="rounded-circle">
+						  						<% }else{ %>
+					  								<img src="<%=contextPath%>/<%= rList.get(i).getMemProfile() %>" width="45" height="45" class="rounded-circle">
+					  							<% } %>
+					  						</td>
+					  						<td>
+					  							<%= rList.get(i).getMemNickName() %> <br>
+					  							<% for(int j=1; j<= rList.get(i).getReviewStar(); j++) { %>
+					  								⭐
+					  							<% } %>
+					  							<%= rList.get(i).getReviewUpDate() %>
+					  						</td>
+					  						<td rowspan="2" width="100">
+					  							<img src="" width="100">
+					  						</td>
+					  						</tr>
+					  						<tr>
+					  							<td colspan="2"> <%= rList.get(i).getReviewContent() %> </td>
+					  						</tr>
+				  						<% } %>
+				  						<tr>
+				  							<td colspan="3" align="center"><button class="btn">더보기</button>
+				  						</tr>
+			  					<% } %>
+				  				
+                    		</tbody>
                     	</table>
                     	<div align="center">
 			            	<ul id="paging">
