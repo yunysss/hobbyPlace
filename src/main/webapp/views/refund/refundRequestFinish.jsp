@@ -6,7 +6,7 @@
     
 <%
  	Register r = (Register)request.getAttribute("r");
-	Refund ref = (Refund)request.getAttribute("refundFormInfo");
+	Refund ref = (Refund)request.getAttribute("ref");
  %>
 <!DOCTYPE html>
 <html>
@@ -131,11 +131,11 @@
     <br>
 
     <div id="refundCard">
-        <!--카드결제 \;'.일때-->
+        <!--카드결제 일때-->
         <table width="690px">
             <tr>
                 <td style="font-size: 15px;"><b>환불 금액</b></td>
-                <td  style="color: rgb(255, 104, 112); text-align: right;"><b><>원</b></td>
+                <td  style="color: rgb(255, 104, 112); text-align: right;"><b><%=ref.getRefPrice() %>원</b></td>
             </tr>
         </table>
     </div>
@@ -186,7 +186,7 @@
     <script>
     	$(function(){
     		$("#refundListBtn").click(function(){
-				location.href = "<%=contextPath%>/refundList.tee";    			
+				location.href = "<%=contextPath%>/refundList.ref";    			
     		})
     	})
     </script>

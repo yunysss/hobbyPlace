@@ -113,6 +113,18 @@
 	</entry>
 	
 	
+	<entry key="selectRefundInfo">
+		SELECT
+				MEM_NO
+			  , REF_PRICE
+			  , REF_BANK
+			  , REF_ACC
+			  , REF_NM
+		   FROM REFUND
+	   	  WHERE ORDER_NO= ?
+				
+	</entry>
+	
 	
 	
 </properties>
