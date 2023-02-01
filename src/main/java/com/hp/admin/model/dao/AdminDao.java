@@ -758,7 +758,6 @@ public class AdminDao {
 			            rset.getDate("A_DATE"),
 			            rset.getInt("A_MEM_NO"),
 			            rset.getString("TT_NAME")));
-				System.out.println(qnaList);
 			}
 			
 		} catch (SQLException e) {
@@ -801,8 +800,9 @@ public class AdminDao {
 									     rset.getString("reg_refuse"),
 									     rset.getString("re_enroll"),
 									     rset.getString("reg_cal"),
+									     rset.getString("tt_name"),
 									     rset.getString("ct_name"),
-									     rset.getString("ct_dname)));
+									     rset.getString("ct_dname")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -859,7 +859,7 @@ public class AdminDao {
 		ArrayList<Like> likeList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectAllLike");
+		String sql = prop.getProperty("selectALlLike");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

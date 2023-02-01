@@ -208,10 +208,11 @@
             <div class="tbList">
                 <table class="listTable">
                     <colgroup>
-                        <col style="width:200px;">
+                        <col style="width:150px;">
                         <col style="width:350px;">
-                        <col style="width:125px;">
-                        <col style="width:125px;">
+                        <col style="width:150px;">
+                        <col style="width:100px;">
+                        <col style="width:100px;">
                         <col style="width:100px;">
                     </colgroup>
                     <tr class="thd">
@@ -219,24 +220,27 @@
                         <th>클래스명</th>
                         <th>튜터명</th>
                         <th>수강일</th>
+                        <th>진행상태</th>
                         <th>후기작성</th>
                     </tr>
                     <tbody>
 	            	<% if(regList.isEmpty()){ %>
 		                <!-- case1. 게시글이 없을 경우 -->
 		                <tr>
-		                    <td colspan="5">조회된 게시글이 없습니다.</td>
+		                    <td colspan="6">조회된 게시글이 없습니다.</td>
 		                </tr>
 					<% }else { %>
 		                <!-- case2. 게시글이 있을 경우 -->
 		                <% for(Register rg : regList) { %>
 			                <tr>
-			                    <td><%= b.getBoardNo() %></td>
-			                    <td><%= b.getCategory() %></td>
-			                    <td><%= b.getBoardTitle() %></td>
-			                    <td><%= b.getBoardWriter() %></td>
-			                    <td><%= b.getCount() %></td>
-			                    <td><%= b.getCreateDate() %></td>
+			                    <td>
+			                    <%= rg.getCtName() %> > <%=rg.getCtDname() %>
+			                    </td>
+			                    <td><%= rg.getClName() %></td>
+			                    <td><%= rg.getTtName() %></td>
+			                    <td><%= rg.getTeachDate() %></td>
+			                    <td><%= rg.getRegSta() %></td>
+			                    <td><%= rg.getRegCount() %></td>
 			                </tr>
 		                <% } %>
 	                

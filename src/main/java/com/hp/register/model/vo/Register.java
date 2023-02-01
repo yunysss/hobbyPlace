@@ -155,8 +155,7 @@ public class Register {
 
 	public Register(int regNo, String memNo, String clNo, String teachDate, String regDate, String schNo, String regPay,
 			String regPrice, String regCount, String regSta, String refuse, String reEnroll, String regCal,
-			String depositSta, String memPhone, String memEmail, String clThumb, String clName, String startTime,
-			String distrName, String ttName, String ctName, String ctDname) {
+			String ttName, String ctName, String ctDname) {
 		super();
 		this.regNo = regNo;
 		this.memNo = memNo;
@@ -171,13 +170,6 @@ public class Register {
 		this.refuse = refuse;
 		this.reEnroll = reEnroll;
 		this.regCal = regCal;
-		this.depositSta = depositSta;
-		this.memPhone = memPhone;
-		this.memEmail = memEmail;
-		this.clThumb = clThumb;
-		this.clName = clName;
-		this.startTime = startTime;
-		this.distrName = distrName;
 		this.ttName = ttName;
 		this.ctName = ctName;
 		this.ctDname = ctDname;

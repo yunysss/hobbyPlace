@@ -211,19 +211,16 @@
 	<entry key="searchClass">
 	SELECT
 			CL_NO
-			,CT_NAME
-			,CT_NO
-			,CT_DNAME
-			,TT_NAME
+			,G.CT_NAME
+			,T.TT_NAME
 			,CL_NAME
-			,TO_date(c.enroll_date, 'YYYY-MM-DD') "enroll_date"
-			,decode(CL_STATUS,'0','검수요청','1','신청반려','2','판매중','3','판매중단') "cl_status"
+			,C.ENROLL_DATE
+			,CL_STATUS
 		
 			FROM CLASS C
-			JOIN CATEGORY G ON (C.CT_NO  = G.CT_NO)
-		    JOIN DCATEGORY D ON (C.CT_DNO = D.CT_DNO )
+			JOIN CATEGORY G USING (CT_NO)
 			JOIN TUTOR T USING (MEM_NO)
-			where 1=1	
+			WHERE
 			
 
 	
@@ -333,10 +330,10 @@
 	<entry key="selectAllRegister">
 		SELECT
 		       REG_NO
-		     , MEM_NO
-		     , CL_NO
-		     , TEACH_DATE
-		     , TO_CHAR(REG_DATE, 'YYYY-MM-DD') "REG_DATE"
+		     , R.MEM_NO "MEM_NO"
+		     , R.CL_NO "CL_NO"
+		     , R.TEACH_DATE "TEACH_DATE"
+		     , REG_DATE
 		     , SCH_NO
 		     , REG_PAY
 		     , REG_PRICE
@@ -345,8 +342,15 @@
 		     , REG_REFUSE
 		     , RE_ENROLL
 		     , REG_CAL
-		  FROM REGISTER
-		 WHERE MEM_NO = ?
+		     , TT_NAME
+		     , CT_NAME
+		     , CT_DNAME
+		  FROM REGISTER R
+		  JOIN CLASS C ON (R.CL_NO = C.CL_NO) 
+		  JOIN TUTOR T ON (C.MEM_NO = T.MEM_NO)
+		  JOIN CATEGORY O ON (C.CT_NO = O.CT_NO)
+		  JOIN DCATEGORY Y ON (C.CT_DNO = Y.CT_DNO)
+		 WHERE R.MEM_NO = ?
 	</entry>
 	
 	<!-- 회원번호로 리뷰리스트 select -->
