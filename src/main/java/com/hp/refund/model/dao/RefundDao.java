@@ -238,29 +238,7 @@ private Properties prop = new Properties();
 		
 	}
 
-	public ArrayList<Refund> selectMyRefundClassList(Connection conn, int memNo) {
-		ArrayList<Refund> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectMyRefundClassList");
-		
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
-			rset= pstmt.executeQuery();
-			
-		
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
-
+	
 	/**
 	 * @author 수정
 	 * @param conn
@@ -321,6 +299,12 @@ private Properties prop = new Properties();
 		return result;
 	}
 
+	/**
+	 * @author 수정
+	 * @param conn 
+	 * @param regNo
+	 * @return 사용자가 입력한 환불정보  조회
+	 */
 	public Refund selectRefundInfo(Connection conn, int regNo) {
 		Refund ref = null;
 		PreparedStatement pstmt = null;
@@ -354,6 +338,7 @@ private Properties prop = new Properties();
 		return ref;
 	}
 
+	
 	
 
 }

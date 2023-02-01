@@ -34,7 +34,10 @@
     }
 	#mainPageRec img{
 		border-radius: 5px;
-	}
+  	}
+  	#mainPageRec li:hover img{
+  		opacity:0.8;
+  	}
     #mainPageRec-1 img, #mainPageRec-2 img{
         width:170px;
         height:170px;
@@ -169,6 +172,7 @@
                 			success:function(list){
                 				let value = "";
                 				for(let i=0; i<list.length; i++){
+                					console.log(list[i].reviewContent.length)
                 					value += "<li>"
                 								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
                 									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
@@ -181,7 +185,7 @@
                 						value += "⭐"
                 					}
                 					value += "<p>" + list[i].reviewContent 
-             						if(list[i].reviewContent.length == 27){
+             						if(list[i].reviewContent.length == 25){
              							value += "...";
              						}
                						value += "</p>"
