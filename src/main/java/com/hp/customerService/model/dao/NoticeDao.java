@@ -143,7 +143,8 @@ public class NoticeDao {
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
-					list.add(new Faq(rset.getInt("faq_no"),
+					list.add(new Faq(rset.getInt("rNum"),
+									rset.getInt("faq_no"),
 									rset.getString("mem_no"),
 									rset.getString("grade"),
 									rset.getString("question"),
@@ -364,7 +365,8 @@ public class NoticeDao {
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
-					list.add(new Faq(rset.getInt("faq_no"),
+					list.add(new Faq(rset.getInt("rNum"),
+									rset.getInt("faq_no"),
 									rset.getString("mem_no"),
 									rset.getString("grade"),
 									rset.getString("question"),
@@ -623,6 +625,136 @@ public class NoticeDao {
 			
 			return result;
 		}
+		
+		public ArrayList<Faq> selectTutorFaqListAd(Connection conn){
+			ArrayList<Faq> list1= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql =prop.getProperty("selectTutorFaqListAd");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list1.add(new Faq(rset.getInt("rNum"),
+									rset.getInt("faq_no"),
+									rset.getString("mem_no"),
+									rset.getString("grade"),
+									rset.getString("question"),
+									rset.getString("answer"),
+									rset.getDate("enroll_date"),
+									rset.getDate("update_date")));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list1;
+		}
+		
+		public ArrayList<Faq> selectTuteeFaqList(Connection conn){
+			ArrayList<Faq> list2= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql =prop.getProperty("selectTuteeFaqList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list2.add(new Faq(rset.getInt("rNum"),
+									rset.getInt("faq_no"),
+									rset.getString("mem_no"),
+									rset.getString("grade"),
+									rset.getString("question"),
+									rset.getString("answer"),
+									rset.getDate("enroll_date"),
+									rset.getDate("update_date")));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list2;
+		}
+		
+		public int insertFaqTutor(Connection conn, String title, String content) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertFaqTutor");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, title);
+				pstmt.setString(2, content);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		public Faq selectTutorFaqDetail(Connection conn, int no) {
+			Faq f = new Faq();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectTutorFaqDetail");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, no);
+				rset=pstmt.executeQuery();
+				
+				if(rset.next()) {
+					f.setFaqNO(no);
+					f.setQuestion(rset.getString("question"));
+					f.setAnswer(rset.getString("answer"));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return f;
+		}
+		
+		public int faqUpdate(Connection conn, Faq f) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("faqUpdate");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, f.getQuestion());
+				pstmt.setString(2, f.getAnswer());
+				pstmt.setInt(3, f.getFaqNO());
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		
 		
 		
 }

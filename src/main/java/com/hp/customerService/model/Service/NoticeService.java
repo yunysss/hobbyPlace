@@ -221,4 +221,58 @@ public class NoticeService {
 		close(conn);
 		return result;
 	}
+	
+	public ArrayList<Faq> selectTutorFaqListAd(){
+		Connection conn = getConnection();
+		
+		ArrayList<Faq> list1 = new NoticeDao().selectTutorFaqListAd(conn);
+		
+		close(conn);
+		
+		return list1;
+	}
+	
+	public ArrayList<Faq> selectTuteeFaqList(){
+		Connection conn = getConnection();
+		
+		ArrayList<Faq> list2 = new NoticeDao().selectTuteeFaqList(conn);
+		
+		close(conn);
+		
+		return list2;
+	}
+	
+	public int insertFaqTutor(String title, String content) {
+		Connection conn = getConnection();
+		int result = new NoticeDao().insertFaqTutor(conn, title, content);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public Faq selectTutorFaqDetail(int no) {
+		Connection conn = getConnection();
+		Faq f= new NoticeDao().selectTutorFaqDetail(conn, no);
+		
+		close(conn);
+		return f;
+	}
+	
+	public int faqUpdate(Faq f) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().faqUpdate(conn, f);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
 }

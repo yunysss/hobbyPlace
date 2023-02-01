@@ -106,5 +106,20 @@ public class RefundService {
 		
 	}
 
+	/**
+	 * @author 수정
+	 * @param regNo
+	 * @return 
+	 * 사용자가 입력한 환불 정보가 들어있음
+	 */
+	public Refund selectRefundInfo(int regNo) {
+		Connection conn = getConnection();
+		Refund ref = new RefundDao().selectRefundInfo(conn, regNo);
+		close(conn);
+		
+		return ref;
+	}
+
+
 
 }

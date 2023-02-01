@@ -8,6 +8,7 @@ import static com.hp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
@@ -202,6 +203,14 @@ public class TutorService {
 		close(conn);
 
 		return result1 * result2 * result3 * result4;
+	}
+	
+	
+	public ArrayList<Lesson> searchClass(Search s,int memNo){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new TutorDao().searchClass(conn, s, memNo);
+		close(conn);
+		return list;
 	}
 
 }

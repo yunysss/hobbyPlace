@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hp.refund.model.service.RefundService;
+import com.hp.refund.model.vo.Refund;
 import com.hp.register.model.vo.Register;
 
 /**
@@ -33,9 +34,11 @@ public class RefundRequestFinishController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int regNo = Integer.parseInt(request.getParameter("no"));
-		Register r =new RefundService().selectRefundClass(regNo);
-		request.setAttribute("r", r);
 		
+		Register r =new RefundService().selectRefundClass(regNo);
+		Refund ref = new RefundService().selectRefundInfo(regNo);
+		request.setAttribute("r", r);
+		request.setAttribute("ref", ref);
 		request.getRequestDispatcher("views/refund/refundRequestFinish.jsp").forward(request, response);
 	
 	}

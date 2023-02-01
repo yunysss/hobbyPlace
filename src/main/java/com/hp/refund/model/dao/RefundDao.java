@@ -321,6 +321,39 @@ private Properties prop = new Properties();
 		return result;
 	}
 
+	public Refund selectRefundInfo(Connection conn, int regNo) {
+		Refund ref = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectRefundInfo");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, regNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				ref = new Refund(rset.getString("mem_no"),
+						          rset.getString("ref_price"),
+						          rset.getString("ref_bank"),
+						          rset.getString("ref_acc"),
+						          rset.getString("ref_nm")
+						);
+							  
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return ref;
+	}
+
 	
 
 }

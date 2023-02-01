@@ -57,7 +57,7 @@ public class TutorMyClassListController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
 		ArrayList<Lesson> list = new TutorService().selectClassList(pi,memNo);
-		
+		request.setAttribute("no", memNo);
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 
