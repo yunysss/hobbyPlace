@@ -36,7 +36,7 @@
         }
         #classDetail-img table img{
             width:110px;
-            height:100px;
+            height:95px;
             margin-left:8px;
             border-radius:5px;
         }
