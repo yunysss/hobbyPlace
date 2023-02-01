@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
+
     #refundNull{
 		text-align: center;
 		margin-top: 71px;
@@ -104,24 +106,24 @@
 <body>
     <%@ include file = "../common/myClassMenubar.jsp" %>
 			
-		<div class="content">
+		<div class="content" align="center">
 
 			<!-- 환불한 클래스가 없을때-->
-			<!--
+			
 			<div id="refundNull">
 				<img src="<%=contextPath%>/resources/images/refunPage_smile_icon.png" alt="">
                 <br>
                 <br>
 				<p>환불한 클래스가 없습니다.</p>
 			</div>
-            -->
+           
             <!--취소한 클래스가 있을 때-->
             <!--환불 접수 접수 -->
 			<div id="classList">
 				<div id="class-area">
 										
 					<div id="classContent">
-						<p>2023-01-03 취소</p>
+						<p style="text-align:left">2023-01-03 취소</p>
 						<div id="classThumbnail">
 							<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> <!--클래스썸네일대표사진-->
 							<br>
@@ -202,6 +204,8 @@
 				</div>
 			</div>
 
+
+
 		</div>
 
 		<!-- 결제상세내역 Modal -->
@@ -259,7 +263,18 @@
 				
 			  </div>
 			</div>
-		  </div>
+		  
+			
+		 </div>
+
+		 <div class="paging-area" style="align:center;">
+			<button>&lt;</button>
+			<button>1</button>
+			<button>2</button>
+			<button>3</button>
+			<button>&gt;</button>
+
+		 </div> 
 		  
       
     </div>	
