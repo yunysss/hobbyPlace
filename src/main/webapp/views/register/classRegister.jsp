@@ -64,6 +64,9 @@
         	border:none;
         	pointer-events: none;
         }
+        #payment-1 img{
+        	border-radius:5px;
+        }
         
     </style>
 	<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>

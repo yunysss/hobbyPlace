@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.hp.common.model.vo.PageInfo;
-import com.hp.lesson.model.vo.Lesson;
 import com.hp.member.model.vo.Member;
-import com.hp.refund.model.vo.Refund;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
 
@@ -424,6 +422,25 @@ public class RegisterDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public int updateRegister(Connection conn, String regNo, String regSt) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRegister");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, regSt);
+			pstmt.setString(2, regNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 	

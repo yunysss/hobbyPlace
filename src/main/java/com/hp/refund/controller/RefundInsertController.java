@@ -39,13 +39,22 @@ public class RefundInsertController extends HttpServlet {
 		HttpSession session = request.getSession();
 		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
-		String refPrice = request.getParameter("regPrice");
+		String refPrice = request.getParameter("regPrice").trim().replace(",", "").replace("원", ""); //"     52,000원" => "52,000원" => "
 		
 		String refBank = request.getParameter("refBank");
 		String refAcc = request.getParameter("refAcc");
 		String refName = request.getParameter("refName"); 
 		String refRea = request.getParameter("refRea");
 		String regSta = request.getParameter("regSta");
+		
+		// refRea변수에 담긴값이 "기타"일 경우
+		// => etc라는 키값으로 넘어오는 value값 뽑아서 refRea에 덮어씌우기
+		//    refRea 앞에 "기타(" 뒤에 ")" 연이어서 덮어씌우기
+		
+		if(refRea.equals("기타")) {
+			refRea = "기타("+request.getParameter("etc")+")";
+			
+		}
 		
 		Refund ref = new Refund();
 		ref.setOrderNo(orderNo);
