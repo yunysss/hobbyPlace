@@ -72,16 +72,18 @@
         .nav-item:hover{
             text-decoration: underline 3px;
         }
-        #section3 button{
+        #section3 a{
             background:rgb(35, 104, 116);
-            color:white;
+            color:white !important;
             height:40px;
             width:150px;
         }
+        
         #section3 table td{
-        	padding-bottom:10px;
+        	padding-bottom:30px;
         }
-
+        #reviewList tr{display:none;}
+        #reviewList p{word-break: break-all;}
         /* classDetail-2 */
         #classDetail-2>*{
             position:fixed;
@@ -399,65 +401,66 @@
                     <hr>
                     
                     <div id="section3" class="container-fluid">
-                    	<table width="550" id="reviewList">
-                    		<thead>
-	                    		<tr>
-	                    			<td><b style="font-size:14px">후기</b></td>
-	                    		</tr>
-                    		</thead>
-                    		<tbody>
-                    			<% if(rList.size() == 0){ %>
-                    				<tr>
-									<td colspan="3">작성된 후기가 없습니다.</td>
-									</tr>
-                    			<% }else{ %>
-                    				<% int reCount = 5; 
-                    				if(rList.size() < 5){
-                    					reCount = rList.size();}
-	                    				for(int i=0; i<reCount; i++){%>
-	                    					<tr>
-	                    					<td>
-					  							<% if(rList.get(i).getMemProfile() == null){%>
-						  							<img src="<%= contextPath %>/resources/tutorProfile_upfiles/defaultimg.jpg" width="45" height="45" class="rounded-circle">
-						  						<% }else{ %>
-					  								<img src="<%=contextPath%>/<%= rList.get(i).getMemProfile() %>" width="45" height="45" class="rounded-circle">
-					  							<% } %>
-					  						</td>
-					  						<td>
-					  							<%= rList.get(i).getMemNickName() %> <br>
-					  							<% for(int j=1; j<= rList.get(i).getReviewStar(); j++) { %>
-					  								⭐
-					  							<% } %>
-					  							<%= rList.get(i).getReviewUpDate() %>
-					  						</td>
-					  						<td rowspan="2" width="100">
-					  							<img src="" width="100">
-					  						</td>
-					  						</tr>
-					  						<tr>
-					  							<td colspan="2"> <%= rList.get(i).getReviewContent() %> </td>
-					  						</tr>
-				  						<% } %>
-				  						<tr>
-				  							<td colspan="3" align="center"><button class="btn">더보기</button>
-				  						</tr>
-			  					<% } %>
-				  				
-                    		</tbody>
+                    	<b style="font-size:14px">후기</b><br>
+                    	<table id="reviewList" style="width:600px">
+                   			<% if(rList.size() == 0){ %>
+                   				<tr>
+									<td colspan="2">작성된 후기가 없습니다.</td>
+								</tr>
+                   			<% }else{ %>
+                   				<% for(int i=0; i<rList.size(); i++){%>
+                   					<tr>
+	                   					<td width="60px">
+				  							<% if(rList.get(i).getMemProfile() == null){%>
+					  							<img src="<%= contextPath %>/resources/tutorProfile_upfiles/defaultimg.jpg" width="45" height="45" class="rounded-circle">
+					  						<% }else{ %>
+				  								<img src="<%=contextPath%>/<%= rList.get(i).getMemProfile() %>" width="45" height="45" class="rounded-circle">
+				  							<% } %>
+				  						</td>
+				  						<td>
+				  							<%= rList.get(i).getMemNickName() %> <br>
+				  							<% for(int j=1; j<= rList.get(i).getReviewStar(); j++) { %>
+				  								⭐
+				  							<% } %>
+				  							<%= rList.get(i).getReviewUpDate() %>
+				  						</td>
+			  						</tr>
+			  						<tr>
+			  							<td colspan="2"> 
+			  								<p><%= rList.get(i).getReviewContent() %></p>
+			  								<img src="dd" width="100px" height="100px" style="border:1px solid">
+				  							<img src="dd" width="100px" height="100px" style="border:1px solid">
+				  							<img src="dd" width="100px" height="100px"	 style="border:1px solid">
+			  							</td>
+			  						</tr>
+		  						<% } %>
+		  					<% } %>
                     	</table>
                     	<div align="center">
-			            	<ul id="paging">
-							</ul>
-			            </div>
+                    		<a href="#" class="btn" id="viewMore">더보기</a>
+                    	</div>
                     </div>
+                    <script>
+						$(function(){
+					        
+							$("#reviewList tr").slice(0, 10).show(); // 초기갯수
+					        if($("#reviewList tr:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+					            $("#viewMore").hide();
+					        }
+							$("#viewMore").click(function(e){ // 클릭시 more
+								e.preventDefault();
+								$("#reviewList tr:hidden").slice(0, 10).show(); // 클릭시 more 갯수 지저정
+								if($("#reviewList tr:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+									$("#viewMore").hide();
+								}
+							});
+						});
+						</script>
                     <hr>
                     <div id="section4" class="container-fluid">
                         <b style="font-size:14px">취소/환불</b><br>
 						<%= le.getRefundPolicy() %>
                     </div>
-                
-                
-               
             </div>
         </div>
         <div id="classDetail-2">
