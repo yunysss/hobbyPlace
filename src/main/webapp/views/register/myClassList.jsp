@@ -24,9 +24,7 @@
 		width: 100px;
 	}
 
-	#classList{
-		margin-top: 10px;
-	}
+	
 	#classContent p {margin-top: 5px; margin-left:18px; margin-bottom: 0;}
 	#classContent{
 		width: 80%;
