@@ -9,8 +9,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.hp.common.model.vo.PageInfo;
-import com.hp.lesson.model.vo.Lesson;
 import com.hp.member.model.vo.Member;
+import com.hp.refund.model.dao.RefundDao;
 import com.hp.register.model.dao.RegisterDao;
 import com.hp.register.model.vo.Register;
 
@@ -115,6 +115,19 @@ public class RegisterService {
 		ArrayList<Register> list = new RegisterDao().selectRegisterMng(conn, keywordType, keyword, startDate, endDate, status);
 		close(conn);
 		return list;
+	}
+	
+	public int updateRegister(String regNo, String regSt) {
+		Connection conn = getConnection();
+		
+		int result = new RegisterDao().updateRegister(conn, regNo, regSt);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
 	}
 
 }
