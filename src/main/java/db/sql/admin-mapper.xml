@@ -211,16 +211,19 @@
 	<entry key="searchClass">
 	SELECT
 			CL_NO
-			,G.CT_NAME
-			,T.TT_NAME
+			,CT_NAME
+			,CT_NO
+			,CT_DNAME
+			,TT_NAME
 			,CL_NAME
-			,C.ENROLL_DATE
-			,CL_STATUS
+			,TO_date(c.enroll_date, 'YYYY-MM-DD') "enroll_date"
+			,decode(CL_STATUS,'0','검수요청','1','신청반려','2','판매중','3','판매중단') "cl_status"
 		
 			FROM CLASS C
-			JOIN CATEGORY G USING (CT_NO)
+			JOIN CATEGORY G ON (C.CT_NO  = G.CT_NO)
+		    JOIN DCATEGORY D ON (C.CT_DNO = D.CT_DNO )
 			JOIN TUTOR T USING (MEM_NO)
-			WHERE
+			where 1=1	
 			
 
 	

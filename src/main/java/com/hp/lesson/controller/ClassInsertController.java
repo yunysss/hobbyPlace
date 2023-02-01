@@ -97,7 +97,7 @@ public class ClassInsertController extends HttpServlet {
 		        		 at.setOriginName(multiRequest.getOriginalFileName(key));
 		        		 at.setChangeName(multiRequest.getFilesystemName(key));
 		        		 at.setFilePath("resources/classThumbnail_upfiles/");
-		        		 at.setFileLevel("1");
+		        		
 		        		 at.setRefType("1");
 		        		
 		        		 list.add(at);

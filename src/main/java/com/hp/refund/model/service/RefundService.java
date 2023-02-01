@@ -85,7 +85,7 @@ public class RefundService {
 
 	/**
 	 * @author 수정
-	 * @param r
+	 * @param ref
 	 * 환불 요청 데이터 올리기, 글상태 변경
 	 * @return 
 	 */
