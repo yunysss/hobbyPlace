@@ -26,17 +26,23 @@
 
         #classDetail-1>div{width:100%;}
         #classDetail-img{height:20%;}
-        #classDetail-content{height:80%}
+        #classDetail-content{height:80%; font-size:small;}
         
         /* img */
         #classDetail-img>img{
             width:500px;
             height:400px;
+            border-radius:5px;
         }
         #classDetail-img table img{
-            width:150px;
-            height:120px;
+            width:110px;
+            height:100px;
             margin-left:8px;
+            border-radius:5px;
+        }
+        .smallImg:hover{
+        	cursor:pointer;
+        	opacity:0.5;
         }
         #classDetail-short{float:left;}
         #classDetail-likeShare{float:right;}
@@ -93,7 +99,7 @@
 	    	border-radius:50%; 
 	    	margin:auto;
     	}
-	    .possibleDay{background:lightgray; color:white;}
+	    .possibleDay{background:rgb(192, 221, 226); color:white;}
 	    .possibleDay:hover{cursor:pointer; opacity:0.5;}
         
         #classDetail-cal>table{
@@ -109,6 +115,7 @@
         	margin-top:10px;
             overflow-y:auto; 
             overflow-x:hidden;
+            font-size:small;
         }
         #classDetail-date::-webkit-scrollbar{height: 8px;}
 		#classDetail-date::-webkit-scrollbar-track{background-color: rgb(240,240,240);}
@@ -133,6 +140,8 @@
         #classDetail-price *{
             float:right;
             color:black;
+            font-size:14px;
+            line-height:35px;
         }
         #classDetail-price>div>p{
         	margin-top:10px;
@@ -220,14 +229,17 @@
     <div class="outer">
         <div id="classDetail-1">
             <div id="classDetail-img">
-                <img src="<%=contextPath%>/<%= le.getClThumb() %>">
+                <img src="<%=contextPath%>/<%= le.getClThumb() %>" id="bigImg">
                 <br><br>
                 <table width="500px;">
                     <tr>
+                   		<td>
+                   		<img src="<%=contextPath%>/<%= le.getClThumb() %>" class="smallImg">
+                   		</td>
                     	<% for(int i=0; i<aList.size(); i++){ %>
                     		<td>
-                    		<img src="<%= contextPath %>/<%= aList.get(i).getFilePath() + aList.get(i).getChangeName() %>">
-                    		</td>
+	                   		<img src="<%= contextPath %>/<%= aList.get(i).getFilePath() + aList.get(i).getChangeName() %>" class="smallImg">
+	                   		</td>
                     	<% } %>
                     	<% if(aList.size()<3) {%>
                     		<% for(int i=0; i<3-aList.size(); i++){ %>
@@ -239,7 +251,11 @@
                     </tr>
                     
                 </table>
-                
+                <script>
+                	$(document).on("click", ".smallImg", function(){
+                		$("#bigImg").attr("src", $(this).attr("src"));
+                	})
+                </script>
                 <br>
                 <div align="right" style="width:500px">
                     <div id="classDetail-short">
@@ -274,7 +290,7 @@
 				</script>
                 <br clear="both">
                 <div>
-                    <h5><b><%= le.getClName() %></b></h5>
+                    <b style="font-size:17px"><%= le.getClName() %></b>	
                 </div>
             </div>
             <div id="classDetail-content" data-spy="scroll" data-target=".navbar">
@@ -296,9 +312,9 @@
                     </nav>
                     
                     <div id="section1" class="container-fluid">
-                    <b>클래스 상세</b><br><br>
+                    <b style="font-size:14px">클래스 상세</b><br>
                     CLOB 출력..?<br><br>
-                    <b>진행 장소</b><br><br>
+                    <b style="font-size:14px">진행 장소</b><br>
                     <div id="map" style="width:550px;height:300px;"></div><br>
 
                     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=19e99c5794a1b621123d4304f847fd72&libraries=services"></script>
@@ -341,28 +357,33 @@
                     });    
                     </script>
                     <div style="font-size: 13px;">
-                        <span><b>찾아오시는 길</b></span><br>
+                        <span><b style="font-size:14px">찾아오시는 길</b></span><br>
                         <%= le.getClAddress() %>
                     </div><br>
-                    <b>준비물</b><br><br>
+                    <b style="font-size:14px">준비물</b><br>
                     <%= le.getClSupplies() %> <br><br>
                     
-                    <b>강사소개</b><br><br>
+                    <b style="font-size:14px">강사소개</b><br><br>
                     <a href="<%=contextPath%>/ttdetail.cl?no=<%=le.getClNo() %>" id="classDetail-tutor">
-	                    <%if(le.getTutorProfile() == null){%>
-	                    	<img src="<%= contextPath %>/resources/tutorProfile_upfiles/defaultimg.jpg" width="70" height="70" class="rounded-circle">
-	                    <% }else{ %>
-	                    	<img src="<%= contextPath %>/<%= le.getTutorProfile() %>" width="70" height="70" class="rounded-circle">
-	                	<% } %>
-	                    <span><%= le.getMemNo() %></span>
-	                    <img src="<%= contextPath %>/resources/images/right_arrow.png" width="30px;" height="30px;" style="margin-left:100px;">
+                    	<table style="width:300px">
+                    		<tr>
+                    			<td style="width:80px">
+                    				<%if(le.getTutorProfile() == null){%>
+				                    	<img src="<%= contextPath %>/resources/tutorProfile_upfiles/defaultimg.jpg" width="70" height="70" class="rounded-circle">
+				                    <% }else{ %>
+				                    	<img src="<%= contextPath %>/<%= le.getTutorProfile() %>" width="70" height="70" class="rounded-circle">
+			                		<% } %>
+                    			</td>
+                    			<td style="width:200px"><%= le.getMemNo() %></td>
+                    			<td><img src="<%= contextPath %>/resources/images/right_arrow.png" width="30px;" height="30px;"></td>
+                    		</tr>
+                    	</table>
                   	</a>
                     </div>
                     
                     <hr>
                     <div id="section2" class="container-fluid">
-                        <b>커리큘럼</b>
-                        <br><br>
+                        <b style="font-size:14px">커리큘럼</b><br>
                         <%= le.getCurriculum() %>
                     </div>
                     <hr>
@@ -502,10 +523,10 @@
 				  		}
 			        </script>
                     <div id="section3" class="container-fluid">
-                    	<table width="550" height="150" id="reviewList">
+                    	<table width="550" id="reviewList">
                     		<thead>
 	                    		<tr>
-	                    			<td><b>후기</b></td>
+	                    			<td><b style="font-size:14px">후기</b></td>
 	                    		</tr>
                     		</thead>
                     		<tbody></tbody>
@@ -517,8 +538,7 @@
                     </div>
                     <hr>
                     <div id="section4" class="container-fluid">
-                        <b>취소/환불</b>
-                        <br><br>
+                        <b style="font-size:14px">취소/환불</b><br>
 						<%= le.getRefundPolicy() %>
                     </div>
                 
@@ -693,7 +713,7 @@
 					    		<% if(loginUser != null){%>
 					    			// 기존 선택일의 표시형식 초기화
 						            if(document.getElementsByClassName("choiceDay")[0]) {
-						                document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "lightgray";
+						                document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "rgb(192, 221, 226)";
 						                document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
 						            }
 						            // 선택일 체크 표시
@@ -709,7 +729,7 @@
 						            if((day + "").length == 1){
 						            	day = "0" + day;
 						            }
-					            	$("#classDetail-date").css("height", "80");
+					            	$("#classDetail-date").css("height", "70");
 					            	$.ajax({
 						            	url:"<%=contextPath%>/getSchedule.cl",
 						            	data:{
