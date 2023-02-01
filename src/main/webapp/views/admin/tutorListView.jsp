@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,30 +47,30 @@
 				<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 				<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 				튜터등록일 &nbsp;&nbsp;
-				<input type="text" class="dtPicker" id="datepicker1" name="enroll-start">
+				<input type="text" class="dtPicker" id="datepicker1" name="enrollStart">
 				- 
-				<input type="text" class="dtPicker" id="datepicker2" name="enroll-end">
+				<input type="text" class="dtPicker" id="datepicker2" name="enrollEnd">
 
 			    <br><br>
 
 			   기본검색 &nbsp;&nbsp;&nbsp;
 			   <select name="fCategory" class="fCategory">
-					<option value="">운영중인 클래스수</option>
-					<option value="">누적클래스수</option>
-					<option value="">누적튜티수</option>
-					<option value="">누적수업횟수</option>
-					<option value="">총수입</option>
+					<option value="classActive">운영중인 클래스수</option>
+					<option value="classTotal">누적클래스수</option>
+					<option value="tuteeTotal">누적튜티수</option>
+					<option value="lessonTotal">누적수업횟수</option>
+					<option value="incomeTotal">총수입</option>
 			   </select>
 			   <select name="lineup" class="lineup">
 					<option name="desc">내림차순</option>
 					<option name="asc">오름차순</option>
 			   </select>
-			   <button type="button" class="sButton" id="basicSearch">검색</button>
+			   <button type="button" class="sButton" id="basicSearch" onclick="bSearch();">검색</button>
 			   
 			   <br><br>
 
 			   <div class="optionWrap1">
-					<p id="option1Show">검색옵션1 >></p>
+					<p id="option1Show">검색옵션1  ▼</p>
 					<br>
 					<div class="option1Detail">
 						<select name="option1" id="option1">
@@ -82,7 +83,7 @@
 				</div>
 				
 				<div class="optionWrap2">
-					<p id="option2Show">검색옵션2 >></p>
+					<p id="option2Show">검색옵션2  ▼</p>
 					<br>
 					<div class="option2Detail">
 						<select name="option2" id="option2">
@@ -95,9 +96,9 @@
 						<input type="text" name="endNum" class="detailNum" id="endNum"> 이하 (숫자만 입력)
 						<br><br>
 						기간&nbsp; : &nbsp; &nbsp;
-						<input type="text" class="dtPicker" id="datepicker3" name="enroll-start"> 부터&nbsp;&nbsp;
+						<input type="text" class="dtPicker" id="datepicker3" name="dayStart"> 부터&nbsp;&nbsp;
 						 
-						<input type="text" class="dtPicker" id="datepicker4" name="enroll-end"> 까지
+						<input type="text" class="dtPicker" id="datepicker4" name="dayEnd"> 까지
 						<br><br>
 						<button type="button" class="sButton" id="detailSearch2">검색</button>
 					</div>
@@ -114,15 +115,15 @@
 			$(function(){
 				$("#option1Show").click(function(){
 					if($(".option1Detail").css("display")=="none"){
-						$(this).css("font-weight", "600");
+						$(this).css("font-weight", "600").html("검색옵션1  ▲");
 						$(".option1Detail").show();
 						$(".option2Detail").hide();
 						$("#basicSearch").hide();
 						$(".optionWrap1").css("background-color", "rgb(235, 240, 240)").css("width", "80%").css("padding-bottom", "20px");
 						$(".optionWrap2").css("background-color", "white").css("padding-bottom", "15px");
-						$("#option2Show").css("font-weight", "400");
+						$("#option2Show").css("font-weight", "400").html("검색옵션2  ▼");
 					}else{
-						$("#option1Show").css("font-weight", "400");
+						$("#option1Show").css("font-weight", "400").html("검색옵션1  ▼");
 						$(".option1Detail").css("display", "none");
 						$("#basicSearch").show();
 						$(".optionWrap1").css("background-color", "white").css("padding-bottom", "15px");
@@ -131,15 +132,15 @@
 
 				$("#option2Show").click(function(){
 					if($(".option2Detail").css("display")=="none"){
-						$(this).css("font-weight", "600");
+						$(this).css("font-weight", "600").html("검색옵션2  ▲");
 						$(".option2Detail").show();
 						$(".option1Detail").hide();
 						$("#basicSearch").hide();
 						$(".optionWrap2").css("background-color", "rgb(235, 240, 240)").css("width", "80%").css("padding-bottom", "20px");
 						$(".optionWrap1").css("background-color", "white").css("padding-bottom", "15px");
-						$("#option1Show").css("font-weight", "400");
+						$("#option1Show").css("font-weight", "400").html("검색옵션1  ▼");
 					}else{
-						$("#option2Show").css("font-weight", "400");
+						$("#option2Show").css("font-weight", "400").html("검색옵션2  ▼");
 						$(".option2Detail").css("display", "none");
 						$("#basicSearch").show();
 						$(".optionWrap2").css("background-color", "white").css("padding-bottom", "15px");
@@ -185,56 +186,80 @@
 			});
 		</script>
 		
-		<div class="contentMain">
-
+		<script>
+			function bSearch(){
+				$.ajax({
+					url:"<%=contextPath%>/tutorBasicSearch.ad",
+					data:{
+						enrollStart:$("#datepicker1").val(),
+						enrollEnd:$("#datepicker2").val(),
+						fCategory:$(".fCategory").val(),
+						lineup:$(".lineup").val()
+					},
+					type:"post",
+					success:function(result) {
+						let value="";
+						for(let i=0; i<result.length; i++){
+							value += "<tr>"
+					        			+ "<td>" +result[i].memNo +"</td>"
+					        			+ "<td>" +result[i].memName +"</td>"
+					        			+ "<td>" +result[i].memId +"</td>"
+					        			+ "<td>" +result[i].tutorName +"</td>"
+					        			+ "<td>" +result[i].classActive +"</td>"
+					        			+ "<td>" +result[i].classTotal +"</td>"
+					        			+ "<td>" +result[i].lessonTotal +"</td>"
+					        			+ "<td>" +result[i].tuteeTotal +"</td>"
+					        			+ "<td>" +result[i].likeCount +"</td>"
+					        			+ "<td>" +result[i].revCount +"</td>"
+					        			+ "<td>" +result[i].incomeTotal +"</td>"
+					        			+ "<td>" +result[i].tutorAddress +"</td>"
+								        + "</tr>";
+						}
+						$("#resultNt").html("<br>** 총 " + result.length + "명이 조회되었습니다 **");
+						$(".listTable tbody").html(value);
+					
+					}, error:function(){
+						console.log("ajax 통신 실패");
+					}
+				})
+			}
+		</script>
+		
+		<div class="contentMain" align="center">
+			<p id="resultNt"></p>
 			<div class="container mt-3 table-responsive-xxl" style="overflow-x: auto;">
 				<table class="table table-hover table-responsive-xxl listTable" style="table-layout:fixed;">
 				<colgroup>
-					<col style="width:100px;">
+					<col style="width:90px;">
+					<col style="width:80px;">
 					<col style="width:100px;">
 					<col style="width:120px;">
-					<col style="width:120px;">
+					<col style="width:110px;">
+					<col style="width:110px;">
 					<col style="width:100px;">
-					<col style="width:80px;">
-					<col style="width:80px;">
-					<col style="width:130px;">
-					<col style="width:170px;">
-					<col style="width:150px;">
-					<col style="width:230px;">
-					<col style="width:80px;">
+					<col style="width:100px;">
+					<col style="width:70px;">
+					<col style="width:70px;">
+					<col style="width:100px;">
+					<col style="width:300px;">
 				</colgroup>
 				<thead>
 					<tr>
-					<th>회원번호</th>
-					<th>이름</th>
-					<th>아이디</th>
-					<th>튜터명</th>
-					<th>현재 클래스수</th>
-					<th>누적 클래스수</th>
-					<th>누적 수업 횟수</th>
-					<th>누적 튜티수</th>
-					<th>찜</th>
-					<th>후기</th>
-					<th>총수익</th>
-					<th>주소</th>
+						<th>회원번호</th>
+						<th>이름</th>
+						<th>아이디</th>
+						<th>튜터명</th>
+						<th>현재 클래스</th>
+						<th>누적 클래스</th>
+						<th>누적 수업</th>
+						<th>누적 튜티</th>
+						<th>찜</th>
+						<th>후기</th>
+						<th>총수익</th>
+						<th>주소</th>
 					</tr>
 				</thead>
 				<tbody  class="table-group-divider">
-					<tr>
-					<td>01</td>
-					<td>홍길동</td>
-					<td>N</td>
-					<td>2022-12-15</td>
-					<td>10</td>
-					<td>5</td>
-					<td>15</td>
-					<td>218600</td>
-					<td>john@example.com</td>
-					<td>010-1111-9999</td>
-					<td>서울시 양천구 목1동 XXXX-XXXX</td>
-					<td>남</td>
-					<td>X</td>
-					</tr>
 					
 				</tbody>
 				</table>

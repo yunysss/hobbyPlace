@@ -1,4 +1,4 @@
-package com.hp.lesson.controller;
+package com.hp.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.hp.lesson.model.service.LessonService;
-import com.hp.review.model.vo.Review;
+import com.hp.admin.model.service.AdminService;
+import com.hp.admin.model.vo.SearchTutor;
+import com.hp.admin.model.vo.TutorList;
 
 /**
- * Servlet implementation class AjaxSelectReviewController
+ * Servlet implementation class AjaxTutorListBasicSearchController
  */
-@WebServlet("/selectReAttachment.cl")
-public class AjaxSelectReviewController extends HttpServlet {
+@WebServlet("/tutorBasicSearch.ad")
+public class AjaxTutorListBasicSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxSelectReviewController() {
+    public AjaxTutorListBasicSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +33,17 @@ public class AjaxSelectReviewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String enrollStart = request.getParameter("enrollStart");
+		String enrollEnd = request.getParameter("enrollEnd");
+		String fCategory = request.getParameter("fCategory");
+		String lineup = request.getParameter("lineup");
 		
+		SearchTutor st = new SearchTutor(enrollStart, enrollEnd, fCategory, lineup);
+		System.out.println(st.getEnrollStart());
+		ArrayList<TutorList> list = new AdminService().selectTutorList1(st);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**
