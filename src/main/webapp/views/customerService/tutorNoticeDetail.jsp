@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="com.hp.customerService.model.vo.Notice"%>
+    import="com.hp.customerService.model.vo.Notice, com.hp.common.model.vo.*"%>
 <%
 	Notice n = (Notice)request.getAttribute("n");
+	Attachment at = (Attachment)request.getAttribute("at");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +70,15 @@
             <table border="1" style="border:1px solid lightgray;margin-left:auto;margin-right:auto;">
                 <tr>
                     <th width="150" style="background-color: lightgray;" width="100">첨부파일</th>
-                    <td width="450">파일이름자리 <button type="" style="border: none; float: right;" >다운로드</button></td>
+                    <td width="400">
+                    <% if(at==null){ %>
+                    <!-- case1. 첨부파일 없을 경우 -->
+                    첨부파일이 없습니다.
+					<%}else{ %>
+                    <!-- case2. 첨부파일 있을 경우 -->
+                    <a download="<%= at.getOriginName() %>" href="<%=contextPath%>/<%=at.getFilePath()+ at.getChangeName() %>"><%= at.getOriginName() %></a>
+					<%} %>
+					</td>
                     <th style="background-color: lightgray;" width="150">작성날짜</th>
                     <td width="250"><%=n.getEnrollDate() %></td>
                 </tr>

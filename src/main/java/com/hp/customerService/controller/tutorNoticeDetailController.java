@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.customerService.model.Service.NoticeService;
 import com.hp.customerService.model.vo.Notice;
 
@@ -33,10 +34,11 @@ public class tutorNoticeDetailController extends HttpServlet {
 		int ntNo = Integer.parseInt(request.getParameter("ntNo"));
 		
 		Notice n = new NoticeService().selectTutorNoticeDetail(ntNo);
+		Attachment at = new NoticeService().selectAdminNoticeAttachment(ntNo);
 		
 		if(n!=null) {
 			request.setAttribute("n", n);
-			
+			request.setAttribute("at", at);
 			request.getRequestDispatcher("views/customerService/tutorNoticeDetail.jsp").forward(request, response);
 		}
 	}
