@@ -402,7 +402,7 @@
                                 <th>클래스번호</th>
                                 <th width="120">카테고리</th>
                                 <th width="400">클래스명</th>
-                                <th width="100">등록일</th>
+                                <th width="100">최종수정일</th>
                                 <th width="80">상태</th>
                                 <th width="100">반려사유</th>
                             </tr>

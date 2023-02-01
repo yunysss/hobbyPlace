@@ -101,9 +101,11 @@ public class AdminDao {
 			while(rset.next()) {
 				list.add(new Lesson(rset.getInt("cl_no"),
 									rset.getString("ct_name"),
+									rset.getString("ct_dname"),
 									rset.getString("tt_name"),
 									rset.getString("cl_name"),
 									rset.getDate("enroll_date"),
+									rset.getDate("update_date"),
 									rset.getString("cl_status")
 						
 						));
@@ -550,11 +552,9 @@ public class AdminDao {
 			
 			if(category.equals("00") && dcategory.equals("전체")) {
 				 sql +="";
-			}
-			
-			if(!category.equals("00") && dcategory.equals("전체")) {
-				sql += "and ct_no = " + "'"+ category +"'";
-			}else if(dcategory != null && !dcategory.equals("")) {
+			}else if(!category.equals("00") && dcategory.equals("전체")) {
+				sql += "and g.ct_no = " + "'"+ category +"'";
+			}else if(!dcategory.equals("전체")) {
 				sql += "and ct_dname= " + "'"+ dcategory +"'";
 			}else{
 				sql +=  "";
@@ -596,9 +596,11 @@ public class AdminDao {
 			while(rset.next()) {
 				list.add(new Lesson(rset.getInt("cl_no"),
 									rset.getString("ct_name"),
+									rset.getString("ct_dname"),
 									rset.getString("tt_name"),
 									rset.getString("cl_name"),
 									rset.getDate("enroll_date"),
+									rset.getDate("update_date"),
 									rset.getString("cl_status")
 								
 						));

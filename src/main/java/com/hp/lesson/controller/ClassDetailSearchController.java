@@ -32,19 +32,25 @@ public class ClassDetailSearchController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8"); 
+		
 		 String keyword = request.getParameter("keyword");
 		 String category = request.getParameter("category");
 		 String dcategory = request.getParameter("dcategory");
 		 String sido = request.getParameter("sido");
 		 String sigungu = request.getParameter("sigungu");
-		 String[] dayArr = request.getParameterValues("day");
-		 String day = String.join(",", dayArr);
-		 
+		 String startDate = request.getParameter("searchStartDate");
+		 String endDate = request.getParameter("searchEndDate");
 		 String price = request.getParameter("price");
 		 
-		 Search s = new Search(keyword,category,dcategory,sido,sigungu,day,price);
+		 System.out.println(price);
+		 
+		 Search s = new Search(keyword,category,dcategory,sido,sigungu,startDate,endDate,price);
 		 
 		 ArrayList<Lesson> list = new LessonService().searchDetailClass(s);
+		 
+		 request.setAttribute("list", list);
+		 request.getRequestDispatcher("views/lesson/detailSelctView.jsp").forward(request, response);
 				 
 	}
 

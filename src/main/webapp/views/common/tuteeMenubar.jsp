@@ -641,17 +641,17 @@ select {
 
                      </select>
                      <select name="dcategory" id="dct">
-                    
+                     <option>전체</option>
                     </select>
                     
                     
                     <script>
                         function changeCt(){
-                        	var study = ["외국어","자격증","IT"];
-                        	var diy = ["가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
-                        	var draw = ["취미미술","캘리그래피"];
-                        	var cook = ["요리","베이킹"];
-                        	var sport = ["실내스포츠","야외스포츠","레저/액티비티","요가필라테스/헬스PT"];
+                        	var study = ["전체","외국어","자격증","IT"];
+                        	var diy = ["전체","가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
+                        	var draw = ["전체","취미미술","캘리그래피"];
+                        	var cook = ["전체","요리","베이킹"];
+                        	var sport = ["전체","실내스포츠","야외스포츠","레저/액티비티","요가필라테스/헬스PT"];
      	
                         	var changeDct;
                         	
@@ -693,7 +693,7 @@ select {
                     
                      </select>
                      <select name="sigungu" id="district" >
-                     
+                     <option>전체</option>
                      </select>
 
                 </td>
@@ -705,16 +705,25 @@ select {
                 <th height="30"width="100">요일</th>
                 <td>
                      <div class="clearfix">
-                    
+                    	<!--
                          <input type="checkbox" class="schedule" name="day" value="평일"><label for="weekday">평일</label>
                          <input type="checkbox" class="schedule" name="day" value="토"><label for="sat">토요일</label>
                          <input type="checkbox" class="schedule" name="day" value="일"><label for="sun">일요일</label>
-                       
-                         <!--<input type="date"  name="searchStartDate" id="startDate" >
-                            <input type="date"  name="searchEndDate" id="endDate" >  -->
+                       -->
+                         <input type="date"  name="searchStartDate" id="startDate" >
+                         <input type="date"  name="searchEndDate" id="endDate" > 
                        
                     </div>    
                 </td>
+                 <script>
+                    var now_utc = Date.now()
+                    var timeOff = new Date().getTimezoneOffset()*60000;
+                    var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+                    document.getElementById("startDate").setAttribute("min", today);
+                    document.getElementById("endDate").setAttribute("min", today);
+                    
+                    
+                    </script>
               
             </tr>
             <tr>
@@ -773,9 +782,9 @@ select {
           
             <script>
          	function sidoChange(){
-         	var seoul = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
-         	var incheon = ["계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
-         	var gyeonggi= ["고양시","과천시","광명시","광주시","구리시","군포시","김포시","남양주시","동두천시","부천시","성남시","수원시","시흥시","안산시","안성시","안양시","양주시","오산시","용인시","의왕시","의정부시","이천시","파주시","평택시","포천시","하남시","화성시","가평군","양평군","여주군","연천군"];
+         	var seoul = ["전체","강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
+         	var incheon = ["전체","계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
+         	var gyeonggi= ["전체","고양시","과천시","광명시","광주시","구리시","군포시","김포시","남양주시","동두천시","부천시","성남시","수원시","시흥시","안산시","안성시","안양시","양주시","오산시","용인시","의왕시","의정부시","이천시","파주시","평택시","포천시","하남시","화성시","가평군","양평군","여주군","연천군"];
          	
 
          	var change;

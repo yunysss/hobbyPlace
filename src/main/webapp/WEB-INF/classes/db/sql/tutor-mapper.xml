@@ -217,6 +217,7 @@
 			    , CL_SUPPLIES
 			    , KEYWORD
 			    , ENROLL_DATE 
+			    , UPDATE_DATE
 			    , CL_STATUS  
 			    , CL_THUMB 
 			    )
@@ -247,6 +248,7 @@
 			  ?,
 			  ?,
 			  ?,
+			  SYSDATE,
 			  SYSDATE,
 			  0,
 			  ?

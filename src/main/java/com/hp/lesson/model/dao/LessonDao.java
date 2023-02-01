@@ -1316,19 +1316,88 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s){
 	String sql = prop.getProperty("searchDetailClass");
 	
 	try {
+
+		String keyword = s.getKeyword();
+		String category = s.getCategory();
+		String dcategory = s.getDcategory();
+		String sido = s.getSido();
+		String sigungu = s.getSigungu();
+		String startDate = s.getStarDate();
+		String endDate = s.getEndDate();
+		String price = s.getPrice();
+
+		if(keyword != null && !keyword.equals("")) {
+			sql += "and CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD" + "'%"+ keyword + "%'";
+		}
+		
+		if(category.equals("00")) {
+			sql += "";				
+		}else if(category !=null && !category.equals("")) {
+		     sql += "and G.ct_no = " + "'" +category +"'";
+		}else {
+			sql += "";
+		}
+		
+		if(category.equals("00") && dcategory.equals("전체")){
+			sql +="";
+		}else if(!category.equals("00")&& dcategory.equals("전체")) {
+			sql += "and g.ct_no =" + "'" + category + "'";
+		}else if(!dcategory.equals("전체")) {
+			sql += "and ct_name= "+ "'"+ dcategory + "'";
+		}
+		
+		if(sido.equals("00")) {
+			sql += "";
+		}else if(sido != null && !sido.equals("")) {
+			sql += "and c.local_code = " + "'"+ sido +"'";
+		}else {
+			sql += "";
+		}	
+		if(sido.equals("00") && sigungu.equals("전체")) {
+			sql += "";
+		}else if(!sido.equals("00") && sigungu.equals("전체")) {
+			sql += "and c.local_code = " + "'" + sido +"'";
+		}else if(!sigungu.equals("전체")) {
+			sql += "and distr_name =" + "'" + sigungu + "'";
+		}
+		
+		if(price != null && price.equals("")) {
+			sql += "and cl_price <= " + price;
+		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+		// 일정
+		if(startDate != null && endDate != null && !startDate.equals("") && !endDate.equals("")) {
+			 sql += "and c.enroll_date between '" + startDate + "' and '" + endDate +"'";
+	
+		}
+		System.out.println(sql);
+
 		pstmt = conn.prepareStatement(sql);
+		rset= pstmt.executeQuery();
+		
+		while(rset.next()) {
+			list.add(new Lesson(rset.getInt("cl_no"),
+								rset.getString("ct_name"),
+								rset.getString("ct_dname"),
+								rset.getString("local_name"),
+								rset.getString("distr_name"),
+								rset.getString("cl_name"),
+								rset.getString("cl_price"),
+								rset.getString("cl_thumb"),
+								rset.getInt("star_avg"),
+								rset.getInt("star_count")));
+			
+		}
+		
 	} catch (SQLException e) {
 		e.printStackTrace();
+	}finally {
+		close(rset);
+		close(pstmt);
+		
 	}
+	return list;
 }
 
 	

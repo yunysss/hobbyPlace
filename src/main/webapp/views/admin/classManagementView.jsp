@@ -403,7 +403,7 @@ function setSearchDate(start){
             				let value = "";
             				if(result.length == 0){
             					value += "<tr>"
-            					      + "<td colspan='5'> 조회된 클래스가 없습니다."
+            					      + "<td colspan='6'> 조회된 클래스가 없습니다."
             					      + "</tr>"
             					      
             				}else{
@@ -411,8 +411,10 @@ function setSearchDate(start){
             						value += "<tr>"
             							   + "<td>" + result[i].clNo  + "</td>"
             							   + "<td>" + result[i].ctNo + "</td>"
+            							   + "<td>" + result[i].ctDno + "</td>"
             							   + "<td>" + result[i].clName + "</td>"   
-            							   + "<td>" + result[i].enrollDate  + "</td>"
+								        
+    									   + "<td>" + result[i].updateDate  + "</td>"
             							   + "<td>" + result[i].memNo + "</td>"
             							   + "<td>" + result[i].clStatus + "</td>"
             							   +"</tr>"
@@ -446,9 +448,10 @@ function setSearchDate(start){
             <thead class="thead-light">
                 <tr>
                     <th width="100">클래스번호</th>
-                    <th width="120">카테고리</th>
+                    <th width="100">카테고리</th>
+                    <th width="100">세부</th>
                     <th width="400">클래스명</th>
-                    <th width="100">등록일</th>
+                    <th width="100">최종수정일</th>
                     <th width="100">튜터명</th>
                     <th width="100">상태</th>
                 </tr>
@@ -458,7 +461,7 @@ function setSearchDate(start){
             		<!-- 등록된 클래스 없을경우  -->
                 	<%if(list.isEmpty()){ %>
                     <tr>
-                        <td colspan="5">등록된 클래스가 없습니다.</td>
+                        <td colspan="6">등록된 클래스가 없습니다.</td>
                         
                     </tr>
                 	<%} else{%>
@@ -467,8 +470,9 @@ function setSearchDate(start){
 	                    <tr>
 	                        <td><%=c.getClNo() %></td>
 	                        <td><%=c.getCtNo() %></td>
+	                        <td><%=c.getCtDno() %></td>
 	                        <td><%=c.getClName() %></td>
-	                        <td><%=c.getEnrollDate() %></td>
+	                        <td><%=c.getUpdateDate() %></td>
 	                        <td><%=c.getMemNo() %></td>
 	                        <td>
                                 <%String status = c.getClStatus();

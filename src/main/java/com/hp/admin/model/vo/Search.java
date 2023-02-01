@@ -34,6 +34,20 @@ public class Search {
 
   
 	
+	public Search(String keyword, String category, String dcategory, String starDate, String endDate, String sido,
+			String sigungu, String price) {
+		super();
+		this.keyword = keyword;
+		this.category = category;
+		this.dcategory = dcategory;
+		this.starDate = starDate;
+		this.endDate = endDate;
+		this.sido = sido;
+		this.sigungu = sigungu;
+		this.price = price;
+	}
+
+
 	public Search(String keyword, String category, String dcategory, String sido, String sigungu, String day,
 			String price) {
 		super();

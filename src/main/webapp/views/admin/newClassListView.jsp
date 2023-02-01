@@ -94,7 +94,7 @@
            <%} else{%>
            		<%for(Lesson l : list){ %>
                 <tr>
-              		<th><input type="checkbox" name="check" value="<%=l.getClNo()%>"></th>
+              		<th id="th"><input type="checkbox" name="check" value="<%=l.getClNo()%>"></th>
                     <td><%=l.getClNo() %></td>
                     <td><%=l.getCtNo() %></td>
                     <td><%=l.getClName() %></td>
@@ -137,12 +137,21 @@
     
      	<script>
      	
-			$(function() {$("#newClass>tbody>tr").click(function() {
-					location.href = "<%=contextPath%>/newde.ad?no="+$(this).children('td').eq(0).text();
+			$(function(){
+				$("#newClass>tbody th").click(function() {
+					location.href = "<%=contextPath%>/newde.ad?no="+$(this).next().eq(0).text();
 					
 					
         		})
         	})
+        	
+        	const th = document.getElementById("th");
+			
+			th.addEventListner("click",function(e){
+				e.stopPropagation();
+			
+			  console.log("즐");
+			})
         
         
         </script>

@@ -304,6 +304,23 @@ public class Lesson {
 		this.tutorProfile = tutorProfile;
 	}
 
+
+
+	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String clName, Date enrollDate, Date updateDate,
+			String clStatus) {
+		super();
+		this.clNo = clNo;
+		this.ctNo = ctNo;
+		this.ctDno = ctDno;
+		this.memNo = memNo;
+		this.clName = clName;
+		this.enrollDate = enrollDate;
+		this.updateDate = updateDate;
+		this.clStatus = clStatus;
+	}
+
+
+
 	public String getCladdress2() {
 		return Claddress2;
 	}
