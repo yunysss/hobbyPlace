@@ -186,7 +186,7 @@
     <script>
     	$(function(){
     		$("#refundListBtn").click(function(){
-				location.href = "<%=contextPath%>/refundList.reg";    			
+				location.href = "<%=contextPath%>/refundList.reg?cpage=1";    			
     		})
     	})
     </script>

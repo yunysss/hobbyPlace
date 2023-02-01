@@ -598,6 +598,7 @@ public class AdminDao {
 									rset.getString("cl_status")
 								
 						));
+		
 			}
 		  System.out.println(list);
 		} catch (SQLException e) {

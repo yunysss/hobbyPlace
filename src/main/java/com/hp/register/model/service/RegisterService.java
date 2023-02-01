@@ -130,6 +130,14 @@ public class RegisterService {
 		}
 		return result;
 	}
+
+	public ArrayList<Register> selectMyRefundClassList(PageInfo pi) {
+		Connection conn = getConnection();
+		ArrayList<Register> refList = new RegisterDao().selectMyRefundClassList(conn, pi);
+		close(conn);
+		
+		return refList;
+	}
 	
 
 

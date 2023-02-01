@@ -348,6 +348,7 @@
             							   + "<td>" + result[i].clNo  + "</td>"
             							   + "<td>" + result[i].ctDno + "</td>"
             							   + "<td>" + result[i].clName + "</td>"  
+            							
             							   
             							   if(result[i].enrollDate <= result[i].updateDate){
             							   	value+= "<td>" + result[i].updateDate + "</td>"
@@ -356,7 +357,12 @@
             								}
             							   
             						value  += "<td>" + result[i].clStatus + "</td>"
-            							   + "<td>" + result[i].clRefuse + "</td>"
+            							   
+            						       if(result[i].clRefuse !=null){
+            						    	  value += "<td>" + result[i].clRefuse + "</td>"
+            						       } else{
+            						    	   value += "<td> </td>"
+            						       }
             							   + "</tr>"
             							   
             					}
@@ -366,11 +372,12 @@
             				$(".paging-area").html("");
             				$("#clTable tbody").html(value);
             				
+            				
             				$(function(){
-            	        		$("#classList>tbody>tr").click(function(){
-            	        			location.href="<%=contextPath%>/cldetail.tt?no="+$(this).children().eq(0).text();
-            	        		})
-            	        	})
+        		        		$("#clTable>tbody>tr").click(function(){
+        		        			location.href="<%=contextPath%>/cldetail.tt?no="+$(this).children().eq(0).text();
+        		        		})
+        		        	})
             			
             			},
             			error: function(){

@@ -373,7 +373,7 @@ function setSearchDate(start){
             							   + "<td>" + result[i].clNo  + "</td>"
             							   + "<td>" + result[i].ctNo + "</td>"
             							   + "<td>" + result[i].clName + "</td>"   
-            							   + "<td>" + result[i].enrollDate + "</td>"
+            							   + "<td>" + result[i].enrollDate  + "</td>"
             							   + "<td>" + result[i].memNo + "</td>"
             							   + "<td>" + result[i].clStatus + "</td>"
             							   +"</tr>"

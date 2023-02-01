@@ -156,6 +156,8 @@
 		  JOIN MEMBER USING(MEM_NO)
 		 WHERE CL_NO = ?
 		   AND RE_STA = 'Y'
+		 ORDER 
+		    BY RE_NO DESC
 	</entry>
 	<entry key="selectLikeStatus">
 		SELECT 

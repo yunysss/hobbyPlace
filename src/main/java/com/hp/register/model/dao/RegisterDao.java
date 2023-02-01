@@ -443,6 +443,56 @@ public class RegisterDao {
 		}
 		return result;
 	}
+
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param pi
+	 * @return 마이클래스 - 취소된 클래스 리스트 페이징
+	 */
+	public ArrayList<Register> selectMyRefundClassList(Connection conn, PageInfo pi) {
+		ArrayList<Register> refList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMyRefundClassList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,pi.getMemNo());
+			
+			int startRow = (pi.getCurrentPage() -1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(2,startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				refList.add(new Register(
+						  rset.getString("teach_date"),
+						  rset.getInt("reg_no"),
+						  rset.getString("reg_date"),
+						  rset.getString("reg_pay"),
+						  rset.getString("reg_price"),
+						  rset.getString("reg_count"),
+						  rset.getString("reg_sta"),
+						  rset.getString("cl_thumb"),
+						  rset.getString("cl_name"),
+						  rset.getString("start_time"),
+						  rset.getString("distr_name"),
+						  rset.getString("tt_name")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return refList;
+	}
 	
 
 }
