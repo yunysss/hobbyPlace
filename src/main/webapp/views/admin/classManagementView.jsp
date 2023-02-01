@@ -247,15 +247,54 @@ function setSearchDate(start){
                 <tr>
                     <th width="100">카테고리</th>
                     <td>
-                        <select id="category" name="category" onchange="changeCt();">
-                        <%for(Category c : cList){ %>
-                            <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
-                        <%} %>
-                        </select>
-                        <select id="Dcategory" name="dCategory">
-                        
-                        </select>
+                       <select name="category" id="ct" onchange="changeCt();">
+	                    <option value="00">전체</option>   
+	                    <option value="11">교육</option>
+	                    <option value="22">공예 DIY</option>
+	                    <option value="33">드로잉</option>
+	                    <option value="44">쿠킹</option>
+	                    <option value="55">스포츠/피트니스</option>
+
+                     </select>
+                     <select name="dcategory" id="dct">
+                    	<option>전체</option>
+                    </select>
                     </td>
+                    
+                    
+                     <script>
+                        function changeCt(){
+                        	var study = ["전체","외국어","자격증","IT"];
+                        	var diy = ["전체","가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
+                        	var draw = ["전체","취미미술","캘리그래피"];
+                        	var cook = ["전체","요리","베이킹"];
+                        	var sport = ["전체","실내스포츠","야외스포츠","레저/액티비티","요가 필라테스/ 헬스 PT"];
+     	
+                        	var changeDct;
+                        	
+                        	if( $("#ct").val() == "11"){
+                        		changeDct = study;
+                        		
+                        	}else if( $("#ct").val() == "22"){
+                        		changeDct = diy;
+                        	}else if( $("#ct").val() == "33"){
+                        		changeDct = draw;
+
+                        	}else if( $("#ct").val()  == "44"){
+                        		changeDct = cook;
+                        	}else if( $("#ct").val() == "55"){
+                        		changeDct = sport;
+                        	}
+                        	
+                        	$("#dct").empty();
+                        	for(var i=0; i<changeDct.length; i++){
+                        		var option = $("<option>"+changeDct[i]+"</option>");
+                        		$("#dct").append(option);
+                        	}
+                        	
+                        }
+                        
+                        </script>
 
 
                 </tr>
@@ -351,7 +390,7 @@ function setSearchDate(start){
             			data : {
             				keyword: $("input[name=keyword]").val(),
             				category : $("select[name=category]").val(),
-            				dcategory: $("select[name=dCategory]").val(),
+            				dcategory: $("select[name=dcategory]").val(),
             				startDate : $("input[name=searchStartDate]").val(),
             				endDate : $("input[name=searchEndDate]").val(),
             				status : status
@@ -464,43 +503,7 @@ function setSearchDate(start){
         
         </script>
         
-         <script>
-                        function changeCt(){
-                        	var study = ["전체","외국어","자격증","IT"];
-                        	var diy = ["전체","가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
-                        	var draw = ["전체","취미미술","캘리그래피"];
-                        	var cook = ["전체","요리","베이킹"];
-                        	var sport = ["전체","실내스포츠","야외스포츠","레저/액티비티","요가필라테스/헬스PT"];
-     	
-                        	var changeDct;
-                        	
-                        	if( $("#category").val() == "11"){
-                        		changeDct = study;
-                        		
-                        	}else if( $("#category").val() == "22"){
-                        		changeDct = diy;
-                        	}else if( $("#category").val() == "33"){
-                        		changeDct = draw;
-
-                        	}else if( $("#category").val() == "44"){
-                        		changeDct = cook;
-                        	}else if( $("#category").val()== "55"){
-                        		changeDct = sport;
-                        	}
-                        	
-                        	
-                        	for(var i=0; i<changeDct.length; i++){
-                        		var option = $("<option>"+changeDct[i]+"</option>");
-                        		$("#Dcategory").append(option);
-                        		
-                        
-                        	}
-                        	
-                        }
-                        
-                        </script>
-               
-
+       
 
         <div class="paging-area">
         

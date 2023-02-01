@@ -773,6 +773,12 @@ public class TutorDao {
 		 return result;
 	}
 	
+	/**@author 한빛
+	 * @param conn
+	 * @param s
+	 * @param memNo
+	 * @return 튜터 클래스 조회 
+	 */
 	public ArrayList<Lesson> searchClass(Connection conn, Search s,int memNo){
 		ArrayList<Lesson> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -787,7 +793,7 @@ public class TutorDao {
 			String status = s.getStatus();
 
 			if(keyword != null && !keyword.equals("")) {
-				sql += "and cl_name||ct_name||ct_name like" + "'%"+ keyword + "%'";
+				sql += "and cl_name||ct_dname||ct_name like" + "'%"+ keyword + "%'";
 			}
 			
 			if(startDate != null && endDate != null && !startDate.equals("") && !endDate.equals("")) {
@@ -800,7 +806,7 @@ public class TutorDao {
 				sql += ")"; 
 			}
 			
-			System.out.println(sql);
+			//System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);
 			rset = pstmt.executeQuery();
