@@ -74,6 +74,19 @@ public class Lesson {
 
 
 
+	public Lesson(int clNo, String ctDno, String clName, Date enrollDate, Date updateDate, String clStatus, String clRefuse) {
+		super();
+		this.clNo = clNo;
+		this.ctDno = ctDno;
+		this.clName = clName;
+		this.enrollDate = enrollDate;
+		this.updateDate = updateDate;
+		this.clStatus = clStatus;
+		this.clRefuse = clRefuse;
+	}
+
+
+
 	public Lesson(String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
 			String clAddress, int clMax, String clLevel, int clTimes, String clSchedule, String clDay, String clPrice,
 			String clDetail, String curriculum, String refundPolicy, String clSupplies, String keyword,

@@ -576,14 +576,12 @@ public class AdminDao {
 			*/
 			if(status.length() != 0) {
 				sql += "and cl_status in (" + status ;
-			    sql.substring(0,sql.length()-1);
+			    sql = sql.substring(0,sql.length()-1);
 				sql += ")"; 
 			}
 			
-			
-			
-			
-			//System.out.println(sql);
+	
+			System.out.println(sql);
 	
 			pstmt=conn.prepareStatement(sql);
 			

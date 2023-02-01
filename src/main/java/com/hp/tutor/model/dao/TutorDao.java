@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
@@ -770,6 +771,59 @@ public class TutorDao {
 		}
 		 System.out.println(result);
 		 return result;
+	}
+	
+	public ArrayList<Lesson> searchClass(Connection conn, Search s,int memNo){
+		ArrayList<Lesson> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchClass");
+		
+		try {
+			
+			String keyword = s.getKeyword();
+			String startDate = s.getStarDate();
+			String endDate = s.getEndDate();
+			String status = s.getStatus();
+
+			if(keyword != null && !keyword.equals("")) {
+				sql += "and cl_name||ct_name||ct_name like" + "'%"+ keyword + "%'";
+			}
+			
+			if(startDate != null && endDate != null && !startDate.equals("") && !endDate.equals("")) {
+				 sql += "and c.enroll_date between '" + startDate + "' and '" + endDate +"'";
+			}
+			
+			if(status.length() != 0) {
+				sql += "and cl_status in (" + status ;
+			    sql = sql.substring(0,sql.length()-1);
+				sql += ")"; 
+			}
+			
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Lesson(rset.getInt("cl_no"),
+									 rset.getString("ct_dname"),
+									 rset.getString("cl_name"),
+									 rset.getDate("enroll_date"),
+									 rset.getDate("update_date"),
+									 rset.getString("cl_status"),
+									 rset.getString("cl_refuse")
+						
+						));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 	
