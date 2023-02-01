@@ -961,6 +961,60 @@
 	
 	</entry>
 	
+	<entry key="searchDetailClass">
+			SELECT 
+				       CL_NO
+				     , CT_NAME
+				     , CT_DNAME  
+				     , MEM_NO
+				     , TT_NAME
+				     , LOCAL_NAME
+				     , DISTR_NAME
+				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+				     , KEYWORD
+				     , CL_THUMB
+				     , (SELECT AVG(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				     , (SELECT COUNT(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				     , (SELECT COUNT(REG_NO)
+                        FROM REGISTER G
+                        GROUP BY CL_NO
+                        having c.cl_no =g.cl_no )"REG_COUNT"    
+                     , CL_DAY 
+                     , CL_SCHEDULE 
+  
+				  FROM CLASS C
+				  JOIN LOCATION USING(LOCAL_CODE)
+				  JOIN DISTRICT USING(DISTR_CODE)
+				  JOIN CATEGORY USING (CT_NO)
+				  JOIN DCATEGORY USING (CT_DNO)
+				  JOIN TUTOR USING(MEM_NO)
+				 WHERE CL_STATUS = 2
+		
+          
+	
+	
+	
+	
+	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

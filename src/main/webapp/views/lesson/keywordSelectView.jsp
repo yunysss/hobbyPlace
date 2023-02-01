@@ -17,120 +17,136 @@
  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <title>Insert title here</title>
  <style>
-        .outer{
-            width: 1000px;
-            margin: auto;
+.outer {
+	width: 1000px;
+	margin: auto;
+}
 
-        }
-        h4>a{
-          color: rgb(65, 64, 64);
-          margin-right: 5px;
-          text-decoration: none;
-          font-size: 20px;
-          font-weight: 550;
-        
-        }
-        h4>a:hover{
-          text-decoration: none;
-          cursor: pointer;
-          color:  rgb(35, 104, 116);
-        
-        }
-        .thumbnail{
-        width: 190px;
-        display: inline-block;
-        margin: 10px;
-        text-align: left;
-      }
-      #detail-category a{
-          color: rgb(65, 64, 64);
-          font-size: 12px;
-          margin-right: 5px;
-      }
-      #detail-category a:hover{
-        cursor: pointer;
-        color: black;
-        font-size: 12.5px;
-      }
-      #button-area{
-        margin-top: 10px;
-      }
-      #btn-area{
-        display: inline-block;
-        width: 770px;
-        text-align: right;
-      }
-      #btn-area>button{
-        width: 60px;
-        height: 30px;
-        line-height: 10px;
-        background-color: rgb(35, 104, 116);
-        border: none;
-        font-size: 13px;
-        color: whitesmoke;
-        border-radius: 5px;
-      }
-      #btn-area>button:hover{
-        background-color:  rgba(35, 104, 116, 0.685);
-      }
-       #thumbnail img{
-      border-radius: 5px;
-     }
-       .paging-area{
-        text-align: center;
-    }
-    .paging-area>*{
-        border: none;
-        border-radius: 3px;
-    }   
-     #thumbnail img, .a img {
-		border-radius: 5px;
-	}
-	
-	.dropdown {
-		display: inline;
-	}
-	
-	.dropdown-menu a {
-		font-size: 12px;
-	}
-	
-	.pop {
-		width: 30px
-	}
-	
-	.a {
-		width: 190px;
-		display: inline-block;
-		margin: 10px;
-		text-align: left;
-		box-sizing: border-box;
-	}
-	
-	#clName {
-		height: 50px;
-	}
-	
-	#range img {
-		margin-left: 10px;
-		margin-right: 10px;
-	}
-	
-	a {text-decoration: none !important;
-		color: black !important;
-    }
+h4>a {
+	color: rgb(65, 64, 64);
+	margin-right: 5px;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: 550;
+}
 
-    </style>
+h4>a:hover {
+	text-decoration: none;
+	cursor: pointer;
+	color: rgb(35, 104, 116);
+}
+
+.thumbnail {
+	width: 190px;
+	display: inline-block;
+	margin: 10px;
+	text-align: left;
+}
+
+#detail-category a {
+	color: rgb(65, 64, 64);
+	font-size: 12px;
+	margin-right: 5px;
+}
+
+#detail-category a:hover {
+	cursor: pointer;
+	color: black;
+	font-size: 12.5px;
+}
+
+#button-area {
+	margin-top: 10px;
+}
+
+#btn-area {
+	display: inline-block;
+	width: 770px;
+	text-align: right;
+}
+
+#btn-area>button {
+	width: 60px;
+	height: 30px;
+	line-height: 10px;
+	background-color: rgb(35, 104, 116);
+	border: none;
+	font-size: 13px;
+	color: whitesmoke;
+	border-radius: 5px;
+}
+
+#btn-area>button:hover {
+	background-color: rgba(35, 104, 116, 0.685);
+}
+
+#thumbnail img {
+	border-radius: 5px;
+}
+
+.paging-area {
+	text-align: center;
+}
+
+.paging-area>* {
+	border: none;
+	border-radius: 3px;
+}
+
+#thumbnail img, .a img {
+	border-radius: 5px;
+}
+#thumbnail:hover {
+		opacity:0.8;
+	}
+	
+img:hover{
+	opacity:0.8;
+}
+.dropdown {
+	display: inline;
+}
+
+.dropdown-menu a {
+	font-size: 12px;
+}
+
+.pop {
+	width: 30px
+}
+
+.a {
+	width: 190px;
+	display: inline-block;
+	margin: 10px;
+	text-align: left;
+	box-sizing: border-box;
+}
+
+#clName {
+	height: 50px;
+}
+
+#range img {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+a {
+	text-decoration: none !important;
+	color: black !important;
+}
+</style>
 </head>
 <body>
 <%@include file="../common/tuteeMenubar.jsp" %>
  <div class="outer">
- 	<%if (kList.isEmpty()){ %>
+ 	<%if (kList.isEmpty()) {%>
  		<div align="center">
-  		<h5>"<%=keyword %>" 로 검색된 클래스가 없습니다.🥲</h5>
+  		<h5>"<%=keyword%>" 로 검색된 클래스가 없습니다.🥲</h5>
   		</div>
-  		<%}else{ %>
-        <h4> <a href="">" <%=keyword %> " 검색결과</a><span class="material-symbols-outlined symbol">expand_more</span></h4>
+  		<%} else {%>
+        <h4> <a href="">" <%=keyword%> " 검색결과</a><span class="material-symbols-outlined symbol">expand_more</span></h4>
         
         <div id="button-area">
              <div class="dropdown">

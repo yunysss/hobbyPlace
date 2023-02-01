@@ -15,6 +15,8 @@ import java.util.Properties;
 import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
 import com.hp.admin.model.vo.SearchMember;
+import com.hp.admin.model.vo.SearchTutor;
+import com.hp.admin.model.vo.TutorList;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
@@ -1061,6 +1063,61 @@ public class AdminDao {
 
 			}
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	/** 튜터리스트 기본검색시 조회되는 list 
+	 * @author 수연
+	 * @param st
+	 * @return list
+	 */
+	public ArrayList<TutorList> selectTutorList1(Connection conn, SearchTutor st) {
+		ArrayList<TutorList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTutorList1");
+		
+		try {
+			switch(st.getfCategory()) {
+			case "classActive" : sql += " CLASSACTIVE "; break;
+			case "classTotal" : sql += " CLASSTOTAL "; break;
+			case "tuteeTotal" : sql += " TUTEETOTAL "; break;
+			case "lessonTotal" : sql += " LIKECOUNT "; break;
+			case "incomeTotal" : sql += " REVCOUNT "; break;
+			}
+			
+			if(st.getLineup().equals("desc")) {
+				sql += "desc";
+			}else if(st.getLineup().equals("asc")) {
+				sql += "asc";
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, st.getEnrollStart());
+			pstmt.setString(2, st.getEnrollEnd());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new TutorList(rset.getInt("mem_no"),
+							            rset.getString("mem_name"),
+							            rset.getString("mem_id"),
+							            rset.getString("tt_name"),
+							            rset.getInt("classactive"),
+							            rset.getInt("classtotal"),
+							            rset.getInt("tuteetotal"),
+							            rset.getInt("likecount"),
+							            rset.getInt("revcount"),
+							            rset.getInt("incometotal"),
+							            rset.getString("tutoraddr")));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

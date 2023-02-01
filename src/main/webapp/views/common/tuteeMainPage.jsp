@@ -203,7 +203,7 @@
                 <% if(loginUser == null || loginUser.getInterest() == null) {%>
 	                <div class="rec-title">
 	                    <b>새로운 클래스 🎁</b>
-	                    <span><button class="left" onclick="prevView(1);">&lt;</button> <button class="right" onclick="nextView(1);">&gt;</button></span>
+	                    <span><button class="left" onclick="prevView(1);">❮</button> <button class="right" onclick="nextView(1);">❯</button></span>
 	                </div>
 	                <script>
 	                	$(function(){
@@ -214,7 +214,7 @@
                 	<!-- 로그인 후 -->
                 	<div class="rec-title">
 	                    <b><%= loginUser.getMemNick() %> 님이 좋아할만한 클래스 🥰</b>
-	                    <span><button class="left" onclick="prevView(1);">&lt;</button> <button class="right" onclick="nextView(1);">&gt;</button></span>
+	                    <span><button class="left" onclick="prevView(1);">❮</button> <button class="right" onclick="nextView(1);">❯</button></span>
 	                </div>
 	                <script>
 		                $(function(){
@@ -259,7 +259,7 @@
             <div id="mainPageRec-2">
                 <div class="rec-title">
 	                    <b>찜이 가장 많은 클래스 ❤️</b>
-	                    <span><button class="left" onclick="prevView(2);">&lt;</button> <button class="right" onclick="nextView(2);">&gt;</button></span>
+	                    <span><button class="left" onclick="prevView(2);">❮</button> <button class="right" onclick="nextView(2);">❯</button></span>
 	                </div>
 	                <ul id="rec-pic-2">
 	                </ul>
@@ -273,7 +273,7 @@
             <div id="mainPageRec-3">
                 <div class="rec-title">
 	                    <b>클래스 후기</b>
-	                    <span><button class="left" onclick="prevView(3);">&lt;</button> <button class="right" onclick="nextView(3);">&gt;</button></span>
+	                    <span><button class="left" onclick="prevView(3);">❮</button> <button class="right" onclick="nextView(3);">❯</button></span>
 	                </div>
 	                <ul id="rec-pic-3">
 	                </ul>

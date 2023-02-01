@@ -12,6 +12,11 @@ public class Search {
 	private String starDate;
 	private String endDate;
 	private String status;
+	private String sido;
+	private String sigungu;
+	private String day;
+	private String price;
+	private String sort;
 	
 	
 	public Search() {}
@@ -29,12 +34,67 @@ public class Search {
 
   
 	
+	public Search(String keyword, String category, String dcategory, String sido, String sigungu, String day,
+			String price) {
+		super();
+		this.keyword = keyword;
+		this.category = category;
+		this.dcategory = dcategory;
+		this.sido = sido;
+		this.sigungu = sigungu;
+		this.day = day;
+		this.price = price;
+	}
+
+
 	public Search(String keyword, String starDate, String endDate, String status) {
 		super();
 		this.keyword = keyword;
 		this.starDate = starDate;
 		this.endDate = endDate;
 		this.status = status;
+	}
+	
+	
+  
+
+	public String getSido() {
+		return sido;
+	}
+
+
+	public void setSido(String sido) {
+		this.sido = sido;
+	}
+
+
+	public String getSigungu() {
+		return sigungu;
+	}
+
+
+	public void setSigungu(String sigungu) {
+		this.sigungu = sigungu;
+	}
+
+
+	public String getDay() {
+		return day;
+	}
+
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+
+	public String getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 
@@ -98,12 +158,23 @@ public class Search {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Search [keyword=" + keyword + ", category=" + category + ", dcategory=" + dcategory + ", starDate="
-				+ starDate + ", endDate=" + endDate + ", status=" + status + "]";
+	public Search(String keyword, String category, String dcategory, String starDate, String endDate, String status,
+			String sido, String sigungu, String day, String price) {
+		super();
+		this.keyword = keyword;
+		this.category = category;
+		this.dcategory = dcategory;
+		this.starDate = starDate;
+		this.endDate = endDate;
+		this.status = status;
+		this.sido = sido;
+		this.sigungu = sigungu;
+		this.day = day;
+		this.price = price;
 	}
 
 
+	
+	
 
 }

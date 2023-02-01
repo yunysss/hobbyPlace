@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import com.hp.admin.model.vo.Search;
 import com.hp.lesson.model.service.LessonService;
-import com.hp.review.model.vo.Review;
+import com.hp.lesson.model.vo.Lesson;
 
 /**
- * Servlet implementation class AjaxSelectReviewController
+ * Servlet implementation class ClassDetailSearchController
  */
-@WebServlet("/selectReAttachment.cl")
-public class AjaxSelectReviewController extends HttpServlet {
+@WebServlet("/detail.sc")
+public class ClassDetailSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxSelectReviewController() {
+    public ClassDetailSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,20 @@ public class AjaxSelectReviewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		 String keyword = request.getParameter("keyword");
+		 String category = request.getParameter("category");
+		 String dcategory = request.getParameter("dcategory");
+		 String sido = request.getParameter("sido");
+		 String sigungu = request.getParameter("sigungu");
+		 String[] dayArr = request.getParameterValues("day");
+		 String day = String.join(",", dayArr);
+		 
+		 String price = request.getParameter("price");
+		 
+		 Search s = new Search(keyword,category,dcategory,sido,sigungu,day,price);
+		 
+		 ArrayList<Lesson> list = new LessonService().seachDetailClass(s);
+				 
 	}
 
 	/**

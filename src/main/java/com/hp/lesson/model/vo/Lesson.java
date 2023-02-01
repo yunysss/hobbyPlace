@@ -40,7 +40,7 @@ public class Lesson {
 	private String introduce;
 	private String tutorProfile;
 	private String Claddress2;
-	private String date;
+	
 
 	public Lesson() {}
 
@@ -72,17 +72,6 @@ public class Lesson {
 		this.clThumb = clThumb;
 	}
  
-  
-
-	public Lesson(int clNo, String ctNo, String memNo, String clName, String clStatus, String date) {
-		super();
-		this.clNo = clNo;
-		this.ctNo = ctNo;
-		this.memNo = memNo;
-		this.clName = clName;
-		this.clStatus = clStatus;
-		this.date = date;
-	}
 
 
 
