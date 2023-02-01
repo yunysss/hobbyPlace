@@ -16,7 +16,7 @@ import com.hp.review.model.vo.Review;
 /**
  * Servlet implementation class AjaxSelectReviewController
  */
-@WebServlet("/selectReview.cl")
+@WebServlet("/selectReAttachment.cl")
 public class AjaxSelectReviewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,12 +32,7 @@ public class AjaxSelectReviewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int clNo = Integer.parseInt(request.getParameter("clNo"));
 		
-		ArrayList<Review> list = new LessonService().selectClassReview(clNo);
-		
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

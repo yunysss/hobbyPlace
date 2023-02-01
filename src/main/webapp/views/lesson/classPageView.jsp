@@ -72,7 +72,7 @@
         .nav-item:hover{
             text-decoration: underline 3px;
         }
-        #section3 a{
+        #viewMore, #viewFold{
             background:rgb(35, 104, 116);
             color:white !important;
             height:40px;
@@ -82,8 +82,9 @@
         #section3 table td{
         	padding-bottom:30px;
         }
-        #reviewList tr{display:none;}
+        #reviewList tr, #viewFold{display:none;}
         #reviewList p{word-break: break-all;}
+        
         /* classDetail-2 */
         #classDetail-2>*{
             position:fixed;
@@ -430,7 +431,7 @@
 			  								<p><%= rList.get(i).getReviewContent() %></p>
 			  								<img src="dd" width="100px" height="100px" style="border:1px solid">
 				  							<img src="dd" width="100px" height="100px" style="border:1px solid">
-				  							<img src="dd" width="100px" height="100px"	 style="border:1px solid">
+				  							<img src="dd" width="100px" height="100px" style="border:1px solid">
 			  							</td>
 			  						</tr>
 		  						<% } %>
@@ -438,11 +439,11 @@
                     	</table>
                     	<div align="center">
                     		<a href="#" class="btn" id="viewMore">더보기</a>
+                    		<a href="#" class="btn" id="viewFold">접기</a>
                     	</div>
                     </div>
                     <script>
 						$(function(){
-					        
 							$("#reviewList tr").slice(0, 10).show(); // 초기갯수
 					        if($("#reviewList tr:hidden").length == 0){ // 컨텐츠 남아있는지 확인
 					            $("#viewMore").hide();
@@ -452,10 +453,16 @@
 								$("#reviewList tr:hidden").slice(0, 10).show(); // 클릭시 more 갯수 지저정
 								if($("#reviewList tr:hidden").length == 0){ // 컨텐츠 남아있는지 확인
 									$("#viewMore").hide();
+									$("#viewFold").css("display", "inline-block");
 								}
 							});
+							$("#viewFold").click(function(){
+					            $("#section3 tr").slice(10).hide();
+					            $(this).hide();
+					            $("#viewMore").show();
+					        })
 						});
-						</script>
+					</script>
                     <hr>
                     <div id="section4" class="container-fluid">
                         <b style="font-size:14px">취소/환불</b><br>
