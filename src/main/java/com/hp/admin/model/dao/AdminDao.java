@@ -615,20 +615,6 @@ public class AdminDao {
 			case "totalpay" : sql += " totalpay "; break;
 			}
 			
-			/*
-			if(fCategory.equals("mem_name")) {
-				sql += " mem_name ";
-			}else if(fCategory.equals("enroll_date")) {
-				sql += " enroll_date ";
-			}else if(fCategory.equals("regcount")) {
-				sql += " regcount ";
-			}else if(fCategory.equals("likecount")) {
-				sql += " likecount ";
-			}else if(fCategory.equals("totalpay")) {
-				sql += " totalpay ";
-			}
-			*/
-			
 			
 			if(lineup.equals("desc")) {
 				sql += "desc";
@@ -992,6 +978,25 @@ public class AdminDao {
 			case "Y" : sql += "'Y'"; break;
 			case "N" : sql += "'N'"; break;
 			}
+			
+
+			switch(sm.getfCategory()) {
+			case "enroll_date" : sql += " order by enroll_date "; break;
+			case "mem_no" : sql += " order by  mem_no "; break;
+			case "mem_name" : sql += " order by mem_name "; break;
+			case "regcount" : sql += " order by regcount "; break;
+			case "revcount" : sql += " order by revcount "; break;
+			case "likecount" : sql += " order by likecount "; break;
+			case "totalpay" : sql += " order by totalpay "; break;
+			}
+				
+				
+			if(sm.getLineup().equals("desc")) {
+				sql += "desc";
+			}else if(sm.getLineup().equals("asc")) {
+				sql += "asc";
+			}
+			
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sm.getsGroup());
