@@ -2,30 +2,29 @@ package com.hp.register.model.vo;
 
 public class Register {
 
-	public int regNo;
-	public String memNo;
-	public String clNo;
-	public String teachDate;
-	public String regDate;
-	public String schNo;
-	public String regPay;
-	public String regPrice;
-	public String regCount;
-	public String regSta;
-	public String refuse;
-	public String reEnroll;
-	public String regCal;
-	public String depositSta;
-	public String memPhone;
-	public String memEmail;
-	public String clThumb;
-	public String clName;
-	public String startTime;
-	public String distrName;
-	public String ttName;
-	
-	public String ctName;
-	public String ctDname;
+	private int regNo;
+	private String memNo;
+	private String clNo;
+	private String teachDate;
+	private String regDate;
+	private String schNo;
+	private String regPay;
+	private String regPrice;
+	private String regCount;
+	private String regSta;
+	private String refuse;
+	private String reEnroll;
+	private String regCal;
+	private String depositSta;
+	private String memPhone;
+	private String memEmail;
+	private String clThumb;
+	private String clName;
+	private String startTime;
+	private String distrName;
+	private String ttName;
+	private String ctName;
+	private String ctDname;
 	
 	public Register() {}
 
