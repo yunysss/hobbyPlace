@@ -5,6 +5,7 @@ import static com.hp.common.JDBCTemplate.close;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -626,16 +627,14 @@ public class AdminDao {
 		String sql = prop.getProperty("selectMemberList1");
 		
 		try {
-			if(fCategory.equals("mem_name")) {
-				sql += " mem_name ";
-			}else if(fCategory.equals("enroll_date")) {
-				sql += " enroll_date ";
-			}else if(fCategory.equals("regcount")) {
-				sql += " regcount ";
-			}else if(fCategory.equals("likecount")) {
-				sql += " likecount ";
-			}else if(fCategory.equals("totalpay")) {
-				sql += " totalpay ";
+			switch(fCategory) {
+			case "enroll_date" : sql += " enroll_date "; break;
+			case "mem_no" : sql += " mem_no "; break;
+			case "mem_name" : sql += " mem_name "; break;
+			case "regcount" : sql += " regcount "; break;
+			case "revcount" : sql += " revcount "; break;
+			case "likecount" : sql += " likecount "; break;
+			case "totalpay" : sql += " totalpay "; break;
 			}
 			
 			
@@ -644,14 +643,11 @@ public class AdminDao {
 			}else if(lineup.equals("asc")) {
 				sql += "asc";
 			}
+			
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, sGroup);
 
-			
-			System.out.println(sql);
-			
 			rset = pstmt.executeQuery();
-			System.out.println(rset);
 			
 			while(rset.next()) {
 				list.add(new MemberList(rset.getInt("mem_no"),
@@ -897,7 +893,7 @@ public class AdminDao {
 		sql = sql.substring(0,sql.length()-1);
 		sql += ")";
 	
-	//	System.out.println(sql);
+
 		
 		try {
 			pstmt= conn.prepareStatement(sql);
@@ -948,11 +944,12 @@ public class AdminDao {
 		return result;
 
 	}
-
-
-
-
-
+	/** 세부검색으로 회원조회시 나오는 list
+	 * @author 수연
+	 * @param conn
+	 * @param sm
+	 * @return list
+	 */
 	public ArrayList<MemberList> selectMemberList2(Connection conn, SearchMember sm) {
 		ArrayList<MemberList> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -960,11 +957,98 @@ public class AdminDao {
 		String sql = prop.getProperty("selectMemberList2");
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			switch(sm.getsCategory()) {
+			case "mem_name" : sql += " mem_name "; break;
+			case "mem_email" : sql += " mem_email "; break;
+			case "mem_addr" : sql += " mem_addr "; break;
+			case "mem_phone" : sql += " mem_phone "; break;
+			case "regcount" : sql += " (SELECT COUNT(REG_NO) \r\n"
+					+ "		          FROM REGISTER R\r\n"
+					+ "		         WHERE REG_STA = '2'\r\n"
+					+ "		           AND MEM_NO = M.MEM_NO) = "; break;
+					
+			case "revcount" : sql += " (SELECT COUNT(RE_NO) \r\n"
+					+ "		          FROM REVIEW\r\n"
+					+ "		         WHERE RE_STA = 'Y'\r\n"
+					+ "		           AND MEM_NO = M.MEM_NO) = "; break;
+					
+			case "likecount" : sql += " (SELECT COUNT(CL_NO)\r\n"
+					+ "		          FROM \"LIKE\"\r\n"
+					+ "		         WHERE MEM_NO = M.MEM_NO) = "; break;
+					
+			case "totalpay" : sql += " (SELECT SUM(REG_PRICE)\r\n"
+					+ "		          FROM REGISTER\r\n"
+					+ "		         WHERE REG_STA = '2'\r\n"
+					+ "		          AND MEM_NO = M.MEM_NO) = "; break;
+					
+			case "gender" : sql += " gender = "; break;
+			case "mem_status" : sql += " mem_status = "; break;
+			}
 			
+			if(!sm.getSearchkey1().isEmpty()) { //MEM_NAME 선택시
+				sql += " LIKE '%" + sm.getSearchkey1() + "%'";
+			}
+			
+			if(!sm.getSearchkey2().isEmpty()) { //REVCOUNT, LIKECOUNT,TOTALPAY 선택시
+				sql += sm.getSearchkey2();
+			}
+			
+			switch(sm.getSelectValue()) {// GENDER, MEM_STATUS 선택시
+			case "M" : sql += "'M'"; break;
+			case "F" : sql += "'F'"; break;
+			case "X" : sql += "'X'"; break;
+			case "Y" : sql += "'Y'"; break;
+			case "N" : sql += "'N'"; break;
+			}
+			
+
+			switch(sm.getfCategory()) {
+			case "enroll_date" : sql += " order by enroll_date "; break;
+			case "mem_no" : sql += " order by  mem_no "; break;
+			case "mem_name" : sql += " order by mem_name "; break;
+			case "regcount" : sql += " order by regcount "; break;
+			case "revcount" : sql += " order by revcount "; break;
+			case "likecount" : sql += " order by likecount "; break;
+			case "totalpay" : sql += " order by totalpay "; break;
+			}
+				
+				
+			if(sm.getLineup().equals("desc")) {
+				sql += "desc";
+			}else if(sm.getLineup().equals("asc")) {
+				sql += "asc";
+			}
+			
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, sm.getsGroup());
+			pstmt.setString(2, sm.getEnrollStart());
+			pstmt.setString(3, sm.getEnrollEnd());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new MemberList(rset.getInt("mem_no"),
+						            rset.getString("mem_name"),
+						            rset.getString("grade"),
+						            rset.getString("enroll_date"),
+						            rset.getInt("regcount"),
+						            rset.getInt("revcount"),
+						            rset.getInt("likecount"),
+						            rset.getInt("totalpay"),
+						            rset.getString("mem_email"),
+						            rset.getString("mem_phone"),
+						            rset.getString("mem_addr"),
+						            rset.getString("gender"),
+						            rset.getString("mem_status")));
+
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return list;
