@@ -12,7 +12,7 @@
 	.outer>div{
 		margin-left:50px;
 		width:600px; 
-		height:300px;
+		height:330px;
 		border:1px solid rgb(180, 180, 180); 
         border-radius:5px;
         padding:20px;
@@ -25,6 +25,7 @@
     <div class="outer">
         <h5><b>예약 승인 상세</b></h5><br>
         <div>
+        	주문번호 <%= r.getRegNo() %> <br>
         	<%= r.getRegDate() %> <br>
 	        <h5><%= r.getClNo() %></h5> <br>
 	        수강생 : <%= r.getMemNo() %> <br>

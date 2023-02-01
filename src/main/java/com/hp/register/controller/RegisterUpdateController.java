@@ -30,9 +30,9 @@ public class RegisterUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String regNo = request.getParameter("regNo");
-		String regSt = request.getParameter("regSt");		
+		String depositSt = request.getParameter("depositSt");		
 		
-		int result = new RegisterService().updateRegister(regNo, regSt);
+		int result = new RegisterService().updateRegisterMng(regNo, depositSt);
 		
 		if(result > 0) {
 			response.sendRedirect(request.getContextPath() + "/manage.reg");

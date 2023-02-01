@@ -222,16 +222,16 @@ private Properties prop = new Properties();
 		return le;
 	}
 	
-	public ArrayList<Attachment> selectClassAttachment(Connection conn, int clNo){
+	public ArrayList<Attachment> selectAttachment(Connection conn, int clNo, int refType){
 		ArrayList<Attachment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectClassAttachment");
+		String sql = prop.getProperty("selectAttachment");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, clNo);
-			
+			pstmt.setInt(2, refType);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

@@ -37,7 +37,7 @@ public class ClassPageController extends HttpServlet {
 		int clNo = Integer.parseInt(request.getParameter("no"));
 		
 		Lesson le = new LessonService().selectClassPage(clNo);
-		ArrayList<Attachment> aList = new LessonService().selectClassAttachment(clNo);
+		ArrayList<Attachment> aList = new LessonService().selectAttachment(clNo, 1);
 		if((Member)request.getSession().getAttribute("loginUser") != null) {
 			int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 			int likeStatus = new LessonService().selectLikeStatus(clNo, memNo);

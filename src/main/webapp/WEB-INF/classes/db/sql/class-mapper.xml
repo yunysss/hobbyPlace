@@ -133,14 +133,14 @@
 		 WHERE C.CL_STATUS = 2
 		   AND C.CL_NO = ?
 	</entry>
-	<entry key="selectClassAttachment">
+	<entry key="selectAttachment">
 		SELECT 
 		       FILE_NO
 		     , CHANGE_NAME
 		     , FILE_PATH
 		  FROM ATTACHMENT
 		 WHERE REF_NO = ?
-		   AND REF_TYPE = 1
+		   AND REF_TYPE = ?
 		   AND STATUS = 'Y'
 	</entry>
 	<entry key="selectClassReview">

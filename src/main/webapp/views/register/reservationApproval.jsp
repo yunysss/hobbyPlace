@@ -15,7 +15,7 @@
         .rsvList{
             border:1px solid rgb(180, 180, 180); 
             border-radius:5px;
-            height:150px;
+            height:180px;
             cursor: pointer;
             margin-bottom:20px;
         }
@@ -57,6 +57,10 @@
 	       background-color: gray;
 	       color:white;
 	   }
+	   input[name=regNo]{
+        	border:none;
+        	pointer-events: none;
+        }
 	   #paging{
 	    text-align: center;
 	    display: inline-block;
@@ -109,7 +113,7 @@
 			    $(function () {
 				     selectApproval();
 				     $(document).on("click", ".rsvList", function(){
-				    	 location.href = "<%=contextPath%>/regDetail.tt?no=" + $(this).children("input").val();
+				    	 location.href = "<%=contextPath%>/regDetail.tt?no=" + $("input[name='regNo']").val();
 				     })
 			    })
 			    $("input[type=radio]").change(function(){
@@ -154,8 +158,8 @@
 			    	    i++
 			    	  ) {
 			    		  value += "<div class='rsvList'>"
-			    		  		+ 	"<input type='hidden' value='"+ dataList[i].regNo + "'>"
 			    		  		+ 	"<div>"
+			    		  		+ 		"주문번호 <input type='type' name='regNo' value='"+ dataList[i].regNo + "' readonly><br>"
 			    		  		+		dataList[i].regDate + "<br>"
 			    		  		+		dataList[i].memNo + " 수강생<br>"
 			    		  		+		"<h5>" + dataList[i].clNo + "</h5><br>"
