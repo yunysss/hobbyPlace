@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.hp.common.model.vo.PageInfo;
 import com.hp.member.model.vo.Member;
+import com.hp.refund.model.vo.Refund;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
 
@@ -442,6 +443,6 @@ public class RegisterDao {
 		}
 		return result;
 	}
-
 	
+
 }

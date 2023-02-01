@@ -379,8 +379,14 @@
 		       C.CL_NAME "CL_NAME"
 		     , L.MEM_NO "MEM_NO"
 		     , TO_CHAR(LIKE_DATE, 'YYYY-MM-DD') "LIKE_DATE"
+		     , CT_NAME
+		     , CT_DNAME
+		     , TT_NAME
 		  FROM "LIKE" L
 		  JOIN CLASS C ON (L.CL_NO = C.CL_NO)
+		  JOIN CATEGORY O ON (C.CT_NO = O.CT_NO)
+		  JOIN DCATEGORY Y ON (C.CT_DNO = Y.CT_DNO)
+		  JOIN TUTOR T ON (C.MEM_NO = T.MEM_NO)
 		 WHERE L.MEM_NO = ?
 	</entry>
 	
