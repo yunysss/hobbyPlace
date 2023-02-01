@@ -338,10 +338,9 @@
 			</div>
 			<script>
 	        	$(function(){
-	        		$("#tbd>tr").click(function(){
-	        			location.href = '<%=contextPath%>/memDetail.ad?no=' + $(this).children().eq(0).text(); 
-	        			<!--클릭했을때의글번호넘겨야만 데이터조회가능 -> $(this)클릭한행의.children()자손td요소들 중에.eq(0)첫번째(memNo)요소의.text()텍스트값 -->
-	        		})
+	        		 $("#tbd").on("click", "tr", function(){
+	        			 location.href = '<%=contextPath%>/memDetail.ad?no=' + $(this).children().eq(0).text(); 
+	                 })
 	        	})
         	</script>
 		</div>

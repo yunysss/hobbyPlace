@@ -708,7 +708,12 @@ public class AdminDao {
 					       rset.getDate("enroll_date"),
 					       rset.getDate("mem_update"),
 					       rset.getString("mem_status"),
-					       rset.getString("mem_drop"));
+					       rset.getString("mem_drop"),
+					       rset.getInt("regcount"),
+					       rset.getInt("revcount"),
+					       rset.getInt("likecount"),
+					       rset.getInt("totalpay"),
+					       rset.getDouble("staravg"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -749,8 +754,8 @@ public class AdminDao {
 			            rset.getString("A_TITLE"),
 			            rset.getString("A_CONTENT"),
 			            rset.getDate("A_DATE"),
-			            rset.getInt("A_MEM_NO")));
-				System.out.println(qnaList);
+			            rset.getInt("A_MEM_NO"),
+			            rset.getString("TT_NAME")));
 			}
 			
 		} catch (SQLException e) {
@@ -792,7 +797,10 @@ public class AdminDao {
 									     rset.getString("reg_sta"),
 									     rset.getString("reg_refuse"),
 									     rset.getString("re_enroll"),
-									     rset.getString("reg_cal")));
+									     rset.getString("reg_cal"),
+									     rset.getString("tt_name"),
+									     rset.getString("ct_name"),
+									     rset.getString("ct_dname")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -849,7 +857,7 @@ public class AdminDao {
 		ArrayList<Like> likeList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectAllLike");
+		String sql = prop.getProperty("selectALlLike");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -942,6 +950,8 @@ public class AdminDao {
 		return result;
 
 	}
+	
+	
 	/** 세부검색으로 회원조회시 나오는 list
 	 * @author 수연
 	 * @param conn

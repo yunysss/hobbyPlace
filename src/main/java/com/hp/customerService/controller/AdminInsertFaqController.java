@@ -1,7 +1,6 @@
-package com.hp.refund.controller;
+package com.hp.customerService.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,21 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hp.member.model.vo.Member;
-import com.hp.refund.model.service.RefundService;
-import com.hp.register.model.vo.Register;
- 
+import com.hp.customerService.model.Service.NoticeService;
+
 /**
- * Servlet implementation class RefundRequestFormController
+ * Servlet implementation class AdminInsertFaqController
  */
-@WebServlet("/refundReqForm.ref")
-public class RefundRequestFormController extends HttpServlet {
+@WebServlet("/insertFaq.ad")
+public class AdminInsertFaqController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RefundRequestFormController() {
+    public AdminInsertFaqController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +29,23 @@ public class RefundRequestFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int regNo = Integer.parseInt(request.getParameter("no"));
-		
-		
-		Register r =new RefundService().selectRefundClass(regNo);
-		request.setAttribute("r", r);
-		
-		request.getRequestDispatcher("views/refund/refundRequestForm.jsp").forward(request, response);
 	
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		int result = new NoticeService().insertFaqTutor(title, content);
+		HttpSession session = request.getSession();
+		if(result>0) {
+			session.setAttribute("alertMsg", "등록이 완료되었습니다.");
+			response.sendRedirect(request.getContextPath()+"/faqListTutor.ad?cpage=1");
+		}else {
+			session.setAttribute("alertMsg", "등록에 실패했습니다.");
+		}
+		
+		
 	}
 
 	/**

@@ -25,41 +25,51 @@
     #mainPageRec>div{width:100%; padding:10px;}
     #mainPageRec-1, #mainPageRec-2{height:30%;}
     #mainPageRec-3{height:40%;}
-
-    #mainPageRec-1 div, #mainPageRec-2 div{width:100%;}
-    .rec-title{height:10%;}
-    #rec-pic, #rec-pic-2, #rec-pic-3 {height:90%; overflow-x:auto; overflow-y:hidden;}
-    #rec-pic::-webkit-scrollbar, #rec-pic-2::-webkit-scrollbar, #rec-pic-3::-webkit-scrollbar{
-	  height: 8px;
-	}
-	#rec-pic::-webkit-scrollbar-track, #rec-pic-2::-webkit-scrollbar-track, #rec-pic-3::-webkit-scrollbar-track{
-	  background-color: rgb(240,240,240);
-	}
-	#rec-pic::-webkit-scrollbar-thumb, #rec-pic-2::-webkit-scrollbar-thumb, #rec-pic-3::-webkit-scrollbar-thumb{
-	  border-radius: 3px;
-	  background-color: rgb(180, 180, 180);
-	}
+    
+    #rec-pic-1, #rec-pic-2 {display:inline-block; height:241px; overflow:hidden;}
+    #rec-pic-3{display:inline-block; height:310px; overflow:hidden;}
+    #rec-pic-3 li{
+    	width:200px;
+    	margin-right:30px;	
+    }
 	#mainPageRec img{
 		border-radius: 5px;
 	}
     #mainPageRec-1 img, #mainPageRec-2 img{
-        width:175px;
-        height:175px;
-        margin-left:10px;
+        width:170px;
+        height:170px;
         margin-right:10px;
     }
 
     #mainPageRec-3 img{
-        width:230px;
-        height:230px;
-    }
-    #mainPageRec-3 td{
-    	width:240px;
-    	vertical-align : top;
-    	padding:10px;
-    	
+        width:210px;
+        height:210px;
     }
 
+   li {
+	  float: left;
+	  list-style: none;
+	}
+	.rec-title>span{
+		float:right; 
+		margin-right:50px
+	}
+	.rec-title button{
+		border:1px solid rgb(127, 127, 127);
+		background:white;
+		border-radius:50%;
+		height:27px;
+		width:27px;
+		color:gray;
+		font-weight:bold;
+		margin-left:3px;
+	}
+	.rec-title button:hover{
+		opacity:0.5;
+	}
+	.rec-title>*{
+		margin-bottom:10px;
+	}
     
 </style>
 </head>
@@ -105,7 +115,7 @@
 	            			success:function(list){
 	            				let value = "";
 	            				for(let i=0; i<10; i++){
-	            					value += "<td>"
+	            					value += "<li>"
 	            								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
 	            									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
 	            									+ "<small>" + list[i].distrCode + "</small><br>"
@@ -116,9 +126,9 @@
                                    	value += "</b><br>"
                    							+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
                   								+ "</a>"
-                								+ "</td>"
+                								+ "</li>"
 	            				}
-	            				$("#rec-pic tr").append(value);
+	            				$("#rec-pic-1").append(value);
 	            				
 	            			},error:function(){
 	            				console.log("클래스 조회용 ajax 통신실패");
@@ -133,7 +143,7 @@
                 				
                 				let value = "";
                 				for(let i=0; i<10; i++){
-                					value += "<td>"
+                					value += "<li>"
                 								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
                 									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
                 									+ "<small>" + list[i].distrCode + "</small><br>"
@@ -144,9 +154,9 @@
                                 	value += "</b><br>"
                 							+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
                								+ "</a>"
-             								+ "</td>"
+             								+ "</li>"
                 				}
-                				$("#rec-pic-2 tr").html(value);
+                				$("#rec-pic-2").html(value);
                 			},error:function(){
                 				console.log("클래스 조회용 ajax 통신실패");
                 			}
@@ -159,7 +169,7 @@
                 			success:function(list){
                 				let value = "";
                 				for(let i=0; i<list.length; i++){
-                					value += "<td>"
+                					value += "<li>"
                 								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
                 									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
                 									+ "<b>" + list[i].clName 
@@ -176,9 +186,9 @@
              						}
                						value += "</p>"
        										+ "</a>"
-     										+ "</td>"
+     										+ "</li>"
                 				}
-                				$("#rec-pic-3 tr").html(value);
+                				$("#rec-pic-3").html(value);
                 			},error:function(){
                 				console.log("클래스 조회용 ajax 통신실패");
                 			}
@@ -189,6 +199,7 @@
                 <% if(loginUser == null || loginUser.getInterest() == null) {%>
 	                <div class="rec-title">
 	                    <b>새로운 클래스 🎁</b>
+	                    <span><button class="left" onclick="prevView(1);">&lt;</button> <button class="right" onclick="nextView(1);">&gt;</button></span>
 	                </div>
 	                <script>
 	                	$(function(){
@@ -199,6 +210,7 @@
                 	<!-- 로그인 후 -->
                 	<div class="rec-title">
 	                    <b><%= loginUser.getMemNick() %> 님이 좋아할만한 클래스 🥰</b>
+	                    <span><button class="left" onclick="prevView(1);">&lt;</button> <button class="right" onclick="nextView(1);">&gt;</button></span>
 	                </div>
 	                <script>
 		                $(function(){
@@ -211,7 +223,7 @@
 	                			success:function(list){
 	                				let value = "";
 	                				for(let i=0; i<list.length; i++){
-	                					value += "<td>"
+	                					value += "<li>"
 	                								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
 	                									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
 	                									+ "<small>" + list[i].distrCode + "</small><br>"
@@ -222,12 +234,12 @@
                                       	value += "</b><br>"
                       							+ list[i].clPrice + "&nbsp&nbsp&nbsp;&nbsp;⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
                      								+ "</a>"
-                   								+ "</td>"
+                   								+ "</li>"
 	                				}
 	                				if(list.length < 5){
 	                					selectNewClassList();
 	                				}
-	                				$("#rec-pic tr").html(value);
+	                				$("#rec-pic-1").html(value);
 	                			},error:function(){
 	                				console.log("클래스 조회용 ajax 통신실패");
 	                			}
@@ -235,23 +247,18 @@
 	                	}
 	                </script>
                 <% } %>
-                <div id="rec-pic">
-	                    <table>
-	                    	<tr>
-	                    	</tr>
-	                    </table>
-	                </div>
+                <div id="mainPageRec-1">
+                    <ul id="rec-pic-1">
+					</ul>
+                </div>
             </div>
             <div id="mainPageRec-2">
                 <div class="rec-title">
 	                    <b>찜이 가장 많은 클래스 ❤️</b>
+	                    <span><button class="left" onclick="prevView(2);">&lt;</button> <button class="right" onclick="nextView(2);">&gt;</button></span>
 	                </div>
-	                <div id="rec-pic-2">
-	                    <table>
-	                    	<tr>
-	                    	</tr>
-	                    </table>
-	                </div>
+	                <ul id="rec-pic-2">
+	                </ul>
 	                <script>
 		                $(function(){
 	                		selectLikeClassList();
@@ -262,13 +269,10 @@
             <div id="mainPageRec-3">
                 <div class="rec-title">
 	                    <b>클래스 후기</b>
+	                    <span><button class="left" onclick="prevView(3);">&lt;</button> <button class="right" onclick="nextView(3);">&gt;</button></span>
 	                </div>
-	                <div id="rec-pic-3">
-	                    <table>
-	                    	<tr>
-	                    	</tr>
-	                    </table>
-	                </div>
+	                <ul id="rec-pic-3">
+	                </ul>
 	                <script>
 		                $(function(){
 		                	selectReviewClassList();
@@ -278,6 +282,39 @@
           </div>
 
     </div>
+    <script>
+		function prevView(a) {
+			let margin = "";
+			if(a == 3){
+				margin = "-210px"
+			}else{
+				margin = "-170px"
+			}
+		  $("#rec-pic-" + a + " li:last").prependTo("#rec-pic-" + a);
+		  $("#rec-pic-" + a).css("marginLeft", margin);
+		  $("#rec-pic-" + a).animate({
+		    marginLeft: 0
+		  });
+		};	
+	
+		function nextView(a) {
+			let margin = "";
+			if(a == 3){
+				margin = "-=210px"
+			}else{
+				margin = "-=170px"
+			}
+		  $("#rec-pic-"+a).animate({
+	    	marginLeft: margin
+		  }, function() {
+		    $("#rec-pic-" + a +" li:first").appendTo("#rec-pic-" + a);
+		    $("#rec-pic-" + a).css({
+		      marginLeft: 0
+		    });
+		  });
+	
+		};
+	</script>
     
     <%@ include file="../common/footerbar.jsp" %>
 

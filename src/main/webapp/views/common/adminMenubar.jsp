@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
    
@@ -183,7 +183,7 @@
                         <li><a href="">고객센터</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/noticeList.ad?cpage=1">공지사항</a></li>
-                                <li><a href="">자주 묻는 질문</a></li>
+                                <li><a href="<%=contextPath%>/faqMain.ad">자주 묻는 질문</a></li>
                                 <li><a href="">문의 / 답변</a></li>
                             </ul>
                         </li>

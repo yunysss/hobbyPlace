@@ -22,6 +22,12 @@ public class Member {
 	private Date memUpdate;
 	private String memStatus;
 	private String memDrop;
+	
+	private int regCount;
+	private int revCount;
+	private int likeCount;
+	private int totalpay;
+	private double starAvg;
 
 
 	public Member() {}
@@ -88,6 +94,37 @@ public class Member {
 		this.memName = memName;
 		this.email = email;
 		this.phone = phone;
+	}
+
+	
+
+	public Member(int memNo, String memId, String memPwd, String memName, String memNick, String email, String phone,
+			String memAddr, String gender, String memBirth, String memProfile, String interest,
+			String grade, Date enrollDate, Date memUpdate, String memStatus, String memDrop, int regCount, int revCount,
+			int likeCount, int totalpay, double starAvg) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.memName = memName;
+		this.memNick = memNick;
+		this.email = email;
+		this.phone = phone;
+		this.memAddr = memAddr;
+		this.gender = gender;
+		this.memBirth = memBirth;
+		this.memProfile = memProfile;
+		this.interest = interest;
+		this.grade = grade;
+		this.enrollDate = enrollDate;
+		this.memUpdate = memUpdate;
+		this.memStatus = memStatus;
+		this.memDrop = memDrop;
+		this.regCount = regCount;
+		this.revCount = revCount;
+		this.likeCount = likeCount;
+		this.totalpay = totalpay;
+		this.starAvg = starAvg;
 	}
 
 
@@ -270,15 +307,74 @@ public class Member {
 		this.memDrop = memDrop;
 	}
 
+	
+
+	public int getRegCount() {
+		return regCount;
+	}
+
+
+	public void setRegCount(int regCount) {
+		this.regCount = regCount;
+	}
+
+
+	public int getRevCount() {
+		return revCount;
+	}
+
+
+	public void setRevCount(int revCount) {
+		this.revCount = revCount;
+	}
+
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+
+	public int getTotalpay() {
+		return totalpay;
+	}
+
+
+	public void setTotalpay(int totalpay) {
+		this.totalpay = totalpay;
+	}
+
+	
+
+	
+	public double getStarAvg() {
+		return starAvg;
+	}
+
+
+	public void setStarAvg(double starAvg) {
+		this.starAvg = starAvg;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", memName=" + memName
-				+ ", memNick=" + memNick + ", email=" + email + ", phone=" + phone + ", postcode=" + postcode + ", memAddr="
-				+ memAddr + ", gender=" + gender + ", memBirth=" + memBirth + ", memProfile=" + memProfile
-				+ ", interest=" + interest + ", grade=" + grade + ", enrollDate=" + enrollDate + ", memUpdate="
-				+ memUpdate + ", memStatus=" + memStatus + ", memDrop=" + memDrop + "]";
+				+ ", memNick=" + memNick + ", email=" + email + ", phone=" + phone + ", postcode=" + postcode
+				+ ", memAddr=" + memAddr + ", gender=" + gender + ", memBirth=" + memBirth + ", memProfile="
+				+ memProfile + ", interest=" + interest + ", grade=" + grade + ", enrollDate=" + enrollDate
+				+ ", memUpdate=" + memUpdate + ", memStatus=" + memStatus + ", memDrop=" + memDrop + ", regCount="
+				+ regCount + ", revCount=" + revCount + ", likeCount=" + likeCount + ", totalpay=" + totalpay
+				+ ", starAvg=" + starAvg + "]";
 	}
+
+	
+
+
 	
 	
 

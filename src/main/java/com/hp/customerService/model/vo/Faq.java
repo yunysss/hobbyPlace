@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Faq {
 	
+	private int rNum;
 	private int faqNO;
 	private String memNO;
 	private String grade;
@@ -17,9 +18,10 @@ public class Faq {
 	
 	
 
-	public Faq(int faqNO, String memNO, String grade, String question, String answer, Date enrollDate,
+	public Faq(int rNum,int faqNO, String memNO, String grade, String question, String answer, Date enrollDate,
 			Date updateDate) {
 		super();
+		this.rNum = rNum;
 		this.faqNO = faqNO;
 		this.memNO = memNO;
 		this.grade = grade;
@@ -41,7 +43,14 @@ public class Faq {
 	}
 
 
+	public int getrNum() {
+		return rNum;
+	}
 
+
+	public void setrNum(int rNum) {
+		this.rNum = rNum;
+	}
 
 	public int getFaqNO() {
 		return faqNO;
@@ -101,7 +110,7 @@ public class Faq {
 
 	@Override
 	public String toString() {
-		return "Faq [faqNO=" + faqNO + ", memNO=" + memNO + ", grade=" + grade + ", question=" + question + ", answer="
+		return "Faq [rnum ="+ rNum + ", + faqNO=" + faqNO + ", memNO=" + memNO + ", grade=" + grade + ", question=" + question + ", answer="
 				+ answer + ", enrollDate=" + enrollDate + ", updateDate=" + updateDate + "]";
 	}
 	
