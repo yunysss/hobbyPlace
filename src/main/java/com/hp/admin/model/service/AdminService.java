@@ -8,22 +8,23 @@ import static com.hp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.hp.review.model.vo.Review;
-import com.hp.member.model.vo.Like;
 import com.hp.admin.model.dao.AdminDao;
 import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
 import com.hp.admin.model.vo.SearchMember;
+import com.hp.admin.model.vo.SearchTutor;
+import com.hp.admin.model.vo.TutorList;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
-import com.hp.member.model.dao.MemberDao;
+import com.hp.member.model.vo.Like;
 import com.hp.member.model.vo.Member;
 import com.hp.qna.model.vo.Qna;
 import com.hp.register.model.vo.Register;
+import com.hp.review.model.vo.Review;
 import com.hp.tutor.model.vo.Tutor;
 
 public class AdminService {
@@ -266,6 +267,19 @@ public class AdminService {
 		
 		
 		
+	}
+	
+	/** 튜터 조회 기본검색용 list  
+	 * @author 수연
+	 * @param st
+	 * @return list
+	 */
+	public ArrayList<TutorList> selectTutorList1(SearchTutor st) {
+		Connection conn = getConnection();
+		ArrayList<TutorList> list = new AdminDao().selectTutorList1(conn, st);
+		
+		close(conn);
+		return list;
 	}
 	
 	
