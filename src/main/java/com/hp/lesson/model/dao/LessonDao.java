@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Dcategory;
@@ -1299,6 +1300,37 @@ public ArrayList<Lesson> keywordRegisterDesc(Connection conn, String keyword){
 	 return list;
 	 
 }
+
+
+/**
+ * @author 한빛
+ * @param conn
+ * @param s
+ * @return list 클래스 상세조회 
+ */
+public ArrayList<Lesson> searchDetailClass(Connection conn, Search s){
+	ArrayList<Lesson> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("searchDetailClass");
+	
+	try {
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		pstmt = conn.prepareStatement(sql);
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+}
+
 	
 	
 

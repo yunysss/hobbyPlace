@@ -8,6 +8,7 @@ import static com.hp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.dao.LessonDao;
@@ -321,6 +322,12 @@ public class LessonService {
 
 	}
 	
+	public ArrayList<Lesson> searchDetailClass(Search s){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().searchDetailClass(conn, s);
+		close(conn);
+		return list; 
+	}
 	
 
 }

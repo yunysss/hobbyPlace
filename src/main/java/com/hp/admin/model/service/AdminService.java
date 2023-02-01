@@ -20,7 +20,7 @@ import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
-import com.hp.member.model.dao.MemberDao;
+
 import com.hp.member.model.vo.Member;
 import com.hp.qna.model.vo.Qna;
 import com.hp.register.model.vo.Register;

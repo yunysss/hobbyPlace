@@ -92,6 +92,11 @@
 	#thumbnail img, .a img {
 		border-radius: 5px;
 	}
+	#thumbnail:hover {
+		opacity:0.8;
+	}
+	img:hover{
+	opacity:0.8;}
 	
 	.dropdown {
 		display: inline;
