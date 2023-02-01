@@ -1,4 +1,4 @@
-package com.hp.lesson.controller;
+package com.hp.review.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.service.LessonService;
-import com.hp.review.model.vo.Review;
 
 /**
- * Servlet implementation class AjaxSelectReviewController
+ * Servlet implementation class AjaxSelectReviewAttachmentController
  */
 @WebServlet("/selectReAttachment.cl")
-public class AjaxSelectReviewController extends HttpServlet {
+public class AjaxSelectReviewAttachmentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxSelectReviewController() {
+    public AjaxSelectReviewAttachmentController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,11 @@ public class AjaxSelectReviewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int reNo = Integer.parseInt(request.getParameter("reNo"));
+		ArrayList<Attachment> list = new LessonService().selectAttachment(reNo, 2);
 		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list,response.getWriter());
 	}
 
 	/**

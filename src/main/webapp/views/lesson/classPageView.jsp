@@ -30,16 +30,15 @@
         #classDetail-content{height:80%; font-size:small;}
         
         /* img */
+        .outer img{border-radius:5px;}
         #classDetail-img>img{
             width:500px;
             height:400px;
-            border-radius:5px;
         }
         #classDetail-img table img{
             width:110px;
             height:95px;
             margin-left:8px;
-            border-radius:5px;
         }
         .smallImg:hover{
         	cursor:pointer;
@@ -84,6 +83,7 @@
         }
         #reviewList tr, #viewFold{display:none;}
         #reviewList p{word-break: break-all;}
+        #reviewList p~img{width:100px; height:100px; margin-right:10px;}
         
         /* classDetail-2 */
         #classDetail-2>*{
@@ -424,14 +424,12 @@
 				  								⭐
 				  							<% } %>
 				  							<%= rList.get(i).getReviewUpDate() %>
+				  							<input type="hidden" name="reNo" value="<%=rList.get(i).getReviewNo()%>">
 				  						</td>
 			  						</tr>
 			  						<tr>
-			  							<td colspan="2"> 
+			  							<td colspan="2" id="reContent-<%=rList.get(i).getReviewNo()%>"> 
 			  								<p><%= rList.get(i).getReviewContent() %></p>
-			  								<img src="dd" width="100px" height="100px" style="border:1px solid">
-				  							<img src="dd" width="100px" height="100px" style="border:1px solid">
-				  							<img src="dd" width="100px" height="100px" style="border:1px solid">
 			  							</td>
 			  						</tr>
 		  						<% } %>
@@ -445,7 +443,7 @@
                     <script>
 						$(function(){
 							$("#reviewList tr").slice(0, 10).show(); // 초기갯수
-					        if($("#reviewList tr:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+					        if($("#reviewList tr:hidden").length = 0){ // 컨텐츠 남아있는지 확인
 					            $("#viewMore").hide();
 					        }
 							$("#viewMore").click(function(e){ // 클릭시 more
@@ -462,6 +460,22 @@
 					            $("#viewMore").show();
 					        })
 						});
+						$(function(){
+							$("input[name='reNo']").each(function(){
+								let regNo = $(this).val();
+								$.ajax({
+									url:"<%=contextPath%>/selectReAttachment.cl",
+									data:{reNo:regNo},
+									success:function(list){
+										let value=""
+											for(let i=0; i<list.length; i++){
+												value += "<img src='<%= contextPath %>/" + list[i].filePath + list[i].changeName + "' onclick='window.open(this.src)'>";
+											}
+										$("#reContent-" + regNo).append(value);
+									}
+								})
+							})
+				        })
 					</script>
                     <hr>
                     <div id="section4" class="container-fluid">

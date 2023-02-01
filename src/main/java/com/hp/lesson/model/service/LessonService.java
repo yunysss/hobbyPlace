@@ -76,9 +76,9 @@ public class LessonService {
 		return le;
 	}
 
-	public ArrayList<Attachment> selectClassAttachment(int clNo) {
+	public ArrayList<Attachment> selectAttachment(int clNo, int refType) {
 		Connection conn = getConnection();
-		ArrayList<Attachment> list = new LessonDao().selectClassAttachment(conn, clNo);
+		ArrayList<Attachment> list = new LessonDao().selectAttachment(conn, clNo, refType);
 		close(conn);
 		return list;
 	}
