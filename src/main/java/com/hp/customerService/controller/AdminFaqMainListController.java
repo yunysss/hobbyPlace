@@ -1,29 +1,28 @@
-package com.hp.refund.controller;
+package com.hp.customerService.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.hp.member.model.vo.Member;
-import com.hp.refund.model.service.RefundService;
-import com.hp.register.model.vo.Register;
- 
+import com.hp.customerService.model.Service.NoticeService;
+import com.hp.customerService.model.vo.Faq;
+
 /**
- * Servlet implementation class RefundRequestFormController
+ * Servlet implementation class AdminFaqMainListController
  */
-@WebServlet("/refundReqForm.ref")
-public class RefundRequestFormController extends HttpServlet {
+@WebServlet("/faqMain.ad")
+public class AdminFaqMainListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RefundRequestFormController() {
+    public AdminFaqMainListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,14 +32,13 @@ public class RefundRequestFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int regNo = Integer.parseInt(request.getParameter("no"));
+		ArrayList<Faq> list1 = new NoticeService().selectTutorFaqListAd();
+		ArrayList<Faq> list2 = new NoticeService().selectTuteeFaqList();
 		
-		
-		Register r =new RefundService().selectRefundClass(regNo);
-		request.setAttribute("r", r);
-		
-		request.getRequestDispatcher("views/refund/refundRequestForm.jsp").forward(request, response);
+		request.setAttribute("list1", list1);
+		request.setAttribute("list2", list2);
 	
+		request.getRequestDispatcher("views/customerService/adminFaqMainList.jsp").forward(request, response);
 	}
 
 	/**
