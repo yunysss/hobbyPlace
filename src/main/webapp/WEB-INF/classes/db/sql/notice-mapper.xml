@@ -140,7 +140,7 @@ WHERE RNUM BETWEEN ? AND ?
 		                  FROM FAQ
 		                 WHERE GRADE='2'
 		                 ORDER 
-		                    BY FAQ_NO
+		                    BY ENROLL_DATE DESC
 		            ) A
 		    )
 		WHERE RNUM BETWEEN ? AND ?
@@ -270,4 +270,74 @@ INSERT
 		   SET NT_STA = 'N'
 		 WHERE NT_NO = ?
 	</entry>
+	
+<entry key="selectTutorFaqListAd">
+	SELECT *
+			FROM(
+			        SELECT ROWNUM RNUM , A.*
+			        FROM(
+			                SELECT
+			                       *
+			                  FROM FAQ
+			                 WHERE GRADE='2'
+			                 ORDER 
+			                    BY FAQ_NO
+			            ) A
+			    )
+			WHERE RNUM BETWEEN 1 AND 5
+</entry>
+
+<entry key="selectTuteeFaqList">
+	SELECT *
+			FROM(
+			        SELECT ROWNUM RNUM , A.*
+			        FROM(
+			                SELECT
+			                       *
+			                  FROM FAQ
+			                 WHERE GRADE='1'
+			                 ORDER 
+			                    BY FAQ_NO
+			            ) A
+			    )
+			WHERE RNUM BETWEEN 1 AND 5
+</entry>
+
+<entry key="insertFaqTutor">
+	INSERT
+	  INTO FAQ
+	  (
+	    FAQ_NO,
+	    MEM_NO,
+	    GRADE,
+	    QUESTION,
+	    ANSWER,
+	    ENROLL_DATE
+	  )
+	  VALUES
+	  (
+	    SEQ_FAQNO.NEXTVAL,
+	    0,
+	    2,
+	    ?,
+	    ?,
+	    SYSDATE
+	  )
+</entry>
+
+<entry key="selectTutorFaqDetail">
+	SELECT 
+	        QUESTION,
+	        ANSWER
+	  FROM FAQ
+	 WHERE FAQ_NO = ?
+		  
+</entry>
+
+<entry key="faqUpdate">
+	UPDATE FAQ
+	   SET QUESTION = ?,
+	       ANSWER = ?
+	 WHERE FAQ_NO = ?
+</entry>
 </properties>
