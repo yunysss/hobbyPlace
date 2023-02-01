@@ -211,16 +211,19 @@
 	<entry key="searchClass">
 	SELECT
 			CL_NO
-			,G.CT_NAME
-			,T.TT_NAME
+			,CT_NAME
+			,CT_NO
+			,CT_DNAME
+			,TT_NAME
 			,CL_NAME
-			,C.ENROLL_DATE
-			,CL_STATUS
+			,TO_date(c.enroll_date, 'YYYY-MM-DD') "enroll_date"
+			,decode(CL_STATUS,'0','검수요청','1','신청반려','2','판매중','3','판매중단') "cl_status"
 		
 			FROM CLASS C
-			JOIN CATEGORY G USING (CT_NO)
+			JOIN CATEGORY G ON (C.CT_NO  = G.CT_NO)
+		    JOIN DCATEGORY D ON (C.CT_DNO = D.CT_DNO )
 			JOIN TUTOR T USING (MEM_NO)
-			WHERE
+			where 1=1	
 			
 
 	
@@ -280,8 +283,27 @@
 		     , MEM_UPDATE
 		     , MEM_STATUS
 		     , MEM_DROP
-		  FROM MEMBER
-	     WHERE MEM_NO = ? 
+		     , (SELECT COUNT(REG_NO)
+		          FROM REGISTER R
+		         WHERE REG_STA = '2'
+		           AND MEM_NO = M.MEM_NO) "REGCOUNT" 
+		     		     , (SELECT COUNT(RE_NO) 
+		          FROM REVIEW
+		         WHERE RE_STA = 'Y'
+		           AND MEM_NO = M.MEM_NO) "REVCOUNT"
+		     , (SELECT COUNT(CL_NO)
+		          FROM "LIKE"
+		         WHERE MEM_NO = M.MEM_NO) "LIKECOUNT"
+		     , (SELECT SUM(REG_PRICE)
+		          FROM REGISTER
+		         WHERE REG_STA = '2'
+		          AND MEM_NO = M.MEM_NO) "TOTALPAY"
+		     , (SELECT AVG(RE_STAR)
+                  FROM REVIEW
+		         WHERE RE_STA = 'Y'
+		           AND MEM_NO = M.MEM_NO) "STARAVG"
+		  FROM MEMBER M
+	     WHERE M.MEM_NO = ? 
 	</entry>
 
 	<!-- 회원번호로 qna리스트 select -->	
@@ -300,8 +322,11 @@
 		     , A_CONTENT
 		     , TO_CHAR(A_DATE, 'YYYY-MM-DD') "A_DATE"
 		     , A_MEM_NO
-		  FROM QNA
-		 WHERE Q_MEM_NO = ?
+		     , TT_NAME
+		  FROM QNA 
+		  JOIN TUTOR ON(A_MEM_NO = MEM_NO)
+		 WHERE Q_STATUS = 'Y'
+   		   AND Q_MEM_NO = ?
 	</entry>
 	
 <!-- 회원번호로 수강한강의 리스트 select -->
@@ -371,8 +396,38 @@
 
 	</entry>
 	
-	
-	
+	<!-- 회원목록리스트 세부검색 -->
+	<entry key="selectMemberList2">
+		SELECT
+		       MEM_NO
+		     , MEM_NAME
+		     , DECODE(GRADE, '0', '관리자', '1', '등록안함', '2', '튜터') "GRADE"
+		     , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE"
+		     , (SELECT COUNT(REG_NO) 
+		          FROM REGISTER R
+		         WHERE REG_STA = '2'
+		           AND MEM_NO = M.MEM_NO) "REGCOUNT"   
+		     , (SELECT COUNT(RE_NO) 
+		          FROM REVIEW
+		         WHERE RE_STA = 'Y'
+		           AND MEM_NO = M.MEM_NO) "REVCOUNT"
+		     , (SELECT COUNT(CL_NO)
+		          FROM "LIKE"
+		         WHERE MEM_NO = M.MEM_NO) "LIKECOUNT"
+		     , (SELECT SUM(REG_PRICE)
+		          FROM REGISTER
+		         WHERE REG_STA = '2'
+		          AND MEM_NO = M.MEM_NO) "TOTALPAY"
+		     , NVL(MEM_EMAIL, '등록안함') "MEM_EMAIL"
+		     , MEM_PHONE
+		     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
+		     , GENDER
+		     , MEM_STATUS
+		  FROM MEMBER M
+		 WHERE GRADE LIKE ?
+   		   AND M.ENROLL_DATE BETWEEN ? AND ?
+   		   AND 
+	</entry>
 	
 	
 	

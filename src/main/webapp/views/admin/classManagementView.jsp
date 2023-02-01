@@ -238,7 +238,7 @@ function setSearchDate(start){
                 <tr>
                     <th width="100">검색어</th>
                     <td>
-                        <input type="search" name="keyword">
+                        <input type="search" name="keyword" required>
 
                     </td>
 
@@ -249,7 +249,7 @@ function setSearchDate(start){
                     <td>
                         <select id="category" name="category" onchange="changeCt();">
                         <%for(Category c : cList){ %>
-                            <option><%=c.getCtName() %></option>
+                            <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
                         <%} %>
                         </select>
                         <select id="Dcategory" name="dCategory">
@@ -330,7 +330,7 @@ function setSearchDate(start){
             
             <hr>
             <div align="center">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="searchcl();" >조회하기</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="searchcl();">조회하기</button>
 
             </div>
             
@@ -361,6 +361,36 @@ function setSearchDate(start){
             			success : function(result){
             				console.log(result);
             				
+            				let value = "";
+            				if(result.length == 0){
+            					value += "<tr>"
+            					      + "<td colspan='5'> 조회된 클래스가 없습니다."
+            					      + "</tr>"
+            					      
+            				}else{
+            					for(let i=0; i<result.length; i++){
+            						value += "<tr>"
+            							   + "<td>" + result[i].clNo  + "</td>"
+            							   + "<td>" + result[i].ctNo + "</td>"
+            							   + "<td>" + result[i].clName + "</td>"   
+            							   + "<td>" + result[i].enrollDate + "</td>"
+            							   + "<td>" + result[i].memNo + "</td>"
+            							   + "<td>" + result[i].clStatus + "</td>"
+            							   +"</tr>"
+            							   
+            					}
+            				
+            				}
+            				$("#classList tbody").html("");
+            				$(".paging-area").html("");
+            				$("#classList tbody").html(value);
+            				
+            				$(function(){
+            	        		$("#classList>tbody>tr").click(function(){
+            	        			location.href="<%=contextPath%>/cldetail.ad?no="+$(this).children().eq(0).text();
+            	        		})
+            	        	})
+            			
             			},
             			error: function(){
             				console.log("조회용 ajax통신 실패");
@@ -436,11 +466,11 @@ function setSearchDate(start){
         
          <script>
                         function changeCt(){
-                        	var study = ["외국어","자격증","IT"];
-                        	var diy = ["가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
-                        	var draw = ["취미미술","캘리그래피"];
-                        	var cook = ["요리","베이킹"];
-                        	var sport = ["실내스포츠","야외스포츠","레저/액티비티","요가필라테스/헬스PT"];
+                        	var study = ["전체","외국어","자격증","IT"];
+                        	var diy = ["전체","가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
+                        	var draw = ["전체","취미미술","캘리그래피"];
+                        	var cook = ["전체","요리","베이킹"];
+                        	var sport = ["전체","실내스포츠","야외스포츠","레저/액티비티","요가필라테스/헬스PT"];
      	
                         	var changeDct;
                         	
@@ -458,20 +488,18 @@ function setSearchDate(start){
                         		changeDct = sport;
                         	}
                         	
-                        	$("#Dcategory").empty();
-                        	for(var i=0; i<changeDct.length(); i++){
+                        	
+                        	for(var i=0; i<changeDct.length; i++){
                         		var option = $("<option>"+changeDct[i]+"</option>");
                         		$("#Dcategory").append(option);
+                        		
+                        
                         	}
                         	
                         }
                         
                         </script>
-                        
-                    
-                    
-        
-        
+               
 
 
         <div class="paging-area">
@@ -492,11 +520,6 @@ function setSearchDate(start){
             
            
         </div>
-
-
-
-
-
 
 
     </div>

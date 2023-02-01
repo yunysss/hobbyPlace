@@ -38,7 +38,7 @@ public class AdminSearchClassController extends HttpServlet {
 		
 		String keyword = request.getParameter("keyword");
 		String category = request.getParameter("category");
-		String dcategory  = request.getParameter("dCategory");
+		String dcategory  = request.getParameter("dcategory");
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String[] statusArr = request.getParameterValues("status");
@@ -46,12 +46,10 @@ public class AdminSearchClassController extends HttpServlet {
 		if(statusArr!=null) {
 			status = String.join(",", statusArr);
 		}
-		System.out.println(keyword);
-		System.out.println("s:"+status);
-		System.out.println("t:"+startDate);
 		
 		Search s = new Search(keyword,category,dcategory,startDate,endDate,status);
 		ArrayList<Lesson> list = new AdminService().searchClass(s);
+		
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list,response.getWriter());
