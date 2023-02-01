@@ -443,6 +443,36 @@ public class RegisterDao {
 		}
 		return result;
 	}
+	
+	/**
+	 * @author 수정
+	 * @param memNo
+	 * @return listCount
+	 * 로그인한 유저의 db에 저장되어 있는 취소 클래스 총 개수
+	 */
+	public int selectRefundListCount(Connection conn, int memNo) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectRefundListCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,memNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 
 	/**
 	 * @author 수정
@@ -450,7 +480,7 @@ public class RegisterDao {
 	 * @param pi
 	 * @return 마이클래스 - 취소된 클래스 리스트 페이징
 	 */
-	public ArrayList<Register> selectMyRefundClassList(Connection conn, PageInfo pi) {
+	public ArrayList<Register> selectMyRefundClassList(Connection conn, PageInfo refPi) {
 		ArrayList<Register> refList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -458,10 +488,10 @@ public class RegisterDao {
 		String sql = prop.getProperty("selectMyRefundClassList");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,pi.getMemNo());
+			pstmt.setInt(1,refPi.getMemNo());
 			
-			int startRow = (pi.getCurrentPage() -1 ) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() -1;
+			int startRow = (refPi.getCurrentPage() -1 ) * refPi.getBoardLimit() + 1;
+			int endRow = startRow + refPi.getBoardLimit() -1;
 			
 			pstmt.setInt(2,startRow);
 			pstmt.setInt(3, endRow);
@@ -470,8 +500,8 @@ public class RegisterDao {
 			
 			while(rset.next()) {
 				refList.add(new Register(
-						  rset.getString("teach_date"),
 						  rset.getInt("reg_no"),
+						  rset.getString("teach_date"),
 						  rset.getString("reg_date"),
 						  rset.getString("reg_pay"),
 						  rset.getString("reg_price"),
@@ -481,7 +511,9 @@ public class RegisterDao {
 						  rset.getString("cl_name"),
 						  rset.getString("start_time"),
 						  rset.getString("distr_name"),
-						  rset.getString("tt_name")));
+						  rset.getString("tt_name"),
+						  rset.getString("ref_rq_dt"),
+						  rset.getString("ref_sta")));
 			}
 			
 		} catch (SQLException e) {

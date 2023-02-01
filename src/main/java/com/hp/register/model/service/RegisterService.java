@@ -98,7 +98,7 @@ public class RegisterService {
 		close(conn);
 		return list;
 	}
-
+	
 	/**
 	 * @수정
 	 * @param memNo
@@ -130,10 +130,17 @@ public class RegisterService {
 		}
 		return result;
 	}
-
-	public ArrayList<Register> selectMyRefundClassList(PageInfo pi) {
+	
+	public int selectRefundListCount(int memNo) {
 		Connection conn = getConnection();
-		ArrayList<Register> refList = new RegisterDao().selectMyRefundClassList(conn, pi);
+		int listCount = new RegisterDao().selectRefundListCount(conn, memNo);
+		close(conn);
+		return listCount;
+	}
+	
+	public ArrayList<Register> selectMyRefundClassList(PageInfo refPi) {
+		Connection conn = getConnection();
+		ArrayList<Register> refList = new RegisterDao().selectMyRefundClassList(conn, refPi);
 		close(conn);
 		
 		return refList;

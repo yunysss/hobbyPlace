@@ -39,7 +39,7 @@ public class MyRefundClassListController extends HttpServlet {
 		
 		//페이징 처리
 		//현재 결제클래스 총 개수
-		int listCount = new RegisterService().selectListCount(memNo);
+		int listCount = new RegisterService().selectRefundListCount(memNo);
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
 		int pageLimit = 3;
 		int boardLimit = 4;
@@ -53,12 +53,12 @@ public class MyRefundClassListController extends HttpServlet {
 		
 		//com.hp.common.model.vo.pageInfo
 				// 페이징바를 만들 떄 필요한 객체
-				PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage, memNo);
+				PageInfo refPi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage, memNo);
 				
 				//* 현재 사용자가 요청한 페이지(CURRENTPAGE)에 보여질 게시글 리스트 조회(boardLimit수만큼) 
-				ArrayList<Register> refList = new RegisterService().selectMyRefundClassList(pi);
+				ArrayList<Register> refList = new RegisterService().selectMyRefundClassList(refPi);
 				
-				request.setAttribute("pi",pi);
+				request.setAttribute("refPi",refPi);
 				request.setAttribute("refList", refList);
 				
 				request.getRequestDispatcher("views/register/myRefundClassList.jsp").forward(request, response);

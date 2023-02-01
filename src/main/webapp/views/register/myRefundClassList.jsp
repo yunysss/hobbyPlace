@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, com.hp.register.model.vo.Register, com.hp.common.model.vo.PageInfo"%>
 <%
-	PageInfo pi = (PageInfo)request.getAttribute("pi"); 
+	PageInfo refPi = (PageInfo)request.getAttribute("refPi"); 
 	ArrayList<Register> refList = (ArrayList<Register>)request.getAttribute("refList");
 %>
 <!DOCTYPE html>
@@ -127,48 +127,51 @@
 		<!--취소한 클래스가 있을 때-->
 		<%for(int i=0; i<refList.size();i++){ %>
 		
-		<!--환불 접수 -->
-		
-		<div id="class-area">
-										
-			<div id="classContent">
-				<p style="text-align:left"><%=refList.get(i).getRegDate() %>취소</p>
-				<div id="classThumbnail">
-					<img src="<%=contextPath%>/<%=refList.get(i).getClThumb() %>"> <!--클래스썸네일대표사진-->
-					<br>
-					<p><%=refList.get(i).getTtName() %></p>
-				</div>
-				<div id="classDetail">
-					<table  border="0">
-						<thead>
-							<tr>
-								<td >주문번호</td>
-								<td colspan="3"><%=refList.get(i).getRegNo() %></td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td colspan="4" id="classTitle"><%=refList.get(i).getClName() %></td>
-							</tr>
-							<tr>
-								<td colspan="4"><%=refList.get(i).getDistrName() %>  <%=refList.get(i).getTeachDate() %> <%=refList.get(i).getStartTime() %></td>
-							</tr>
-							<tr>
-								<td height="50px"><div id="classStatusAp">환불 접수</div></td>
-								<!-- <td height="50px"><div id="classStatusX">환불 완료</div></td> -->
-								<td colspan="3"></td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="4"><button id="btn2" onclick="" data-toggle="modal" data-target="#myModal<%=i%>">환불 상세 내역</button></td>
-							</tr>
-						</tfoot>	
-					</table>
-				</div>
+			<!--환불 접수 -->
+			
+			<div id="class-area">
+											
+				<div id="classContent">
+					<p style="text-align:left"><%=refList.get(i).getRegDate() %>취소</p>
+					<div id="classThumbnail">
+						<img src="<%=contextPath%>/<%=refList.get(i).getClThumb() %>"> <!--클래스썸네일대표사진-->
+						<br>
+						<p><%=refList.get(i).getTtName() %></p>
+					</div>
+					<div id="classDetail">
+						<table  border="0">
+							<thead>
+								<tr>
+									<td >주문번호</td>
+									<td colspan="3"><%=refList.get(i).getRegNo() %></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="4" id="classTitle"><%=refList.get(i).getClName() %></td>
+								</tr>
+								<tr>
+									<td colspan="4"><%=refList.get(i).getDistrName() %>  <%=refList.get(i).getTeachDate() %> <%=refList.get(i).getStartTime() %></td>
+								</tr>
+								<tr>
+								<%if(refList.get(i).getRefSta().equals("N")){%>
+									<td height="50px"><div id="classStatusAp">환불 접수</div></td>
+								<%}else{ %>
+									<td height="50px"><div id="classStatusX">환불 완료</div></td>
+								<%} %>
+									<td colspan="3"></td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="4"><button id="btn2" onclick="" data-toggle="modal" data-target="#myModal<%=i%>">환불 상세 내역</button></td>
+								</tr>
+							</tfoot>	
+						</table>
+					</div>
 
+				</div>
 			</div>
-		</div>
 			
 		
 		<!-- 결제상세내역 Modal -->
@@ -219,7 +222,7 @@
                             </tr>
                             <tr>
                                 <td height="45px">최종 환불 금액</td>
-                                <td colspan="3" style="text-align: right;"><%=refList.get(i).getRegCount() %></td>
+                                <td colspan="3" style="text-align: right;"><%=refList.get(i).getRegPrice() %></td>
                             </tr>
 							
 						</table>
@@ -234,16 +237,16 @@
 	
 	
 		 <div class="paging-area">
-		 <%if(pi.getCurrentPage()!=1){ %>
-				<button onclick="location.href='<%=contextPath%>/refundList.reg?cpage=<%=pi.getCurrentPage()-1%>'">&lt;</button>
+		 <%if(refPi.getCurrentPage()!=1){ %>
+				<button onclick="location.href='<%=contextPath%>/refundList.reg?cpage=<%=refPi.getCurrentPage()-1%>'">&lt;</button>
 				<%} %>
 				
-				<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+				<%for(int p=refPi.getStartPage(); p<=refPi.getEndPage(); p++){ %>
 					<button onclick="location.href='<%=contextPath%>/refundList.reg?cpage=<%=p%>'"><%= p %></button>
 				<%} %>
 				
-				<%if(pi.getCurrentPage()!=pi.getMaxPage()){ %>
-				<button onclick="location.href='<%=contextPath%>/refundList.reg?cpage=<%=pi.getCurrentPage()+1%>'">&gt;</button>
+				<%if(refPi.getCurrentPage()!= refPi.getMaxPage()){ %>
+				<button onclick="location.href='<%=contextPath%>/refundList.reg?cpage=<%=refPi.getCurrentPage()+1%>'">&gt;</button>
 				<%} %>
 			</div>
 		<%} %> 	

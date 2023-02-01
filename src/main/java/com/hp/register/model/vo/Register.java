@@ -25,6 +25,8 @@ public class Register {
 	private String ttName;
 	private String ctName;
 	private String ctDname;
+	private String refRqDt;
+	private String refSta;
 	
 	public Register() {}
 
@@ -173,6 +175,29 @@ public class Register {
 		this.ttName = ttName;
 		this.ctName = ctName;
 		this.ctDname = ctDname;
+	}
+	
+	
+
+	
+	public Register(int regNo, String teachDate, String regDate, String regPay, String regPrice, String regCount,
+			String regSta, String clThumb, String clName, String startTime, String distrName, String ttName,
+			String refRqDt, String refSta) {
+		super();
+		this.regNo = regNo;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.regPay = regPay;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.clThumb = clThumb;
+		this.clName = clName;
+		this.startTime = startTime;
+		this.distrName = distrName;
+		this.ttName = ttName;
+		this.refRqDt = refRqDt;
+		this.refSta = refSta;
 	}
 
 	public int getRegNo() {
@@ -364,6 +389,22 @@ public class Register {
 		this.ctDname = ctDname;
 	}
 
+	public String getRefRqDt() {
+		return refRqDt;
+	}
+
+	public void setRefRqDt(String refRqDt) {
+		this.refRqDt = refRqDt;
+	}
+
+	public String getRefSta() {
+		return refSta;
+	}
+
+	public void setRefSta(String refSta) {
+		this.refSta = refSta;
+	}
+
 	@Override
 	public String toString() {
 		return "Register [regNo=" + regNo + ", memNo=" + memNo + ", clNo=" + clNo + ", teachDate=" + teachDate
@@ -371,8 +412,11 @@ public class Register {
 				+ ", regCount=" + regCount + ", regSta=" + regSta + ", refuse=" + refuse + ", reEnroll=" + reEnroll
 				+ ", regCal=" + regCal + ", depositSta=" + depositSta + ", memPhone=" + memPhone + ", memEmail="
 				+ memEmail + ", clThumb=" + clThumb + ", clName=" + clName + ", startTime=" + startTime + ", distrName="
-				+ distrName + ", ttName=" + ttName + ", ctName=" + ctName + ", ctDname=" + ctDname + "]";
+				+ distrName + ", ttName=" + ttName + ", ctName=" + ctName + ", ctDname=" + ctDname + ", refRqDt="
+				+ refRqDt + ", refSta=" + refSta + "]";
 	}
+
+	
 
 	
 	

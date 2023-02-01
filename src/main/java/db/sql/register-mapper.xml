@@ -227,14 +227,23 @@
 		 WHERE REG_NO = ?
 	</entry>
 	
+	<entry key="selectRefundListCount">
+	SELECT 
+		   COUNT(*) "COUNT"
+	  FROM REGISTER
+  	 WHERE REG_STA NOT IN (0,1,2)
+  	   AND MEM_NO = ?
+	
+	</entry>
+	
 	<entry key="selectMyRefundClassList">
-	SELECT *
+SELECT *
  	  FROM (
         SELECT ROWNUM RNUM, B.*
           FROM (
                    SELECT 
-                          TEACH_DATE
-                        , REG_NO
+                          REG_NO
+                        , TEACH_DATE
                         , REG_DATE
                         , REG_PAY
                         , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
@@ -245,6 +254,8 @@
                         , S.START_TIME "START_TIME"
                         , D.DISTR_NAME "DISTR_NAME"
                         , T.TT_NAME "TT_NAME"
+                        , F.REF_RQ_DT "REF_RQ_DT"
+                        , REF_STA
                      FROM REGISTER R
                      LEFT OUTER JOIN CLASS C
                      ON C.CL_NO = R.CL_NO
@@ -254,10 +265,12 @@
                      ON T.MEM_NO = C.MEM_NO
                      LEFT OUTER JOIN SCHEDULE S
                      ON S.SCH_NO = R.SCH_NO
+                     LEFT OUTER JOIN REFUND F
+                     ON F.ORDER_NO = R.REG_NO
                      WHERE R.MEM_NO= ?
                        AND REG_STA NOT IN (0,1,2)
                      ORDER 
-                        BY REG_NO DESC
+                        BY F.REF_RQ_DT DESC
                 )B       
         )
 	 WHERE RNUM BETWEEN ? AND ?
