@@ -24,6 +24,9 @@ public class Register {
 	public String distrName;
 	public String ttName;
 	
+	public String ctName;
+	public String ctDname;
+	
 	public Register() {}
 
 	public Register(int regNo, String memNo, String clNo, String teachDate, String regDate, String schNo, String regPay,
@@ -147,6 +150,37 @@ public class Register {
 		this.regPrice = regPrice;
 		this.regSta = regSta;
 		this.depositSta = depositSta;
+	}
+	
+
+	public Register(int regNo, String memNo, String clNo, String teachDate, String regDate, String schNo, String regPay,
+			String regPrice, String regCount, String regSta, String refuse, String reEnroll, String regCal,
+			String depositSta, String memPhone, String memEmail, String clThumb, String clName, String startTime,
+			String distrName, String ttName, String ctName, String ctDname) {
+		super();
+		this.regNo = regNo;
+		this.memNo = memNo;
+		this.clNo = clNo;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.schNo = schNo;
+		this.regPay = regPay;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.refuse = refuse;
+		this.reEnroll = reEnroll;
+		this.regCal = regCal;
+		this.depositSta = depositSta;
+		this.memPhone = memPhone;
+		this.memEmail = memEmail;
+		this.clThumb = clThumb;
+		this.clName = clName;
+		this.startTime = startTime;
+		this.distrName = distrName;
+		this.ttName = ttName;
+		this.ctName = ctName;
+		this.ctDname = ctDname;
 	}
 
 	public int getRegNo() {
@@ -319,17 +353,36 @@ public class Register {
 	public void setDepositSta(String depositSta) {
 		this.depositSta = depositSta;
 	}
+	
+	
+
+	public String getCtName() {
+		return ctName;
+	}
+
+	public void setCtName(String ctName) {
+		this.ctName = ctName;
+	}
+
+	public String getCtDname() {
+		return ctDname;
+	}
+
+	public void setCtDname(String ctDname) {
+		this.ctDname = ctDname;
+	}
 
 	@Override
 	public String toString() {
 		return "Register [regNo=" + regNo + ", memNo=" + memNo + ", clNo=" + clNo + ", teachDate=" + teachDate
 				+ ", regDate=" + regDate + ", schNo=" + schNo + ", regPay=" + regPay + ", regPrice=" + regPrice
 				+ ", regCount=" + regCount + ", regSta=" + regSta + ", refuse=" + refuse + ", reEnroll=" + reEnroll
-				+ ", regCal=" + regCal + ", memPhone=" + memPhone + ", memEmail=" + memEmail + ", clThumb=" + clThumb
-				+ ", clName=" + clName + ", startTime=" + startTime + ", distrName=" + distrName + ", ttName=" + ttName
-				+ "]";
+				+ ", regCal=" + regCal + ", depositSta=" + depositSta + ", memPhone=" + memPhone + ", memEmail="
+				+ memEmail + ", clThumb=" + clThumb + ", clName=" + clName + ", startTime=" + startTime + ", distrName="
+				+ distrName + ", ttName=" + ttName + ", ctName=" + ctName + ", ctDname=" + ctDname + "]";
 	}
 
+	
 	
 	
 	

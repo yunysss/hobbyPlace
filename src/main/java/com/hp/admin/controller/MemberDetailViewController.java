@@ -37,7 +37,6 @@ public class MemberDetailViewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("no"));
-		System.out.println(memNo);
 		
 		AdminService aService = new AdminService();
 		
