@@ -239,7 +239,7 @@
 				</div>
 				
 				<%} %>
-			<%} %> 		
+			 		
 			<script>
 				$(function(){
 				$("#findClass").click(function(){
@@ -267,7 +267,7 @@
 				<button onclick="location.href='<%=contextPath%>/myClassList.reg?cpage=<%=pi.getCurrentPage()+1%>'">&gt;</button>
 				<%} %>
 			</div>
-			
+			<%} %>
 		</div>
 	
 	</div>

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.hp.register.model.vo.Register, com.hp.common.model.vo.PageInfo"%>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi"); 
+	ArrayList<Register> refList = (ArrayList<Register>)request.getAttribute("refList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,26 +14,27 @@
 
 
     #refundNull{
+		width: 100%;
+		height: 90%;
 		text-align: center;
-		margin-top: 71px;
+		margin-top: 70px;
 	}
 	#refundNull img{
-		width: 65px;
+		width: 100px;
 	}
    
 	#classContent p {margin-top: 5px; margin-left:18px; margin-bottom: 0;}
 	#classContent{
 		width: 80%;
-		height: 300px;
+		height: 270px;
 		margin: auto;
 		border: 1px solid lightgray;
 		border-radius: 5px;
-
 	}
 	
 	#classContent img {
-		width: 200px;
-		height: 200px;
+		width: 180px;
+		height: 180px;
 		padding: 10px;
 	}
 
@@ -45,7 +51,7 @@
 	#classDetail{
 		width: 400px;
 		float: left;
-		margin: 5px;;
+		margin: 0;
 		
 	}
 	#classStatusAp{
@@ -107,49 +113,55 @@
 	<div class="content" align="center">
 
 		<!-- 환불한 클래스가 없을때-->
-			
+		<%if(loginUser != null && refList.isEmpty()) {%>	
+		
 		<div id="refundNull">
-			<img src="<%=contextPath%>/resources/images/refunPage_smile_icon.png" alt="">
+			<img src="<%=contextPath%>/resources/images/refunPage_smile_icon.png">
 			<br>
 			<br>
 			<p>환불한 클래스가 없습니다.</p>
 		</div>
-           
+        
+        <%} else{ %>
+		
 		<!--취소한 클래스가 있을 때-->
-		<!--환불 접수 접수 -->
+		<%for(int i=0; i<refList.size();i++){ %>
+		
+		<!--환불 접수 -->
 		
 		<div id="class-area">
 										
 			<div id="classContent">
-				<p style="text-align:left">2023-01-03 취소</p>
+				<p style="text-align:left"><%=refList.get(i).getRegDate() %>취소</p>
 				<div id="classThumbnail">
-					<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> <!--클래스썸네일대표사진-->
+					<img src="<%=contextPath%>/<%=refList.get(i).getClThumb() %>"> <!--클래스썸네일대표사진-->
 					<br>
-					<p>강보람<br>튜터</p>
+					<p><%=refList.get(i).getTtName() %></p>
 				</div>
 				<div id="classDetail">
 					<table  border="0">
 						<thead>
 							<tr>
 								<td >주문번호</td>
-								<td colspan="3">B3425R23</td>
+								<td colspan="3"><%=refList.get(i).getRegNo() %></td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td colspan="4" id="classTitle">가장 쉽게 배우는 JAVA</td>
+								<td colspan="4" id="classTitle"><%=refList.get(i).getClName() %></td>
 							</tr>
 							<tr>
-								<td colspan="4">사당 / 2023-01-07(토) 17:00</td>
+								<td colspan="4"><%=refList.get(i).getDistrName() %>  <%=refList.get(i).getTeachDate() %> <%=refList.get(i).getStartTime() %></td>
 							</tr>
 							<tr>
 								<td height="50px"><div id="classStatusAp">환불 접수</div></td>
+								<!-- <td height="50px"><div id="classStatusX">환불 완료</div></td> -->
 								<td colspan="3"></td>
 							</tr>
 						</tbody>
 						<tfoot>
 							<tr>
-								<td colspan="4"><button id="btn2" onclick="" data-toggle="modal" data-target="#myModal">환불 상세 내역</button></td>
+								<td colspan="4"><button id="btn2" onclick="" data-toggle="modal" data-target="#myModal<%=i%>">환불 상세 내역</button></td>
 							</tr>
 						</tfoot>	
 					</table>
@@ -158,51 +170,9 @@
 			</div>
 		</div>
 			
-
-        <!--환불완료 클래스-->
-			
-		<div id="class-area">
-										
-			<div id="classContent">
-				<p>2023-01-03 취소</p>
-				<div id="classThumbnail">
-					<img src="<%=contextPath%>/resources/classThumbnail_upfiles/sjLesson01.jpg" alt=""> <!--클래스썸네일대표사진-->
-					<br>
-					<p>강보람<br>튜터</p>
-				</div>
-				<div id="classDetail">
-					<table  border="0">
-						<thead>
-							<tr>
-								<td >주문번호</td>
-								<td colspan="3">B3425R23</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td colspan="4" id="classTitle">가장 쉽게 배우는 JAVA</td>
-							</tr>
-							<tr>
-								<td colspan="4">사당 / 2023-01-07(토) 17:00</td>
-							</tr>
-							<tr>
-								<td height="50px"><div id="classStatusX">환불 완료</div></td>
-								<td colspan="3"></td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="4"><button id="btn2" data-toggle="modal" data-target="#myModal">환불 상세 내역</button></td>
-							</tr>
-						</tfoot>	
-					</table>
-				</div>
-
-			</div>
-		</div>
 		
 		<!-- 결제상세내역 Modal -->
-		<div class="modal fade" id="myModal">
+		<div class="modal fade" id="myModal<%=i%>">
 			<div class="modal-dialog modal-dialog-centered">
 			  	<div class="modal-content">
 			  
@@ -218,34 +188,38 @@
 						<table class="modalTB" >
 							<tr>
 								<td rowspan="2" >결제 금액</td>
-								<td colspan="2" id="payment1">신용카드</td>
+								<%if(refList.get(i).getRegPay().equals("0")){%>
+									<td colspan="2" id="payment1">신용카드</td>
+								<%} else {%>
+									<td colspan="2" id="payment1">무통장입금</td>
+								<%} %>
 							</tr>
 							<tr>
-								<td colspan="2" id="payment2">45,000</td>
+								<td colspan="2" id="payment2"><%=refList.get(i).getRegPrice() %></td>
 							</tr>
 							<tr>
 								<td colspan="3" id="detailLine">세부내용</td>
 							</tr>
 							<tr >
-								<td colspan="2" style="font-size: 11px; color: gray;">주문번호 B3425R23</td>								
-								<td rowspan="4" style="text-align: right;" width="80px">45,000원</td>
+								<td colspan="2" style="font-size: 11px; color: gray;">주문번호 <%=refList.get(i).getRegNo() %></td>								
+								<td rowspan="4" style="text-align: right;" width="80px"><%=refList.get(i).getRegPrice() %></td>
 							</tr>
 							<tr>
-								<td colspan="2">쉽게 배우는 JAVA</td>
+								<td colspan="2"><%=refList.get(i).getClName() %></td>
 							</tr>
 							<tr>
-								<td colspan="2"> 강보람 튜터</td>
+								<td colspan="2"><%=refList.get(i).getTtName() %></td>
 							</tr>
 							<tr>
 								<td width="120px">클래스 수강권 x </td>
-								<td>1</td>
+								<td><%=refList.get(i).getRegCount() %></td>
 							</tr>
                             <tr>
                                 <td colspan="3" height="1px" style="background: gray;"></td>
                             </tr>
                             <tr>
                                 <td height="45px">최종 환불 금액</td>
-                                <td colspan="3" style="text-align: right;">45,000원</td>
+                                <td colspan="3" style="text-align: right;"><%=refList.get(i).getRegCount() %></td>
                             </tr>
 							
 						</table>
@@ -255,16 +229,24 @@
 			  </div>
 			</div>
 		 </div>
-
-		 <div class="paging-area">
-			<button>&lt;</button>
-			<button>1</button>
-			<button>2</button>
-			<button>&gt;</button>
-
-
-		 </div>
 		 
+		<%} %>
+	
+	
+		 <div class="paging-area">
+		 <%if(pi.getCurrentPage()!=1){ %>
+				<button onclick="location.href='<%=contextPath%>/refundList.reg?cpage=<%=pi.getCurrentPage()-1%>'">&lt;</button>
+				<%} %>
+				
+				<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+					<button onclick="location.href='<%=contextPath%>/refundList.reg?cpage=<%=p%>'"><%= p %></button>
+				<%} %>
+				
+				<%if(pi.getCurrentPage()!=pi.getMaxPage()){ %>
+				<button onclick="location.href='<%=contextPath%>/refundList.reg?cpage=<%=pi.getCurrentPage()+1%>'">&gt;</button>
+				<%} %>
+			</div>
+		<%} %> 	
 		
 		</div>
 	
