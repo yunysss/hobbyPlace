@@ -58,7 +58,7 @@
             display:inline-block;
             margin:5px;
         }
-        #clName>span{margin-left:165px; font-size:15px;}
+        #clName>span{margin-left:370px; font-size:15px;}
 
         /* content */
         #classDetail-content{
@@ -304,7 +304,7 @@
 				</script>
                 <br clear="both">
                 <div id="clName">
-                    <b style="font-size:17px"><%= le.getClName() %></b>	
+                    <b style="font-size:17px"><%= le.getClName() %></b><br>
                 </div>
             </div>
             <script>
@@ -497,7 +497,11 @@
                     <br>
                     <div id="section4" class="container-fluid">
                         <b style="font-size:14px">취소/환불</b><br><br>
-						<%= le.getRefundPolicy() %>
+							1. 결제 후 14일 이내 취소 시 : 전액 환불<br>
+							2. 결제 후 14일 이후 취소 시 : 환불 불가<br><br>
+							[환불 신청 방법]<br>
+							1. 해당 클래스 결제한 계정으로 로그인<br>
+							2. 마이 - 신청내역 or 결제내역"<br>
                     </div><br>
             </div>
         </div>

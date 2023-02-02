@@ -112,7 +112,6 @@
 		     , CL_PRICE
 		     , CL_DETAIL
 		     , CURRICULUM
-		     , REFUNDPOLICY
 		     , NVL(CL_SUPPLIES, '준비물 없음') "CL_SUPPLIES"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 

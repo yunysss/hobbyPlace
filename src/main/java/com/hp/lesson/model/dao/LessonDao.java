@@ -191,7 +191,6 @@ private Properties prop = new Properties();
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				Reader clDetail = rset.getCharacterStream("cl_detail");
 				le = new Lesson(
 								rset.getInt("cl_no"),
 						        rset.getString("ct_name"),
@@ -209,7 +208,6 @@ private Properties prop = new Properties();
 						        rset.getString("cl_price"),
 						        rset.getString("cl_detail"),
 						        rset.getString("curriculum"),
-						        rset.getString("refundpolicy"),
 						        rset.getString("cl_supplies"),
 						        rset.getString("cl_thumb"),
 						        rset.getInt("star_avg"),
