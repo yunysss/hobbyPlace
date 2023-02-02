@@ -58,6 +58,11 @@ public class TutorClassUpdateController extends HttpServlet {
 			String clName = multiRequest.getParameter("className");
 			String localCode = multiRequest.getParameter("sido");
 			String distrCode = multiRequest.getParameter("sigungu");
+			
+			String[] distr = distrCode.split(" ");
+		       distrCode = distr[0];
+		         
+	
 			String address1 = multiRequest.getParameter("address");
 			String address2 = multiRequest.getParameter("dAddress");
 			String clAddress = address1 + " " + address2;
@@ -106,7 +111,7 @@ public class TutorClassUpdateController extends HttpServlet {
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setChangeName(multiRequest.getFilesystemName(key));
 					at.setFilePath("resources/classThumbnail_upfiles/");
-					at.setFileLevel("1");
+				
 					at.setRefType("1");
 
 					// 기존 첨부파일 있을경우=> update
@@ -138,18 +143,17 @@ public class TutorClassUpdateController extends HttpServlet {
 
 			int[] newsession = new int[sessionArr.length];
 			int[] newSch = new int[schNoArr.length];
-			
+
 			for (int j = 0; j < sessionArr.length; j++) {
-				newsession[j] = Integer.parseInt(sessionArr[j]);
+				newsession[j] = Integer.parseInt(sessionArr[j]);	
 			}
+			
 			for(int j = 0; j< schNoArr.length; j++) {// 
-				newSch[j] = Integer.parseInt(schNoArr[j]);
-				System.out.print(newSch[j]);
+				newSch[j] = Integer.parseInt(schNoArr[j]);	
 			}
 
 			for (int i = 0; i < newsession.length; i++) {
 				Schedule sc = new Schedule();	
-				sc.setSchNo(newSch[i]);
 				sc.setClNo(String.valueOf(clNo));
 				sc.setSessionNo(newsession[i]);
 				sc.setStartTime(startTimeArr[i]);

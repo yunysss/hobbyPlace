@@ -236,18 +236,21 @@
 	            <tr>
 	                <th width=100>카테고리</th>
 	                <td>
-	                    <select name="category" id="category" class="ct" required onchange="changeCt();">
+	                     <select name="category" id="category" class="ct" required onchange="changeCt();">
 	                        <%for(Category c : cList){ %>
 	                        <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
 	                        <%} %>
-	                    </select>
-	                    
+
+						</select>
+	                     
 	                    <select name="dCategory" id="Dcategory" class="ct" required >
 	                       
 	
 	                    </select>
 	                </td>
 	            </tr>
+	            
+	          
 	            <script>
 	            	$(function(){
 	            		$("select[name=category] option").each(function(){
@@ -447,9 +450,7 @@
 	                              <th>시작시간</th>
 	                              <th>종료시간</th>
 	                              <th>
-	                              <%for (Schedule s : sList){ %>
-	                              <input type="hidden" name="schNo" value="<%=s.getSchNo()%>">
-	                               <%} %>
+	                           
 	                                <div class="action_container">
 	                                  <button type="button" class="success" onclick="add_tr('table_body')">+
 	                                  </button>
@@ -458,6 +459,7 @@
 	                            </tr>
 	                          </thead>
 	                          <%for (Schedule s : sList){ %>
+	                           <input type="hidden" name="schNo" value="<%=s.getSchNo()%>">                     
 	                          <tbody id="table_body">
 	                                <tr>
 	                                <td>
@@ -476,7 +478,7 @@
 	                                </div>
 	                                </td>
 	                                </tr>
-	            					<%} %>
+	            			<%} %>
 	                            </tbody>
 	                        </table>
 	                      </div>
@@ -535,9 +537,7 @@
 	            }
 	          </script>
 	          
-	          
-	          
-	           <script>
+	            <script>
 	                    function changeCt(){
 	                        var study = ["외국어","자격증","IT"];
 	                        var diy = ["가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
@@ -561,7 +561,7 @@
 	                            changeDct = sport;
 	                        }
 	                        
-	                        
+	                        $("#Dcategory").empty();
 	                        for(var i=0; i<changeDct.length; i++){
 	                            var option = $("<option>"+changeDct[i]+"</option>");
 	                            $("#Dcategory").append(option);
@@ -569,10 +569,10 @@
 	                        
 	                    }
 	                    
-	                    
-	            
-	                    
 	                    </script>
+	          
+	          
+	       
 	                    
 	                    
 	                    	

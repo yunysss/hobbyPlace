@@ -640,9 +640,12 @@ select {
 							<option value="44">쿠킹</option>
 							<option value="55">스포츠/피트니스</option>
 
-					</select> <select name="dcategory" id="dct">
+						</select>
+					 <select name="dcategory" id="dct">
 							<option>전체</option>
-					</select> <script>
+					</select> 
+					
+					<script>
                         function changeCt(){
                         	var study = ["전체","외국어","자격증","IT"];
                         	var diy = ["전체","가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
@@ -674,7 +677,8 @@ select {
                         	
                         }
                         
-                        </script></td>
+                        </script>
+                        </td>
 				</tr>
 				<tr>
 					<th>지역</th>

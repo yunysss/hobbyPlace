@@ -54,6 +54,12 @@ public class ClassInsertController extends HttpServlet {
 		         String clName = multiRequest.getParameter("className");
 		         String localCode = multiRequest.getParameter("sido");
 		         String distrCode = multiRequest.getParameter("sigungu");
+		         
+		         String[] distr = distrCode.split(" ");
+		         distrCode = distr[0];
+		         
+		    
+		         
 		         String address1 = multiRequest.getParameter("address");
 		         String address2 = multiRequest.getParameter("dAddress");
 		         String clAddress = address1 +" "+ address2;

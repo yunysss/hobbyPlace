@@ -178,10 +178,7 @@ public class TutorService {
 	
 	public int updateClass(Lesson l, ArrayList<Attachment> list, ArrayList<Schedule> sList) {
 		Connection conn = getConnection();
-		
-		System.out.println(list);
-		System.out.println(sList);
-		
+
 		int result1 = new TutorDao().updateClass(conn, l);
 
 		int result2 = 1;
