@@ -83,7 +83,7 @@
         }
         #reviewList tr, #viewFold{display:none;}
         #reviewList p{word-break: break-all;}
-        #reviewList p~img{width:100px; height:100px; margin-right:10px;}
+        #reviewList a>img{width:100px; height:100px;}
         
         /* classDetail-2 */
         #classDetail-2>*{
@@ -440,6 +440,7 @@
                     		<a href="#" class="btn" id="viewFold">접기</a>
                     	</div>
                     </div>
+					
                     <script>
 						$(function(){
 							$("#reviewList tr").slice(0, 10).show(); // 초기갯수
@@ -469,13 +470,21 @@
 									success:function(list){
 										let value=""
 											for(let i=0; i<list.length; i++){
-												value += "<img src='<%= contextPath %>/" + list[i].filePath + list[i].changeName + "' onclick='window.open(this.src)'>";
+												value += "<a href='<%= contextPath %>/" + list[i].filePath + list[i].changeName + "' data-toggle='lightbox' data-gallery='example-gallery'><img src='<%= contextPath %>/" + list[i].filePath + list[i].changeName + "' class='img-fluid'> </a>";
 											}
 										$("#reContent-" + regNo).append(value);
 									}
 								})
 							})
 				        })
+					</script>
+					<link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+					<script>
+					$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+					    event.preventDefault();
+					    $(this).ekkoLightbox();
+					});
 					</script>
                     <hr>
                     <div id="section4" class="container-fluid">
