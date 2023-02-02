@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style>
 	.outer{width:1000px; margin:auto; margin-top:20px;}
-	a{text-decoration: none !important; color:black!important}
+	.outer a{text-decoration: none !important; color:black!important}
 	.container{margin:30px; font-size:14px;}
 	.container pre{word-break: break-all;word-wrap: break-word;white-space: pre-wrap;}
 </style>

@@ -8,7 +8,7 @@
 <title>Insert title here</title>
     <style>
         div, p, form, input, table{box-sizing:border-box;}
-
+		
        .outer{width:1000px; margin:auto; padding:20px 50px;}
        .outer>*{
        	font-size:small;
@@ -16,8 +16,6 @@
        #refMng-form, #refMng-result{
         border:1px solid rgb(180, 180, 180); 
         border-radius:5px;
-       }
-       #refMng-form, #refMng-result{
         padding:20px;
        } 
        #refMng-result td{
@@ -43,7 +41,7 @@
         border: 1px solid rgb(202, 199, 199);
         height: 32px;
         border-radius: 5px;
-    }
+       }
         
        input[name=dateType], input[name=refSta]{display: none; margin: 10px;}
 	   input[name=dateType]+label{
@@ -83,10 +81,6 @@
         #tutorId{
             width:310px;
         }
-
-       thead td{
-        background:rgb(245, 245, 245);
-       }
         #paging{
 		    text-align: center;
 		    display: inline-block;
