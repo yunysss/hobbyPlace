@@ -41,7 +41,7 @@ public class NewClassCheckedRejectControllor extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(result>0) {
 			session.setAttribute("alertMsg","성공적으로 반려처리 되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/newcl.ad?capge=1"); 
+			response.sendRedirect(request.getContextPath()+"/newcl.ad?cpage=1"); 
 			
 		}else {
 			

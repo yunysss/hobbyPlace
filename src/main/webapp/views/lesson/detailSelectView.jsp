@@ -157,7 +157,7 @@ a {
   		</div>
   		<%} else {%>
         <h4> <a href=""><%=keyword%> 검색결과</a><span class="material-symbols-outlined symbol">expand_more</span></h4>
-        
+       <!-- 
         <div id="button-area">
              <div class="dropdown">
             <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -183,7 +183,7 @@ a {
               </div>
     
         </div>
-
+ --> 
         <br><br>
         <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count%> 건</span>
         <div id="btn-area">

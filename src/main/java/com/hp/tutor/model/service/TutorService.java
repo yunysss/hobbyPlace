@@ -6,17 +6,22 @@ import static com.hp.common.JDBCTemplate.getConnection;
 import static com.hp.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
+import com.hp.customerService.model.dao.NoticeDao;
+import com.hp.customerService.model.vo.Notice;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
 import com.hp.member.model.dao.MemberDao;
 import com.hp.member.model.vo.Member;
+import com.hp.register.model.dao.RegisterDao;
+import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.dao.TutorDao;
 import com.hp.tutor.model.vo.Tutor;
 
@@ -212,5 +217,46 @@ public class TutorService {
 		close(conn);
 		return list;
 	}
+	
+	
+	public ArrayList<Notice> selectTutorNotice(){
+		
+		Connection conn = getConnection();
+		ArrayList<Notice> list = new TutorDao().selectTutorNotice(conn);
+		close(conn);
+		
+		return list;
+	}
+	
+	public Tutor selectTutorStatistics(int memNo) {
+		Connection conn = getConnection();
+		Tutor tt = new TutorDao().selectTutorStatistics(conn, memNo);
+		close(conn);
+		
+		return tt;
+		
+	}
+	
+	public int selectIngClassCount(int memNo) {
+		Connection conn = getConnection();
+		int ingClass = new TutorDao().selectIngClassCount(conn, memNo);
+		close(conn);
+		return ingClass;
+	}
+	
+	public int selectQnaPercent(int memNo) {
+		Connection conn = getConnection();
+		int qnaPer = new TutorDao().selectQnaPercent(conn,memNo);
+		close(conn);
+		return qnaPer;
+	}
+	
+	public ArrayList<Register> selectTutorRegister(int memNo){
+		Connection conn = getConnection();
+		ArrayList<Register> list = new TutorDao().selectTutorRegister(conn, memNo);
+		close(conn);
+		return list;
+	}
+	
 
 }

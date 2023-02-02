@@ -14,12 +14,124 @@ public class Tutor {
 	private String ttProfile;
 	private String modifyDate;
 	
+	
+	private String avgStar; // 평균 별점0
+	private int rCount;  // 리뷰갯수0
+	private String qnaPer; //문의응답률
+	private int cancelCount; //이번달취소건수0
+	private int ingClass; // 진행중 클래스
+	private int sumMonth; //이번달 판매금액0
+	private int sumTotal; // 전체판매금액0
+	private int sumReg; // 전체결제건수 0
 
 
 	public Tutor() {}
 
     
 	
+	public int getIngClass() {
+		return ingClass;
+	}
+
+
+
+	public void setIngClass(int ingClass) {
+		this.ingClass = ingClass;
+	}
+
+
+
+	public Tutor(String avgStar, int rCount, int cancelCount, int sumMonth, int sumTotal, int sumReg) {
+		super();
+		this.avgStar = avgStar;
+		this.rCount = rCount;
+		this.cancelCount = cancelCount;
+		this.sumMonth = sumMonth;
+		this.sumTotal = sumTotal;
+		this.sumReg = sumReg;
+	}
+
+ 
+
+
+
+
+	public String getAvgStar() {
+		return avgStar;
+	}
+
+
+
+	public void setAvgStar(String avgStar) {
+		this.avgStar = avgStar;
+	}
+
+
+
+	public int getrCount() {
+		return rCount;
+	}
+
+
+
+	public void setrCount(int rCount) {
+		this.rCount = rCount;
+	}
+
+
+
+	public String getQnaPer() {
+		return qnaPer;
+	}
+
+
+
+	public void setQnaPer(String qnaPer) {
+		this.qnaPer = qnaPer;
+	}
+
+
+
+	public int getCancelCount() {
+		return cancelCount;
+	}
+
+
+
+	public void setCancelCount(int cancelCount) {
+		this.cancelCount = cancelCount;
+	}
+
+
+
+
+
+
+
+	public int getSumTotal() {
+		return sumTotal;
+	}
+
+
+
+	public void setSumTotal(int sumTotal) {
+		this.sumTotal = sumTotal;
+	}
+
+
+
+	public int getSumReg() {
+		return sumReg;
+	}
+
+
+
+	public void setSumReg(int sumReg) {
+		this.sumReg = sumReg;
+	}
+
+
+
 	public Tutor(int memNo, String ttName, String introduce, String ttProfile) {
 		super();
 		this.memNo = memNo;
@@ -135,6 +247,18 @@ public class Tutor {
 		return "Tutor [memNo=" + memNo + ", ttName=" + ttName + ", ttPhone=" + ttPhone + ", ttEmail=" + ttEmail
 				+ ", introduce=" + introduce + ", enrollDate=" + enrollDate + ", pubPhone=" + pubPhone + ", ttProfile="
 				+ ttProfile + "]";
+	}
+
+
+
+	public int getSumMonth() {
+		return sumMonth;
+	}
+
+
+
+	public void setSumMonth(int sumMonth) {
+		this.sumMonth = sumMonth;
 	}
 	
 

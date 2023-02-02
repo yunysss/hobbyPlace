@@ -18,6 +18,14 @@ public class Notice {
 	public Notice() {}
 
 
+	public Notice(int ntNo, String ntTitle, Date enrollDate) {
+		super();
+		this.ntNo = ntNo;
+		this.ntTitle = ntTitle;
+		this.enrollDate = enrollDate;
+	}
+
+
 	public Notice(int rNum, int ntNo, String ntMem, String ntTitle, String ntContent, Date enrollDate, Date updateDate,
 			String grade, String ntSta) {
 		super();

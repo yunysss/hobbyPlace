@@ -59,13 +59,17 @@
 
         }
         #header2{width:800px;}
-        #header2>h4{
+        #header2 h4{
            width: 750px;
             margin-top: 45px;
             margin-left: 10px;
             font-weight: 600;
 
         }
+        #header2>a{
+         	text-decoration : none;
+         	color : black;
+         }
         #header3{
             width:200px;
             text-align: center;
@@ -80,7 +84,7 @@
         }
 
       
-        #header1>img{
+        #header1 img{
             margin-top: 20px;
             width: 150px;
         }
@@ -180,10 +184,10 @@
     <div class="wrap">
         <div id="header">
             <div id="header1">
-                <img src="<%=request.getContextPath()%>/resources/images/logo.png">
+                <a href="<%=contextPath%>/tutorMain.tt"><img src="<%=request.getContextPath()%>/resources/images/logo.png"></a>
             </div>
             <div id="header2">
-                <h4>튜터 관리 페이지</h4>
+               <a href="<%=contextPath%>/tutorMain.tt"> <h4>튜터 관리 페이지</h4></a> 
             </div>
             <div id="header3">
                 <div class="dropdown" >

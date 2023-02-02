@@ -139,7 +139,7 @@
      	
 			$(function(){
 				$("#newClass>tbody td").click(function() {
-					location.href = "<%=contextPath%>/newde.ad?no="+$(this).eq(0).text();
+					location.href = "<%=contextPath%>/newde.ad?no="+$(this).siblings('td').eq(0).text();
 					
 					
         		})

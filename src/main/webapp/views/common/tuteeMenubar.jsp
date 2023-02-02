@@ -745,14 +745,14 @@ select {
 				<tr>
 					<td colspan="2" align="center" style="width: 400px;">
 						<div id="btn-area" style="display: inline;">
-							<button>&nbsp;검색&nbsp;</button>
+							<button type="submit">&nbsp;검색&nbsp;</button>
 							<button type="reset">초기화</button>
 						</div>
 					</td>
 				</tr>
 			</table>
 			<br>
-
+	</form>
 			<script language="javascript">
               
             function ShowSliderValue(sVal)
@@ -804,7 +804,7 @@ select {
          </script>
 
 
-		</form>
+	
 
 	</div>
 
