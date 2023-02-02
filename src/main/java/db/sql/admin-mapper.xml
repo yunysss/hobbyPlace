@@ -526,7 +526,20 @@
          ORDER BY 
 	</entry>
 	
+	<entry key="selectLocalList">
+		SELECT
+		       LOCAL_CODE
+		     , LOCAL_NAME
+		  FROM LOCATION
+	</entry>
 	
+	<entry key="selectDistrictList">
+		SELECT
+		       DISTR_CODE
+		     , LOCAL_CODE
+		     , DISTR_NAME
+		  FROM DISTRICT
+	</entry>
 
 	
 	

@@ -9,6 +9,10 @@
 	if(!m.getEmail().equals("이메일 없음")){
 		email = m.getEmail();
 	}
+	String phone = "";
+	if(!m.getPhone().equals("전화번호 없음")){
+		phone = m.getPhone();
+	}
 %>
 <!DOCTYPE html>
 <html>

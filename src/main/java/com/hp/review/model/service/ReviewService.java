@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.review.model.dao.ReviewDao;
 import com.hp.review.model.vo.Register;
+import com.hp.review.model.vo.Review;
 
 public class ReviewService {
 	
@@ -35,6 +36,27 @@ public class ReviewService {
 		close(conn);
 		return list;
 	}
+
+	/**
+	 * @내가 쓴 리뷰 총 개수
+	 * @param memNo
+	 * @return
+	 */
+	public int selectMyReviewListCount(int memNo) {
+		Connection conn = getConnection();
+		int listCount = new ReviewDao().selectMyReviewListCount(conn, memNo);
+		close(conn);
+		return listCount;
+	}
+
+	public ArrayList<Review> selectMyReviewList(PageInfo rePi) {
+		Connection conn = getConnection();
+		ArrayList<Review> list = new ReviewDao().selectMyReviewList(conn, rePi);
+		close(conn);
+		return list;
+	}
+
+	
 
 	
 

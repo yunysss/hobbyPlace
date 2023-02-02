@@ -111,7 +111,7 @@
 			   MEM_NO
 		     , NVL(MEM_EMAIL, '이메일 없음') "MEM_EMAIL"
 		     , MEM_NAME
-		     , MEM_PHONE
+		     , NVL(MEM_PHONE, '전화번호 없음') "MEM_PHONE"
 		  FROM MEMBER
 		 WHERE MEM_NO = ?
 	</entry>

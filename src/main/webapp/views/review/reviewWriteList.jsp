@@ -90,10 +90,10 @@
             <!-- 리뷰를 쓸 클래스가 없을 때-->
             <%if(loginUser != null && list.isEmpty()) {%>
             <div class="classnull">
-                <img src="<%=contextPath%>/resources/images/myClassNull.jpg" >
-					<p>리뷰를 작성할 클래스가 없어요!<br>
-					더 많은 클래스를 찾아 보세요.</p>
-					<button type="button" class="btn btn-light" id="findClass" onclick="">클래스 찾아보기</button>
+                <img src="<%=contextPath%>/resources/images/refunPage_smile_icon.png" >
+                <br><br>
+					<p>리뷰를 작성할 클래스가 없어요!</p>
+					
             </div>
             
             <%}else{ %>
@@ -132,7 +132,7 @@
 		            
 	            <%} %>
 	            
-	            <div class="paging-area" style="align:center;">
+	            <div class="paging-area" align="center">
 				<%if(wpi.getCurrentPage()!=1){ %>
 				<button onclick="location.href='<%=contextPath%>/wList.rev?cpage=<%=wpi.getCurrentPage()-1%>'">&lt;</button>
 				<%} %>

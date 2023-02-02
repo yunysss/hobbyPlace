@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.dao.LessonDao;
 import com.hp.review.model.vo.Register;
+import com.hp.review.model.vo.Review;
 
 public class ReviewDao {
 	
@@ -87,6 +88,68 @@ public class ReviewDao {
 		
 		return list;
 	}
+
+
+	public int selectMyReviewListCount(Connection conn, int memNo) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMyReviewListCount");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+
+
+	public ArrayList<Review> selectMyReviewList(Connection conn, PageInfo rePi) {
+		ArrayList<Review> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyReviewList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rePi.getMemNo());
+			
+			int startRow = (rePi.getCurrentPage() -1 ) * rePi.getBoardLimit() + 1;
+			int endRow = startRow + rePi.getBoardLimit() -1;
+			
+			pstmt.setInt(2,startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Review(rset.getString("content"),
+								      rset.getInt("re_star"),
+								      rset.getString("re_date"),
+								      rset.getString("cl_name"),
+								      rset.getString("cl_thumb")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+
 
 	
 	

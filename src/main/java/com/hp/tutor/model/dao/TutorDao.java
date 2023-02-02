@@ -629,10 +629,11 @@ public class TutorDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateClass");
-		System.out.println(l);
+		
 		try {
 			pstmt= conn.prepareStatement(sql);
 			
+			System.out.println(sql);
 			pstmt.setString(1, l.getCtNo());
 			pstmt.setString(2,l.getCtDno());
 			pstmt.setString(3,l.getLocalCode());
@@ -734,7 +735,7 @@ public class TutorDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteSchedule");
 		try {
-			System.out.println(l.getClNo());
+			//System.out.println(l.getClNo());
 			pstmt= conn.prepareStatement(sql);
 			pstmt.setInt(1,l.getClNo());
 			
@@ -776,7 +777,7 @@ public class TutorDao {
 		}finally {
 			close(pstmt);
 		}
-		 System.out.println(result);
+		// System.out.println(result);
 		 return result;
 	}
 	
