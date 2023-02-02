@@ -15,6 +15,12 @@ public class District {
 		this.distrName = distrName;
 	}
 
+	public District(int localCode, String distrName) {
+		super();
+		this.localCode = localCode;
+		this.distrName = distrName;
+	}
+
 	public int getDistrCode() {
 		return distrCode;
 	}

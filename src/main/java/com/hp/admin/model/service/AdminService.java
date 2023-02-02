@@ -18,9 +18,9 @@ import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
+import com.hp.lesson.model.vo.District;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
-
 import com.hp.member.model.vo.Like;
 import com.hp.member.model.vo.Member;
 import com.hp.qna.model.vo.Qna;
@@ -283,7 +283,19 @@ public class AdminService {
 		return list;
 	}
 
+	public ArrayList<District> selectLocalList(){
+		Connection conn = getConnection();
+		ArrayList<District> list = new AdminDao().selectLocalList(conn);
+		close(conn);
+		return list;
+	}
 	
+	public ArrayList<District> selectDistrictList(){
+		Connection conn = getConnection();
+		ArrayList<District> list = new AdminDao().selectDistrictList(conn);
+		close(conn);
+		return list;
+	}
 	
 
 }
