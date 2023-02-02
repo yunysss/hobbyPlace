@@ -45,7 +45,7 @@
         margin-top:10px;
     }
 
-    .classDetail{width: 340px; height: 200px; float: left;}
+    .classDetail{width: 340px; height: 200px; float: left; padding:5px;}
 
     #classStatusDone{
     margin: 10px;
@@ -117,7 +117,9 @@
                             </tr>
 
                             <tr>
-                                <td height="50px"><div id="classStatusDone"><%=list.get(i).getRegSta() %></div></td>
+                            <%if(list.get(i).getRegSta().equals("2")){ %>
+                                <td height="50px"><div id="classStatusDone">수강완료</div></td>
+                            <%} %>
                             </tr>
 
                         </table>
