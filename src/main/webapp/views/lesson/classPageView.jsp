@@ -47,17 +47,18 @@
         #classDetail-short{float:left;}
         #classDetail-likeShare{float:right;}
         #classDetail-short>span{
-            border:1px solid rgb(245, 245, 245); 
+            border:1px solid rgb(240, 240, 240); 
             border-radius:5px;
-            background: rgb(245, 245, 245);
+            background: rgb(240, 240, 240);
             padding:5px;
             text-align:center;
         }
         #classDetail-img span{
-            font-size:13px;
+            font-size:12px;
             display:inline-block;
             margin:5px;
         }
+        #clName>span{margin-left:165px; font-size:15px;}
 
         /* content */
         #classDetail-content{
@@ -302,10 +303,15 @@
 						}
 				</script>
                 <br clear="both">
-                <div>
+                <div id="clName">
                     <b style="font-size:17px"><%= le.getClName() %></b>	
                 </div>
             </div>
+            <script>
+            	$(function(){
+            		$("#clName").append("<span>" + CommaFormat(<%= le.getClPrice() %>) + "원 / 1인</span>")
+            	})
+            </script>
             <div id="classDetail-content" data-spy="scroll" data-target=".navbar">
                 <nav class="navbar navbar-expand-sm">  
                     <ul class="navbar-nav">
@@ -325,9 +331,9 @@
                     </nav>
                     
                     <div id="section1" class="container-fluid">
-                    <b style="font-size:14px">클래스 상세</b><br>
-                    CLOB 출력..?<br><br>
-                    <b style="font-size:14px">진행 장소</b><br>
+                    <br><b style="font-size:14px">클래스 상세</b><br><br>
+                    <%= le.getClDetail() %><br><br><br>
+                    <b style="font-size:14px">진행 장소</b><br><br>
                     <div id="map" style="width:550px;height:300px;"></div><br>
 
                     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=19e99c5794a1b621123d4304f847fd72&libraries=services"></script>
@@ -372,9 +378,9 @@
                     <div style="font-size: 13px;">
                         <span><b style="font-size:14px">찾아오시는 길</b></span><br>
                         <%= le.getClAddress() %>
-                    </div><br>
+                    </div><br><br>
                     <b style="font-size:14px">준비물</b><br>
-                    <%= le.getClSupplies() %> <br><br>
+                    <%= le.getClSupplies() %> <br><br><br>
                     
                     <b style="font-size:14px">강사소개</b><br><br>
                     <a href="<%=contextPath%>/ttdetail.cl?no=<%=le.getClNo() %>" id="classDetail-tutor">
@@ -393,16 +399,15 @@
                     	</table>
                   	</a>
                     </div>
-                    
-                    <hr>
+                    <br><hr><br>
                     <div id="section2" class="container-fluid">
-                        <b style="font-size:14px">커리큘럼</b><br>
+                        <b style="font-size:14px">커리큘럼</b><br><br>
                         <%= le.getCurriculum() %>
                     </div>
-                    <hr>
+                    <br><hr><br>
                     
                     <div id="section3" class="container-fluid">
-                    	<b style="font-size:14px">후기</b><br>
+                    	<b style="font-size:14px">후기</b><br><br>
                     	<table id="reviewList" style="width:600px">
                    			<% if(rList.size() == 0){ %>
                    				<tr>
@@ -435,10 +440,12 @@
 		  						<% } %>
 		  					<% } %>
                     	</table>
-                    	<div align="center">
-                    		<a href="#" class="btn" id="viewMore">더보기</a>
-                    		<a href="#" class="btn" id="viewFold">접기</a>
-                    	</div>
+                    	<% if(rList.size() != 0){ %>
+	                    	<div align="center">
+	                    		<a href="#" class="btn" id="viewMore">더보기</a>
+	                    		<a href="#" class="btn" id="viewFold">접기</a>
+	                    	</div>
+	                   <% } %>
                     </div>
 					
                     <script>
@@ -487,10 +494,11 @@
 					});
 					</script>
                     <hr>
+                    <br>
                     <div id="section4" class="container-fluid">
-                        <b style="font-size:14px">취소/환불</b><br>
+                        <b style="font-size:14px">취소/환불</b><br><br>
 						<%= le.getRefundPolicy() %>
-                    </div>
+                    </div><br>
             </div>
         </div>
         <div id="classDetail-2">
@@ -748,7 +756,6 @@
 					        function CommaFormat(x) {
 							  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							}
-					    
 					    </script>
                         <!-- 날짜 선택하면 나타나는 창 -->
                         <div id="classDetail-date">

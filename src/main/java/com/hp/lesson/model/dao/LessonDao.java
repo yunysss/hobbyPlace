@@ -4,6 +4,7 @@ import static com.hp.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -173,6 +174,11 @@ private Properties prop = new Properties();
 		}
 		return list;
 	}
+	/**
+	 * @author 예서
+	 * @param clNo 클래스번호
+	 * @return 클래스 상세페이지 내용
+	 */
 	public Lesson selectClassPage(Connection conn, int clNo) {
 		Lesson le = null;
 		PreparedStatement pstmt = null;
@@ -185,6 +191,7 @@ private Properties prop = new Properties();
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
+				Reader clDetail = rset.getCharacterStream("cl_detail");
 				le = new Lesson(
 								rset.getInt("cl_no"),
 						        rset.getString("ct_name"),
@@ -210,7 +217,6 @@ private Properties prop = new Properties();
 						        rset.getInt("like_count"),
 						        rset.getString("tt_profile")
 						        );
-						        
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
