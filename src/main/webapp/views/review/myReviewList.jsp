@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.hp.review.model.vo.Review, com.hp.common.model.vo.PageInfo"%>
+<% 
+	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
+	PageInfo rePi = (PageInfo)request.getAttribute("rePi"); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +16,13 @@
     .menubar{width:200px; height:1299px; float:left; padding-top:30px; background: white; }
     .content {width:793px; height:1300px;  float: right; padding-top:65px;}
 
-
+	 .classnull{
+        width: 100%;
+        height:300px;
+        margin-top: 70px;
+    }
+    .classnull img{width: 100px}
+    
     .review-area{
         width: 300px; 
         height: 400px; 
@@ -71,17 +81,27 @@
 <body>
     <%@ include file = "../common/myClassMenubar.jsp" %>
         <div class="content">
-
+        <!-- 작성한 리뷰가 없을 때-->
+            <%if(loginUser != null && list.isEmpty()) {%>
+            <div class="classnull">
+                <img src="<%=contextPath%>/resources/images/refunPage_smile_icon.png" >
+                <br><br>
+					<p>작성한 리뷰가 없어요!</p>
+            </div>
+            
+            <%}else{ %>
+            <!-- 작성한 리뷰가 있을때 -->
+			<%for(int i=0; i<list.size();i++) { %>
             <div class="review-area">
 
                 <div class="class-area">
                     <div class="classThumb">
-                        <img src="" width="80px" height="80px">
+                        <img src="<%=contextPath%>/<%=list.get(i).getClThumb() %>" width="80px" height="80px">
                     </div>
                     
                     <div class="classText">
                         <div>
-                            <p>클래스 제목들어가는 자리</p>
+                            <p><%=list.get(i).getClName() %></p>
                         </div>
                         <div>
                             별점 들어가는 공간
@@ -94,8 +114,8 @@
                 </div>
                 <hr style="margin:0%">
                 <div class="review-content">
-                    <p>2023/01/02</p>
-                    <p>리뷰내용들어가는 곳와라라라랄라라라라</p>
+                    <p><%=list.get(i).getReviewDate() %></p>
+                    <p><%=list.get(i).getReviewContent() %></p>
 
                 </div>
 
@@ -106,116 +126,21 @@
                 
                
             </div> <!-- 리뷰div끝-->
-
-            <div class="review-area">
-
-                <div class="class-area">
-                    <div class="classThumb">
-                        <img src="" width="80px" height="80px">
-                    </div>
-                    
-                    <div class="classText">
-                        <div>
-                            <p>클래스 제목들어가는 자리</p>
-                        </div>
-                        <div>
-                            별점 들어가는 공간
-                        </div>
-                    </div>
-
-                    <div class="nextBtn">
-                        <img src="<%=contextPath%>/resources/images/right_arrow.png" onclick="">
-                    </div>
-                </div>
-                <hr style="margin:0%">
-                <div class="review-content">
-                    <p>2023/01/02</p>
-                    <p>리뷰내용들어가는 곳와라라라랄라라라라</p>
-
-                </div>
-
-                <div class="reviewThumb" align="center">
-                    <img src="" width="200px" height="150px">
-
-                </div>
-                
-               
-            </div> <!-- 리뷰div끝-->
-
-            <div class="review-area">
-
-                <div class="class-area">
-                    <div class="classThumb">
-                        <img src="" width="80px" height="80px">
-                    </div>
-                    
-                    <div class="classText">
-                        <div>
-                            <p>클래스 제목들어가는 자리</p>
-                        </div>
-                        <div>
-                            별점 들어가는 공간
-                        </div>
-                    </div>
-
-                    <div class="nextBtn">
-                        <img src="<%=contextPath%>/resources/images/right_arrow.png" onclick="">
-                    </div>
-                </div>
-                <hr style="margin:0%">
-                <div class="review-content">
-                    <p>2023/01/02</p>
-                    <p>리뷰내용들어가는 곳와라라라랄라라라라</p>
-
-                </div>
-
-                <div class="reviewThumb" align="center">
-                    <img src="" width="200px" height="150px">
-
-                </div>
-                
-               
-            </div> <!-- 리뷰div끝-->
-
-            <div class="review-area">
-
-                <div class="class-area">
-                    <div class="classThumb">
-                        <img src="" width="80px" height="80px">
-                    </div>
-                    
-                    <div class="classText">
-                        <div>
-                            <p>클래스 제목들어가는 자리</p>
-                        </div>
-                        <div>
-                            별점 들어가는 공간
-                        </div>
-                    </div>
-
-                    <div class="nextBtn">
-                        <img src="<%=contextPath%>/resources/images/right_arrow.png" onclick="">
-                    </div>
-                </div>
-                <hr style="margin:0%">
-                <div class="review-content">
-                    <p>2023/01/02</p>
-                    <p>리뷰내용들어가는 곳와라라라랄라라라라</p>
-
-                </div>
-
-                <div class="reviewThumb" align="center">
-                    <img src="" width="200px" height="150px">
-
-                </div>
-                
-               
-            </div> <!-- 리뷰div끝-->
-
-          
-
-
-
+			<%} %>
+			<div class="paging-area" align="center" >
+				<%if(rePi.getCurrentPage()!=1){ %>
+				<button onclick="location.href='<%=contextPath%>/list.rev?cpage=<%=rePi.getCurrentPage()-1%>'">&lt;</button>
+				<%} %>
+				
+				<%for(int p=rePi.getStartPage(); p<=rePi.getEndPage(); p++){ %>
+					<button onclick="location.href='<%=contextPath%>/list.rev?cpage=<%=p%>'"><%= p %></button>
+				<%} %>
+				
+				<%if(rePi.getCurrentPage()!=rePi.getMaxPage()){ %>
+				<button onclick="location.href='<%=contextPath%>/list.rev?cpage=<%=rePi.getCurrentPage()+1%>'">&gt;</button>
+				<%} %>
+				</div>
+          <%} %>
         </div> <!--제일 위 cotent닫는 div-->
     </div> <!--메뉴바쪽 제일 상위 div닫는괄호-->
     <%@ include file = "../common/footerbar.jsp" %>	

@@ -49,6 +49,38 @@
 		        )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="selectMyReviewListCount">
+		SELECT
+		 	   COUNT(*) "COUNT"
+		  FROM REVIEW
+		 WHERE MEM_NO = ? 
+		   AND RE_STA = 'Y'
+		 
+	</entry>
+	
+	<entry key="selectMyReviewList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+							   CONTENT
+							 , RE_STAR
+							 , RE_DATE
+							 , C.CL_NAME "CL_NAME"
+							 , C.CL_THUMB "CL_THUMB"
+						  FROM REVIEW R
+						  LEFT OUTER JOIN CLASS C
+						    ON C.CL_NO = R.CL_NO
+						 WHERE R.MEM_NO = ?
+						   AND RE_STA = 'Y'
+						 ORDER
+						    BY RE_NO DESC 
+		                )A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
 
 	
 </properties>
