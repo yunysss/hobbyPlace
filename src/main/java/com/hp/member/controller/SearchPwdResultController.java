@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AjaxIdSelectByPhoneController
+ * Servlet implementation class SearchPwdResultController
  */
-@WebServlet("/IdByPhone.me")
-public class AjaxIdSelectByPhoneController extends HttpServlet {
+@WebServlet("/searchPwd.me")
+public class SearchPwdResultController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxIdSelectByPhoneController() {
+    public SearchPwdResultController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,11 @@ public class AjaxIdSelectByPhoneController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String memId = request.getParameter("memId");
+
+		request.setAttribute("memId", memId);
+
+		request.getRequestDispatcher("views/member/searchPwdResult.jsp").forward(request, response);
 	}
 
 	/**

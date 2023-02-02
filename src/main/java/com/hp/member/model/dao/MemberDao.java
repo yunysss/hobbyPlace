@@ -372,6 +372,212 @@ public class MemberDao {
 		return tutorMem;
 	}
 
+	/** 이메일로 아이디 찾기 위한 이름&이메일 확인용 dao메소드
+	 * @author 수연
+	 * @param conn
+	 * @param memName
+	 * @param email
+	 * @return m
+	 */
+	public Member emailCheckForId(Connection conn, String memName, String email) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("emailCheckForId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memName);
+			pstmt.setString(2, email);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getInt("mem_no"),
+						       rset.getString("mem_id"),
+						       rset.getString("mem_pwd"),
+						       rset.getString("mem_name"),
+						       rset.getString("mem_nickname"),
+						       rset.getString("mem_email"),
+						       rset.getString("mem_phone"),
+						       rset.getString("mem_addr"),
+						       rset.getString("gender"),
+						       rset.getString("mem_birth"),
+						       rset.getString("mem_profile"),
+						       rset.getString("interest"),
+						       rset.getString("grade"),
+						       rset.getDate("enroll_date"),
+						       rset.getDate("mem_update"),
+						       rset.getString("mem_status"),
+						       rset.getString("mem_drop"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		
+		return m;
+	}
+
+	/** 이메일로 비밀번호 찾기 위한 아이디&이메일 확인용 dao메소드
+	 * @author 수연
+	 * @param conn
+	 * @param memId
+	 * @param email
+	 * @return m
+	 */
+	public Member emailCheckForPwd(Connection conn, String memId, String email) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("emailCheckForPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			pstmt.setString(2, email);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getInt("mem_no"),
+						       rset.getString("mem_id"),
+						       rset.getString("mem_pwd"),
+						       rset.getString("mem_name"),
+						       rset.getString("mem_nickname"),
+						       rset.getString("mem_email"),
+						       rset.getString("mem_phone"),
+						       rset.getString("mem_addr"),
+						       rset.getString("gender"),
+						       rset.getString("mem_birth"),
+						       rset.getString("mem_profile"),
+						       rset.getString("interest"),
+						       rset.getString("grade"),
+						       rset.getDate("enroll_date"),
+						       rset.getDate("mem_update"),
+						       rset.getString("mem_status"),
+						       rset.getString("mem_drop"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		return m;
+	}
+
+	public int updatePwd2(Connection conn, String memId, String memPwd) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePwd2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memPwd);
+			pstmt.setString(2, memId);
+			
+			result = pstmt.executeUpdate();					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	/** 회원이름, 연락처로 회원정보 조회하는 dao메소드
+	 * @author 수연
+	 * @param memName
+	 * @param phone
+	 * @return m
+	 */
+	public Member phoneCheckForId(Connection conn, String memName, String phone) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("phoneCheckForId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memName);
+			pstmt.setString(2, phone);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getInt("mem_no"),
+						       rset.getString("mem_id"),
+						       rset.getString("mem_pwd"),
+						       rset.getString("mem_name"),
+						       rset.getString("mem_nickname"),
+						       rset.getString("mem_email"),
+						       rset.getString("mem_phone"),
+						       rset.getString("mem_addr"),
+						       rset.getString("gender"),
+						       rset.getString("mem_birth"),
+						       rset.getString("mem_profile"),
+						       rset.getString("interest"),
+						       rset.getString("grade"),
+						       rset.getDate("enroll_date"),
+						       rset.getDate("mem_update"),
+						       rset.getString("mem_status"),
+						       rset.getString("mem_drop"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(conn);
+		}
+		return m;
+	}
+
+	/** 회원아이디, 연락처로 회원정보 조회하는 dao메소드
+	 * @author 수연
+	 * @param conn
+	 * @param phone
+	 * @param phone2
+	 * @return m
+	 */
+	public Member phoneCheckForPwd(Connection conn, String memId, String phone) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("phoneCheckForPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			pstmt.setString(2, phone);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getInt("mem_no"),
+						       rset.getString("mem_id"),
+						       rset.getString("mem_pwd"),
+						       rset.getString("mem_name"),
+						       rset.getString("mem_nickname"),
+						       rset.getString("mem_email"),
+						       rset.getString("mem_phone"),
+						       rset.getString("mem_addr"),
+						       rset.getString("gender"),
+						       rset.getString("mem_birth"),
+						       rset.getString("mem_profile"),
+						       rset.getString("interest"),
+						       rset.getString("grade"),
+						       rset.getDate("enroll_date"),
+						       rset.getDate("mem_update"),
+						       rset.getString("mem_status"),
+						       rset.getString("mem_drop"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(conn);
+		}
+		return m;
+	}
+
 
 
 	

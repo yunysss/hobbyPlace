@@ -111,7 +111,7 @@
             <br>
             <form action="<%=contextPath%>/enrollMember.me" method="post" enctype="multipart/form-data">
 
-                <h1>회원가입</h1>
+                <h3>회원가입</h3>
 
                 <div align="right" style="margin-right: 30px;"><span class="star">*</span>필수입력사항</div>
 
@@ -258,7 +258,7 @@
                     <tr>
                         <td class="td1">휴대폰 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="phone" class="fillOutForms" name="phone" onclick="check();" placeholder="-포함하여 입력해주세요" required>
+                            <input type="text" id="phone" class="fillOutForms" name="phone" onclick="check();" placeholder="숫자만입력하세요" required>
                         </td>
                         <td class="td3">
                             <button type="button" class="doubleCheck phoneDoubleCheck" disabled>인증번호 받기</button>
@@ -525,7 +525,7 @@
            let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{6,20}$/i);
            let nameCheck = RegExp(/^[가-힣]{2,}$/);
            let nickCheck = RegExp(/^[a-z\d가-힣]{1,8}$/i);
-           let phoneCheck = RegExp(/^[0][1][\d]-[\d]{3,4}-[\d]{3,4}$/);
+           let phoneCheck = RegExp(/^[0][1][\d]{8,9}$/);
            let emailCheck = RegExp(/^[a-z\d+-_.]+@[a-z\d-]+\.[a-z\d.]+$/i);
 
             $("#userId").keyup(function(){
