@@ -155,11 +155,12 @@ public class AdminService {
 	 * @param sGroup
 	 * @param fCategory
 	 * @param lineup
+	 * @param pi 
 	 * @return list
 	 */
-	public ArrayList<MemberList> selectMemberList(String sGroup, String fCategory, String lineup) {
+	public ArrayList<MemberList> selectMemberList(String sGroup, String fCategory, String lineup, PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<MemberList> list = new AdminDao().selectMemberList(conn, sGroup, fCategory, lineup);
+		ArrayList<MemberList> list = new AdminDao().selectMemberList(conn, sGroup, fCategory, lineup, pi);
 		close(conn);
 		return list;
 	}
@@ -281,6 +282,20 @@ public class AdminService {
 		
 		close(conn);
 		return list;
+	}
+
+	/** 회원 조회 페이징 처리용 전체 조회된행수 조회
+	 * @author 수연
+	 * @param sGroup
+	 * @param fCategory
+	 * @param lineup
+	 * @return listCount
+	 */
+	public int selectMemberListCount1(String sGroup, String fCategory, String lineup) {
+		Connection conn = getConnection();
+		int listCount = new AdminDao().selectMemberListCount1(conn, sGroup, fCategory, lineup);
+		close(conn);
+		return listCount;
 	}
 
 	

@@ -15,6 +15,8 @@ import java.util.Properties;
 import com.hp.admin.model.vo.MemberList;
 import com.hp.admin.model.vo.Search;
 import com.hp.admin.model.vo.SearchMember;
+import com.hp.admin.model.vo.SearchTutor;
+import com.hp.admin.model.vo.TutorList;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.vo.Category;
@@ -624,15 +626,17 @@ public class AdminDao {
 	 * @param sGroup
 	 * @param fCategory
 	 * @param lineup
+	 * @param pi 
 	 * @return list
 	 */
-	public ArrayList<MemberList> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup) {
+	public ArrayList<MemberList> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup, PageInfo pi) {
 		ArrayList<MemberList> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberList1");
 		
 		try {
+			/*
 			switch(fCategory) {
 			case "enroll_date" : sql += " enroll_date "; break;
 			case "mem_no" : sql += " mem_no "; break;
@@ -649,9 +653,16 @@ public class AdminDao {
 			}else if(lineup.equals("asc")) {
 				sql += "asc";
 			}
+			*/
 			
 			pstmt=conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
 			pstmt.setString(1, sGroup);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 
 			rset = pstmt.executeQuery();
 			
@@ -1070,6 +1081,62 @@ public class AdminDao {
 		}
 		
 		return list;
+	}
+
+
+
+
+	public ArrayList<TutorList> selectTutorList1(Connection conn, SearchTutor st) {
+		return null;
+	}
+
+
+
+	/** 회원 조회 페이징 처리용 전체 조회된행수 조회
+	 * @author 수연
+	 * @param conn
+	 * @return
+	 */
+	public int selectMemberListCount1(Connection conn, String sGroup, String fCategory, String lineup) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberListCount1");
+		
+		try {
+			/*
+			switch(fCategory) {
+			case "enroll_date" : sql += " enroll_date "; break;
+			case "mem_no" : sql += " mem_no "; break;
+			case "mem_name" : sql += " mem_name "; break;
+			case "regcount" : sql += " regcount "; break;
+			case "revcount" : sql += " revcount "; break;
+			case "likecount" : sql += " likecount "; break;
+			case "totalpay" : sql += " totalpay "; break;
+			}
+			
+			
+			if(lineup.equals("desc")) {
+				sql += "desc";
+			}else if(lineup.equals("asc")) {
+				sql += "asc";
+			}
+			*/
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, sGroup);
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);	
+		}
+		
+		return listCount;
 	}
 
 

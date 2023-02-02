@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import ="com.hp.common.model.vo.PageInfo" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -289,6 +290,8 @@
 						$(".listTable tbody").html(value);
 						
 						
+						
+						
 					},error:function(){
 						console.log("ajax 통신 실패");
 					}
@@ -346,6 +349,11 @@
 	        	})
         	</script>
         	
+        	<div class="paging-area">
+        
+        	
+            
+			</div>
 		</div>
 		
 	</div>
