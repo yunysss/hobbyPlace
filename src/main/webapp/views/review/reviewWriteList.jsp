@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList,com.hp.review.model.vo.Register"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.hp.review.model.vo.Register, com.hp.common.model.vo.PageInfo"%>
     
  <%
  	ArrayList<Register> list = (ArrayList<Register>)request.getAttribute("list");
+ 	PageInfo wpi = (PageInfo)request.getAttribute("wpi"); 
  %>
 <!DOCTYPE html>
 <html>
@@ -23,6 +24,7 @@
     }
     .classnull img{width: 100px}
     
+    .class-area{margin: 5px;}
     .classContent{
         width: 85%;
         height: 200px;
@@ -100,39 +102,57 @@
             <%}else{ %>
 
             <!-- 리뷰를 작성할 클래스가 있을 때 -->
-            <%for(int i=0; i<list.size();i++){ %>
-            <div class="class-area">
-                <div class="classContent">
-                    <div class="classThumbnail">
-                        <img src="<%=contextPath%>/<%=list.get(i).getClThumb() %>">
-                    </div>
-                    <div class="classDetail">
-                        <table border="0">
-                            <tr>
-                                <td class="classTitle"><%=list.get(i).getClName() %></td>
-                            </tr>
-                            
-                            <tr>
-                                <td height="30px"><%=list.get(i).getDistrName() %> <%=list.get(i).getTeachDate() %> <%=list.get(i).getStartTime() %></td>
-                            </tr>
+	            <%for(int i=0; i<list.size();i++){ %>
+		            <div class="class-area">
+		                <div class="classContent">
+		                    <div class="classThumbnail">
+		                        <img src="<%=contextPath%>/<%=list.get(i).getClThumb() %>">
+		                    </div>
+		                    <div class="classDetail">
+		                        <table border="0">
+		                            <tr>
+		                                <td class="classTitle"><%=list.get(i).getClName() %></td>
+		                            </tr>
+		                            
+		                            <tr>
+		                                <td height="30px"><%=list.get(i).getDistrName() %> <%=list.get(i).getTeachDate() %> <%=list.get(i).getStartTime() %></td>
+		                            </tr>
+		
+		                            <tr>
+		                            <%if(list.get(i).getRegSta().equals("2")){ %>
+		                                <td height="50px"><div id="classStatusDone">수강완료</div></td>
+		                            <%} %>
+		                            </tr>
+		
+		                        </table>
+		                    </div>
+		                    <div class="writeBtn-area">
+		                        <button type="button" id="writeBtn" onclick="location.href='<%=contextPath%>/enrollForm.rev'">수강 후기 작성</button>
+		                    </div>
+		                </div>
+		                
+		            </div> <!--리뷰작성 가능 클래스 끝div-->
+		            
+	            <%} %>
+	            
+	            <div class="paging-area" style="align:center;">
+				<%if(wpi.getCurrentPage()!=1){ %>
+				<button onclick="location.href='<%=contextPath%>/wList.rev?cpage=<%=wpi.getCurrentPage()-1%>'">&lt;</button>
+				<%} %>
+				
+				<%for(int p=wpi.getStartPage(); p<=wpi.getEndPage(); p++){ %>
+					<button onclick="location.href='<%=contextPath%>/wList.rev?cpage=<%=p%>'"><%= p %></button>
+				<%} %>
+				
+				<%if(wpi.getCurrentPage()!=wpi.getMaxPage()){ %>
+				<button onclick="location.href='<%=contextPath%>/wList.rev?cpage=<%=wpi.getCurrentPage()+1%>'">&gt;</button>
+				<%} %>
+				</div>
 
-                            <tr>
-                            <%if(list.get(i).getRegSta().equals("2")){ %>
-                                <td height="50px"><div id="classStatusDone">수강완료</div></td>
-                            <%} %>
-                            </tr>
-
-                        </table>
-                    </div>
-                    <div class="writeBtn-area">
-                        <button type="button" id="writeBtn" onclick="location.href='<%=contextPath%>/enrollForm.rev'">수강 후기 작성</button>
-                    </div>
-                </div>
-                
-            </div> <!--리뷰작성 가능 클래스 끝div-->
-            <%} %>
-		<%} %>
-        </div> <!--제일 위 cotent닫는 div-->
+		    <%} %>
+		
+		
+    	</div> <!--제일 위 cotent닫는 div-->
     </div> <!--메뉴바쪽 제일 상위 div닫는괄호-->
     <%@ include file = "../common/footerbar.jsp" %>	
 </body>
