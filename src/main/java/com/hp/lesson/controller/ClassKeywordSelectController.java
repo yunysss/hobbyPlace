@@ -38,7 +38,7 @@ public class ClassKeywordSelectController extends HttpServlet {
 		
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
 		int pageLimit = 5;
-		int boardLimit = 10;
+		int boardLimit = 16;
 		
 		int maxPage = (int)Math.ceil((double)kCount/boardLimit);
 		int startPage = (currentPage-1)/pageLimit* pageLimit +1;

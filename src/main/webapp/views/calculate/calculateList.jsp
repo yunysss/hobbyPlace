@@ -428,7 +428,9 @@
         			let price2 = Number(Math.ceil(price1 * 0.003));
         			let price3 = Number(Math.ceil(price1 * 0.002));
         			let price4 = Number(Math.ceil(price1 * 0.007));
-    				let value = "예금주 성함 : " + c.calNm + "<br>"
+    				let value = "정산번호 : " + c.calNo + "<br>"
+    							+ "주문번호 : " + c.calReg + "<br>"
+    							+ "예금주 성함 : " + c.calNm + "<br>"
     							+ "입금 요청 은행 : " + c.bank + c.calAcc + "<br>"
     							+ "정산 요청 날짜 : " + c.rqDt + "<br>"
     							+ "정산 진행 상태 : " + c.calSta + "<br><br>"
