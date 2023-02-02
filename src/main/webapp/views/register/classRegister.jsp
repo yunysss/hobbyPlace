@@ -213,6 +213,10 @@
    			})
    		})
 		function requestPay(){
+   			let email = "";
+   			if(<%= m.getEmail() %> != "이메일 없음"){
+   				email = <%= m.getEmail() %>;
+   			}
    			IMP.init('imp15436753'); 
 		       IMP.request_pay({
 		           pg: "html5_inicis",
@@ -220,7 +224,7 @@
 		           merchant_uid: 'merchant_' + new Date().getTime(),
 		           name: '<%= reg.getClName() %>',
 		          amount: <%= reg.getRegSta()%>,
-		          buyer_email: '<%= m.getEmail() %>',
+		          buyer_email: email,
 		          buyer_name: '<%= m.getMemNo() %>',
 		          buyer_tel: '<%= m.getPhone()%>'
 		      }, function (rsp) {
