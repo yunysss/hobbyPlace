@@ -18,7 +18,7 @@
 
 
 
-        form{
+        .formDiv{
             width:30%;
             align-self: center;
             text-align: left;
@@ -52,7 +52,7 @@
 
             <br><br><br>
 
-            <h1 align="center">아이디 찾기</h1>
+            <h3 align="center">아이디 찾기</h3>
 
             <br>
 
@@ -71,7 +71,7 @@
 
             <br><br><br>
 
-            <form action="" align="center">
+            <div class="formDiv" align="center">
                 <h6>이름</h6>
                 <input type="text" class="cInput" id="userName" required placeholder="이름을 입력해주세요"> <br><br>
                 
@@ -79,27 +79,68 @@
                 <input type="email" class="cInput" id="userEmail" required placeholder="이메일주소를 입력해주세요">
                 
                 <br><br>
-                <button type="button" class="getCode cButton">인증번호 받기</button> <br><br>
+                <button type="button" class="getCode cButton" onclick="sendCode();">인증번호 받기</button> <br><br>
 
               
                 <div class="inputCodeForm">
-                    <input type="text" class="cCode cInput" placeholder="6자리 입력" required>
-                    <button class="sendAgain cButton">재발송</button>
+                    <input type="text" class="cCode cInput" placeholder="인증번호 입력" required>
+                    <button class="sendAgain cButton" onclick="sendCode();">재발송</button>
                     <br>
                     <button type="submit" class="submitCode cButton">확인</button>
                     
                 </div>
 
-               <script>
-                    $(function(){
-                        $(".getCode").click(function(){
-                            $(this).css("background", "gray").css("border-color", "gray");
-                            $(".inputCodeForm").show();
-                        })
-                    })
-                </script>             
-
-            </form>
+			    <script>
+			    	var code = "";
+			    	var memId = "";
+			    	function sendCode(){
+                         
+                         $.ajax({
+                        	 url:"<%=contextPath%>/mailForId.me",
+                        	 data:{memName:$("#userName").val(),
+                        		   email:$("#userEmail").val()
+                        	 },
+                        	 type:"post",
+                             success:function(result){
+                            	 
+                            	 if(result == "NNNNN") {//이메일주소 다르거나 존재하는 회원이 아니면
+                            	 		alert("해당 이름과 이메일로 일치하는 회원이 없습니다.");
+					   					
+					   				}else {
+					   					console.log(result.key);
+					   					
+					   					$(".getCode").css("background", "gray").css("border-color", "gray");
+				                        $(".getCode").attr("disabled", true);
+					   					$(".inputCodeForm").show();
+				                        code = result.key;
+				                        memId = result.memId;
+				                        
+					   				}
+                             },
+                             error:function(){
+                            	 console.log("ajax통신실패");
+                             }
+                         });
+			    	}
+			    
+			    	$(function(){
+			    		$(".sendAgain").on("click", $(".sendAgain"), function(){
+			    			$(".cCode").val('');
+			    			alert("인증코드가 재발송되었습니다.");
+			    		})
+			    		$(".submitCode").on("click", $(".submitCode"), function(){
+			    			if(code == $(".cCode").val()) {
+			    				$(".cCode").val('');
+			    				location.href = '<%=contextPath%>/searchId.me?memId=' + memId + '&memName=' + $("#userName").val();
+			    			}else {
+			    				$(".cCode").val('');
+			    				alert("인증코드가 일치하지 않습니다.");
+			    			}
+		        			  
+		                 })
+			    	})
+			    </script>
+            </div>
 
         </div>
     </div>

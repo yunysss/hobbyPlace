@@ -18,7 +18,7 @@
 
 
 
-        form{
+        .divForm{
             width:30%;
             align-self: center;
             text-align: left;
@@ -52,7 +52,7 @@
 
             <br><br><br>
 
-            <h1 align="center">아이디 찾기</h1>
+            <h3 align="center">아이디 찾기</h3>
 
             <br>
 
@@ -70,7 +70,7 @@
 			</script>
             <br><br><br>
 
-            <form action="" align="center">
+            <div class="divForm" align="center">
                 <h6>이름</h6>
                 <input type="text" class="cInput" id="userName" required placeholder="이름을 입력해주세요"> <br><br>
                 
@@ -83,40 +83,63 @@
               
                 <div class="inputCodeForm">
                     <input type="text" class="cCode cInput" placeholder="6자리 입력" required>
-                    <button class="sendAgain cButton">재발송</button>
+                    <button class="sendAgain cButton" onclick="sms();">재발송</button>
 
-                    <button type="submit" class="submitCode cButton">확인</button>
+                    <button class="submitCode cButton">확인</button>
                 </div>
 
                            
 
-            </form>
+            </div>
 
         </div>
     </div>
 	<script>
+		var code = "";
+		var memId = "";
 		function sms(){
 			var $memName = $("#userName").val();
 			var $phone = $("#userPhone").val();
 			$.ajax({
 				url: "<%=contextPath%>/IdByPhone.me",
 				data:{memName:$memName,
-					  phone:$phone},
+					  phone:$phone
+				},
+				type:"post",
 				success:function(result){
-					if(result=="NNNNY"){//가입된회원
+					if(result=="NNNNN"){//가입되지않은회원
+						alert("가입된 회원이 아닙니다");
+						
+					}else{//가입된회원						
 						$("#sendSms").css("background", "gray").css("border-color", "gray");
                         $("#sendSms").attr("disabled", true);
 						$(".inputCodeForm").show();
-						
-					}else{//가입되지않은회원
-						alert("가입된 회원이 아닙니다");
+						code = result.key;
+                        memId = result.memId;
 					}
 				},
 				error: function(){
 					console.log("연락처로 아이디찾기 ajax 통신 실패");
 				}
-			})
+			});
 		}
+		
+		$(function(){
+    		$(".sendAgain").on("click", $(".sendAgain"), function(){
+    			$(".cCode").val('');
+    			alert("인증코드가 재발송되었습니다.");
+    		})
+    		$(".submitCode").on("click", $(".submitCode"), function(){
+    			if(code == $(".cCode").val()) {
+    				$(".cCode").val('');
+    				location.href = '<%=contextPath%>/searchId.me?memId=' + memId + '&memName=' + $("#userName").val();
+    			}else {
+    				$(".cCode").val('');
+    				alert("인증코드가 일치하지 않습니다.");
+    			}
+    			  
+             })
+    	})
 	</script>
 
 

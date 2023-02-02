@@ -41,7 +41,7 @@
             <br><br><br>
             <form action="<%=contextPath%>/loginUser.me" method="post">
             	
-            	<h1 align="center">로그인</h1>
+            	<h3 align="center">로그인</h3>
             	
 	            <br>
 	            

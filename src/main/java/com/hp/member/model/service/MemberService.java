@@ -165,6 +165,86 @@ public class MemberService {
 	}
 
 
+	/** 이메일로 아이디 찾기 위한 이름&이메일 확인용 service메소드
+	 * @author 수연
+	 * @param memName
+	 * @param email
+	 * @return m
+	 */
+	public Member emailCheckForId(String memName, String email) {
+		Connection conn = getConnection();
+		Member m = new MemberDao().emailCheckForId(conn, memName, email);
+		
+		close(conn);
+		return m;
+	}
+
+	/** 이메일로 비밀번호 찾기 위한 아이디&이메일 확인용 service메소드
+	 * @author 수연
+	 * @param memId
+	 * @param email
+	 * @return m
+	 */
+	public Member emailCheckForPwd(String memId, String email) {
+		Connection conn = getConnection();
+		Member m = new MemberDao().emailCheckForPwd(conn, memId, email);
+		
+		close(conn);
+		return m;
+	}
+
+
+	/** 회원아이디로 새비밀번호 설정후 새 회원정보 받아오기 위한 service
+	 * @author 수연
+	 * @param memId
+	 * @param memPwd
+	 * @return updatePwdMem
+	 */
+	public Member updatePwd2(String memId, String memPwd) {
+		Connection conn = getConnection();
+		int result = new MemberDao().updatePwd2(conn, memId, memPwd);
+		
+		Member updatePwdMem = null;
+		// update 성공시 수정된 전체회원정보 select
+		if(result > 0) {
+			commit(conn);
+			updatePwdMem = new MemberDao().selectMember(conn, memId);
+		}else {
+			rollback(conn);
+		}
+		return updatePwdMem;
+
+	}
+
+
+	/** 회원이름, 연락처로 회원정보 조회하는 service메소드
+	 * @author 수연
+	 * @param memName
+	 * @param phone
+	 * @return m
+	 */
+	public Member phoneCheckForId(String memName, String phone) {
+		Connection conn = getConnection();
+		Member m = new MemberDao().phoneCheckForId(conn, memName, phone);
+		close(conn);
+		return m;
+	}
+
+
+	/** 회원아이디, 연락처로 회원정보 조회하는 service메소드
+	 * @author 수연
+	 * @param memId
+	 * @param phone
+	 * @return m
+	 */
+	public Member phoneCheckForPwd(String memId, String phone) {
+		Connection conn = getConnection();
+		Member m = new MemberDao().phoneCheckForPwd(conn, memId, phone);
+		close(conn);
+		return m;
+	}
+
+
 
 	
 }
