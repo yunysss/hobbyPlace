@@ -44,8 +44,8 @@
 	
 	<div id="footer">
 	    <div id="footer-1">
-	        <a href="">이용약관</a>
-	        <a href="">개인정보취급방침</a>
+	        <a href="<%=request.getContextPath()%>/view.tc?no=1">이용약관</a>
+	        <a href="<%=request.getContextPath()%>/view.tc?no=2">개인정보취급방침</a>
 	        <a href="">공지사항</a>
 	        <a href="<%=request.getContextPath()%>/cs.tee">고객센터</a>
 	    </div>

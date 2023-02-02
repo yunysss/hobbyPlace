@@ -58,7 +58,7 @@
             display:inline-block;
             margin:5px;
         }
-        #clName>span{margin-left:370px; font-size:15px;}
+        #clName>span{margin-left:390px; font-size:15px;}
 
         /* content */
         #classDetail-content{
@@ -83,7 +83,7 @@
         	padding-bottom:30px;
         }
         #reviewList tr, #viewFold{display:none;}
-        #reviewList p{word-break: break-all;}
+        #reviewList p{word-break: break-all; word-wrap: break-word; white-space: pre-wrap;}
         #reviewList a>img{width:100px; height:100px;}
         
         /* classDetail-2 */
