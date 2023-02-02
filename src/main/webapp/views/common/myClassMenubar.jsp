@@ -120,7 +120,7 @@
 			})
 			<!--내가 작성한 후기-->
 			$("#viewMyReview").click(function(){
-				location.href="<%=contextPath%>/....";
+				location.href="<%=contextPath%>/list.rev";
 			})
 			<!--찜목록-->
 			$("#likeList").click(function(){
