@@ -375,6 +375,15 @@ public class RegisterDao {
 		return listCount;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param keywordType 검색어종류
+	 * @param keyword 검색어
+	 * @param startDate 검색 시작날짜
+	 * @param endDate 검색 끝날짜
+	 * @param status 결제상태
+	 * @return 검색결과리스트
+	 */
 	public ArrayList<Register> selectRegisterMng(Connection conn, String keywordType, String keyword, String startDate, String endDate, String status){
 		ArrayList<Register> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -425,14 +434,20 @@ public class RegisterDao {
 		return list;
 	}
 	
-	public int updateRegisterMng(Connection conn, String regNo, String regSt) {
+	/**
+	 * @author 예서
+	 * @param regNo 주문번호
+	 * @param depositSt 관리자가 선택한 결제상태
+	 * @return 결제상태 변경
+	 */
+	public int updateRegisterMng(Connection conn, String regNo, String depositSt) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateRegisterMng");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, regSt);
+			pstmt.setString(1, depositSt);
 			pstmt.setString(2, regNo);
 			
 			result = pstmt.executeUpdate();

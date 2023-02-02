@@ -45,7 +45,7 @@
         border-radius: 5px;
     }
         
-       input[name=dateType], input[name=calSta]{display: none; margin: 10px;}
+       input[name=dateType], input[name=refSta]{display: none; margin: 10px;}
 	   input[name=dateType]+label{
 	        display: inline-block;
 	        cursor: pointer;
@@ -67,7 +67,7 @@
 	        background-color: rgb(22, 160, 133);
 	    }
 	    
-	    input[name=calSta]+label{
+	    input[name=refSta]+label{
 	        display: inline-block;
 	        cursor: pointer;
 	        padding: 5px 8px;
@@ -76,7 +76,7 @@
 	        background-color: lightGray;
 	        line-height: 16px;
 	    }
-	    input[name=calSta]:checked+label, input[name=calSta]:hover+label{
+	    input[name=refSta]:checked+label, input[name=refSta]:hover+label{
 	        background-color: gray;
 	        color:white;
 	    }
@@ -131,11 +131,11 @@
                 	<tr>
                     	<td><b>진행상태</b></td>
                     	<td colspan="3">
-                    		<input type="radio" name="calSta" id="checkAll" value="환불" checked>
+                    		<input type="radio" name="refSta" id="checkAll" value="환불" checked>
 			                <label for="checkAll"><small>전체</small></label>
-			                <input type="radio" name="calSta" id="checkWait" value="신청">
+			                <input type="radio" name="refSta" id="checkWait" value="신청">
 			                <label for="checkWait"><small>환불신청</small></label>
-			                <input type="radio" name="calSta" id="checkComplete" value="완료">
+			                <input type="radio" name="refSta" id="checkComplete" value="완료">
 			                <label for="checkComplete"><small>환불완료</small></label>
                     	</td>
                     </tr>
@@ -320,7 +320,7 @@
 	    				dateType:$("select[name=searchDateType]").val(),
 	    				startDate:$("#searchStartDate").val(),
 	    				endDate:$("#searchEndDate").val(),
-	    				status:$("input[name=calSta]:checked").val()    				
+	    				status:$("input[name=refSta]:checked").val()    				
 	    			},
 	    			success:function(list){
 	    				if(list.length == 0){
@@ -353,7 +353,7 @@
 		    	    i < (currentPage - 1) * dataPerPage + num;
 		    	    i++
 		    	  ) {
-		    		  value += "<tr class='calMngList'>"
+		    		  value += "<tr class='refMngList'>"
 							+	"<td>" + dataList[i].orderNo + "</td>"
 								+	"<td>" + dataList[i].refBank + "</td>"
 								+	"<td>" + dataList[i].refRqDt + "</td>"
@@ -465,7 +465,6 @@
 	    	$(".refNo").val($(this).parent().siblings().eq(0).text());
 	    	$('.refChangeModal').modal('show'); 
 	    	let refChange = $(this);
-	    	// 환불처리상태에 따라 라디오버튼 checked
 	    	$(".modal-body label").each(function(){
 				if($(refChange).parent().text().includes($(this).text())){
 					$(this).prev().attr("checked", true);
