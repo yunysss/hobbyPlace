@@ -1,5 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.hp.customerService.model.vo.* , java.text.DecimalFormat , com.hp.register.model.vo.*"  %>    
+<%
+   ArrayList<Notice> nList = (ArrayList<Notice>)request.getAttribute("nList");
+   ArrayList<Register> rList = (ArrayList<Register>)request.getAttribute("rList");
+   Tutor tt =  (Tutor)request.getAttribute("tt");
+   int ingClass =(int)request.getAttribute("ingClass");
+   int qnaPer = (int)request.getAttribute("qnaPer");
+   int sumMonth = tt.getSumMonth();
+   int sumTotal = tt.getSumTotal();
+   int sumReg = tt.getSumReg();
+   
+   DecimalFormat df = new DecimalFormat("###,###");
+   String monthSum = df.format(sumMonth);
+   String totalSum = df.format(sumTotal);
+   String regSum = df.format(sumReg);
+
+   
+%>    
+    
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,6 +88,9 @@ margin-top: 5px;
     
 }
 
+#reservation{
+  font-size : 12px;
+}
 
 
 /*통계*/
@@ -91,45 +115,62 @@ margin-top: 5px;
 <div id="content2-2">
     <div id="notice-area">
         <span style="font-size: 14px;font-weight: 600;">📌공지사항 </span>
-        <a href="" style="color:black; font-size: 12px;"> ➕더보기</a>
+        <a href="<%=contextPath %>/noticelist.tor?cpage=1" style="color:black; font-size: 12px;"> ➕더보기</a>
         <table id="notice" class="table table-hover table-sm" >
+          <%for(int i=0; i<3; i++) {%>
             <tr>
-                <td><span class="badge badge-info">공지</span></td>
-                <td>어쩌구 저쩌구 안내사항 공지 공지 공지</td>
+                <td width="20"><input type="hidden" value="<%=nList.get(i).getNtNo()%>"><span class="badge badge-info">공지</span></td>
+                <td width="230" style="font-size:12px"><%=nList.get(i).getNtTitle() %></td>
+                <td width="100" style="font-size:12px"><%=nList.get(i).getEnrollDate() %></td>
                 
             </tr>
-            <tr>
-                <td><span class="badge badge-info">공지</span></td>
-                <td></td>
-                
-            </tr>
-            <tr>
-                <td><span class="badge badge-info">공지</span></td>
-                <td> </td>
-              
-            </tr>
+          <%} %>
+            
         </table>
+        <script>
+        $(function(){
+        		$("#notice>tr").click(function(){
+        			location.href = '<%=contextPath%>/noticedetail.tor?ntNo='+$(this).children().eq(0).val();
+        		})
+        	})
+        
+        </script>
+        
+        
         
     </div>
     <div id="reserva-area">
         <span style="font-size: 14px;font-weight: 600;">📆예약관리</span>
-         <a href="" style="color:black; font-size: 12px;"> ➕더보기</a>
+         <a href="<%=contextPath %>/reservationList.tt" style="color:black; font-size: 12px;"> ➕더보기</a>
         <table id="reservation" class="table table-hover table-sm">
             <tr>
                 <th width="80">날짜</th>
                 <th width="150">클래스명</th>
                 <th width="50">인원</th>
             </tr>
+           <%if (rList.isEmpty()){ %>
             <tr>
-                <td>2023-02-02</td>
-                <td>클래스명 dfdfdfdfsdfsf</td>
-                <td>6명</td>
+                <td colspan="3">예약내역이 없습니다.</td>       
             </tr>
+         	<%}else if(rList.size() <= 2){%>
+         	 <%for (int i=0; i<rList.size(); i++) {%>
             <tr>
-                <td>2023-02-02</td>
-                <td>클래스명 </td>
-                <td>6명</td>
+                <td><%=rList.get(i).getTeachDate() %></td>
+                <td><%=rList.get(i).getClNo() %></td>
+                <td><%=rList.get(i).getRegCount() %></td>
             </tr>
+         	 <%} %>
+
+           <%}else{%>
+            <%for (int i=0; i<3; i++) {%>
+            <tr>
+                <td><%=rList.get(i).getTeachDate() %></td>
+                <td><%=rList.get(i).getClNo() %></td>
+                <td><%=rList.get(i).getRegCount() %></td>
+            </tr>
+          <%} %>
+          <%} %>
+            
         </table>
     </div>
 
@@ -140,23 +181,23 @@ margin-top: 5px;
             <tr style="vertical-align:middle">
               <td style="width:200px; height: 135px; border-right:1px solid rgb(194, 191, 191); text-align:center">
                     <div class="s">평균평점</div>
-                    <div class="l">4.5 점</div>
+                    <div class="l"><%=tt.getAvgStar()%> 점</div>
 
                 </td>
               <td style="padding-left:10px; width:200px; text-align:center  ">
                 <div class="s">수강후기 수</div>
-                <div class="l">25 개</div>
+                <div class="l"><%=tt.getrCount() %> 개</div>
             
             </td>
             </tr>
             <tr>
                 <td style="border-top: 1px solid rgb(194, 191, 191); width:200px;height: 135px; border-right:1px solid rgb(194, 191, 191); text-align:center" >
                     <div class="s">문의응답률</div>
-                    <div class="l">80 %</div>
+                    <div class="l"><%=qnaPer %> %</div>
                 </td>
                 <td style="border-top: 1px solid rgb(194, 191, 191); text-align:center">
                     <div class="s">이번달 취소건수</div>
-                    <div class="l">4 건</div>
+                    <div class="l"><%=tt.getCancelCount() %> 건</div>
                 </td>
             </tr>
           </table>
@@ -168,24 +209,24 @@ margin-top: 5px;
         <table align="center" style="margin-top: 10px;">
             <tr style="vertical-align:middle">
               <td style="width:200px; height: 135px; border-right:1px solid rgb(194, 191, 191); text-align:center">
-                    <div class="s">이번달 진행클래스</div>
-                    <div class="l">5 건</div>
+                    <div class="s">진행중인 클래스</div>
+                    <div class="l"><%=ingClass %> 건</div>
 
                 </td>
               <td style="padding-left:10px; width:200px; text-align:center  ">
                 <div class="s">이번달 판매금액</div>
-                <div class="l">450,000</div>
+                <div class="l"><%= monthSum %>원</div>
              </td>
          
             </tr>
             <tr>
                 <td style="border-top: 1px solid rgb(194, 191, 191); width:200px;height: 135px; border-right:1px solid rgb(194, 191, 191); text-align:center" >
                     <div class="s">전체 결제건수</div>
-                    <div class="l">20 건</div>
+                    <div class="l"><%=tt.getSumReg() %> 건</div>
                 </td>
                 <td style="border-top: 1px solid rgb(194, 191, 191); text-align:center">
                     <div class="s">전체 판매금액</div>
-                    <div class="l">1,451,500 원</div>
+                    <div class="l"><%=totalSum %> 원</div>
                 </td>
             </tr>
           </table>

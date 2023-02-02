@@ -1,6 +1,7 @@
 package com.hp.tutor.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hp.customerService.model.vo.Notice;
 import com.hp.member.model.vo.Member;
+import com.hp.register.model.service.RegisterService;
+import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.service.TutorService;
 import com.hp.tutor.model.vo.Tutor;
 
@@ -44,9 +48,23 @@ public class TutorMainController extends HttpServlet {
 			Member loginUser = (Member)session.getAttribute("loginUser");
 		    int memNo = loginUser.getMemNo();
 			Tutor t = new TutorService().selectTutorInfo(memNo);
-			
-			session.setAttribute("tutorInfo", t);
 
+			ArrayList<Notice> nList = new TutorService().selectTutorNotice();		
+			//공지사항
+			request.setAttribute("nList", nList);
+			// 예약관리
+			ArrayList<Register> rList = new TutorService().selectTutorRegister(memNo);
+			
+			
+			//튜터 통계
+			Tutor tt = new TutorService().selectTutorStatistics(memNo);
+			int ingClass = new TutorService().selectIngClassCount(memNo);
+			int qnaPer = new TutorService().selectQnaPercent(memNo);
+			request.setAttribute("tt", tt);
+			request.setAttribute("ingClass", ingClass);
+			session.setAttribute("tutorInfo", t);
+			request.setAttribute("qnaPer",qnaPer);
+			request.setAttribute("rList", rList);
 			request.getRequestDispatcher("views/common/tutorMainPage.jsp").forward(request, response);
 		}
 		

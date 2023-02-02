@@ -8,19 +8,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
+import com.hp.customerService.model.vo.Notice;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.lesson.model.vo.Schedule;
+import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.vo.Tutor;
 
 
+/**
+ * @author user
+ *
+ */
 /**
  * @author user
  *
@@ -832,7 +839,173 @@ public class TutorDao {
 		return list;
 	}
 	
+	/**
+	 * @author 한빛 
+	 * @param conn
+	 * @return 튜터 메인 공지사항 조회
+	 */
+	public ArrayList<Notice> selectTutorNotice(Connection conn){
+		ArrayList<Notice> list= new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTutorNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Notice(rset.getInt("nt_no"),
+									rset.getString("nt_title"),
+									rset.getDate("enroll_date")
+								
+									));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+		
+	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param memNo
+	 * @return 튜터 메인 통계
+	 */
+	public Tutor selectTutorStatistics(Connection conn, int memNo) {
+		Tutor tt = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectTutorStatistics");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1,memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				tt = new Tutor (rset.getString("avgStar"),
+								rset.getInt("rCount"),
+								rset.getInt("cancelCount"),
+								rset.getInt("sumMonth"),
+								rset.getInt("sumTotal"),
+								rset.getInt("sumReg")
+						);
+			
+				System.out.println(tt);
+				System.out.println(tt.getrCount());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return tt ;
+		
+		
+		
+	}
+	public int selectIngClassCount(Connection conn, int memNo) {
+		int ingClass = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectIngClassCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset= pstmt.executeQuery();
+			if(rset.next()) {
+				ingClass = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+	  return ingClass;
+	
+	
+	}
+	
+	public int selectQnaPercent(Connection conn, int memNo) {
+		int qnaPer = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectQnaPercent");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, memNo);
+			
+			rset= pstmt.executeQuery();
+			if(rset.next()) {
+				qnaPer = rset.getInt("qnaPer");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+	  return qnaPer;
+		
+	}
+	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param memNo
+	 * @param status
+	 * @return 튜터 메인 예약관리 
+	 */
+	public ArrayList<Register> selectTutorRegister(Connection conn, int memNo){
+		ArrayList<Register> rList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectTutorRegister");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+		
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				rList.add(new Register(rset.getInt("reg_no"),
+									  rset.getString("mem_name"),
+									  rset.getString("cl_name"),
+									  rset.getString("teach_date"),
+									  rset.getString("reg_date"),
+									  rset.getString("reg_count")
+									
+									  ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rList;
+	}
 	
 	
 	

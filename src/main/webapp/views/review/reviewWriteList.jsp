@@ -80,9 +80,6 @@
     }
 
 
-        
-
-
 </style>
 </head>
 <body>
@@ -127,7 +124,7 @@
 		                        </table>
 		                    </div>
 		                    <div class="writeBtn-area">
-		                        <button type="button" id="writeBtn" onclick="location.href='<%=contextPath%>/enrollForm.rev'">수강 후기 작성</button>
+		                        <button type="button" id="writeBtn" onclick="location.href='<%=contextPath%>/enrollForm.rev?no=<%=list.get(i).getRegNo()%>'">수강 후기 작성</button>
 		                    </div>
 		                </div>
 		                

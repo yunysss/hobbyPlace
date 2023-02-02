@@ -459,6 +459,118 @@
 	
 	</entry>
 	
+	
+	<!-- 튜터 메인 페이지  -->
+	
+	<entry key="selectTutorNotice">
+	
+	SELECT
+		   NT_NO,
+		   SUBSTR(NT_TITLE, 1, 29) || '..' "NT_TITLE",
+		   enroll_date
+	  FROM NOTICE
+	 WHERE NT_STA='Y'
+	   AND GRADE='1'
+	 ORDER 
+	    BY ENROLL_DATE DESC
+		
+	
+	</entry>
+	
+	
+	
+	<entry key= "selectTutorStatistics">
+
+	SELECT MEM_NO,	
+		    SUM(SUM_REG_MONTH)  "sumMonth",
+		    SUM(SUM_TOTAL) "sumTotal",
+		     COUNT(SUM_TOTAL) "sumReg",
+		     SUM(CANCEL_COUNT) "cancelCount",
+		     AVG(STAR_AVG)"avgStar",
+		    SUM(STAR_COUNT) "rCount"
+	FROM (
+
+			SELECT
+					 C.MEM_NO,
+					(SELECT SUM(REG_PRICE)
+					FROM REGISTER G
+					WHERE REG_DATE BETWEEN TRUNC(SYSDATE + 1) - TO_CHAR(SYSDATE, 'DD') AND TRUNC(LAST_DAY(SYSDATE)) + 0.99999421
+					AND C.CL_NO = G.CL_NO )"SUM_REG_MONTH"
+					,(SELECT SUM(REG_PRICE)
+					FROM REGISTER G
+					WHERE C.CL_NO = G.CL_NO) "SUM_TOTAL"
+					,(SELECT COUNT(REG_STA)
+					FROM REGISTER G
+					WHERE REG_STA = '3'
+					AND G.CL_NO =C.CL_NO) "CANCEL_COUNT"
+				   ,(SELECT AVG(RE_STAR)
+				     FROM REVIEW R
+					 WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				   , (SELECT COUNT(RE_STAR)
+					  FROM REVIEW R
+					  WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+					
+			FROM CLASS C
+			JOIN TUTOR T ON (C.MEM_NO=T.MEM_NO)
+			WHERE C.MEM_NO = ?
+	)
+	GROUP BY MEM_NO    
+	
+	</entry>
+	
+	<entry key="selectIngClassCount">
+	
+	SELECT COUNT(CL_NO) "count"
+	 FROM CLASS
+	 WHERE MEM_NO = ?
+	 AND CL_STATUS = 2
+	
+
+	</entry>
+	
+	
+	<entry key= "selectQnaPercent">
+	SELECT 
+       DISTINCT (TOTALA/TOTALQ*100) "qnaPer"
+			FROM(
+			        SELECT A_MEM_NO,
+			            (SELECT COUNT(Q_NO)
+			             FROM QNA
+			             WHERE A_MEM_NO = ?
+			             )"TOTALQ",
+			            (SELECT COUNT(A_TITLE)
+			             FROM QNA
+			             WHERE A_MEM_NO = ?
+			            ) "TOTALA"
+			     FROM QNA 
+			     )
+
+	</entry>
+	
+	<entry key="selectTutorRegister">
+		SELECT
+		       REG_NO
+		     , MEM_NAME
+		     , CL_NAME
+		     , TEACH_DATE
+		     , REG_DATE,'YYYY-MM-DD'
+		     , START_TIME || '-' || END_TIME "SCH_TIME"
+		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , REG_COUNT || '명' "REG_COUNT"
+		     , REG_STA
+		     , REG_CAL
+		  FROM REGISTER
+		  JOIN MEMBER USING(MEM_NO)
+		  JOIN CLASS C USING(CL_NO)
+		  JOIN SCHEDULE USING(SCH_NO)
+		 WHERE C.MEM_NO = ?
+           AND REG_STA = 0
+		 ORDER 
+		    BY REG_NO DESC
+	</entry>
+	
+	
+	
 
 
 </properties>
