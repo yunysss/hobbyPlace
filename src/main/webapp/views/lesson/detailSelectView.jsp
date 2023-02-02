@@ -1,5 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@
+   page import= "java.util.ArrayList, com.hp.lesson.model.vo.Lesson, com.hp.common.model.vo.PageInfo"
+%>    
+    
+<%
+	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");
+	String keyword = (String)request.getAttribute("keyword");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	String category = (String)request.getAttribute("category");
+	String dcategory = (String)request.getAttribute("dcategory");
+	String sido = (String)request.getAttribute("sido");
+	String sigungu = (String)request.getAttribute("sigungu");
+	String price = (String)request.getAttribute("price");
+	String day = (String)request.getAttribute("day");
+	int count = (int)request.getAttribute("count");
+	
+
+	
+%>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,12 +151,12 @@ a {
 <body>
 <%@include file="../common/tuteeMenubar.jsp" %>
  <div class="outer">
- 	<%if (kList.isEmpty()) {%>
+ 	<%if (list.isEmpty()) {%>
  		<div align="center">
-  		<h5>"<%=keyword%>" 로 검색된 클래스가 없습니다.🥲</h5>
+  		<h5> 검색된 클래스가 없습니다.🥲</h5>
   		</div>
   		<%} else {%>
-        <h4> <a href="">" <%=keyword%> " 검색결과</a><span class="material-symbols-outlined symbol">expand_more</span></h4>
+        <h4> <a href=""><%=keyword%> 검색결과</a><span class="material-symbols-outlined symbol">expand_more</span></h4>
         
         <div id="button-area">
              <div class="dropdown">
@@ -165,7 +185,7 @@ a {
         </div>
 
         <br><br>
-        <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=kCount %> 건</span>
+        <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count%> 건</span>
         <div id="btn-area">
          <div class="dropdown">
 		    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -180,163 +200,6 @@ a {
 		    </div>
        	 </div>
         </div>
-        
-			<script>
-              function rowPrice(){
-                 $.ajax({
-                    url:"<%=contextPath%>/kPrice.asc",
-                    data:{                      
-                        keyword:'<%=keyword%>',
-                    },
-                    type:"post",
-                    success:function(list){
-	                      // console.log(list);
-	                       
-	                       let value = "";
-	                       for(let i=0; i<list.length; i++){
-	                        //  console.log(list[i]);
-	                          value += "<table class='a'><tr><td>"
-   								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
-									+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-									+ "<small  style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
-									+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
-									+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-									+ "</small></a>"
-									+ "</td>"
-									}
-	                     			$(".thumbnail").html("");
-	                     			$("#area1").html("");
-	                     			
-									$("#area1").append(value);
-										
-									},
-									error : function() {
-										console.log("조회용 ajax통신 실패");
-									}
-	                 
-							})
-					}
-		
-			</script>
-			
-			<script type="text/javascript">
-			 function highPrice(){
-				   $.ajax({
-	                    url:"<%=contextPath%>/kPrice.desc ",
-	                    data:{         
-	                    	keyword:'<%=keyword%>',
-	            
-	                    },
-	                    type:"post",
-	                    success:function(list){
-		                        // console.log(list);
-		                       
-		                       let value = "";
-		                       for(let i=0; i<list.length; i++){
-		                        //  console.log(list[i]);
-		                          value += "<table class='a'><tr><td>"
-	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
-										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
-										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
-										+ "<b>"+list[i].clPrice +"</b>"+ "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-										+ "</small></a>"
-										+ "</td>"
-										}
-		                     			$(".thumbnail").html("");
-		                     			$("#area1").html("");
-		                     			
-										$("#area1").append(value);
-											
-										},
-										error : function() {
-											console.log("조회용 ajax통신 실패");
-										}
-		                 
-							})
-						}
-			
-			</script>
-			
-			<script>
-				function highStar(){
-					
-					  $.ajax({
-		                    url:"<%=contextPath%>/kstar.desc ",
-		                    data:{         
-		                    	keyword:'<%=keyword%>',
-		                    },
-		                    type:"post",
-		                    success:function(list){
-		                       //console.log(list);
-		                       
-		                       let value = "";
-		                       for(let i=0; i<list.length; i++){
-		                         // console.log(list[i]);
-		                          value += "<table class='a'><tr><td>"
-	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
-										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
-										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
-										+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-										+ "</small></a>"
-										+ "</td>"
-										}
-		                     			$(".thumbnail").html("");
-		                     			$("#area1").html("");
-		                     			
-										$("#area1").append(value);
-											
-										},
-										error : function() {
-											console.log("조회용 ajax통신 실패");
-										}
-		                 
-								})
-							}
-			
-			
-			</script>
-			
-			<script>
-				function highReg(){
-					
-					  $.ajax({
-		                    url:"<%=contextPath%>/kreg.desc ",
-		                    data:{         
-		                    	keyword:'<%=keyword%>',
-		                    },
-		                    type:"post",
-		                    success:function(list){
-		                       //console.log(list);
-		                       
-		                       let value = "";
-		                       for(let i=0; i<list.length; i++){
-		                         // console.log(list[i]);
-		                          value += "<table class='a'><tr><td>"
-	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
-										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
-										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
-										+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-										+ "</small></a>"
-										+ "</td>"
-										}
-		                     			$(".thumbnail").html("");
-		                     			$("#area1").html("");
-		                     			
-		                     			
-										$("#area1").append(value);
-											
-										},
-										error : function() {
-											console.log("조회용 ajax통신 실패");
-										}
-		                 
-								})
-							}
-			
-			</script>
 
 
 		<div class="container">
@@ -344,7 +207,7 @@ a {
 			<div class="list-area">
 				<div id="area1"></div>
 
-				<% for(Lesson l : kList){%>
+				<% for(Lesson l : list) {%>
 				<table class="thumbnail">
 					<input type="hidden" value="<%=l.getClNo()%>">
 					<tr>
@@ -369,11 +232,10 @@ a {
 					</tr>
 
 				</table>
-				<%
-				}
-				%>
+				<%} %>
 
 			</div>
+		</div>	
 			<script>
               	$(function(){
               		$(".thumbnail").click(function(){
@@ -381,29 +243,28 @@ a {
 						})
 				})
 			</script>
-			
-<!--			<div class="paging-area">
-
+	<%} %>
+			<div class="paging-area">
+                                                                              
 				<%if (pi.getCurrentPage() != 1) {%>
-				<button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=pi.getCurrentPage() - 1%>&keyword=<%=keyword%>';">&lt;</button>
+				<button onclick="location.href='<%=contextPath%>/detail.sc?cpage=<%=pi.getCurrentPage() - 1%>&keyword=<%=keyword%>&category=<%=category%>&dcategory=<%=dcategory%>&sido=<%=sido%>&sigungu=<%=sigungu%>&price=<%=price%>';">&lt;</button>
 				<%}%>
 
 				<%for (int p = pi.getStartPage(); p <= pi.getEndPage(); p++) {%>
-				<button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=p%>&keyword=<%=keyword%> ';"><%= p %></button>
+				<button onclick="location.href='<%=contextPath%>/detail.sc?cpage=<%=p%>&keyword=<%=keyword%>&category=<%=category%>&dcategory=<%=dcategory%>&sido=<%=sido%>&sigungu=<%=sigungu%>&price=<%=price%> ';"><%= p %></button>
 				<%} %>
 
 				<%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
-				<button onclick="location.href='<%=contextPath%>/keyword.cl?cpage=<%=pi.getCurrentPage()+1%>&keyword=<%=keyword%>';">&gt;</button>
+				<button onclick="location.href='<%=contextPath%>/detail.sc?cpage=<%=pi.getCurrentPage()+1%>&keyword=<%=keyword%>&category=<%=category%>&dcategory=<%=dcategory%>&sido=<%=sido%>&sigungu=<%=sigungu%>&price=<%=price%>';">&gt;</button>
 				<%} %>
 
 			</div>
 
-			<%} %>
 
--->
-
-		</div>
+	</div>
 		<%@ include file="../common/footerbar.jsp" %>
+
+
 
 </body>
 </html>

@@ -322,12 +322,18 @@ public class LessonService {
 
 	}
 	
-	public ArrayList<Lesson> searchDetailClass(Search s){
+	public ArrayList<Lesson> searchDetailClass(Search s,PageInfo pi){
 		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().searchDetailClass(conn, s);
+		ArrayList<Lesson> list = new LessonDao().searchDetailClass(conn, s, pi);
 		close(conn);
 		return list; 
 	}
 	
+	public int searchDetailCount(Search s){
+		Connection conn = getConnection();
+		int count = new LessonDao().searchDetailCount(conn, s);
+		close(conn);
+		return count; 
+	}
 
 }
