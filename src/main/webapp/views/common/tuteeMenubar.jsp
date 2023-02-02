@@ -407,7 +407,7 @@ select {
 
 .schedule {
 	display: none;
-	margin: 10pt;
+	margin: 10px;
 }
 
 .schedule+label {
@@ -420,14 +420,14 @@ select {
 	background-color: gray;
 	color: white;
 }
+.schedule:checked+label{
+        background-color: rgb(35, 104, 116)
+    }
 
-.schedule:checked+label {
+.schedule:hover+label {
 	background-color: rgb(35, 104, 116);
 }
 
-.schedule+label:hover {
-	background-color: rgb(35, 104, 116);
-}
 </style>
 
 
@@ -617,35 +617,32 @@ select {
                         )
                         })
                     </script>
-    
-    <div id="search-area" align="center">
-        <br>
-        <form action="/detail.sc" id="searchForm">  
-        <div class="form-group has-search">
-            <span class="fa fa-search form-control-feedback"></span>
-            <input type="search" class="form-control" name="keyword" placeholder="검색어를 입력하세요"  placeholder="Search">
-        </div>
-        
-        <table id="select">
-           
-            <tr>
-                <th>카테고리</th>
-                <td>
-                    <select name="category" id="ct" onchange="changeCt();">
-                    <option value="00">전체</option>   
-                    <option value="11">교육</option>
-                    <option value="22">공예 DIY</option>
-                    <option value="33">드로잉</option>
-                    <option value="44">쿠킹</option>
-                    <option value="55">스포츠/피트니스</option>
 
-                     </select>
-                     <select name="dcategory" id="dct">
-                     <option>전체</option>
-                    </select>
-                    
-                    
-                    <script>
+	<div id="search-area" align="center">
+		<br>
+		<form action="<%=contextPath %>/detail.sc" id="searchForm">
+			<input type="hidden" name="cpage" value="1">
+			<div class="form-group has-search">
+				<span class="fa fa-search form-control-feedback"></span> <input
+					type="search" class="form-control" name="keyword"
+					placeholder="검색어를 입력하세요" placeholder="Search">
+			</div>
+
+			<table id="select">
+
+				<tr>
+					<th>카테고리</th>
+					<td><select name="category" id="ct" onchange="changeCt();">
+							<option value="00">전체</option>
+							<option value="11">교육</option>
+							<option value="22">공예 DIY</option>
+							<option value="33">드로잉</option>
+							<option value="44">쿠킹</option>
+							<option value="55">스포츠/피트니스</option>
+
+					</select> <select name="dcategory" id="dct">
+							<option>전체</option>
+					</select> <script>
                         function changeCt(){
                         	var study = ["전체","외국어","자격증","IT"];
                         	var diy = ["전체","가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
@@ -677,43 +674,39 @@ select {
                         	
                         }
                         
-                        </script>
-                    
-                    
-                </td>
-            </tr>
-            <tr>
-                <th>지역</th>
-                <td>
-                    <select name="sido "id="region" onchange="sidoChange();">
-                    <option value="00">전체</option>
-                    <option value="10">서울</option>
-                    <option value="20">인천</option>
-                    <option value="30">경기</option>
-                    
-                     </select>
-                     <select name="sigungu" id="district" >
-                     <option>전체</option>
-                     </select>
+                        </script></td>
+				</tr>
+				<tr>
+					<th>지역</th>
+					<td><select name="sido" id="region" onchange="sidoChange();">
+							<option value="00">전체</option>
+							<option value="10">서울</option>
+							<option value="20">인천</option>
+							<option value="30">경기</option>
 
-                </td>
- 
-            </tr>
+					</select> <select name="sigungu" id="district">
+							<option>전체</option>
+					</select></td>
 
-            
-            <tr>
-                <th height="30"width="100">요일</th>
-                <td>
-                     <div class="clearfix">
-                    	<!--
-                         <input type="checkbox" class="schedule" name="day" value="평일"><label for="weekday">평일</label>
-                         <input type="checkbox" class="schedule" name="day" value="토"><label for="sat">토요일</label>
-                         <input type="checkbox" class="schedule" name="day" value="일"><label for="sun">일요일</label>
-                       -->
-                         <input type="date"  name="searchStartDate" id="startDate" >
-                         <input type="date"  name="searchEndDate" id="endDate" > 
+				</tr>
+
+
+				<tr>
+					<th height="30" width="100">요일</th>
+					<td>
+						<div class="clearfix">
+
+							<input type="checkbox" class="schedule" name="day"value="weekday" id="weekday"><label for="weekday">평일</label>
+							 <input type="checkbox" class="schedule" name="day" value="sat" id="sat"><label for="sat">토요일</label> 
+							 <input type="checkbox" class="schedule" name="day" value="sun" id="sun"><label for="sun">일요일</label>
+							</div> 
+						
+						
+						
+						<!-- <input type="date"  name="searchStartDate" id="startDate" >
+                       <input type="date"  name="searchEndDate" id="endDate" > 
                        
-                    </div>    
+                       
                 </td>
                  <script>
                     var now_utc = Date.now()
@@ -721,45 +714,46 @@ select {
                     var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
                     document.getElementById("startDate").setAttribute("min", today);
                     document.getElementById("endDate").setAttribute("min", today);
-                    
+                 
                     
                     </script>
-              
-            </tr>
-            <tr>
-                <th height="30"width="100">가격</th>
-                <td>
-                <div class="Container" >
-                                             
-                    <input style = "width:100%" name="price" class="slider_range slider" type="range"  min="0" max="200000" ></input>
-                    <div id="tickmarks">
-                        <p>0</p>
-                        <p></p>
-                        <p></p>
-                        <p>100,000</p>
-                        <p></p>
-                        <p></p>
-                        <p>200,000</p>
-                    </div>
-                   <br>
-                   <div id="slider-value">
-                    <font size = 2 id = "slider_value_view"></font>		
-                     </div>				  
-                  </div>
-                </td>
-            </tr>
-            <tr>
-            <td colspan="2" align="center" style="width: 400px;">
-            <div id="btn-area" style="display: inline;">
-                <button>&nbsp;검색&nbsp;</button>
-                <button type="reset">초기화</button>
-            </div>
-            </td>
-             </tr>
-        </table>
-        <br>
-        
-        <script language = "javascript">
+              -->
+				</tr>
+				<tr>
+					<th height="30" width="100">가격</th>
+					<td>
+						<div class="Container">
+
+							<input style="width: 100%" name="price"
+								class="slider_range slider" type="range" min="0" max="200000"></input>
+							<div id="tickmarks">
+								<p>0</p>
+								<p></p>
+								<p></p>
+								<p>100,000</p>
+								<p></p>
+								<p></p>
+								<p>200,000</p>
+							</div>
+							<br>
+							<div id="slider-value">
+								<font size=2 id="slider_value_view"></font>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center" style="width: 400px;">
+						<div id="btn-area" style="display: inline;">
+							<button>&nbsp;검색&nbsp;</button>
+							<button type="reset">초기화</button>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<br>
+
+			<script language="javascript">
               
             function ShowSliderValue(sVal)
             {
@@ -779,8 +773,8 @@ select {
             
             
           </script>
-          
-            <script>
+
+			<script>
          	function sidoChange(){
          	var seoul = ["전체","강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
          	var incheon = ["전체","계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
@@ -807,13 +801,13 @@ select {
          }
         
          
-         </script>   
-       
-  
-    </form>
- 
-    </div>
-    
+         </script>
+
+
+		</form>
+
+	</div>
+
 
 
 </body>

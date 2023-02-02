@@ -1343,7 +1343,7 @@ public ArrayList<Lesson> keywordRegisterDesc(Connection conn, String keyword){
  * @param s
  * @return list 클래스 상세조회 
  */
-public ArrayList<Lesson> searchDetailClass(Connection conn, Search s){
+public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo pi){
 	ArrayList<Lesson> list = new ArrayList<>();
 	PreparedStatement pstmt = null;
 	ResultSet rset = null;
@@ -1357,20 +1357,20 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s){
 		String dcategory = s.getDcategory();
 		String sido = s.getSido();
 		String sigungu = s.getSigungu();
-		String startDate = s.getStarDate();
-		String endDate = s.getEndDate();
+		String day = s.getDay();
 		String price = s.getPrice();
 
 		if(keyword != null && !keyword.equals("")) {
-			sql += "and CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD" + "'%"+ keyword + "%'";
+			sql += "and CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD like" + "'%"+ keyword + "%'";
 		}
 		
 		if(category.equals("00")) {
 			sql += "";				
 		}else if(category !=null && !category.equals("")) {
 		     sql += "and G.ct_no = " + "'" +category +"'";
-		}else {
+		}else if(category == null& category.equals("")) {
 			sql += "";
+		
 		}
 		
 		if(category.equals("00") && dcategory.equals("전체")){
@@ -1378,7 +1378,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s){
 		}else if(!category.equals("00")&& dcategory.equals("전체")) {
 			sql += "and g.ct_no =" + "'" + category + "'";
 		}else if(!dcategory.equals("전체")) {
-			sql += "and ct_name= "+ "'"+ dcategory + "'";
+			sql += "and ct_dname= "+ "'"+ dcategory + "'";
 		}
 		
 		if(sido.equals("00")) {
@@ -1400,15 +1400,40 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s){
 			sql += "and cl_price <= " + price;
 		}
 		
-		
+	
 		// 일정
-		if(startDate != null && endDate != null && !startDate.equals("") && !endDate.equals("")) {
-			 sql += "and c.enroll_date between '" + startDate + "' and '" + endDate +"'";
+		 if(day.length()!=0 && day.contains("weekday") && day.contains("sat")&& day.contains("sun")) {
+				sql += "and cl_schedule = '매일'";
+				
+		 }else if(day.length()!=0 && day.contains("sat") && day.contains("sun")) {
+				sql += "and cl_day like '%토%' or cl_day like '%일%'";
+		 		
+		 }else if((day.contains("weekday") && day.contains("sat")) || (day.contains("weekday") && day.contains("sun"))  ) {
+				sql += "and cl_schedule = '매일'";
+		 
+		 }else if(day.length() !=0 && day.contains("weekday")) {
+			sql += "and cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%'";		
+		}else if(day.length()!= 0 && day.contains("sat")) {
+			sql += "and cl_day like '%토%'";
+					
+		}else if(day.length()!=0 && day.contains("sun")) {
+			sql += "and cl_day like '%일%'";
 	
 		}
+		 
+		 sql += "	)A\r\n"
+		 		+ "		)	\r\n"
+		 		+ "		WHERE RNUM BETWEEN ?  AND ?	";
+
 		System.out.println(sql);
 
 		pstmt = conn.prepareStatement(sql);
+		int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		pstmt.setInt(1, startRow);
+		pstmt.setInt(2, endRow);
+
 		rset= pstmt.executeQuery();
 		
 		while(rset.next()) {
@@ -1435,6 +1460,115 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s){
 	return list;
 }
 
+ public int searchDetailCount(Connection conn, Search s) {
+	 int count = 0;
+	 
+	 	PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("searchDetailCount");
+		
+		try {
+
+			String keyword = s.getKeyword();
+			String category = s.getCategory();
+			String dcategory = s.getDcategory();
+			String sido = s.getSido();
+			String sigungu = s.getSigungu();
+			String day = s.getDay();
+			String price = s.getPrice();
+
+			if(keyword != null && !keyword.equals("")) {
+				sql += "and CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD like" + "'%"+ keyword + "%'";
+			}
+			
+			if(category.equals("00")) {
+				sql += "";				
+			}else if(category !=null && !category.equals("")) {
+			     sql += "and G.ct_no = " + "'" +category +"'";
+			}else if(category == null& category.equals("")) {
+				sql += "";
+			}
+			
+			if(category.equals("00") && dcategory.equals("전체")){
+				sql +="";
+			}else if(!category.equals("00")&& dcategory.equals("전체")) {
+				sql += "and g.ct_no =" + "'" + category + "'";
+			}else if(!dcategory.equals("전체")) {
+				sql += "and ct_name= "+ "'"+ dcategory + "'";
+			}else {
+				sql +="";
+			}
+			
+			if(sido.equals("00")) {
+				sql += "";
+			}else if(sido != null && !sido.equals("")) {
+				sql += "and c.local_code = " + "'"+ sido +"'";
+			}else {
+				sql += "";
+			}	
+			if(sido.equals("00") && sigungu.equals("전체")) {
+				sql += "";
+			}else if(!sido.equals("00") && sigungu.equals("전체")) {
+				sql += "and c.local_code = " + "'" + sido +"'";
+			}else if(!sigungu.equals("전체")) {
+				sql += "and distr_name =" + "'" + sigungu + "'";
+			}
+			
+			if(price != null && price.equals("")) {
+				sql += "and cl_price <= " + price;
+			}
+			
+		
+			// 일정
+			 if(day.length()!=0 && day.contains("weekday") && day.contains("sat")&& day.contains("sun")) {
+					sql += "and cl_schedule = '매일'";
+					
+			 }else if(day.length()!=0 && day.contains("sat") && day.contains("sun")) {
+					sql += "and cl_day like '%토%' or cl_day like '%일%'";
+			 		
+			 }else if((day.contains("weekday") && day.contains("sat")) || (day.contains("weekday") && day.contains("sun"))  ) {
+					sql += "and cl_schedule = '매일'";
+			 
+			 }else if(day.length() !=0 && day.contains("weekday")) {
+				sql += "and cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%'";		
+			}else if(day.length()!= 0 && day.contains("sat")) {
+				sql += "and cl_day like '%토%'";
+						
+			}else if(day.length()!=0 && day.contains("sun")) {
+				sql += "and cl_day like '%일%'";
+			
+			}
+			 
+			 sql += ")";
+			
+			
+			System.out.println(sql);
+
+			pstmt = conn.prepareStatement(sql);
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				 count = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+	 
+	 return count;
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+ }
 	
 	
 

@@ -133,14 +133,14 @@
 		 WHERE C.CL_STATUS = 2
 		   AND C.CL_NO = ?
 	</entry>
-	<entry key="selectAttachment">
+	<entry key="selectClassAttachment">
 		SELECT 
 		       FILE_NO
 		     , CHANGE_NAME
 		     , FILE_PATH
 		  FROM ATTACHMENT
 		 WHERE REF_NO = ?
-		   AND REF_TYPE = ?
+		   AND REF_TYPE = 1
 		   AND STATUS = 'Y'
 	</entry>
 	<entry key="selectClassReview">
@@ -961,18 +961,35 @@
 	
 	</entry>
 	
+	
 	<entry key="searchDetailClass">
+	 
+		 
+	  SELECT *
+	 FROM
+	  (	
+		SELECT ROWNUM RNUM, A.*
+		FROM	
+			(
+	 
+		
 			SELECT 
 				       CL_NO
+                     , CT_NO 
 				     , CT_NAME
 				     , CT_DNAME  
 				     , MEM_NO
 				     , TT_NAME
+                     , C.LOCAL_CODE
 				     , LOCAL_NAME
 				     , DISTR_NAME
 				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
+                     , START_DATE
+                     , END_DATE
+                     , CL_SCHEDULE
+                     , CL_DAY
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
 				          FROM REVIEW R
@@ -980,38 +997,57 @@
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
 				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-				     , (SELECT COUNT(REG_NO)
-                        FROM REGISTER G
-                        GROUP BY CL_NO
-                        having c.cl_no =g.cl_no )"REG_COUNT"    
-                     , CL_DAY 
-                     , CL_SCHEDULE 
-  
 				  FROM CLASS C
-				  JOIN LOCATION USING(LOCAL_CODE)
+				  JOIN LOCATION L ON(C.LOCAL_CODE= L.LOCAL_CODE)
 				  JOIN DISTRICT USING(DISTR_CODE)
-				  JOIN CATEGORY USING (CT_NO)
+				  JOIN CATEGORY G ON (C.CT_NO = G.CT_NO)
 				  JOIN DCATEGORY USING (CT_DNO)
 				  JOIN TUTOR USING(MEM_NO)
 				 WHERE CL_STATUS = 2
 		
-          
-	
-	
-	
-	
+		
 	</entry>
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<entry key="searchDetailCount">
+	 
+	 
+	  SELECT COUNT(*) "count"	
+	 FROM
+	    (
+			SELECT 
+				       CL_NO
+                     , CT_NO 
+				     , CT_NAME
+				     , CT_DNAME  
+				     , MEM_NO
+				     , TT_NAME
+                     , C.LOCAL_CODE
+				     , LOCAL_NAME
+				     , DISTR_NAME
+				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+				     , KEYWORD
+                     , START_DATE
+                     , END_DATE
+                     , CL_SCHEDULE
+                     , CL_DAY
+				     , CL_THUMB
+				     , (SELECT AVG(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				     , (SELECT COUNT(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				  FROM CLASS C
+				  JOIN LOCATION L ON(C.LOCAL_CODE= L.LOCAL_CODE)
+				  JOIN DISTRICT USING(DISTR_CODE)
+				  JOIN CATEGORY G ON (C.CT_NO = G.CT_NO)
+				  JOIN DCATEGORY USING (CT_DNO)
+				  JOIN TUTOR USING(MEM_NO)
+				 WHERE CL_STATUS = 2
+		
+	</entry>
 	
 	
 	

@@ -138,8 +138,8 @@
      	<script>
      	
 			$(function(){
-				$("#newClass>tbody th").click(function() {
-					location.href = "<%=contextPath%>/newde.ad?no="+$(this).next().eq(0).text();
+				$("#newClass>tbody td").click(function() {
+					location.href = "<%=contextPath%>/newde.ad?no="+$(this).eq(0).text();
 					
 					
         		})
@@ -150,7 +150,7 @@
 			th.addEventListner("click",function(e){
 				e.stopPropagation();
 			
-			  console.log("즐");
+			
 			})
         
         
@@ -159,7 +159,7 @@
 
     <div class="paging-area">
       	
-      	
+      
         	<%if(pi.getCurrentPage() != 1){ %>    
         		
             		<button onclick="location.href='<%=contextPath%>/newcl.ad?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
