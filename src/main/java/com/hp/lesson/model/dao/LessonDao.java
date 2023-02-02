@@ -222,6 +222,12 @@ private Properties prop = new Properties();
 		return le;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param clNo 클래스 번호
+	 * @param refType 게시판 타입(0(공지사항)/1(클래스)/2(후기)/3(이용안내))
+	 * @return 첨부파일 리스트
+	 */
 	public ArrayList<Attachment> selectAttachment(Connection conn, int clNo, int refType){
 		ArrayList<Attachment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -253,6 +259,11 @@ private Properties prop = new Properties();
 		
 	}
 	
+	/**
+	 * @author 예서
+	 * @param clNo 클래스번호
+	 * @return 클래스 리뷰
+	 */
 	public ArrayList<Review> selectClassReview(Connection conn, int clNo){
 		ArrayList<Review> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -282,6 +293,12 @@ private Properties prop = new Properties();
 		return list;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param clNo 클래스번호
+	 * @param memNo 회원번호
+	 * @return 찜 여부
+	 */
 	public int selectLikeStatus(Connection conn, int clNo, int memNo) {
 		int likeStatus = 0;
 		PreparedStatement pstmt = null;
@@ -306,6 +323,12 @@ private Properties prop = new Properties();
 		return likeStatus;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param clNo 클래스번호
+	 * @param memNo 회원번호
+	 * @return 찜하기
+	 */
 	public int insertLikeClass(Connection conn, int clNo, int memNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -325,6 +348,12 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
+	/**
+	 * @author 예서
+	 * @param clNo 클래스번호
+	 * @param memNo 회원번호
+	 * @return 찜하기 해제
+	 */
 	public int deleteLikeClass(Connection conn, int clNo, int memNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
