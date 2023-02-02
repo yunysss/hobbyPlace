@@ -17,7 +17,7 @@
     .calList{
         border:1px solid rgb(180, 180, 180); 
         border-radius:5px;
-        height:150px;
+        height:170px;
         margin-bottom:20px;
     }
     .calList>div{float:left; height:100%; width:50%}
@@ -159,6 +159,7 @@
 			    	  ) {
 			    	    value += "<div class='calList'>"
 	                    		+ "<div>"
+	                    		+	"주문번호 : " + dataList[i].regNo + "<br>"
                         		+	"결제일자 : " + dataList[i].teachDate + "<br>"
                         		+	"<h5>" + dataList[i].memNo + "</h5> <br>"
                         		+	"수업일자 : " + dataList[i].clNo + "&nbsp;" + dataList[i].regDate + "<br>"
@@ -167,13 +168,13 @@
                     			+ "<div align='right'>";
                     	if(dataList[i].regSta == 'N'){
                     		value += "<span style='background:rgb(241, 196, 15)'>"
-                    				+	"<b>미신청</b></span><br><br><br><br>"	
+                    				+	"<b>미신청</b></span><br><br><br><br><br>"	
                     	} else if(dataList[i].regSta == 'W'){
                     		value += "<span style='background:rgb(22, 160, 133)'>"
-                				+	"<b>정산진행중</b></span><br><br><br><br>"	
+                				+	"<b>정산진행중</b></span><br><br><br><br><br>"	
                     	} else if(dataList[i].regSta == 'C'){
                     		value += "<span style='background:rgb(231, 76, 60)'>"
-                				+	"<b>정산완료</b></span><br><br><br><br>"	
+                				+	"<b>정산완료</b></span><br><br><br><br><br>"	
                     	} 
                     	value += 	"<b><label for='" + i + "'>" + dataList[i].schNo + "</label></b>";
                     	if(dataList[i].regSta == 'N'){

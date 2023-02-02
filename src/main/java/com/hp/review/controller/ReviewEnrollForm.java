@@ -1,27 +1,23 @@
-package com.hp.tutor.controller;
+package com.hp.review.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.member.model.vo.Member;
-import com.hp.register.model.service.RegisterService;
-
 /**
- * Servlet implementation class TutorUpdateRegister
+ * Servlet implementation class ReviewEnrollForm
  */
-@WebServlet("/updateReg.tt")
-public class TutorUpdateRegisterController extends HttpServlet {
+@WebServlet("/enrollForm.rev")
+public class ReviewEnrollForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TutorUpdateRegisterController() {
+    public ReviewEnrollForm() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,14 +26,9 @@ public class TutorUpdateRegisterController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int regSta = Integer.parseInt(request.getParameter("regSta"));
-		int regNo = Integer.parseInt(request.getParameter("regNo"));
-		
-		int result = new RegisterService().updateRegister(regSta, regNo);
-		
-		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/approval.tt?");
-		}
+		request.getRequestDispatcher("views/review/reviewEnrollForm.jsp").forward(request, response);
+	
+	
 	}
 
 	/**

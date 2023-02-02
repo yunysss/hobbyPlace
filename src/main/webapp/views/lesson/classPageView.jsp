@@ -47,17 +47,18 @@
         #classDetail-short{float:left;}
         #classDetail-likeShare{float:right;}
         #classDetail-short>span{
-            border:1px solid rgb(245, 245, 245); 
+            border:1px solid rgb(240, 240, 240); 
             border-radius:5px;
-            background: rgb(245, 245, 245);
+            background: rgb(240, 240, 240);
             padding:5px;
             text-align:center;
         }
         #classDetail-img span{
-            font-size:13px;
+            font-size:12px;
             display:inline-block;
             margin:5px;
         }
+        #clName>span{margin-left:370px; font-size:15px;}
 
         /* content */
         #classDetail-content{
@@ -83,7 +84,7 @@
         }
         #reviewList tr, #viewFold{display:none;}
         #reviewList p{word-break: break-all;}
-        #reviewList p~img{width:100px; height:100px; margin-right:10px;}
+        #reviewList a>img{width:100px; height:100px;}
         
         /* classDetail-2 */
         #classDetail-2>*{
@@ -302,10 +303,15 @@
 						}
 				</script>
                 <br clear="both">
-                <div>
-                    <b style="font-size:17px"><%= le.getClName() %></b>	
+                <div id="clName">
+                    <b style="font-size:17px"><%= le.getClName() %></b><br>
                 </div>
             </div>
+            <script>
+            	$(function(){
+            		$("#clName").append("<span>" + CommaFormat(<%= le.getClPrice() %>) + "원 / 1인</span>")
+            	})
+            </script>
             <div id="classDetail-content" data-spy="scroll" data-target=".navbar">
                 <nav class="navbar navbar-expand-sm">  
                     <ul class="navbar-nav">
@@ -325,9 +331,9 @@
                     </nav>
                     
                     <div id="section1" class="container-fluid">
-                    <b style="font-size:14px">클래스 상세</b><br>
-                    CLOB 출력..?<br><br>
-                    <b style="font-size:14px">진행 장소</b><br>
+                    <br><b style="font-size:14px">클래스 상세</b><br><br>
+                    <%= le.getClDetail() %><br><br><br>
+                    <b style="font-size:14px">진행 장소</b><br><br>
                     <div id="map" style="width:550px;height:300px;"></div><br>
 
                     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=19e99c5794a1b621123d4304f847fd72&libraries=services"></script>
@@ -372,9 +378,9 @@
                     <div style="font-size: 13px;">
                         <span><b style="font-size:14px">찾아오시는 길</b></span><br>
                         <%= le.getClAddress() %>
-                    </div><br>
+                    </div><br><br>
                     <b style="font-size:14px">준비물</b><br>
-                    <%= le.getClSupplies() %> <br><br>
+                    <%= le.getClSupplies() %> <br><br><br>
                     
                     <b style="font-size:14px">강사소개</b><br><br>
                     <a href="<%=contextPath%>/ttdetail.cl?no=<%=le.getClNo() %>" id="classDetail-tutor">
@@ -393,16 +399,15 @@
                     	</table>
                   	</a>
                     </div>
-                    
-                    <hr>
+                    <br><hr><br>
                     <div id="section2" class="container-fluid">
-                        <b style="font-size:14px">커리큘럼</b><br>
+                        <b style="font-size:14px">커리큘럼</b><br><br>
                         <%= le.getCurriculum() %>
                     </div>
-                    <hr>
+                    <br><hr><br>
                     
                     <div id="section3" class="container-fluid">
-                    	<b style="font-size:14px">후기</b><br>
+                    	<b style="font-size:14px">후기</b><br><br>
                     	<table id="reviewList" style="width:600px">
                    			<% if(rList.size() == 0){ %>
                    				<tr>
@@ -435,11 +440,14 @@
 		  						<% } %>
 		  					<% } %>
                     	</table>
-                    	<div align="center">
-                    		<a href="#" class="btn" id="viewMore">더보기</a>
-                    		<a href="#" class="btn" id="viewFold">접기</a>
-                    	</div>
+                    	<% if(rList.size() != 0){ %>
+	                    	<div align="center">
+	                    		<a href="#" class="btn" id="viewMore">더보기</a>
+	                    		<a href="#" class="btn" id="viewFold">접기</a>
+	                    	</div>
+	                   <% } %>
                     </div>
+					
                     <script>
 						$(function(){
 							$("#reviewList tr").slice(0, 10).show(); // 초기갯수
@@ -469,7 +477,7 @@
 									success:function(list){
 										let value=""
 											for(let i=0; i<list.length; i++){
-												value += "<img src='<%= contextPath %>/" + list[i].filePath + list[i].changeName + "' onclick='window.open(this.src)'>";
+												value += "<a href='<%= contextPath %>/" + list[i].filePath + list[i].changeName + "' data-toggle='lightbox' data-gallery='example-gallery'><img src='<%= contextPath %>/" + list[i].filePath + list[i].changeName + "' class='img-fluid'> </a>";
 											}
 										$("#reContent-" + regNo).append(value);
 									}
@@ -477,11 +485,24 @@
 							})
 				        })
 					</script>
+					<link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+					<script>
+					$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+					    event.preventDefault();
+					    $(this).ekkoLightbox();
+					});
+					</script>
                     <hr>
+                    <br>
                     <div id="section4" class="container-fluid">
-                        <b style="font-size:14px">취소/환불</b><br>
-						<%= le.getRefundPolicy() %>
-                    </div>
+                        <b style="font-size:14px">취소/환불</b><br><br>
+							1. 결제 후 14일 이내 취소 시 : 전액 환불<br>
+							2. 결제 후 14일 이후 취소 시 : 환불 불가<br><br>
+							[환불 신청 방법]<br>
+							1. 해당 클래스 결제한 계정으로 로그인<br>
+							2. 마이 - 신청내역 or 결제내역"<br>
+                    </div><br>
             </div>
         </div>
         <div id="classDetail-2">
@@ -739,7 +760,6 @@
 					        function CommaFormat(x) {
 							  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							}
-					    
 					    </script>
                         <!-- 날짜 선택하면 나타나는 창 -->
                         <div id="classDetail-date">

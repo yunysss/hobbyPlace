@@ -221,7 +221,8 @@ public class CalculateDao {
 							  rset.getString("bank"),
 							  rset.getString("cal_acc"),
 							  rset.getString("cal_nm"),
-							  rset.getString("cal_sta")
+							  rset.getString("cal_sta"),
+							  rset.getString("cal_reg")
 							  );
 			}
 		} catch (SQLException e) {

@@ -116,7 +116,7 @@
 			})
 			<!--후기작성-->
 			$("#writingReview").click(function(){
-				location.href="<%=contextPath%>/wReviewList.rev";
+				location.href="<%=contextPath%>/wList.rev?cpage=1";
 			})
 			<!--내가 작성한 후기-->
 			$("#viewMyReview").click(function(){
