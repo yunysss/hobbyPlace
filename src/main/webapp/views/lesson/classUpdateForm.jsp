@@ -589,19 +589,19 @@
 	            <tr>
 	                <th width="100">대표이미지</th>
 	                <td>    
-	                    <img src="<%=contextPath %>/<%=l.getClThumb()%>" alt="" id="titleImg" width="170" height="100" onclick="clickFile(1);">
+	                    <img src="<%=contextPath %>/<%=l.getClThumb()%>" alt="" id="titleImg" width="170" height="100" onclick="clickFile(3);">
 	                    <%if (!atList.isEmpty()){ %>
-	                    <img src="<%=contextPath %>/<%=atList.get(0).getFilePath()+atList.get(0).getChangeName() %>" alt="" id="contentImg1" width="170" height="100" onclick="clickFile(2);">
-	                    <img src="<%=contextPath %>/<%=atList.get(1).getFilePath()+atList.get(1).getChangeName() %>" alt="" id="contentImg2" width="170" height="100" onclick="clickFile(3);">
-	                    <img src="<%=contextPath %>/<%=atList.get(2).getFilePath()+atList.get(2).getChangeName() %>" alt="" id="contentImg3" width="170" height="100" onclick="clickFile(4);">
+	                    <img src="<%=contextPath %>/<%=atList.get(0).getFilePath()+atList.get(0).getChangeName() %>" alt="" id="contentImg1" width="170" height="100" onclick="clickFile(0);">
+	                    <img src="<%=contextPath %>/<%=atList.get(1).getFilePath()+atList.get(1).getChangeName() %>" alt="" id="contentImg2" width="170" height="100" onclick="clickFile(1);">
+	                    <img src="<%=contextPath %>/<%=atList.get(2).getFilePath()+atList.get(2).getChangeName() %>" alt="" id="contentImg3" width="170" height="100" onclick="clickFile(2);">
 	                  	<%} %>
 	                    <div style="font-size:12px;">🔺첫번째 선택한 사진이 썸네일 이미지로 사용됩니다. 사진은 4장 모두 등록해주세요</div>
 					
 	                    <div id="file-area" style="display: none;">
-	                        <input type="file" name="file1" onchange="loadImg(this,1);"  value="<%=contextPath %>/<%=l.getClThumb()%>" required> 
-	                        <input type="file" name="file2" onchange="loadImg(this,2);" value="<%=contextPath %>/<%=atList.get(0).getFilePath()+atList.get(0).getChangeName() %>" >
-	                        <input type="file" name="file3" onchange="loadImg(this,3);" value="<%=contextPath %>/<%=atList.get(1).getFilePath()+atList.get(1).getChangeName() %>"> 
-	                        <input type="file" name="file4" onchange="loadImg(this,4);" value="<%=contextPath %>/<%=atList.get(2).getFilePath()+atList.get(2).getChangeName() %>" >
+	                        <input type="file" name="file3" onchange="loadImg(this,3);"  value="<%=contextPath %>/<%=l.getClThumb()%>" required> 
+	                        <input type="file" name="file0" onchange="loadImg(this,0);" value="<%=contextPath %>/<%=atList.get(0).getFilePath()+atList.get(0).getChangeName() %>" >
+	                        <input type="file" name="file1" onchange="loadImg(this,1);" value="<%=contextPath %>/<%=atList.get(1).getFilePath()+atList.get(1).getChangeName() %>"> 
+	                        <input type="file" name="file2" onchange="loadImg(this,2);" value="<%=contextPath %>/<%=atList.get(2).getFilePath()+atList.get(2).getChangeName() %>" >
 	                        
 	                        <input type="hidden" name="originThumb" value="<%=l.getClThumb()%>">
 	                       <%for (Attachment at : atList){ %>
@@ -629,20 +629,20 @@
 	                        reader.onload = function(e){
 	                            //e.target.result => 읽어들인 파일의 고유한 url 
 	                            switch(num){
-	                                case 1: $("#titleImg").attr("src",e.target.result); break;
-	                                case 2: $("#contentImg1").attr("src",e.target.result); break;
-	                                case 3: $("#contentImg2").attr("src",e.target.result);break;
-	                                case 4: $("#contentImg3").attr("src",e.target.result);break;
+	                                case 3: $("#titleImg").attr("src",e.target.result); break;
+	                                case 0: $("#contentImg1").attr("src",e.target.result); break;
+	                                case 1: $("#contentImg2").attr("src",e.target.result);break;
+	                                case 2: $("#contentImg3").attr("src",e.target.result);break;
 	                            }
 	                        }
 	
 	                    }else{ 
 	                        // 기존에 선택된 파일이 취소된 경우 => 미리보기 됐던거 사라지게 하기 
 	                        switch(num){
-	                                case 1: $("#titleImg").attr("src",null); break;
-	                                case 2: $("#contentImg1").attr("src",null); break;
-	                                case 3: $("#contentImg2").attr("src",null);break;
-	                                case 4: $("#contentImg3").attr("src",null);break;
+	                                case 3: $("#titleImg").attr("src",null); break;
+	                                case 0: $("#contentImg1").attr("src",null); break;
+	                                case 1: $("#contentImg2").attr("src",null);break;
+	                                case 2: $("#contentImg3").attr("src",null);break;
 	
 	                            }
 	                    }

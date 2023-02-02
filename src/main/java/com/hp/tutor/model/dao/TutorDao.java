@@ -740,7 +740,7 @@ public class TutorDao {
 			pstmt.setInt(1,l.getClNo());
 			
 			result = pstmt.executeUpdate();
-		System.out.println(sql);
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -777,7 +777,7 @@ public class TutorDao {
 		}finally {
 			close(pstmt);
 		}
-		 System.out.println(result);
+		// System.out.println(result);
 		 return result;
 	}
 	

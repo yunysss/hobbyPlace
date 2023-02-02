@@ -101,39 +101,42 @@ public class TutorClassUpdateController extends HttpServlet {
 			// 첨부파일
 			ArrayList<Attachment> list = new ArrayList<>();
 
-			for (int i = 2; i <= 4; i++) {
+			for (int i = 0; i <= 2; i++) {
 				String key = "file" + i;
 
 				// 새로운 첨부파일 있을경우
+				
 				if (multiRequest.getOriginalFileName(key) != null) {
 					Attachment at = new Attachment();
-					
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setChangeName(multiRequest.getFilesystemName(key));
 					at.setFilePath("resources/classThumbnail_upfiles/");
-				
 					at.setRefType("1");
-
+					
+				
 					// 기존 첨부파일 있을경우=> update
-					if (multiRequest.getParameterValues("originfile") != null) {
+				if (multiRequest.getParameterValues("originfile") != null) {
 						String[] fileNo = multiRequest.getParameterValues("originfile");
-
+						//System.out.println("fileNo:" + Arrays.toString(fileNo));
+						
 						int[] origin = new int[fileNo.length];
+						
 						for (int j = 0; j < fileNo.length; j++) {
 							origin[j] = Integer.parseInt(fileNo[j]);
-							at.setFileNo(origin[j]);
+							at.setFileNo(origin[i]);
 						}	
+						
 					
-					} else {// 기존 첨부파일 없을경우=> insert
+				       // System.out.println("origin:"+ Arrays.toString(origin));
+					  
+			} else {// 기존 첨부파일 없을경우=> insert
 						at.setRefNo(clNo);
 					}
-
-					list.add(at);
-				}
+				System.out.println("at2" + at);
 
 			}
 			
-
+		}
 			ArrayList<Schedule> sList = new ArrayList<>();
 			// 스케줄
 			String [] schNoArr = multiRequest.getParameterValues("schNo");
@@ -168,7 +171,7 @@ public class TutorClassUpdateController extends HttpServlet {
 			HttpSession session = request.getSession();
 			if (result > 0) {
 				session.setAttribute("alertMsg", "성공적으로 수정요청되었습니다. 검수완료 후 재판매가 시작됩니다. ");
-				response.sendRedirect(request.getContextPath() + "/ttclass.tt?cpage=1");
+				response.sendRedirect(request.getContextPath() + "/cldetail.tt?no="+clNo);
 
 			} else {
 
