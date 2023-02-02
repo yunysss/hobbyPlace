@@ -84,6 +84,7 @@
 		     , RPAD(SUBSTR(CAL_ACC, 1, 4), LENGTH(CAL_ACC)-4, '*') || SUBSTR(CAL_ACC, -4, 4) "CAL_ACC"
 		     , CAL_NM
 		     , DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') "CAL_STA"
+		     , CAL_REG
 		  FROM CALCULATE
 		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,INSTR(CAL_REG, ',') - 1) = REG_NO)
 		  JOIN CLASS C USING(CL_NO)

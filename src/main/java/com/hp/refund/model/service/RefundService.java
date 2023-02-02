@@ -33,15 +33,20 @@ public class RefundService {
 		Connection conn = getConnection();
 		
 		int result1 = new RefundDao().updateRefund(conn, refNo, refSt);
-		int result2 = new RefundDao().updateRefFinDt(conn, refNo);
-		int result3 = new RefundDao().updateRefFinDtNull(conn, refNo);
+		int result2 = 0;
+		if(refSt.equals("Y")) {
+			result2 = new RefundDao().updateRefFinDt(conn, refNo);
+		} else {
+			result2 = new RefundDao().updateRefFinDtNull(conn, refNo);
+		}
 		
-		if(result1 > 0 && result2 > 0 && result3 > 0) {
+		
+		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
-		return result1 * result2 * result3;
+		return result1 * result2;
 	}
 	
 	/**

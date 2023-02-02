@@ -1,4 +1,4 @@
-package com.hp.tutor.controller;
+package com.hp.register.controller;
 
 import java.io.IOException;
 

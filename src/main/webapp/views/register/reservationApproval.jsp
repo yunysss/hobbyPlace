@@ -113,7 +113,7 @@
 			    $(function () {
 				     selectApproval();
 				     $(document).on("click", ".rsvList", function(){
-				    	 location.href = "<%=contextPath%>/regDetail.tt?no=" + $("input[name='regNo']").val();
+				    	 location.href = "<%=contextPath%>/regDetail.tt?no=" + $(this).find($("input[name='regNo']")).val();
 				     })
 			    })
 			    $("input[type=radio]").change(function(){
@@ -159,7 +159,7 @@
 			    	  ) {
 			    		  value += "<div class='rsvList'>"
 			    		  		+ 	"<div>"
-			    		  		+ 		"주문번호 <input type='type' name='regNo' value='"+ dataList[i].regNo + "' readonly><br>"
+			    		  		+ 		"주문번호 <input type='text' name='regNo' value='"+ dataList[i].regNo + "'><br>"
 			    		  		+		dataList[i].regDate + "<br>"
 			    		  		+		dataList[i].memNo + " 수강생<br>"
 			    		  		+		"<h5>" + dataList[i].clNo + "</h5><br>"
