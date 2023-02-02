@@ -118,10 +118,10 @@ public class RegisterService {
 		return list;
 	}
 	
-	public int updateRegisterMng(String regNo, String regSt) {
+	public int updateRegisterMng(String regNo, String depositSt) {
 		Connection conn = getConnection();
 		
-		int result = new RegisterDao().updateRegisterMng(conn, regNo, regSt);
+		int result = new RegisterDao().updateRegisterMng(conn, regNo, depositSt);
 		
 		if(result > 0) {
 			commit(conn);
