@@ -61,7 +61,7 @@ public class AjaxPhoneCheckForIdController extends HttpServlet {
 
 		    try {
 		      JSONObject obj = (JSONObject) coolsms.send(params);
-		      System.out.println(obj.toString());   //전송 결과 출력 
+		      //System.out.println(obj.toString());   //전송 결과 출력 
 		    } catch (CoolsmsException e) {
 		      System.out.println(e.getMessage());
 		      System.out.println(e.getCode());
