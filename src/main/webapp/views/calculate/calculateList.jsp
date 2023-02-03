@@ -30,6 +30,11 @@
     background:rgb(22, 160, 133); 
     color:white;
    }
+   #selectAllCal{
+    width:80px;
+    background:rgb(22, 160, 133); 
+    color:white;
+   }
 
    thead td{
     background:rgb(245, 245, 245);
@@ -170,6 +175,7 @@
             </table>
             <br>
             <div align="center">
+            	<button type="button" class="btn btn-sm" id="selectAllCal" onclick="selectAllCalList();">전체조회</button>
 	            <button type="button" class="btn btn-sm" id="selectCal" onclick="selectCalList();">조회</button>
 	            <button type="button" class="btn btn-secondary btn-sm" onclick="resetAll();">초기화</button>
             </div>
@@ -285,6 +291,35 @@
     				startDate:$("#searchStartDate").val(),
     				endDate:$("#searchEndDate").val(),
     				status:$("input[name=calSta]:checked").val()
+    			},
+    			success:function(d){
+    				if(d.length == 0){
+    					let value = "<tr>"
+    						+	"<td colspan='7'>조회된 내역이 없습니다.</td>"
+    						+ "</tr>"
+    					$("#calList-area tbody").html(value);
+    					$("#paging").html("");
+    				} else{
+    					//totalData(총 데이터 수) 구하기
+    	 		    	   totalData = d.length;
+    	 		               //데이터 대입
+    	 		           dataList=d;
+    	 		           displayData(1, dataPerPage, totalData);
+    	 		           paging(totalData, dataPerPage, pageCount, 1);
+    				}
+    				
+    			},error:function(){
+    				console.log("정산목록 조회용 ajax 통신실패");
+    			}
+    		})
+    	}
+	    function selectAllCalList(){
+    		$.ajax({
+    			url:"<%=contextPath%>/selectList.cal",
+    			data:{
+    				startDate:"",
+    				endDate:"",
+    				status:""
     			},
     			success:function(d){
     				if(d.length == 0){
