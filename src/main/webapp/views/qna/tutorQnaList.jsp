@@ -4,6 +4,7 @@
     
 <%
 	ArrayList<Qna> list  = (ArrayList<Qna>)request.getAttribute("list");
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +26,7 @@
             width: 1000px;
             margin: auto;
             margin-top: 100px;
+            padding:40px;
         }
         .list{
             text-align: center;
@@ -33,6 +35,15 @@
             text-align: center;
             
         }
+        table {
+        width: 100%;
+        border-top: 1px solid lightgray;
+        border-collapse: collapse;
+	    }
+	    th, td {
+	        border-bottom: 1px solid lightgray;
+	        padding: 10px;
+	    }
             
         
     </style>
@@ -57,7 +68,7 @@
         </div>
 
         <div style="text-align: right;"> 
-            <a href="">
+            <a href="<%=contextPath%>/qnaEnroll.tor">
                 <button style="background-color:rgb(22, 160, 133); color:white; border:none; width: 120px; height: 50px;">
                     문의 등록</button></a>
         </div>
@@ -65,6 +76,8 @@
         <br>
 
         <table align="center" class="list">
+        
+        <thead>
             <tr style="background-color: lightgray;">
                 <th width="50">번호</th>
                 <th width="600" >제목</th>
@@ -72,32 +85,41 @@
                 <th width="150">처리일</th>
                 <th width="100">상태</th>
             </tr>
+         </thead>
             <%if(list.isEmpty()){ %>
             <tr>
-                <td>등록된 문의사항이 없습니다.</td>
+                <td colspan="5
+                ">등록된 문의사항이 없습니다.</td>
             </tr>
+            
+          <tbody>
 			<%}else{ %>
-				<%for(Qna q: list){ %>
-            <tr>
-                <td>2</td>
-                <td><%=q.getqTitle()%></td>
-                <td><%=q.getqDate() %></td>
-                <td></td>
-                <td></td>
-            </tr>
+				<%for(int i=0; i<list.size(); i++){ %>
+		            <tr>
+		            	
+		                <td><%=i+1 %></td>
+		                <td onclick="location.href='<%=contextPath%>/detailQna.tor?no=<%=list.get(i).getqNo()%>'"><%=list.get(i).getqTitle() %></td>
+		                <td><%=list.get(i).getqDate() %></td>
+		                <td><%=list.get(i).getaDate() %></td>
+		                <td><%if(list.get(i).getaMemNick().equals("N")){ %>
+		                		대기
+		                <%}else{ %>
+		                		완료
+		                <%} %>
+		                </td>
+		            </tr>
             	<%} %>
 			<%} %>
+			</tbody>
         </table>
+        
+        
+        
+        
 
         <br><br>
 		
-        <div class="paging-area">
-
-            <button style="border: none;">&lt;</button>
-            <button style="background-color:rgb(22, 160, 133); color:white; border:none">1</button>
-            <button style="border: none;">&gt;</button>
-
-        </div>
+        
         
 
     </div>
