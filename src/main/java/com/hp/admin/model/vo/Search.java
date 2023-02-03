@@ -34,17 +34,19 @@ public class Search {
 
   
 	
-	public Search(String keyword, String category, String dcategory, String starDate, String endDate, String sido,
-			String sigungu, String price) {
+	
+
+	public Search(String keyword, String category, String dcategory, String sido, String sigungu, String day,
+			String price, String sort) {
 		super();
 		this.keyword = keyword;
 		this.category = category;
 		this.dcategory = dcategory;
-		this.starDate = starDate;
-		this.endDate = endDate;
 		this.sido = sido;
 		this.sigungu = sigungu;
+		this.day = day;
 		this.price = price;
+		this.sort = sort;
 	}
 
 
@@ -71,6 +73,16 @@ public class Search {
 	
 	
   
+
+	public String getSort() {
+		return sort;
+	}
+
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+
 
 	public String getSido() {
 		return sido;

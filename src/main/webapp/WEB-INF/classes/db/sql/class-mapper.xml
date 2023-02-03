@@ -1048,6 +1048,46 @@
 		
 	</entry>
 	
+	<entry key = "detailSearchSort">
+				SELECT 
+				       CL_NO
+                     , CT_NO 
+				     , CT_NAME
+				     , CT_DNAME  
+				     , MEM_NO
+				     , TT_NAME
+                     , C.LOCAL_CODE
+				     , LOCAL_NAME
+				     , DISTR_NAME
+				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+				     , KEYWORD
+                     , START_DATE
+                     , END_DATE
+                     , CL_SCHEDULE
+                     , CL_DAY
+				     , CL_THUMB
+				     , (SELECT AVG(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				     , (SELECT COUNT(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				     ,( select count(reg_no)
+                        from register E
+                        group by cl_no
+                        having c.cl_no =E.cl_no )"REG_COUNT"    
+				         
+				  FROM CLASS C
+				  JOIN LOCATION L ON(C.LOCAL_CODE= L.LOCAL_CODE)
+				  JOIN DISTRICT USING(DISTR_CODE)
+				  JOIN CATEGORY G ON (C.CT_NO = G.CT_NO)
+				  JOIN DCATEGORY USING (CT_DNO)
+				  JOIN TUTOR USING(MEM_NO)
+				 WHERE CL_STATUS = 2
+	
+	
+	</entry>
 	
 	
 	
