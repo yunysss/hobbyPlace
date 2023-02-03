@@ -1,6 +1,7 @@
 package com.hp.tutor.model.service;
 
 import static com.hp.common.JDBCTemplate.close;
+
 import static com.hp.common.JDBCTemplate.commit;
 import static com.hp.common.JDBCTemplate.getConnection;
 import static com.hp.common.JDBCTemplate.rollback;
@@ -254,6 +255,14 @@ public class TutorService {
 		close(conn);
 		return list;
 	}
+	
+	public ArrayList<Register> selectBFClassList(int ttNo){
+		Connection conn = getConnection();
+		ArrayList<Register> bfList = new TutorDao().selectBFClassList(conn, ttNo);
+		close(conn);
+		return bfList;
+	}
+	
 	
 
 }

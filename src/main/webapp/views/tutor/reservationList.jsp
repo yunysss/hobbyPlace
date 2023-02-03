@@ -71,7 +71,7 @@
 </head>
 <body>
 	<%@ include file="../common/tutorMenubar.jsp" %>
-    <div class="outer">    
+    <div class="outer">   
         <h5><b>예약 관리</b></h5>
         <br>
         
@@ -137,7 +137,7 @@
         
         </script> 
                 
-        <!--수강후기 버튼을 눌렀을때-->
+        <!--수강완료 버튼을 눌렀을때-->
         <div class="tb_box classList" id="af-classList">
             <table class="table-bordered" style="text-align: center;">
                 <br>
@@ -212,6 +212,23 @@
                 })
 
 			})
+		</script>
+		
+		<script>
+			function bfBtn(){
+				$.ajax({
+					url:"<%=contextPath%>/resList.tt",
+					data:{ttNo:<%=loginUser%>},
+					susccess:function(list){
+						console.log(list);
+					}, 
+					error:function(){
+						console.log("ajax 통신 실패")	
+					}
+				})
+			}
+			
+		
 		</script>
 
 

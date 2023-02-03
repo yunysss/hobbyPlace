@@ -81,7 +81,15 @@ SELECT *
 	   
 </entry>
 
-
+<entry key="insertQnaAnswer">
+	UPDATE QNA
+	   SET A_TITLE = ?,
+	       A_CONTENT = ?,
+	       A_DATE = SYSDATE,
+	       A_MEM_NO = 0,
+	       A_STATUS = 'Y'
+	 WHERE Q_NO = ?
+</entry>
 
 
 

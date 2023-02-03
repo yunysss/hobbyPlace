@@ -2,6 +2,7 @@ package com.hp.tutor.model.dao;
 
 import static com.hp.common.JDBCTemplate.close;
 
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -1010,6 +1011,43 @@ public class TutorDao {
 			close(pstmt);
 		}
 		return rList;
+	}
+
+	public ArrayList<Register> selectBFClassList(Connection conn, int ttNo) {
+		ArrayList<Register> bfList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectBFClassList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, ttNo);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				bfList.add(new Register(
+										rset.getInt("reg_no"),
+										rset.getString("teach_date"),
+										rset.getString("reg_price"),
+										rset.getString("reg_count"),
+										rset.getString("reg_sta"),
+										rset.getString("mem_name"),
+									    rset.getString("mem_phone"),
+									    rset.getString("mem_email"),
+									    rset.getString("cl_name"),
+									    rset.getString("cl_price"),
+									    rset.getString("start_time")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return bfList;
 	}
 	
 	
