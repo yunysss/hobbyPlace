@@ -164,7 +164,7 @@ public class CalculateDao {
 		ResultSet rset =null;
 		String sql = prop.getProperty("selectCalList");
 		if(!startDate.equals("") && !endDate.equals("")) {
-			sql += "AND RQ_DT BETWEEN ? AND ?";
+			sql += "AND RQ_DT BETWEEN TO_CHAR(TO_DATE(?, 'YYYY-MM-DD'), 'YYYY-MM-DD') AND TO_CHAR(TO_DATE(?, 'YYYY-MM-DD')+1, 'YYYY-MM-DD')";
 		}
 		
 		try {
@@ -249,7 +249,7 @@ public class CalculateDao {
 		ResultSet rset =null;
 		String sql = prop.getProperty("selectCalMng");
 		if(!startDate.equals("") && !endDate.equals("")) {
-			sql += "AND RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1";
+			sql += "AND RQ_DT BETWEEN TO_CHAR(TO_DATE(?, 'YYYY-MM-DD'), 'YYYY-MM-DD') AND TO_CHAR(TO_DATE(?, 'YYYY-MM-DD')+1, 'YYYY-MM-DD')";
 		}
 		if(!memId.equals("")) {
 			sql += "AND MEM_ID LIKE ?";

@@ -309,7 +309,6 @@
     	}
 	    function displayData(currentPage, dataPerPage, totalData) {
 	    	  let chartHtml = "";
-	    	//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
 	    	  currentPage = Number(currentPage);
 	    	  dataPerPage = Number(dataPerPage);
 	    	  if(totalData < dataPerPage){
