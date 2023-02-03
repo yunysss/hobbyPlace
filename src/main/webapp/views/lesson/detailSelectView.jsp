@@ -188,38 +188,32 @@ a {
         <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count%> 건</span>
         <div id="btn-area">
          <div class="dropdown">
-		    <button id="sortBtn" onclick="sort();" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+		    <button id="sortBtn"  type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 		      정렬
 		    </button>
 		    <div class="dropdown-menu price">
-		      <a class="dropdown-item" onclick="rowPrice();"><input type="hidden" name="sort" value="rp">낮은가격순</a>
-		      <a class="dropdown-item"">높은가격순</a>
-		      <a class="dropdown-item" data-value="pop">인기순</a>
-		      <a class="dropdown-item" data-value="star">평점순</a>
+		      <a class="dropdown-item" onclick="sort();"><input type="hidden" name="sort" value="rp">낮은가격순</a>
+		      <a class="dropdown-item" onclick="sort();"><input type="hidden" name="sort" value="hp">높은가격순</a>
+		      <a class="dropdown-item" onclick="sort();"><input type="hidden" name="sort" value="ps">인기순</a>
+		      <a class="dropdown-item" onclick="sort();"><input type="hidden" name="sort" value="ss">평점순</a>
 		      
 		    </div>
        	 </div>
         </div>
 
 		<script>
-			function rowPrice(){
-				$("input[name=sort]"
-			}
-		
-		   
-		
-        	function rowPrice(){
+	        	function sort(){
         		   
         		   $.ajax({
-                       url:"<%=contextPath%>/sort.rp",
+                       url:"<%=contextPath%>/sort.cl",
                        data:{keyword : '<%=keyword%>',
                        		  category : '<%=category%>',
                              dcategory : '<%=dcategory%>',
                              sido : '<%=sido%>',
                              sigungu : '<%=sigungu%>',
                              price : <%=price%>,
-                             day : '<%=day%>'
-                            
+                             day : '<%=day%>',
+                             sort : $("input[name=sort]").val()
                         
                        },
                        type:"post",
@@ -253,6 +247,7 @@ a {
    				}
    	
 		</script>
+		
 		
 		
 		<div class="container">

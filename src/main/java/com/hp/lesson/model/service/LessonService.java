@@ -316,9 +316,9 @@ public class LessonService {
 	}
 	
 	
-	public ArrayList<Lesson> detailSearchSort(Search s){
+	public ArrayList<Lesson> detailSearchSortRp(Search s){
 		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().detailSearchSort(conn,s);
+		ArrayList<Lesson> list = new LessonDao().detailSearchSortRp(conn,s);
 		close(conn);
 		return list;
 		

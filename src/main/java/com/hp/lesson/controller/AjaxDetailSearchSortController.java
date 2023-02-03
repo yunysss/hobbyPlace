@@ -41,11 +41,12 @@ public class AjaxDetailSearchSortController extends HttpServlet {
          String sigungu = request.getParameter("sigungu");
          String price = request.getParameter("price");
          String day = request.getParameter("day");
+         String sort = request.getParameter("sort");
       
 
-         Search s = new Search(keyword,category,dcategory,sido,sigungu,price,day);
+         Search s = new Search(keyword,category,dcategory,sido,sigungu,day,price);
 		 System.out.println(s);
-         ArrayList<Lesson> list = new LessonService().detailSearchSort(s);
+         ArrayList<Lesson> list = new LessonService().detailSearchSortRp(s);
 		
 		 
 		response.setContentType("application/json; charset=UTF-8");
