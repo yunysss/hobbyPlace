@@ -1,4 +1,4 @@
-package com.hp.qna.controller;
+package com.hp.member.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,25 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hp.common.model.vo.PageInfo;
-import com.hp.customerService.model.Service.NoticeService;
-import com.hp.customerService.model.vo.Faq;
+import com.hp.member.model.service.MemberService;
+import com.hp.member.model.vo.Like;
 import com.hp.member.model.vo.Member;
-import com.hp.qna.model.service.QnaService;
-import com.hp.qna.model.vo.Qna;
-import com.hp.tutor.model.vo.Tutor;
 
 /**
- * Servlet implementation class tutorQnaListController
+ * Servlet implementation class MyClassLikeClassList
  */
-@WebServlet("/qnalist.tor")
-public class tutorQnaListController extends HttpServlet {
+@WebServlet("/likeList.tee")
+public class MyClassLikeClassList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tutorQnaListController() {
+    public MyClassLikeClassList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,13 +34,15 @@ public class tutorQnaListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int MemNo = Integer.parseInt(request.getParameter("MemNo"));
-		ArrayList<Qna> list = new QnaService().selectTutorQnaList(MemNo);
+		HttpSession session = request.getSession();
+		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
+		ArrayList<Like> list = new MemberService().selectMyLikeClassList(memNo);
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("views/qna/tutorQnaList.jsp").forward(request, response);
 		
+		request.getRequestDispatcher("views/member/myClassLikeList.jsp").forward(request, response);
+	
 	}
 
 	/**

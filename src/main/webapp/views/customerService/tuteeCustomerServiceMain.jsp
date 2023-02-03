@@ -34,10 +34,11 @@
    		color: black;
    }
    
-   	.list-area:hover{
+   	.faq:hover{
         	cursor:pointer;
         	
-        }	
+    }
+   
    		
   
     
@@ -102,7 +103,7 @@
                 <li>자주묻는질문이 없습니다.</li>
                 <%}else{ %>
                 	<%for(int i=0; i<5; i++){ %>
-                      <li onclick="location.href='<%=contextPath%>/faq.tee?cpage=1'"><%=list2.get(i).getQuestion() %></li>
+                      <li class="faq" onclick="location.href='<%=contextPath%>/faq.tee?cpage=1'"><%=list2.get(i).getQuestion() %></li>
                       <%} %>
                 <%} %>
             </td>

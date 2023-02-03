@@ -1,34 +1,26 @@
 package com.hp.qna.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.hp.common.model.vo.PageInfo;
-import com.hp.customerService.model.Service.NoticeService;
-import com.hp.customerService.model.vo.Faq;
-import com.hp.member.model.vo.Member;
 import com.hp.qna.model.service.QnaService;
 import com.hp.qna.model.vo.Qna;
-import com.hp.tutor.model.vo.Tutor;
 
 /**
- * Servlet implementation class tutorQnaListController
+ * Servlet implementation class TutorQnaInsertController
  */
-@WebServlet("/qnalist.tor")
-public class tutorQnaListController extends HttpServlet {
+@WebServlet("/insertQna.tor")
+public class TutorQnaInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tutorQnaListController() {
+    public TutorQnaInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,14 +29,25 @@ public class tutorQnaListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		request.setCharacterEncoding("UTF-8");
 		
-		int MemNo = Integer.parseInt(request.getParameter("MemNo"));
-		ArrayList<Qna> list = new QnaService().selectTutorQnaList(MemNo);
+		int no = Integer.parseInt(request.getParameter("no"));
+		String title = request.getParameter("title");
+		String Qcategory = request.getParameter("Qcategory");
+		String content = request.getParameter("content");
 		
-		request.setAttribute("list", list);
+		Qna q = new Qna();
+		q.setqMemNo(no);
+		q.setqTitle(title);
+		q.setqCategory(Qcategory);
+		q.setqContent(content);
 		
-		request.getRequestDispatcher("views/qna/tutorQnaList.jsp").forward(request, response);
+		int result = new QnaService().insertTutorQna(q);
 		
+		if(result>0) {
+			response.sendRedirect(request.getContextPath()+"/qnalist.tor?MemNo="+no);
+		}
 	}
 
 	/**
