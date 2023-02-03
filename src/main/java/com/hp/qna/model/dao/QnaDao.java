@@ -139,5 +139,83 @@ public class QnaDao {
 		return q;
 		
 	}
+	
+	public ArrayList<Qna> selectQnaListTutor(Connection conn){
+		ArrayList<Qna> list1 = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectQnaListTutor");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list1.add(new Qna(rset.getInt("q_no"),
+								rset.getString("q_title"),
+								rset.getString("q_content"),
+								rset.getDate("q_date"),
+								rset.getString("q_status"),
+								rset.getString("q_grade"),
+								rset.getString("q_category"),
+								rset.getInt("cl_no"),
+								rset.getInt("q_mem_no"),
+								rset.getString("a_title"),
+								rset.getString("a_content"),
+								rset.getDate("a_date"),
+								rset.getInt("a_mem_no"),
+								rset.getString("a_status")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list1;
+		
+	}
+	
+	public ArrayList<Qna> selectQnaListTutee(Connection conn){
+		ArrayList<Qna> list2 = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectQnaListTutee");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list2.add(new Qna(rset.getInt("q_no"),
+								rset.getString("q_title"),
+								rset.getString("q_content"),
+								rset.getDate("q_date"),
+								rset.getString("q_status"),
+								rset.getString("q_grade"),
+								rset.getString("q_category"),
+								rset.getInt("cl_no"),
+								rset.getInt("q_mem_no"),
+								rset.getString("a_title"),
+								rset.getString("a_content"),
+								rset.getDate("a_date"),
+								rset.getInt("a_mem_no"),
+								rset.getString("a_status")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list2;
+		
+	}
 
 }
