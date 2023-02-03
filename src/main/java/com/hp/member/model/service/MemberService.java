@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.hp.member.model.dao.MemberDao;
+import com.hp.member.model.vo.Like;
 import com.hp.member.model.vo.Member;
 import com.hp.register.model.vo.Register;
 
@@ -243,6 +244,17 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+
+
+
+	public ArrayList<Like> selectMyLikeClassList(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Like> list =new MemberDao().selectMyLikeClassList(conn, memNo);
+		close(conn);
+		return list;
+	}
+
+
 
 
 

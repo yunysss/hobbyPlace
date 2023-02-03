@@ -314,5 +314,14 @@ public class LessonService {
 		close(conn);
 		return count; 
 	}
+	
+	
+	public ArrayList<Lesson> detailSearchSort(Search s){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().detailSearchSort(conn,s);
+		close(conn);
+		return list;
+		
+	}
 
 }

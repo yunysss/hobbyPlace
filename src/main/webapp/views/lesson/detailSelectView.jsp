@@ -188,20 +188,73 @@ a {
         <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count%> 건</span>
         <div id="btn-area">
          <div class="dropdown">
-		    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+		    <button id="sortBtn" onclick="sort();" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 		      정렬
 		    </button>
 		    <div class="dropdown-menu price">
-		      <a class="dropdown-item" onclick="rowPrice();">낮은가격순</a>
-		      <a class="dropdown-item" onclick="highPrice();">높은가격순</a>
-		      <a class="dropdown-item" onclick="highReg();">인기순</a>
-		      <a class="dropdown-item" onclick="highStar();">평점순</a>
+		      <a class="dropdown-item" onclick="rowPrice();"><input type="hidden" name="sort" value="rp">낮은가격순</a>
+		      <a class="dropdown-item"">높은가격순</a>
+		      <a class="dropdown-item" data-value="pop">인기순</a>
+		      <a class="dropdown-item" data-value="star">평점순</a>
 		      
 		    </div>
        	 </div>
         </div>
 
-
+		<script>
+			function rowPrice(){
+				$("input[name=sort]"
+			}
+		
+		   
+		
+        	function rowPrice(){
+        		   
+        		   $.ajax({
+                       url:"<%=contextPath%>/sort.rp",
+                       data:{keyword : '<%=keyword%>',
+                       		  category : '<%=category%>',
+                             dcategory : '<%=dcategory%>',
+                             sido : '<%=sido%>',
+                             sigungu : '<%=sigungu%>',
+                             price : <%=price%>,
+                             day : '<%=day%>'
+                            
+                        
+                       },
+                       type:"post",
+                       success:function(list){
+   	                       console.log(list);
+   	                       
+   	                       let value = "";
+   	                       for(let i=0; i<list.length; i++){
+   	                        //  console.log(list[i]);
+   	                          value += "<table class='a'><tr><td>"
+      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+   									+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+   									+ "<small  style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
+   									+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
+   									+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+   									+ "</small></a>"
+   									+ "</td>"
+   									}
+   	                       
+   	                    			$(".thumbnail").html("");
+   	                     			$("#area1").html("");
+   	                     			
+   									$("#area1").append(value);
+   										
+   							},
+   							error : function(){
+   									console.log("조회용 ajax통신 실패");
+   								}
+        				  
+   					})
+   				}
+   	
+		</script>
+		
+		
 		<div class="container">
 
 			<div class="list-area">

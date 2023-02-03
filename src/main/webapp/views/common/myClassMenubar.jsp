@@ -124,7 +124,7 @@
 			})
 			<!--찜목록-->
 			$("#likeList").click(function(){
-				location.href="<%=contextPath%>/....";
+				location.href="<%=contextPath%>/likeList.tee";
 			})
 		})
         </script>

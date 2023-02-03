@@ -108,6 +108,14 @@
 	#paging li.on a {
 	    color: white;
 	}
+	#menu2>table{
+		margin-top:70px;
+		margin-left:auto;
+	}
+	#menu2 td{
+		vertical-align : top;
+		padding-right:100px;
+	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -117,7 +125,7 @@
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 <body>
 	<%@ include file="../common/adminMenubar.jsp" %>
@@ -150,9 +158,11 @@
 	                	<tr>
 	                    	<td><b>카테고리</b></td>
 	                    	<td>
-	                    		<select name="category" onchange="changeCt();">
+	                    		<select name="category" onchange="changeCt(this.value);">
 	                    			<option value="all">전체</option>
-	                    			
+	                    			<% for(Category c:cList){ %>
+	                    				<option value = "<%=c.getCtNo() %>"><%=c.getCtName() %></option>
+	                    			<% } %>
 	                            </select>
 	                    	</td>
 	                    	<td>
@@ -163,7 +173,12 @@
 	                    <tr>
 	                        <td><b>지역</b></td>
 	                        <td>
-	                            <select name="location">
+	                            <select name="location" onchange="changeLocal(this.value);">
+	                            	<option value="all">전체</option>
+	                            	
+	                            	<% for(District l:lList){ %>
+	                    				<option value = "<%=l.getLocalCode() %>"><%=l.getDistrName() %></option>
+	                    			<% } %>
 	                            </select>
 	                        </td>
 	                        <td>
@@ -255,6 +270,36 @@
             </div>
 		  </div>
 		  <script>   
+			function resetAll(){
+				$("input:text").val("");
+				$(".searchDate input:radio").removeAttr("checked");
+				$("select").each(function(){
+					$(this).children().removeAttr("selected");
+				})
+				$("select[name='dCategory']").html("");
+				$("select[name='district']").html("");
+			}
+		  	function changeCt(a){
+		  		$("select[name='dCategory']").html("");
+		  		let value = "";
+		  		<%for(Dcategory d:dList){%>
+		  			if(a == <%=d.getCtNo()%>){
+		  				value += "<option value='" + <%=d.getCtDno()%> + "'>" + "<%=d.getCtDname()%>" + "</option>"
+		  			}
+		  		<%}%>
+		  		$("select[name='dCategory']").html(value)
+		  	}
+		  	function changeLocal(a){
+		  		$("select[name='district']").html("");
+		  		let value = "";
+		  		<%for(District dis:disList){%>
+		  			if(a == <%=dis.getLocalCode()%>){
+		  				value += "<option value='" + <%=dis.getDistrCode()%> + "'>" + "<%=dis.getDistrName()%>" + "</option>"
+		  			}
+		  		<%}%>
+		  		$("select[name='district']").html(value)
+		  	}
+		  	
 		    $(function() {
 		    	
 		        $.datepicker.setDefaults($.datepicker.regional['ko']);     
@@ -359,9 +404,92 @@
 		  
 		  
 		  <div class="tab-pane container fade" id="menu2">
-		  	
+		  	<table>
+		  		<tr>
+		  			<td>
+		  				<b>최근 3개월간 수강, 찜, 리뷰 추이</b><br><br>
+		  				<canvas id="myChart1" style="width:460px; height:270px;"></canvas>
+		  			</td>
+		  			<td>
+		  				<b>지역별 누적 매출 분포</b><br><br>
+		  				<canvas id="myChart2"></canvas>
+		  			</td>
+		  		</tr>
+		  		<tr>
+		  			<td>
+		  				<br><b>전월 카테고리별 매출 분포</b><br><br>
+		  				<canvas id="myChart3" style="width:460px; height:300px"></canvas>
+		  			</td>
+		  			<td></td>
+		  		</tr>
+		  	</table>
 		  </div>
+		  <script>
+            var context = document
+                .getElementById('myChart1')
+                .getContext('2d');
+            var myChart = new Chart(context, {
+                type: 'line', // 차트의 형태
+                data: { // 차트에 들어갈 데이터
+                    labels: ['12월', '1월', '2월'],
+                    datasets: [
+                        { //데이터
+                            label: '수강수', //차트 제목
+                            lineTension:0,
+                            fill: false, 
+                            data: [21,19,25],
+                            borderColor: 'rgb(255, 99, 132)'
+                        },{
+                        	label: '찜수',
+                        	lineTension:0,
+                        	fill: false, 
+                        	data: [20, 40, 50],
+                        	borderColor: 'rgb(54, 162, 235)'
+                        },{
+                        	label: '리뷰수',
+                        	lineTension:0,
+                        	fill: false, 
+                        	data: [30, 56, 54],
+                        	borderColor: 'rgb(255, 206, 86)'
+                        }]
+                },
+                options:{
+                	responsive:false
+                }
+            });
+            var context2 = document.getElementById('myChart2').getContext('2d');
+	        var myChart = new Chart(context2, {
+	        	type:'pie',
+	        	data:{
+	        		labels:["강남구", "서초구", "동작구", "금천구"],
+	        		datasets:[{
+	        			data:[5000000,3000000,6000000,2000000],
+	        			backgroundColor:['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)']
+	        		}]
+	        	},
+	        	options:{
+                	responsive:false
+                }
+	        })
+	        var context3 = document.getElementById('myChart3').getContext('2d');
+	        var myChart = new Chart(context3, {
+	            type: 'bar', // 차트의 형태
+	            data: { // 차트에 들어갈 데이터
+	                labels: ['교육', '공예DIY', '드로잉', '쿠킹', '스포츠/피트니스'],
+	                datasets: [
+	                    { //데이터
+	                        label: '원', //차트 제목
+	                        data: [5000000,3000000,6000000,2000000, 5000000],
+	                        backgroundColor: 'rgba(255, 99, 132, 0.2)'
+	                    }
+	                ]
+	            },
+	            options:{
+                	responsive:false
+                }
+	        });
+        </script>
 		</div>
-    </div>
+	</div>
 </body>
 </html>
