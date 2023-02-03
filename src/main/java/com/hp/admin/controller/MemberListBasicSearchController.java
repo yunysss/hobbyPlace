@@ -16,16 +16,16 @@ import com.hp.common.model.vo.PageInfo;
 import com.hp.member.model.vo.Member;
 
 /**
- * Servlet implementation class AjaxMemberListBasicSearchController
+ * Servlet implementation class MemberListBasicSearchController
  */
 @WebServlet("/memberBasicSearch.ad")
-public class AjaxMemberListBasicSearchController extends HttpServlet {
+public class MemberListBasicSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxMemberListBasicSearchController() {
+    public MemberListBasicSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,8 +43,8 @@ public class AjaxMemberListBasicSearchController extends HttpServlet {
 		
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
 		int pageLimit = 5;
-		int boardLimit = 20;
-		int maxPage = (int)Math.ceil( (double)listCount / boardLimit ); // Math.ceil이 double형으로 반환하기때문에 int로 강제형변환
+		int boardLimit = 10;
+		int maxPage = (int)Math.ceil( (double)listCount / boardLimit ); 
 		int startPage = (currentPage-1)/pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
 		if(endPage > maxPage) {
@@ -55,10 +55,11 @@ public class AjaxMemberListBasicSearchController extends HttpServlet {
 
 		ArrayList<MemberList> list = new AdminService().selectMemberList(sGroup, fCategory, lineup, pi);
 		
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
-		new Gson().toJson(pi, response.getWriter());
-	
+		request.setAttribute("pi", pi);
+		request.setAttribute("list", list);
+		System.out.println(pi);
+		System.out.println(list);
+		response.sendRedirect(request.getContextPath() + "/viewMember.ad?cpage=1");
 	}
 
 	/**

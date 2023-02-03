@@ -156,7 +156,7 @@
                     <ul id="navi">
                         <li><a href="">회원 관리</a>
                             <ul>
-                                <li><a href="<%=contextPath%>/viewMember.ad">전체 회원 조회</a></li>
+                                <li><a href="<%=contextPath%>/viewMember.ad?cpage=1">전체 회원 조회</a></li>
                                 <li><a href="<%=contextPath%>/viewTutor.ad">튜터 관리</a></li>
                             </ul>
                         </li>

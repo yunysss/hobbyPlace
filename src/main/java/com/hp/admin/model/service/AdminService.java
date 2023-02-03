@@ -284,7 +284,7 @@ public class AdminService {
 		return list;
 	}
 
-	/** 회원 조회 페이징 처리용 전체 조회된행수 조회
+	/** 회원 조회 기본검색시 페이징 처리용 전체 조회된행수 조회
 	 * @author 수연
 	 * @param sGroup
 	 * @param fCategory
@@ -308,6 +308,30 @@ public class AdminService {
 	public ArrayList<District> selectDistrictList(){
 		Connection conn = getConnection();
 		ArrayList<District> list = new AdminDao().selectDistrictList(conn);
+		close(conn);
+		return list;
+	}
+
+	/** 회원 조회 페이지 호출시 실행되는 페이징 처리용 전체 조회된행수 조회
+	 * @ 수연
+	 * @return count
+	 */
+	public int selectMemberListCount() {
+		Connection conn = getConnection();
+		int count = new AdminDao().selectMemberListCount(conn);
+		close(conn);
+		return count;
+	}
+
+	/** 회원 조회 페이지 호출시 보여지는 회원 전체 리스트
+	 * @author 수연
+	 * @param pi
+	 * @return list
+	 */
+	public ArrayList<MemberList> selectMemberList(PageInfo pi) {
+		Connection conn = getConnection();
+		ArrayList<MemberList> list = new AdminDao().selectMemberList(conn, pi);
+		
 		close(conn);
 		return list;
 	}
