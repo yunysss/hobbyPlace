@@ -306,9 +306,9 @@
 	     WHERE MEM_ID = ?
 	       AND MEM_PHONE = ?
 	       AND MEM_STATUS = 'Y'
-	</entry>
+	</entry >
 	
-	<entry>
+	<entry key="selectMyLikeClassList">
 	SELECT 
 	       L.CL_NO "CL_NO"
 	     , DISTR_NAME

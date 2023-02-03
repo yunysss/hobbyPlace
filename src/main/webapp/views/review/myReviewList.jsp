@@ -10,11 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    div{box-sizing:border-box; }
-    .cwrap{width:1000px; height:1300px; margin:auto; padding:2px;}
     
-    .menubar{width:200px; height:1299px; float:left; padding-top:30px; background: white; }
-    .content {width:793px; height:1300px;  float: right; padding-top:65px;}
 
 	 .classnull{
         width: 100%;

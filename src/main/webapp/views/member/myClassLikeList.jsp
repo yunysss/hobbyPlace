@@ -11,11 +11,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    div{box-sizing:border-box;  }
-    .cwrap{width:1000px; height:1300px; margin:auto; padding:2px;}
     
-    .menubar{width:200px; height:1299px; float:left; padding-top:30px; background: white; }
-    .content {width:793px; height:1300px;  float: right; padding-top:65px; }
+
+
+    .classnull{
+        width: 100%;
+        height:300px;
+        margin-top: 70px;
+    }
+    .classnull img{width: 100px}
 
     .list-area{ margin: 20px 10px;}
 
@@ -29,156 +33,45 @@
 </head>
 <body>
     <%@ include file = "../common/myClassMenubar.jsp" %>
-        <div class="content" style="padding: 80px 40px;">
+        <div class="content" style="padding: 80px 40px;" >
+            <!-- 찜한 클래스가 없을 때-->
+            <%if(loginUser != null && list.isEmpty()) {%>
+            <div class="classnull">
+                <img src="<%=contextPath%>/resources/images/refunPage_smile_icon.png" >
+                <br><br>
+					<p>찜한 클래스스가 없어요!</p>
+            </div>
+            
+            <%}else{ %>
+            
+                <%for(int i=0; i<list.size();i++) { %>
 
-            <div class="list-area" width="210px" height="300px" style="display:inline-block">
-                <div class="thumbnail" >
-                    <img src="" width="200px" height="150px">
-                    <table class="class-area">
-                        <tr>
-                            <td colspan="2" style="font-size: small;">동작/관악</td>
-                        </tr>
-                        <tr>
-                            <td class="clName"  colspan="2">
-                                <p style="font-weight: bold; width: 200px;">zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >가격</td>
-                            <td >별점</td>
-                        </tr>
+                    <div class="list-area" width="210px" height="300px" style="display:inline-block">
+                        <div class="thumbnail" >
+                            <div><img src="<%=contextPath%>/<%=list.get(i).getClThumb() %>" width="200px" height="150px"></div>
+                            
+                            <table class="class-area">
+                                <tr>
+                                    <td style="font-size: small;"><%=list.get(i).getDistrName() %></td>
+                                    <td align="right">❤️</td>
+                                </tr>
+                                <tr>
+                                    <td class="clName"  colspan="2">
+                                        <p style="font-weight: bold; width: 200px;"><%=list.get(i).getClName() %></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><%=list.get(i).getClPrice()%> </td>
+                                    <td align="right">&nbsp;&nbsp;&nbsp;&nbsp;⭐<%=list.get(i).getStarAvg() %>.0</td>
+                                </tr>
 
-                    </table>
-                </div>
+                            </table>
+                        </div>
 
-            </div><!--클래스 한개한개 닫히는 div-->
+                    </div><!--클래스 한개한개 닫히는 div-->
 
-            <div class="list-area" width="210px" height="300px" style="display:inline-block">
-                <div class="thumbnail" >
-                    <img src="" width="200px" height="150px">
-                    <table class="class-area">
-                        <tr>
-                            <td colspan="2" style="font-size: small;">동작/관악</td>
-                        </tr>
-                        <tr>
-                            <td class="clName"  colspan="2">
-                                <p style="font-weight: bold; width: 200px;">zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >가격</td>
-                            <td >별점</td>
-                        </tr>
-
-                    </table>
-                </div>
-
-            </div><!--클래스 한개한개 닫히는 div-->
-            <div class="list-area" width="210px" height="300px" style="display:inline-block">
-                <div class="thumbnail" >
-                    <img src="" width="200px" height="150px">
-                    <table class="class-area">
-                        <tr>
-                            <td colspan="2" style="font-size: small;">동작/관악</td>
-                        </tr>
-                        <tr>
-                            <td class="clName"  colspan="2">
-                                <p style="font-weight: bold; width: 200px;">zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >가격</td>
-                            <td >별점</td>
-                        </tr>
-
-                    </table>
-                </div>
-
-            </div><!--클래스 한개한개 닫히는 div-->
-            <div class="list-area" width="210px" height="300px" style="display:inline-block">
-                <div class="thumbnail" >
-                    <img src="" width="200px" height="150px">
-                    <table class="class-area">
-                        <tr>
-                            <td colspan="2" style="font-size: small;">동작/관악</td>
-                        </tr>
-                        <tr>
-                            <td class="clName"  colspan="2">
-                                <p style="font-weight: bold; width: 200px;">zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >가격</td>
-                            <td >별점</td>
-                        </tr>
-
-                    </table>
-                </div>
-
-            </div><!--클래스 한개한개 닫히는 div-->
-            <div class="list-area" width="210px" height="300px" style="display:inline-block">
-                <div class="thumbnail" >
-                    <img src="" width="200px" height="150px">
-                    <table class="class-area">
-                        <tr>
-                            <td colspan="2" style="font-size: small;">동작/관악</td>
-                        </tr>
-                        <tr>
-                            <td class="clName"  colspan="2">
-                                <p style="font-weight: bold; width: 200px;">zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >가격</td>
-                            <td >별점</td>
-                        </tr>
-
-                    </table>
-                </div>
-
-            </div><!--클래스 한개한개 닫히는 div-->
-            <div class="list-area" width="210px" height="300px" style="display:inline-block">
-                <div class="thumbnail" >
-                    <img src="" width="200px" height="150px">
-                    <table class="class-area">
-                        <tr>
-                            <td colspan="2" style="font-size: small;">동작/관악</td>
-                        </tr>
-                        <tr>
-                            <td class="clName"  colspan="2">
-                                <p style="font-weight: bold; width: 200px;">zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >가격</td>
-                            <td >별점</td>
-                        </tr>
-
-                    </table>
-                </div>
-
-            </div><!--클래스 한개한개 닫히는 div-->
-            <div class="list-area" width="210px" height="300px" style="display:inline-block">
-                <div class="thumbnail" >
-                    <img src="" width="200px" height="150px">
-                    <table class="class-area">
-                        <tr>
-                            <td colspan="2" style="font-size: small;">동작/관악</td>
-                        </tr>
-                        <tr>
-                            <td class="clName"  colspan="2">
-                                <p style="font-weight: bold; width: 200px;">zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >가격</td>
-                            <td >별점</td>
-                        </tr>
-
-                    </table>
-                </div>
-
-            </div><!--클래스 한개한개 닫히는 div-->
+                <%} %>
+            <%} %>
            
 
 
