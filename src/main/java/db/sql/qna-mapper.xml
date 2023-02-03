@@ -8,7 +8,7 @@ SELECT *
   JOIN MEMBER M ON (M.MEM_NO = Q.Q_MEM_NO)
  WHERE MEM_NO = ?
  ORDER
-    BY Q_DATE DESC;
+    BY Q_DATE DESC
 	
 </entry>
 

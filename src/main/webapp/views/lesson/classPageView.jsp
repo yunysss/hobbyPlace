@@ -451,7 +451,7 @@
                     <script>
 						$(function(){
 							$("#reviewList tr").slice(0, 10).show(); // 초기갯수
-					        if($("#reviewList tr:hidden").length = 0){ // 컨텐츠 남아있는지 확인
+					        if($("#reviewList tr:hidden").length == 0){ // 컨텐츠 남아있는지 확인
 					            $("#viewMore").hide();
 					        }
 							$("#viewMore").click(function(e){ // 클릭시 more

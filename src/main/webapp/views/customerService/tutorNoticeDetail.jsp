@@ -102,7 +102,7 @@
                 <button style="border: none; background-color: lightgray; ">&lt;이전글</button>
             </div>
             <div style="float:left; width: 33%;" >
-                <button style="border:none; background-color: lightgray;  ">목록</button>
+                <a href="<%=contextPath%>/noticelist.tor?cpage=1"><button style="border:none; background-color: lightgray;  ">목록</button></a>
             </div>
             <div style="float: left; width: 33%; text-align: right;">
                 <button style="border: none; background-color: lightgray;">다음글&gt;</button>

@@ -44,8 +44,8 @@
     <div class="outer">
 
         <div>
-            <a href="" style="color: black; font-size: large; font-weight: 800;" ><img src="resources/pin-angle-fill.svg" >
-                1:1문의</a>
+            <a href="" style="color: black; font-size: large; font-weight: 800;" >
+                >>1:1문의</a>
         </div>
 
         <br>
