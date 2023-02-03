@@ -231,7 +231,7 @@
 		          amount: <%= reg.getRegSta()%>,
 		          buyer_email: '<%= email%>',
 		          buyer_name: '<%= m.getMemNo() %>',
-		          buyer_tel: '<%= m.getPhone()%>'
+		          buyer_tel: '<%= phone %>'
 		      }, function (rsp) {
 		          if (rsp.success) {
 		              document.payment.submit();
