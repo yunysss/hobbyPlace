@@ -213,7 +213,8 @@ private Properties prop = new Properties();
 						        rset.getInt("star_avg"),
 						        rset.getInt("star_count"),
 						        rset.getInt("like_count"),
-						        rset.getString("tt_profile")
+						        rset.getString("tt_profile"),
+						        rset.getString("mem_no")
 						        );
 			}
 		} catch (SQLException e) {
@@ -1568,7 +1569,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 	 
  }
  
- public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
+ public ArrayList<Lesson> detailSearchSortRp(Connection conn, Search s){
 	 ArrayList<Lesson> list = new ArrayList<>();
 	 PreparedStatement pstmt = null;
 	 ResultSet rset = null;
@@ -1585,7 +1586,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			String day = s.getDay();
 			String price = s.getPrice();
 			
-			System.out.println("category:" +category);
+			//System.out.println("category:" +category);
 			
 			if(keyword != null && !keyword.equals("")) {
 				sql += "and CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD like" + "'%"+ keyword + "%'";
@@ -1654,7 +1655,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			 
 			 // 정렬
 			 
-			 sql += "order by cl_price asc";
+			 sql += "\r\n order by cl_price asc";
 			//System.out.println(sql);
 		 
 		pstmt= conn.prepareStatement(sql);
