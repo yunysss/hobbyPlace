@@ -210,10 +210,8 @@
 		
 		    $(function() {
 		
-		        //datepicker 한국어로 사용하기 위한 언어설정
 		        $.datepicker.setDefaults($.datepicker.regional['ko']);     
 		    
-		        // Datepicker            
 		        $(".datepicker").datepicker({
 		            showButtonPanel: true,
 		            dateFormat: "yy-mm-dd",
@@ -235,12 +233,11 @@
 		            }
 		        }); 
 		
-		        $(".dateclick").dateclick();    // DateClick
-		        $(".searchDate").schDate();        // searchDate
+		        $(".dateclick").dateclick();    
+		        $(".searchDate").schDate();      
 		        
 		    });
 		
-		    // Search Date
 		    jQuery.fn.schDate = function(){
 		        let $obj = $(this);
 		        let $chk = $obj.find("input[type=radio]");
@@ -250,7 +247,6 @@
 		        });
 		    };
 		
-		    // DateClick
 		    jQuery.fn.dateclick = function(){
 		        let $obj = $(this);
 		        $obj.click(function(){
@@ -265,10 +261,6 @@
 		        let str = start.substring(1,2);
 		
 		        let today = new Date();
-		
-		        //var year = today.getFullYear();
-		        //var month = today.getMonth() + 1;
-		        //var day = today.getDate();
 		        
 		        let endDate = $.datepicker.formatDate('yy-mm-dd', today);
 		        $('#searchEndDate').val(endDate);
@@ -285,10 +277,8 @@
 		        let startDate = $.datepicker.formatDate('yy-mm-dd', today);
 		        $('#searchStartDate').val(startDate);
 		                
-		        // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
 		        $("#searchEndDate").datepicker( "option", "minDate", startDate );
 		        
-		        // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
 		        $("#searchStartDate").datepicker( "option", "maxDate", endDate );
 		
 		    }

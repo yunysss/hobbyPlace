@@ -201,10 +201,8 @@
 		
 		    $(function() {
 		
-		        //datepicker 한국어로 사용하기 위한 언어설정
 		        $.datepicker.setDefaults($.datepicker.regional['ko']);     
 		    
-		        // Datepicker            
 		        $(".datepicker").datepicker({
 		            showButtonPanel: true,
 		            dateFormat: "yy-mm-dd",
@@ -226,12 +224,11 @@
 		            }
 		        }); 
 		
-		        $(".dateclick").dateclick();    // DateClick
-		        $(".searchDate").schDate();        // searchDate
+		        $(".dateclick").dateclick();    
+		        $(".searchDate").schDate();       
 		        
 		    });
 		
-		    // Search Date
 		    jQuery.fn.schDate = function(){
 		        var $obj = $(this);
 		        var $chk = $obj.find("input[type=radio]");
@@ -241,14 +238,12 @@
 		        });
 		    };
 		
-		    // DateClick
 		    jQuery.fn.dateclick = function(){
 		        var $obj = $(this);
 		        $obj.click(function(){
 		            $(this).parent().find("input").focus();
 		        });
 		    }    
-		
 		    
 		    function setSearchDate(start){
 		

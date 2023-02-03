@@ -4,8 +4,8 @@
 <%
 	ArrayList<Category> cList = (ArrayList<Category>)session.getAttribute("cList");
 	ArrayList<Dcategory> dList = (ArrayList<Dcategory>)session.getAttribute("dList");
-	ArrayList<District> lList = (ArrayList<District>)session.getAttribute("lList");
-    ArrayList<District> disList = (ArrayList<District>)session.getAttribute("disList");
+	ArrayList<District> lList = (ArrayList<District>)request.getAttribute("lList");
+    ArrayList<District> disList = (ArrayList<District>)request.getAttribute("disList");
 %> 
 <!DOCTYPE html>
 <html>
@@ -36,6 +36,11 @@
     #statSearch-btn{
      width:60px;
      margin:0px 5px;
+     background:rgb(22, 160, 133); 
+     color:white;
+    }
+    #statSearchAll-btn{
+     width:80px;
      background:rgb(22, 160, 133); 
      color:white;
     }
@@ -145,7 +150,9 @@
 	                	<tr>
 	                    	<td><b>카테고리</b></td>
 	                    	<td>
-	                    		<select name="category">
+	                    		<select name="category" onchange="changeCt();">
+	                    			<option value="all">전체</option>
+	                    			
 	                            </select>
 	                    	</td>
 	                    	<td>
@@ -242,18 +249,14 @@
 	            </table>
             <br>
             <div align="center">
-            	<button type="button" class="btn btn-sm" id="statSearch-btn" onclick="selectRefundMng();">조회</button>
+           	    <button type="button" class="btn btn-sm" id="statSearchAll-btn" onclick="">전체조회</button>
+            	<button type="button" class="btn btn-sm" id="statSearch-btn" onclick="">조회</button>
                 <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
             </div>
 		  </div>
-		  <script>
-			function resetAll(){
-				$("input:text").val("");
-				$(".searchDate input:radio").removeAttr("checked");
-			}            
-			
+		  <script>   
 		    $(function() {
-		
+		    	
 		        $.datepicker.setDefaults($.datepicker.regional['ko']);     
 		    
 		        $(".datepicker").datepicker({
@@ -295,8 +298,6 @@
 		            $(this).parent().find("input").focus();
 		        });
 		    }    
-		
-		    
 		    function setSearchDate(start){
 		
 		        let num = start.substring(0,1);
@@ -353,6 +354,9 @@
            </div>
         </div>
       </div>
+		  
+		  
+		  
 		  
 		  <div class="tab-pane container fade" id="menu2">
 		  	
