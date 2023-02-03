@@ -612,6 +612,26 @@ public class MemberDao {
 		return list;
 	}
 
+	public int deleteLikeClassList(Connection conn, int clNo, int memNo) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql = prop.getProperty("deleteLikeClassList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			pstmt.setInt(2, memNo);
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 
 	

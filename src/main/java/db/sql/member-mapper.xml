@@ -335,4 +335,11 @@
 	
 	</entry>
 	
+	<entry key="deleteLikeClassList">
+		DELETE 
+		  FROM "LIKE"
+		 WHERE CL_NO = ?
+		   AND MEM_NO = ?
+	</entry>
+	
 </properties>

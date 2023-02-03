@@ -256,6 +256,21 @@ public class MemberService {
 
 
 
+	public int deleteLikeClassList(int clNo, int memNo) {
+		Connection conn = getConnection();
+		int result = new MemberDao().deleteLikeClassList(conn,clNo,memNo);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+
+
 
 
 	

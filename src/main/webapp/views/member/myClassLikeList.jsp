@@ -3,7 +3,9 @@
 <%@ page import="java.util.ArrayList, com.hp.member.model.vo.Like" %>
  <%
  	ArrayList<Like> list = (ArrayList<Like>)request.getAttribute("list");
- 
+ 	int likeStatus = 0;
+ 	if((Member)session.getAttribute("loginUser") != null){
+		likeStatus = (int)request.getAttribute("likeStatus");
  %>
 <!DOCTYPE html>
 <html>
@@ -53,7 +55,7 @@
                             <table class="class-area">
                                 <tr>
                                     <td style="font-size: small;"><%=list.get(i).getDistrName() %></td>
-                                    <td align="right">❤️</td>
+                                    <td align="right"><a class="disLike-Btn">❤️</a></td>
                                 </tr>
                                 <tr>
                                     <td class="clName"  colspan="2">
@@ -69,6 +71,30 @@
                         </div>
 
                     </div><!--클래스 한개한개 닫히는 div-->
+                    <script>
+                    $(function(){
+                    	$(".disLike-Btn").click(function(){
+                    		if($(this).text().includes("❤️")){
+                    			$.ajax({
+                    				url:"<%=contextPath%>/classDislike.tee",
+                    				data:{
+                    					clNo:<%=list.get(i).getClNo()%>,
+                    					memNo:<%=loginUser.getMemNo()%>
+                    				},
+                    				success:function(list){
+                    					$(".list-area").delete();
+                    				}
+                    					
+                    				}
+                    			})
+                    		}
+                    	})
+                    })
+                    
+                    
+                    
+                    
+                    </script>
 
                 <%} %>
             <%} %>
