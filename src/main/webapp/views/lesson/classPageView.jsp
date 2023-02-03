@@ -874,8 +874,8 @@
 	                	<br>
 	                	<input type="hidden" name="" value="<%=le.getClNo()%>"> 
 	                	<input type="hidden" name="" value="<%= loginUser.getMemNo() %>">
-	                	<input type="hidden" name="" value="<%=le. %>"
-	                    <a href="<%= contextPath %>/" type="button" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">등록</a>
+	                	<input type="hidden" name="" value="<%=le.getIntroduce() %>">
+	                    <a href="" type="button" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">등록</a>
 	                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
                     </form>
             	</div>  
