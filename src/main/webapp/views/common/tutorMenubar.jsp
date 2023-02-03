@@ -70,18 +70,28 @@
          	text-decoration : none;
          	color : black;
          }
-        #header3{
-            width:200px;
-            text-align: center;
-    
-        }
 
-        #header3 div{
+       
+        #header3{
+           
+            width:200px;
+            height: 150px;
+            text-align: center;
+        }
+        
+
+        #header3>div{
             width: 200px;
-            margin-top: 15px;
+            margin-top: 25px;
             margin-right: 20px;
       
         }
+        #header3 label{
+            margin-right: 5px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+       
 
       
         #header1 img{
@@ -190,7 +200,9 @@
                <a href="<%=contextPath%>/tutorMain.tt"> <h4>튜터 관리 페이지</h4></a> 
             </div>
             <div id="header3">
+             
                 <div class="dropdown" >
+                    <label id="nick"> <%=tutorInfo.getTtName() %> 님 </label>  
                     <img src="<%=request.getContextPath()%>/<%=ttProfile %>" name="ttimg" type="button" width="60" height="60"  alt="Cinque Terre" class="rounded-circle dropdown-toggle" data-toggle="dropdown">
                   
                  

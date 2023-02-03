@@ -143,7 +143,7 @@ a {
  <div class="outer">
  	<%if (kList.isEmpty()) {%>
  		<div align="center">
-  		<h5>"<%=keyword%>" 로 검색된 클래스가 없습니다.🥲</h5>
+  		<h5>"<%=keyword%>" (으)로 검색된 클래스가 없습니다.🥲</h5>
   		</div>
   		<%} else {%>
         <h4> <a href="">" <%=keyword%> " 검색결과</a><span class="material-symbols-outlined symbol">expand_more</span></h4>
