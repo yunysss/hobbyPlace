@@ -526,6 +526,12 @@ public class AdminDao {
 	}
 	
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param s
+	 * @return 관리자 클래스조회 
+	 */
 	public ArrayList<Lesson> searchClass(Connection conn, Search s){
 		ArrayList<Lesson> list = new ArrayList<>();
 		PreparedStatement pstmt = null;

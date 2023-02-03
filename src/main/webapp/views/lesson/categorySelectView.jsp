@@ -204,7 +204,7 @@
 	                       
 	                       let value = "";
 	                       let count = "";
-	                         if(list != null){
+	                         if(list.length != 0){
 	                        	 count += "<span style='font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);'>검색결과 "+ list.length +" 건</span>"
 	                       		for(let i=0; i<list.length; i++){
 	                        //  console.log(list[i]);        
@@ -219,7 +219,7 @@
 											+ "</td>"
 	                       		           }
 	                         }else{
-	                        	  value += "<div><h4>조회된 결과가 없습니다. 😖</h4></div>"
+	                        	  value += "<div align='center'><h5>조회된 결과가 없습니다. 😖</h5></div>"
 	                         }
 	                         				
 			                     			$(".thumbnail").html("");

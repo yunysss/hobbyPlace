@@ -413,7 +413,6 @@ function setSearchDate(start){
             							   + "<td>" + result[i].ctNo + "</td>"
             							   + "<td>" + result[i].ctDno + "</td>"
             							   + "<td>" + result[i].clName + "</td>"   
-								        
     									   + "<td>" + result[i].updateDate  + "</td>"
             							   + "<td>" + result[i].memNo + "</td>"
             							   + "<td>" + result[i].clStatus + "</td>"

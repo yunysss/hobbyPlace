@@ -141,7 +141,7 @@
   			<h5>등록된 클래스가 없습니다.🥲</h5>
   			</div>
   		<%}else{ %>
-        <h4> <a href="<%=contextPath %>/ctselect.cl?cpage=1&ct=<%=classList.get(0).getCtNo() %>"><%=classList.get(0).getCtName() %></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
+        <h4> <a href="<%=contextPath %>/ctselect.cl?cpage=1&ct=<%=classList.get(0).getCtName() %>"><%=classList.get(0).getCtName() %></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
      	 
         <div id="detail-category">
       	 <%for (Dcategory d : cList){ %>
@@ -205,7 +205,8 @@
 	                       
 	                       let value = "";
 	                       let count = "";
-	                         if(list != null){
+	                       let empty ="";
+	                         if(list.length != 0){
 	                        	 count += "<span style='font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);'>검색결과 "+ list.length +" 건</span>"
 	                       		for(let i=0; i<list.length; i++){
 	                        //  console.log(list[i]);        
@@ -220,7 +221,9 @@
 											+ "</td>"
 	                       		           }
 	                         }else{
-	                        	  value += "<div><h4>조회된 결과가 없습니다. 😖</h4></div>"
+	                        	 value   += "<div align='center'><h5>조회된 결과가 없습니다. 😖</h5></div>"
+	                        	
+	                        	
 	                         }
 	                         				
 			                     			$(".thumbnail").html("");
@@ -228,6 +231,7 @@
 			                     			$("#count").append(count);
 			                     			$("#area1").html("");
 											$("#area1").append(value);
+											
 	                         	
 	                       
                  		  },error : function() {
@@ -242,7 +246,7 @@
         
         
         <br><br>
-        <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count %> 건</span>
+        <span id="count" style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count %> 건</span>
         <div id="btn-area" style="border: 1px sold black;">
            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 		      정렬

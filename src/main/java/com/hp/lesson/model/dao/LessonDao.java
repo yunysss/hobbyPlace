@@ -784,6 +784,12 @@ private Properties prop = new Properties();
 	}
 	
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param keyword
+	 * @return 키워드 카운트 
+	 */
 	public int keywordSearchCount(Connection conn, String keyword) {
 		int kCount = 0;
 		PreparedStatement pstmt =null;
@@ -809,6 +815,13 @@ private Properties prop = new Properties();
 	}
 	
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param keyword
+	 * @param pi
+	 * @return 키워드 검색 결과 
+	 */
 	public ArrayList<Lesson> selectKeywordSearhList(Connection conn, String keyword, PageInfo pi){
 		ArrayList<Lesson> kList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -851,6 +864,13 @@ private Properties prop = new Properties();
 		return kList;
 	}
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param category
+	 * @param sort
+	 * @return 카테고리 정렬
+	 */
 	public ArrayList<Lesson> categorySort(Connection conn, String category,String sort){
 		 
 		ArrayList<Lesson> list =new ArrayList<>();
@@ -934,6 +954,13 @@ private Properties prop = new Properties();
 	
 
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param dct
+	 * @param sort
+	 * @return 카테고리 소분류 정렬
+	 */
 	public ArrayList<Lesson> dcategorySort(Connection conn, String dct,String sort){
 		
 		ArrayList<Lesson> list = new ArrayList<>();
@@ -1212,7 +1239,13 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 	 
  }
  
- public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
+ /**
+  *@author 한빛
+ * @param conn
+ * @param s
+ * @return 클래스 상세조회 필터
+ */
+public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
 	 ArrayList<Lesson> list = new ArrayList<>();
 	 PreparedStatement pstmt = null;
 	 ResultSet rset = null;
