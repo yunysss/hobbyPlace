@@ -39,7 +39,7 @@ SELECT *
 	    ?,
 	    SYSDATE,
 	    'Y',
-	    '2',
+	    '0',
 	    ?,
 	    NULL,
 	    ?,
@@ -56,6 +56,28 @@ SELECT *
 	  FROM QNA
 	 WHERE Q_NO =?
 	   AND Q_STATUS = 'Y'
+</entry>
+
+<entry key="selectQnaListTutor">
+	SELECT *
+	  FROM QNA 
+	  JOIN MEMBER ON Q_MEM_NO = MEM_NO
+	 WHERE Q_STATUS = 'Y'
+	   AND GRADE = 2
+	 ORDER 
+		BY Q_DATE DESC
+	   
+</entry>
+
+<entry key="selectQnaListTutee">
+	SELECT *
+	  FROM QNA 
+	  JOIN MEMBER ON Q_MEM_NO = MEM_NO
+	 WHERE Q_STATUS = 'Y'
+	   AND GRADE = 1
+	 ORDER 
+		BY Q_DATE DESC
+	   
 </entry>
 
 

@@ -181,10 +181,7 @@
               <div class="dropdown-menu schedule">
                 <a class="dropdown-item" href="#">평일</a>
                 <a class="dropdown-item" href="#">주말</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">오전</a>
-                <a class="dropdown-item" href="#">오후</a>
-               </div>
+     
               </div>
     
           

@@ -44,5 +44,23 @@ public class QnaService {
 		close(conn);
 		return q;
 	}
+	
+	public ArrayList<Qna> selectQnaListTutor(){
+		Connection conn = getConnection();
+		
+		ArrayList<Qna> list1 = new QnaDao().selectQnaListTutor(conn);
+		
+		close(conn);
+		return list1;
+	}
+	
+	public ArrayList<Qna> selectQnaListTutee(){
+		Connection conn = getConnection();
+		
+		ArrayList<Qna> list2 = new QnaDao().selectQnaListTutee(conn);
+		
+		close(conn);
+		return list2;
+	}
 
 }

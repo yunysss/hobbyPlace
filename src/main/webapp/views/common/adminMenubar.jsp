@@ -183,7 +183,7 @@
                             <ul>
                                 <li><a href="<%=contextPath%>/noticeList.ad?cpage=1">공지사항</a></li>
                                 <li><a href="<%=contextPath%>/faqMain.ad">자주 묻는 질문</a></li>
-                                <li><a href="">문의 / 답변</a></li>
+                                <li><a href="<%=contextPath%>/qnaList.ad">문의 / 답변</a></li>
                             </ul>
                         </li>
     

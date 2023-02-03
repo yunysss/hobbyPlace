@@ -145,13 +145,6 @@
         		})
         	})
         	
-        	const th = document.getElementById("th");
-			
-			th.addEventListner("click",function(e){
-				e.stopPropagation();
-			
-			
-			})
         
         
         </script>

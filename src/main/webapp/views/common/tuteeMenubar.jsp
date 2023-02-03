@@ -633,7 +633,7 @@ select {
 				<tr>
 					<th>카테고리</th>
 					<td><select name="category" id="ct" onchange="changeCt();">
-							<option value="00">전체</option>
+							<option selected >전체</option>
 							<option value="11">교육</option>
 							<option value="22">공예 DIY</option>
 							<option value="33">드로잉</option>

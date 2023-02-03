@@ -154,7 +154,7 @@ a {
               지역
             </button>
             <div class="dropdown-menu region">
-              <a class="dropdown-item" href="#" data-value="서울">서울</a>
+              <a class="dropdown-item" href="#" data-value="서울" >서울</a>
               <a class="dropdown-item" href="#" data-value="인천">인천</a>
               <a class="dropdown-item" href="#"data-value="경기">경기</a>
             </div>
@@ -173,6 +173,28 @@ a {
               </div>
     
         </div>
+        
+        <script>
+            $(function(){
+            	$(".region>a").click(function(){
+            		
+            	})
+            
+            	
+            }}
+        
+        </script>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         <br><br>
         <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=kCount %> 건</span>
@@ -200,7 +222,7 @@ a {
                     },
                     type:"post",
                     success:function(list){
-	                      // console.log(list);
+	                       console.log(list);
 	                       
 	                       let value = "";
 	                       for(let i=0; i<list.length; i++){
@@ -219,8 +241,8 @@ a {
 	                     			
 									$("#area1").append(value);
 										
-									},
-									error : function() {
+						},
+						error : function() {
 										console.log("조회용 ajax통신 실패");
 									}
 	                 
@@ -258,10 +280,10 @@ a {
 		                     			
 										$("#area1").append(value);
 											
-										},
-										error : function() {
-											console.log("조회용 ajax통신 실패");
-										}
+						},
+						error : function() {
+									console.log("조회용 ajax통신 실패");
+									}
 		                 
 							})
 						}
@@ -297,8 +319,8 @@ a {
 		                     			
 										$("#area1").append(value);
 											
-										},
-										error : function() {
+								},
+								error : function() {
 											console.log("조회용 ajax통신 실패");
 										}
 		                 
@@ -338,8 +360,8 @@ a {
 		                     			
 										$("#area1").append(value);
 											
-										},
-										error : function() {
+							},
+							error : function() {
 											console.log("조회용 ajax통신 실패");
 										}
 		                 
