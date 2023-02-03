@@ -233,8 +233,14 @@
             font-size: 15px;
             outline: none;
         }
-        #qnaModal td{
-        	padding-top:10px;
+        #textarea{
+        	border:1px solid rgb(127, 127, 127);
+        	border-radius:3px;
+        	width:770px;
+        	padding:10px;
+        }
+        textarea{
+        	border:none;
         }
     </style>
     <!-- 카카오 -->
@@ -838,6 +844,8 @@
 				<% if(loginUser == null){ %>
 					$("#loginModal").modal("show")
 				<% } else{%>
+					$("input[name='title']").val("");
+					$("textarea").val("");
 					$("#qnaModal").modal("show")
 				<% }%>
 			})
@@ -858,30 +866,42 @@
    	 <div class="modal fade" id="qnaModal" data-backdrop='static' data-keyboard='false' >
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-                <div class="modal-body" align="center">
-                	<b>튜터에게 문의하기</b><br>
-                	<form>
-	                	<table>
-	                		<tr>
-	                			<td>제목</td>
-	                			<td><input type="text" size="90" placeholder="제목을 입력해주세요"></td>
-	                		</tr>
-	                		<tr>
-	                			<td>내용</td>
-	                			<td><textarea cols="92" rows="10" style="resize:none" placeholder="내용을 입력해주세요"></textarea></td>
-	                		</tr>
-	                	</table>
-	                	<br>
-	                	<input type="hidden" name="" value="<%=le.getClNo()%>"> 
-	                	<input type="hidden" name="" value="<%= loginUser.getMemNo() %>">
-	                	<input type="hidden" name="" value="<%=le.getIntroduce() %>">
-	                    <a href="" type="button" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">등록</a>
-	                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
+                <div class="modal-body">
+                	<div align="center"><b>튜터에게 문의하기</b></div><br>
+                	<form action="<%=contextPath %>/classPage.qna" method="post">
+	                	<input type="text" name="title" size="99" placeholder="제목을 입력하세요." required><br><br>
+	                	<div id="textarea">
+	                		<textarea name="content" cols="98" rows="15" style="resize:none" placeholder="문의하실 내용을 입력하세요." maxlength="1400" required></textarea>
+	                		<div align="right">
+	                			<span id="counter">(0 / 최대 1400자)</span>
+	                		</div>
+	                	</div><br>
+	                	<input type="hidden" name="clNo" value="<%=le.getClNo()%>"> 
+	                	<% if(loginUser != null){ %>
+	                		<input type="hidden" name="memNo" value="<%= loginUser.getMemNo() %>">
+	                	<% } %>
+	                	<input type="hidden" name="ttNo" value="<%=le.getIntroduce() %>">
+	                	<div align="center">
+	                		<button type="submit" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">등록</button>
+	                    	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
+	                	</div>
                     </form>
             	</div>  
         	</div>
     	</div>
    	</div>
+   	<script>
+	   	$("textarea").keyup(function(){
+	   		$('#counter').html("(1400 / 최대 1400자)").css("color", "black");
+	   	    let content = $(this).val();
+	   	    $('#counter').html("("+content.length+" / 최대 1400자)");
+	
+	   	    if (content.length > 1400){
+	   	        $(this).val(content.substring(0, 1400));
+	   	        $('#counter').html("(1400 / 최대 1400자)").css("color", "red");
+	   	    }
+	   	});
+   	</script>
     
     <br clear="both">
     <%@ include file="../common/footerbar.jsp" %>
