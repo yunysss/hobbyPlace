@@ -397,7 +397,7 @@ public class RegisterDao {
 			}
 		}
 		if(!startDate.equals("") && !endDate.equals("")) {
-			sql += "AND REG_DATE BETWEEN ? AND ?";
+			sql += "AND REG_DATE BETWEEN TO_CHAR(TO_DATE(?, 'YYYY-MM-DD'), 'YYYY-MM-DD') AND TO_CHAR(TO_DATE(?, 'YYYY-MM-DD')+1, 'YYYY-MM-DD')";
 		}
 		try {
 			pstmt = conn.prepareStatement(sql);

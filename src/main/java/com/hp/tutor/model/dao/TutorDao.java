@@ -684,6 +684,9 @@ public class TutorDao {
 				pstmt.setInt(4, at.getFileNo());
 				
 				result = pstmt.executeUpdate();
+		
+			//System.out.println(sql);
+			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -702,6 +705,7 @@ public class TutorDao {
 		int result = 0;
 		PreparedStatement pstmt= null;
 		String sql = prop.getProperty("insertNewAttachment");
+		System.out.println(sql);
 		try {
 			for(Attachment at : list) {
 			pstmt = conn.prepareStatement(sql);
@@ -902,8 +906,8 @@ public class TutorDao {
 								rset.getInt("sumReg")
 						);
 			
-				System.out.println(tt);
-				System.out.println(tt.getrCount());
+				//System.out.println(tt);
+				//System.out.println(tt.getrCount());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -968,7 +972,7 @@ public class TutorDao {
 		}
 		
 	  return qnaPer;
-		
+	 	
 	}
 	
 	/**

@@ -90,16 +90,23 @@
             <!-- The slideshow -->
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="<%=contextPath %>/resources/images/mainImage.png">
+              	<% if(loginUser == null){ %>
+              		<a href="<%=contextPath%>/login.me"><img src="<%=contextPath %>/resources/images/mainImage.png"></a>
+              	<% } else{%>
+              		<% if(loginUser.getGrade().equals("2")){ %>
+              			<a href="<%=contextPath%>/tutorMain.tt"><img src="<%=contextPath %>/resources/images/mainImage.png"></a>
+              		<% }else{ %>
+              			<a href="<%=contextPath%>/enrollForm.tt"><img src="<%=contextPath %>/resources/images/mainImage.png"></a>
+              		<% } %>
+              	<% } %>
               </div>
               <div class="carousel-item">
-                <img src="<%=contextPath %>/resources/images/mainImage2.png">
+                <a href="<%=contextPath%>/ctselect.cl?cpage=1&ct=쿠킹"><img src="<%=contextPath %>/resources/images/mainImage2.png"></a>
               </div>
               <div class="carousel-item">
-                <img src="<%=contextPath %>/resources/images/mainImage3.png">
+                <a href=""><img src="<%=contextPath %>/resources/images/mainImage3.png"></a>
               </div>
             </div>
-          
             <!-- Left and right controls -->
             <a class="carousel-control-prev" href="#demo" data-slide="prev">
               <span class="carousel-control-prev-icon"></span>

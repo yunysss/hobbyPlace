@@ -266,6 +266,8 @@
 					 WHERE GRADE LIKE ?
 					 ORDER BY 
 				
+					 
+
 	</entry>
 	
 	<!-- 기본검색으로 회원조회시 회원리스트 -->
@@ -302,6 +304,7 @@
 						  FROM MEMBER M
 						 WHERE GRADE LIKE ?
 						 ORDER BY 
+
 	</entry>
 	
 	
