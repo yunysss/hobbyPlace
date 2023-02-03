@@ -176,7 +176,6 @@
                         </li>
                         <li><a href="">통계</a>
                             <ul>
-                                <li><a href="">사용자 관리 통계</a></li>
                                 <li><a href="<%=contextPath%>/statistics.ad">클래스 관리 통계</a></li>
                             </ul>
                         </li>
