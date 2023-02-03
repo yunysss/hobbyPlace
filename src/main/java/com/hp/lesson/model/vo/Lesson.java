@@ -9,7 +9,9 @@ public class Lesson {
 	
 	private int clNo;
 	private String ctNo;
+	private String ctName;
 	private String ctDno;
+	private String ctDname;
 	private String memNo;
 	private String localCode;
 	private String distrCode;
@@ -39,13 +41,32 @@ public class Lesson {
 	private int likeCount;
 	private String introduce;
 	private String tutorProfile;
-	private String Claddress2;
+
 	
 
 	public Lesson() {}
+	
+	
+	
+	public Lesson(int clNo, String ctNo, String ctName, String ctDno, String ctDname, String localCode,
+			String distrCode, String clName, String clPrice, String clThumb, int clStarAvg, int clStarCount) {
+		super();
+		this.clNo = clNo;
+		this.ctNo = ctNo;
+		this.ctName = ctName;
+		this.ctDno = ctDno;
+		this.ctDname = ctDname;
+		this.localCode = localCode;
+		this.distrCode = distrCode;
+		this.clName = clName;
+		this.clPrice = clPrice;
+		this.clThumb = clThumb;
+		this.clStarAvg = clStarAvg;
+		this.clStarCount = clStarCount;
+	}
 
-	
-	
+
+
 	public Lesson(int clNo, String ctNo, String ctDno, String localCode, String distrCode, String clName,
 			String clAddress, int clMax, String clLevel, int clTimes, String clSchedule, String clDay, String clPrice,
 			String clDetail, String curriculum, String refundPolicy, String clSupplies, String keyword,
@@ -319,19 +340,6 @@ public class Lesson {
 	}
 
 
-
-	public String getCladdress2() {
-		return Claddress2;
-	}
-
-
-
-	public void setCladdress2(String claddress2) {
-		Claddress2 = claddress2;
-	}
-
-
-
 	public int getClNo() {
 		return clNo;
 	}
@@ -599,7 +607,34 @@ public class Lesson {
 	public void setTutorProfile(String tutorProfile) {
 		this.tutorProfile = tutorProfile;
 	}
+	
+	
+	
 
+
+
+
+	public String getCtName() {
+		return ctName;
+	}
+
+
+
+	public void setCtName(String ctName) {
+		this.ctName = ctName;
+	}
+
+
+
+	public String getCtDname() {
+		return ctDname;
+	}
+
+
+
+	public void setCtDname(String ctDname) {
+		this.ctDname = ctDname;
+	}
 
 
 

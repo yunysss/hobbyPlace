@@ -142,7 +142,7 @@
   			<h5>등록된 클래스가 없습니다.🥲</h5>
   			</div>
         <%} else {%>
-        <h4> <a href="<%=contextPath%>/ctselect.cl?cpage=1&ct=<%=list.get(1).getCtNo()%>"><%=list.get(1).getCtNo()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
+        <h4> <a href="<%=contextPath%>/ctselect.cl?cpage=1&ct=<%=list.get(1).getCtNo()%>"><%=list.get(1).getCtName()%></a><span class="material-symbols-outlined symbol">expand_more</span></h4>
      	
         <div id="detail-category">
 	        <%for (Dcategory d : dctList){ %>
@@ -169,9 +169,9 @@
               지역
             </button>
             <div class="dropdown-menu" id="region">
-              <a class="dropdown-item" href="#">서울</a>
-              <a class="dropdown-item" href="#">인천</a>
-              <a class="dropdown-item" href="#">경기</a>
+              <a class="dropdown-item" id="10" href="#">서울</a>
+              <a class="dropdown-item" id="20" href="#">인천</a>
+              <a class="dropdown-item" id="30" href="#">경기</a>
             </div>
             </div>
             <div class="dropdown">
@@ -183,12 +183,65 @@
                 <a class="dropdown-item" href="#">주말</a>
      
               </div>
-    
-          
-        </div>
-
+      	  </div>
+      	   <script>
+           $("#region a").click(function(){
+        	   $.ajax({
+        		   url:"<%=contextPath%>/sort.cl",
+                   data:{                      
+                   	  	  keyword :'',
+                		  category : <%=list.get(1).getCtNo()%>,
+                     	  dcategory : '전체',
+                          sido : $(this).attr('id'),
+                          sigungu : '전체',
+                          price : '',
+                          day : '',
+                          sort :'' 
+                   },
+                   type:"post",
+                   success:function(list){
+	                        console.log(list);
+	                       
+	                       let value = "";
+	                       let count = "";
+	                         if(list != null){
+	                        	 count += "<span style='font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);'>검색결과 "+ list.length +" 건</span>"
+	                       		for(let i=0; i<list.length; i++){
+	                        //  console.log(list[i]);        
+			                        value += 
+			                        		"<table class='a'><tr><td>"
+		  								    + "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+											+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+											+ "<small  style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
+											+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
+											+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+											+ "</small></a>"
+											+ "</td>"
+	                       		           }
+	                         }else{
+	                        	  value += "<div><h4>조회된 결과가 없습니다. 😖</h4></div>"
+	                         }
+	                         				
+			                     			$(".thumbnail").html("");
+			                     			$("#count").html("");
+			                     			$("#count").append(count);
+			                     			$("#area1").html("");
+											$("#area1").append(value);
+	                         	
+	                       
+                 		  },error : function() {
+										console.log("조회용 ajax통신 실패");
+									}
+	                 
+							})
+					})
+        		   
+        
+        </script>
+        
+        
         <br><br>
-        <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count %> 건</span>
+        <span id="count" style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count %> 건</span>
         <div id="btn-area" style="border: 1px sold black;">
 
         <div class="dropdown">
@@ -296,16 +349,16 @@
             <div class="paging-area">
         
         	<%if (pi.getCurrentPage() != 1) {%>    
-            	<button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=pi.getCurrentPage() - 1%>';">&lt;</button>
+            	<button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=pi.getCurrentPage() - 1%>&ct=<%=list.get(1).getCtName()%>';">&lt;</button>
             <%} %>
 			
 			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
-           		 <button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=p%>';"><%= p %></button>
+           		 <button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=p%>&ct=<%=list.get(1).getCtName()%>';"><%= p %></button>
            		 
             <%} %>
           
             <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
-            	<button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            	<button onclick="location.href='<%=contextPath%>/ctselect.cl?cpage=<%=pi.getCurrentPage()+1%>&ct=<%=list.get(1).getCtName()%>';">&gt;</button>
             <%} %>
             
 			</div>
@@ -323,10 +376,6 @@
        
               </script>
 		
-
-
-
-
 
     </div>
     <%@ include file="../common/footerbar.jsp" %>

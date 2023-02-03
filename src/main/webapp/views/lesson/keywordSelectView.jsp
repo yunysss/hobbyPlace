@@ -153,10 +153,10 @@ a {
             <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
               지역
             </button>
-            <div class="dropdown-menu region">
-              <a class="dropdown-item" href="#" data-value="서울" >서울</a>
-              <a class="dropdown-item" href="#" data-value="인천">인천</a>
-              <a class="dropdown-item" href="#"data-value="경기">경기</a>
+            <div class="dropdown-menu" id="region">
+              <a class="dropdown-item" id="10">서울</a>
+              <a class="dropdown-item" id="20" href="#">인천</a>
+              <a class="dropdown-item" id="30" href="#">경기</a>
             </div>
             </div>
             <div class="dropdown">
@@ -175,14 +175,64 @@ a {
         </div>
         
         <script>
-           
+           $("#region a").click(function(){
+        	   $.ajax({
+        		   url:"<%=contextPath%>/sort.cl",
+                   data:{                      
+                   	  keyword : '<%=keyword%>',
+                		  category : '전체',
+                     	  dcategory : '전체',
+                          sido : $(this).attr('id'),
+                          sigungu : '전체',
+                          price : '',
+                          day : '',
+                          sort :'' 
+                   },
+                   type:"post",
+                   success:function(list){
+	                        console.log(list);
+	                       
+	                       let value = "";
+	                       let count = "";
+	                         if(list != null){
+	                        	 count += "<span style='font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);'>검색결과 "+ list.length +" 건</span>"
+	                       		for(let i=0; i<list.length; i++){
+	                        //  console.log(list[i]);        
+			                        value += 
+			                        		"<table class='a'><tr><td>"
+		  								    + "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
+											+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
+											+ "<small  style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
+											+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
+											+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
+											+ "</small></a>"
+											+ "</td>"
+	                       		           }
+	                         }else{
+	                        	  value += "<div><h4>조회된 결과가 없습니다. 😖</h4></div>"
+	                         }
+	                         				
+			                     			$(".thumbnail").html("");
+			                     			$("#count").html("");
+			                     			$("#count").append(count);
+			                     			$("#area1").html("");
+											$("#area1").append(value);
+	                         	
+	                       
+                 		  },error : function() {
+										console.log("조회용 ajax통신 실패");
+									}
+	                 
+							})
+					})
+        		   
         
         </script>
         
         
 
         <br><br>
-        <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=kCount %> 건</span>
+        <span id="count" style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=kCount %> 건</span>
         <div id="btn-area">
          <div class="dropdown">
 		    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">

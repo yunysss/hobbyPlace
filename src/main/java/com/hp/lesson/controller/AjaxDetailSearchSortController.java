@@ -46,7 +46,7 @@ public class AjaxDetailSearchSortController extends HttpServlet {
 
          Search s = new Search(keyword,category,dcategory,sido,sigungu,day,price,sort);
 		 System.out.println(s);
-         ArrayList<Lesson> list = new LessonService().detailSearchSortRp(s);
+         ArrayList<Lesson> list = new LessonService().detailSearchSort(s);
 		
 		 
 		response.setContentType("application/json; charset=UTF-8");

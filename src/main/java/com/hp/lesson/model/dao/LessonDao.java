@@ -404,7 +404,9 @@ private Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Lesson(rset.getInt("cl_no"),
+						            rset.getString("ct_no"),
 									rset.getString("ct_name"),
+									rset.getString("ct_dno"),
 									rset.getString("ct_dname"),
 									rset.getString("local_name"),
 									rset.getString("distr_name"),
@@ -453,7 +455,9 @@ private Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			while(rset.next()){
 				dList.add(new Lesson(rset.getInt("cl_no"),
+						            rset.getString("ct_no"),
 									rset.getString("ct_name"),
+									rset.getString("ct_dno"),
 									rset.getString("ct_dname"),
 									rset.getString("local_name"),
 									rset.getString("distr_name"),
@@ -462,10 +466,10 @@ private Properties prop = new Properties();
 									rset.getString("cl_thumb"),
 									rset.getInt("star_avg"),
 									rset.getInt("star_count")
-
 						));
-						
+			
 			}
+			  //System.out.println(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -1208,7 +1212,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 	 
  }
  
- public ArrayList<Lesson> detailSearchSortRp(Connection conn, Search s){
+ public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
 	 ArrayList<Lesson> list = new ArrayList<>();
 	 PreparedStatement pstmt = null;
 	 ResultSet rset = null;
@@ -1243,7 +1247,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			}else if(!category.equals("전체")&& dcategory.equals("전체")) {
 				sql += "and g.ct_no =" + "'" + category + "'";
 			}else if(!dcategory.equals("전체")) {
-				sql += "and ct_name= "+ "'"+ dcategory + "'";
+				sql += "and ct_dname= "+ "'"+ dcategory + "'";
 			}else {
 				sql +="";
 			}
