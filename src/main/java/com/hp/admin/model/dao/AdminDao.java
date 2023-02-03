@@ -637,8 +637,19 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberList1");
 		
+		String sg = null;
+		if(sGroup.equals("all")) {
+			sg = "%%";
+		}else if(sGroup.equals("tutor")) {
+			sg = "%2%";
+		}else {
+			sg = "%1%";
+		}
+		
 		try {
-			/*
+			int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
 			switch(fCategory) {
 			case "enroll_date" : sql += " enroll_date "; break;
 			case "mem_no" : sql += " mem_no "; break;
@@ -651,21 +662,19 @@ public class AdminDao {
 			
 			
 			if(lineup.equals("desc")) {
-				sql += "desc";
+				sql += ("desc ) A ) WHERE RNUM BETWEEN '" + startRow + "' AND '" + endRow + "'");
 			}else if(lineup.equals("asc")) {
-				sql += "asc";
+				sql += "asc ) A ) WHERE RNUM BETWEEN '";
+				sql += startRow;
+				sql += "' AND '";
+				sql += endRow;
+				sql += "'";
 			}
-			*/
+			
+			System.out.println(sql);
 			
 			pstmt=conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() -1;
-			pstmt.setString(1, sGroup);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			
-
+			pstmt.setString(1, sg);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -1094,7 +1103,7 @@ public class AdminDao {
 
 
 
-	/** 회원 조회 페이징 처리용 전체 조회된행수 조회
+	/** 회원 조회 기본검색 페이징 처리용 전체 조회된행수 조회
 	 * @author 수연
 	 * @param conn
 	 * @return
@@ -1105,8 +1114,16 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberListCount1");
 		
+		String sg = null;
+		if(sGroup.equals("all")) {
+			sg = "%%";
+		}else if(sGroup.equals("tutor")) {
+			sg = "%2%";
+		}else {
+			sg = "%1%";
+		}
+		
 		try {
-			/*
 			switch(fCategory) {
 			case "enroll_date" : sql += " enroll_date "; break;
 			case "mem_no" : sql += " mem_no "; break;
@@ -1119,13 +1136,16 @@ public class AdminDao {
 			
 			
 			if(lineup.equals("desc")) {
-				sql += "desc";
+				sql += "desc )";
 			}else if(lineup.equals("asc")) {
-				sql += "asc";
+				sql += "asc )";
 			}
-			*/
+			
+			
+			
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, sGroup);
+			pstmt.setString(1, sg);
+			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				listCount = rset.getInt("count");
@@ -1185,6 +1205,78 @@ public class AdminDao {
 			close(rset);
 			close(pstmt);
 		}
+		return list;
+	}
+
+
+
+
+	public int selectMemberListCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+
+
+
+	public ArrayList<MemberList> selectMemberList(Connection conn, PageInfo pi) {
+		ArrayList<MemberList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMemberList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new MemberList(rset.getInt("mem_no"),
+			            rset.getString("mem_name"),
+			            rset.getString("grade"),
+			            rset.getString("enroll_date"),
+			            rset.getInt("regcount"),
+			            rset.getInt("revcount"),
+			            rset.getInt("likecount"),
+			            rset.getInt("totalpay"),
+			            rset.getString("mem_email"),
+			            rset.getString("mem_phone"),
+			            rset.getString("mem_addr"),
+			            rset.getString("gender"),
+			            rset.getString("mem_status")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
 		return list;
 	}
 	

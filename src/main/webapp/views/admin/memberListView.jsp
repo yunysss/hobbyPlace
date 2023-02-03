@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="com.hp.common.model.vo.PageInfo" %>
+<%@ page import ="java.util.ArrayList, com.hp.common.model.vo.PageInfo, com.hp.admin.model.vo.MemberList" %>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<MemberList> list = (ArrayList<MemberList>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +38,7 @@
 	#selectValue{width:100px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
 	.listTable{width:auto;}
 	.listTable>tbody>tr:hover{cursor:pointer;}
+	.paging-area>button{border:0; border-radius:3px;}
 </style>
 <body>
 	<%@ include file="../common/adminMenubar.jsp" %>
@@ -43,9 +48,9 @@
 			<h4 align="left">전체 회원 관리</h4>
 			<br>
 			<div class="searchWrap" align="left">
-				<input type="radio" name="sGroup" class="sGroup" id="entire" value="%%" checked><label for="entire">전체</label>
-				<input type="radio" name="sGroup" class="sGroup" id="tutorMem" value="%2%"><label for="tutorMem">튜터 등록 회원</label>
-				<input type="radio" name="sGroup" class="sGroup" id="generalMem" value="%1%"><label for="generalMem">튜터 미등록 회원</label>
+				<input type="radio" name="sGroup" class="sGroup" id="entire" value="all" checked><label for="entire">전체</label>
+				<input type="radio" name="sGroup" class="sGroup" id="tutorMem" value="tutor"><label for="tutorMem">튜터 등록 회원</label>
+				<input type="radio" name="sGroup" class="sGroup" id="generalMem" value="general"><label for="generalMem">튜터 미등록 회원</label>
 
 				<br>
 				<p>기본검색</p>
@@ -205,47 +210,11 @@
 			})
 		</script>
 		
-		<!-- 기본검색용 ajax -->
+		<!-- 기본검색용 -->
 		<script> 
 			function bSearch(){
-				$.ajax({
-					url:"<%=contextPath%>/memberBasicSearch.ad",
-					data:{
-						sGroup:$('[name=sGroup]:checked').val(),
-						fCategory:$(".fCategory").val(),
-						lineup:$(".lineup").val()
-					},
-					type:"post",
-					success:function(result){
-						//console.log(result);
-					
-						let value="";
-						for(let i=0; i<result.length; i++){
-							value += "<tr>"
-					        			+ "<td>" +result[i].memNo +"</td>"
-					        			+ "<td>" +result[i].memName +"</td>"
-					        			+ "<td>" +result[i].grade +"</td>"
-					        			+ "<td>" +result[i].enrollDate +"</td>"
-					        			+ "<td>" +result[i].regCount +"</td>"
-					        			+ "<td>" +result[i].revCount +"</td>"
-					        			+ "<td>" +result[i].likeCount +"</td>"
-					        			+ "<td>" +result[i].totalpay +"</td>"
-					        			+ "<td>" +result[i].email +"</td>"
-					        			+ "<td>" +result[i].phone +"</td>"
-					        			+ "<td>" +result[i].address +"</td>"
-					        			+ "<td>" +result[i].gender +"</td>"
-					        			+ "<td>" +result[i].memDrop +"</td>"
-								        + "</tr>";
-						}
-						$("#resultNt").html("<br>** 총 " + result.length + "명이 조회되었습니다 **");
-						$(".listTable tbody").html(value);
-						
-						
-						
-					},error:function(){
-						console.log("ajax 통신 실패");
-					}
-				})
+				location.href="<%=contextPath%>/memberBasicSearch.ad?sGroup="+$('[name=sGroup]:checked').val()+"&fCategory="+$('.fCategory').val()+"&lineup="+$('.lineup').val()+"&cpage=1";
+				
 			}
 		</script>
 		
@@ -264,12 +233,18 @@
 						sCategory:$(".sCategory").val(),
 						searchKey1:$("#searchKey1").val(),
 						searchKey2:$("#searchKey2").val(),
-						selectValue:$("#selectValue").val()
+						selectValue:$("#selectValue").val(),
+						
 					},
 					type:"post",
 					success:function(result){
 						let value="";
-						for(let i=0; i<result.length; i++){
+						let block="";
+						
+						console.log(result);
+						/*
+						for(let i=0; i<result.list.length; i++){
+							var index = Number()
 							value += "<tr>"
 					        			+ "<td>" +result[i].memNo +"</td>"
 					        			+ "<td>" +result[i].memName +"</td>"
@@ -286,8 +261,16 @@
 					        			+ "<td>" +result[i].memDrop +"</td>"
 								        + "</tr>";
 						}
+						
+						if(result.)
+						
 						$("#resultNt").html("<br>** 총 " + result.length + "명이 조회되었습니다 **");
 						$(".listTable tbody").html(value);
+						$(".paging-area").html(block);
+						*/
+						
+						
+						
 						
 						
 						
@@ -300,7 +283,10 @@
 		</script>
 		
 		<div class="contentMain">
-  			<p align="left" id="resultNt"></p>
+  			<br>
+  			<p align="left" id="resultNt">
+  				** 총  <%=pi.getListCount() %> 명이 조회되었습니다 **
+  			</p>
 			<div class="container mt-3 table-responsive-xxl" style="overflow-x: auto;">
 
 			  <table class="table table-hover table-responsive-xxl listTable" style="table-layout:fixed;">
@@ -315,7 +301,7 @@
 					<col style="width:130px;">
 					<col style="width:170px;">
 					<col style="width:150px;">
-					<col style="width:230px;">
+					<col style="width:300px;">
 					<col style="width:80px;">
 					<col style="width:100px;">
 				</colgroup>
@@ -337,10 +323,50 @@
 			      </tr>
 			    </thead>
 			    <tbody class="table-group-divider" id="tbd">
-			    
+			    	<% if(list.isEmpty()){ %>
+	                <!-- case1. 게시글이 없을 경우 -->
+	                <tr>
+	                    <td colspan="13">조회된 게시글이 없습니다.</td>
+	                </tr>
+				<% }else { %>
+	                <!-- case2. 게시글이 있을 경우 -->
+	                <% for(MemberList m : list) { %>
+		                <tr>
+		                    <td><%=m.getMemNo()%></td>
+		        			<td> <%=m.getMemName() %> </td>
+		        			<td> <%=m.getGrade() %> </td>
+		        			<td> <%=m.getEnrollDate() %> </td>
+		        			<td> <%=m.getRegCount() %> </td>
+		        			<td> <%=m.getRevCount() %> </td>
+		        			<td> <%=m.getLikeCount() %> </td>
+		        			<td> <%=m.getTotalpay() %></td>
+		        			<td> <%=m.getEmail() %> </td>
+		        			<td> <%=m.getPhone() %> </td>
+		        			<td> <%=m.getAddress() %> </td>
+		        			<td> <%=m.getGender() %> </td>
+		        			<td> <%=m.getMemDrop() %> </td>
+		                </tr>
+	                <% } %>
+                
+                <% } %>
 			    </tbody>
 			  </table>
 			</div>
+			<br>
+			<div class="paging-area">
+        		<% if(pi.getCurrentPage() != 1){ %>
+	            	<button onclick="location.href='<%=contextPath%>/viewMember.ad?cpage=<%=pi.getCurrentPage()-1%>'">&lt;</button>
+	            <%} %>
+				
+				<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++) {%>
+           	 		<button onclick="location.href='<%=contextPath%>/viewMember.ad?cpage=<%=p%>';"><%= p %></button>
+            	<%} %>
+				
+	            <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
+	            	<button onclick="location.href='<%=contextPath%>/viewMember.ad?cpage=<%=pi.getCurrentPage()+1%>'">&gt;</button>
+	            <%} %>
+			</div>
+			<br><br><br><br><br><br>
 			<script>
 	        	$(function(){
 	        		 $("#tbd").on("click", "tr", function(){
@@ -349,11 +375,7 @@
 	        	})
         	</script>
         	
-        	<div class="paging-area">
-        
         	
-            
-			</div>
 		</div>
 		
 	</div>
