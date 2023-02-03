@@ -213,7 +213,8 @@ private Properties prop = new Properties();
 						        rset.getInt("star_avg"),
 						        rset.getInt("star_count"),
 						        rset.getInt("like_count"),
-						        rset.getString("tt_profile")
+						        rset.getString("tt_profile"),
+						        rset.getString("mem_no")
 						        );
 			}
 		} catch (SQLException e) {
