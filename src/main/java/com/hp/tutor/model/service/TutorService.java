@@ -256,9 +256,9 @@ public class TutorService {
 		return list;
 	}
 	
-	public ArrayList<Register> selectBFClassList(int ttNo){
+	public ArrayList<Register> selectBFClassList(int memNo){
 		Connection conn = getConnection();
-		ArrayList<Register> bfList = new TutorDao().selectBFClassList(conn, ttNo);
+		ArrayList<Register> bfList = new TutorDao().selectBFClassList(conn, memNo);
 		close(conn);
 		return bfList;
 	}

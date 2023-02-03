@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,8 +79,8 @@
         
         
         <div class="btn_area">
-            <button type="button" id="bfBtn" onclick="bfBtn()" >수강전</button>
-            <button type="button" id="afBtn" onclick="atBtn()"> 수강완료</button>
+            <button type="button" id="bfBtn" onclick="bfBtn();">수강전</button>
+            <button type="button" id="afBtn" onclick="atBtn();"> 수강완료</button>
         </div>
 
         <!-- 수강전 버튼을 눌렀을때-->
@@ -213,18 +214,18 @@
 
 			})
 		</script>
-		
 		<script>
 			function bfBtn(){
 				$.ajax({
-					url:"<%=contextPath%>/resList.tt",
-					data:{ttNo:<%=loginUser%>},
-					susccess:function(list){
+					url:"<%=contextPath%>/bfList.tt",
+					data:"<%=loginUser.getMemNo()%>",
+					success:function(list){
 						console.log(list);
-					}, 
-					error:function(){
-						console.log("ajax 통신 실패")	
+						
+					},error:function(){
+						console.log("ajax 통신 실패");
 					}
+					
 				})
 			}
 			

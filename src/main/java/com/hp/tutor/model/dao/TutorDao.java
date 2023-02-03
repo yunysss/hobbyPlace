@@ -1013,7 +1013,7 @@ public class TutorDao {
 		return rList;
 	}
 
-	public ArrayList<Register> selectBFClassList(Connection conn, int ttNo) {
+	public ArrayList<Register> selectBFClassList(Connection conn, int memNo) {
 		ArrayList<Register> bfList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
@@ -1021,7 +1021,7 @@ public class TutorDao {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, ttNo);
+			pstmt.setInt(1, memNo);
 			
 			rset=pstmt.executeQuery();
 			

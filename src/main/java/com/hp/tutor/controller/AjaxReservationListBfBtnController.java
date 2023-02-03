@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.hp.register.model.vo.Register;
 import com.hp.tutor.model.service.TutorService;
 
@@ -31,13 +32,12 @@ public class AjaxReservationListBfBtnController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		int ttNo = Integer.parseInt(request.getParameter("ttNo"));
+		ArrayList<Register> bfList = new TutorService().selectBFClassList(memNo);
 		
-		ArrayList<Register> bfList = new TutorService().selectBFClassList(ttNo);
-		
-		
-		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(bfList,response.getWriter());
 		
 	}
 
