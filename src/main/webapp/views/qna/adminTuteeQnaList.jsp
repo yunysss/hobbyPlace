@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.ArrayList, com.hp.qna.model.vo.*"%>
-    
 <%
-	ArrayList<Qna>list1 = (ArrayList<Qna>)request.getAttribute("list1");
 	ArrayList<Qna>list2 = (ArrayList<Qna>)request.getAttribute("list2");
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +24,7 @@
             width: 1000px;
             margin: auto;
             margin-top: 20px;
+            overflow:auto;
         }
         .title{
         font-size: 20px;
@@ -61,8 +61,13 @@
     }
     th{
         background-color: lightgray;
-        
+        border: 1px solid gray;
+        padding: 10px;
     }
+    .paging-area{
+            text-align: center;
+            
+        }
     
 </style>
 </head>
@@ -76,58 +81,13 @@
         <div class="title">1:1문의/답변</div> <br><hr>
 
         <div class="tutor">
-            튜터문의내역
-        </div>
-        
-        <a href="<%=contextPath%>/tutorQnaList.ad"><div class="detail">더보기+</div></a>
-        
-        <br><br>
-
-        <table>
-        <thead>
-            <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성날짜</th>
-                <th>처리상태</th>
-            </tr>
-		</thead>
-		<tbody>
-		<%if(list1.isEmpty()){ %>
-            <tr>
-                <td colspan="4">등록된 문의가 없습니다.</td>
-            </tr>
-		<%}else{ %>
-		<%for(int i=0; i<5; i++){%>
-            <tr>
-            
-                <td><%=i+1 %></td>
-                <td><%=list1.get(i).getqTitle() %></td>
-                <td><%=list1.get(i).getqDate() %></td>
-                <td><%if(list1.get(i).getaMemNick().equals("N")){ %>
-		                		대기
-		                <%}else{ %>
-		                		완료
-		                <%} %></td>
-            
-            </tr>
-            <%} %>
-         <%} %>
-		</tbody>
-           
-        </table><br><br><br>
-        
-        
-
-
-        <div class="tutor">
             튜티문의내역
         </div>
         
-        <a href="<%=contextPath%>/tuteeQnaList.ad"><div class="detail">더보기+</div></a>
+        
         
         <br><br>
-        
+
         <table>
         <thead>
             <tr>
@@ -143,7 +103,7 @@
                 <td colspan="4">등록된 문의가 없습니다.</td>
             </tr>
 		<%}else{ %>
-		<%for(int i=0; i<5; i++){%>
+		<%for(int i=0; i<list2.size(); i++){%>
             <tr>
             
                 <td><%=i+1 %></td>
@@ -160,10 +120,12 @@
          <%} %>
 		</tbody>
            
-        </table>
+        </table><br><br><br>
+
 
         
+        
     </div>
-    <br><br><br><br><br>
+    
 </body>
 </html>
