@@ -847,25 +847,29 @@ private Properties prop = new Properties();
 		return kList;
 	}
 	
-	public ArrayList<Lesson> selectPriceAsc(Connection conn, String category,PageInfo pi){
+	public ArrayList<Lesson> categorySort(Connection conn, String category,String sort){
 		 
-		ArrayList<Lesson> ascList =new ArrayList<>();
+		ArrayList<Lesson> list =new ArrayList<>();
 		 PreparedStatement pstmt = null;
 		 ResultSet rset = null;
 		 
-		 String sql = prop.getProperty("selectPriceAsc");
+		 String sql = prop.getProperty("categorySort");
 		 try {
+			 
+			 switch(sort) {
+			 case "낮은가격순" : sql += "\r\n order by cl_price asc";  break;
+			 case "높은가격순" : sql += "\r\n order by cl_price desc";break;
+			 case "인기순": sql += "\r\n order by star_avg desc nulls last"; break;
+			 case "평점순": sql += "\r\n order by reg_count desc nulls last"; break;
+			 }
+	
 			pstmt = conn.prepareStatement(sql);
-
-			//int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
-			//int endRow = startRow + pi.getBoardLimit() -1;
 			pstmt.setString(1, category);
-			//pstmt.setInt(2, startRow);
-			//pstmt.setInt(3, endRow);
+			
 
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				ascList.add(new Lesson(rset.getInt("cl_no"),
+				list.add(new Lesson(rset.getInt("cl_no"),
 									rset.getString("ct_name"),
 									rset.getString("ct_dname"),
 									rset.getString("local_name"),
@@ -886,7 +890,7 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		 
-		 return ascList;
+		 return list;
 		 
 	}
 	
@@ -924,131 +928,23 @@ private Properties prop = new Properties();
 		 return list;
 	}
 	
-	public ArrayList<Lesson> selectPriceDesc(Connection conn, String category){
-		 
-		ArrayList<Lesson> descList =new ArrayList<>();
-		 PreparedStatement pstmt = null;
-		 ResultSet rset = null;
-		 
-		 String sql = prop.getProperty("selectPriceDesc");
-		 try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, category);
-			
 
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				descList.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-			}
-					
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		 
-		 return descList;
-		 
-	}
 	
-	public ArrayList<Lesson> selectHighStarDesc(Connection conn, String category){
-		 
-		ArrayList<Lesson> list =new ArrayList<>();
-		 PreparedStatement pstmt = null;
-		 ResultSet rset = null;
-		 
-		 String sql = prop.getProperty("selectHighStarDesc");
-		 try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, category);
-			
-
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-			}
-					
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		 
-		 return list;
-		 
-	}
-	
-	public ArrayList<Lesson> selectRegisterDesc(Connection conn, String category){
-		 
-		ArrayList<Lesson> list =new ArrayList<>();
-		 PreparedStatement pstmt = null;
-		 ResultSet rset = null;
-		 
-		 String sql = prop.getProperty("selectRegisterDesc");
-		 try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, category);
-			
-
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-			}
-					
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		 
-		 return list;
-		 
-	}
-	
-	public ArrayList<Lesson> dctPriceAsc(Connection conn, String dct){
+	public ArrayList<Lesson> dcategorySort(Connection conn, String dct,String sort){
 		
 		ArrayList<Lesson> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		 
-		String sql = prop.getProperty("dctPriceAsc");
+		String sql = prop.getProperty("dcategorySort");
 		try {
+			 switch(sort) {
+			 case "낮은가격순" : sql += "\r\n order by cl_price asc";  break;
+			 case "높은가격순" : sql += "\r\n order by cl_price desc";break;
+			 case "인기순": sql += "\r\n order by star_avg desc nulls last"; break;
+			 case "평점순": sql += "\r\n order by reg_count desc nulls last"; break;
+			
+			 }
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, dct);
 				rset = pstmt.executeQuery();
@@ -1065,7 +961,7 @@ private Properties prop = new Properties();
 										rset.getInt("star_count")
 							));
 	
-			}
+			   }
 				
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1078,263 +974,6 @@ private Properties prop = new Properties();
 		 
 	}
 	
-public ArrayList<Lesson> dctPriceDesc(Connection conn, String dct){
-		
-		ArrayList<Lesson> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		String sql = prop.getProperty("dctPriceDesc");
-		try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, dct);
-				rset = pstmt.executeQuery();
-				while (rset.next()) {
-					list.add(new Lesson(rset.getInt("cl_no"),
-										rset.getString("ct_name"),
-										rset.getString("ct_dname"),
-										rset.getString("local_name"),
-										rset.getString("distr_name"),
-										rset.getString("cl_name"),
-										rset.getString("cl_price"),
-										rset.getString("cl_thumb"),
-										rset.getInt("star_avg"),
-										rset.getInt("star_count")
-							));
-	
-			}
-				
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		 
-		 return list;
-		 
-	}
-
-public ArrayList<Lesson> dctRegisterDesc(Connection conn, String dct){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-
-	String sql = prop.getProperty("dctRegisterDesc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dct);
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-
-public ArrayList<Lesson> dctStarDesc(Connection conn, String dct){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-
-	String sql = prop.getProperty("dctStarDesc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dct);
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-public ArrayList<Lesson> keywordPriceAsc(Connection conn, String keyword){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-	 
-	String sql = prop.getProperty("keywordPriceAsc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,  "%"+keyword+"%");
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-	
-public ArrayList<Lesson> keywordPriceDesc(Connection conn, String keyword){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-	 
-	String sql = prop.getProperty("keywordPriceDesc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,  "%"+keyword+"%");
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-public ArrayList<Lesson> keywordStarDesc(Connection conn, String keyword){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-	 
-	String sql = prop.getProperty("keywordStarDesc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,  "%"+keyword+"%");
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-
-public ArrayList<Lesson> keywordRegisterDesc(Connection conn, String keyword){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-	 
-	String sql = prop.getProperty("keywordRegisterDesc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,  "%"+keyword+"%");
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-
 
 /**
  * @author 한빛
@@ -1585,7 +1224,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			String sigungu = s.getSigungu();
 			String day = s.getDay();
 			String price = s.getPrice();
-			
+			String sort = s.getSort();
 			//System.out.println("category:" +category);
 			
 			if(keyword != null && !keyword.equals("")) {
@@ -1654,9 +1293,17 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			
 			 
 			 // 정렬
+			 switch(sort) {
+			 case "낮은가격순" : sql += "\r\n order by cl_price asc";  break;
+			 case "높은가격순" : sql += "\r\n order by cl_price desc";break;
+			 case "인기순": sql += "\r\n order by star_avg desc nulls last"; break;
+			 case "평점순": sql += "\r\n order by reg_count desc nulls last"; break;
 			 
-			 sql += "\r\n order by cl_price asc";
-			//System.out.println(sql);
+			 
+			 }
+			 
+			
+			System.out.println(sql);
 		 
 		pstmt= conn.prepareStatement(sql);
 	    rset = pstmt.executeQuery();

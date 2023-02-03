@@ -175,24 +175,9 @@ a {
         </div>
         
         <script>
-            $(function(){
-            	$(".region>a").click(function(){
-            		
-            	})
-            
-            	
-            }}
+           
         
         </script>
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
 
@@ -203,22 +188,29 @@ a {
 		    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 		      정렬
 		    </button>
-		    <div class="dropdown-menu price">
-		      <a class="dropdown-item" onclick="rowPrice();">낮은가격순</a>
-		      <a class="dropdown-item" onclick="highPrice();">높은가격순</a>
-		      <a class="dropdown-item" onclick="highReg();">인기순</a>
-		      <a class="dropdown-item" onclick="highStar();">평점순</a>
+		    <div class="dropdown-menu" id="sort">
+		      <a class="dropdown-item">낮은가격순</a>
+		      <a class="dropdown-item">높은가격순</a>
+		      <a class="dropdown-item">인기순</a>
+		      <a class="dropdown-item">평점순</a>
 		      
 		    </div>
        	 </div>
         </div>
         
 			<script>
-              function rowPrice(){
+              $("#sort a").click(function(){
                  $.ajax({
-                    url:"<%=contextPath%>/kPrice.asc",
+                    url:"<%=contextPath%>/sort.cl",
                     data:{                      
-                        keyword:'<%=keyword%>',
+                    	  keyword : '<%=keyword%>',
+                 		  category : '전체',
+                      	  dcategory : '전체',
+                          sido : '00',
+                          sigungu : '전체',
+                          price : '',
+                          day : '',
+                          sort : $(this).text()
                     },
                     type:"post",
                     success:function(list){
@@ -247,129 +239,11 @@ a {
 									}
 	                 
 							})
-					}
+					})
 		
 			</script>
 			
-			<script type="text/javascript">
-			 function highPrice(){
-				   $.ajax({
-	                    url:"<%=contextPath%>/kPrice.desc ",
-	                    data:{         
-	                    	keyword:'<%=keyword%>',
-	            
-	                    },
-	                    type:"post",
-	                    success:function(list){
-		                        // console.log(list);
-		                       
-		                       let value = "";
-		                       for(let i=0; i<list.length; i++){
-		                        //  console.log(list[i]);
-		                          value += "<table class='a'><tr><td>"
-	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
-										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
-										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
-										+ "<b>"+list[i].clPrice +"</b>"+ "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-										+ "</small></a>"
-										+ "</td>"
-										}
-		                     			$(".thumbnail").html("");
-		                     			$("#area1").html("");
-		                     			
-										$("#area1").append(value);
-											
-						},
-						error : function() {
-									console.log("조회용 ajax통신 실패");
-									}
-		                 
-							})
-						}
-			
-			</script>
-			
-			<script>
-				function highStar(){
-					
-					  $.ajax({
-		                    url:"<%=contextPath%>/kstar.desc ",
-		                    data:{         
-		                    	keyword:'<%=keyword%>',
-		                    },
-		                    type:"post",
-		                    success:function(list){
-		                       //console.log(list);
-		                       
-		                       let value = "";
-		                       for(let i=0; i<list.length; i++){
-		                         // console.log(list[i]);
-		                          value += "<table class='a'><tr><td>"
-	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
-										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
-										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
-										+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-										+ "</small></a>"
-										+ "</td>"
-										}
-		                     			$(".thumbnail").html("");
-		                     			$("#area1").html("");
-		                     			
-										$("#area1").append(value);
-											
-								},
-								error : function() {
-											console.log("조회용 ajax통신 실패");
-										}
-		                 
-								})
-							}
-			
-			
-			</script>
-			
-			<script>
-				function highReg(){
-					
-					  $.ajax({
-		                    url:"<%=contextPath%>/kreg.desc ",
-		                    data:{         
-		                    	keyword:'<%=keyword%>',
-		                    },
-		                    type:"post",
-		                    success:function(list){
-		                       //console.log(list);
-		                       
-		                       let value = "";
-		                       for(let i=0; i<list.length; i++){
-		                         // console.log(list[i]);
-		                          value += "<table class='a'><tr><td>"
-	      								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
-										+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
-										+ "<small style='font-size: 11px;'>" + list[i].distrCode + "</small><br>"
-										+ "<div id='clName'><b>" + list[i].clName + "</b></div>"
-										+ "<b>"+list[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + list[i].clStarAvg+".0(" + list[i].clStarCount + ")"
-										+ "</small></a>"
-										+ "</td>"
-										}
-		                     			$(".thumbnail").html("");
-		                     			$("#area1").html("");
-		                     			
-		                     			
-										$("#area1").append(value);
-											
-							},
-							error : function() {
-											console.log("조회용 ajax통신 실패");
-										}
-		                 
-								})
-							}
-			
-			</script>
-
+		
 
 		<div class="container">
 

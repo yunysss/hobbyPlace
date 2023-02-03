@@ -17,7 +17,7 @@ import com.hp.lesson.model.vo.Lesson;
 /**
  * Servlet implementation class AjaxDetailSearchSortController
  */
-@WebServlet("/sort.rp")
+@WebServlet("/sort.cl")
 public class AjaxDetailSearchSortController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -44,7 +44,7 @@ public class AjaxDetailSearchSortController extends HttpServlet {
          String sort = request.getParameter("sort");
       
 
-         Search s = new Search(keyword,category,dcategory,sido,sigungu,day,price);
+         Search s = new Search(keyword,category,dcategory,sido,sigungu,day,price,sort);
 		 System.out.println(s);
          ArrayList<Lesson> list = new LessonService().detailSearchSortRp(s);
 		

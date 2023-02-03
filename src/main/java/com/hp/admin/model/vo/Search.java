@@ -17,7 +17,9 @@ public class Search {
 	private String day;
 	private String price;
 	private String sort;
-	
+	private String am;
+	private String pm;
+	private String schedule;
 	
 	public Search() {}
 
@@ -73,6 +75,36 @@ public class Search {
 	
 	
   
+
+	public String getSchedule() {
+		return schedule;
+	}
+
+
+	public void setSchedule(String schedule) {
+		this.schedule = schedule;
+	}
+
+
+	public String getAm() {
+		return am;
+	}
+
+
+	public void setAm(String am) {
+		this.am = am;
+	}
+
+
+	public String getPm() {
+		return pm;
+	}
+
+
+	public void setPm(String pm) {
+		this.pm = pm;
+	}
+
 
 	public String getSort() {
 		return sort;

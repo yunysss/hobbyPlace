@@ -195,12 +195,12 @@ public class LessonService {
 		return kList;
 	}
 
-	public ArrayList<Lesson> selectPriceAsc(String category, PageInfo pi) {
+	public ArrayList<Lesson> categorySort(String category, String sort) {
 
 		Connection conn = getConnection();
-		ArrayList<Lesson> ascList = new LessonDao().selectPriceAsc(conn, category, pi);
+		ArrayList<Lesson> list = new LessonDao().categorySort(conn, category,sort);
 		close(conn);
-		return ascList;
+		return list;
 
 	}
 
@@ -211,95 +211,20 @@ public class LessonService {
 		return list;
 	}
 
-	public ArrayList<Lesson> selectPriceDesc(String category) {
-
-		Connection conn = getConnection();
-		ArrayList<Lesson> descList = new LessonDao().selectPriceDesc(conn, category);
-		close(conn);
-		return descList;
-
-	}
 	
-
-	public ArrayList<Lesson> selectHighStarDesc(String category) {
-
+	
+	public ArrayList<Lesson> dcategorySort(String dct,String sort) {
 		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().selectHighStarDesc(conn, category);
+		ArrayList<Lesson> list = new LessonDao().dcategorySort(conn,dct,sort);
 		close(conn);
 		return list;
 
 	}
 	
-	public ArrayList<Lesson> selectRegisterDesc(String category) {
-
-		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().selectRegisterDesc(conn, category);
-		close(conn);
-		return list;
-
-	}
 	
-	public ArrayList<Lesson> dctPriceAsc(String dct) {
-		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().dctPriceAsc(conn,dct);
-		close(conn);
-		return list;
-
-	}
 	
-	public ArrayList<Lesson> dctPriceDesc(String dct) {
-		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().dctPriceDesc(conn,dct);
-		close(conn);
-		return list;
-
-	}
 	
-	public ArrayList<Lesson> dctRegisterDesc(String dct) {
-		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().dctRegisterDesc(conn, dct);
-		close(conn);
-		return list;
-
-	}
-	public ArrayList<Lesson> dctStarDesc(String dct) {
-		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().dctStarDesc(conn, dct);
-		close(conn);
-		return list;
-
-	}
-	public ArrayList<Lesson> keywordPriceAsc(String keyword) {
-		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().keywordPriceAsc(conn,keyword);
-		close(conn);
-		return list;
-
-	}
 	
-	public ArrayList<Lesson> keywordPriceDesc(String keyword) {
-		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().keywordPriceDesc(conn,keyword);
-		close(conn);
-		return list;
-
-	}
-	
-	public ArrayList<Lesson> keywordStarDesc(String keyword) {
-		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().keywordStarDesc(conn,keyword);
-		close(conn);
-		return list;
-
-	}
-	
-	public ArrayList<Lesson> keywordRegisterDesc(String keyword) {
-		Connection conn = getConnection();
-		ArrayList<Lesson> list = new LessonDao().keywordRegisterDesc(conn,keyword);
-		close(conn);
-		return list;
-
-	}
 	
 	public ArrayList<Lesson> searchDetailClass(Search s,PageInfo pi){
 		Connection conn = getConnection();

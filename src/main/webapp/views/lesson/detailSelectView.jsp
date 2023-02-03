@@ -191,18 +191,18 @@ a {
 		    <button id="sortBtn"  type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 		      정렬
 		    </button>
-		    <div class="dropdown-menu price">
-		      <a class="dropdown-item" onclick="sort();"><input type="hidden" name="sort" value="rp">낮은가격순</a>
-		      <a class="dropdown-item" onclick="sort();"><input type="hidden" name="sort" value="hp">높은가격순</a>
-		      <a class="dropdown-item" onclick="sort();"><input type="hidden" name="sort" value="ps">인기순</a>
-		      <a class="dropdown-item" onclick="sort();"><input type="hidden" name="sort" value="ss">평점순</a>
+		    <div class="dropdown-menu " id="sort">
+		      <a class="dropdown-item">낮은가격순</a>
+		      <a class="dropdown-item">높은가격순</a>
+		      <a class="dropdown-item">인기순</a>
+		      <a class="dropdown-item">평점순</a>
 		      
 		    </div>
        	 </div>
         </div>
 
 		<script>
-	        	function sort(){
+			$("#sort a").click(function(){
         		   
         		   $.ajax({
                        url:"<%=contextPath%>/sort.cl",
@@ -213,7 +213,7 @@ a {
                              sigungu : '<%=sigungu%>',
                              price : <%=price%>,
                              day : '<%=day%>',
-                             sort : $("input[name=sort]").val()
+                             sort : $(this).text()
                         
                        },
                        type:"post",
@@ -244,7 +244,7 @@ a {
    								}
         				  
    					})
-   				}
+   				})
    	
 		</script>
 		
