@@ -82,7 +82,7 @@
 	<entry key="selectReviewClass">
 		SELECT 
 		         RE_NO
-		       , SUBSTR(CONTENT, 1, 25) "CONTENT"
+		       , SUBSTR(CONTENT, 1, 23) "CONTENT"
 		       , RE_STAR
 		       , CL_NO
 		       , SUBSTR(CL_NAME, 1, 13) "CL_NAME"

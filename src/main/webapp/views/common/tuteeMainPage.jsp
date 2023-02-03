@@ -27,7 +27,7 @@
     #mainPageRec-3{height:40%;}
     
     #rec-pic-1, #rec-pic-2 {display:inline-block; height:241px; overflow:hidden;}
-    #rec-pic-3{display:inline-block; height:290px; overflow:hidden;}
+    #rec-pic-3{display:inline-block;  overflow:hidden;}
     #rec-pic-3 li{
     	width:200px;
     	margin-right:30px;	
@@ -192,7 +192,7 @@
                 						value += "⭐"
                 					}
                 					value += "<p>" + list[i].reviewContent 
-             						if(list[i].reviewContent.length == 25){
+             						if(list[i].reviewContent.length == 23){
              							value += "...";
              						}
                						value += "</p>"
