@@ -37,5 +37,12 @@ public class QnaService {
 		return result;
 		
 	}
+	
+	public Qna selectQnaDetail(int no) {
+		Connection conn = getConnection();
+		Qna q = new QnaDao().selectQnaDetail(conn, no);
+		close(conn);
+		return q;
+	}
 
 }

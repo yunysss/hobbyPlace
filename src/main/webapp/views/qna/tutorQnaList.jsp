@@ -35,6 +35,15 @@
             text-align: center;
             
         }
+        table {
+        width: 100%;
+        border-top: 1px solid lightgray;
+        border-collapse: collapse;
+	    }
+	    th, td {
+	        border-bottom: 1px solid lightgray;
+	        padding: 10px;
+	    }
             
         
     </style>
@@ -67,6 +76,8 @@
         <br>
 
         <table align="center" class="list">
+        
+        <thead>
             <tr style="background-color: lightgray;">
                 <th width="50">번호</th>
                 <th width="600" >제목</th>
@@ -74,16 +85,20 @@
                 <th width="150">처리일</th>
                 <th width="100">상태</th>
             </tr>
+         </thead>
             <%if(list.isEmpty()){ %>
             <tr>
                 <td colspan="5
                 ">등록된 문의사항이 없습니다.</td>
             </tr>
+            
+          <tbody>
 			<%}else{ %>
 				<%for(int i=0; i<list.size(); i++){ %>
 		            <tr>
+		            	
 		                <td><%=i+1 %></td>
-		                <td><%=list.get(i).getqTitle() %></td>
+		                <td onclick="location.href='<%=contextPath%>/detailQna.tor?no=<%=list.get(i).getqNo()%>'"><%=list.get(i).getqTitle() %></td>
 		                <td><%=list.get(i).getqDate() %></td>
 		                <td><%=list.get(i).getaDate() %></td>
 		                <td><%if(list.get(i).getaMemNick().equals("N")){ %>
@@ -95,19 +110,16 @@
 		            </tr>
             	<%} %>
 			<%} %>
+			</tbody>
         </table>
+        
+        
         
         
 
         <br><br>
 		
-        <div class="paging-area">
-
-            <button style="border: none;">&lt;</button>
-            <button style="background-color:rgb(22, 160, 133); color:white; border:none">1</button>
-            <button style="border: none;">&gt;</button>
-
-        </div>
+        
         
 
     </div>

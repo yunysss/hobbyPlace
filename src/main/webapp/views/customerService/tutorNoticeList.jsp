@@ -41,6 +41,15 @@
         	cursor:pointer;
         	
         }
+        table {
+        width: 100%;
+        border-top: 1px solid lightgray;
+        border-collapse: collapse;
+	    }
+	    th, td {
+	        border-bottom: 1px solid lightgray;
+	        padding: 10px;
+	    }
         
     </style>
 </head>
@@ -51,8 +60,8 @@
     <div class="outer">
 
         <div>
-            <a href="" style="color: black; font-size: large; font-weight: 800;" ><img src="resources/pin-angle-fill.svg" >
-                공지사항</a>
+            <a href="" style="color: black; font-size: large; font-weight: 800;" >
+                >>공지사항</a>
         </div>
 
         <div align="right">
