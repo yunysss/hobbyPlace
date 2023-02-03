@@ -4,6 +4,7 @@
 <%
 	ArrayList<Qna>list1 = (ArrayList<Qna>)request.getAttribute("list1");
 	
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +89,7 @@
         
         <br><br>
 
-        <table>
+        <table class="list">
         <thead>
             <tr>
                 <th>번호</th>
@@ -107,7 +108,7 @@
             <tr>
             
                 <td><%=i+1 %></td>
-                <td><%=list1.get(i).getqTitle() %></td>
+                <td onclick="location.href='<%=contextPath%>/qnaDetail.ad?no=<%=list1.get(i).getqNo()%>'"><%=list1.get(i).getqTitle() %></td>
                 <td><%=list1.get(i).getqDate() %></td>
                 <td><%if(list1.get(i).getaMemNick().equals("N")){ %>
 		                		대기
@@ -121,8 +122,8 @@
 		</tbody>
            
         </table><br><br><br>
-
-
+	
+		
         
         
     </div>
