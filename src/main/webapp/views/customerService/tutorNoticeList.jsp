@@ -36,6 +36,10 @@
             
         }
             
+        .list>tbody>tr:hover{
+        	cursor:pointer;
+        	
+        }
         
     </style>
 </head>
@@ -73,24 +77,18 @@
 	                <td colspan="3">조회된 공지사항이 없습니다.</td>
 	            </tr>
 				<%}else{ %>
-					<%for(Notice n : list){ %>
+					<%for(int i=0; i<list.size(); i++){ %>
 			            <tr>
-			                <td><%=n.getrNum() %></td>
-			                <td><%=n.getNtTitle() %></td>
-			                <td><%=n.getEnrollDate() %></td>
+			                <td><%=i+1 %></td>
+			                <td onclick="location.href = '<%=contextPath%>/noticedetail.tor?ntNo=<%=list.get(i).getNtNo()%>'"><%=list.get(i).getNtTitle() %></td>
+			                <td><%=list.get(i).getEnrollDate() %></td>
 			            </tr>
-	            	<%} %>
+		            <%} %>
 				<%} %>
 			</tbody>
         </table>
 
-        <script>
-        	$(function(){
-        		$(".list>tbody>tr").click(function(){
-        			location.href = '<%=contextPath%>/noticedetail.tor?ntNo=' + $(this).children().eq(0).text();
-        		})
-        	})
-        </script>
+        
         
         <br><br><br>
 
