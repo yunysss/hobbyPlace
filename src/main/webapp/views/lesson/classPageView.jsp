@@ -228,10 +228,13 @@
 		    color: white!important;
 		}
 		
-		.modal-body input{
+		#shareModal input{
             border: none;
             font-size: 15px;
             outline: none;
+        }
+        #qnaModal td{
+        	padding-top:10px;
         }
     </style>
     <!-- 카카오 -->
@@ -773,7 +776,7 @@
                             <%}else{ %>
                             	<a class="btn like-btn">❤️ 찜하기 해제</a>
                             <%} %>
-                            <a href="" class="btn">💬 1:1문의</a>
+                            <a class="btn qna-btn">💬 1:1문의</a>
                         </div>
                         <button class="btn" id="regi-btn" disabled>클래스 신청하기</button>
                     </div>
@@ -831,15 +834,47 @@
 						$("#regi-btn").attr("disabled", true);
 				<%}%>
 			})
+			$(".qna-btn").click(function(){
+				<% if(loginUser == null){ %>
+					$("#loginModal").modal("show")
+				<% } else{%>
+					$("#qnaModal").modal("show")
+				<% }%>
+			})
 	   	})
 	</script>
-    <div class="modal fade" id="loginModal">
+    <div class="modal fade" id="loginModal" data-backdrop='static' data-keyboard='false'>
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-body" align="center">
                 	로그인 후 이용 가능한 서비스 입니다.<br><br>
                     <a href="<%= contextPath %>/login.me" type="button" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">로그인</a>
                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
+            	</div>  
+        	</div>
+    	</div>
+   	</div>
+   	
+   	 <div class="modal fade" id="qnaModal" data-backdrop='static' data-keyboard='false' >
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body" align="center">
+                	<b>튜터에게 문의하기</b><br>
+                	<form>
+	                	<table>
+	                		<tr>
+	                			<td>제목</td>
+	                			<td><input type="text" size="90" placeholder="제목을 입력해주세요"></td>
+	                		</tr>
+	                		<tr>
+	                			<td>내용</td>
+	                			<td><textarea cols="92" rows="10" style="resize:none" placeholder="내용을 입력해주세요"></textarea></td>
+	                		</tr>
+	                	</table>
+	                	<br>
+	                    <a href="<%= contextPath %>/" type="button" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">등록</a>
+	                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
+                    </form>
             	</div>  
         	</div>
     	</div>
