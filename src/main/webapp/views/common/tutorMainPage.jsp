@@ -127,14 +127,7 @@ margin-top: 5px;
           <%} %>
             
         </table>
-        <script>
-        $(function(){
-        		$("#notice>tr").click(function(){
-        			location.href = '<%=contextPath%>/noticedetail.tor?ntNo='+$(this).children().eq(0).val();
-        		})
-        	})
         
-        </script>
         
         
         

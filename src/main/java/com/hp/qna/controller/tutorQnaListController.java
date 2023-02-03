@@ -38,11 +38,7 @@ public class tutorQnaListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		int MemNo = loginUser.getMemNo();
-		
+		int MemNo = Integer.parseInt(request.getParameter("MemNo"));
 		ArrayList<Qna> list = new QnaService().selectTutorQnaList(MemNo);
 		
 		request.setAttribute("list", list);
