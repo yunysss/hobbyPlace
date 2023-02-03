@@ -18,11 +18,44 @@ public class Qna {
 	private String aContent;
 	private Date aDate;
 	private int aMemNo;
+	private String aStatus;
 	
 	private String aMemNick;
 	
 	
 	public Qna() {}
+
+
+	public Qna(int qNo, String qTitle, String qContent, Date qDate, String qStatus, String qGrade, String qCategory,
+			int clNo, int qMemNo, String aTitle, String aContent, Date aDate, int aMemNo, String aStatus,
+			String aMemNick) {
+		super();
+		this.qNo = qNo;
+		this.qTitle = qTitle;
+		this.qContent = qContent;
+		this.qDate = qDate;
+		this.qStatus = qStatus;
+		this.qGrade = qGrade;
+		this.qCategory = qCategory;
+		this.clNo = clNo;
+		this.qMemNo = qMemNo;
+		this.aTitle = aTitle;
+		this.aContent = aContent;
+		this.aDate = aDate;
+		this.aMemNo = aMemNo;
+		this.aStatus = aStatus;
+		this.aMemNick = aMemNick;
+	}
+
+
+	public String getaStatus() {
+		return aStatus;
+	}
+
+
+	public void setaStatus(String aStatus) {
+		this.aStatus = aStatus;
+	}
 
 
 	public Qna(int qNo, String qTitle, String qContent, Date qDate, String qStatus, String qGrade, String qCategory,
@@ -210,7 +243,7 @@ public class Qna {
 		return "Qna [qNo=" + qNo + ", qTitle=" + qTitle + ", qContent=" + qContent + ", qDate=" + qDate + ", qStatus="
 				+ qStatus + ", qGrade=" + qGrade + ", qCategory=" + qCategory + ", clNo=" + clNo + ", qMemNo=" + qMemNo
 				+ ", aTitle=" + aTitle + ", aContent=" + aContent + ", aDate=" + aDate + ", aMemNo=" + aMemNo
-				+ ", aMemNick=" + aMemNick + "]";
+				+ ", aStatus=" + aStatus + ", aMemNick=" + aMemNick + "]";
 	};
 	
 	

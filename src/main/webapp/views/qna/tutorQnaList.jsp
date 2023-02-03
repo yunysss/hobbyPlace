@@ -4,6 +4,7 @@
     
 <%
 	ArrayList<Qna> list  = (ArrayList<Qna>)request.getAttribute("list");
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +26,7 @@
             width: 1000px;
             margin: auto;
             margin-top: 100px;
+            padding:40px;
         }
         .list{
             text-align: center;
@@ -57,7 +59,7 @@
         </div>
 
         <div style="text-align: right;"> 
-            <a href="">
+            <a href="<%=contextPath%>/qnaEnroll.tor">
                 <button style="background-color:rgb(22, 160, 133); color:white; border:none; width: 120px; height: 50px;">
                     문의 등록</button></a>
         </div>
@@ -74,20 +76,28 @@
             </tr>
             <%if(list.isEmpty()){ %>
             <tr>
-                <td>등록된 문의사항이 없습니다.</td>
+                <td colspan="5
+                ">등록된 문의사항이 없습니다.</td>
             </tr>
 			<%}else{ %>
-				<%for(Qna q: list){ %>
-            <tr>
-                <td>2</td>
-                <td><%=q.getqTitle()%></td>
-                <td><%=q.getqDate() %></td>
-                <td></td>
-                <td></td>
-            </tr>
+				<%for(int i=0; i<list.size(); i++){ %>
+		            <tr>
+		                <td><%=i+1 %></td>
+		                <td><%=list.get(i).getqTitle() %></td>
+		                <td><%=list.get(i).getqDate() %></td>
+		                <td><%=list.get(i).getaDate() %></td>
+		                <td><%if(list.get(i).getaMemNick().equals("N")){ %>
+		                		대기
+		                <%}else{ %>
+		                		완료
+		                <%} %>
+		                </td>
+		            </tr>
             	<%} %>
 			<%} %>
         </table>
+        
+        
 
         <br><br>
 		

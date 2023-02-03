@@ -27,6 +27,7 @@
             width: 1000px;
             margin: auto;
             margin-top: 100px;
+            padding:40px;
         }
         .list{
             text-align: center;
