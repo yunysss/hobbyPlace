@@ -60,11 +60,11 @@
             </div>
 
             <br> <hr> <br>
-
+			
             <div style="background-color:lightgray;  border:none; width: 130px; height: 30px; text-align: center; font-size:large; font-weight: 600; ">답변 등록</div><br>
 			<%if(q.getaStatus().equals("N")){ %>
 	            <form action="insertQna.ad" method="post">
-	            <input type="hidden" name="no" value"<%=q.getqNo() %>">
+	            <input type="hidden" name="no" value="<%=q.getqNo()%>">
 	                <table>
 	                    <tr>
 	                        <th style="background-color: lightgray; width: 100px; text-align: center;">
