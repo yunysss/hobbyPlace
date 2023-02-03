@@ -972,7 +972,7 @@ public class TutorDao {
 		}
 		
 	  return qnaPer;
-		
+	 	
 	}
 	
 	/**
