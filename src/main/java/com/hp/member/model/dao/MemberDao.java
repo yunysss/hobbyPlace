@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import static com.hp.common.JDBCTemplate.*;
 
+import com.hp.member.model.vo.Like;
 import com.hp.member.model.vo.Member;
 import com.hp.register.model.vo.Register;
 
@@ -576,6 +577,39 @@ public class MemberDao {
 			close(conn);
 		}
 		return m;
+	}
+
+	public ArrayList<Like> selectMyLikeClassList(Connection conn, int memNo) {
+		ArrayList<Like> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyLikeClassList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,memNo);
+			
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Like(rset.getInt("cl_no"),
+								  rset.getString("cl_name"),
+								  rset.getString("distr_name"),
+								  rset.getString("cl_price"),
+								  rset.getString("cl_thumb"),
+								  rset.getInt("star_avg"),
+								  rset.getInt("star_count")
+						));
+			}
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 
