@@ -25,6 +25,7 @@
             width: 1000px;
             margin: auto;
             margin-top: 100px;
+            padding:40px;
         }
         .paging-area{
             text-align: center;
@@ -44,8 +45,8 @@
     <div class="outer">
         <br>
         <div>
-            <a href="" style="color: black; font-size: large; font-weight: 800;" ><img src="resources/pin-angle-fill.svg" >
-                자주묻는질문</a>
+            <a href="" style="color: black; font-size: large; font-weight: 800;" >
+                >>자주묻는질문</a>
         </div>
 
         <br>

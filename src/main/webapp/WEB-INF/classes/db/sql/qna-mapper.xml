@@ -51,6 +51,13 @@ SELECT *
 	  )
 </entry>
 
+<entry key="selectQnaDetail">
+	SELECT *
+	  FROM QNA
+	 WHERE Q_NO =?
+	   AND Q_STATUS = 'Y'
+</entry>
+
 
 
 
