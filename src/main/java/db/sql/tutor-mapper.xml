@@ -482,12 +482,12 @@
 	<entry key= "selectTutorStatistics">
 
 	SELECT MEM_NO,	
-		    SUM(SUM_REG_MONTH)  "sumMonth",
-		    SUM(SUM_TOTAL) "sumTotal",
-		     COUNT(SUM_TOTAL) "sumReg",
-		     SUM(CANCEL_COUNT) "cancelCount",
-		     AVG(STAR_AVG)"avgStar",
-		    SUM(STAR_COUNT) "rCount"
+		    NVL(SUM(SUM_REG_MONTH),0)  "sumMonth",
+		    NVL(SUM(SUM_TOTAL),0) "sumTotal",
+		    NVL(COUNT(SUM_TOTAL),0) "sumReg",
+		    NVL(SUM(CANCEL_COUNT),0) "cancelCount",
+            NVL(AVG(STAR_AVG),0)"avgStar",
+		    NVL(SUM(STAR_COUNT),0) "rCount"
 	FROM (
 
 			SELECT
@@ -531,7 +531,7 @@
 	
 	<entry key= "selectQnaPercent">
 	SELECT 
-       DISTINCT (TOTALA/TOTALQ*100) "qnaPer"
+       DISTINCT (TOTALA/NVL(TOTALQ,0)*100) "qnaPer"
 			FROM(
 			        SELECT A_MEM_NO,
 			            (SELECT COUNT(Q_NO)
@@ -544,7 +544,7 @@
 			            ) "TOTALA"
 			     FROM QNA 
 			     )
-
+	WHERE TOTALQ !=0
 	</entry>
 	
 	<entry key="selectTutorRegister">

@@ -65,6 +65,13 @@ public class TutorMainController extends HttpServlet {
 			session.setAttribute("tutorInfo", t);
 			request.setAttribute("qnaPer",qnaPer);
 			request.setAttribute("rList", rList);
+			
+			System.out.println("tt:"+ tt);
+			System.out.println("ingClass:"+ ingClass);
+			System.out.println("quaPer"+ qnaPer);
+		
+
+			
 			request.getRequestDispatcher("views/common/tutorMainPage.jsp").forward(request, response);
 		}
 		
