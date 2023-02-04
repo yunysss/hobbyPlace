@@ -1094,6 +1094,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			sql += "and cl_day like '%일%'";
 	
 		}
+		  sql += "\r\n order by cl_no desc ";
 		 
 		 sql += "	)A\r\n"
 		 		+ "		)	\r\n"

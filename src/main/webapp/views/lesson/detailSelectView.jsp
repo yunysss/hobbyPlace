@@ -293,7 +293,7 @@ a {
                        },
                        type:"post",
                        success:function(list){
-   	                       console.log(list);
+   	                      // console.log(list);
    	                       if(list.length ==0){
    	                    	   let value = "<div align='center'><h5>조회된 내역이 없습니다.</h5></div>"
    	                    	$(".thumbnail").html("");
@@ -333,11 +333,16 @@ a {
 							+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + dataList[i].clNo + "'>"
 								+ "<img width='180' height='180' src='" + '<%=contextPath%>' + "/" + dataList[i].clThumb + "'><br>"
 								+ "<small  style='font-size: 11px;'>" + dataList[i].distrCode + "</small><br>"
-								+ "<div id='clName'><b>" + dataList[i].clName + "</b></div>"
+					 			+ "<div id='clName'><b>" + dataList[i].clName 
+					 if(dataList[i].clName.length >=25){
+									value += "..";
+						}
+								
+						value  += "</b></div>"
 								+ "<b>"+ dataList[i].clPrice +"</b>" + "&nbsp&nbsp&nbsp;&nbsp;<small>⭐" + dataList[i].clStarAvg+".0(" + dataList[i].clStarCount + ")"
 								+ "</small></a>"
 								+ "</td>"
-								}
+						}
 					
 					$(".thumbnail").html("");
 	    			$("#area1").html("");

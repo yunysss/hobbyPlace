@@ -106,7 +106,34 @@
 
     }
         
-
+#paging{
+	    text-align: center;
+	    display: inline-block;
+		padding-left :0;
+	}
+	#paging li {
+	    text-align: center;
+	    float: left;
+		list-style:none;
+		border-radius:10px;
+	}
+	
+	#paging li a {
+	    display: block;
+	    font-size: 12px;
+		color: black;
+	    padding: 5px 9px;
+	    box-sizing: border-box;
+		text-decoration-line:none;
+	}
+	
+	#paging li.on {
+	    background: rgb(234, 234, 234);
+	}
+	
+	#paging li.on a {
+	    color: black;
+	}
 </style>
 
 
@@ -115,7 +142,7 @@
 
 
 $(document).ready(function() {
-
+	changeCt();
     //datepicker 한국어로 사용하기 위한 언어설정
     $.datepicker.setDefaults($.datepicker.regional['ko']);     
 
@@ -244,7 +271,8 @@ function setSearchDate(start){
                     </td>
 
                 </tr>
-
+			
+			   
                 <tr>
                     <th width="100">카테고리</th>
                     <td>
@@ -258,13 +286,15 @@ function setSearchDate(start){
 
                      </select>
                      <select name="dcategory" id="dct">
-                    	<option>전체</option>
+                    	
                     </select>
                     </td>
                     
                     
                      <script>
+                     
                         function changeCt(){
+                        	var all = ["전체"];
                         	var study = ["전체","외국어","자격증","IT"];
                         	var diy = ["전체","가죽/라탄","비누/꽃/향","뜨개/자수","기타"];
                         	var draw = ["전체","취미미술","캘리그래피"];
@@ -272,7 +302,9 @@ function setSearchDate(start){
                         	var sport = ["전체","실내스포츠","야외스포츠","레저/액티비티","요가 필라테스/ 헬스 PT"];
      	
                         	var changeDct;
-                        	
+                        	if($("#ct").val()== "00"){
+                        		changeDct = all;
+                        	}
                         	if( $("#ct").val() == "11"){
                         		changeDct = study;
                         		
@@ -294,7 +326,7 @@ function setSearchDate(start){
                         	}
                         	
                         }
-                        
+                
                         </script>
 
 
@@ -376,6 +408,13 @@ function setSearchDate(start){
             
        
            <script>
+	            let totalData; 
+			    let dataPerPage=10; 
+			    let pageCount = 5; 
+			    let globalCurrentPage=1; 
+			    let dataList; 
+		  
+           
             	function searchcl(){
             		
 					let status = "";
@@ -399,39 +438,21 @@ function setSearchDate(start){
             			},
             			type:"post",
             			success : function(result){
-            				console.log(result);
-            				
-            				let value = "";
+            				//console.log(result);
+            			
             				if(result.length == 0){
-            					value += "<tr>"
+            				let	value = "<tr>"
             					      + "<td colspan='6'> 조회된 클래스가 없습니다."
             					      + "</tr>"
-            					      
+            				  $("#classList tbody").html("");
+            				  $(".paging-area").html("");
+            				  $("#classList tbody").html(value); 
             				}else{
-            					for(let i=0; i<result.length; i++){
-            						value += "<tr>"
-            							   + "<td>" + result[i].clNo  + "</td>"
-            							   + "<td>" + result[i].ctNo + "</td>"
-            							   + "<td>" + result[i].ctDno + "</td>"
-            							   + "<td>" + result[i].clName + "</td>"   
-    									   + "<td>" + result[i].updateDate  + "</td>"
-            							   + "<td>" + result[i].memNo + "</td>"
-            							   + "<td>" + result[i].clStatus + "</td>"
-            							   +"</tr>"
-            							   
-            					}
-            				
+            					totalData = result.length;
+		    	 		        dataList=result;
+		    	 		        displayData(1, dataPerPage, totalData);
+		    	 		        paging(totalData, dataPerPage, pageCount, 1);
             				}
-            				$("#classList tbody").html("");
-            				$(".paging-area").html("");
-            				$("#classList tbody").html(value);
-            				
-            				$(function(){
-            	        		$("#classList>tbody>tr").click(function(){
-            	        			location.href="<%=contextPath%>/cldetail.ad?no="+$(this).children().eq(0).text();
-            	        		})
-            	        	})
-            			
             			},
             			error: function(){
             				console.log("조회용 ajax통신 실패");
@@ -439,6 +460,96 @@ function setSearchDate(start){
             		})
             		
             	}
+            		
+            		 function displayData(currentPage, dataPerPage, totalData) {
+   			    	  let value = "";
+   			    	  let num = 0;
+   			    	  currentPage = Number(currentPage);
+   			    	  dataPerPage = Number(dataPerPage);
+   			    	  if(totalData < dataPerPage){
+   			    		  num = totalData;
+   			    	  } else{
+   			    		  num = dataPerPage;
+   			    	  }
+   			    	  for (let i = (currentPage - 1) * dataPerPage; 
+   			    	    i < (currentPage - 1) * dataPerPage + num;
+   			    	    i++
+   			    	  ) {
+   			    		value += "<tr>"
+							   + "<td>" + dataList[i].clNo  + "</td>"
+							   + "<td>" + dataList[i].ctNo + "</td>"
+							   + "<td>" + dataList[i].ctDno + "</td>"
+							   + "<td>" + dataList[i].clName + "</td>"   
+							   + "<td>" + dataList[i].updateDate  + "</td>"
+							   + "<td>" + dataList[i].memNo + "</td>"
+							   + "<td>" + dataList[i].clStatus + "</td>"
+							   +"</tr>"
+   			    	  }
+   			    	$("#classList tbody").html("");
+   				    $(".paging-area").html("");
+   				  	$("#classList tbody").html(value); 
+   				  	
+   				 $(function(){
+ 	        		$("#classList>tbody>tr").click(function(){
+ 	        			location.href="<%=contextPath%>/cldetail.ad?no="+$(this).children().eq(0).text();
+ 	        		})
+   				})  	
+   				  	
+   			    	}
+   		    	
+   		    	function paging(totalData, dataPerPage, pageCount, currentPage) {
+   		    		 
+   		    			  totalPage = Math.ceil(totalData / dataPerPage);
+   		        		  
+   		        		  if(totalPage<pageCount){
+   		        		    pageCount=totalPage;
+   		        		  }
+   		        		  
+   		        		  let pageGroup = Math.ceil(currentPage / pageCount); 
+   		        		  let last = pageGroup * pageCount; 
+   		        		  
+   		        		  if (last > totalPage) {
+   		        		    last = totalPage;
+   		        		  }
+   		
+   		        		  let first = last - (pageCount - 1); 
+   		        		  let next = last + 1;
+   		        		  let prev = first - 1;
+   		
+   		        		  let pageHtml = "";
+   		
+   		        		  if (prev > 0) {
+   		        		    pageHtml += "<li><a href='#' id='prev'> &lt; </a></li>";
+   		        		  }
+   		
+   		        		  for (let i = first; i <= last; i++) {
+   		        		    if (currentPage == i) {
+   		        		      pageHtml +=
+   		        		        "<li class='on'><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+   		        		    } else {
+   		        		      pageHtml += "<li><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+   		        		    }
+   		        		  }
+   		
+   		        		  if (last < totalPage) {
+   		        		    pageHtml += "<li><a href='#' id='next'> &gt; </a></li>";
+   		        		  }
+   		
+   		        		  $("#paging").html(pageHtml);
+   		 
+   		        		  $("#paging li a").click(function () {
+   		        		    let $id = $(this).attr("id");
+   		        		    selectedPage = $(this).text();
+   		
+   		        		    if ($id == "next") selectedPage = next;
+   		        		    if ($id == "prev") selectedPage = prev;
+   		        		    globalCurrentPage = selectedPage;
+   		        		    paging(totalData, dataPerPage, pageCount, selectedPage);
+   		        		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
+   		        		  });
+   		    		  
+   		    		}
+   		    	
             
            </script>
          
@@ -506,10 +617,12 @@ function setSearchDate(start){
         
         
         </script>
-        
-       
 
-        <div class="paging-area">
+		<div align="center">
+			<ul id="paging"></ul>
+		</div>
+
+		<div class="paging-area">
         
         	<%if(pi.getCurrentPage() != 1){ %>    
         		
