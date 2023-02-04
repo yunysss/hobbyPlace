@@ -76,5 +76,18 @@ public class QnaService {
 		return result;
 		
 	}
+	
+	public int insertTuteeToTutorQna(Qna q) {
+		Connection conn = getConnection();
+		int result = new QnaDao().insertTuteeToTutorQna(conn, q);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 }

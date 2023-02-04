@@ -48,6 +48,16 @@ public class Qna {
 	}
 
 
+	public Qna(String qTitle, String qContent, int clNo, int qMemNo, int aMemNo) {
+		super();
+		this.qTitle = qTitle;
+		this.qContent = qContent;
+		this.clNo = clNo;
+		this.qMemNo = qMemNo;
+		this.aMemNo = aMemNo;
+	}
+
+
 	public String getaStatus() {
 		return aStatus;
 	}
