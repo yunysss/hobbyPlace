@@ -108,7 +108,24 @@
                             <%if(m.getInterest()==null) {%>
 	                        	미등록
 	                        <%}else{ %>
-                      			<%=m.getInterest() %>
+                        	<%
+                        		String[] iArray = (m.getInterest()).split(",");
+                        		String ctList = "";
+                        		for(int i = 0; i<iArray.length; i++){
+                        			if(iArray[i].equals("11")){
+                        				ctList += "교육 ";
+                        			}else if(iArray[i].equals("22")) {
+                        				ctList += " 공예DIY ";
+                        			}else if(iArray[i].equals("33")) {
+                        				ctList += " 드로잉 ";
+                        			}else if(iArray[i].equals("44")) {
+                        				ctList += " 쿠킹 ";
+                        			}else if(iArray[i].equals("55")) {
+                        				ctList += " 스포츠/피트니스";
+                        			}
+                        		}
+                        	%>
+                      			<%= ctList %>
 	                        <%} %>                       
                         </td>
                     </tr>

@@ -334,7 +334,7 @@
 			        			+ "<td>" +dataList[i].phone +"</td>"
 			        			+ "<td>" +dataList[i].address +"</td>"
 			        			+ "<td>" +dataList[i].gender +"</td>"
-			        			+ "<td>" +dataList[i].memDrop +"</td>"
+			        			+ "<td>" + dataList[i].memDrop + "</td>"
 					        + "</tr>";
 		    	  }
 		    	  $(".listTable tbody").html(chartHtml);

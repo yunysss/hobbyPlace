@@ -41,23 +41,7 @@ public class MemberListViewController extends HttpServlet {
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
 			response.sendRedirect(request.getContextPath() + "/loginPage.ad");
 		}else { // 로그인 후
-			/*
-			int listCount = new AdminService().selectMemberListCount();
-			int currentPage = Integer.parseInt(request.getParameter("cpage"));
-			int pageLimit = 5;
-			int boardLimit = 10;
-			int maxPage = (int)Math.ceil( (double)listCount / boardLimit );
-			int startPage = (currentPage-1)/pageLimit * pageLimit + 1;
-			int endPage = startPage + pageLimit - 1;
-			if(endPage > maxPage) { 
-				endPage = maxPage;
-			}
-			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-			ArrayList<MemberList> list = new AdminService().selectMemberList(pi);
-			
-			request.setAttribute("pi", pi);
-			request.setAttribute("list", list);
-			*/
+		
 			request.getRequestDispatcher("views/admin/memberListView.jsp").forward(request, response);
 		}
 	}
