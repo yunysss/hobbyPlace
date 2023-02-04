@@ -876,7 +876,7 @@ private Properties prop = new Properties();
 		ArrayList<Lesson> list =new ArrayList<>();
 		 PreparedStatement pstmt = null;
 		 ResultSet rset = null;
-		 
+			System.out.println("ct"+ category);
 		 String sql = prop.getProperty("categorySort");
 		 try {
 			 
@@ -890,7 +890,7 @@ private Properties prop = new Properties();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, category);
 			
-
+			System.out.println(sql);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Lesson(rset.getInt("cl_no"),
@@ -1094,12 +1094,13 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			sql += "and cl_day like '%일%'";
 	
 		}
+		  sql += "\r\n order by cl_no desc ";
 		 
 		 sql += "	)A\r\n"
 		 		+ "		)	\r\n"
 		 		+ "		WHERE RNUM BETWEEN ?  AND ?	";
 
-		System.out.println(sql);
+		//System.out.println(sql);
 
 		pstmt = conn.prepareStatement(sql);
 		int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
@@ -1342,7 +1343,7 @@ public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
 			 }
 			 
 			
-			//System.out.println(sql);
+			System.out.println(sql);
 		 
 		pstmt= conn.prepareStatement(sql);
 	    rset = pstmt.executeQuery();

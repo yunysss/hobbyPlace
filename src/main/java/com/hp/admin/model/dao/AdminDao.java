@@ -596,7 +596,7 @@ public class AdminDao {
 				sql += ")"; 
 			}
 			
-	
+				sql += "\r\n order by cl_no desc ";
 			System.out.println(sql);
 	
 			pstmt=conn.prepareStatement(sql);

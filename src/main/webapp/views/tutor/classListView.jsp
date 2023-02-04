@@ -20,7 +20,7 @@
 <script>                
 
     $(document).ready(function() {
-
+   
         //datepicker 한국어로 사용하기 위한 언어설정
         $.datepicker.setDefaults($.datepicker.regional['ko']);     
     
@@ -212,7 +212,34 @@
   	  	font-size: 12px;
   	  }
    
-
+	#paging{
+	    text-align: center;
+	    display: inline-block;
+		padding-left :0;
+	}
+	#paging li {
+	    text-align: center;
+	    float: left;
+		list-style:none;
+		border-radius:10px;
+	}
+	
+	#paging li a {
+	    display: block;
+	    font-size: 12px;
+		color: black;
+	    padding: 5px 9px;
+	    box-sizing: border-box;
+		text-decoration-line:none;
+	}
+	
+	#paging li.on {
+	    background: rgb(234, 234, 234);
+	}
+	
+	#paging li.on a {
+	    color: black;
+	}
  
 
 </style>
@@ -312,6 +339,12 @@
                     </div>
                     
               <script>
+             	 let totalData; 
+			    let dataPerPage= 10; 
+			    let pageCount = 5; 
+			    let globalCurrentPage=1; 
+			    let dataList; 
+              
             	function searchcl(){
             		
 					let status = "";
@@ -336,48 +369,21 @@
             			success : function(result){
             				console.log(result);
             				
-            				let value = "";
             				if(result.length == 0){
-            					value += "<tr>"
+            				  let value = "<tr>"
             					      + "<td colspan='5'> 조회된 클래스가 없습니다."
             					      + "</tr>"
-            					      
+            				 $("#clTable tbody").html("");
+              				 $(".paging-area").html("");
+              				 $("#clTable tbody").html(value);
+              				      
             				}else{
-            					for(let i=0; i<result.length; i++){
-            						value += "<tr>"
-            							   + "<td>" + result[i].clNo  + "</td>"
-            							   + "<td>" + result[i].ctDno + "</td>"
-            							   + "<td>" + result[i].clName + "</td>"  
-            							
-            							   
-            							   if(result[i].enrollDate <= result[i].updateDate){
-            							   	value+= "<td>" + result[i].updateDate + "</td>"
-            								}else{
-            									value +=  "<td>" + result[i].enrollDate + "</td>"
-            								}
-            							   
-            						value  += "<td>" + result[i].clStatus + "</td>"
-            							   
-            						       if(result[i].clRefuse !=null){
-            						    	  value += "<td>" + result[i].clRefuse + "</td>"
-            						       } else{
-            						    	   value += "<td> </td>"
-            						       }
-            							   + "</tr>"
-            							   
-            					}
+            					totalData = result.length;
+		    	 		        dataList=result;
+		    	 		        displayData(1, dataPerPage, totalData);
+		    	 		        paging(totalData, dataPerPage, pageCount, 1);
             				
             				}
-            				$("#clTable tbody").html("");
-            				$(".paging-area").html("");
-            				$("#clTable tbody").html(value);
-            				
-            				
-            				$(function(){
-        		        		$("#clTable>tbody>tr").click(function(){
-        		        			location.href="<%=contextPath%>/cldetail.tt?no="+$(this).children().eq(0).text();
-        		        		})
-        		        	})
             			
             			},
             			error: function(){
@@ -386,6 +392,107 @@
             		})
             		
             	}
+            	
+            	 function displayData(currentPage, dataPerPage, totalData) {
+  			    	  let value = "";
+  			    	  let num = 0;
+  			    	  currentPage = Number(currentPage);
+  			    	  dataPerPage = Number(dataPerPage);
+  			    	  if(totalData < dataPerPage){
+  			    		  num = totalData;
+  			    	  } else{
+  			    		  num = dataPerPage;
+  			    	  }
+  			    	  for (let i = (currentPage - 1) * dataPerPage; 
+  			    	    i < (currentPage - 1) * dataPerPage + num;
+  			    	    i++
+  			    	  ) {
+  			    		value += "<tr>"
+							   + "<td>" + dataList[i].clNo  + "</td>"
+							   + "<td>" + dataList[i].ctDno + "</td>"
+							   + "<td>" + dataList[i].clName + "</td>"  
+							
+							   
+					   if(dataList[i].enrollDate <= dataList[i].updateDate){
+							   	value+= "<td>" + dataList[i].updateDate + "</td>"
+						}else{
+								value +=  "<td>" + dataList[i].enrollDate + "</td>"
+						}
+							   
+						value  += "<td>" + dataList[i].clStatus + "</td>"
+							   
+						       if(dataList[i].clRefuse !=null){
+						    	  value += "<td>" + dataList[i].clRefuse + "</td>"
+						       } else{
+						    	   value += "<td> </td>"
+						       }
+							   + "</tr>"
+  			    	  }
+  			    	 $("#clTable tbody").html("");
+      				 $(".paging-area").html("");
+      				 $("#clTable tbody").html(value);
+  				 $(function(){
+	        		$("#classList>tbody>tr").click(function(){
+	        			location.href="<%=contextPath%>/cldetail.ad?no="+$(this).children().eq(0).text();
+	        		})
+  				})  	
+  				  	
+  			  }
+  		    	
+  		    	function paging(totalData, dataPerPage, pageCount, currentPage) {
+  		    		 
+  		    			  totalPage = Math.ceil(totalData / dataPerPage);
+  		        		  
+  		        		  if(totalPage<pageCount){
+  		        		    pageCount=totalPage;
+  		        		  }
+  		        		  
+  		        		  let pageGroup = Math.ceil(currentPage / pageCount); 
+  		        		  let last = pageGroup * pageCount; 
+  		        		  
+  		        		  if (last > totalPage) {
+  		        		    last = totalPage;
+  		        		  }
+  		
+  		        		  let first = last - (pageCount - 1); 
+  		        		  let next = last + 1;
+  		        		  let prev = first - 1;
+  		
+  		        		  let pageHtml = "";
+  		
+  		        		  if (prev > 0) {
+  		        		    pageHtml += "<li><a href='#' id='prev'> &lt; </a></li>";
+  		        		  }
+  		
+  		        		  for (let i = first; i <= last; i++) {
+  		        		    if (currentPage == i) {
+  		        		      pageHtml +=
+  		        		        "<li class='on'><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+  		        		    } else {
+  		        		      pageHtml += "<li><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+  		        		    }
+  		        		  }
+  		
+  		        		  if (last < totalPage) {
+  		        		    pageHtml += "<li><a href='#' id='next'> &gt; </a></li>";
+  		        		  }
+  		
+  		        		  $("#paging").html(pageHtml);
+  		 
+  		        		  $("#paging li a").click(function () {
+  		        		    let $id = $(this).attr("id");
+  		        		    selectedPage = $(this).text();
+  		
+  		        		    if ($id == "next") selectedPage = next;
+  		        		    if ($id == "prev") selectedPage = prev;
+  		        		    globalCurrentPage = selectedPage;
+  		        		    paging(totalData, dataPerPage, pageCount, selectedPage);
+  		        		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
+  		        		  });
+  		    		  
+  		    		}
+  		    	
+           
             
            </script>
 
@@ -457,20 +564,23 @@
 		        
 		        </script>
                 
+		<div align="center">
+			<ul id="paging"></ul>
+		</div>
 
          <div class="paging-area">
         	<%if(pi.getCurrentPage() != 1){ %>    
         		
-            		<button onclick="location.href='<%=contextPath%>/myclass.tt?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            		<button onclick="location.href='<%=contextPath%>/ttclass.tt?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
             <%} %>
 			
 			<%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
-           		 <button onclick="location.href='<%=contextPath%>/myclass.tt?cpage=<%=p%>';"><%= p %></button>
+           		 <button onclick="location.href='<%=contextPath%>/ttclass.tt?cpage=<%=p%>';"><%= p %></button>
            		 
             <%} %>
           
             <%if(pi.getCurrentPage() != pi.getMaxPage()){  %>
-            <button onclick="location.href='<%=contextPath%>/myclass.tt?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/ttclass.tt?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
             <%} %>
         	
                
