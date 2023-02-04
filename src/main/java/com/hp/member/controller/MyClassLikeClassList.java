@@ -37,11 +37,14 @@ public class MyClassLikeClassList extends HttpServlet {
 		HttpSession session = request.getSession();
 		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
+		
+		
 		ArrayList<Like> list = new MemberService().selectMyLikeClassList(memNo);
 		request.setAttribute("list", list);
 		
 		
-		request.getRequestDispatcher("views/member/myClassLikeList.jsp").forward(request, response);
+		
+		request.getRequestDispatcher("views/member/myLikeClassList.jsp").forward(request, response);
 	
 	}
 

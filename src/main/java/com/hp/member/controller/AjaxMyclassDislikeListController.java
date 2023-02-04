@@ -17,13 +17,13 @@ import com.hp.member.model.vo.Like;
  * Servlet implementation class AjaxDislikeClassListController
  */
 @WebServlet("/classDislike.tee")
-public class AjaxDislikeClassListController extends HttpServlet {
+public class AjaxMyclassDislikeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxDislikeClassListController() {
+    public AjaxMyclassDislikeListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +37,6 @@ public class AjaxDislikeClassListController extends HttpServlet {
 		
 		int result = new MemberService().deleteLikeClassList(clNo, memNo);
 		if(result>0) {
-
 			ArrayList<Like> list = new MemberService().selectMyLikeClassList(memNo);
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(list, response.getWriter());

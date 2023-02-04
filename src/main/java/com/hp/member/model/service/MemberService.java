@@ -271,6 +271,30 @@ public class MemberService {
 
 
 
+	public int insertLikeClassList(int clNo, int memNo) {
+		Connection conn = getConnection();
+		int result = new MemberDao().insertLikeClassList(conn,clNo,memNo);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+
+
+	public int selectMyLikeStatus(int clNo, int memNo) {
+		Connection conn = getConnection();
+		int likeStatus = new MemberDao().selectLikeStatus(conn, clNo, memNo);
+		close(conn);
+		return likeStatus;
+	}
+
+
+
 
 
 	
