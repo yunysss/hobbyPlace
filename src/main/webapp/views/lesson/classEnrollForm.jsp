@@ -15,7 +15,8 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 <!-- include summernote css/js-->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> 
@@ -227,7 +228,9 @@
 	  	  <div id="form1" class="container tab-pane active" ><br>
 	        <span style="font-size: 14px; font-weight: 600;">기본정보</span>
 	        <div class="guidebtn">
-	        <button type="button" class="btn btn-secondary btn-sm guide">작성가이드</button>
+				<button type="button" class="btn btn-secondary btn-sm guide" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					작성가이드
+				  </button>
 	        </div>
 	        <br><hr><br>
 	       
@@ -342,9 +345,17 @@
 	        <hr>
 	        <br>
 	        <table>
+				<tr>
+					<th>판매종료일</th>
+					<td><input type="date" name="endDate"></td>
+					
+				</tr>
+				
+
 	            <tr>
+
 	                <th width="100">일정</th>
-	                <td>
+	                <td><br>
 	                    <input type="radio" id="everyday" name="schedule"class="schedule" value="매일">
 	                    <label for="everyday">매일</label>
 	                    <input type="radio" id="weekly" name="schedule" class="schedule" value="매주">
@@ -689,6 +700,42 @@
 
 
 	</script>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h3 class="modal-title fs-5" id="exampleModalLabel">📖작성가이드✍️</h3>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			❤️🧡💛💚💙💜
+			<br><br>
+			❤️ 기본정보 
+
+			✍️클래스명 : 장소와 액티비티를 클래스명에 넣어주시는 것이 좋습니다.
+			  <br> (예시 : [홍대] 방송댄스를 배워봐요)<br>
+			✍️진행장소 : 클래스가 진행되는 장소로 상세하게 작성해주셔야합니다.<br>
+			✍️최대인원 : 한 클래스당 들을 수 있는 인원을 설정해주세요.<br>
+			✍️난이도 : 참여하는 튜티들에게 참고용으로 제공하는 정보이며,<br> 
+			 튜티들이 생각할 난이도를 고려하여 지정해주시기 바랍니다. <br>
+			<br><br>
+			🧡 판매일정
+			
+			✍️판매종료일 : 검수완료 후 부터 언제까지 판매할 것인지 선택해주세요
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+		  
+		</div>
+	  </div>
+	</div>
+  </div>
+
+
 
   
 </div>

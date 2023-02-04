@@ -207,6 +207,7 @@
 			    , CL_ADDRESS
 			    , CL_MAX 
 			    , CL_LEVEL
+			    , END_DATE 
 			    , CL_TIMES 
 			    , CL_SCHEDULE
 			    , CL_DAY 
@@ -235,6 +236,7 @@
 			  (SELECT DISTR_CODE
 			  FROM DISTRICT
 			  WHERE DISTR_NAME = ?),
+			  ?,
 			  ?,
 			  ?,
 			  ?,
@@ -347,6 +349,7 @@
 			    , CL_ADDRESS = ?
 			    , CL_MAX = ?
 			    , CL_LEVEL = ?
+			    , END_DATE = ?
 			    , CL_TIMES = ?
 			    , CL_SCHEDULE = ?
 			    , CL_DAY = ?

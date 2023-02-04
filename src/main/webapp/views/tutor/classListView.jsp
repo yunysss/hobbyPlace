@@ -421,7 +421,8 @@
 							   
 						value  += "<td>" + dataList[i].clStatus + "</td>"
 							   
-						       if(dataList[i].clRefuse !=null){
+						
+						       if(dataList[i].clRefuse !=null && dataList[i].clStatus == "1"){
 						    	  value += "<td>" + dataList[i].clRefuse + "</td>"
 						       } else{
 						    	   value += "<td> </td>"
@@ -542,7 +543,11 @@
                          				 <%=status %>
 
                                     </td>
-                                    <td><%= l.getClRefuse()==null ? "" : l.getClRefuse() %></td>
+                                    <td>
+                                    <% if(l.getClStatus() == "1"){ %>
+                                     <%= l.getClRefuse()==null ? "" : l.getClRefuse() %>
+                                    <%} %>
+                                    </td>
                                 </tr>
                                 <%} %>
                              <%} %>

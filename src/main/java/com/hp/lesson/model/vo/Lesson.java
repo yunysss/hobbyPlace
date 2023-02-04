@@ -68,6 +68,35 @@ public class Lesson {
 
 
 	public Lesson(int clNo, String ctNo, String ctDno, String localCode, String distrCode, String clName,
+			String clAddress, int clMax, String clLevel, String endDate, int clTimes, String clSchedule, String clDay,
+			String clPrice, String clDetail, String curriculum, String refundPolicy, String clSupplies, String keyword,
+			String clThumb) {
+		super();
+		this.clNo = clNo;
+		this.ctNo = ctNo;
+		this.ctDno = ctDno;
+		this.localCode = localCode;
+		this.distrCode = distrCode;
+		this.clName = clName;
+		this.clAddress = clAddress;
+		this.clMax = clMax;
+		this.clLevel = clLevel;
+		this.endDate = endDate;
+		this.clTimes = clTimes;
+		this.clSchedule = clSchedule;
+		this.clDay = clDay;
+		this.clPrice = clPrice;
+		this.clDetail = clDetail;
+		this.curriculum = curriculum;
+		this.refundPolicy = refundPolicy;
+		this.clSupplies = clSupplies;
+		this.keyword = keyword;
+		this.clThumb = clThumb;
+	}
+
+
+
+	public Lesson(int clNo, String ctNo, String ctDno, String localCode, String distrCode, String clName,
 			String clAddress, int clMax, String clLevel, int clTimes, String clSchedule, String clDay, String clPrice,
 			String clDetail, String curriculum, String refundPolicy, String clSupplies, String keyword,
 			String clThumb) {
@@ -93,6 +122,35 @@ public class Lesson {
 		this.clThumb = clThumb;
 	}
  
+
+
+
+	public Lesson(String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
+			String clAddress, int clMax, String clLevel, String endDate, int clTimes, String clSchedule, String clDay,
+			String clPrice, String clDetail, String curriculum, String refundPolicy, String clSupplies, String keyword,
+			String clThumb) {
+		super();
+		this.ctNo = ctNo;
+		this.ctDno = ctDno;
+		this.memNo = memNo;
+		this.localCode = localCode;
+		this.distrCode = distrCode;
+		this.clName = clName;
+		this.clAddress = clAddress;
+		this.clMax = clMax;
+		this.clLevel = clLevel;
+		this.endDate = endDate;
+		this.clTimes = clTimes;
+		this.clSchedule = clSchedule;
+		this.clDay = clDay;
+		this.clPrice = clPrice;
+		this.clDetail = clDetail;
+		this.curriculum = curriculum;
+		this.refundPolicy = refundPolicy;
+		this.clSupplies = clSupplies;
+		this.keyword = keyword;
+		this.clThumb = clThumb;
+	}
 
 
 

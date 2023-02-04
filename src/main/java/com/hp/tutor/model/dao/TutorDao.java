@@ -497,16 +497,17 @@ public class TutorDao {
 			pstmt.setString(7, l.getClAddress());
 			pstmt.setInt(8, l.getClMax());
 			pstmt.setString(9, l.getClLevel());
-			pstmt.setInt(10,l.getClTimes());
-			pstmt.setString(11, l.getClSchedule());
-			pstmt.setString(12, l.getClDay());
-			pstmt.setString(13,l.getClPrice());
-			pstmt.setString(14, l.getClDetail());
-			pstmt.setString(15,l.getCurriculum());
-			pstmt.setString(16, l.getRefundPolicy());
-			pstmt.setString(17, l.getClSupplies());
-			pstmt.setString(18,l.getKeyword());
-			pstmt.setString(19, l.getClThumb());
+			pstmt.setString(10, l.getEndDate());
+			pstmt.setInt(11,l.getClTimes());
+			pstmt.setString(12, l.getClSchedule());
+			pstmt.setString(13, l.getClDay());
+			pstmt.setString(14,l.getClPrice());
+			pstmt.setString(15, l.getClDetail());
+			pstmt.setString(16,l.getCurriculum());
+			pstmt.setString(17, l.getRefundPolicy());
+			pstmt.setString(18, l.getClSupplies());
+			pstmt.setString(19,l.getKeyword());
+			pstmt.setString(20, l.getClThumb());
 			
 			result = pstmt.executeUpdate();
 
@@ -643,17 +644,18 @@ public class TutorDao {
 			pstmt.setString(6, l.getClAddress());
 			pstmt.setInt(7, l.getClMax());
 			pstmt.setString(8, l.getClLevel());
-			pstmt.setInt(9,l.getClTimes());
-			pstmt.setString(10, l.getClSchedule());
-			pstmt.setString(11, l.getClDay());
-			pstmt.setString(12,l.getClPrice());
-			pstmt.setString(13, l.getClDetail());
-			pstmt.setString(14,l.getCurriculum());
-			pstmt.setString(15, l.getRefundPolicy());
-			pstmt.setString(16, l.getClSupplies());
-			pstmt.setString(17,l.getKeyword());
-			pstmt.setString(18, l.getClThumb());
-			pstmt.setInt(19,l.getClNo());
+			pstmt.setString(9, l.getEndDate());
+			pstmt.setInt(10,l.getClTimes());
+			pstmt.setString(11, l.getClSchedule());
+			pstmt.setString(12, l.getClDay());
+			pstmt.setString(13,l.getClPrice());
+			pstmt.setString(14, l.getClDetail());
+			pstmt.setString(15,l.getCurriculum());
+			pstmt.setString(16, l.getRefundPolicy());
+			pstmt.setString(17, l.getClSupplies());
+			pstmt.setString(18,l.getKeyword());
+			pstmt.setString(19, l.getClThumb());
+			pstmt.setInt(20,l.getClNo());
 			
 	     result=pstmt.executeUpdate();
 

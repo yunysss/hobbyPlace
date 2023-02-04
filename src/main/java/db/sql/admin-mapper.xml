@@ -181,8 +181,8 @@
 	<!-- 관리자 클래스 승인 -->
 	<entry key="classApprovalUpdate">
 	UPDATE CLASS
-	  SET UPDATE_DATE = SYSDATE
-	      START_DATE = SYSDATE,
+	  SET START_DATE =  TO_CHAR(SYSDATE,'YYYY/MM/DD')
+	  	 , UPDATE_DATE = SYSDATE
 	     , CL_STATUS = 2
 	WHERE  CL_NO =?   
 
@@ -378,7 +378,9 @@
 	<!-- 체크박스 체크된 클래스만 승인 -->
 	<entry key="checkedClassApprove">
 		UPDATE CLASS
-		  SET UPDATE_DATE = SYSDATE
+		  SET
+			   START_DATE = TO_CHAR(SYSDATE,'YYYY/MM/DD')	    
+		  	 , UPDATE_DATE = SYSDATE
 		     , CL_STATUS = 2
 		WHERE  CL_NO IN (  
 

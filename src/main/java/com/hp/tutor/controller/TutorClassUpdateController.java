@@ -67,6 +67,7 @@ public class TutorClassUpdateController extends HttpServlet {
 			String clAddress = address1 + " " + address2;
 			int clMax = Integer.parseInt(multiRequest.getParameter("clMax"));
 			String clLevel = multiRequest.getParameter("level");
+			String endDate = multiRequest.getParameter("endDate");
 			String clSchedule = multiRequest.getParameter("schedule");
 
 			String[] days = multiRequest.getParameterValues("day");
@@ -94,7 +95,7 @@ public class TutorClassUpdateController extends HttpServlet {
 			String clSupplies = multiRequest.getParameter("supplies");
 			String keyword = multiRequest.getParameter("keyword");
 
-			Lesson l = new Lesson(clNo, ctNo, ctDno, localCode, distrCode, clName, clAddress, clMax, clLevel, clTimes,
+			Lesson l = new Lesson(clNo, ctNo, ctDno, localCode, distrCode, clName, clAddress, clMax, clLevel, endDate,clTimes,
 					clSchedule, clDay, clPrice, clDetail, curriculum, refundPolicy, clSupplies, keyword, clThumb);
 
 			// 첨부파일

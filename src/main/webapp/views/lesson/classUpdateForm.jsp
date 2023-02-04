@@ -376,9 +376,15 @@
 	        <hr>
 	        <br>
 	        <table>
+	        	<tr>
+					<th>판매종료일</th>
+					<td><input type="date" name="endDate" value="<%=l.getEndDate()%>"></td>
+					
+				</tr>
+				
 	            <tr>
 	                <th width="100">일정</th>
-	                <td>
+	                <td><br>
 	                    <input type="radio" id="everyday" name="schedule"class="schedule" value="매일">
 	                    <label for="everyday">매일</label>
 	                    <input type="radio" id="weekly" name="schedule" class="schedule" value="매주">
