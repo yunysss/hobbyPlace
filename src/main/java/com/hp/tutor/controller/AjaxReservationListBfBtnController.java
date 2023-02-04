@@ -1,4 +1,4 @@
-package com.hp.admin.controller;
+package com.hp.tutor.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,24 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.hp.admin.model.service.AdminService;
-import com.hp.admin.model.vo.MemberList;
-import com.hp.common.model.vo.PageInfo;
-import com.hp.member.model.vo.Member;
+import com.google.gson.Gson;
+import com.hp.register.model.vo.Register;
+import com.hp.tutor.model.service.TutorService;
 
 /**
- * Servlet implementation class MemberListViewController
+ * Servlet implementation class AjaxReservationListBfBtnController
  */
-@WebServlet("/viewMember.ad")
-public class MemberListViewController extends HttpServlet {
+@WebServlet("/bfList.tt")
+public class AjaxReservationListBfBtnController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberListViewController() {
+    public AjaxReservationListBfBtnController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,16 +32,13 @@ public class MemberListViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		HttpSession session = request.getSession();
+		ArrayList<Register> bfList = new TutorService().selectBFClassList(memNo);
 		
-		if(session.getAttribute("loginAdmin") == null) { // 로그인 전
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
-			response.sendRedirect(request.getContextPath() + "/loginPage.ad");
-		}else { // 로그인 후
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(bfList,response.getWriter());
 		
-			request.getRequestDispatcher("views/admin/memberListView.jsp").forward(request, response);
-		}
 	}
 
 	/**

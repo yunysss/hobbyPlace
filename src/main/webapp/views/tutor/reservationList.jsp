@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,15 +72,15 @@
 </head>
 <body>
 	<%@ include file="../common/tutorMenubar.jsp" %>
-    <div class="outer">    
+    <div class="outer">   
         <h5><b>예약 관리</b></h5>
         <br>
         
         
         
         <div class="btn_area">
-            <button type="button" id="bfBtn" onclick="bfBtn()" >수강전</button>
-            <button type="button" id="afBtn" onclick="atBtn()"> 수강완료</button>
+            <button type="button" id="bfBtn" onclick="bfBtn();">수강전</button>
+            <button type="button" id="afBtn" onclick="atBtn();"> 수강완료</button>
         </div>
 
         <!-- 수강전 버튼을 눌렀을때-->
@@ -137,7 +138,7 @@
         
         </script> 
                 
-        <!--수강후기 버튼을 눌렀을때-->
+        <!--수강완료 버튼을 눌렀을때-->
         <div class="tb_box classList" id="af-classList">
             <table class="table-bordered" style="text-align: center;">
                 <br>
@@ -212,6 +213,23 @@
                 })
 
 			})
+		</script>
+		<script>
+			function bfBtn(){
+				$.ajax({
+					url:"<%=contextPath%>/bfList.tt",
+					data:"<%=loginUser.getMemNo()%>",
+					success:function(list){
+						console.log(list);
+						
+					},error:function(){
+						console.log("ajax 통신 실패");
+					}
+					
+				})
+			}
+			
+		
 		</script>
 
 

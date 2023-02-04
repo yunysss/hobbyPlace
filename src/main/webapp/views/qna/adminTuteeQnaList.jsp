@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"
     import="java.util.ArrayList, com.hp.qna.model.vo.*"%>
 <%
-	ArrayList<Qna>list1 = (ArrayList<Qna>)request.getAttribute("list1");
-	
+	ArrayList<Qna>list2 = (ArrayList<Qna>)request.getAttribute("list2");
 	
 %>
 <!DOCTYPE html>
@@ -82,14 +81,14 @@
         <div class="title">1:1문의/답변</div> <br><hr>
 
         <div class="tutor">
-            튜터문의내역
+            튜티문의내역
         </div>
         
         
         
         <br><br>
 
-        <table class="list">
+        <table>
         <thead>
             <tr>
                 <th>번호</th>
@@ -99,18 +98,18 @@
             </tr>
 		</thead>
 		<tbody>
-		<%if(list1.isEmpty()){ %>
+		<%if(list2.isEmpty()){ %>
             <tr>
                 <td colspan="4">등록된 문의가 없습니다.</td>
             </tr>
 		<%}else{ %>
-		<%for(int i=0; i<list1.size(); i++){%>
+		<%for(int i=0; i<list2.size(); i++){%>
             <tr>
             
                 <td><%=i+1 %></td>
-                <td onclick="location.href='<%=contextPath%>/qnaDetail.ad?no=<%=list1.get(i).getqNo()%>'"><%=list1.get(i).getqTitle() %></td>
-                <td><%=list1.get(i).getqDate() %></td>
-                <td><%if(list1.get(i).getaMemNick().equals("N")){ %>
+                <td><%=list2.get(i).getqTitle() %></td>
+                <td><%=list2.get(i).getqDate() %></td>
+                <td><%if(list2.get(i).getaMemNick().equals("N")){ %>
 		                		대기
 		                <%}else{ %>
 		                		완료
@@ -122,8 +121,8 @@
 		</tbody>
            
         </table><br><br><br>
-	
-		
+
+
         
         
     </div>

@@ -627,88 +627,6 @@ public class AdminDao {
 	}
 
 
-
-	/** 기본검색으로 회원조회시 회원리스트 select
-	 * @author 수연
-	 * @param conn
-	 * @param sGroup
-	 * @param fCategory
-	 * @param lineup
-	 * @param pi 
-	 * @return list
-	 */
-	public ArrayList<MemberList> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup, PageInfo pi) {
-		ArrayList<MemberList> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectMemberList1");
-		
-		String sg = null;
-		if(sGroup.equals("all")) {
-			sg = "%%";
-		}else if(sGroup.equals("tutor")) {
-			sg = "%2%";
-		}else {
-			sg = "%1%";
-		}
-		
-		try {
-			int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() -1;
-			
-			switch(fCategory) {
-			case "enroll_date" : sql += " enroll_date "; break;
-			case "mem_no" : sql += " mem_no "; break;
-			case "mem_name" : sql += " mem_name "; break;
-			case "regcount" : sql += " regcount "; break;
-			case "revcount" : sql += " revcount "; break;
-			case "likecount" : sql += " likecount "; break;
-			case "totalpay" : sql += " totalpay "; break;
-			}
-			
-			
-			if(lineup.equals("desc")) {
-				sql += ("desc ) A ) WHERE RNUM BETWEEN '" + startRow + "' AND '" + endRow + "'");
-			}else if(lineup.equals("asc")) {
-				sql += "asc ) A ) WHERE RNUM BETWEEN '";
-				sql += startRow;
-				sql += "' AND '";
-				sql += endRow;
-				sql += "'";
-			}
-			
-			System.out.println(sql);
-			
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, sg);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new MemberList(rset.getInt("mem_no"),
-						            rset.getString("mem_name"),
-						            rset.getString("grade"),
-						            rset.getString("enroll_date"),
-						            rset.getInt("regcount"),
-						            rset.getInt("revcount"),
-						            rset.getInt("likecount"),
-						            rset.getInt("totalpay"),
-						            rset.getString("mem_email"),
-						            rset.getString("mem_phone"),
-						            rset.getString("mem_addr"),
-						            rset.getString("gender"),
-						            rset.getString("mem_status")));
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
-
 	/** 회원번호로 회원정보조회
 	 * @author 수연
 	 * @param conn
@@ -989,7 +907,79 @@ public class AdminDao {
 
 	}
 	
-	
+	/** 기본검색으로 회원조회시 회원리스트 select
+	 * @author 수연
+	 * @param conn
+	 * @param sGroup
+	 * @param fCategory
+	 * @param lineup
+	 * @return list
+	 */
+	public ArrayList<MemberList> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup) {
+		ArrayList<MemberList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberList1");
+		
+		String sg = null;
+		if(sGroup.equals("all")) {
+			sg = "%%";
+		}else if(sGroup.equals("tutor")) {
+			sg = "%2%";
+		}else {
+			sg = "%1%";
+		}
+		
+		try {
+			
+			switch(fCategory) {
+			case "enroll_date" : sql += " enroll_date "; break;
+			case "mem_no" : sql += " mem_no "; break;
+			case "mem_name" : sql += " mem_name "; break;
+			case "regcount" : sql += " regcount "; break;
+			case "revcount" : sql += " revcount "; break;
+			case "likecount" : sql += " likecount "; break;
+			case "totalpay" : sql += " totalpay "; break;
+			}
+			
+			
+			if(lineup.equals("desc")) {
+				sql += "desc";
+			}else if(lineup.equals("asc")) {
+				sql += "asc";
+			}
+			
+			
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, sg);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new MemberList(rset.getInt("mem_no"),
+						            rset.getString("mem_name"),
+						            rset.getString("grade"),
+						            rset.getString("enroll_date"),
+						            rset.getInt("regcount"),
+						            rset.getInt("revcount"),
+						            rset.getInt("likecount"),
+						            rset.getInt("totalpay"),
+						            rset.getString("mem_email"),
+						            rset.getString("mem_phone"),
+						            rset.getString("mem_addr"),
+						            rset.getString("gender"),
+						            rset.getString("mem_status")));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	/** 세부검색으로 회원조회시 나오는 list
 	 * @author 수연
 	 * @param conn
@@ -1002,6 +992,17 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberList2");
 		
+		System.out.println(sm.getsGroup());
+		
+		String sg = null;
+		if(sm.getsGroup().equals("all")) {
+			sg = "%%";
+		}else if(sm.getsGroup().equals("tutor")) {
+			sg = "%2%";
+		}else {
+			sg = "%1%";
+		}
+		
 		try {
 			switch(sm.getsCategory()) {
 			case "mem_name" : sql += " mem_name "; break;
@@ -1011,32 +1012,41 @@ public class AdminDao {
 			case "regcount" : sql += " (SELECT COUNT(REG_NO) \r\n"
 					+ "		          FROM REGISTER R\r\n"
 					+ "		         WHERE REG_STA = '2'\r\n"
-					+ "		           AND MEM_NO = M.MEM_NO) = "; break;
+					+ "		           AND MEM_NO = M.MEM_NO) "; break;
 					
 			case "revcount" : sql += " (SELECT COUNT(RE_NO) \r\n"
 					+ "		          FROM REVIEW\r\n"
 					+ "		         WHERE RE_STA = 'Y'\r\n"
-					+ "		           AND MEM_NO = M.MEM_NO) = "; break;
+					+ "		           AND MEM_NO = M.MEM_NO) "; break;
 					
 			case "likecount" : sql += " (SELECT COUNT(CL_NO)\r\n"
 					+ "		          FROM \"LIKE\"\r\n"
-					+ "		         WHERE MEM_NO = M.MEM_NO) = "; break;
+					+ "		         WHERE MEM_NO = M.MEM_NO) "; break;
 					
 			case "totalpay" : sql += " (SELECT SUM(REG_PRICE)\r\n"
 					+ "		          FROM REGISTER\r\n"
 					+ "		         WHERE REG_STA = '2'\r\n"
-					+ "		          AND MEM_NO = M.MEM_NO) = "; break;
+					+ "		          AND MEM_NO = M.MEM_NO) "; break;
 					
 			case "gender" : sql += " gender = "; break;
 			case "mem_status" : sql += " mem_status = "; break;
 			}
 			
-			if(!sm.getSearchkey1().isEmpty()) { //MEM_NAME 선택시
+			if((sm.getsCategory().equals("mem_name") || sm.getsCategory().equals("mem_email") || sm.getsCategory().equals("mem_addr") || sm.getsCategory().equals("mem_phone")) 
+					&& (!sm.getSearchkey1().isEmpty())) { //MEM_NAME 선택시
 				sql += " LIKE '%" + sm.getSearchkey1() + "%'";
-			}
-			
-			if(!sm.getSearchkey2().isEmpty()) { //REVCOUNT, LIKECOUNT,TOTALPAY 선택시
-				sql += sm.getSearchkey2();
+				
+			}else if((sm.getsCategory().equals("mem_name") || sm.getsCategory().equals("mem_email") || sm.getsCategory().equals("mem_addr") || sm.getsCategory().equals("mem_phone"))
+					&& sm.getSearchkey1().isEmpty()){
+				sql += " LIKE '%" + sm.getSearchkey1() + "%'";
+				
+			}else if((sm.getsCategory().equals("regcount") || sm.getsCategory().equals("revcount") || sm.getsCategory().equals("likecount") || sm.getsCategory().equals("totalpay"))
+					&& (!sm.getSearchkey2().isEmpty())) { // REGCOUNT, REVCOUNT, LIKECOUNT,TOTALPAY 선택시
+				sql += " = " + sm.getSearchkey2();
+				
+			}else if((sm.getsCategory().equals("regcount") || sm.getsCategory().equals("revcount") || sm.getsCategory().equals("likecount") || sm.getsCategory().equals("totalpay")) 
+					&& sm.getSearchkey2().isEmpty()){
+				sql += " >= 0";
 			}
 			
 			switch(sm.getSelectValue()) {// GENDER, MEM_STATUS 선택시
@@ -1047,27 +1057,24 @@ public class AdminDao {
 			case "N" : sql += "'N'"; break;
 			}
 			
-
 			switch(sm.getfCategory()) {
 			case "enroll_date" : sql += " order by enroll_date "; break;
-			case "mem_no" : sql += " order by  mem_no "; break;
+			case "mem_no" : sql += " order by mem_no "; break;
 			case "mem_name" : sql += " order by mem_name "; break;
 			case "regcount" : sql += " order by regcount "; break;
 			case "revcount" : sql += " order by revcount "; break;
 			case "likecount" : sql += " order by likecount "; break;
 			case "totalpay" : sql += " order by totalpay "; break;
 			}
-				
-				
+			
 			if(sm.getLineup().equals("desc")) {
 				sql += "desc";
 			}else if(sm.getLineup().equals("asc")) {
 				sql += "asc";
 			}
 			
-
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, sm.getsGroup());
+			pstmt.setString(1, sg);
 			pstmt.setString(2, sm.getEnrollStart());
 			pstmt.setString(3, sm.getEnrollEnd());
 			
@@ -1105,66 +1112,6 @@ public class AdminDao {
 
 	public ArrayList<TutorList> selectTutorList1(Connection conn, SearchTutor st) {
 		return null;
-	}
-
-
-
-	/** 회원 조회 기본검색 페이징 처리용 전체 조회된행수 조회
-	 * @author 수연
-	 * @param conn
-	 * @return
-	 */
-	public int selectMemberListCount1(Connection conn, String sGroup, String fCategory, String lineup) {
-		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectMemberListCount1");
-		
-		String sg = null;
-		if(sGroup.equals("all")) {
-			sg = "%%";
-		}else if(sGroup.equals("tutor")) {
-			sg = "%2%";
-		}else {
-			sg = "%1%";
-		}
-		
-		try {
-			switch(fCategory) {
-			case "enroll_date" : sql += " enroll_date "; break;
-			case "mem_no" : sql += " mem_no "; break;
-			case "mem_name" : sql += " mem_name "; break;
-			case "regcount" : sql += " regcount "; break;
-			case "revcount" : sql += " revcount "; break;
-			case "likecount" : sql += " likecount "; break;
-			case "totalpay" : sql += " totalpay "; break;
-			}
-			
-			
-			if(lineup.equals("desc")) {
-				sql += "desc )";
-			}else if(lineup.equals("asc")) {
-				sql += "asc )";
-			}
-			
-			
-			
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, sg);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				listCount = rset.getInt("count");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);	
-		}
-		
-		return listCount;
 	}
 
 
@@ -1217,74 +1164,12 @@ public class AdminDao {
 
 
 
-	public int selectMemberListCount(Connection conn) {
-		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectMemberListCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				listCount = rset.getInt("count");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return listCount;
-	}
+	
 
 
 
 
-	public ArrayList<MemberList> selectMemberList(Connection conn, PageInfo pi) {
-		ArrayList<MemberList> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectMemberList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
-			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new MemberList(rset.getInt("mem_no"),
-			            rset.getString("mem_name"),
-			            rset.getString("grade"),
-			            rset.getString("enroll_date"),
-			            rset.getInt("regcount"),
-			            rset.getInt("revcount"),
-			            rset.getInt("likecount"),
-			            rset.getInt("totalpay"),
-			            rset.getString("mem_email"),
-			            rset.getString("mem_phone"),
-			            rset.getString("mem_addr"),
-			            rset.getString("gender"),
-			            rset.getString("mem_status")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
+	
 	
 	
 	

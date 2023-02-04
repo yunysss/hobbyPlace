@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, com.hp.lesson.model.vo.*" %>
 <%
-	ArrayList<Category> cList = (ArrayList<Category>)session.getAttribute("cList");
-	ArrayList<Dcategory> dList = (ArrayList<Dcategory>)session.getAttribute("dList");
+	ArrayList<Category> cList = (ArrayList<Category>)request.getAttribute("catList");
+	ArrayList<Dcategory> dList = (ArrayList<Dcategory>)request.getAttribute("dcList");
 	ArrayList<District> lList = (ArrayList<District>)request.getAttribute("lList");
     ArrayList<District> disList = (ArrayList<District>)request.getAttribute("disList");
 %> 

@@ -124,7 +124,7 @@
             튜티문의내역
         </div>
         
-        <a><div class="detail">더보기+</div></a>
+        <a href="<%=contextPath%>/tuteeQnaList.ad"><div class="detail">더보기+</div></a>
         
         <br><br>
         

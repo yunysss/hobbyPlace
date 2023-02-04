@@ -158,9 +158,9 @@ public class AdminService {
 	 * @param pi 
 	 * @return list
 	 */
-	public ArrayList<MemberList> selectMemberList(String sGroup, String fCategory, String lineup, PageInfo pi) {
+	public ArrayList<MemberList> selectMemberList(String sGroup, String fCategory, String lineup) {
 		Connection conn = getConnection();
-		ArrayList<MemberList> list = new AdminDao().selectMemberList(conn, sGroup, fCategory, lineup, pi);
+		ArrayList<MemberList> list = new AdminDao().selectMemberList(conn, sGroup, fCategory, lineup);
 		close(conn);
 		return list;
 	}
@@ -284,19 +284,7 @@ public class AdminService {
 		return list;
 	}
 
-	/** 회원 조회 기본검색시 페이징 처리용 전체 조회된행수 조회
-	 * @author 수연
-	 * @param sGroup
-	 * @param fCategory
-	 * @param lineup
-	 * @return listCount
-	 */
-	public int selectMemberListCount1(String sGroup, String fCategory, String lineup) {
-		Connection conn = getConnection();
-		int listCount = new AdminDao().selectMemberListCount1(conn, sGroup, fCategory, lineup);
-		close(conn);
-		return listCount;
-	}
+	
 
 	public ArrayList<District> selectLocalList(){
 		Connection conn = getConnection();
@@ -312,29 +300,9 @@ public class AdminService {
 		return list;
 	}
 
-	/** 회원 조회 페이지 호출시 실행되는 페이징 처리용 전체 조회된행수 조회
-	 * @ 수연
-	 * @return count
-	 */
-	public int selectMemberListCount() {
-		Connection conn = getConnection();
-		int count = new AdminDao().selectMemberListCount(conn);
-		close(conn);
-		return count;
-	}
+	
 
-	/** 회원 조회 페이지 호출시 보여지는 회원 전체 리스트
-	 * @author 수연
-	 * @param pi
-	 * @return list
-	 */
-	public ArrayList<MemberList> selectMemberList(PageInfo pi) {
-		Connection conn = getConnection();
-		ArrayList<MemberList> list = new AdminDao().selectMemberList(conn, pi);
-		
-		close(conn);
-		return list;
-	}
+	
 	
 
 }

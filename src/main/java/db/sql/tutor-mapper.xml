@@ -569,7 +569,26 @@
 		    BY REG_NO DESC
 	</entry>
 	
-	
+	<!-- 튜터수강전리스트 조회 -->
+	  SELECT  
+	  		  REG_NO
+			, MEM_NAME
+			, MEM_PHONE
+			, MEM_EMAIL
+			, CL_NAME
+			, TEACH_DATE
+			, START_TIME
+			, REG_PRICE
+			, REG_COUNT
+			, REG_STA
+			, CL_PRICE
+		 FROM REGISTER R
+		 JOIN MEMBER USING (MEM_NO)
+		 JOIN CLASS C USING (CL_NO)
+		 JOIN SCHEDULE S USING (SCH_NO)
+	    WHERE C.MEM_NO=?
+		  AND REG_STA= 1 
+			
 	
 
 

@@ -80,7 +80,14 @@
             </div>
     
             <br>
-
+            <%if(q.getaStatus().equals("Y")){ %>
+				<table border="1" style="border:1px solid lightgray;margin-left:auto;margin-right:auto;">
+	                <tr>
+	                    <th style="background-color: lightgray;" width="150">제목</th>
+	                    <td width="850"><%=q.getaTitle() %></td>
+	                </tr>
+	            </table>
+            <%} %>
             <div style="border: 1px solid lightgray; padding: 10px; height:300px; margin-left:auto;margin-right:auto;">
                 <p>
                 <%if(q.getaStatus().equals("Y")){ %>

@@ -298,7 +298,7 @@ public class Lesson {
 
 	public Lesson(int clNo, String ctNo, String ctDno, String memNo, String clName, String clAddress, int clMax, String clLevel,
 			String startDate, String endDate, int clTimes, String clSchedule, String clDay, String clPrice,
-			String clDetail, String curriculum, String clSupplies, String clThumb, int clStarAvg, int clStarCount, int likeCount, String tutorProfile) {
+			String clDetail, String curriculum, String clSupplies, String clThumb, int clStarAvg, int clStarCount, int likeCount, String tutorProfile, String introduce) {
 		super();
 		this.clNo = clNo;
 		this.ctNo = ctNo;
@@ -322,6 +322,7 @@ public class Lesson {
 		this.clStarCount = clStarCount;
 		this.likeCount = likeCount;
 		this.tutorProfile = tutorProfile;
+		this.introduce = introduce;
 	}
 
 
