@@ -207,7 +207,7 @@ a {
 	      				param.delete('day');
 	      			}
 	      		}
-	    		 param.delete('dct');
+	    	
 	      		 param.append('keyword',keyword);
 	      		 param.append('category','전체');
 	      		 param.append('dcategory','전체');
