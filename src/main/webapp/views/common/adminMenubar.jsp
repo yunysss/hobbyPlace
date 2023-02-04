@@ -163,32 +163,32 @@
                 <!--메뉴창-->
                 <div id="navi_box">
                     <ul id="navi">
-                        <li>회원 관리
+                        <li><a>회원 관리</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/viewMember.ad">전체 회원 조회</a></li>
                                 <li><a href="<%=contextPath%>/viewTutor.ad">튜터 관리</a></li>
                             </ul>
                         </li>
-                        <li><a href="">클래스 관리</a>
+                        <li><a>클래스 관리</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/newcl.ad?cpage=1">신규클래스 검토/승인</a></li>
                                 <li><a href="<%=contextPath%>/classmg.ad?cpage=1">클래스 관리</a></li>
                                 <li><a href="">리뷰 관리</a></li>
                             </ul>
                         </li>
-                        <li><a href="">결제 관리</a>
+                        <li><a>결제 관리</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/manage.reg">결제 내역 관리</a></li>
                                 <li><a href="<%=contextPath%>/manage.cal">튜터 정산 관리</a></li>
                                 <li><a href="<%=contextPath %>/manage.ref">환불 신청 관리</a></li>
                             </ul>
                         </li>
-                        <li><a href="">통계</a>
+                        <li><a>통계</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/statistics.ad">클래스 관리 통계</a></li>
                             </ul>
                         </li>
-                        <li><a href="">고객센터</a>
+                        <li><a>고객센터</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/noticeList.ad?cpage=1">공지사항</a></li>
                                 <li><a href="<%=contextPath%>/faqMain.ad">자주 묻는 질문</a></li>
