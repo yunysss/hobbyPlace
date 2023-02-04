@@ -179,7 +179,7 @@ th {
 	        		                    		+ "<td>" + a[i].teachDate + a[i].startTime + "</td>"
 	        		                    		+ "<td>" + a[i].regCount + "명 </td>"
 	        		                    		+ "<td><div id='select-area'>"
-	        		                    		+ "<a href='<%=contextPath %>/reservationDetail.tt'> 조회</a></div>"
+	        		                    		+ "<a href='<%=contextPath %>/reservationDetail.tt?no="+ a[i].regNo +"'> 조회</a></div>"
 												+ "</td>"
 											+ "</tr>";
 							} //end of for
@@ -221,7 +221,7 @@ th {
 	        		                    		+ "<td>" + b[i].teachDate + b[i].startTime + "</td>"
 	        		                    		+ "<td>" + b[i].regCount + "명 </td>"
 	        		                    		+ "<td><div id='select-area'>"
-	        		                    		+ "<a href='<%=contextPath %>/reservationDetail.tt'> 조회</a></div>"
+	        		                    		+ "<a href='<%=contextPath %>/reservationDetail.tt?no="+ b[i].regNo +"'> 조회</a></div>"
 												+ "</td>"
 											+ "</tr>";
 							} //end of for

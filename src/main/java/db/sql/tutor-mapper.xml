@@ -617,6 +617,32 @@
 		  AND REG_STA IN (2,3)
 			
 	</entry>
+	
+	<!--예약관리 상세페이지 조회 -->
+	<entry key="selectReservationClass">
+	   SELECT  
+	  		  REG_NO
+	  		, REG_DATE
+			, MEM_NAME
+			, MEM_PHONE
+			, NVL(MEM_EMAIL,'-') "MEM_EMAIL" 
+			, CL_NAME
+			, TEACH_DATE
+			, START_TIME
+            , END_TIME
+			, TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+			, REG_COUNT
+			, REG_STA
+			, RE_ENROLL
+			, CL_PRICE
+            , MEMO
+		 FROM REGISTER R
+		 JOIN MEMBER USING (MEM_NO)
+		 JOIN CLASS C USING (CL_NO)
+		 JOIN SCHEDULE S USING (SCH_NO)
+	    WHERE REG_NO = ?
+	
+	</entry>
 
 
 </properties>

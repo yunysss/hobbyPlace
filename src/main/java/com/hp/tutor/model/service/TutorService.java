@@ -269,7 +269,15 @@ public class TutorService {
 		close(conn);
 		return atList;
 	}
-	
+
+	public Register selectReservationClass(int regNo) {
+		Connection conn = getConnection();
+		Register r = new TutorDao().selectReservationClass(conn, regNo);
+		
+		return r;
+	}
+
+
 	
 
 }
