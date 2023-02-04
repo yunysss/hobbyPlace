@@ -632,6 +632,50 @@ public class MemberDao {
 		return result;
 	}
 
+	public int insertLikeClassList(Connection conn, int clNo, int memNo) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql = prop.getProperty("insertLikeClassList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			pstmt.setInt(2, memNo);
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectLikeStatus(Connection conn, int clNo, int memNo) {
+		int likeStatus = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLikeStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			pstmt.setInt(2, memNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				likeStatus = rset.getInt("like_st");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return likeStatus;
+	}
+
 
 
 	

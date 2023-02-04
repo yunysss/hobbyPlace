@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList, com.hp.member.model.vo.Like" %>
 <%
  	ArrayList<Like> list = (ArrayList<Like>)request.getAttribute("list");
+	
 
 %>
 <!DOCTYPE html>
@@ -51,7 +52,9 @@
                             <table class="class-area">
                                 <tr>
                                     <td style="font-size: small;"><%=list.get(i).getDistrName()%></td>
-            						<td align="right" style="cursor: pointer;"><a class="like-btn">❤️</a></td>
+                                    
+            						<td align="right" style="cursor: pointer;"><a class="like-btn<%=i%>">❤️</a></td>
+            						
                                </tr>
                                 </tr>
                                 <tr>
@@ -71,7 +74,7 @@
                     
                          <script>
 				          	$(function(){
-				          		$(".like-btn").click(function(){
+				          		$(".like-btn<%=i%>").click(function(){
 				          			if($(this).text("❤️")){
 				          				$.ajax({
 				          					url:"<%=contextPath%>/classDislike.tee",
@@ -79,9 +82,8 @@
 				          						clNo:<%=list.get(i).getClNo()%>,
 				          						memNo:<%=loginUser.getMemNo()%>
 				          					},
-				          					success:function(dl){
-				          						$(".like-btn").text("🤍");
-				          						$(list-area<%=i%>).hide();
+				          					success:function(dlb){
+				          						$(".list-area<%=i%>").hide();
 				          					},error:function(){
 				          						console.log("ajax 통신 실패");
 				          					}
@@ -90,9 +92,7 @@
 				          			}
 				          		})
 				          	})
-          
-          	
-          
+				          	
           				</script>
             
             <%} %>
