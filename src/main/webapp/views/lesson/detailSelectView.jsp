@@ -163,17 +163,17 @@ a {
             <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
               지역
             </button>
-            <div class="dropdown-menu region">
-              <a class="dropdown-item" id="10" href="#" data-value="서울">서울</a>
-              <a class="dropdown-item" id="20" href="#" data-value="인천">인천</a>
-              <a class="dropdown-item" id="30" href="#"data-value="경기">경기</a>
+            <div class="dropdown-menu filter" id="region">
+              <a class="dropdown-item" id="10" href="#">서울</a>
+              <a class="dropdown-item" id="20" href="#">인천</a>
+              <a class="dropdown-item" id="30" href="#">경기</a>
             </div>
             </div>
             <div class="dropdown">
               <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
                 일정
               </button>
-              <div class="dropdown-menu schedule">
+              <div class="dropdown-menu filter" id="schedule">
                 <a class="dropdown-item" id="weekday" href="#">평일</a>
                 <a class="dropdown-item" id="sat" href="#">토요일</a>
                 <a class="dropdown-item" id="sun" href="#">주말</a>
