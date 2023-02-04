@@ -1038,7 +1038,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			sql += "";				
 		}else if(category !=null && !category.equals("")) {
 		     sql += "and G.ct_name = " + "'" +category +"'";
-		}else if(category == null& category.equals("")) {
+		}else if(category == null || category.equals("")) {
 			sql += "";
 		
 		}
@@ -1049,6 +1049,8 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			sql += "and g.ct_name =" + "'" + category + "'";
 		}else if(!dcategory.equals("전체")) {
 			sql += "and ct_dname= "+ "'"+ dcategory + "'";
+		}else  {
+			sql +="";
 		}
 		
 		if(sido.equals("00")) {
@@ -1078,13 +1080,13 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 				sql += "and cl_schedule = '매일'";
 				
 		 }else if(day.length()!=0 && day.contains("sat") && day.contains("sun")) {
-				sql += "and cl_day like '%토%' or cl_day like '%일%'";
+				sql += "and (cl_day like '%토%' or cl_day like '%일%')";
 		 		
 		 }else if((day.contains("weekday") && day.contains("sat")) || (day.contains("weekday") && day.contains("sun"))  ) {
 				sql += "and cl_schedule = '매일'";
 		 
 		 }else if(day.length() !=0 && day.contains("weekday")) {
-			sql += "and cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%'";		
+			sql += "and (cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%')";		
 		}else if(day.length()!= 0 && day.contains("sat")) {
 			sql += "and cl_day like '%토%'";
 					
@@ -1159,7 +1161,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 				sql += "";				
 			}else if(category !=null && !category.equals("")) {
 			     sql += "and G.ct_name = " + "'" +category +"'";
-			}else if(category == null& category.equals("")) {
+			}else if(category == null || category.equals("")) {
 				sql += "";
 			}
 			
@@ -1200,13 +1202,13 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 					sql += "and cl_schedule = '매일'";
 					
 			 }else if(day.length()!=0 && day.contains("sat") && day.contains("sun")) {
-					sql += "and cl_day like '%토%' or cl_day like '%일%'";
+					sql += "and (cl_day like '%토%' or cl_day like '%일%')";
 			 		
 			 }else if((day.contains("weekday") && day.contains("sat")) || (day.contains("weekday") && day.contains("sun"))  ) {
 					sql += "and cl_schedule = '매일'";
 			 
 			 }else if(day.length() !=0 && day.contains("weekday")) {
-				sql += "and cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%'";		
+				sql += "and (cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%')";		
 			}else if(day.length()!= 0 && day.contains("sat")) {
 				sql += "and cl_day like '%토%'";
 						
@@ -1313,13 +1315,13 @@ public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
 					sql += "and cl_schedule = '매일'";
 					
 			 }else if(day.length()!=0 && day.contains("sat") && day.contains("sun")) {
-					sql += "and cl_day like '%토%' or cl_day like '%일%'";
+					sql += "and (cl_day like '%토%' or cl_day like '%일%')";
 			 		
 			 }else if((day.contains("weekday") && day.contains("sat")) || (day.contains("weekday") && day.contains("sun"))  ) {
 					sql += "and cl_schedule = '매일'";
 			 
 			 }else if(day.length() !=0 && day.contains("weekday")) {
-				sql += "and cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%'";		
+				sql += "and (cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%')";		
 			}else if(day.length()!= 0 && day.contains("sat")) {
 				sql += "and cl_day like '%토%'";
 						
