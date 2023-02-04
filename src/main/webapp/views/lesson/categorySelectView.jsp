@@ -168,7 +168,7 @@
             <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
               지역
             </button>
-            <div class="dropdown-menu" id="region">
+            <div class="dropdown-menu filter" id="region">
               <a class="dropdown-item" id="10" href="#">서울</a>
               <a class="dropdown-item" id="20" href="#">인천</a>
               <a class="dropdown-item" id="30" href="#">경기</a>
@@ -178,13 +178,80 @@
               <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
                 일정
               </button>
-              <div class="dropdown-menu" id="schedule">
-                <a class="dropdown-item" href="#">평일</a>
-                <a class="dropdown-item" href="#">주말</a>
-     
+              <div class="dropdown-menu filter" id="schedule">
+                <a class="dropdown-item" id="weekday"href="#">평일</a>
+                <a class="dropdown-item" id="sat"href="#">토요일</a>
+     			<a class="dropdown-item" id="sun"href="#">일요일</a>
               </div>
+              
       	  </div>
+  
+      	  </div>
+      	  <script>
+	      	let url = document.location.href;
+	      	console.log(url);  
+	 
+	      	let query = window.location.search;        
+	      	let param = new URLSearchParams(query);   
+	      	  
+	      	let ct = param.get("ct")  
+	      	console.log(ct);
+	      	
+	      	let allbtn = document.querySelectorAll(".filter a");
+	      	allbtn.forEach(function(b){
+	      		b.addEventListener('click',filterButton);
+	      	
+	      	});
+	      	
+	      	function filterButton(e){
+	      		let type = e.target.parentNode.id;
+	      		let id = e.target.getAttribute('id');
+	      	
+	      		if(type == 'region'){
+	      			if(id != null){
+	      			param.append('sido', id);
+	      			}else{ 
+	      			param.delete('sido')	
+	      			}
+	      		}
+	      		
+	      		if(type == 'schedule'){
+	      			if(id != null){
+	      			param.append('day',id);
+	      			}else{
+	      				param.delete('day');
+	      			}
+	      		}
+	    
+	      		 param.append('keyword','');
+	      		 param.append('category',ct);
+	      		 param.append('dcategory','전체');
+	      		 param.append('sigungu','전체');
+	      		 param.append('price','');
+	      		
+	      		
+	      		location.href = "<%=contextPath%>/detail.sc?" +  param.toString();
+	      	}
+	      	
+	      	
+	 
+      	  </script>
+      	  
+      
+      
+      
+      
+      
+      
+      
+      
+       <!--
+      	   
       	   <script>
+      	   
+      	   
+      	
+      	   
            $("#region a").click(function(){
         	   $.ajax({
         		   url:"<%=contextPath%>/sort.cl",
@@ -239,6 +306,9 @@
         
         </script>
         
+        -->
+        
+      
         
         <br><br>
         <span id="count" style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count %> 건</span>

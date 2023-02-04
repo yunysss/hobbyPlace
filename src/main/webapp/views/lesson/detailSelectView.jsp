@@ -157,16 +157,16 @@ a {
   		</div>
   		<%} else {%>
         <h4> <a href=""><%=keyword%> 검색결과</a><span class="material-symbols-outlined symbol">expand_more</span></h4>
-       <!-- 
+    
         <div id="button-area">
              <div class="dropdown">
             <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
               지역
             </button>
             <div class="dropdown-menu region">
-              <a class="dropdown-item" href="#" data-value="서울">서울</a>
-              <a class="dropdown-item" href="#" data-value="인천">인천</a>
-              <a class="dropdown-item" href="#"data-value="경기">경기</a>
+              <a class="dropdown-item" id="10" href="#" data-value="서울">서울</a>
+              <a class="dropdown-item" id="20" href="#" data-value="인천">인천</a>
+              <a class="dropdown-item" id="30" href="#"data-value="경기">경기</a>
             </div>
             </div>
             <div class="dropdown">
@@ -174,16 +174,55 @@ a {
                 일정
               </button>
               <div class="dropdown-menu schedule">
-                <a class="dropdown-item" href="#">평일</a>
-                <a class="dropdown-item" href="#">주말</a>
-                <div class="dropdown-divider"></div>
-               <a class="dropdown-item" href="#">오전</a>
-                <a class="dropdown-item" href="#">오후</a>
-               </div>
+                <a class="dropdown-item" id="weekday" href="#">평일</a>
+                <a class="dropdown-item" id="sat" href="#">토요일</a>
+                <a class="dropdown-item" id="sun" href="#">주말</a>
               </div>
     
         </div>
- --> 
+        
+          <script>
+	      	let url = document.location.href;
+	      	console.log(url);  
+	 
+	      	let query = window.location.search;        
+	      	let param = new URLSearchParams(query);   
+	      	  
+	     
+	      	let allbtn = document.querySelectorAll(".filter a");
+	      	allbtn.forEach(function(b){
+	      		b.addEventListener('click',filterButton);
+	      	
+	      	});
+	      	
+	      	function filterButton(e){
+	      		let type = e.target.parentNode.id;
+	      		let id = e.target.getAttribute('id');
+	      	
+	      		if(type == 'region'){
+	      			if(id != null){
+	      			param.set('sido', id);
+	      			}
+	      		}
+	      		
+	      		if(type == 'schedule'){
+	      			if(id != null){
+	      			param.set('day',id);
+	      			}
+	      		}
+	    
+	    
+	      		location.href = "<%=contextPath%>/detail.sc?" +  param.toString();
+	      	}
+	      	
+	      	
+	 
+      	  </script>
+      	  
+
+        
+        
+
         <br><br>
         <span style="font-size: 12px; font-weight: 550; color: rgb(75, 72, 72);">검색결과 <%=count%> 건</span>
         <div id="btn-area">
@@ -211,7 +250,7 @@ a {
                              dcategory : '<%=dcategory%>',
                              sido : '<%=sido%>',
                              sigungu : '<%=sigungu%>',
-                             price : <%=price%>,
+                             price : '<%=price%>',
                              day : '<%=day%>',
                              sort : $(this).text()
                         

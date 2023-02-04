@@ -598,7 +598,7 @@
 	                    <div style="font-size:12px;">🔺첫번째 선택한 사진이 썸네일 이미지로 사용됩니다. 사진은 4장 모두 등록해주세요</div>
 					
 	                    <div id="file-area" style="display: none;">
-	                        <input type="file" name="file1" onchange="loadImg(this,1);"  value="<%=contextPath %>/<%=l.getClThumb()%>" required> 
+	                        <input type="file" name="file1" onchange="loadImg(this,1);"  value="<%=contextPath %>/<%=l.getClThumb()%>" > 
 	                        <input type="file" name="file2" onchange="loadImg(this,2);" >
 	                        <input type="file" name="file3" onchange="loadImg(this,3);"> 
 	                        <input type="file" name="file4" onchange="loadImg(this,4);" >

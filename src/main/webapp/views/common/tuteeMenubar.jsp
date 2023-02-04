@@ -634,11 +634,11 @@ select {
 					<th>카테고리</th>
 					<td><select name="category" id="ct" onchange="changeCt();">
 							<option selected >전체</option>
-							<option value="11">교육</option>
-							<option value="22">공예 DIY</option>
-							<option value="33">드로잉</option>
-							<option value="44">쿠킹</option>
-							<option value="55">스포츠/피트니스</option>
+							<option>교육</option>
+							<option>공예DIY</option>
+							<option>드로잉</option>
+							<option>쿠킹</option>
+							<option>스포츠/피트니스</option>
 
 						</select>
 					 <select name="dcategory" id="dct">
@@ -655,17 +655,17 @@ select {
      	
                         	var changeDct;
                         	
-                        	if( $("#ct").val() == "11"){
+                        	if( $("#ct").val() == "교육"){
                         		changeDct = study;
                         		
-                        	}else if( $("#ct").val() == "22"){
+                        	}else if( $("#ct").val() == "공예DIY"){
                         		changeDct = diy;
-                        	}else if( $("#ct").val() == "33"){
+                        	}else if( $("#ct").val() == "드로잉"){
                         		changeDct = draw;
 
-                        	}else if( $("#ct").val()  == "44"){
+                        	}else if( $("#ct").val()  == "쿠킹"){
                         		changeDct = cook;
-                        	}else if( $("#ct").val() == "55"){
+                        	}else if( $("#ct").val() == "스포츠/피트니스"){
                         		changeDct = sport;
                         	}
                         	

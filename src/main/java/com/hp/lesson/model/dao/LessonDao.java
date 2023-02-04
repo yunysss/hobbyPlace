@@ -1037,7 +1037,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 		if(category.equals("전체")) {
 			sql += "";				
 		}else if(category !=null && !category.equals("")) {
-		     sql += "and G.ct_no = " + "'" +category +"'";
+		     sql += "and G.ct_name = " + "'" +category +"'";
 		}else if(category == null& category.equals("")) {
 			sql += "";
 		
@@ -1046,7 +1046,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 		if(category.equals("전체") && dcategory.equals("전체")){
 			sql +="";
 		}else if(!category.equals("전체")&& dcategory.equals("전체")) {
-			sql += "and g.ct_no =" + "'" + category + "'";
+			sql += "and g.ct_name =" + "'" + category + "'";
 		}else if(!dcategory.equals("전체")) {
 			sql += "and ct_dname= "+ "'"+ dcategory + "'";
 		}
@@ -1158,7 +1158,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			if(category.equals("전체")) {
 				sql += "";				
 			}else if(category !=null && !category.equals("")) {
-			     sql += "and G.ct_no = " + "'" +category +"'";
+			     sql += "and G.ct_name = " + "'" +category +"'";
 			}else if(category == null& category.equals("")) {
 				sql += "";
 			}
@@ -1166,9 +1166,9 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			if(category.equals("전체") && dcategory.equals("전체")){
 				sql +="";
 			}else if(!category.equals("전체")&& dcategory.equals("전체")) {
-				sql += "and g.ct_no =" + "'" + category + "'";
+				sql += "and g.ct_name =" + "'" + category + "'";
 			}else if(!dcategory.equals("전체")) {
-				sql += "and ct_name= "+ "'"+ dcategory + "'";
+				sql += "and ct_dname= "+ "'"+ dcategory + "'";
 			}else {
 				sql +="";
 			}
@@ -1271,14 +1271,14 @@ public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
 			if(category.equals("전체") ) {
 				sql += "";				
 			}else if(category !=null && !category.equals("")) {
-			     sql += "and G.CT_NO = " + "'" +category +"'";
+			     sql += "and G.ct_name = " + "'" +category +"'";
 			}
 			
 			
 			if(category.equals("전체") && dcategory.equals("전체")){
 				sql +="";
 			}else if(!category.equals("전체")&& dcategory.equals("전체")) {
-				sql += "and g.ct_no =" + "'" + category + "'";
+				sql += "and g.ct_name =" + "'" + category + "'";
 			}else if(!dcategory.equals("전체")) {
 				sql += "and ct_dname= "+ "'"+ dcategory + "'";
 			}else {
@@ -1340,7 +1340,7 @@ public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
 			 }
 			 
 			
-			System.out.println(sql);
+			//System.out.println(sql);
 		 
 		pstmt= conn.prepareStatement(sql);
 	    rset = pstmt.executeQuery();
