@@ -99,11 +99,9 @@ th {
 		</h5>
 		<br>
 
-
-
 		<div class="btn_area">
-			<button type="button" id="bfBtn">수강전</button>
-			<button type="button" id="afBtn">수강완료</button>
+			<button type="button" id="bfBtn" >수강전</button>
+			<button type="button" id="atBtn" >수강완료</button>
 		</div>
 
 		<!-- 수강전 버튼을 눌렀을때-->
@@ -111,74 +109,31 @@ th {
 			<table class="table-bordered" id = "before-table-bordered" style="text-align: center;">
 				<br>
 				<thead>
-				<tr>
-					<th width="70px" height="25px">상태</th>
-					<th width="60px">튜티명</th>
-					<th width="125px">전화번호</th>
-					<th width="350px">예약 클래스</th>
-					<th width="100px">예약 날짜</th>
-					<th width="45px">인원</th>
-					<th width="100px">상세조회</th>
-				</tr>
+					<tr>
+						<th width="70px" height="25px">상태</th>
+						<th width="60px">튜티명</th>
+						<th width="125px">전화번호</th>
+						<th width="350px">예약 클래스</th>
+						<th width="100px">예약 날짜</th>
+						<th width="45px">인원</th>
+						<th width="100px">상세조회</th>
+					</tr>
 				</thead>
 				
 				<tbody id = "before-class-body" class = "before-class-body">
-				<!-- 수강 전 클래스가 없을 경우 -->
-				<%if(loginUser!=null && bfList.isEmpty()){ %>
-				<tr>
-					<td colspan="7" height="30px">수강 전 클래스가 없습니다.</td>
-				</tr>
-
-				<%}else{ %>
-				<!-- 수강 전 클래스가 있을 경우 -->
-
-
-				<%for (Register x : bfList) { %>
-
-				<tr>
-					<td height="25px">수강전</td>
-					<td><%=x.getMemName() %></td>
-					<td><%=x.getMemPhone() %></td>
-					<td><%=x.getClName() %></td>
-					<td><%=x.getTeachDate() %> <%=x.getStartTime() %></td>
-					<td><%=x.getRegCount() %></td>
-					<td>
-						<div id="select-area">
-							<a href=""> 조회</a>
-						</div>
-					</td>
-				</tr>
-				<%} %>
-			</tbody>
+					
+				</tbody>
 				
 			</table>
 			<br> <br>
 
-
-			<!--페이징 부분-->
-			<div class="paging-area">
-				<button>&lt;</button>
-
-				<button>1</button>
-				<button>2</button>
-				<button>3</button>
-				<button>4</button>
-				<button>5</button>
-				<button>&gt;</button>
-			</div>
 		</div>
 
-		<script>
-        function bfList(){
-        	const bfClassList = document.getElementById("bf-classList")
-        }
-        
-        </script>
+		
 
 		<!--수강완료 버튼을 눌렀을때-->
 		<div class="tb_box classList" id="af-classList">
-			<table class="table-bordered" id="table-bordered"
-				style="text-align: center;">
+			<table class="table-bordered" id="after-table-bordered" style="text-align: center;">
 				<br>
 				<thead>
 				<tr>
@@ -191,161 +146,106 @@ th {
 					<th width="100px">상세조회</th>
 				</tr>
 				</thead>
-				<!--수강완료 클래스가 없을 경우-->
-
-
-				<!--수강 완료 클래스가 있을 경우-->
 				
-				<tbody class="class-finisehd" id ="class-finisehd">
-				
+				<tbody >
+					
+					
 				</tbody>
 
 			</table>
-
-
-			<br> <br>
-
-			<!--페이징 부분-->
-			<div class="paging-area">
-				<button>&lt;</button>
-
-				<button>1</button>
-				<button>2</button>
-				<button>3</button>
-				<button>4</button>
-				<button>5</button>
-				<button>&gt;</button>
-			</div>
-
 		</div>
+		
 
 		<script>			
-			
-				$("#afBtn").click(function(){ // 수강완료버튼클릭시
-                    //버튼 스타일 변화
-					$(this).css("background-color", "rgb(22, 160, 133)").css("color", "white");
-	            	$("#bfBtn").css("background-color", "rgb(218, 217, 217)").css("color", "black");
-
-                    // div display 변화
-                    $("#bf-classList").hide();
-                    $("#af-classList").show();
-      
-    				let value = "";
-
-                	$.ajax({
-                		url:"<%=contextPath%>/atList.tt",
-                		data:{
-                			"loginUser": "<%=loginUser.getMemNo()%>"
-                		},
-                		type:"get",
-                		success:function(result){
-                			console.log("success");
-                			console.log(result)
-                			
-                			// 완료 클래스 없을 때
-                			if(result.length == 0) {
-                				$("#table-bordered").append("<td colspan='7' height='30px'>수강 완료 클래스가 없습니다.</td>")
-
-                			} else {
-                				console.log("result.length != 0")
-
-                				for (let i = 0; i < result.length; i++) {
-                					value +=	"<tr>"
-            		                    + "<td height='25px'>수강완료</td>"
-            		                    + "<td>" + result[i].memName + "</td>"
-            		                    + "<td>" + result[i].memPhone + "</td>"
-            		                    + "<td>" + result[i].clName + "</td>"
-            		                    + "<td>" + result[i].teachDate + result[i].startTime + "</td>"
-            		                    + "<td>" + result[i].regCount + "명 </td>"
-            		                    + "<td><div id='select-area'>"
-            		                    + "<a href='<%=contextPath %>/reservationDetail.tt'> 조회</a></div>"
-										+ "</td></tr>";
-									}
-                				
-                				
-                				$(".table-bordered tbody").html(value);
-                				
-             
-										
-												
-											}
-										} // end of success
-									}) // end of ajax
+			$(function(){
+				$("#atBtn").click(function(){
+					$.ajax({
+						url:"<%=contextPath%>/atList.tt",
+						success:function(a){
+							if(a.length==0){
+								let value = "<tr>"
+											  +	"<td colspan='7' height='30px'>수강완료 클래스가 없습니다.</td>"
+										 + "</tr>"
+							    $("#table-bordered tbody").html(value);
 								
-							});
+							}else{
+								let value = "";
+								for (let i = 0; i < a.length; i++) {
+	            					value += "<tr>"
+	        		                    		+ "<td height='25px'>" + a[i].regSta + "</td>"
+	        		                    		+ "<td>" + a[i].memName + "</td>"
+	        		                    		+ "<td>" + a[i].memPhone + "</td>"
+	        		                   			+ "<td>" + a[i].clName + "</td>"
+	        		                    		+ "<td>" + a[i].teachDate + a[i].startTime + "</td>"
+	        		                    		+ "<td>" + a[i].regCount + "명 </td>"
+	        		                    		+ "<td><div id='select-area'>"
+	        		                    		+ "<a href='<%=contextPath %>/reservationDetail.tt'> 조회</a></div>"
+												+ "</td>"
+											+ "</tr>";
+							} //end of for
+							$("#after-table-bordered tbody").html(value);
+							$("#atBtn").css("background-color", "rgb(22, 160, 133)").css("color", "white");
+				        	$("#bfBtn").css("background-color", "rgb(218, 217, 217)").css("color", "black");
 				
-				
-				
-			$("#bfBtn").click(
-					function() { // 수강전버튼 클릭시
-						//버튼 스타일 변화
-						$(this).css("background-color", "rgb(22, 160, 133)")
-								.css("color", "white");
-						$("#afBtn").css("background-color",
-								"rgb(218, 217, 217)").css("color", "black");
-
-						// div display 변화
-						$("#af-classList").hide();
-						$("#bf-classList").show();
-						
-						
-						
-						let value = "";
-
-	                	$.ajax({
-	                		url:"<%=contextPath%>/bfList.tt",
-	                		data:{
-	                			"loginUser": "<%=loginUser.getMemNo()%>"
-	                		},
-	                		type:"get",
-	                		success:function(result){
-	                			console.log("success");
-	                			console.log(result)
-	                			
-	                			// 완료 클래스 없을 때
-	                			if(result.length == 0) {
-	                				$("#before-table-bordered").append("<td colspan='7' height='30px'>수강 전 클래스가 없습니다.</td>")
-
-	                			} else {
-	                				console.log("result.length != 0")
-
-	                				for (let i = 0; i < result.length; i++) {
-	                					value +=	"<tr>"
-	            		                    + "<td height='25px'>수강전</td>"
-	            		                    + "<td>" + result[i].memName + "</td>"
-	            		                    + "<td>" + result[i].memPhone + "</td>"
-	            		                    + "<td>" + result[i].clName + "</td>"
-	            		                    + "<td>" + result[i].teachDate + result[i].startTime + "</td>"
-	            		                    + "<td>" + result[i].regCount + "명 </td>"
-	            		                    + "<td><div id='select-area'>"
-	            		                    + "<a href='<%=contextPath %>/reservationDetail.tt'> 조회</a></div>"
-											+ "</td></tr>";
-										}
-	                				
-	                				
-	                				$("#before-table-bordered tbody").html(value);
-	                				
-	             
-											
-													
-												}
-											} // end of success
-										}) // end of ajax
-						
-						
-						
-						
-						
+				            // div display 변화
+				            $("#bf-classList").hide();
+				            $("#af-classList").show();
+							} // end of else
+						}
+							,error:function(){
+							console.log("ajax 통신 실패");
+						}// end of error
+					   
 					})
+				 })	
+				})
+			$(function(){
+				$("#bfBtn").click(function(){
+					$.ajax({
+						url:"<%=contextPath%>/bfList.tt",
+						success:function(b){
+							if(b.length==0){
+								let value = "<tr>"
+											  +	"<td colspan='7' height='30px'>수강전 클래스가 없습니다.</td>"
+										 + "</tr>"
+							    $("#table-bordered tbody").html(value);
+								
+							}else{
+								let value = "";
+								for (let i = 0; i < b.length; i++) {
+	            					value += "<tr>"
+	        		                    		+ "<td height='25px'>수강전</td>"
+	        		                    		+ "<td>" + b[i].memName + "</td>"
+	        		                    		+ "<td>" + b[i].memPhone + "</td>"
+	        		                   			+ "<td>" + b[i].clName + "</td>"
+	        		                    		+ "<td>" + b[i].teachDate + b[i].startTime + "</td>"
+	        		                    		+ "<td>" + b[i].regCount + "명 </td>"
+	        		                    		+ "<td><div id='select-area'>"
+	        		                    		+ "<a href='<%=contextPath %>/reservationDetail.tt'> 조회</a></div>"
+												+ "</td>"
+											+ "</tr>";
+							} //end of for
+							$("#before-table-bordered tbody").html(value);
+							$("#bfBtn").css("background-color", "rgb(22, 160, 133)").css("color", "white");
+				        	$("#atBtn").css("background-color", "rgb(218, 217, 217)").css("color", "black");
+				
+				            // div display 변화
+				            $("#af-classList").hide();
+				            $("#bf-classList").show();
+							} // end of else
+						}
+							,error:function(){
+							console.log("ajax 통신 실패");
+						}// end of error
+					   
+					})
+				 })	
+				})
 		</script>
+		
+		
 
-
-
-
-
-		<%
-		}
-		%>
+	
 
 	</div>
 	</div>

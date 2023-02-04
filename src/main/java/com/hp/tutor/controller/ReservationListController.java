@@ -47,8 +47,8 @@ public class ReservationListController extends HttpServlet {
 		
 		request.setAttribute("bfList", bfList);
 		
-		ArrayList<Register> atList = new TutorService().selectATClassList(memNo);
-		request.setAttribute("atList", atList);
+		//ArrayList<Register> atList = new TutorService().selectATClassList(memNo);
+		//request.setAttribute("atList", atList);
 		
 		
 		request.getRequestDispatcher("views/tutor/reservationList.jsp").forward(request, response);

@@ -1015,6 +1015,12 @@ public class TutorDao {
 		return rList;
 	}
 
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param memNo
+	 * @return 수강전 클래스 리스트
+	 */
 	public ArrayList<Register> selectBFClassList(Connection conn, int memNo) {
 		ArrayList<Register> bfList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -1052,6 +1058,12 @@ public class TutorDao {
 		return bfList;
 	}
 
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param memNo
+	 * @return 수강 완료 클래스 조회
+	 */
 	public ArrayList<Register> selectATClassList(Connection conn, int memNo) {
 		ArrayList<Register> atList = new ArrayList<>();
 		PreparedStatement pstmt = null;

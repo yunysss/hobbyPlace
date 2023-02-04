@@ -36,10 +36,7 @@ public class AjaxReservationListBfBtnController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Member loginUser = (Member) session.getAttribute("loginUser");
-	    
-	    int memNo = Integer.parseInt(request.getParameter("loginUser"));
+		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 	   // System.out.println("===memno2=== :  " + memNo2);
 	    
 	    response.setContentType("application/json; charset=UTF-8");

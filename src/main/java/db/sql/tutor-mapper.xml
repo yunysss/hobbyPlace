@@ -607,14 +607,14 @@
 			, START_TIME
 			, REG_PRICE
 			, REG_COUNT
-			, REG_STA
+			, decode(REG_STA,'2','수강완료','3','취소') "REG_STA"
 			, CL_PRICE
 		 FROM REGISTER R
 		 JOIN MEMBER USING (MEM_NO)
 		 JOIN CLASS C USING (CL_NO)
 		 JOIN SCHEDULE S USING (SCH_NO)
 	    WHERE C.MEM_NO=?
-		  AND REG_STA= 2 
+		  AND REG_STA IN (2,3)
 			
 	</entry>
 
