@@ -34,15 +34,11 @@ public class AjaxReservationListATBtnController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Member loginUser = (Member) session.getAttribute("loginUser");
-	    int memNo = loginUser.getMemNo();
 	    
-	    int memNo2 = Integer.parseInt(request.getParameter("loginUser"));
-	   // System.out.println("===memno2=== :  " + memNo2);
+		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 	    
 	    response.setContentType("application/json; charset=UTF-8");
-	    ArrayList<Register> atList = new TutorService().selectATClassList(memNo2);
+	    ArrayList<Register> atList = new TutorService().selectATClassList(memNo);
 	    new Gson().toJson(atList, response.getWriter());
 	    
 	}
