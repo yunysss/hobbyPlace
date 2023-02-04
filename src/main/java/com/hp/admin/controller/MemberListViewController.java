@@ -41,7 +41,7 @@ public class MemberListViewController extends HttpServlet {
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
 			response.sendRedirect(request.getContextPath() + "/loginPage.ad");
 		}else { // 로그인 후
-			
+			/*
 			int listCount = new AdminService().selectMemberListCount();
 			int currentPage = Integer.parseInt(request.getParameter("cpage"));
 			int pageLimit = 5;
@@ -57,7 +57,7 @@ public class MemberListViewController extends HttpServlet {
 			
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
-			
+			*/
 			request.getRequestDispatcher("views/admin/memberListView.jsp").forward(request, response);
 		}
 	}

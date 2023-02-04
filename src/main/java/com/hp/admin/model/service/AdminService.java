@@ -158,9 +158,9 @@ public class AdminService {
 	 * @param pi 
 	 * @return list
 	 */
-	public ArrayList<MemberList> selectMemberList(String sGroup, String fCategory, String lineup, PageInfo pi) {
+	public ArrayList<MemberList> selectMemberList(String sGroup, String fCategory, String lineup) {
 		Connection conn = getConnection();
-		ArrayList<MemberList> list = new AdminDao().selectMemberList(conn, sGroup, fCategory, lineup, pi);
+		ArrayList<MemberList> list = new AdminDao().selectMemberList(conn, sGroup, fCategory, lineup);
 		close(conn);
 		return list;
 	}
