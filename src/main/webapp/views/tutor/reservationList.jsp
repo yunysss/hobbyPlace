@@ -108,8 +108,9 @@ th {
 
 		<!-- 수강전 버튼을 눌렀을때-->
 		<div class="tb_box classList" id="bf-classList">
-			<table class="table-bordered" style="text-align: center;">
+			<table class="table-bordered" id = "before-table-bordered" style="text-align: center;">
 				<br>
+				<thead>
 				<tr>
 					<th width="70px" height="25px">상태</th>
 					<th width="60px">튜티명</th>
@@ -119,7 +120,9 @@ th {
 					<th width="45px">인원</th>
 					<th width="100px">상세조회</th>
 				</tr>
-
+				</thead>
+				
+				<tbody id = "before-class-body" class = "before-class-body">
 				<!-- 수강 전 클래스가 없을 경우 -->
 				<%if(loginUser!=null && bfList.isEmpty()){ %>
 				<tr>
@@ -146,6 +149,8 @@ th {
 					</td>
 				</tr>
 				<%} %>
+			</tbody>
+				
 			</table>
 			<br> <br>
 
@@ -175,6 +180,7 @@ th {
 			<table class="table-bordered" id="table-bordered"
 				style="text-align: center;">
 				<br>
+				<thead>
 				<tr>
 					<th width="70px" height="25px">상태</th>
 					<th width="60px">튜티명</th>
@@ -184,12 +190,15 @@ th {
 					<th width="45px">인원</th>
 					<th width="100px">상세조회</th>
 				</tr>
-
+				</thead>
 				<!--수강완료 클래스가 없을 경우-->
 
 
 				<!--수강 완료 클래스가 있을 경우-->
-
+				
+				<tbody class="class-finisehd" id ="class-finisehd">
+				
+				</tbody>
 
 			</table>
 
@@ -211,7 +220,6 @@ th {
 		</div>
 
 		<script>			
-			let isClick = false;
 			
 				$("#afBtn").click(function(){ // 수강완료버튼클릭시
                     //버튼 스타일 변화
@@ -221,12 +229,9 @@ th {
                     // div display 변화
                     $("#bf-classList").hide();
                     $("#af-classList").show();
-                    console.log("isClick");
-                    console.log(isClick);
-                    
-                    if (!isClick) {
-                    	isClick = true;
-                    
+      
+    				let value = "";
+
                 	$.ajax({
                 		url:"<%=contextPath%>/atList.tt",
                 		data:{
@@ -243,25 +248,30 @@ th {
 
                 			} else {
                 				console.log("result.length != 0")
-                				
-                				$.each(result, function(index, item){
-                					console.log(item.regNo)
-                					$("#table-bordered").append("<tr>"
-                		                    + "<td height='25px'>수강완료</td>"
-                		                    + "<td>" + item.memName + "</td>"
-                		                    + "<td>" + item.memPhone + "</td>"
-                		                    + "<td>" + item.clName + "</td>"
-                		                    + "<td>" + item.teachDate + item.startTime + "</td>"
-                		                    + "<td>" + item.regCount + "명 </td>"
-                		                    + "<td><div id='select-area'>"
-                		                    + "<a href='<%=contextPath %>/reservationDetail.tt'> 조회</a></div>"
-											+ "</td></tr>");
 
-												})
+                				for (let i = 0; i < result.length; i++) {
+                					value +=	"<tr>"
+            		                    + "<td height='25px'>수강완료</td>"
+            		                    + "<td>" + result[i].memName + "</td>"
+            		                    + "<td>" + result[i].memPhone + "</td>"
+            		                    + "<td>" + result[i].clName + "</td>"
+            		                    + "<td>" + result[i].teachDate + result[i].startTime + "</td>"
+            		                    + "<td>" + result[i].regCount + "명 </td>"
+            		                    + "<td><div id='select-area'>"
+            		                    + "<a href='<%=contextPath %>/reservationDetail.tt'> 조회</a></div>"
+										+ "</td></tr>";
+									}
+                				
+                				
+                				$(".table-bordered tbody").html(value);
+                				
+             
+										
+												
 											}
 										} // end of success
 									}) // end of ajax
-								}
+								
 							});
 				
 				
@@ -277,6 +287,55 @@ th {
 						// div display 변화
 						$("#af-classList").hide();
 						$("#bf-classList").show();
+						
+						
+						
+						let value = "";
+
+	                	$.ajax({
+	                		url:"<%=contextPath%>/bfList.tt",
+	                		data:{
+	                			"loginUser": "<%=loginUser.getMemNo()%>"
+	                		},
+	                		type:"get",
+	                		success:function(result){
+	                			console.log("success");
+	                			console.log(result)
+	                			
+	                			// 완료 클래스 없을 때
+	                			if(result.length == 0) {
+	                				$("#before-table-bordered").append("<td colspan='7' height='30px'>수강 전 클래스가 없습니다.</td>")
+
+	                			} else {
+	                				console.log("result.length != 0")
+
+	                				for (let i = 0; i < result.length; i++) {
+	                					value +=	"<tr>"
+	            		                    + "<td height='25px'>수강전</td>"
+	            		                    + "<td>" + result[i].memName + "</td>"
+	            		                    + "<td>" + result[i].memPhone + "</td>"
+	            		                    + "<td>" + result[i].clName + "</td>"
+	            		                    + "<td>" + result[i].teachDate + result[i].startTime + "</td>"
+	            		                    + "<td>" + result[i].regCount + "명 </td>"
+	            		                    + "<td><div id='select-area'>"
+	            		                    + "<a href='<%=contextPath %>/reservationDetail.tt'> 조회</a></div>"
+											+ "</td></tr>";
+										}
+	                				
+	                				
+	                				$("#before-table-bordered tbody").html(value);
+	                				
+	             
+											
+													
+												}
+											} // end of success
+										}) // end of ajax
+						
+						
+						
+						
+						
 					})
 		</script>
 
