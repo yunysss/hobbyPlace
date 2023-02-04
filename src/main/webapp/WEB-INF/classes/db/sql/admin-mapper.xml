@@ -234,78 +234,7 @@
 	
 	</entry>
 	
-	<entry key="selectMemberListCount1">
-		SELECT COUNT(*) "COUNT"
-		  FROM (
-					SELECT
-					       MEM_NO
-					     , MEM_NAME
-					     , DECODE(GRADE, '0', '관리자', '1', '등록안함', '2', '튜터') "GRADE"
-					     , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE"
-					     , (SELECT COUNT(REG_NO)
-					          FROM REGISTER R
-					         WHERE REG_STA = '2'
-					           AND MEM_NO = M.MEM_NO) "REGCOUNT"   
-					     , (SELECT COUNT(RE_NO) 
-					          FROM REVIEW
-					         WHERE RE_STA = 'Y'
-					           AND MEM_NO = M.MEM_NO) "REVCOUNT"
-					     , (SELECT COUNT(CL_NO)
-					          FROM "LIKE"
-					         WHERE MEM_NO = M.MEM_NO) "LIKECOUNT"
-					     , (SELECT SUM(REG_PRICE)
-					          FROM REGISTER
-					         WHERE REG_STA = '2'
-					          AND MEM_NO = M.MEM_NO) "TOTALPAY"
-					     , NVL(MEM_EMAIL, '미등록') "MEM_EMAIL"
-					     , MEM_PHONE
-					     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
-					     , GENDER
-					     , MEM_STATUS
-					  FROM MEMBER M
-					 WHERE GRADE LIKE ?
-					 ORDER BY 
-				
-	</entry>
 	
-	<!-- 기본검색으로 회원조회시 회원리스트 -->
-	<entry key="selectMemberList1">
-	  SELECT *
-		FROM (
-		  	   SELECT ROWNUM RNUM, A.*
-		  	     FROM (
-						SELECT
-						       MEM_NO
-						     , MEM_NAME
-						     , DECODE(GRADE, '0', '관리자', '1', '등록안함', '2', '튜터') "GRADE"
-						     , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE"
-						     , (SELECT COUNT(REG_NO)
-						          FROM REGISTER R
-						         WHERE REG_STA = '2'
-						           AND MEM_NO = M.MEM_NO) "REGCOUNT"   
-						     , (SELECT COUNT(RE_NO) 
-						          FROM REVIEW
-						         WHERE RE_STA = 'Y'
-						           AND MEM_NO = M.MEM_NO) "REVCOUNT"
-						     , (SELECT COUNT(CL_NO)
-						          FROM "LIKE"
-						         WHERE MEM_NO = M.MEM_NO) "LIKECOUNT"
-						     , (SELECT SUM(REG_PRICE)
-						          FROM REGISTER
-						         WHERE REG_STA = '2'
-						          AND MEM_NO = M.MEM_NO) "TOTALPAY"
-						     , NVL(MEM_EMAIL, '미등록') "MEM_EMAIL"
-						     , MEM_PHONE
-						     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
-						     , GENDER
-						     , MEM_STATUS
-						  FROM MEMBER M
-						 WHERE GRADE LIKE ?
-						 ORDER BY 
-	</entry>
-	
-	
-		
 	<!-- 회원번호로 회원정보 조회 -->
 	<entry key="selectMemberByNo">
 		SELECT 
@@ -376,10 +305,10 @@
 	<entry key="selectAllRegister">
 		SELECT
 		       REG_NO
-		     , R.MEM_NO "MEM_NO"
-		     , R.CL_NO "CL_NO"
-		     , C.CL_NAME "CL_NAME"
-		     , R.TEACH_DATE "TEACH_DATE"
+		     , R.MEM_NO
+		     , R.CL_NO
+		     , C.CL_NAME 
+		     , R.TEACH_DATE 
 		     , REG_DATE
 		     , SCH_NO
 		     , REG_PAY
@@ -455,7 +384,39 @@
 
 	</entry>
 	
-	<!-- 회원목록리스트 세부검색 -->
+	<!-- 기본검색으로 회원조회시 회원리스트 -->
+	<entry key="selectMemberList1">
+	  	SELECT
+		       MEM_NO
+		     , MEM_NAME
+		     , DECODE(GRADE, '0', '관리자', '1', '등록안함', '2', '튜터') "GRADE"
+		     , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE"
+		     , (SELECT COUNT(REG_NO)
+		          FROM REGISTER R
+		         WHERE REG_STA = '2'
+		           AND MEM_NO = M.MEM_NO) "REGCOUNT"   
+		     , (SELECT COUNT(RE_NO) 
+		          FROM REVIEW
+		         WHERE RE_STA = 'Y'
+		           AND MEM_NO = M.MEM_NO) "REVCOUNT"
+		     , (SELECT COUNT(CL_NO)
+		          FROM "LIKE"
+		         WHERE MEM_NO = M.MEM_NO) "LIKECOUNT"
+		     , (SELECT SUM(REG_PRICE)
+		          FROM REGISTER
+		         WHERE REG_STA = '2'
+		          AND MEM_NO = M.MEM_NO) "TOTALPAY"
+		     , NVL(MEM_EMAIL, '미등록') "MEM_EMAIL"
+		     , MEM_PHONE
+		     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
+		     , GENDER
+		     , DECODE(MEM_STATUS, 'Y', '탈퇴X', 'N', '탈퇴O') "MEM_STATUS"
+		  FROM MEMBER M
+		 WHERE GRADE LIKE ?
+		 ORDER BY 
+	</entry>
+	
+	<!-- 세부검색으로 회원조회시 회원리스트 -->
 	<entry key="selectMemberList2">
 		SELECT
 		       MEM_NO
@@ -481,7 +442,7 @@
 		     , MEM_PHONE
 		     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
 		     , GENDER
-		     , MEM_STATUS
+		     , DECODE(MEM_STATUS, 'Y', '탈퇴X', 'N', '탈퇴O') "MEM_STATUS"
 		  FROM MEMBER M
 		 WHERE GRADE LIKE ?
    		   AND M.ENROLL_DATE BETWEEN ? AND ?
@@ -538,73 +499,9 @@
 		  FROM DISTRICT
 	</entry>
 
-	<entry key="selectMemberListCount">
-		SELECT COUNT(*) "COUNT"
-		  FROM (
-				SELECT
-				       MEM_NO
-				     , MEM_NAME
-				     , DECODE(GRADE, '0', '관리자', '1', '등록안함', '2', '튜터') "GRADE"
-				     , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE"
-				     , (SELECT COUNT(REG_NO)
-				          FROM REGISTER R
-				         WHERE REG_STA = '2'
-				           AND MEM_NO = M.MEM_NO) "REGCOUNT"   
-				     , (SELECT COUNT(RE_NO) 
-				          FROM REVIEW
-				         WHERE RE_STA = 'Y'
-				           AND MEM_NO = M.MEM_NO) "REVCOUNT"
-				     , (SELECT COUNT(CL_NO)
-				          FROM "LIKE"
-				         WHERE MEM_NO = M.MEM_NO) "LIKECOUNT"
-				     , (SELECT SUM(REG_PRICE)
-				          FROM REGISTER
-				         WHERE REG_STA = '2'
-				          AND MEM_NO = M.MEM_NO) "TOTALPAY"
-				     , NVL(MEM_EMAIL, '미등록') "MEM_EMAIL"
-				     , MEM_PHONE
-				     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
-				     , GENDER
-				     , MEM_STATUS
-				  FROM MEMBER M
-				)
-	</entry>
 	
-	<entry key="selectMemberList">
-		SELECT *
-		FROM (
-		  	   SELECT ROWNUM RNUM, A.*
-		  	     FROM (
-						SELECT
-						       MEM_NO
-						     , MEM_NAME
-						     , DECODE(GRADE, '0', '관리자', '1', '등록안함', '2', '튜터') "GRADE"
-						     , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE"
-						     , (SELECT COUNT(REG_NO)
-						          FROM REGISTER R
-						         WHERE REG_STA = '2'
-						           AND MEM_NO = M.MEM_NO) "REGCOUNT"   
-						     , (SELECT COUNT(RE_NO) 
-						          FROM REVIEW
-						         WHERE RE_STA = 'Y'
-						           AND MEM_NO = M.MEM_NO) "REVCOUNT"
-						     , (SELECT COUNT(CL_NO)
-						          FROM "LIKE"
-						         WHERE MEM_NO = M.MEM_NO) "LIKECOUNT"
-						     , (SELECT SUM(REG_PRICE)
-						          FROM REGISTER
-						         WHERE REG_STA = '2'
-						          AND MEM_NO = M.MEM_NO) "TOTALPAY"
-						     , NVL(MEM_EMAIL, '미등록') "MEM_EMAIL"
-						     , MEM_PHONE
-						     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
-						     , GENDER
-						     , MEM_STATUS
-						  FROM MEMBER M
-					) A
-				)
-			WHERE RNUM BETWEEN ? AND ?
-	</entry>
+	
+	
 	
 	
 	

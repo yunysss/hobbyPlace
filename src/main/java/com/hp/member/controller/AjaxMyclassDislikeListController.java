@@ -8,23 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.hp.member.model.service.MemberService;
 import com.hp.member.model.vo.Like;
-import com.hp.member.model.vo.Member;
 
 /**
- * Servlet implementation class MyClassLikeClassList
+ * Servlet implementation class AjaxDislikeClassListController
  */
-@WebServlet("/likeList.tee")
-public class MyClassLikeClassList extends HttpServlet {
+@WebServlet("/classDislike.tee")
+public class AjaxMyclassDislikeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyClassLikeClassList() {
+    public AjaxMyclassDislikeListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +32,15 @@ public class MyClassLikeClassList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int clNo = Integer.parseInt(request.getParameter("clNo"));
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		HttpSession session = request.getSession();
-		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
-		
-		ArrayList<Like> list = new MemberService().selectMyLikeClassList(memNo);
-		request.setAttribute("list", list);
-		
-		
-		request.getRequestDispatcher("views/member/myLikeClassList.jsp").forward(request, response);
-	
+		int result = new MemberService().deleteLikeClassList(clNo, memNo);
+		if(result>0) {
+			ArrayList<Like> list = new MemberService().selectMyLikeClassList(memNo);
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(list, response.getWriter());
+		}
 	}
 
 	/**

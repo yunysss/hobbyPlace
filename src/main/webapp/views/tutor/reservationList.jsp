@@ -214,23 +214,7 @@
 
 			})
 		</script>
-		<script>
-			function bfBtn(){
-				$.ajax({
-					url:"<%=contextPath%>/bfList.tt",
-					data:"<%=loginUser.getMemNo()%>",
-					success:function(list){
-						console.log(list);
-						
-					},error:function(){
-						console.log("ajax 통신 실패");
-					}
-					
-				})
-			}
-			
-		
-		</script>
+
 
 
 
