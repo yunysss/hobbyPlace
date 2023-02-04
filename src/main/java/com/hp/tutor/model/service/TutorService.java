@@ -262,6 +262,13 @@ public class TutorService {
 		close(conn);
 		return bfList;
 	}
+
+	public ArrayList<Register> selectATClassList(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Register> atList = new TutorDao().selectATClassList(conn, memNo);
+		close(conn);
+		return atList;
+	}
 	
 	
 

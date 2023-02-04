@@ -1051,6 +1051,43 @@ public class TutorDao {
 		
 		return bfList;
 	}
+
+	public ArrayList<Register> selectATClassList(Connection conn, int memNo) {
+		ArrayList<Register> atList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectATClassList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				atList.add(new Register(
+										rset.getInt("reg_no"),
+										rset.getString("teach_date"),
+										rset.getString("reg_price"),
+										rset.getString("reg_count"),
+										rset.getString("reg_sta"),
+										rset.getString("mem_name"),
+									    rset.getString("mem_phone"),
+									    rset.getString("mem_email"),
+									    rset.getString("cl_name"),
+									    rset.getString("cl_price"),
+									    rset.getString("start_time")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return atList;
+	}
 	
 	
 	
