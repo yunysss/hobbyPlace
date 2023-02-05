@@ -519,7 +519,7 @@
          ORDER BY 
 	</entry>
 
-	<!-- 튜터관리 검색옵션1 검색시 튜터리스트 -->
+	<!-- 튜터관리 추가검색시 튜터리스트 -->
 	<entry key="selectTutorList2">
 		SELECT
 		       T.MEM_NO
@@ -614,10 +614,73 @@
 		  FROM DUAL
 	</entry>
 	
+	<entry key="selectTutorInfo">
+		SELECT
+		       T.MEM_NO
+		     , MEM_NAME
+		     , MEM_ID
+		     , TT_NAME
+             , (SELECT COUNT(CL_NO)
+                  FROM CLASS
+                 WHERE CL_STATUS = 2
+                   AND MEM_NO = T.MEM_NO) "CLASSACTIVE"
+             , (SELECT COUNT(CL_NO)
+                  FROM CLASS
+                 WHERE CL_STATUS IN ('2', '3')
+                   AND MEM_NO = T.MEM_NO) "CLASSTOTAL"
+             , NVL((select count(distinct(teach_date || sch_no))
+                  from register r
+                  join class c on (r.cl_no = c.cl_no) 
+                 WHERE REG_STA = '2' 
+                   AND C.MEM_NO = T.MEM_NO
+                 group by c.mem_no), 0) "LESSONTOTAL"
+             , NVL((SELECT SUM(REG_COUNT)
+                  from register r
+                  join class c on (r.cl_no = c.cl_no) 
+                 WHERE REG_STA = '2'
+                   AND C.MEM_NO = T.MEM_NO
+                 group by c.mem_no), 0) "TUTEETOTAL"
+             , NVL((SELECT COUNT(L.CL_NO)
+                  FROM "LIKE" L
+                  JOIN CLASS C ON (L.CL_NO = C.CL_NO)
+                 WHERE C.MEM_NO = T.MEM_NO
+                 GROUP BY C.MEM_NO), 0) "LIKECOUNT"
+             , NVL((SELECT COUNT(RE_NO) 
+                  FROM REVIEW R
+                  join class c on (r.cl_no = c.cl_no) 
+                 WHERE RE_STA = 'Y'
+                   AND C.MEM_NO = T.MEM_NO
+                 group by C.MEM_NO), 0) "REVCOUNT"
+             , NVL((SELECT SUM(REG_PRICE)
+                  FROM REGISTER r
+                  join class c on (r.cl_no = c.cl_no) 
+                  WHERE REG_STA = '2'
+                    AND REG_CAL = 'C'
+                    AND C.MEM_NO = T.MEM_NO 
+                  group by c.mem_no), 0) "INCOMETOTAL"
+             , REPLACE(MEM_ADDR, '///', ' ') "TUTORADDR"
+		  FROM TUTOR T
+          JOIN MEMBER M ON (T.MEM_NO = M.MEM_NO)
+		 WHERE T.MEM_NO = ?
+	</entry>
 	
+	<entry key="selectClReview">
+		SELECT COUNT(RE_NO) "count"
+		     , CL_NAME
+		  FROM REVIEW R
+		  JOIN CLASS C ON (R.CL_NO = C.CL_NO)
+		 WHERE C.MEM_NO = ?
+		 GROUP BY CL_NAME
+	</entry>
 	
-	
-	
+	<entry key="selectclLike">
+		select count(like_date) "count"
+		     , cl_name
+		  from "LIKE" l
+		  join class c on (l.cl_no = c.cl_no)
+		 where c.mem_no = ?
+		  group by cl_name
+	</entry>
 	
 	
 </properties>
