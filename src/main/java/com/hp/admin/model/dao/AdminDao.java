@@ -822,7 +822,10 @@ public class AdminDao {
 			while(rset.next()) {
 				likeList.add(new Like(rset.getString("cl_name"),
 						              rset.getInt("mem_no"),
-						              rset.getString("like_date")));
+						              rset.getString("like_date"),
+						              rset.getString("ct_name"),
+						              rset.getString("ct_dname"),
+						              rset.getString("tt_name")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
