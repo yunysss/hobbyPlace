@@ -1470,6 +1470,17 @@ public class AdminDao {
 				clReviewList.add(new Review(rset.getInt("count"),
 											rset.getString("cl_name")));
 			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return clReviewList;
+	}		
+			
+			
 	public ArrayList<Lesson> selectStatCount(Connection conn){
 		ArrayList<Lesson> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -1499,7 +1510,7 @@ public class AdminDao {
 			close(rset);
 			close(pstmt);
 		}
-		return clReviewList;
+		return list;
 	}
 
 
