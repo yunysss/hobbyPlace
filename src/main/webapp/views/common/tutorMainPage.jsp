@@ -183,9 +183,9 @@ margin-top: 5px;
                     <div class="s">평균평점</div>
 					<%if(tt.getAvgStar() != null){%>                   
                     <div class="l"> <%=tt.getAvgStar()%> 점</div>
+					<%} else{ %>
+					<div class="l">- 점</div>
 					<%} %>
-				
-					
 				
                 </td>
               <td style="padding-left:10px; width:200px; text-align:center  ">
@@ -193,7 +193,7 @@ margin-top: 5px;
                 <%if(tt.getrCount() != 0){ %>
                 <div class="l"><%=tt.getrCount() %> 개</div>
                 <%} else{%>
-                 <div class="l"> 개</div>
+                 <div class="l">- 개</div>
             	<%} %>
             </td>
             </tr>
@@ -211,7 +211,7 @@ margin-top: 5px;
                     <%if(tt.getCancelCount() != 0){ %>
                     <div class="l"><%=tt.getCancelCount() %> 건</div>
                     <%} else{ %>
-                    <div class="l"> 건</div>
+                    <div class="l">- 건</div>
                     <%} %>
                 </td>
             </tr>
@@ -227,14 +227,15 @@ margin-top: 5px;
                     <div class="s">진행중인 클래스</div>
                     <div class="l"><%=ingClass %> 건</div>
                    
-
+				
                 </td>
+                <% DecimalFormat df = new DecimalFormat("###,###");  %>
               <td style="padding-left:10px; width:200px; text-align:center  ">
                 <div class="s">이번달 판매금액</div>
                 <% if(tt.getSumMonth() !=0){%>
-                <div class="l"><%= tt.getSumMonth() %>원</div>
+                <div class="l"><%=df.format(tt.getSumMonth()) %>원</div>
                 <%} else{%>
-                <div class="l"> 원</div>
+                <div class="l">- 원</div>
                 <%} %>
              </td>
          
@@ -245,15 +246,16 @@ margin-top: 5px;
                     <% if(tt.getSumReg() !=0){ %>
                     <div class="l"><%=tt.getSumReg() %> 건</div>
                     <%} else{%>
-                     <div class="l"> 건</div>
+                     <div class="l">- 건</div>
                      <%} %>
                 </td>
                 <td style="border-top: 1px solid rgb(194, 191, 191); text-align:center">
                     <div class="s">전체 판매금액</div>
                     <%if(tt.getSumTotal() != 0){ %>
-                    <div class="l"><%=tt.getSumTotal() %> 원</div>
+                    <div class="l">
+                    <%=df.format(tt.getSumTotal())%> 원</div>
                 	<%} else{%>
-                	<div class="l"><%=tt.getSumTotal() %> 원</div>
+                	<div class="l">- 원</div>
                 	<%} %>
                 </td>
             </tr>
