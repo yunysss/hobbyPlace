@@ -207,6 +207,7 @@
 			    , CL_ADDRESS
 			    , CL_MAX 
 			    , CL_LEVEL
+			    , END_DATE 
 			    , CL_TIMES 
 			    , CL_SCHEDULE
 			    , CL_DAY 
@@ -235,6 +236,7 @@
 			  (SELECT DISTR_CODE
 			  FROM DISTRICT
 			  WHERE DISTR_NAME = ?),
+			  ?,
 			  ?,
 			  ?,
 			  ?,
@@ -347,6 +349,7 @@
 			    , CL_ADDRESS = ?
 			    , CL_MAX = ?
 			    , CL_LEVEL = ?
+			    , END_DATE = ?
 			    , CL_TIMES = ?
 			    , CL_SCHEDULE = ?
 			    , CL_DAY = ?
@@ -570,6 +573,7 @@
 	</entry>
 	
 	<!-- 튜터수강전리스트 조회 -->
+	<entry key="selectBFClassList">
 	  SELECT  
 	  		  REG_NO
 			, MEM_NAME
@@ -589,6 +593,65 @@
 	    WHERE C.MEM_NO=?
 		  AND REG_STA= 1 
 			
+	</entry>
+	
+		<!-- 튜터수강완료리스트 조회 -->
+	<entry key="selectATClassList">
+	  SELECT  
+	  		  REG_NO
+			, MEM_NAME
+			, MEM_PHONE
+			, MEM_EMAIL
+			, CL_NAME
+			, TEACH_DATE
+			, START_TIME
+			, REG_PRICE
+			, REG_COUNT
+			, decode(REG_STA,'2','수강완료','3','취소') "REG_STA"
+			, CL_PRICE
+		 FROM REGISTER R
+		 JOIN MEMBER USING (MEM_NO)
+		 JOIN CLASS C USING (CL_NO)
+		 JOIN SCHEDULE S USING (SCH_NO)
+	    WHERE C.MEM_NO=?
+		  AND REG_STA IN (2,3)
+			
+	</entry>
+	
+	<!--예약관리 상세페이지 조회 -->
+	<entry key="selectReservationClass">
+	   SELECT  
+	  		  REG_NO
+	  		, REG_DATE
+			, MEM_NAME
+			, MEM_PHONE
+			, NVL(MEM_EMAIL,'-') "MEM_EMAIL" 
+			, CL_NAME
+			, TEACH_DATE
+			, START_TIME
+            , END_TIME
+			, TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+			, REG_COUNT
+			, decode(REG_STA,'2','수강완료','3','취소') "REG_STA"
+			, RE_ENROLL
+			, CL_PRICE
+			, NVL(MEMO,'특이사항을 메모해주세요') "MEMO"
+            
+		 FROM REGISTER R
+		 JOIN MEMBER USING (MEM_NO)
+		 JOIN CLASS C USING (CL_NO)
+		 JOIN SCHEDULE S USING (SCH_NO)
+	    WHERE REG_NO = ?
+	
+	</entry>
+	
+	<entry key="updateReservation">
+		UPDATE REGISTER
+           SET REG_STA = ?
+             , MEMO = ?
+         WHERE REG_NO=?
+	</entry>
+	
 	
 
 

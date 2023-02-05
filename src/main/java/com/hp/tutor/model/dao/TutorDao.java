@@ -13,6 +13,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
@@ -497,16 +499,17 @@ public class TutorDao {
 			pstmt.setString(7, l.getClAddress());
 			pstmt.setInt(8, l.getClMax());
 			pstmt.setString(9, l.getClLevel());
-			pstmt.setInt(10,l.getClTimes());
-			pstmt.setString(11, l.getClSchedule());
-			pstmt.setString(12, l.getClDay());
-			pstmt.setString(13,l.getClPrice());
-			pstmt.setString(14, l.getClDetail());
-			pstmt.setString(15,l.getCurriculum());
-			pstmt.setString(16, l.getRefundPolicy());
-			pstmt.setString(17, l.getClSupplies());
-			pstmt.setString(18,l.getKeyword());
-			pstmt.setString(19, l.getClThumb());
+			pstmt.setString(10, l.getEndDate());
+			pstmt.setInt(11,l.getClTimes());
+			pstmt.setString(12, l.getClSchedule());
+			pstmt.setString(13, l.getClDay());
+			pstmt.setString(14,l.getClPrice());
+			pstmt.setString(15, l.getClDetail());
+			pstmt.setString(16,l.getCurriculum());
+			pstmt.setString(17, l.getRefundPolicy());
+			pstmt.setString(18, l.getClSupplies());
+			pstmt.setString(19,l.getKeyword());
+			pstmt.setString(20, l.getClThumb());
 			
 			result = pstmt.executeUpdate();
 
@@ -643,17 +646,18 @@ public class TutorDao {
 			pstmt.setString(6, l.getClAddress());
 			pstmt.setInt(7, l.getClMax());
 			pstmt.setString(8, l.getClLevel());
-			pstmt.setInt(9,l.getClTimes());
-			pstmt.setString(10, l.getClSchedule());
-			pstmt.setString(11, l.getClDay());
-			pstmt.setString(12,l.getClPrice());
-			pstmt.setString(13, l.getClDetail());
-			pstmt.setString(14,l.getCurriculum());
-			pstmt.setString(15, l.getRefundPolicy());
-			pstmt.setString(16, l.getClSupplies());
-			pstmt.setString(17,l.getKeyword());
-			pstmt.setString(18, l.getClThumb());
-			pstmt.setInt(19,l.getClNo());
+			pstmt.setString(9, l.getEndDate());
+			pstmt.setInt(10,l.getClTimes());
+			pstmt.setString(11, l.getClSchedule());
+			pstmt.setString(12, l.getClDay());
+			pstmt.setString(13,l.getClPrice());
+			pstmt.setString(14, l.getClDetail());
+			pstmt.setString(15,l.getCurriculum());
+			pstmt.setString(16, l.getRefundPolicy());
+			pstmt.setString(17, l.getClSupplies());
+			pstmt.setString(18,l.getKeyword());
+			pstmt.setString(19, l.getClThumb());
+			pstmt.setInt(20,l.getClNo());
 			
 	     result=pstmt.executeUpdate();
 
@@ -818,7 +822,7 @@ public class TutorDao {
 			    sql = sql.substring(0,sql.length()-1);
 				sql += ")"; 
 			}
-			
+			  sql += "\r\n order by cl_no desc ";
 			//System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);
@@ -1013,6 +1017,12 @@ public class TutorDao {
 		return rList;
 	}
 
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param memNo
+	 * @return 수강전 클래스 리스트
+	 */
 	public ArrayList<Register> selectBFClassList(Connection conn, int memNo) {
 		ArrayList<Register> bfList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -1049,7 +1059,122 @@ public class TutorDao {
 		
 		return bfList;
 	}
-	
+
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param memNo
+	 * @return 수강 완료 클래스 조회
+	 */
+	public ArrayList<Register> selectATClassList(Connection conn, int memNo) {
+		ArrayList<Register> atList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectATClassList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				atList.add(new Register(
+										rset.getInt("reg_no"),
+										rset.getString("teach_date"),
+										rset.getString("reg_price"),
+										rset.getString("reg_count"),
+										rset.getString("reg_sta"),
+										rset.getString("mem_name"),
+									    rset.getString("mem_phone"),
+									    rset.getString("mem_email"),
+									    rset.getString("cl_name"),
+									    rset.getString("cl_price"),
+									    rset.getString("start_time")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return atList;
+	}
+
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param regNo
+	 * @return 예약관리 상세페이지 조회
+	 */
+	public Register selectReservationClass(Connection conn, int regNo) {
+		Register r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReservationClass");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, regNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				r = new Register(rset.getInt("reg_no"),
+								 rset.getString("teach_date"),
+								 rset.getString("reg_date"),
+								 rset.getString("reg_price"),
+								 rset.getString("reg_count"),
+								 rset.getString("reg_sta"),
+							     rset.getString("re_enroll"),
+								 rset.getString("mem_name"),
+							     rset.getString("mem_phone"),
+							     rset.getString("mem_email"),
+							     rset.getString("cl_name"),
+							     rset.getString("cl_price"),
+							     rset.getString("start_time"),
+							     rset.getString("end_time"),
+							     rset.getString("memo"));
+					
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			
+		
+		return r;
+	}
+
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param r
+	 * @return 예약상세페이지 수강상태, 메모 업데이트
+	 */
+	public int updateReservation(Connection conn, Register r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, r.getRegSta());
+			pstmt.setString(2, r.getMemo());
+			pstmt.setInt(3,r.getRegNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
+
 	
 	
 	

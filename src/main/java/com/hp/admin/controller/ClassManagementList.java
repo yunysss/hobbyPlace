@@ -67,6 +67,9 @@ public class ClassManagementList extends HttpServlet {
 		session.setAttribute("dList", dList);
 		session.setAttribute("pi", pi);
 		
+		//System.out.println(list);
+		
+		
 		request.getRequestDispatcher("views/admin/classManagementView.jsp").forward(request,response);
 		
 				

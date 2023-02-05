@@ -20,6 +20,11 @@ public class Search {
 	private String am;
 	private String pm;
 	private String schedule;
+	private String keywordType;
+	private String location;
+	private String District;
+	private String filtering;
+	private int order;
 	
 	public Search() {}
 
@@ -72,9 +77,22 @@ public class Search {
 		this.endDate = endDate;
 		this.status = status;
 	}
-	
-	
-  
+
+	public Search(String keywordType, String keyword, String category, String dcategory, 
+			String location, String district, String filtering, int order, String starDate, String endDate) {
+		super();
+		this.keyword = keyword;
+		this.category = category;
+		this.dcategory = dcategory;
+		this.starDate = starDate;
+		this.endDate = endDate;
+		this.keywordType = keywordType;
+		this.location = location;
+		District = district;
+		this.filtering = filtering;
+		this.order = order;
+	}
+
 
 	public String getSchedule() {
 		return schedule;
@@ -213,6 +231,56 @@ public class Search {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+
+	public String getKeywordType() {
+		return keywordType;
+	}
+
+
+	public void setKeywordType(String keywordType) {
+		this.keywordType = keywordType;
+	}
+
+
+	public String getLocation() {
+		return location;
+	}
+
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+
+	public String getDistrict() {
+		return District;
+	}
+
+
+	public void setDistrict(String district) {
+		District = district;
+	}
+
+
+	public String getFiltering() {
+		return filtering;
+	}
+
+
+	public void setFiltering(String filtering) {
+		this.filtering = filtering;
+	}
+
+
+	public int getOrder() {
+		return order;
+	}
+
+
+	public void setOrder(int order) {
+		this.order = order;
 	}
 
 

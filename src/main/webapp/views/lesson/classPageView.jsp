@@ -8,6 +8,7 @@
 	if((Member)session.getAttribute("loginUser") != null){
 		likeStatus = (int)request.getAttribute("likeStatus");
 	}
+	String qnaInsert = (String)session.getAttribute("qnaInsert");
 %>
 <!DOCTYPE html>
 <html>
@@ -849,6 +850,10 @@
 					$("#qnaModal").modal("show")
 				<% }%>
 			})
+			<% if(qnaInsert != null){%>
+				$("#qnaSuccessModal").modal("show")
+				<% session.removeAttribute("qnaInsert"); %>
+			<%}%>
 	   	})
 	</script>
     <div class="modal fade" id="loginModal" data-backdrop='static' data-keyboard='false'>
@@ -886,6 +891,17 @@
 	                    	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
 	                	</div>
                     </form>
+            	</div>  
+        	</div>
+    	</div>
+   	</div>
+   	<div class="modal fade" id="qnaSuccessModal" data-backdrop='static' data-keyboard='false' >
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-body" align="center">
+                	성공적으로 문의 등록되었습니다. <br><br>
+               		<a href="" type="button" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">나의 문의 내역</a>
+                   	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
             	</div>  
         	</div>
     	</div>

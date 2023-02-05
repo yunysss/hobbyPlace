@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.hp.register.model.vo.Register"%>
+    
+<% 
+	Register r = (Register)request.getAttribute("r");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,18 +59,31 @@
             <h6 style="font-weight:bold; padding: 7px; margin-top: 10px;"> 예약 상세 조회</h6>
 
             <div id="content_box">
-                <form action="">
+                <form id="reservationform" action="<%=contextPath%>/resUpdate.tt" method="post">
+               	 <input type="hidden" name="no" value="<%=r.getRegNo()%>">
                     <div id="status_area">
-                        <select id="status" name="class_status">
-                            <option value="">수강전</option>
-                            <option value="">수강완료</option>
-                            <option value="">수강취소</option>
+                        <select id="status" name="regSta">
+                            <option value="1">수강전</option>
+                            <option value="2">수강완료</option>
+                            <option value="3">수강취소</option>
                         </select>
+                         <script>
+                			$(function(){
+	                     		// option 요소들의 innerText값이 현재 게시글의 카테고리명과 일치하는 
+	                			// option 요소를 찾아서 selected 속성 부여해주기
+                				$("#reservationform option").each(function(){
+                					if($(this).text() == "<%=r.getRegSta()%>"){
+                						$(this).attr("selected", true); 
+                					}
+                				})
+                			})
+                        </script>
+                        
                     </div>
                     <table>
                         <tr>
-                            <th colspan="3" width="550px"><h4 style="font-weight: bold;">하루만에 뚝딱 귀도리</h4></th>
-                            <th colspan="2" width="300px">23년 01월 03일 17:00~20:00</th>
+                            <th colspan="3" width="550px"><h4 style="font-weight: bold;"><%=r.getClName() %></h4></th>
+                            <th colspan="2" width="300px"><%=r.getTeachDate() %> <%=r.getStartTime() %>~<%=r.getEndTime() %></th>
                         </tr>
 
                         <tr>
@@ -75,20 +92,20 @@
                         
                         <tr>
                             <th>튜티명</th>
-                            <td>김말똥</td>
+                            <td><%=r.getMemName() %></td>
                             <th>신청 인원</th>
-                            <td>2명</td>
+                            <td><%=r.getRegCount() %>명</td>
                         </tr>
                         
                         <tr>
                             <th>휴대폰 번호</th>
-                            <td>010-2222-3333</td>
+                            <td><%=r.getMemPhone() %></td>
                             <th>수강료</th>
-                            <td>45,000*2=90,000</td>
+                            <td><%=r.getClPrice() %>*<%=r.getRegCount() %>=<%=r.getRegPrice() %></td>
                         </tr>
                         <tr>
                             <th>이메일</th>
-                            <td colspan="4">kmd@naver.com</td>
+                            <td colspan="4"><%=r.getMemEmail() %></td>
                         </tr>
 
                     </table>
@@ -96,13 +113,41 @@
                     <br>
                     
 
-                    <textarea name="" id="memo" cols="30" rows="10"></textarea>
+                    <textarea name="memo" id="memo" cols="30" rows="10"><%=r.getMemo() %></textarea>
 
                     <div id="btn_area">
-                        <button type="button" class="btn btn-secondary" style="height: 30px; line-height: 10px;">저장</button>
+                        <button onclick="updateStatus(); type="button" class="btn btn-secondary" style="height: 30px; line-height: 10px;">저장</button>
                     </div>
                     
                 </form>
+                
+                <script>
+	              
+                
+                	function updateStatus(){
+                		$.ajax({
+                			url:"<%=contextPath%>/resUpdate.tt",
+                			data:{
+                				content:$("#memo").val(),
+                				regSta:$("#status").val(),
+                				no:<%=r.getRegNo()%>
+                			},
+                			type:"post",
+                			success:function(result){
+                				$("#status").val("result.getRegSta()");
+                				$("#memo").val("result.getMemo()");
+                				
+                			},error:function(){
+                				console.log("댓글 작성용 ajax 통신 실패");
+                			}
+                		})
+                	}
+	                
+	               
+                
+                </script>
+                
+                
                 
             </div>
             

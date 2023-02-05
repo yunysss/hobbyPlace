@@ -37,7 +37,7 @@
        #selectAllRegMng-btn{
        	width:80px;
    		background:rgb(22, 160, 133); 
-    	color:white;
+    	color:white!important;
        }
        thead td{
         background:rgb(245, 245, 245);
@@ -195,7 +195,7 @@
             </table>
             <br>
             <div align="center">
-            	<button type="button" class="btn btn-sm" id="selectAllRegMng-btn" onclick="selectAllRegMng();">전체조회</button>
+            	<a href="<%=contextPath %>/manage.reg" class="btn btn-sm" id="selectAllRegMng-btn"">전체조회</a>
             	<button type="button" class="btn btn-sm" id="selectRegMng-btn" onclick="selectRegMng();">조회</button>
                 <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
             </div>
@@ -305,34 +305,6 @@
 	    				startDate:$("#searchStartDate").val(),
 	    				endDate:$("#searchEndDate").val(),
 	    				status:$("input[name=regSta]:checked").val()    				
-	    			},
-	    			success:function(list){
-	    				if(list.length == 0){
-	    					let value = "<tr>"
-	    						+	"<td colspan='7'>조회된 내역이 없습니다.</td>"
-	    						+ "</tr>"
-	    					$("#regMng-result tbody").html(value);
-	    					$("#paging").html("");
-	    				} else{
-	    	 		    	   totalData = list.length;
-	    	 		           dataList=list;
-	    	 		           displayData(1, dataPerPage, totalData);
-	    	 		           paging(totalData, dataPerPage, pageCount, 1);
-	    				}
-	    			},error:function(){
-	    				console.log("정산목록 조회용 ajax 통신실패");
-	    			}
-	    		})
-	    	}
-		    function selectAllRegMng(){
-	    		$.ajax({
-	    			url:"<%=contextPath%>/selectMng.reg",
-	    			data:{
-	    				keywordType:"",
-	    				keyword:"",
-	    				startDate:"",
-	    				endDate:"",
-	    				status:""    				
 	    			},
 	    			success:function(list){
 	    				if(list.length == 0){

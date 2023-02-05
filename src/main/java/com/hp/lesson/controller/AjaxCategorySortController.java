@@ -35,6 +35,8 @@ public class AjaxCategorySortController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String category = request.getParameter("category");
+		
+		System.out.println("ct"+ category);
 		String sort = request.getParameter("sort");
 		
 		

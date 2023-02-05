@@ -202,7 +202,7 @@
 				     , CT_DNAME  
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25) "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
@@ -247,7 +247,7 @@
 				     , CT_DNAME  
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
@@ -311,7 +311,7 @@
 		     , CT_DNAME     
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 20) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 20) "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -344,7 +344,7 @@
 		     , CT_DNAME  
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -383,7 +383,7 @@
 		       CL_NO
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 25) "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -439,7 +439,7 @@
 			       CL_NO
 			     , LOCAL_NAME
 			     , DISTR_NAME
-			     , SUBSTR(CL_NAME, 1, 15) || '...' "CL_NAME"
+			     , SUBSTR(CL_NAME, 1, 15)  "CL_NAME"
 			     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 			     , CL_THUMB
 			     , (SELECT AVG(RE_STAR) 
@@ -505,7 +505,7 @@
 				     , TT_NAME
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
 				     , CL_THUMB
@@ -545,7 +545,7 @@
 				     , TT_NAME
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25) "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
 				     , CL_THUMB
@@ -578,7 +578,7 @@
 				     , CT_DNAME  
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25) "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
@@ -632,7 +632,7 @@
 				     , CT_DNAME  
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
@@ -655,39 +655,6 @@
 		
 	</entry> 
 	
-	
-	<entry key="keywordPriceAsc">
-		SELECT 
-				       CL_NO
-				     , CT_NAME
-				     , CT_DNAME  
-				     , MEM_NO
-				     , TT_NAME
-				     , LOCAL_NAME
-				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-				     , KEYWORD
-				     , CL_THUMB
-				     , (SELECT AVG(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-				     , (SELECT COUNT(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-				  FROM CLASS C
-				  JOIN LOCATION USING(LOCAL_CODE)
-				  JOIN DISTRICT USING(DISTR_CODE)
-				  JOIN CATEGORY USING (CT_NO)
-				  JOIN DCATEGORY USING (CT_DNO)
-				  JOIN TUTOR USING(MEM_NO)
-				 WHERE CL_STATUS = 2
-				 AND CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD LIKE ?
-				 ORDER
-				    BY CL_PRICE ASC
-	
-	
-	</entry>
 	
 	
 	
@@ -712,7 +679,7 @@
                      , C.LOCAL_CODE
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 26) "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
                      , START_DATE
@@ -754,7 +721,7 @@
                      , C.LOCAL_CODE
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
                      , START_DATE
@@ -789,7 +756,7 @@
                      , C.LOCAL_CODE
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
                      , START_DATE

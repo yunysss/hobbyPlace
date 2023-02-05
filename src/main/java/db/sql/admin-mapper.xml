@@ -181,8 +181,8 @@
 	<!-- 관리자 클래스 승인 -->
 	<entry key="classApprovalUpdate">
 	UPDATE CLASS
-	  SET UPDATE_DATE = SYSDATE
-	      START_DATE = SYSDATE,
+	  SET START_DATE =  TO_CHAR(SYSDATE,'YYYY/MM/DD')
+	  	 , UPDATE_DATE = SYSDATE
 	     , CL_STATUS = 2
 	WHERE  CL_NO =?   
 
@@ -378,7 +378,9 @@
 	<!-- 체크박스 체크된 클래스만 승인 -->
 	<entry key="checkedClassApprove">
 		UPDATE CLASS
-		  SET UPDATE_DATE = SYSDATE
+		  SET
+			   START_DATE = TO_CHAR(SYSDATE,'YYYY/MM/DD')	    
+		  	 , UPDATE_DATE = SYSDATE
 		     , CL_STATUS = 2
 		WHERE  CL_NO IN (  
 
@@ -569,6 +571,36 @@
           AND 
 	</entry>
 	
+	<entry key="searchStat">
+		SELECT *
+		  FROM (SELECT CL_NO
+		  			 , CT_NO
+                     , CT_DNO
+                     , LOCAL_CODE
+                     , DISTR_CODE
+                     , CL_NAME
+                     , TT_NAME
+                     , (SELECT COUNT(*)
+                          FROM "LIKE" L
+                         WHERE L.CL_NO = C.CL_NO) "LIKE_COUNT"
+		             , (SELECT COUNT(*)
+                          FROM REVIEW R
+                         WHERE R.CL_NO = C.CL_NO) "REVIEW_COUNT"
+                     , (SELECT NVL(AVG(RE_STAR), 0) 
+                          FROM REVIEW R
+                         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+                     , (SELECT NVL(SUM(REG_COUNT),0)
+                          FROM REGISTER REG
+                         WHERE REG.CL_NO = C.CL_NO) "STUDENT_SUM"
+                     , (SELECT TO_CHAR(NVL(SUM(REG_PRICE),0), '999,999,999') || '원'
+                          FROM REGISTER REG
+                         WHERE REG.CL_NO = C.CL_NO) "PRICE_SUM"
+		             , TO_CHAR(C.ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE" 
+		         FROM CLASS C
+		         JOIN TUTOR USING(MEM_NO)
+		         ORDER BY CL_NO DESC)
+		 WHERE 1 = 1
+	</entry>
 	
 	
 	

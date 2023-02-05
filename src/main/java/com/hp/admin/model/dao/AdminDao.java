@@ -596,7 +596,7 @@ public class AdminDao {
 				sql += ")"; 
 			}
 			
-	
+				sql += "\r\n order by cl_no desc ";
 			System.out.println(sql);
 	
 			pstmt=conn.prepareStatement(sql);
@@ -1342,8 +1342,78 @@ public class AdminDao {
 	}
 
 
-
-
+	
+	/**
+	 * @author 예서
+	 * @param s 검색조건
+	 * @return 검색결과
+	 */
+	public ArrayList<Lesson> searchStat(Connection conn, Search s){
+		ArrayList<Lesson> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchStat");
+		
+		try {
+			
+			if(!s.getKeyword().equals("")) {
+				if(s.getKeywordType().equals("clName")) {
+					sql += "AND CL_NAME LIKE '%" + s.getKeyword() + "%'" ;
+				}else {
+					sql += "AND TT_NAME LIKE '%" + s.getKeyword() + "%'";
+				}
+			}
+			if(!s.getCategory().equals("all")) {
+				sql += "AND CT_NO = " + s.getCategory();
+				if(!s.getDcategory().equals("all")) {
+					sql += "AND CT_DNO = " + s.getDcategory();
+				}
+			}
+			if(!s.getLocation().equals("all")) {
+				sql += "AND LOCAL_CODE = " + s.getLocation();
+				if(!s.getDistrict().equals("all")) {
+					sql += "AND DISTR_CODE = " + s.getDistrict();
+				}
+			}
+			if(!s.getStarDate().equals("") && !s.getEndDate().equals("")) {
+				sql += "AND ENROLL_DATE BETWEEN TO_CHAR(TO_DATE('" + s.getStarDate() + "', 'YYYY-MM-DD'), 'YYYY-MM-DD') AND TO_CHAR(TO_DATE('" + s.getEndDate() + "', 'YYYY-MM-DD')+1, 'YYYY-MM-DD')";
+			}
+			if(!s.getFiltering().equals("all")) {
+				switch(s.getFiltering()) {
+				case "likeCount" : sql += "ORDER BY LIKE_COUNT"; break;
+				case "reviewCount" : sql += "ORDER BY REVIEW_COUNT"; break;
+				case "starAvg" : sql += "ORDER BY STAR_AVG"; break;
+				case "memberSum" : sql += "ORDER BY STUDENT_SUM"; break;
+				case "priceSum" : sql += "ORDER BY PRICE_SUM";
+				}
+				switch(s.getOrder()) {
+				case 0 : sql += " DESC"; break;
+				case 1 : sql += " ASC";
+				}
+			}
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Lesson(rset.getInt("cl_no"),
+						            rset.getString("cl_name"),
+						            rset.getString("tt_name"),
+						            rset.getInt("like_count"),
+						            rset.getInt("review_count"),
+						            rset.getInt("star_avg"),
+						            rset.getInt("student_sum"),
+						            rset.getString("price_sum"),
+						            rset.getString("enroll_date")
+						            ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 
 	
 

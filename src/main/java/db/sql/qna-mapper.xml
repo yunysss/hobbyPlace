@@ -91,7 +91,29 @@ SELECT *
 	 WHERE Q_NO = ?
 </entry>
 
-
+<entry key="insertTuteeToTutorQna">
+	INSERT 
+	  INTO QNA
+	       (
+	         Q_NO
+	       , Q_TITLE
+	       , Q_CONTENT
+	       , Q_GRADE
+	       , CL_NO
+	       , Q_MEM_NO
+	       , A_MEM_NO
+	       )
+	VALUES
+	       (
+	         SEQ_QANO.NEXTVAL
+	       , ?
+	       , ?
+	       , '1'
+	       , ?
+	       , ?
+	       , ?
+	       )
+</entry>
 
 
 

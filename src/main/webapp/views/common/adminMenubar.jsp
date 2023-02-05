@@ -14,7 +14,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-	
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
    
@@ -23,6 +28,10 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+   
     <style>
     
         
@@ -162,26 +171,26 @@
                                 <li><a href="<%=contextPath%>/viewTutor.ad">튜터 관리</a></li>
                             </ul>
                         </li>
-                        <li><a href="">클래스 관리</a>
+                        <li><a>클래스 관리</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/newcl.ad?cpage=1">신규클래스 검토/승인</a></li>
                                 <li><a href="<%=contextPath%>/classmg.ad?cpage=1">클래스 관리</a></li>
                                 <li><a href="">리뷰 관리</a></li>
                             </ul>
                         </li>
-                        <li><a href="">결제 관리</a>
+                        <li><a>결제 관리</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/manage.reg">결제 내역 관리</a></li>
                                 <li><a href="<%=contextPath%>/manage.cal">튜터 정산 관리</a></li>
                                 <li><a href="<%=contextPath %>/manage.ref">환불 신청 관리</a></li>
                             </ul>
                         </li>
-                        <li><a href="">통계</a>
+                        <li><a>통계</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/statistics.ad">클래스 관리 통계</a></li>
                             </ul>
                         </li>
-                        <li><a href="">고객센터</a>
+                        <li><a>고객센터</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/noticeList.ad?cpage=1">공지사항</a></li>
                                 <li><a href="<%=contextPath%>/faqMain.ad">자주 묻는 질문</a></li>

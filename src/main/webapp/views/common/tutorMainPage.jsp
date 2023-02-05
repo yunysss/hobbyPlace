@@ -111,8 +111,8 @@ margin-top: 5px;
 <div id="content2-1">
         <div id="c1">
         <span><h3><%=tutorInfo.getTtName() %> 님 <br>반갑습니다 🥰</h3> </span>
-        <button class="btn btn-secondary btn-sm">문의하기</button>
-        <button class="btn btn-secondary btn-sm">튜터 가이드</button>
+        <a href="<%=contextPath%>/qnalist.tor?MemNo=<%=MemNo%>" class="btn btn-secondary btn-sm">문의하기</a>
+        <a href="<%=contextPath%>/tutorUsage.no"class="btn btn-secondary btn-sm">튜터 가이드</a>
         </div>
 
 </div>

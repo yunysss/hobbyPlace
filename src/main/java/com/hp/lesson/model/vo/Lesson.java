@@ -41,7 +41,9 @@ public class Lesson {
 	private int likeCount;
 	private String introduce;
 	private String tutorProfile;
-
+	private int reviewCount;
+	private int studentSum;
+	private String priceSum;
 	
 
 	public Lesson() {}
@@ -63,6 +65,35 @@ public class Lesson {
 		this.clThumb = clThumb;
 		this.clStarAvg = clStarAvg;
 		this.clStarCount = clStarCount;
+	}
+
+
+
+	public Lesson(int clNo, String ctNo, String ctDno, String localCode, String distrCode, String clName,
+			String clAddress, int clMax, String clLevel, String endDate, int clTimes, String clSchedule, String clDay,
+			String clPrice, String clDetail, String curriculum, String refundPolicy, String clSupplies, String keyword,
+			String clThumb) {
+		super();
+		this.clNo = clNo;
+		this.ctNo = ctNo;
+		this.ctDno = ctDno;
+		this.localCode = localCode;
+		this.distrCode = distrCode;
+		this.clName = clName;
+		this.clAddress = clAddress;
+		this.clMax = clMax;
+		this.clLevel = clLevel;
+		this.endDate = endDate;
+		this.clTimes = clTimes;
+		this.clSchedule = clSchedule;
+		this.clDay = clDay;
+		this.clPrice = clPrice;
+		this.clDetail = clDetail;
+		this.curriculum = curriculum;
+		this.refundPolicy = refundPolicy;
+		this.clSupplies = clSupplies;
+		this.keyword = keyword;
+		this.clThumb = clThumb;
 	}
 
 
@@ -93,6 +124,35 @@ public class Lesson {
 		this.clThumb = clThumb;
 	}
  
+
+
+
+	public Lesson(String ctNo, String ctDno, String memNo, String localCode, String distrCode, String clName,
+			String clAddress, int clMax, String clLevel, String endDate, int clTimes, String clSchedule, String clDay,
+			String clPrice, String clDetail, String curriculum, String refundPolicy, String clSupplies, String keyword,
+			String clThumb) {
+		super();
+		this.ctNo = ctNo;
+		this.ctDno = ctDno;
+		this.memNo = memNo;
+		this.localCode = localCode;
+		this.distrCode = distrCode;
+		this.clName = clName;
+		this.clAddress = clAddress;
+		this.clMax = clMax;
+		this.clLevel = clLevel;
+		this.endDate = endDate;
+		this.clTimes = clTimes;
+		this.clSchedule = clSchedule;
+		this.clDay = clDay;
+		this.clPrice = clPrice;
+		this.clDetail = clDetail;
+		this.curriculum = curriculum;
+		this.refundPolicy = refundPolicy;
+		this.clSupplies = clSupplies;
+		this.keyword = keyword;
+		this.clThumb = clThumb;
+	}
 
 
 
@@ -339,6 +399,22 @@ public class Lesson {
 		this.updateDate = updateDate;
 		this.clStatus = clStatus;
 	}
+
+
+	public Lesson(int clNo, String clName, String tutorProfile, int likeCount, int reviewCount, int clStarAvg, 
+			int studentSum, String priceSum, String clDay) {
+		super();
+		this.clNo = clNo;
+		this.clName = clName;
+		this.clStarAvg = clStarAvg;
+		this.likeCount = likeCount;
+		this.tutorProfile = tutorProfile;
+		this.reviewCount = reviewCount;
+		this.studentSum = studentSum;
+		this.priceSum = priceSum;
+		this.clDay = clDay;
+	}
+
 
 
 	public int getClNo() {
@@ -635,6 +711,42 @@ public class Lesson {
 
 	public void setCtDname(String ctDname) {
 		this.ctDname = ctDname;
+	}
+
+
+
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+
+
+	public int getStudentSum() {
+		return studentSum;
+	}
+
+
+
+	public void setStudentSum(int studentSum) {
+		this.studentSum = studentSum;
+	}
+
+
+
+	public String getPriceSum() {
+		return priceSum;
+	}
+
+
+
+	public void setPriceSum(String priceSum) {
+		this.priceSum = priceSum;
 	}
 
 
