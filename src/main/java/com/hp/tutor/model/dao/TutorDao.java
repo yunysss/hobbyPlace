@@ -13,6 +13,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import com.hp.admin.model.vo.Search;
 import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
@@ -1100,7 +1102,50 @@ public class TutorDao {
 		
 		return atList;
 	}
-	
+
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param regNo
+	 * @return 예약관리 상세페이지 조회
+	 */
+	public Register selectReservationClass(Connection conn, int regNo) {
+		Register r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReservationClass");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, regNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				r = new Register(rset.getInt("reg_no"),
+								 rset.getString("teach_date"),
+								 rset.getString("reg_date"),
+								 rset.getString("reg_price"),
+								 rset.getString("reg_count"),
+								 rset.getString("reg_sta"),
+								 rset.getString("re_enroll"),
+								 rset.getString("mem_name"),
+							     rset.getString("mem_phone"),
+							     rset.getString("mem_email"),
+							     rset.getString("cl_name"),
+							     rset.getString("cl_price"),
+							     rset.getString("start_time"),
+							     rset.getString("end_time"),
+							     rset.getString("memo"));
+					
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			
+		
+		return r;
+	}
+
+
 	
 	
 	

@@ -29,6 +29,8 @@ public class Register {
 	private String ctDname;
 	private String refRqDt;
 	private String refSta;
+	private String endTime;
+	private String memo;
 	
 	public Register() {}
 
@@ -229,6 +231,29 @@ public class Register {
 		this.clName = clName;
 		this.clPrice = clPrice;
 		this.startTime = startTime;
+	}
+	
+	
+
+	public Register(int regNo, String teachDate, String regDate, String regPrice, String regCount, String regSta,
+			String reEnroll, String memName, String memPhone, String memEmail, String clName, String clPrice,
+			String startTime, String endTime, String memo) {
+		super();
+		this.regNo = regNo;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.reEnroll = reEnroll;
+		this.memName = memName;
+		this.memPhone = memPhone;
+		this.memEmail = memEmail;
+		this.clName = clName;
+		this.clPrice = clPrice;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.memo = memo;
 	}
 
 	public int getRegNo() {
@@ -454,6 +479,23 @@ public class Register {
 		this.clPrice = clPrice;
 	}
 
+	
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
 	@Override
 	public String toString() {
 		return "Register [regNo=" + regNo + ", memNo=" + memNo + ", clNo=" + clNo + ", teachDate=" + teachDate
@@ -462,8 +504,11 @@ public class Register {
 				+ ", regCal=" + regCal + ", depositSta=" + depositSta + ", memName=" + memName + ", memPhone="
 				+ memPhone + ", memEmail=" + memEmail + ", clThumb=" + clThumb + ", clName=" + clName + ", clPrice="
 				+ clPrice + ", startTime=" + startTime + ", distrName=" + distrName + ", ttName=" + ttName + ", ctName="
-				+ ctName + ", ctDname=" + ctDname + ", refRqDt=" + refRqDt + ", refSta=" + refSta + "]";
+				+ ctName + ", ctDname=" + ctDname + ", refRqDt=" + refRqDt + ", refSta=" + refSta + ", endTime="
+				+ endTime + ", memo=" + memo + "]";
 	}
+
+	
 
 	
 	
