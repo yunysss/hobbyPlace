@@ -45,7 +45,7 @@
 </style>
 </head>
 <body>
-
+<%@ include file="../common/tuteeMenubar.jsp" %>
     <div class="outer">
 
         <h2><b>문의관리</b></h2> 
