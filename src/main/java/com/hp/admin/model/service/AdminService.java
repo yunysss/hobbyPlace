@@ -7,7 +7,6 @@ import static com.hp.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.hp.admin.model.dao.AdminDao;
 import com.hp.admin.model.vo.MemberList;
@@ -365,6 +364,21 @@ public class AdminService {
 		
 		close(conn);
 		return qnaList;
+	}
+
+	public ArrayList<Register> selectAllRegister2(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Register> regList = new AdminDao().selectAllRegister2(conn, memNo);
+		
+		close(conn);
+		return regList;
+	}
+	
+	public ArrayList<Lesson> selectStatLocation(){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new AdminDao().selectStatLocation(conn);
+		close(conn);
+		return list;
 	}
 	
 

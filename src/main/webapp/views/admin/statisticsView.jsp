@@ -7,6 +7,7 @@
 	ArrayList<District> lList = (ArrayList<District>)request.getAttribute("lList");
     ArrayList<District> disList = (ArrayList<District>)request.getAttribute("disList");
     ArrayList<Lesson> ch1List = (ArrayList<Lesson>)request.getAttribute("ch1List");
+    ArrayList<Lesson> ch2List = (ArrayList<Lesson>)request.getAttribute("ch2List");
 %> 
 <!DOCTYPE html>
 <html>
@@ -47,6 +48,9 @@
     }
     thead td{
      background:rgb(245, 245, 245);
+    }
+    #statClass-list>tbody>tr{
+    	cursor:pointer;
     }
     select{
      width: 150px;
@@ -509,6 +513,9 @@
 	      		  });
 	  		  
 	  		}
+	  		$(document).on("click", "#statClass-list>tbody>tr", function(){
+	  			location.href="<%=contextPath%>/cldetail.ad?no=" + $(this).children().eq(0).text();
+	  		})
         </script>		  
 		  
 		  
@@ -521,7 +528,7 @@
 		  				<canvas id="myChart1" style="width:460px; height:270px;"></canvas>
 		  			</td>
 		  			<td>
-		  				<b>지역별 누적 매출 분포</b><br><br>
+		  				<b>지역별 누적 매출 분포 (상위 5개 지역)</b><br><br>
 		  				<canvas id="myChart2"></canvas>
 		  			</td>
 		  		</tr>
@@ -538,13 +545,19 @@
 		  	let regCount = [];
 		  	let likeCount = [];
 		  	let reviewCount = [];
+		  	let districtList = [];
+		  	let districtSales = [];
 		  	$(function(){
 			  	<%for(int i=0; i<ch1List.size(); i++){%>
 			  		regCount.push(<%=ch1List.get(i).getStudentSum()%>);
 			  		likeCount.push(<%=ch1List.get(i).getLikeCount()%>);
 			  		reviewCount.push(<%=ch1List.get(i).getReviewCount()%>);
 			  	<% }%>
-			  	console.log(regCount, likeCount, reviewCount)
+			  	<%for(int i=0; i<ch2List.size(); i++){%>
+			  		districtList.push("<%=ch2List.get(i).getDistrCode()%>");
+			  		districtSales.push(<%=ch2List.get(i).getClPrice()%>);
+			  	<% }%>
+			  	
 		  	})
             var context = document
                 .getElementById('myChart1')
@@ -588,15 +601,12 @@
 	        var myChart = new Chart(context2, {
 	        	type:'pie',
 	        	data:{
-	        		labels:["강남구", "서초구", "동작구", "금천구"],
+	        		labels:districtList,
 	        		datasets:[{
-	        			data:[5000000,3000000,6000000,2000000],
+	        			data:districtSales,
 	        			backgroundColor:['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)']
 	        		}]
-	        	},
-	        	options:{
-                	responsive:false
-                }
+	        	}
 	        })
 	        var context3 = document.getElementById('myChart3').getContext('2d');
 	        var myChart = new Chart(context3, {

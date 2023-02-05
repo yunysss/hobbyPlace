@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
 
 import com.hp.admin.model.vo.MemberList;
@@ -994,7 +993,7 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberList2");
 		
-		System.out.println(sm.getsGroup());
+		
 		
 		String sg = null;
 		if(sm.getsGroup().equals("all")) {
@@ -1312,7 +1311,7 @@ public class AdminDao {
 			sql += "asc";
 		}
 		
-		System.out.println(sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, st.getEnrollStart());
@@ -1578,7 +1577,7 @@ public class AdminDao {
 			close(rset);
 			close(conn);
 		}
-		System.out.println(qnaList);
+		
 		return qnaList;
 	}
 	
@@ -1606,8 +1605,7 @@ public class AdminDao {
 			            rset.getString("A_TITLE"),
 			            rset.getString("A_CONTENT"),
 			            rset.getDate("A_DATE"),
-			            rset.getInt("A_MEM_NO"),
-			            rset.getString("TT_NAME")));
+			            rset.getInt("A_MEM_NO")));
 			}
 			
 		} catch (SQLException e) {
@@ -1619,7 +1617,73 @@ public class AdminDao {
 		return qnaList;
 	}
 
-	
+
+
+
+	public ArrayList<Register> selectAllRegister2(Connection conn, int memNo) {
+		ArrayList<Register> regList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllRegister2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				regList.add(new Register(rset.getInt("REG_NO"),
+									     rset.getString("MEM_NO"),
+									     rset.getString("CL_NO"),
+									     rset.getString("CL_NAME"),
+									     rset.getString("TEACH_DATE"),
+									     rset.getString("REG_DATE"),
+									     rset.getString("reg_pay"),
+									     rset.getString("reg_price"),
+									     rset.getString("reg_count"),
+									     rset.getString("reg_sta"),
+									     rset.getString("reg_refuse"),
+									     rset.getString("re_enroll"),
+									     rset.getString("reg_cal"),
+									     rset.getString("tt_name"),
+									     rset.getString("START_TIME"),
+									     rset.getString("distr_name"),
+									     rset.getString("ct_name"),
+									     rset.getString("ct_dname"),
+									     rset.getString("end_time"),
+									     rset.getString("local_name")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		
+		return regList;
+	}
+
+	public ArrayList<Lesson> selectStatLocation(Connection conn){
+		ArrayList<Lesson> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectStatLocation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Lesson(rset.getString("distr_name"), 
+						              rset.getString("reg_price")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 
 

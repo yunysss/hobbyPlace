@@ -31,6 +31,7 @@ public class Register {
 	private String refSta;
 	private String endTime;
 	private String memo;
+	private String localName;
 	
 	public Register() {}
 
@@ -255,6 +256,42 @@ public class Register {
 		this.endTime = endTime;
 		this.memo = memo;
 		
+	}
+
+	
+	public Register(int regNo, String memNo, String clNo, String clName, String teachDate, String regDate, String regPay,
+			String regPrice, String regCount, String regSta, String refuse, String reEnroll, String regCal,
+			String memName, String startTime, String distrName, String ctName, String ctDname, String endTime,
+			String localName) {
+		super();
+		this.regNo = regNo;
+		this.memNo = memNo;
+		this.clNo = clNo;
+		this.clName = clName;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.regPay = regPay;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.refuse = refuse;
+		this.reEnroll = reEnroll;
+		this.regCal = regCal;
+		this.memName = memName;
+		this.startTime = startTime;
+		this.distrName = distrName;
+		this.ctName = ctName;
+		this.ctDname = ctDname;
+		this.endTime = endTime;
+		this.localName = localName;
+	}
+
+	public String getLocalName() {
+		return localName;
+	}
+
+	public void setLocalName(String localName) {
+		this.localName = localName;
 	}
 
 	public int getRegNo() {

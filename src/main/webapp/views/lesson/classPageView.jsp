@@ -900,7 +900,7 @@
             <div class="modal-content">
                 <div class="modal-body" align="center">
                 	성공적으로 문의 등록되었습니다. <br><br>
-               		<a href="" type="button" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">나의 문의 내역</a>
+               		<a href="<%=contextPath %>/qnaList.tee" type="button" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">나의 문의 내역</a>
                    	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
             	</div>  
         	</div>

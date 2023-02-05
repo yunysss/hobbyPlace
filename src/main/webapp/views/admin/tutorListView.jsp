@@ -65,6 +65,7 @@
 	#paging li.on a {
 	    color: white;
 	}
+	#ex{font-size:13px; margin-left:20px;}
 </style>
 </head>
 <body>
@@ -103,7 +104,9 @@
 			   <div class="optionWrap1">
 					<p id="option1Show">추가검색  ▼</p>
 					<br>
+					
 					<div class="option1Detail">
+						
 						<select name="option1" id="option1">
 							<option value="tutorName">튜터명</option>
 							<option value="memName">이름</option>
@@ -111,7 +114,7 @@
 						</select>
 						<input type="text" name="searchKey" id="searchKey">
 						
-						<br><br><br>
+						<br><br>
 						
 						<select name="option2" id="option2">
 							<option value="incomeCount">총수익</option>
@@ -126,7 +129,9 @@
 						<input type="text" class="dtPicker" id="datepicker3" name="dayStart"> 부터&nbsp;&nbsp;
 						 
 						<input type="text" class="dtPicker" id="datepicker4" name="dayEnd"> 까지
-						<br><br><br>
+						<br>
+						<p id="ex">* 수업을 한 번 이상 진행한 튜터에 한해 추가검색 가능합니다.<br>
+						(아직 최초 수업을 진행하지 않은 튜터는 검색되지 않습니다.)</p><br>
 						<button type="button" class="sButton" id="detailSearch1" onclick="sSearch1();">검색</button>
 					</div>
 				</div>

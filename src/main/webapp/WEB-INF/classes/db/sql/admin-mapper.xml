@@ -288,15 +288,16 @@
 		     , Q_STATUS
 		     , Q_GRADE
 		     , Q_CATEGORY
-		     , CL_NO
+		     , Q.CL_NO
 		     , Q_MEM_NO
 		     , A_TITLE
 		     , A_CONTENT
 		     , TO_CHAR(A_DATE, 'YYYY-MM-DD') "A_DATE"
 		     , A_MEM_NO
 		     , TT_NAME
-		  FROM QNA 
-		  JOIN TUTOR ON(A_MEM_NO = MEM_NO)
+		  FROM QNA Q
+		  JOIN CLASS C ON (Q.CL_NO = C.CL_NO)
+		  JOIN TUTOR T ON(C.MEM_NO = T.MEM_NO)
 		 WHERE Q_STATUS = 'Y'
    		   AND Q_MEM_NO = ?
 	</entry>
@@ -721,12 +722,57 @@
 		     , A_CONTENT
 		     , TO_CHAR(A_DATE, 'YYYY-MM-DD') "A_DATE"
 		     , A_MEM_NO
-		     , TT_NAME
 		  FROM QNA 
-		  JOIN TUTOR ON(A_MEM_NO = MEM_NO)
 		 WHERE Q_STATUS = 'Y'
 		   AND Q_GRADE = '0'
    		   AND Q_MEM_NO = ?
 	</entry>
 	
+	<entry key="selectAllRegister2">
+		SELECT
+		       REG_NO
+		     , R.MEM_NO
+		     , R.CL_NO
+		     , C.CL_NAME 
+		     , R.TEACH_DATE 
+		     , REG_DATE
+		     , REG_PAY
+		     , REG_PRICE
+		     , REG_COUNT
+		     , REG_STA
+		     , REG_REFUSE
+		     , RE_ENROLL
+		     , REG_CAL
+		     , TT_NAME
+		     , START_TIME
+		     , DISTR_NAME
+		     , CT_NAME
+		     , CT_DNAME
+             , END_TIME
+             , LOCAL_NAME
+		  FROM REGISTER R
+		  JOIN CLASS C ON (R.CL_NO = C.CL_NO) 
+		  JOIN TUTOR T ON (C.MEM_NO = T.MEM_NO)
+		  JOIN CATEGORY O ON (C.CT_NO = O.CT_NO)
+		  JOIN DCATEGORY Y ON (C.CT_DNO = Y.CT_DNO)
+          JOIN SCHEDULE S ON (R.SCH_NO = S.SCH_NO)
+          JOIN LOCATION L ON (C.LOCAL_CODE = L.LOCAL_CODE)
+          JOIN DISTRICT D ON (C.DISTR_CODE = D.DISTR_CODE)
+		 WHERE R.MEM_NO = ?
+	</entry>
+	
+	<entry key="selectStatLocation">
+		SELECT ROWNUM, D.DISTR_NAME, D.REG_PRICE
+		  FROM (SELECT
+		               DISTR_NAME
+		             , SUM(REG_PRICE) "REG_PRICE"
+		          FROM REGISTER R
+		          JOIN CLASS USING(CL_NO)
+		          JOIN DISTRICT USING(DISTR_CODE)
+		         GROUP 
+		            BY DISTR_NAME
+		         ORDER
+		            BY REG_PRICE DESC) D
+		WHERE ROWNUM <![CDATA[ < ]]>= 5
+	</entry>
 </properties>

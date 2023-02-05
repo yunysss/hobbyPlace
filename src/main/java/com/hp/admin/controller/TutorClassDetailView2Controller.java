@@ -10,22 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hp.admin.model.service.AdminService;
-import com.hp.lesson.model.vo.Category;
-import com.hp.lesson.model.vo.Dcategory;
-import com.hp.lesson.model.vo.District;
+import com.hp.admin.model.vo.TutorList;
+import com.hp.lesson.model.service.LessonService;
 import com.hp.lesson.model.vo.Lesson;
+import com.hp.tutor.model.service.TutorService;
+import com.hp.tutor.model.vo.Tutor;
 
 /**
- * Servlet implementation class StatisticsViewController
+ * Servlet implementation class TutorClassDetailView2Controller
  */
-@WebServlet("/statistics.ad")
-public class StatisticsViewController extends HttpServlet {
+@WebServlet("/ttClass2.ad")
+public class TutorClassDetailView2Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StatisticsViewController() {
+    public TutorClassDetailView2Controller() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +35,17 @@ public class StatisticsViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memNo = Integer.parseInt(request.getParameter("no"));
 		
-		ArrayList<District> lList = new AdminService().selectLocalList();
-		ArrayList<District> disList = new AdminService().selectDistrictList();
-		ArrayList<Category> cList = new AdminService().selectCategoryList();
-		ArrayList<Dcategory> dList = new AdminService().selectDcategoryList();
-		ArrayList<Lesson> ch1List= new AdminService().selectStatCount();
-		ArrayList<Lesson> ch2List = new AdminService().selectStatLocation();
+		AdminService aService = new AdminService();
+		Tutor t1 = new TutorService().selectTutorInfo(memNo);
+		TutorList t2 = aService.selectTutorInfo(memNo);
+		ArrayList<Lesson> cRList = new LessonService().selectRejectedClass(memNo);
 		
-		request.setAttribute("catList", cList);
-		request.setAttribute("dcList", dList);
-		request.setAttribute("lList", lList);
-		request.setAttribute("disList", disList);
-		request.setAttribute("ch1List", ch1List);
-		request.setAttribute("ch2List", ch2List);
-		request.getRequestDispatcher("views/admin/statisticsView.jsp").forward(request, response);
+		request.setAttribute("t1", t1);
+		request.setAttribute("t2", t2);
+		request.setAttribute("cRList", cRList);
+		request.getRequestDispatcher("views/admin/tutorInactiveClassDetailView.jsp").forward(request, response);
 	}
 
 	/**
