@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="java.util.ArrayList, com.hp.qna.model.vo.*"%>
+<%
+	ArrayList<Qna> list  = (ArrayList<Qna>)request.getAttribute("list");
+	
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +24,7 @@
     .outer{
             width: 1000px;
             margin: auto;
-            margin-top: 100px;
+            margin-top: 40px;
         }
         .list{
             text-align: center;
@@ -55,42 +60,32 @@
                 <th width="500" >제목</th>
                 <th width="100">등록일</th>
                 <th width="100">처리일</th>
-                <th width="100">답변자</th>
                 <th width="50">상태</th>
             </tr>
             
-            <tr>
-                <td>1</td>
-                <td>문의사항 제목1</td>
-                <td>2023-01-16</td>
-                <td></td>
-                <td>사용자아이디</td>
-                <td>대기</td>
-            </tr>
-
-            <tr>
-                <td>2</td>
-                <td>문의사항 제목2</td>
-                <td>2023-01-14</td>
-                <td>2023-01-16</td>
-                <td>사용자아이디</td>
-                <td>완료</td>
-            </tr>
-
+            <%if(list.isEmpty()){ %>
+	            <tr>
+	                <td colspan="5">등록된 문의사항이 없습니다.</td>
+	            </tr>
+			<%}else{ %>
+				<%for(int i=0; i<list.size(); i++){ %>
+		            <tr>
+		                <td><%= i+1 %></td>
+		                <td><%=list.get(i).getqTitle() %></td>
+		                <td><%=list.get(i).getqDate() %></td>
+		                <%if(list.get(i).getaMemNick().equals("N")){ %>
+			                <td></td>
+			                <td>대기</td>
+		                <%}else{ %>
+			                <td><%=list.get(i).getaDate() %></td>
+			                <td>완료</td>
+		                <%} %>
+		            </tr>
+	            <%} %>
+			<%} %>
         </table>
 			
         <br><br>
-
-        <div class="paging-area">
-
-            <button style="border: none;">&lt;</button>
-            <button style="background-color:rgb(22, 160, 133); color:white; border:none">1</button>
-            <button style="border: none;">&gt;</button>
-
-        </div>
-        
-
-
 
     </div>
     

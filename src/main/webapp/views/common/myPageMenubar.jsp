@@ -120,7 +120,7 @@
                 })
                 $("#viewMyQna").click(function(){
                     // 나의 문의 조회시 이동할 페이지링크(나의문의내역으로)
-                    location.href = "<%=contextPath%>/.....";
+                    location.href = "<%=contextPath%>/qnaList.tee";
                 })
                 $("#selectMyQna").click(function(){
                     // 나의 문의 조회>>나의 문의내역 클릭시 이동할 페이지링크

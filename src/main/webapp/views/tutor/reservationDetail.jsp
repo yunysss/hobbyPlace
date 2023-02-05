@@ -13,7 +13,7 @@
     <title>Document</title>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -32,7 +32,7 @@
 
         #content_box{ 
             width:99%; 
-            height: 95%;
+            height: 470px;
             border: 1px solid black; 
             border-radius: 7px;
         }
@@ -59,8 +59,8 @@
             <h6 style="font-weight:bold; padding: 7px; margin-top: 10px;"> 예약 상세 조회</h6>
 
             <div id="content_box">
-                <form id="reservationform" action="<%=contextPath%>/resUpdate.tt" method="post">
-               	 <input type="hidden" name="no" value="<%=r.getRegNo()%>">
+                <form id="reservationform"  action="<%=contextPath%>/resUpdate.tt" method="post">
+               	 <input type="hidden" name="no" id="regNo" value="<%=r.getRegNo()%>">
                     <div id="status_area">
                         <select id="status" name="regSta">
                             <option value="1">수강전</option>
@@ -80,6 +80,7 @@
                         </script>
                         
                     </div>
+                    
                     <table>
                         <tr>
                             <th colspan="3" width="550px"><h4 style="font-weight: bold;"><%=r.getClName() %></h4></th>
@@ -109,17 +110,17 @@
                         </tr>
 
                     </table>
-                    <br>
-                    <br>
-                    
+
 
                     <textarea name="memo" id="memo" cols="30" rows="10"><%=r.getMemo() %></textarea>
 
                     <div id="btn_area">
-                        <button onclick="updateStatus(); type="button" class="btn btn-secondary" style="height: 30px; line-height: 10px;">저장</button>
+                        <button onclick="updateStatus();"  class="btn btn-secondary" style="height: 30px; line-height: 10px;">저장</button>
                     </div>
                     
                 </form>
+
+                
                 
                 <script>
 	              
@@ -130,12 +131,13 @@
                 			data:{
                 				content:$("#memo").val(),
                 				regSta:$("#status").val(),
-                				no:<%=r.getRegNo()%>
+                                no: $("#regNo").val()
                 			},
                 			type:"post",
                 			success:function(result){
-                				$("#status").val("result.getRegSta()");
-                				$("#memo").val("result.getMemo()");
+                				$("#status").val();
+                				$("#memo").val();
+                                alert("저장 성공");
                 				
                 			},error:function(){
                 				console.log("댓글 작성용 ajax 통신 실패");
@@ -146,9 +148,8 @@
 	               
                 
                 </script>
-                
-                
-                
+
+          
             </div>
             
             

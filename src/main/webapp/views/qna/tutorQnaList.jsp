@@ -25,7 +25,7 @@
         .outer{
             width: 1000px;
             margin: auto;
-            margin-top: 100px;
+            margin-top: 40px;
             padding:40px;
         }
         .list{

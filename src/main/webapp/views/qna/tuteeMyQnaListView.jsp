@@ -71,7 +71,7 @@
             <div class="categoryWrap">
 	            <div class="categoryMain" align="center" id="viewMyQna">나의 문의 조회</div>
 	            <ul class="categoryDetail qna">
-	                <li id="selectMyQna" onclick="">나의 문의 내역</li>
+	                <li id="selectMyQna" onclick="" >나의 문의 내역</li>
 	                <li id="insertMyQna" onclick="">문의하기</li>
 	            </ul>
             </div>
@@ -91,9 +91,13 @@
                     //회원정보 조회 및 수정 클릭시 이동할 페이지링크
                     location.href = "<%=contextPath%>/memberInfo.me";
                 })
+                $("#viewMyQna").click(function(){
+                    // 나의 문의 조회시 이동할 페이지링크(나의문의내역으로)
+                    location.href = "<%=contextPath%>/qnaList.tee";
+                })
                 $("#selectMyQna").click(function(){
                     // 나의 문의 조회시 이동할 페이지링크(나의문의내역으로)
-                    location.href = "<%=contextPath%>/.....";
+                    location.href = "<%=contextPath%>/qnaList.tee";
                 })
                 $("#insertMyQna").click(function(){
                     // 나의 문의 조회>> 문의하기 클릭시 이동할 페이지링크

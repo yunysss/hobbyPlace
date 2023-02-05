@@ -104,12 +104,14 @@
             </tr>
 		<%}else{ %>
 		<%for(int i=0; i<list2.size(); i++){%>
+		
             <tr>
             
                 <td><%=i+1 %></td>
-                <td><%=list2.get(i).getqTitle() %></td>
+                <td onclick="location.href='<%=contextPath%>/qnaDetail.ad?no=<%=list2.get(i).getqNo()%>'"><%=list2.get(i).getqTitle() %></td>
                 <td><%=list2.get(i).getqDate() %></td>
                 <td><%if(list2.get(i).getaMemNick().equals("N")){ %>
+                
 		                		대기
 		                <%}else{ %>
 		                		완료
