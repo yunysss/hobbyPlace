@@ -632,10 +632,11 @@
             , END_TIME
 			, TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
 			, REG_COUNT
-			, REG_STA
+			, decode(REG_STA,'2','수강완료','3','취소') "REG_STA"
 			, RE_ENROLL
 			, CL_PRICE
-            , MEMO
+			, NVL(MEMO,'특이사항을 메모해주세요') "MEMO"
+            
 		 FROM REGISTER R
 		 JOIN MEMBER USING (MEM_NO)
 		 JOIN CLASS C USING (CL_NO)
@@ -643,6 +644,15 @@
 	    WHERE REG_NO = ?
 	
 	</entry>
+	
+	<entry key="updateReservation">
+		UPDATE REGISTER
+           SET REG_STA = ?
+             , MEMO = ?
+         WHERE REG_NO=?
+	</entry>
+	
+	
 
 
 </properties>

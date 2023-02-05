@@ -1126,7 +1126,7 @@ public class TutorDao {
 								 rset.getString("reg_price"),
 								 rset.getString("reg_count"),
 								 rset.getString("reg_sta"),
-								 rset.getString("re_enroll"),
+							     rset.getString("re_enroll"),
 								 rset.getString("mem_name"),
 							     rset.getString("mem_phone"),
 							     rset.getString("mem_email"),
@@ -1143,6 +1143,35 @@ public class TutorDao {
 			
 		
 		return r;
+	}
+
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param r
+	 * @return 예약상세페이지 수강상태, 메모 업데이트
+	 */
+	public int updateReservation(Connection conn, Register r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, r.getRegSta());
+			pstmt.setString(2, r.getMemo());
+			pstmt.setInt(3,r.getRegNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
 	}
 
 

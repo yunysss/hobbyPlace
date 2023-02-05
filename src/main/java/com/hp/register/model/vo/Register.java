@@ -254,6 +254,7 @@ public class Register {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.memo = memo;
+		
 	}
 
 	public int getRegNo() {
@@ -507,6 +508,11 @@ public class Register {
 				+ ctName + ", ctDname=" + ctDname + ", refRqDt=" + refRqDt + ", refSta=" + refSta + ", endTime="
 				+ endTime + ", memo=" + memo + "]";
 	}
+	
+	
+	
+
+	
 
 	
 
