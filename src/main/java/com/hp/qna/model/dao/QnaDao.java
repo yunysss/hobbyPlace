@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.hp.member.model.vo.Member;
 import com.hp.qna.model.vo.Qna;
+import com.hp.register.model.vo.Register;
 
 
 public class QnaDao {
@@ -336,6 +337,13 @@ public class QnaDao {
 		}
 		
 		return aList;
+	}
+	
+	public Register selectClassListQna(Connection conn, int MemNo) {
+		Register r = new Register();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectClassListQna");
 	}
 
 }

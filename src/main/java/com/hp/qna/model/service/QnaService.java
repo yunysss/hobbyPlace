@@ -12,6 +12,7 @@ import com.hp.customerService.model.dao.NoticeDao;
 import com.hp.member.model.vo.Member;
 import com.hp.qna.model.dao.QnaDao;
 import com.hp.qna.model.vo.Qna;
+import com.hp.register.model.vo.Register;
 
 public class QnaService {
 	
@@ -107,6 +108,13 @@ public class QnaService {
 		ArrayList<Qna> aList = new QnaDao().ttSelectAllQna2(conn, memNo);
 		close(conn);
 		return aList;
+	}
+	
+	public Register selectClassListQna(int MemNo) {
+		Connection conn = getConnection();
+		Register r  = new QnaDao().selectClassListQna(conn, MemNo);
+		close(conn);
+		return r;
 	}
 
 }
