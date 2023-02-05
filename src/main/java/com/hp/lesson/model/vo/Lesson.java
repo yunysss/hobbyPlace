@@ -50,6 +50,44 @@ public class Lesson {
 	
 	
 	
+	public Lesson(int clNo, String ctName, String ctDname, String memNo, String localCode, String distrCode,
+			String clName, String clAddress, int clMax, String clLevel, String startDate, String endDate, int clTimes,
+			String clSchedule, String clDay, String clPrice, String clDetail, String curriculum, String clSupplies,
+			Date enrollDate, Date updateDate, String clStatus, int clCount, String clRefuse, String clThumb,
+			int clStarAvg, int clStarCount, int likeCount) {
+		super();
+		this.clNo = clNo;
+		this.ctName = ctName;
+		this.ctDname = ctDname;
+		this.memNo = memNo;
+		this.localCode = localCode;
+		this.distrCode = distrCode;
+		this.clName = clName;
+		this.clAddress = clAddress;
+		this.clMax = clMax;
+		this.clLevel = clLevel;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.clTimes = clTimes;
+		this.clSchedule = clSchedule;
+		this.clDay = clDay;
+		this.clPrice = clPrice;
+		this.clDetail = clDetail;
+		this.curriculum = curriculum;
+		this.clSupplies = clSupplies;
+		this.enrollDate = enrollDate;
+		this.updateDate = updateDate;
+		this.clStatus = clStatus;
+		this.clCount = clCount;
+		this.clRefuse = clRefuse;
+		this.clThumb = clThumb;
+		this.clStarAvg = clStarAvg;
+		this.clStarCount = clStarCount;
+		this.likeCount = likeCount;
+	}
+
+
+
 	public Lesson(int clNo, String ctNo, String ctName, String ctDno, String ctDname, String localCode,
 			String distrCode, String clName, String clPrice, String clThumb, int clStarAvg, int clStarCount) {
 		super();
@@ -424,6 +462,10 @@ public class Lesson {
 		this.likeCount = likeCount;
 		this.studentSum = studentSum;
 	}
+
+
+
+	
 
 
 

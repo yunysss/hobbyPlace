@@ -22,8 +22,11 @@ public class Qna {
 	
 	private String aMemNick;
 	
-	
 	public Qna() {}
+
+	
+ 
+	
 
 
 	public Qna(int qNo, String qTitle, String qContent, Date qDate, String qStatus, String qGrade, String qCategory,

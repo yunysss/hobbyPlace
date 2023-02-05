@@ -18,7 +18,6 @@ public class Review {
 	private int ttNo;
 	
 	
-	
 	public Review() {}
 	
 	
@@ -132,6 +131,41 @@ public class Review {
 		this.reviewDate = reviewDate;
 		this.clName = clName;
 		this.clThumb = clThumb;
+	}
+
+
+
+	
+
+
+
+	public Review(int reviewNo, String clName) {
+		super();
+		this.reviewNo = reviewNo;
+		this.clName = clName;
+	}
+
+
+
+	
+
+
+
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate,
+			String reviewStatus, int regNo, int clNo, int memNo, String clName, String memNickName, String memProfile) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.reviewUpDate = reviewUpDate;
+		this.reviewStatus = reviewStatus;
+		this.regNo = regNo;
+		this.clNo = clNo;
+		this.memNo = memNo;
+		this.clName = clName;
+		this.memNickName = memNickName;
+		this.memProfile = memProfile;
 	}
 
 

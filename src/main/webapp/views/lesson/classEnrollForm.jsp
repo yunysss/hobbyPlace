@@ -223,7 +223,7 @@
   </ul>
 
   <!-- Tab panes -->
-  <form action="<%=contextPath %>/clinsert.tt?no=<%=tutorInfo.getMemNo() %>" method="post" id="enroll-form" enctype="multipart/form-data">
+  <form action="<%=contextPath %>/clinsert.tt?no=<%=tutorInfo.getMemNo() %>" method="post" id="enroll-form" onsubmit="return doAction();" enctype="multipart/form-data">
 	  	<div class="tab-content">
 	  	  <div id="form1" class="container tab-pane active" ><br>
 	        <span style="font-size: 14px; font-weight: 600;">기본정보</span>
@@ -238,13 +238,13 @@
 	            <tr>
 	                <th width=100>카테고리</th>
 	                <td>
-	                    <select name="category" id="category" class="ct" required onchange="changeCt();">
+	                    <select name="category" id="category" class="ct require" required onchange="changeCt();">
 	                        <%for(Category c : cList){ %>
 	                        <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
 	                        <%} %>
 	                    </select>
 	                    
-	                    <select name="dCategory" id="Dcategory" class="ct" required >
+	                    <select name="dCategory" id="Dcategory" class="ct require" required >
 	                       
 	
 	                    </select>
@@ -257,7 +257,7 @@
 	                <th>클래스명</th>
 	                <td>
 	                    <br>
-	                    <input type="text" id="clName"  name="className" min="10" max="50" class="form-control" required > 
+	                    <input type="text" id="clName"  name="className" min="10" max="50" class="form-control require" data-name="클래스명" required > 
 						 <div style="font-size: 11px; ">*10자 이상으로 입력해주세요. &nbsp;<span class="textCount"></span></div>
         
 	                </td>
@@ -285,7 +285,7 @@
 	                    <input id="class_sido" type="hidden"  name="sido" placeholder="시/도" readonly>
 	                    <input id="class_sigungu" type="hidden" name="sigungu" placeholder="구" readonly> <br>
 	                    
-	                    <input id="class_addr" type="text" name="address" required  placeholder="주소입력" readonly>
+	                    <input id="class_addr" type="text" name="address" required class="require" placeholder="주소입력" data-name="주소" readonly>
 	                    <button type="button" onclick="findAddr()"  class="btn btn-secondary btn-sm">주소검색 </button><br>
 	                    <input type="text" name="dAddress" placeholder="상세주소입력"><br>
 	                    <label style="font-size: 11px; color: red;">*서울,인천,경기 지역만 등록가능합니다.😥</label>
@@ -327,12 +327,12 @@
 	            </tr>
 	            <tr>
 	                <th>최대인원</th>
-	                <td><input type="number" name="clMax" min="1" class="form-control-sm" required > 명</td>
+	                <td><input type="number" name="clMax" min="1" class="form-control-sm require" required data-name="최대인원"> 명</td>
 	            </tr>
 	            <tr>
 	                <th>난이도</th>
 	                <td>
-	                    <input type="radio" name="level" value="없음" id="none"><label for="none">없음</label>
+	                    <input type="radio" name="level" value="없음" id="none" checked><label for="none">없음</label>
 	                    <input type="radio" name="level" value="하" id="easy"><label for="easy">쉬움</label>
 	                    <input type="radio" name="level" value="중" id="normal"><label for="normal">보통</label>
 	                    <input type="radio" name="level" value="상" id="hard"><label for="hard">어려움</label>
@@ -347,7 +347,7 @@
 	        <table>
 				<tr>
 					<th>판매종료일</th>
-					<td><input type="date" name="endDate"></td>
+					<td><input type="date" name="endDate" class="require" required data-name="판매종료일"></td>
 					
 				</tr>
 				
@@ -358,12 +358,12 @@
 	                <td><br>
 	                    <input type="radio" id="everyday" name="schedule"class="schedule" value="매일">
 	                    <label for="everyday">매일</label>
-	                    <input type="radio" id="weekly" name="schedule" class="schedule" value="매주">
+	                    <input type="radio" id="weekly" name="schedule" class="schedule" value="매주" checked>
 	                    <label for="weekly">매주</label>
 	                    <br>
 	
 	
-	                    <input type="checkbox" name="day" value="월" class="day" id="mon"><label for="mon">월</label>
+	                    <input type="checkbox" name="day" value="월" class="day require" id="mon" data-name="요일"><label for="mon">월</label>
 	                    <input type="checkbox" name="day" value="화" class="day" id="tue"><label for="tue">화</label>
 	                    <input type="checkbox" name="day" value="수" class="day" id="wed"><label for="wed">수</label>
 	                    <input type="checkbox" name="day" value="목" class="day" id="thur"><label for="thur">목</label>
@@ -388,7 +388,7 @@
 	            </tr>
 	            <tr>
 	                <th>일 운영횟수</th>
-	                <td><input type="number" name="times" min="1" required >회</td>
+	                <td><input type="number" name="times" min="1" class="require" required data-name="운영횟수" >회</td>
 	            </tr>
 	            <tr>
 	                <th>운영시간</th>
@@ -413,13 +413,13 @@
 	                          <tbody id="table_body">
 	                                <tr>
 	                                <td>
-	                                    <input type="number" min="1" name="session" class="form_control" >
+	                                    <input type="number" required data-name="회차" min="1" name="session" class="form_control require" >
 	                                </td>
 	                                <td>
-	                                    <input type="time" name="startTime"class="form_control" >
+	                                    <input type="time" required data-name="시작시간" name="startTime"class="form_control require" >
 	                                </td>
 	                                <td>
-	                                    <input type="time" name="endTime" class="form_control">
+	                                    <input type="time"  required data-name="종료시간" name="endTime" class="form_control require">
 	                                </td>
 	                                <td>
 	                                <div class="action_container">
@@ -442,14 +442,14 @@
 	        <table>
 	            <tr>
 	                <th width="100">판매가</th>
-	                <td><input type="text" class="form-control-sm" name="price" required > 원</td>
+	                <td><input type="text" class="form-control-sm require" name="price" required  data-name="가격"> 원</td>
 	            </tr>
 	
 	        </table>
 	        <br>
 	        <hr><br>
 	        <div align="center">
-	        <button type="button" class="btn btn-secondary btn-sm" onclick="$('.form2').trigger('click');">다음페이지로</button>
+	        <button type="button" class="btn btn-secondary btn-sm"  onclick="$('.form2').trigger('click');">다음페이지로</button>
 	       
 	        </div>
 	
@@ -548,10 +548,10 @@
 	                    <div style="font-size:12px;">🔺첫번째 선택한 사진이 썸네일 이미지로 사용됩니다. 사진은 4장 모두 등록해주세요</div>
 	
 	                    <div id="file-area" style="display: none;">
-	                        <input type="file" name="file1" onchange="loadImg(this,1);" required> 
-	                        <input type="file" name="file2" onchange="loadImg(this,2);" required>
-	                        <input type="file" name="file3" onchange="loadImg(this,3);" required> 
-	                        <input type="file" name="file4" onchange="loadImg(this,4);" required>
+	                        <input type="file" name="file1" class="require" onchange="loadImg(this,1);" data-name="사진"required> 
+	                        <input type="file" name="file2" class="require" onchange="loadImg(this,2);" data-name="사진"required>
+	                        <input type="file" name="file3" class="require" onchange="loadImg(this,3);" data-name="사진"required> 
+	                        <input type="file" name="file4" class="require" onchange="loadImg(this,4);" data-name="사진"required>
 	                    </div>
 	                    
 	                </td>
@@ -590,17 +590,19 @@
 	                    }
 	                }
 	            </script>
-	
+	            
+	           
 	        <tr>
 	            <th>상세설명</th>
 	            <td style="width: 100;">
 	                <br>
 	               
-	                    <textarea id="summernote" name="editordata" required ></textarea>
+	                    <textarea id="summernote" name="editordata" class="require" required data-name="상세설명"></textarea>
 	                
 	                
 	                <script>
 	                    $(document).ready(function() {
+	                    	 changeCt();
 	                    //여기 아래 부분
 	                    $('#summernote').summernote({
 	                    
@@ -622,7 +624,7 @@
 	        <tr>
 	            <th>커리큘럼</th>
 	            <td>
-	                <textarea name="curriculum"  rows="4" style="resize:none" required ></textarea>
+	                <textarea name="curriculum"  rows="4" class="require" style="resize:none" data-name="커리큘럼" required ></textarea>
 	            </td>
 	        </tr>
 	        </table>
@@ -659,10 +661,38 @@
 	        <br><hr><br>
 	        <div align="center">
 	            <button type="button" class="btn btn-secondary btn-sm"  onclick="$('.form1').trigger('click');">이전</button>
-	            <button type="submit" id="save"class="btn btn-secondary btn-sm" onsubmit="return Checkform()">검수요청</button>
+	            <button type="submit" id="save"class="btn btn-secondary btn-sm sub" onsubmit="return Checkform()">검수요청</button>
 	            
 	        </div>
 	        
+	        <script>
+			    $(function(){
+			        $(".sub").click(function(){
+			            var isRight = true;
+			            $("#enroll-form").find(".require").each(function(index, item){
+			                // 아무값없이 띄어쓰기만 있을 때도 빈 값으로 체크되도록 trim() 함수 호출
+			                if ($(this).val().trim() == '') {
+			                    alert($(this).attr("data-name")+" 항목을 입력하세요.");
+			                    isRight = false;
+			                    return false;
+			                }
+			                     
+			            });
+			            
+			            
+			
+			            if (!isRight) {
+			                return;
+			            }
+			
+			            $(this).prop("disabled", true);
+			            $(this).prop("disabled", false);
+			        });
+			
+			    });
+			</script>
+				        
+	     
 	        <script>
 	        $(function(){
 	        $(document).on('click', '#save', function () {
@@ -691,17 +721,7 @@
 </form>  
 </div>
 
-	<script>
-		function Checkform(){
-			if($(input).val() == "" || $(input).val()== null){
-				alert("기본정보와 필수입력사항을 모두 입력해주세요");
-			}
-
-		}
-
-
-
-	</script>
+	
 
 
   

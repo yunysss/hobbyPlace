@@ -783,7 +783,155 @@
 	
 	</entry>
 	
+	<entry key="selectActClass">
+		SELECT
+		       CL_NO
+		     , CT_NAME 
+		     , CT_DNAME 
+		     
+		     , C.MEM_NO
+		     
+		     , LOCAL_NAME 
+		     , DISTR_NAME 
+		     
+		     , CL_NAME
+		     , CL_ADDRESS
+		     , CL_MAX
+		     , CL_LEVEL
+		     , START_DATE
+		     , END_DATE
+		     , CL_TIMES
+		     , CL_SCHEDULE
+		     , CL_DAY
+		     , CL_PRICE
+		     , CL_DETAIL
+		     , CURRICULUM
+		     , CL_SUPPLIES
+		     
+		     , ENROLL_DATE
+		     , UPDATE_DATE
+		     , CL_STATUS
+		     , CL_COUNT
+		     , CL_REFUSE
+		     , CL_THUMB
+		     , (SELECT AVG(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		     , (SELECT COUNT(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		     , (SELECT COUNT(*)
+		          FROM "LIKE" L
+		         WHERE L.CL_NO = C.CL_NO
+		         GROUP BY L.CL_NO) "LIKE_COUNT"
+		 FROM CLASS C
+		 JOIN CATEGORY A ON (C.CT_NO = A.CT_NO)
+		 JOIN DCATEGORY D ON (C.CT_DNO = D.CT_DNO)
+		 JOIN LOCATION L ON (C.LOCAL_CODE = L.LOCAL_CODE)
+		 JOIN DISTRICT D ON (C.DISTR_CODE = D.DISTR_CODE)
+		 WHERE CL_STATUS = '2'
+		 AND C.MEM_NO = ?
+	</entry>
 	
+	<entry key="selectWaitingClass">
+		SELECT
+		       CL_NO
+		     , CT_NAME 
+		     , CT_DNAME 
+		     
+		     , C.MEM_NO
+		     
+		     , LOCAL_NAME 
+		     , DISTR_NAME 
+		     
+		     , CL_NAME
+		     , CL_ADDRESS
+		     , CL_MAX
+		     , CL_LEVEL
+		     , START_DATE
+		     , END_DATE
+		     , CL_TIMES
+		     , CL_SCHEDULE
+		     , CL_DAY
+		     , CL_PRICE
+		     , CL_DETAIL
+		     , CURRICULUM
+		     , CL_SUPPLIES
+		     
+		     , ENROLL_DATE
+		     , UPDATE_DATE
+		     , CL_STATUS
+		     , CL_COUNT
+		     , CL_REFUSE
+		     , CL_THUMB
+		     , (SELECT AVG(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		     , (SELECT COUNT(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		     , (SELECT COUNT(*)
+		          FROM "LIKE" L
+		         WHERE L.CL_NO = C.CL_NO
+		         GROUP BY L.CL_NO) "LIKE_COUNT"
+		 FROM CLASS C
+		 JOIN CATEGORY A ON (C.CT_NO = A.CT_NO)
+		 JOIN DCATEGORY D ON (C.CT_DNO = D.CT_DNO)
+		 JOIN LOCATION L ON (C.LOCAL_CODE = L.LOCAL_CODE)
+		 JOIN DISTRICT D ON (C.DISTR_CODE = D.DISTR_CODE)
+		 WHERE CL_STATUS = '0'
+		 AND C.MEM_NO = ?
+	</entry>
+	
+	<entry key="selectRejectedClass">
+		SELECT
+		       CL_NO
+		     , CT_NAME 
+		     , CT_DNAME 
+		     
+		     , C.MEM_NO
+		     
+		     , LOCAL_NAME 
+		     , DISTR_NAME 
+		     
+		     , CL_NAME
+		     , CL_ADDRESS
+		     , CL_MAX
+		     , CL_LEVEL
+		     , START_DATE
+		     , END_DATE
+		     , CL_TIMES
+		     , CL_SCHEDULE
+		     , CL_DAY
+		     , CL_PRICE
+		     , CL_DETAIL
+		     , CURRICULUM
+		     , CL_SUPPLIES
+		     
+		     , ENROLL_DATE
+		     , UPDATE_DATE
+		     , CL_STATUS
+		     , CL_COUNT
+		     , CL_REFUSE
+		     , CL_THUMB
+		     , (SELECT AVG(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		     , (SELECT COUNT(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		     , (SELECT COUNT(*)
+		          FROM "LIKE" L
+		         WHERE L.CL_NO = C.CL_NO
+		         GROUP BY L.CL_NO) "LIKE_COUNT"
+		 FROM CLASS C
+		 JOIN CATEGORY A ON (C.CT_NO = A.CT_NO)
+		 JOIN DCATEGORY D ON (C.CT_DNO = D.CT_DNO)
+		 JOIN LOCATION L ON (C.LOCAL_CODE = L.LOCAL_CODE)
+		 JOIN DISTRICT D ON (C.DISTR_CODE = D.DISTR_CODE)
+		 WHERE CL_STATUS IN ('1', '3')
+		 AND C.MEM_NO = ?
+	</entry>
 	
 	
 

@@ -16,7 +16,7 @@
 	div{box-sizing:border-box;}
 	/*div{border:solid 1px black;}*/
 	.cWrap{width:100%; padding:10px; padding-right:0;}
-	.searchWrap{width:90%; border:1px solid lightgray; border-radius:10px; padding:40px; padding-left:100px;}
+	.searchWrap{width:90%; border:1px solid lightgray; border-radius:10px; padding:40px; padding-left:100px; margin-left:50px;}
 
 	.dtPicker{height:35px; width:140px; border-radius:3px; border-color:rgb(186, 185, 185);}
 	.fCategory{width:165px; height:35px; margin-left:10px; border-radius: 3px; border-color:rgb(186, 185, 185);}
@@ -232,7 +232,7 @@
 				})
 			}
 			
-			<!-- 검색옵션1-->
+			<!-- 추가검색 -->
 			function sSearch1(){
 				$.ajax({
 					url:"<%=contextPath%>/tutorDetailSearch1.ad",
@@ -271,35 +271,6 @@
 				})
 			}
 			
-			<!-- 검색옵션2-->
-			function sSearch2(){
-				$.ajax({
-					url:"<%=contextPath%>/tutorDetailSearch2.ad",
-					data:{
-						enrollStart:$("#datepicker1").val(),
-						enrollEnd:$("#datepicker2").val(),
-						fCategory:$(".fCategory").val(),
-						lineup:$(".lineup").val()
-					},
-					type:"post",
-					success:function(result) {
-						if(result.length == 0) {
-							let value = "<tr>" + "<td colspan='12'>조회된 내역이 없습니다.</td>" + "</tr>";
-							$(".listTable tbody").html(value);
-							$(".paging-area").html("");
-							$("#resultNt").html("<br>** 총 0명이 조회되었습니다 **");
-						} else{
-							totalData = result.length;
-    	 		            dataList=result;
-    	 		            displayData(1, dataPerPage, totalData);
-    	 		            paging(totalData, dataPerPage, pageCount, 1);
-						}
-						
-					}, error:function(){
-						console.log("ajax 통신 실패");
-					}
-				})
-			}
 			
 			<!-- 결과 리스트 디스플레이 -->
 			function displayData(currentPage, dataPerPage, totalData) {

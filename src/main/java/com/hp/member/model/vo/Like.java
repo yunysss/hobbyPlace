@@ -13,6 +13,7 @@ public class Like {
 	private String clThumb;
 	private int starAvg;
 	private int starCount;
+	private int likeCount;
 	
 	public Like() {}
 
@@ -65,6 +66,21 @@ public class Like {
 		this.clThumb = clThumb;
 		this.starAvg = starAvg;
 		this.starCount = starCount;
+	}
+
+	
+	public Like(String clName, int likeCount) {
+		super();
+		this.clName = clName;
+		this.likeCount = likeCount;
+	}
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 
 	public int getClNo() {
