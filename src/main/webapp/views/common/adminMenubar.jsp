@@ -150,17 +150,7 @@
         <div id="content">
             <!--사이드 메뉴바-->
             <div id="navigator">
-                <!-- 검색창-->
-                <div id="search_box">
-                    <form action="#" id="searchForm">
-                        <div class="input-group mb-3 input-group-sm">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">검색</span>
-                           </div>
-                           <input type="text" class="form-control">
-                         </div>
-                    </form>
-                </div>
+                
     
                 <!--메뉴창-->
                 <div id="navi_box">
@@ -175,7 +165,7 @@
                             <ul>
                                 <li><a href="<%=contextPath%>/newcl.ad?cpage=1">신규클래스 검토/승인</a></li>
                                 <li><a href="<%=contextPath%>/classmg.ad?cpage=1">클래스 관리</a></li>
-                                <li><a href="">리뷰 관리</a></li>
+                                <li><a href="<%=contextPath%>/adAdList.rev">리뷰 관리</a></li>
                             </ul>
                         </li>
                         <li><a>결제 관리</a>

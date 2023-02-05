@@ -48,8 +48,8 @@
 </style>
 </head>
 <body>
-<%@ include file = "../common/myClassMenubar.jsp" %>
-    <div class="content">
+<%@ include file="../common/adminMenubar.jsp" %>
+    <div class="content" style="margin:15px">
         <h6 style="margin-left: 15px;"><b>후기 조회</b></h6>
         <hr>
         <div class="search-area">
@@ -97,16 +97,6 @@
 
 
 
-
-
-
-
-
-
-
-    </div> <!--제일 위 cotent닫는 div-->
-</div> <!--메뉴바쪽 제일 상위 div닫는괄호-->
-<%@ include file = "../common/footerbar.jsp" %>	
 
 
 </body>
