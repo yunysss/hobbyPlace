@@ -63,6 +63,13 @@ public class ReviewService {
 		return list;
 	}
 
+	public ArrayList<Review> selectAdminSearchReview(Review r) {
+		Connection conn = getConnection();
+		ArrayList<Review> revList = new ReviewDao().selectAdminSearchReview(conn, r);
+		close(conn);
+		return revList;
+	}
+
 	
 
 	

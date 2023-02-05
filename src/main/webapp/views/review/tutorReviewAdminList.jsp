@@ -34,16 +34,36 @@
         border-radius: 5px;
     }
     .result-area{
+        width: 920px;
         height: 895px;
         padding: 15px;
     }
-
     .result-table{
-        background-color: lightgray;
+        width: 900px;
         text-align: center;
-        margin: auto;
+        table-layout: fixed;
+        
     }
 
+    .result-table th{
+        background-color: lightgray;
+        margin: auto;
+        
+    }
+    .result-table td{
+        height: 40px;
+       
+    }
+    #revContent , #classTitle{
+        height: 40px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .search-table input{
+        width: 200px;
+    }
     
 </style>
 </head>
@@ -88,7 +108,19 @@
                     <th width="280px">클래스명</th>
                     <th width="280px">리뷰</th>
                     <th width="100px">별점</th>
-                    <th width="100px">작성자</th>
+                    <th width="70px">작성자</th>
+                </tr>
+                <tr>
+                    <td id="classTitle">초보자도 쉽게 만드는 코바늘 뜨개 코스터</td>
+                    <td id="revContent">선물용으로 쁘띠 목도리 짜봤는데 너무 맘에으로 쁘띠 목도리 짜봤는데 너무 맘에으로 쁘띠 목도리 짜봤는데 너무 맘에 들어요~ 처음에는 다른 분들도 하루만에 만들었다고 해서 안믿l음에는 다른 분들도 하루만에 만들었다고 해서 안믿l</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>김수정</td>
+                </tr> 
+                <tr>
+                    <td id="classTitle">초보자도 쉽게 만드는 코바늘 뜨개 코스터</td>
+                    <td id="revContent">선물용으로 쁘띠 목도리 짜봤는데 너무 맘에 들어요~ 처음에는 다른 분들도 하루만에 만들었다고 해서 안믿l음에는 다른 분들도 하루만에 만들었다고 해서 안믿l</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>김수정</td>
                 </tr>
             </table>
         </div> <!--조회영역 끝-->
