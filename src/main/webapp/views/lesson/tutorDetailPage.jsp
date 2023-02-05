@@ -104,7 +104,7 @@
                 <span style="font-weight: 600;"><%=t.getTtName() %></span><br>
                 <span style="font-size: 11px; color: g;">클래스 <%=cCount %> </span> | 
                 <span style="font-size: 11px;"> 후기 <%=rCount %></span>
-                <a><span class="badge badge-danger">문의하기</span><a/>
+                <a href=<%=contextPath %>><span class="badge badge-danger">문의하기</span></a>
                 
               </p>
                 
@@ -202,7 +202,11 @@
                 	<%for(Review r : rList){ %>
                     <table style="text-align: left;">
                       <tr>
-                        <th width="70" height="60"><img src="<%=request.getContextPath()%>/<%=r.getMemProfile() %>" width="60" height="60" class="rounded-circle" alt="Cinque Terre"></th>
+                       <%if(r.getMemProfile() == null) {%>
+		                 <th width="70" height="60"><img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" type="button" width="60" height="60"  class="rounded-circle" class="dropdown-toggle" data-toggle="dropdown">
+		                <%} else {%>
+                        <th width="70" height="60"><img src="<%=contextPath%>/<%=r.getMemProfile() %>" width="60" height="60" class="rounded-circle" alt="Cinque Terre"></th>
+                        <%} %>
                         <td>
                           <label id="review-nick" style="font-weight: 550;"></label><%=r.getMemNickName() %><br>
                             <% 
@@ -220,6 +224,7 @@
 	                            </span>
                       </td>
                           <td rowspan="3" width="150" id="reimg">
+                          
                               <img src="<%=request.getContextPath()%>/resources/images/sample1.png" width="150" height="150" alt="">
                           </td>
                       </tr>

@@ -406,28 +406,26 @@
 	
 	<entry key="selectTutorReview">
 	
-	SELECT
+		SELECT
 		      RE_NO
 		     , CONTENT
 			 , RE_STAR
 			 , RE_DATE
 			 , RE_UPDATE
+             , R.CL_NO
 		     , CL_NAME
 			 , MEM_NICKNAME
 			 , MEM_PROFILE
-		     , C.MEM_NO 
+		     , R.MEM_NO 
   
 		  FROM REVIEW R
-		  JOIN REGISTER G USING(REG_NO)
-		  JOIN MEMBER USING (MEM_NO)
           JOIN CLASS C ON (C.CL_NO=R.CL_NO)
+           JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
 		  WHERE RE_STA = 'Y'
-        GROUP BY C.MEM_NO, RE_NO, CONTENT, RE_STAR, RE_DATE, 
-      			  RE_UPDATE, MEM_NICKNAME, MEM_PROFILE, CL_NAME 
-          HAVING C.MEM_NO = ( SELECT MEM_NO
+          AND C.MEM_NO = ( SELECT MEM_NO
                             FROM CLASS
                              WHERE CL_NO = ?) 
-                                  
+          ORDER BY RE_DATE DESC              
 	
 	</entry>
 	
@@ -467,27 +465,26 @@
 	  SELECT COUNT(*) "count"          
 	  FROM
 		  (
-		   SELECT
-				      RE_NO
-				     , CONTENT
-					 , RE_STAR
-					 , RE_DATE
-					 , RE_UPDATE
-				     , CL_NAME
-					 , MEM_NICKNAME
-					 , MEM_PROFILE
-				     , C.MEM_NO 
-		  
-				  FROM REVIEW R
-				  JOIN REGISTER G USING(REG_NO)
-				  JOIN MEMBER USING (MEM_NO)
-		          JOIN CLASS C ON (C.CL_NO=R.CL_NO)
-				  WHERE RE_STA = 'Y'
-		        GROUP BY C.MEM_NO, RE_NO, CONTENT, RE_STAR, RE_DATE, 
-		      			  RE_UPDATE, MEM_NICKNAME, MEM_PROFILE, CL_NAME 
-		          HAVING C.MEM_NO = ( SELECT MEM_NO
-		                            FROM CLASS
-		                             WHERE CL_NO = ?) 
+		   	SELECT
+		      RE_NO
+		     , CONTENT
+			 , RE_STAR
+			 , RE_DATE
+			 , RE_UPDATE
+             , R.CL_NO
+		     , CL_NAME
+			 , MEM_NICKNAME
+			 , MEM_PROFILE
+		     , R.MEM_NO 
+  
+		  FROM REVIEW R
+          JOIN CLASS C ON (C.CL_NO=R.CL_NO)
+           JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
+		  WHERE RE_STA = 'Y'
+          AND C.MEM_NO = ( SELECT MEM_NO
+                            FROM CLASS
+                             WHERE CL_NO = ?) 
+          ORDER BY RE_DATE DESC     
 		           )                               
 
 	 </entry>
