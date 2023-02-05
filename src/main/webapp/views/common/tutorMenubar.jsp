@@ -251,7 +251,7 @@
                                 <li><a href="<%=contextPath%>/approval.tt?">예약승인</a></li>
                                 <li><a href="<%=contextPath%>/reservationList.tt">예약관리</a></li>
                                 <li><a href="">문의관리</a></li>
-                                <li><a href="">후기관리</a></li>
+                                <li><a href="<%=contextPath%>/ttAdList.rev">후기관리</a></li>
                             
                         </li>
                     <li style="background-color: rgb(22, 160, 133); color: aliceblue;">
