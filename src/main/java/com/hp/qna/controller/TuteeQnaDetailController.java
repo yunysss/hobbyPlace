@@ -1,30 +1,27 @@
 package com.hp.qna.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.hp.member.model.vo.Member;
+import com.hp.qna.model.dao.QnaDao;
 import com.hp.qna.model.service.QnaService;
 import com.hp.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class TuteeQnaListController
+ * Servlet implementation class TuteeQnaDetailController
  */
-@WebServlet("/qnaList.tee")
-public class TuteeQnaListController extends HttpServlet {
+@WebServlet("/qnaDetail.tee")
+public class TuteeQnaDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TuteeQnaListController() {
+    public TuteeQnaDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,22 +30,12 @@ public class TuteeQnaListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int no = Integer.parseInt(request.getParameter("no"));
+		Qna q = new QnaService().selectQnaDetail(no);
 		
-		HttpSession session = request.getSession();
+		request.setAttribute("q",q);
 		
-		if(session.getAttribute("loginUser") == null) { // 로그인 전
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
-			response.sendRedirect(request.getContextPath() + "/main.tee");
-		}else { 
-			
-			Member loginUser = (Member) session.getAttribute("loginUser");
-			int MemNo = loginUser.getMemNo();
-			ArrayList<Qna> list = new QnaService().selectTutorQnaList(MemNo);
-			request.setAttribute("list", list);
-			
-			request.getRequestDispatcher("views/qna/tuteeMyQnaListView.jsp").forward(request, response);
-		}
-		
+		request.getRequestDispatcher("views/qna/tuteeQnaDetail.jsp").forward(request, response);
 	}
 
 	/**

@@ -29,10 +29,6 @@
         .list{
             text-align: center;
         }
-        .paging-area{
-            text-align: center;
-            
-        }
         table {
         width: 100%;
         border-top: 1px solid lightgray;
@@ -56,6 +52,7 @@
 
         <table align="center" class="list">
             <tr style="background-color: lightgray;">
+            
                 <th width="60">번호</th>
                 <th width="500" >제목</th>
                 <th width="100">등록일</th>
@@ -71,7 +68,7 @@
 				<%for(int i=0; i<list.size(); i++){ %>
 		            <tr>
 		                <td><%= i+1 %></td>
-		                <td><%=list.get(i).getqTitle() %></td>
+		                <td onclick="location.href='<%=contextPath%>/qnaDetail.tee?no=<%=list.get(i).getqNo()%>'"><%=list.get(i).getqTitle() %></td>
 		                <td><%=list.get(i).getqDate() %></td>
 		                <%if(list.get(i).getaMemNick().equals("N")){ %>
 			                <td></td>
@@ -84,7 +81,8 @@
 	            <%} %>
 			<%} %>
         </table>
-			
+        
+        
         <br><br>
 
     </div>

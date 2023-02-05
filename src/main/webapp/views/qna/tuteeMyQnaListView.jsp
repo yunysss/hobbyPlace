@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="java.util.ArrayList, com.hp.qna.model.vo.*"%>
+<%
+	ArrayList<Qna> list  = (ArrayList<Qna>)request.getAttribute("list");
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,6 +60,23 @@
     }
     #home {width:20px; height:20px; vertical-align: text-bottom;}
     #home:hover{cursor:pointer;}
+    .outer{
+            width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        .list{
+            text-align: center;
+        }
+        table {
+        width: 100%;
+        border-top: 1px solid lightgray;
+        border-collapse: collapse;
+	    }
+	    th, td {
+	        border-bottom: 1px solid lightgray;
+	        padding: 10px;
+	    }
 </style>
 </head>
 <body>
@@ -151,9 +173,50 @@
 	        		})
 	        	})
 	        </script>
-            <div class="contentMain" align="center">
+            <div class="contentMain" >
                 
-                나의 qna리스트
+                <div class="outer">
+ 
+
+        <h4>나의문의목록</h4>
+        <hr>
+
+        <table align="center" class="list">
+            <tr style="background-color: lightgray;">
+            
+                <th width="50">번호</th>
+                <th width="400" >제목</th>
+                <th width="100">등록일</th>
+                <th width="100">처리일</th>
+                <th width="50">상태</th>
+            </tr>
+            
+            <%if(list.isEmpty()){ %>
+	            <tr>
+	                <td colspan="5">등록된 문의사항이 없습니다.</td>
+	            </tr>
+			<%}else{ %>
+				<%for(int i=0; i<list.size(); i++){ %>
+		            <tr>
+		                <td><%= i+1 %></td>
+		                <td onclick="location.href='<%=contextPath%>/qnaDetail.tee?no=<%=list.get(i).getqNo()%>'"><%=list.get(i).getqTitle() %></td>
+		                <td><%=list.get(i).getqDate() %></td>
+		                <%if(list.get(i).getaMemNick().equals("N")){ %>
+			                <td></td>
+			                <td>대기</td>
+		                <%}else{ %>
+			                <td><%=list.get(i).getaDate() %></td>
+			                <td>완료</td>
+		                <%} %>
+		            </tr>
+	            <%} %>
+			<%} %>
+        </table>
+        
+        
+        <br><br><br><br><br><br>
+
+    </div>
                 
                 
                 
