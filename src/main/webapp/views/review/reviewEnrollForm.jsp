@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    div{border: 1px solid;}
+   
     .review-area{
         margin: auto;
         width: 80%;
@@ -41,17 +41,7 @@
         font-size: 18px;
         line-height:120px;
     }
-    .nextBtn{
-        float: left;
-        width: 68px;
-        height: 134px;
-    }
-    .nextBtn img{
-        width: 55px;
-        cursor: pointer;
-        padding-top: 35px;
-        margin-left:15px;
-    }
+    
 
     .starRating, #content-area{
         width:600px;
@@ -59,7 +49,42 @@
         margin: auto;
     }
 
-    
+   
+    .btn-area button{
+        border: 0;
+        background: lightgray;
+        border-radius: 5px;
+    }
+
+    .rating .rate_radio {
+    position: relative;
+    display: inline-block;
+    z-index: 20;
+    opacity: 0.001;
+    width: 60px;
+    height: 60px;
+    background-color: #fff;
+    cursor: pointer;
+    vertical-align: top;
+    display: none;
+}
+.rating .rate_radio + label {
+    position: relative;
+    display: inline-block;
+    margin-left: -4px;
+    z-index: 10;
+    width: 60px;
+    height: 60px;
+    background-image: url('./img/starrate.png');
+    background-repeat: no-repeat;
+    background-size: 60px 60px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+.rating .rate_radio:checked + label {
+    background-color: rgb(245, 222, 78);
+}
+
     
 </style>
 </head>
@@ -69,6 +94,8 @@
             <h6 style="margin-left: 15px;"><b>수강 후기 작성</b></h6>
             <hr>
             <form class="review-area">
+                <br>
+                <br>
                 <div class="classPart">
                     <div class="classThumbnail">
                         <img src="<%=contextPath%>/resources/classThumbnail_upfiles/2023012714522990657.png" >
@@ -76,9 +103,7 @@
                     <div class="classTitle">
                         <b> 클래스 제목 들가는 자리</b>
                     </div>
-                    <div class="nextBtn">
-                        <img src="<%=contextPath%>/resources/images/right_arrow.png" onclick="">
-                    </div>
+                    
                 </div> <!--header:클래스정보부분끝-->
 
 
@@ -86,24 +111,93 @@
                 <form action="" id="enroll-form" method="post" enctype="multipart/form-data" >
 
                     <div class="starRating" align="center">
-                        <div>
-                            <span>별 별 별 별 별</span>
 
-                        </div>
+                        
+                        <div class="starpoint_wrap" height="20px">
+                            <div class="rating">
+                                <!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
+                                <input type="checkbox" name="rating" id="rating1" value="1" class="rate_radio" title="1점">
+                                <label for="rating1">
+                                    <img src="<%=contextPath%>/resources/images/starrate.png" >
+                                </label>
+                                <input type="checkbox" name="rating" id="rating2" value="2" class="rate_radio" title="2점">
+                                <label for="rating2">
+                                    <img src="<%=contextPath%>/resources/images/starrate.png" >
+                                </label>
+                                <input type="checkbox" name="rating" id="rating3" value="3" class="rate_radio" title="3점" >
+                                <label for="rating3">
+                                    <img src="<%=contextPath%>/resources/images/starrate.png" >
+                                </label>
+                                <input type="checkbox" name="rating" id="rating4" value="4" class="rate_radio" title="4점">
+                                <label for="rating4">
+                                    <img src="<%=contextPath%>/resources/images/starrate.png" >
+                                </label>
+                                <input type="checkbox" name="rating" id="rating5" value="5" class="rate_radio" title="5점">
+                                <label for="rating5">
+                                    <img src="<%=contextPath%>/resources/images/starrate.png" >
+                                </label>
+                            </div>
+                          </div>
+
+                        <script>
+                            function Rating(){};
+                                Rating.prototype.rate = 0;
+                                Rating.prototype.setRate = function(newrate){
+                                    //별점 마킹 - 클릭한 별 이하 모든 별 체크 처리
+                                    this.rate = newrate;
+                                    let items = document.querySelectorAll('.rate_radio');
+                                    items.forEach(function(item, idx){
+                                        if(idx < newrate){
+                                            item.checked = true;
+                                        }else{
+                                            item.checked = false;
+                                        }
+                                    });
+                                }
+                                let rating = new Rating();//별점 인스턴스 생성
+
+                                document.addEventListener('DOMContentLoaded', function(){
+                                //별점선택 이벤트 리스너
+                                document.querySelector('.rating').addEventListener('click',function(e){
+                                    let elem = e.target;
+                                    if(elem.classList.contains('rate_radio')){
+                                        rating.setRate(parseInt(elem.value));
+                                    }
+                                })
+                            });
+                            //저장 전송전 필드 체크 이벤트 리스너
+                            document.querySelector('#save').addEventListener('click', function(e){
+                                //별점 선택 안했으면 메시지 표시
+                                if(rating.rate == 0){
+                                    rating.showMessage('rate');
+                                    return false;
+                                }
+                                //리뷰 5자 미만이면 메시지 표시
+                                if(document.querySelector('.review_textarea').value.length < 5){
+                                    rating.showMessage('review');
+                                    return false;
+                                }
+                                //폼 서밋
+                            });
+
+                        </script>
+
+                        
+                          
                         
                         <p>별표를 클릭하여 평가해주세요.</p>
                     </div>
 
                     <div id="content-area">
 
-                        <table  align="center" border="1">
+                        <table  align="center" >
                             <tr>
                                 <td><textarea name="reviewContent" rows="10" style="resize:none; width: 600px; margin: auto;" required></textarea></td>
                             </tr>
-                            <tr class="img-area">
-                                <td style="margin:0%"><img id="reviewImg1" width="150" height="120" onclick="clickFile(1);">
-                                <img id="reviewImg2" width="150" height="120" onclick="clickFile(2);">
-                                <img id="reviewImg3" width="150" height="120" onclick="clickFile(3);">
+                            <tr class="img-area" align="center">
+                                <td style="margin:0%"><img id="reviewImg1" width="180" height="120" onclick="clickFile(1);">
+                                <img id="reviewImg2" width="180" height="120" onclick="clickFile(2);">
+                                <img id="reviewImg3" width="180" height="120" onclick="clickFile(3);">
                             </td>
                             </tr>
 
@@ -154,11 +248,13 @@
                             }
                         }
                         
-                    </script>
+                    </scrip>
 
                     <br>
-
-                    <button type="submit">등록하기</button>
+                    <div align="center" class="btn-area"> 
+                        <button type="submit">등록하기</button>
+                    </div>
+                    
 
                 </form>
     

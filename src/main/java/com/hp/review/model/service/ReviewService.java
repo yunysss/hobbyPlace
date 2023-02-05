@@ -63,6 +63,7 @@ public class ReviewService {
 		return list;
 	}
 
+
 	public int deleteReview(int reNo) {
 		Connection conn = getConnection();
 		int result = new ReviewDao().deleteReview(conn, reNo);
@@ -73,11 +74,13 @@ public class ReviewService {
 		}
 		close(conn);
 		return result;
-	}
 
-	
+}
 
-	
+public ArrayList<Review> selectAdminSearchReview(Review r) {
+	Connection conn = getConnection();
+	ArrayList<Review> revList = new ReviewDao().selectAdminSearchReview(conn, r);
+	close(conn);
+	return revList;
 
-	
 }
