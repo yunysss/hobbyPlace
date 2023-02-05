@@ -129,10 +129,10 @@
 	                </div>
 	            </div>
 	            <div class="myPageProfile myPageProfile2">
-	                <div class="categoryMain" align="center" id="viewMyInfo" onclick="">회원정보 조회 및 수정</div>
-	                <div class="categoryMain" align="center" id="viewMyQna" onclick="">나의 문의 조회</div> 
-	                <div class="categoryMain" align="center" id="viewMyClass" onclick="">마이클래스</div>
-	                <div class="categoryMain" align="center" id="withdrawal" onclick="">회원탈퇴</div>
+	                <div class="categoryMain" align="center" id="viewMyInfo">회원정보 조회 및 수정</div>
+	                <div class="categoryMain" align="center" id="viewMyQna">나의 문의 조회</div> 
+	                <div class="categoryMain" align="center" id="viewMyClass">마이클래스</div>
+	                <div class="categoryMain" align="center" id="withdrawal">회원탈퇴</div>
 	            </div>
 	        </div>
 		</div>
