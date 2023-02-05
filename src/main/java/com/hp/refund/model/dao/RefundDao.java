@@ -37,35 +37,24 @@ private Properties prop = new Properties();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectRefundMng");
-		if(!keyword.equals("")) {
-			if(keywordType.equals("orderNo")) {
-				sql += "AND ORDER_NO LIKE ?";
-			} else {
-				sql += "AND MEM_ID LIKE ?";
-			}
-		}
-		if(!startDate.equals("") && !endDate.equals("")) {
-			if(dateType.equals("regDate")) {
-				sql += "AND REG_DATE BETWEEN TO_CHAR(TO_DATE(?, 'YYYY-MM-DD'), 'YYYY-MM-DD') AND TO_CHAR(TO_DATE(?, 'YYYY-MM-DD')+1, 'YYYY-MM-DD')";
-			} else {
-				sql += "AND REF_RQ_DT BETWEEN TO_CHAR(TO_DATE(?, 'YYYY-MM-DD'), 'YYYY-MM-DD') AND TO_CHAR(TO_DATE(?, 'YYYY-MM-DD')+1, 'YYYY-MM-DD')";
-			}
-		}
+		
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + status + "%");
+			sql += "WHERE REF_STA LIKE '%" + status + "%'";
 			if(!keyword.equals("")) {
-				pstmt.setString(2, "%" + keyword + "%");
-				if(!startDate.equals("") && !endDate.equals("")) {
-					pstmt.setString(3, startDate);
-					pstmt.setString(4, endDate);
-				}
-			}else {
-				if(!startDate.equals("") && !endDate.equals("")) {
-					pstmt.setString(2, startDate);
-					pstmt.setString(3, endDate);
+				if(keywordType.equals("orderNo")) {
+					sql += "AND ORDER_NO LIKE '%" + keyword + "%'";
+				} else {
+					sql += "AND MEM_ID LIKE '%" + keyword + "%'";
 				}
 			}
+			if(!startDate.equals("") && !endDate.equals("")) {
+				if(dateType.equals("regDate")) {
+					sql += "AND REG_DATE BETWEEN TO_CHAR(TO_DATE('" +startDate + "', 'YYYY-MM-DD'), 'YYYY-MM-DD') AND TO_CHAR(TO_DATE('" +endDate + "', 'YYYY-MM-DD')+1, 'YYYY-MM-DD')";
+				} else {
+					sql += "AND REF_RQ_DT BETWEEN TO_CHAR(TO_DATE('" +startDate + "', 'YYYY-MM-DD'), 'YYYY-MM-DD') AND TO_CHAR(TO_DATE('" +endDate + "', 'YYYY-MM-DD')+1, 'YYYY-MM-DD')";
+				}
+			}
+			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Refund(rset.getInt("order_no"),

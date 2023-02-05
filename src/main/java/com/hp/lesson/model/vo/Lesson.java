@@ -41,7 +41,9 @@ public class Lesson {
 	private int likeCount;
 	private String introduce;
 	private String tutorProfile;
-
+	private int reviewCount;
+	private int studentSum;
+	private String priceSum;
 	
 
 	public Lesson() {}
@@ -399,6 +401,22 @@ public class Lesson {
 	}
 
 
+	public Lesson(int clNo, String clName, String tutorProfile, int likeCount, int reviewCount, int clStarCount, 
+			int studentSum, String priceSum, Date enrollDate) {
+		super();
+		this.clNo = clNo;
+		this.clName = clName;
+		this.clStarCount = clStarCount;
+		this.likeCount = likeCount;
+		this.tutorProfile = tutorProfile;
+		this.reviewCount = reviewCount;
+		this.studentSum = studentSum;
+		this.priceSum = priceSum;
+		this.enrollDate = enrollDate;
+	}
+
+
+
 	public int getClNo() {
 		return clNo;
 	}
@@ -693,6 +711,42 @@ public class Lesson {
 
 	public void setCtDname(String ctDname) {
 		this.ctDname = ctDname;
+	}
+
+
+
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+
+
+	public int getStudentSum() {
+		return studentSum;
+	}
+
+
+
+	public void setStudentSum(int studentSum) {
+		this.studentSum = studentSum;
+	}
+
+
+
+	public String getPriceSum() {
+		return priceSum;
+	}
+
+
+
+	public void setPriceSum(String priceSum) {
+		this.priceSum = priceSum;
 	}
 
 

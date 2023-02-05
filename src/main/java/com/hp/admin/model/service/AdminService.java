@@ -300,7 +300,12 @@ public class AdminService {
 		return list;
 	}
 
-	
+	public ArrayList<Lesson> searchStat(Search s){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new AdminDao().searchStat(conn, s);
+		close(conn);
+		return list;
+	}
 
 	
 	

@@ -31,7 +31,7 @@
      font-size:12px;
     }
     #statSearch td{
-     padding:5px;
+     padding:8px;
     }
     #statSearch-btn{
      width:60px;
@@ -141,17 +141,17 @@
 		<div class="tab-content">
 		  <div class="tab-pane container active" id="menu1">
 		  	<div id="statSearch">
-			  	<table width="750px">
+			  	<table width="700px">
 	                <tbody>
 	                	<tr>
-	                		<td><b>검색어</b></td>
-	                		<td width="150px;">
-	                			<select name="keyword">
+	                		<td width="150px"><b>검색어</b></td>
+	                		<td width="100px">
+	                			<select name="keywordType">
 	                				<option value="clName">클래스명</option>
 	                				<option value="ttName">튜터명</option>
 	                            </select>
 	                        </td>
-	                        <td width="180px;">
+	                        <td width="100px">
 	                            <input type="text" name="keyword" size="18">
 	                        </td>
 	                	</tr>
@@ -167,6 +167,7 @@
 	                    	</td>
 	                    	<td>
 	                    		<select name="dCategory">
+	                    			<option value="all">전체</option>
 	                    		</select>
 	                    	</td>
 	                    </tr>
@@ -183,6 +184,7 @@
 	                        </td>
 	                        <td>
 	                            <select name="district">
+	                            	<option value="all">전체</option>
 	                            </select>
 	                        </td>
 	                        
@@ -191,25 +193,18 @@
 	                    	<td><b>기타 필터링</b></td>
 	                    	<td>
 	                    		<select name="filtering">
+	                    			<option value="all">전체</option>
 	                    			<option value="likeCount">찜</option>
 	                    			<option value="reviewCount">후기</option>
-	                    			<option value="memberCount">누적수강생</option>
+	                    			<option value="starAvg">별점</option>
+	                    			<option value="memberSum">누적수강생</option>
+	                    			<option value="priceSum">누적매출</option>
 	                    		</select>
 	                    	</td>
 	                    	<td>
-	                    		<select name="orderF">
-	                    			<option value="desc">많은순</option>
-	                    			<option value="asc">적은순</option>
-	                    		</select>
-	                    	</td>
-	                    </tr>
-	                    <tr>
-	                    	<td><b>가격</b></td>
-	                    	<td colspan="2"><input type="range" name="price"></td>
-	                    	<td>
-	                    		<select name="orderP">
-	                    			<option value="desc">높은순</option>
-	                    			<option value="asc">낮은순</option>
+	                    		<select name="order">
+	                    			<option value="0">많은순</option>
+	                    			<option value="1">적은순</option>
 	                    		</select>
 	                    	</td>
 	                    </tr>
@@ -230,16 +225,7 @@
 	                                </span>
 	                            </div>
 	                        </td>
-	                        <td>
-	                        	<select name="orderD">
-	                    			<option value="desc">최신순</option>
-	                    			<option value="asc">오래된순</option>
-	                    		</select>
-	                        </td>
-	                    </tr>
-	                   	<tr>
-	                   		<td></td>
-	                        <td colspan="2" align="center">
+	                        <td colspan="2">
 	                            <div class="searchDate">
 	                                <span class="chkbox2">
 	                                    <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
@@ -264,8 +250,8 @@
 	            </table>
             <br>
             <div align="center">
-           	    <button type="button" class="btn btn-sm" id="statSearchAll-btn" onclick="">전체조회</button>
-            	<button type="button" class="btn btn-sm" id="statSearch-btn" onclick="">조회</button>
+           	    <button type="button" class="btn btn-sm" id="statSearchAll-btn" onclick="selectAllStat();">전체조회</button>
+            	<button type="button" class="btn btn-sm" id="statSearch-btn" onclick="selectStat();">조회</button>
                 <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
             </div>
 		  </div>
@@ -276,12 +262,12 @@
 				$("select").each(function(){
 					$(this).children().removeAttr("selected");
 				})
-				$("select[name='dCategory']").html("");
-				$("select[name='district']").html("");
+				$("select[name='dCategory']").html("<option value='all'>전체</option>");
+				$("select[name='district']").html("<option value='all'>전체</option>");
 			}
 		  	function changeCt(a){
 		  		$("select[name='dCategory']").html("");
-		  		let value = "";
+		  		let value = "<option value='all'>전체</option>";
 		  		<%for(Dcategory d:dList){%>
 		  			if(a == <%=d.getCtNo()%>){
 		  				value += "<option value='" + <%=d.getCtDno()%> + "'>" + "<%=d.getCtDname()%>" + "</option>"
@@ -291,7 +277,7 @@
 		  	}
 		  	function changeLocal(a){
 		  		$("select[name='district']").html("");
-		  		let value = "";
+		  		let value = "<option value='all'>전체</option>";
 		  		<%for(District dis:disList){%>
 		  			if(a == <%=dis.getLocalCode()%>){
 		  				value += "<option value='" + <%=dis.getDistrCode()%> + "'>" + "<%=dis.getDistrName()%>" + "</option>"
@@ -369,28 +355,27 @@
 		        
 		        $("#searchStartDate").datepicker( "option", "maxDate", endDate );
 		    }
-        </script>
+		</script>
        	<br>
        	<div id="statResult">
            	<b>조회 결과</b><br>
            <br>
 
-           <table width="100%" class="table" id="refMng-list" >
+           <table width="100%" class="table" id="statClass-list" >
                <thead>
                    <tr>
                        <td>클래스번호</td>
-                       <td>대분류</td>
-                       <td>소분류</td>
                        <td>클래스명</td>
                        <td>튜터명</td>
-                       <td>찜</td>
-                       <td>후기</td>
+                       <td>찜수</td>
+                       <td>후기수</td>
+                       <td>평균별점</td>
                        <td>누적 수강생</td>
-                       <td>수강료</td>
+                       <td>누적 매출</td>
                        <td>클래스 등록일</td>
                    </tr>
                </thead>
-           	<tbody>
+           		<tbody>
                </tbody>
            </table>
            <div align="center">
@@ -399,7 +384,152 @@
            </div>
         </div>
       </div>
-		  
+		<script>
+	        let totalData; 
+		    let dataPerPage=10; 
+		    let pageCount = 10; 
+		    let globalCurrentPage=1;
+		    let dataList; 
+		
+		    $(function () {
+			     selectStat();
+		    })
+	        function selectStat(){
+	    		$.ajax({
+	    			url:"<%=contextPath%>/search.stat",
+	    			data:{
+	    				keywordType:$("select[name=keywordType]").val(),
+	    				keyword:$("input[name=keyword]").val(),
+	    				category:$("select[name=category]").val(),
+	    				dCategory:$("select[name=dCategory]").val(),
+	    				location:$("select[name=location]").val(),
+	    				district:$("select[name=district]").val(),
+	    				filtering:$("select[name=filtering]").val(),
+	    				order:$("select[name=order]").val(),
+	    				startDate:$("#searchStartDate").val(),
+	    				endDate:$("#searchEndDate").val()
+	    			},
+	    			success:function(list){
+	    				if(list.length == 0){
+	    					let value = "<tr>"
+	    						+	"<td colspan='8'>조회된 내역이 없습니다.</td>"
+	    						+ "</tr>"
+	    					$("#statClass-list tbody").html(value);
+	    					$("#paging").html("");
+	    				} else{
+	    	 		    	   totalData = list.length;
+	    	 		           dataList=list;
+	    	 		           displayData(1, dataPerPage, totalData);
+	    	 		           paging(totalData, dataPerPage, pageCount, 1);
+	    				}
+	    			},error:function(){
+	    				console.log("ajax 통신실패");
+	    			}
+	    		})
+	    	}
+		    function selectAllStat(){
+	    		$.ajax({
+	    			url:"<%=contextPath%>/selectMng.ref",
+	    			data:{
+	    				keywordType:"",
+	    				keyword:"",
+	    				dateType:"",
+	    				startDate:"",
+	    				endDate:"",
+	    				status:""    				
+	    			},
+	    			success:function(list){
+	    				if(list.length == 0){
+	    					let value = "<tr>"
+	    						+	"<td colspan='8'>조회된 내역이 없습니다.</td>"
+	    						+ "</tr>"
+	    					$("#statClass-list tbody").html(value);
+	    					$("#paging").html("");
+	    				} else{
+	    	 		    	   totalData = list.length;
+	    	 		           dataList=list;
+	    	 		           displayData(1, dataPerPage, totalData);
+	    	 		           paging(totalData, dataPerPage, pageCount, 1);
+	    				}
+	    			},error:function(){
+	    				console.log("ajax 통신실패");
+	    			}
+	    		})
+	    	}
+		    function displayData(currentPage, dataPerPage, totalData) {
+		    	  let value = "";
+		    	  currentPage = Number(currentPage);
+		    	  dataPerPage = Number(dataPerPage);
+		    	  if(totalData < dataPerPage){
+		    		  num = totalData;
+		    	  } else{
+		    		  num = dataPerPage;
+		    	  }
+		    	  for (let i = (currentPage - 1) * dataPerPage; 
+		    	    i < (currentPage - 1) * dataPerPage + num;
+		    	    i++
+		    	  ) {
+		    		  value += "<tr>"
+							+ "<td>" + dataList[i].clNo + "</td>"
+							+ "<tr>"
+					}
+		    	  $("#statClass-list tbody").html(value);
+				}
+				
+	  	
+	  		function paging(totalData, dataPerPage, pageCount, currentPage) {
+	  		 
+	  			  totalPage = Math.ceil(totalData / dataPerPage); 
+	      		  
+	      		  if(totalPage<pageCount){
+	      		    pageCount=totalPage;
+	      		  }
+	      		  
+	      		  let pageGroup = Math.ceil(currentPage / pageCount); 
+	      		  let last = pageGroup * pageCount; 
+	      		  
+	      		  if (last > totalPage) {
+	      		    last = totalPage;
+	      		  }
+	
+	      		  let first = last - (pageCount - 1); 
+	      		  let next = last + 1;
+	      		  let prev = first - 1;
+	
+	      		  let pageHtml = "";
+	
+	      		  if (prev > 0) {
+	      		    pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
+	      		  }
+	
+	      		  for (let i = first; i <= last; i++) {
+	      		    if (currentPage == i) {
+	      		      pageHtml +=
+	      		        "<li class='on'><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+	      		    } else {
+	      		      pageHtml += "<li><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+	      		    }
+	      		  }
+	
+	      		  if (last < totalPage) {
+	      		    pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
+	      		  }
+	
+	      		  $("#paging").html(pageHtml);
+	
+	      		  $("#paging li a").click(function () {
+	      		    let $id = $(this).attr("id");
+	      		    selectedPage = $(this).text();
+	
+	      		    if ($id == "next") selectedPage = next;
+	      		    if ($id == "prev") selectedPage = prev;
+	      		    globalCurrentPage = selectedPage;
+	      		    paging(totalData, dataPerPage, pageCount, selectedPage);
+	      		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
+	      		  });
+	  		  
+	  		}
+        </script>		  
 		  
 		  
 		  
