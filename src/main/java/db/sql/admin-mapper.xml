@@ -601,7 +601,18 @@
 		         ORDER BY CL_NO DESC)
 		 WHERE 1 = 1
 	</entry>
-	
+	<entry key="selectStatCount">
+		SELECT (SELECT COUNT(*)
+		           FROM "LIKE"
+		           WHERE EXTRACT(MONTH FROM LIKE_DATE) = EXTRACT(MONTH FROM SYSDATE) - ?) "LIKE_COUNT",
+		        (SELECT COUNT(*)
+		           FROM REVIEW
+		           WHERE EXTRACT(MONTH FROM RE_DATE) = EXTRACT(MONTH FROM SYSDATE) - ?) "REVIEW_COUNT",
+		        (SELECT NVL(SUM(REG_COUNT), 0)
+		           FROM REGISTER
+		           WHERE EXTRACT(MONTH FROM REG_DATE) = EXTRACT(MONTH FROM SYSDATE) - ?) "STUDENT_SUM"
+		  FROM DUAL
+	</entry>
 	
 	
 	

@@ -2,6 +2,7 @@ package com.hp.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import com.hp.admin.model.service.AdminService;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.District;
+import com.hp.lesson.model.vo.Lesson;
 
 /**
  * Servlet implementation class StatisticsViewController
@@ -38,11 +40,13 @@ public class StatisticsViewController extends HttpServlet {
 		ArrayList<District> disList = new AdminService().selectDistrictList();
 		ArrayList<Category> cList = new AdminService().selectCategoryList();
 		ArrayList<Dcategory> dList = new AdminService().selectDcategoryList();
+		ArrayList<Lesson> ch1List= new AdminService().selectStatCount();
 		
 		request.setAttribute("catList", cList);
 		request.setAttribute("dcList", dList);
 		request.setAttribute("lList", lList);
 		request.setAttribute("disList", disList);
+		request.setAttribute("ch1List", ch1List);
 		request.getRequestDispatcher("views/admin/statisticsView.jsp").forward(request, response);
 	}
 
