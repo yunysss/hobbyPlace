@@ -179,7 +179,6 @@
                 			success:function(list){
                 				let value = "";
                 				for(let i=0; i<list.length; i++){
-                					console.log(list[i].reviewContent.length)
                 					value += "<li>"
                 								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
                 									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"

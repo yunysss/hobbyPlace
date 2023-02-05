@@ -127,6 +127,23 @@
           LEFT OUTER JOIN SCHEDULE S
           ON S.SCH_NO = R.SCH_NO
           WHERE REG_NO = ?
+	<entry key="selectTutorReview">
+		SELECT *
+		  FROM (
+		        SELECT
+		               RE_NO
+		             , CONTENT
+		             , RE_STAR
+		             , RE_DATE
+		             , MEM_NAME
+		             , C.MEM_NO
+		             , C.CL_NAME
+		          FROM REVIEW
+		          JOIN MEMBER USING(MEM_NO)
+		          JOIN CLASS C USING(CL_NO)
+		          ORDER 
+		             BY RE_NO DESC
+		       )
 	</entry>
 	
 </properties>
