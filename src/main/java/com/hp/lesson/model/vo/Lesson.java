@@ -452,6 +452,16 @@ public class Lesson {
 		this.priceSum = priceSum;
 		this.clDay = clDay;
 	}
+	
+
+
+
+	public Lesson(int reviewCount, int likeCount, int studentSum) {
+		super();
+		this.reviewCount = reviewCount;
+		this.likeCount = likeCount;
+		this.studentSum = studentSum;
+	}
 
 
 

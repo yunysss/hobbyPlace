@@ -122,18 +122,44 @@ margin-top: 5px;
         <span style="font-size: 14px;font-weight: 600;">📌공지사항 </span>
         <a href="<%=contextPath %>/noticelist.tor?cpage=1" style="color:black; font-size: 12px;"> ➕더보기</a>
         <table id="notice" class="table table-hover table-sm" >
+         <%if (nList.isEmpty()){ %>
+         <tr>
+         <td colspan="3">공지사항이 없습니다.</td>
+         <ty>
+         <%}else if(nList.size()<=2){ %>
+         	<%for (int i=0; i<nList.size(); i++) {%>
+            <tr>
+                <td width="20">
+                <input type="hidden" value="<%=nList.get(i).getNtNo()%>">
+                <span class="badge badge-info">공지</span>
+                </td>
+                <td width="230" style="font-size:12px"><%=nList.get(i).getNtTitle() %></td>
+                <td width="100" style="font-size:12px"><%=nList.get(i).getEnrollDate() %></td>
+  
+            </tr>
+            <%} %>
+          <%} else{%>
+         
           <%for(int i=0; i<3; i++) {%>
             <tr>
-                <td width="20"><input type="hidden" value="<%=nList.get(i).getNtNo()%>"><span class="badge badge-info">공지</span></td>
+                <td width="20">
+                <input type="hidden" value="<%=nList.get(i).getNtNo()%>">
+                <span class="badge badge-info">공지</span>
+                </td>
                 <td width="230" style="font-size:12px"><%=nList.get(i).getNtTitle() %></td>
                 <td width="100" style="font-size:12px"><%=nList.get(i).getEnrollDate() %></td>
                 
             </tr>
           <%} %>
-            
+         <%} %>   
         </table>
           <script type="text/javascript">
-         
+          $(function(){
+              $("#notice td").click(function(){
+                location.href="<%=contextPath%>/noticedetail.tor?ntNo="+$(this).siblings('td').children().eq(0).val();
+              })
+            })
+   
           </script>
         
         
@@ -144,7 +170,7 @@ margin-top: 5px;
          <a href="<%=contextPath %>/reservationList.tt" style="color:black; font-size: 12px;"> ➕더보기</a>
         <table id="reservation" class="table table-hover table-sm">
             <tr>
-                <th width="80">날짜</th>
+                <th width="60">날짜</th>
                 <th width="150">클래스명</th>
                 <th width="50">인원</th>
             </tr>
@@ -173,6 +199,15 @@ margin-top: 5px;
             
         </table>
     </div>
+    
+    <script>
+    	$(function(){
+    		$("#reservation *").click(function(){
+    			location.href="<%=contextPath %>/reservationList.tt"
+    	  })
+    	})
+    
+    </script>
 
 </div>
 <div id="content2-3">
@@ -183,9 +218,9 @@ margin-top: 5px;
                     <div class="s">평균평점</div>
 					<%if(tt.getAvgStar() != null){%>                   
                     <div class="l"> <%=tt.getAvgStar()%> 점</div>
+					<%} else{ %>
+					<div class="l">- 점</div>
 					<%} %>
-				
-					
 				
                 </td>
               <td style="padding-left:10px; width:200px; text-align:center  ">
@@ -193,7 +228,7 @@ margin-top: 5px;
                 <%if(tt.getrCount() != 0){ %>
                 <div class="l"><%=tt.getrCount() %> 개</div>
                 <%} else{%>
-                 <div class="l"> 개</div>
+                 <div class="l">- 개</div>
             	<%} %>
             </td>
             </tr>
@@ -211,7 +246,7 @@ margin-top: 5px;
                     <%if(tt.getCancelCount() != 0){ %>
                     <div class="l"><%=tt.getCancelCount() %> 건</div>
                     <%} else{ %>
-                    <div class="l"> 건</div>
+                    <div class="l">- 건</div>
                     <%} %>
                 </td>
             </tr>
@@ -227,14 +262,15 @@ margin-top: 5px;
                     <div class="s">진행중인 클래스</div>
                     <div class="l"><%=ingClass %> 건</div>
                    
-
+				
                 </td>
+                <% DecimalFormat df = new DecimalFormat("###,###");  %>
               <td style="padding-left:10px; width:200px; text-align:center  ">
                 <div class="s">이번달 판매금액</div>
                 <% if(tt.getSumMonth() !=0){%>
-                <div class="l"><%= tt.getSumMonth() %>원</div>
+                <div class="l"><%=df.format(tt.getSumMonth()) %>원</div>
                 <%} else{%>
-                <div class="l"> 원</div>
+                <div class="l">- 원</div>
                 <%} %>
              </td>
          
@@ -245,15 +281,16 @@ margin-top: 5px;
                     <% if(tt.getSumReg() !=0){ %>
                     <div class="l"><%=tt.getSumReg() %> 건</div>
                     <%} else{%>
-                     <div class="l"> 건</div>
+                     <div class="l">- 건</div>
                      <%} %>
                 </td>
                 <td style="border-top: 1px solid rgb(194, 191, 191); text-align:center">
                     <div class="s">전체 판매금액</div>
                     <%if(tt.getSumTotal() != 0){ %>
-                    <div class="l"><%=tt.getSumTotal() %> 원</div>
+                    <div class="l">
+                    <%=df.format(tt.getSumTotal())%> 원</div>
                 	<%} else{%>
-                	<div class="l"><%=tt.getSumTotal() %> 원</div>
+                	<div class="l">- 원</div>
                 	<%} %>
                 </td>
             </tr>
@@ -268,20 +305,45 @@ margin-top: 5px;
         <span style="font-size: 14px;font-weight: 600;">📌공지사항 </span>
         <a href="<%=contextPath %>/noticelist.tor?cpage=1" style="color:black; font-size: 12px;"> ➕더보기</a>
         <table id="notice" class="table table-hover table-sm" >
+          <%if (nList.isEmpty()){ %>
+         <tr>
+         <td colspan="3">공지사항이 없습니다.</td>
+         <ty>
+         <%}else if(nList.size()<=2){ %>
+         	<%for (int i=0; i<nList.size(); i++) {%>
+            <tr>
+                <td width="20">
+                <input type="hidden" value="<%=nList.get(i).getNtNo()%>">
+                <span class="badge badge-info">공지</span>
+                </td>
+                <td width="230" style="font-size:12px"><%=nList.get(i).getNtTitle() %></td>
+                <td width="100" style="font-size:12px"><%=nList.get(i).getEnrollDate() %></td>
+  
+            </tr>
+            <%} %>
+          <%} else{%>
+         
           <%for(int i=0; i<3; i++) {%>
             <tr>
-                <td width="20"><input type="hidden" value="<%=nList.get(i).getNtNo()%>"><span class="badge badge-info">공지</span></td>
+                <td width="20">
+                <input type="hidden" value="<%=nList.get(i).getNtNo()%>">
+                <span class="badge badge-info">공지</span>
+                </td>
                 <td width="230" style="font-size:12px"><%=nList.get(i).getNtTitle() %></td>
                 <td width="100" style="font-size:12px"><%=nList.get(i).getEnrollDate() %></td>
                 
             </tr>
           <%} %>
-            
+         <%} %>   
         </table>
           <script type="text/javascript">
-         
+          $(function(){
+              $("#notice td").click(function(){
+                location.href="<%=contextPath%>/noticedetail.tor?ntNo="+$(this).siblings('td').children().eq(0).val();
+              })
+            })
+   
           </script>
-        
         
         
     </div>
@@ -290,8 +352,8 @@ margin-top: 5px;
          <a href="<%=contextPath %>/reservationList.tt" style="color:black; font-size: 12px;"> ➕더보기</a>
         <table id="reservation" class="table table-hover table-sm">
             <tr>
-                <th width="80">날짜</th>
-                <th width="150">클래스명</th>
+                <th width="60">날짜</th>
+                <th width="160">클래스명</th>
                 <th width="50">인원</th>
             </tr>
            <%if (rList.isEmpty()){ %>
@@ -319,6 +381,15 @@ margin-top: 5px;
             
         </table>
     </div>
+	 <script>
+    	$(function(){
+    		$("#reservation *").click(function(){
+    			location.href="<%=contextPath %>/reservationList.tt"
+    	  })
+    	})
+    
+    </script>
+
 
 </div>
 <div id="content2-3">

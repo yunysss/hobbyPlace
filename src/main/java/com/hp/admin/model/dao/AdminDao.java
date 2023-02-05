@@ -1,16 +1,15 @@
 package com.hp.admin.model.dao;
 
 import static com.hp.common.JDBCTemplate.close;
-import static com.hp.common.JDBCTemplate.getConnection;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.hp.admin.model.vo.MemberList;
@@ -1471,6 +1470,29 @@ public class AdminDao {
 				clReviewList.add(new Review(rset.getInt("count"),
 											rset.getString("cl_name")));
 			}
+	public ArrayList<Lesson> selectStatCount(Connection conn){
+		ArrayList<Lesson> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectStatCount");
+		
+		try {
+				for(int i=2; i>=0; i--) {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, i);
+					pstmt.setInt(2, i);
+					pstmt.setInt(3, i);
+					rset = pstmt.executeQuery();
+					if(rset.next()) {
+						Lesson l = new Lesson(rset.getInt("review_count"), 
+								              rset.getInt("like_count"), 
+								              rset.getInt("student_sum"));
+						list.add(l);
+					}
+				}
+				
+				
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -1505,6 +1527,7 @@ public class AdminDao {
 		return clLikeList;
 	}
 
+	
 	
 
 

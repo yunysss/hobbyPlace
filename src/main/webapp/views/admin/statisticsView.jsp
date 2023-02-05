@@ -6,6 +6,7 @@
 	ArrayList<Dcategory> dList = (ArrayList<Dcategory>)request.getAttribute("dcList");
 	ArrayList<District> lList = (ArrayList<District>)request.getAttribute("lList");
     ArrayList<District> disList = (ArrayList<District>)request.getAttribute("disList");
+    ArrayList<Lesson> ch1List = (ArrayList<Lesson>)request.getAttribute("ch1List");
 %> 
 <!DOCTYPE html>
 <html>
@@ -534,6 +535,17 @@
 		  	</table>
 		  </div>
 		  <script>
+		  	let regCount = [];
+		  	let likeCount = [];
+		  	let reviewCount = [];
+		  	$(function(){
+			  	<%for(int i=0; i<ch1List.size(); i++){%>
+			  		regCount.push(<%=ch1List.get(i).getStudentSum()%>);
+			  		likeCount.push(<%=ch1List.get(i).getLikeCount()%>);
+			  		reviewCount.push(<%=ch1List.get(i).getReviewCount()%>);
+			  	<% }%>
+			  	console.log(regCount, likeCount, reviewCount)
+		  	})
             var context = document
                 .getElementById('myChart1')
                 .getContext('2d');
@@ -545,25 +557,31 @@
                         { //데이터
                             label: '수강수', //차트 제목
                             lineTension:0,
-                            fill: false, 
-                            data: [21,19,25],
-                            borderColor: 'rgb(255, 99, 132)'
+                            data: regCount,
+                            backgroundColor:'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 0.2)'
                         },{
                         	label: '찜수',
                         	lineTension:0,
-                        	fill: false, 
-                        	data: [20, 40, 50],
-                        	borderColor: 'rgb(54, 162, 235)'
+                        	data: likeCount,
+                        	backgroundColor:'rgba(54, 162, 235, 0.2)',
+                        	borderColor: 'rgba(54, 162, 235, 0.2)'
                         },{
                         	label: '리뷰수',
                         	lineTension:0,
-                        	fill: false, 
-                        	data: [30, 56, 54],
-                        	borderColor: 'rgb(255, 206, 86)'
+                        	data: reviewCount,
+                        	backgroundColor:'rgba(255, 206, 86, 0.2)',
+                        	borderColor: 'rgba(255, 206, 86, 0.2)'
                         }]
                 },
                 options:{
-                	responsive:false
+                	scales:{
+                		yAxes:[{
+                			ticks:{
+                				beginAtZero:true
+                			}
+                		}]
+                	}
                 }
             });
             var context2 = document.getElementById('myChart2').getContext('2d');

@@ -707,10 +707,12 @@ private Properties prop = new Properties();
 						            rset.getInt("re_star"),
 						            rset.getString("re_date"),
 						            rset.getString("re_update"),
+						            rset.getInt("cl_no"),
+						            rset.getInt("mem_no"),
 						            rset.getString("cl_name"),
 						            rset.getString("mem_nickname"),
-						            rset.getString("mem_profile"),
-						            rset.getInt("mem_no")
+						            rset.getString("mem_profile")
+						           
 
 						));
 

@@ -7,6 +7,7 @@ import static com.hp.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.hp.admin.model.dao.AdminDao;
 import com.hp.admin.model.vo.MemberList;
@@ -343,6 +344,12 @@ public class AdminService {
 	}
 
 	
+	public ArrayList<Lesson> selectStatCount(){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new AdminDao().selectStatCount(conn);
+		close(conn);
+		return list;
+	}
 	
 
 }
