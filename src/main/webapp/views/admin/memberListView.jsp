@@ -17,7 +17,7 @@
 	/*div{border:solid 1px black;}*/
 	.cWrap{width:100%; padding:10px; padding-right:0;}
 	.sGroup{width:33px;}
-	.searchWrap{width:90%; border:1px solid lightgray; border-radius:10px; padding:15px; padding-left:40px;}
+	.searchWrap{width:90%; border:1px solid lightgray; border-radius:10px; padding:30px; padding-left:100px;}
 	.fCategory{width:120px; height:35px; margin-left:10px; border-radius: 3px; border-color:rgb(186, 185, 185);}
 	.sCategory{width:120px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
 
@@ -438,9 +438,7 @@
 			      </tr>
 			    </thead>
 			    <tbody class="table-group-divider" id="tbd">
-	                <tr>
-	                    <td colspan="13">조회된 게시글이 없습니다.</td>
-	                </tr>
+	                
 			    </tbody>
 			  </table>
 			</div>

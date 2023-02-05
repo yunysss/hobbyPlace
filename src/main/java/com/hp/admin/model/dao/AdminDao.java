@@ -1108,13 +1108,6 @@ public class AdminDao {
 	}
 
 
-
-
-	public ArrayList<TutorList> selectTutorList1(Connection conn, SearchTutor st) {
-		return null;
-	}
-
-
 	public ArrayList<District> selectLocalList(Connection conn){
 		ArrayList<District> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -1160,6 +1153,194 @@ public class AdminDao {
 		}
 		return list;
 	}
+	
+	/** 기본검색으로 튜터관리 검색시 나오는 list
+	 * @author 수연
+	 * @param conn
+	 * @param st
+	 * @return list
+	 */
+	public ArrayList<TutorList> selectTutorList1(Connection conn, SearchTutor st) {
+		ArrayList<TutorList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTutorList1");
+		
+		switch(st.getfCategory()) {
+		case "classActive" : sql += " (SELECT COUNT(CL_NO)\r\n"
+				+ "                  FROM CLASS\r\n"
+				+ "                 WHERE CL_STATUS = 2\r\n"
+				+ "                   AND MEM_NO = T.MEM_NO) "; break;
+		case "classTotal" : sql += " (SELECT COUNT(CL_NO)\r\n"
+				+ "                  FROM CLASS\r\n"
+				+ "                 WHERE CL_STATUS IN ('2', '3')\r\n"
+				+ "                   AND MEM_NO = T.MEM_NO) "; break;
+		case "tuteeTotal" : sql += " (SELECT SUM(REG_COUNT)\r\n"
+				+ "                  FROM REGISTER\r\n"
+				+ "                 WHERE MEM_NO = T.MEM_NO) "; break;
+		case "lessonTotal" : sql += " (select count(distinct(teach_date || sch_no))\r\n"
+				+ "                  from register r\r\n"
+				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
+				+ "                  WHERE C.MEM_NO = T.MEM_NO\r\n"
+				+ "                 group by c.mem_no) "; break;
+		case "incomeTotal" : sql += " (SELECT SUM(REG_PRICE)\r\n"
+				+ "                  FROM REGISTER\r\n"
+				+ "                 WHERE REG_STA = '2'\r\n"
+				+ "                  AND MEM_NO = T.MEM_NO) "; break;
+		}
+		
+		if(st.getLineup().equals("desc")) {
+			sql += "desc";
+		}else if(st.getLineup().equals("asc")) {
+			sql += "asc";
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, st.getEnrollStart());
+			pstmt.setString(2, st.getEnrollEnd());
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new TutorList(rset.getInt("mem_no"),
+									   rset.getString("mem_name"),
+									   rset.getString("mem_id"),
+									   rset.getString("tt_name"),
+									   rset.getInt("classactive"),
+									   rset.getInt("CLASSTOTAL"),
+									   rset.getInt("LESSONTOTAL"),
+									   rset.getInt("TUTEETOTAL"),
+									   rset.getInt("LIKECOUNT"),
+									   rset.getInt("REVCOUNT"),
+									   rset.getInt("INCOMETOTAL"),
+									   rset.getString("TUTORADDR")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	/** 검색옵션1로 튜터관리 검색시 나오는 list
+	 * @author 수연
+	 * @param conn
+	 * @param st
+	 * @return list
+	 */
+	public ArrayList<TutorList> selectTutorList2(Connection conn, SearchTutor st) {
+		ArrayList<TutorList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTutorList2");
+		
+		switch(st.getOption1()) {
+		case "tutorName" : sql += " TT_NAME LIKE "; break;
+		case "memName" : sql += " MEM_NAME LIKE "; break;
+		case "tutorId" : sql += " MEM_ID LIKE "; break;
+		}
+		
+		if(st.getSearchKey().isEmpty()) {
+			sql += "'%%'";
+		}else {
+			sql += "'%" + st.getSearchKey() + "%'";
+		}
+		
+		switch(st.getOption2()) {
+		case "incomeCount" : sql += " AND (SELECT SUM(REG_PRICE)\r\n"
+				+ "                  FROM REGISTER r\r\n"
+				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
+				+ "                  WHERE REG_STA = '2'\r\n"
+				+ "                    AND REG_CAL = 'C'\r\n"
+				+ "                    AND C.MEM_NO = T.MEM_NO \r\n"
+				+ "				      AND TO_DATE(TEACH_DATE) BETWEEN '"
+				+ st.getDayStart() + "' AND '" + st.getDayEnd() + "' \r\n"
+				+ "                  group by c.mem_no) BETWEEN "; break;
+		case "countLesson" : sql += " AND (select count(distinct(teach_date || sch_no))\r\n"
+				+ "                  from register r\r\n"
+				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
+				+ "                  WHERE REG_STA = '2' \r\n"
+				+ "                   AND C.MEM_NO = T.MEM_NO\r\n"
+				+ "				      AND TO_DATE(TEACH_DATE) BETWEEN '"
+				+ st.getDayStart() + "' AND '" + st.getDayEnd() + "' \r\n"
+				+ "                 group by c.mem_no) BETWEEN "; break;
+		case "countTutee" : sql += " AND (SELECT SUM(REG_COUNT)\r\n"
+				+ "                  from register r\r\n"
+				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
+				+ "                 WHERE REG_STA = '2'\r\n"
+				+ "                   AND C.MEM_NO = T.MEM_NO\r\n"
+				+ "				      AND TO_DATE(TEACH_DATE) BETWEEN '"
+				+ st.getDayStart() + "' AND '" + st.getDayEnd() + "' \r\n"
+				+ "                 group by c.mem_no) BETWEEN "; break;
+		}
+		
+		sql += (st.getStartNum()  + " AND " + st.getEndNum());
+
+		
+		switch(st.getfCategory()) {
+		case "classActive" : sql += " ORDER BY (SELECT COUNT(CL_NO)\r\n"
+				+ "                  FROM CLASS\r\n"
+				+ "                 WHERE CL_STATUS = 2\r\n"
+				+ "                   AND MEM_NO = T.MEM_NO) "; break;
+		case "classTotal" : sql += " ORDER BY (SELECT COUNT(CL_NO)\r\n"
+				+ "                  FROM CLASS\r\n"
+				+ "                 WHERE CL_STATUS IN ('2', '3')\r\n"
+				+ "                   AND MEM_NO = T.MEM_NO) "; break;
+		case "tuteeTotal" : sql += " ORDER BY (SELECT SUM(REG_COUNT)\r\n"
+				+ "                  FROM REGISTER\r\n"
+				+ "                 WHERE MEM_NO = T.MEM_NO) "; break;
+		case "lessonTotal" : sql += " ORDER BY (select count(distinct(teach_date || sch_no))\r\n"
+				+ "                  from register r\r\n"
+				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
+				+ "                  WHERE C.MEM_NO = T.MEM_NO\r\n"
+				+ "                 group by c.mem_no) "; break;
+		case "incomeTotal" : sql += " ORDER BY (SELECT SUM(REG_PRICE)\r\n"
+				+ "                  FROM REGISTER\r\n"
+				+ "                 WHERE REG_STA = '2'\r\n"
+				+ "                  AND MEM_NO = T.MEM_NO) "; break;
+		}
+		
+		if(st.getLineup().equals("desc")) {
+			sql += "desc";
+		}else if(st.getLineup().equals("asc")) {
+			sql += "asc";
+		}
+		
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, st.getEnrollStart());
+			pstmt.setString(2, st.getEnrollEnd());
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new TutorList(rset.getInt("mem_no"),
+									   rset.getString("mem_name"),
+									   rset.getString("mem_id"),
+									   rset.getString("tt_name"),
+									   rset.getInt("classactive"),
+									   rset.getInt("CLASSTOTAL"),
+									   rset.getInt("LESSONTOTAL"),
+									   rset.getInt("TUTEETOTAL"),
+									   rset.getInt("LIKECOUNT"),
+									   rset.getInt("REVCOUNT"),
+									   rset.getInt("INCOMETOTAL"),
+									   rset.getString("TUTORADDR")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 
 
 

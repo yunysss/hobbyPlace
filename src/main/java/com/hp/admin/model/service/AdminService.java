@@ -300,6 +300,19 @@ public class AdminService {
 		return list;
 	}
 
+	/** 튜터 조회 검색옵션1용 list  
+	 * @author 수연
+	 * @param st
+	 * @return list
+	 */
+	public ArrayList<TutorList> selectTutorList2(SearchTutor st) {
+		Connection conn = getConnection();
+		ArrayList<TutorList> list = new AdminDao().selectTutorList2(conn, st);
+		
+		close(conn);
+		return list;
+	}
+
 	
 
 	
