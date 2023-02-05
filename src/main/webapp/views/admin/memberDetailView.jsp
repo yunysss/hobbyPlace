@@ -169,7 +169,7 @@
 
         <div class="qnaList">
             <p class="ctTitle">1:1 문의 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="qnaViewMore();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -507,7 +507,11 @@
                 </table>   
             </div>
         </div>
-
+	<script>
+		function qnaViewMore(){
+			location.href = "<%=contextPath%>/memQna1.ad?no=<%=m.getMemNo()%>";
+		}
+	</script>
 
 
 

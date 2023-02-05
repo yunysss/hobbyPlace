@@ -1541,6 +1541,84 @@ public class AdminDao {
 		return clLikeList;
 	}
 
+
+
+
+	public ArrayList<Qna> selectAllQna1(Connection conn, int memNo) {
+		ArrayList<Qna> qnaList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllQna1");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				qnaList.add(new Qna(rset.getInt("Q_NO"),
+			            rset.getString("Q_TITLE"),
+			            rset.getString("Q_CONTENT"),
+			            rset.getDate("Q_DATE"),
+			            rset.getString("Q_STATUS"),
+			            rset.getString("Q_GRADE"),
+			            rset.getString("Q_CATEGORY"),
+			            rset.getString("CL_NAME"),
+			            rset.getInt("Q_MEM_NO"),
+			            rset.getString("A_TITLE"),
+			            rset.getString("A_CONTENT"),
+			            rset.getDate("A_DATE"),
+			            rset.getInt("A_MEM_NO"),
+			            rset.getString("TT_NAME")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		System.out.println(qnaList);
+		return qnaList;
+	}
+	
+	public ArrayList<Qna> selectAllQna2(Connection conn, int memNo) {
+		ArrayList<Qna> qnaList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllQna2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				qnaList.add(new Qna(rset.getInt("Q_NO"),
+			            rset.getString("Q_TITLE"),
+			            rset.getString("Q_CONTENT"),
+			            rset.getDate("Q_DATE"),
+			            rset.getString("Q_STATUS"),
+			            rset.getString("Q_GRADE"),
+			            rset.getString("Q_CATEGORY"),
+			            rset.getInt("CL_NO"),
+			            rset.getInt("Q_MEM_NO"),
+			            rset.getString("A_TITLE"),
+			            rset.getString("A_CONTENT"),
+			            rset.getDate("A_DATE"),
+			            rset.getInt("A_MEM_NO"),
+			            rset.getString("TT_NAME")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		return qnaList;
+	}
+
 	
 	
 

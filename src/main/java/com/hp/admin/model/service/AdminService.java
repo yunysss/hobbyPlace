@@ -350,6 +350,22 @@ public class AdminService {
 		close(conn);
 		return list;
 	}
+
+	public ArrayList<Qna> selectAllQna1(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Qna> qnaList = new AdminDao().selectAllQna1(conn, memNo);
+		
+		close(conn);
+		return qnaList;
+	}
+	
+	public ArrayList<Qna> selectAllQna2(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Qna> qnaList = new AdminDao().selectAllQna2(conn, memNo);
+		
+		close(conn);
+		return qnaList;
+	}
 	
 
 }

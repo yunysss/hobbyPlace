@@ -13,6 +13,7 @@ public class Qna {
 	private String qGrade;
 	private String qCategory;
 	private int clNo;
+	private String clName;
 	private int qMemNo;
 	private String aTitle;
 	private String aContent;
@@ -107,6 +108,54 @@ public class Qna {
 		this.aMemNo = aMemNo;
 		this.aMemNick = aMemNick;
 	}
+
+	
+
+
+
+
+
+
+	public Qna(int qNo, String qTitle, String qContent, Date qDate, String qStatus, String qGrade, String qCategory,
+			String clName, int qMemNo, String aTitle, String aContent, Date aDate, int aMemNo, String aMemNick) {
+		super();
+		this.qNo = qNo;
+		this.qTitle = qTitle;
+		this.qContent = qContent;
+		this.qDate = qDate;
+		this.qStatus = qStatus;
+		this.qGrade = qGrade;
+		this.qCategory = qCategory;
+		this.clName = clName;
+		this.qMemNo = qMemNo;
+		this.aTitle = aTitle;
+		this.aContent = aContent;
+		this.aDate = aDate;
+		this.aMemNo = aMemNo;
+		this.aMemNick = aMemNick;
+	}
+
+
+
+	
+
+
+	public String getClName() {
+		return clName;
+	}
+
+
+
+
+
+
+	public void setClName(String clName) {
+		this.clName = clName;
+	}
+
+
+
+
 
 
 	public int getqNo() {
