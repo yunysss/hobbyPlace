@@ -249,4 +249,27 @@ public class LessonService {
 		
 	}
 
+	public ArrayList<Lesson> selectActClass(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> cActiveList = new LessonDao().selectActClass(conn, memNo);
+		close(conn);
+		return cActiveList;
+	}
+
+	public ArrayList<Lesson> selectWaitingClass(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().selectWaitingClass(conn, memNo);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Lesson> selectRejectedClass(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new LessonDao().selectRejectedClass(conn, memNo);
+		close(conn);
+		return list;
+	}
+
+	
+
 }

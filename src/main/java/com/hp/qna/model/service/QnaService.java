@@ -89,5 +89,24 @@ public class QnaService {
 		close(conn);
 		return result;
 	}
+	
+	/** 튜터가 작성한 qna리스트 조회
+	 * @author 수연
+	 * @param memNo
+	 * @return
+	 */
+	public ArrayList<Qna> ttSelectAllQna1(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Qna> qList = new QnaDao().ttSelectAllQna1(conn, memNo);
+		close(conn);
+		return qList;
+	}
+
+	public ArrayList<Qna> ttSelectAllQna2(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Qna> aList = new QnaDao().ttSelectAllQna2(conn, memNo);
+		close(conn);
+		return aList;
+	}
 
 }

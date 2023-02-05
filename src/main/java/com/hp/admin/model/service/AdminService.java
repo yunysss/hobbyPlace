@@ -321,6 +321,27 @@ public class AdminService {
 		return list;
 	}
 
+	public TutorList selectTutorInfo(int memNo) {
+		Connection conn = getConnection();
+		TutorList t2 = new AdminDao().selectTutorInfo(conn, memNo);
+		close(conn);
+		return t2;
+	}
+
+	public ArrayList<Review> selectClReview(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Review> clReviewList = new AdminDao().selectClReview(conn, memNo);
+		close(conn);
+		return clReviewList;
+	}
+
+	public ArrayList<Like> selectclLike(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Like> clLikeList = new AdminDao().selectclLike(conn, memNo);
+		close(conn);
+		return clLikeList;
+	}
+
 	
 	
 

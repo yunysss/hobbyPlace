@@ -56,6 +56,13 @@ public class ReviewService {
 		return list;
 	}
 
+	public ArrayList<Review> selectReviewList(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Review> list = new ReviewDao().selectReviewList(conn, memNo);
+		close(conn);
+		return list;
+	}
+
 	
 
 	

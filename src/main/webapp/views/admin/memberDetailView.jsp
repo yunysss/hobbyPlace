@@ -45,9 +45,11 @@
         <br>
 		<div class="memProfile" align="left">
             <div class="memImg">
-
-                <img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
-
+				<%if(m.getMemProfile()!=null) {%>
+					<img src="<%=contextPath%>/<%=m.getMemProfile()%>" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
+				<%}else{ %>
+                	<img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
+				<%} %>
             </div>
             <div class="memInfo">
                 <p id="profile1"><%=m.getMemName()%> &nbsp; <%=m.getMemNick() %></p>

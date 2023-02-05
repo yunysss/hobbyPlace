@@ -1415,6 +1415,96 @@ public class AdminDao {
 		return list;
 	}
 
+
+
+
+	public TutorList selectTutorInfo(Connection conn, int memNo) {
+		TutorList t2 = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTutorInfo");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				t2 = new TutorList(rset.getInt("mem_no"),
+						   rset.getString("mem_name"),
+						   rset.getString("mem_id"),
+						   rset.getString("tt_name"),
+						   rset.getInt("classactive"),
+						   rset.getInt("CLASSTOTAL"),
+						   rset.getInt("LESSONTOTAL"),
+						   rset.getInt("TUTEETOTAL"),
+						   rset.getInt("LIKECOUNT"),
+						   rset.getInt("REVCOUNT"),
+						   rset.getInt("INCOMETOTAL"),
+						   rset.getString("TUTORADDR"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return t2;
+	}
+
+
+
+	/** 클래스별 리뷰개수
+	 * @author 수연
+	 * @param conn
+	 * @param memNo
+	 * @return
+	 */
+	public ArrayList<Review> selectClReview(Connection conn, int memNo) {
+		ArrayList<Review> clReviewList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectClReview");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				clReviewList.add(new Review(rset.getInt("count"),
+											rset.getString("cl_name")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return clReviewList;
+	}
+
+
+
+
+	public ArrayList<Like> selectclLike(Connection conn, int memNo) {
+		ArrayList<Like> clLikeList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectclLike");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				clLikeList.add(new Like(rset.getString("cl_name"),
+										rset.getInt("count")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return clLikeList;
+	}
+
 	
 
 

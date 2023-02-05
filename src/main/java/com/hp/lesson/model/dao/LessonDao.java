@@ -1370,6 +1370,168 @@ public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
 	}
 	 return list;
  }
+
+/** 진행중인 클래스 리스트
+ * @author 수연
+ * @param conn
+ * @param memNo
+ * @return cActiveList
+ */
+public ArrayList<Lesson> selectActClass(Connection conn, int memNo) {
+	ArrayList<Lesson> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String sql = prop.getProperty("selectActClass");
+	 
+	 try {
+		pstmt= conn.prepareStatement(sql);
+		pstmt.setInt(1, memNo);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			list.add(new Lesson(rset.getInt("cl_no"),
+			        rset.getString("ct_name"),
+			        rset.getString("ct_dname"),
+			        rset.getString("mem_no"),
+			        rset.getString("local_name"),
+			        rset.getString("distr_name"),
+			        rset.getString("cl_name"),
+			        rset.getString("cl_address"),
+			        rset.getInt("cl_max"),
+			        rset.getString("cl_level"),
+			        rset.getString("start_date"),
+			        rset.getString("end_date"),
+			        rset.getInt("cl_times"),
+			        rset.getString("cl_schedule"),
+			        rset.getString("cl_day"),
+			        rset.getString("cl_price"),
+			        rset.getString("cl_detail"),
+			        rset.getString("curriculum"),
+			        rset.getString("cl_supplies"),
+			        rset.getDate("enroll_date"),
+			        rset.getDate("update_date"),
+			        rset.getString("cl_status"),
+			        rset.getInt("cl_count"),
+			        rset.getString("cl_refuse"),
+			        rset.getString("cl_thumb"),
+			        rset.getInt("star_avg"),
+			        rset.getInt("star_count"),
+			        rset.getInt("like_count")));
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	 
+	 
+	return list;
+}
+
+public ArrayList<Lesson> selectWaitingClass(Connection conn, int memNo) {
+	ArrayList<Lesson> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String sql = prop.getProperty("selectWaitingClass");
+	 
+	 try {
+		pstmt= conn.prepareStatement(sql);
+		pstmt.setInt(1, memNo);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			list.add(new Lesson(rset.getInt("cl_no"),
+			        rset.getString("ct_name"),
+			        rset.getString("ct_dname"),
+			        rset.getString("mem_no"),
+			        rset.getString("local_name"),
+			        rset.getString("distr_name"),
+			        rset.getString("cl_name"),
+			        rset.getString("cl_address"),
+			        rset.getInt("cl_max"),
+			        rset.getString("cl_level"),
+			        rset.getString("start_date"),
+			        rset.getString("end_date"),
+			        rset.getInt("cl_times"),
+			        rset.getString("cl_schedule"),
+			        rset.getString("cl_day"),
+			        rset.getString("cl_price"),
+			        rset.getString("cl_detail"),
+			        rset.getString("curriculum"),
+			        rset.getString("cl_supplies"),
+			        rset.getDate("enroll_date"),
+			        rset.getDate("update_date"),
+			        rset.getString("cl_status"),
+			        rset.getInt("cl_count"),
+			        rset.getString("cl_refuse"),
+			        rset.getString("cl_thumb"),
+			        rset.getInt("star_avg"),
+			        rset.getInt("star_count"),
+			        rset.getInt("like_count")));
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	 
+	 
+	return list;
+}
+
+public ArrayList<Lesson> selectRejectedClass(Connection conn, int memNo) {
+	ArrayList<Lesson> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String sql = prop.getProperty("selectRejectedClass");
+	 
+	 try {
+		pstmt= conn.prepareStatement(sql);
+		pstmt.setInt(1, memNo);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			list.add(new Lesson(rset.getInt("cl_no"),
+			        rset.getString("ct_name"),
+			        rset.getString("ct_dname"),
+			        rset.getString("mem_no"),
+			        rset.getString("local_name"),
+			        rset.getString("distr_name"),
+			        rset.getString("cl_name"),
+			        rset.getString("cl_address"),
+			        rset.getInt("cl_max"),
+			        rset.getString("cl_level"),
+			        rset.getString("start_date"),
+			        rset.getString("end_date"),
+			        rset.getInt("cl_times"),
+			        rset.getString("cl_schedule"),
+			        rset.getString("cl_day"),
+			        rset.getString("cl_price"),
+			        rset.getString("cl_detail"),
+			        rset.getString("curriculum"),
+			        rset.getString("cl_supplies"),
+			        rset.getDate("enroll_date"),
+			        rset.getDate("update_date"),
+			        rset.getString("cl_status"),
+			        rset.getInt("cl_count"),
+			        rset.getString("cl_refuse"),
+			        rset.getString("cl_thumb"),
+			        rset.getInt("star_avg"),
+			        rset.getInt("star_count"),
+			        rset.getInt("like_count")));
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	 
+	 
+	return list;
+}
 	
 	
 

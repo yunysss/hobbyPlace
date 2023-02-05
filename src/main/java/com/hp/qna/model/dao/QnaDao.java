@@ -265,4 +265,77 @@ public class QnaDao {
 		
 	}
 
+	public ArrayList<Qna> ttSelectAllQna1(Connection conn, int memNo) {
+		ArrayList<Qna> qList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("ttSelectAllQna1");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				qList.add(new Qna(rset.getInt("q_no"),
+						rset.getString("q_title"),
+						rset.getString("q_content"),
+						rset.getDate("q_date"),
+						rset.getString("q_status"),
+						rset.getString("q_grade"),
+						rset.getString("q_category"),
+						rset.getInt("cl_no"),
+						rset.getInt("q_mem_no"),
+						rset.getString("a_title"),
+						rset.getString("a_content"),
+						rset.getDate("a_date"),
+						rset.getInt("a_mem_no"),
+						rset.getString("a_status")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return qList;
+	}
+
+	public ArrayList<Qna> ttSelectAllQna2(Connection conn, int memNo) {
+		ArrayList<Qna> aList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("ttSelectAllQna2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				aList.add(new Qna(rset.getInt("q_no"),
+						rset.getString("q_title"),
+						rset.getString("q_content"),
+						rset.getDate("q_date"),
+						rset.getString("q_status"),
+						rset.getString("q_grade"),
+						rset.getString("q_category"),
+						rset.getInt("cl_no"),
+						rset.getInt("q_mem_no"),
+						rset.getString("a_title"),
+						rset.getString("a_content"),
+						rset.getDate("a_date"),
+						rset.getInt("a_mem_no"),
+						rset.getString("a_status"),
+						rset.getString("q_memNick")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return aList;
+	}
+
 }

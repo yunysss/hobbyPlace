@@ -60,7 +60,7 @@ public class TutorDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectTutorInfo");
+		String sql = prop.getProperty("selectTutorInfo2");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);
@@ -72,10 +72,10 @@ public class TutorDao {
 							  rset.getString("tt_phone"),
 							  rset.getString("tt_email"),
 							  rset.getString("introduce"),
+							  rset.getDate("enroll_date"),
 							  rset.getString("pub_phone"),
-							  rset.getString("tt_profile")
-
-						);
+							  rset.getString("tt_profile"),
+							  rset.getString("modify_date"));
 				
 			}
 		} catch (SQLException e) {

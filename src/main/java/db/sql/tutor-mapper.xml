@@ -652,6 +652,11 @@
          WHERE REG_NO=?
 	</entry>
 	
+	<entry key="selectTutorInfo2">
+		SELECT *
+		  FROM TUTOR
+		  WHERE MEM_NO = ?
+	</entry>
 	
 
 

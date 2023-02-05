@@ -149,6 +149,41 @@ public class ReviewDao {
 	}
 
 
+	public ArrayList<Review> selectReviewList(Connection conn, int memNo) {
+		ArrayList<Review> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReviewList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Review(rset.getInt("re_no"),
+								   rset.getString("content"),
+								   rset.getInt("re_star"),
+								   rset.getString("re_date"),
+								   rset.getString("re_update"),
+								   rset.getString("re_sta"),
+								   rset.getInt("reg_no"),
+								   rset.getInt("cl_no"),
+								   rset.getInt("mem_no"),
+								   rset.getString("cl_name"),
+								   rset.getString("mem_nickname"),
+								   rset.getString("mem_profile")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
 
 
 	
