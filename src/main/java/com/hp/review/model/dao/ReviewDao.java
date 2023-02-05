@@ -234,13 +234,13 @@ public class ReviewDao {
 				sql += ")"; 
 			}
 			if(!r.getClName().equals("")) {
-				sql += "AND CL_NAME LIKE %'" + r.getClName() + "%'";
+				sql += "AND CL_NAME LIKE '%" + r.getClName() + "%'";
 			}
 			if(!r.getReviewContent().equals("")) {
-				sql += "AND CONTENT LIKE %'" + r.getReviewContent() + "%'";
+				sql += "AND CONTENT LIKE '%" + r.getReviewContent() + "%'";
 			}
 			if(!r.getMemName().equals("")) {
-				sql += "AND MEM_NAME LIKE %'" + r.getMemName() + "%'";
+				sql += "AND MEM_NAME LIKE '%" + r.getMemName() + "%'";
 			}
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
