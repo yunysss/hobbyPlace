@@ -47,7 +47,7 @@
 
         <div align="right">
             <input type="text">
-            <button><img src="resources/search.svg"></button>
+            <button><img src="resources/images/search.png" style="height:20px; width:20px;"></button>
             
         </div>
 

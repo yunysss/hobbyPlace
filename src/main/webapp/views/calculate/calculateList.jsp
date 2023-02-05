@@ -499,6 +499,6 @@
           </div>
         </div>
       </div>
-
+<%@ include file="../common/footerbar.jsp" %>
 </body>
 </html>
