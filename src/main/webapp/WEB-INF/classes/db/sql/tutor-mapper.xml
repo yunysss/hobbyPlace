@@ -473,7 +473,7 @@
 		   enroll_date
 	  FROM NOTICE
 	 WHERE NT_STA='Y'
-	   AND GRADE='1'
+	   AND GRADE='2'
 	 ORDER 
 	    BY ENROLL_DATE DESC
 		
@@ -567,7 +567,7 @@
 		  JOIN CLASS C USING(CL_NO)
 		  JOIN SCHEDULE USING(SCH_NO)
 		 WHERE C.MEM_NO = ?
-           AND REG_STA = 0
+           AND REG_STA = 1
 		 ORDER 
 		    BY REG_NO DESC
 	</entry>
