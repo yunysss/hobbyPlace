@@ -278,6 +278,19 @@ public class TutorService {
 	}
 
 
+	public int updateReservation(Register r) {
+		Connection conn = getConnection();
+		int result = new TutorDao().updateReservation(conn,r);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+
 	
 
 }
