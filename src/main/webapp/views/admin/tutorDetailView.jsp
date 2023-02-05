@@ -412,11 +412,11 @@
 					                    	<%=cRList.get(i).getEnrollDate() %>
 					                    </td>
 					                    <td>
-					                    	<%if(cRList.get(0).getClStatus()=="1") {%>
+					                    	<%if(cRList.get(0).getClStatus().equals("1")) {%>
 					                    		신청반려
-					                    	<%} else if(cRList.get(0).getClStatus()=="3"){%>
+					                    	<%} else if(cRList.get(0).getClStatus().equals("3")){%>
 					                    		판매중지
-					                    	<%} else if(cRList.get(0).getClStatus()=="0"){%>
+					                    	<%} else if(cRList.get(0).getClStatus().equals("0")){%>
 					                    		검수요청
 					                    	<%} %>
 					                    </td>
@@ -436,11 +436,11 @@
 					                    	<%=cRList.get(i).getEnrollDate() %>
 					                    </td>
 					                    <td>
-					                    	<%if(cRList.get(0).getClStatus()=="1") {%>
+					                    	<%if(cRList.get(0).getClStatus().equals("1")) {%>
 					                    		신청반려
-					                    	<%} else if(cRList.get(0).getClStatus()=="3"){%>
+					                    	<%} else if(cRList.get(0).getClStatus().equals("3")){%>
 					                    		판매중지
-					                    	<%} else if(cRList.get(0).getClStatus()=="0"){%>
+					                    	<%} else if(cRList.get(0).getClStatus().equals("0")){%>
 					                    		검수요청
 					                    	<%} %>
 					                    </td>
@@ -458,11 +458,11 @@
 				                    	<%=cRList.get(0).getEnrollDate() %>
 				                    </td>
 				                    <td>
-				                    	<%if(cRList.get(0).getClStatus()=="1") {%>
+				                    	<%if(cRList.get(0).getClStatus().equals("1")) {%>
 				                    		신청반려
-				                    	<%} else if(cRList.get(0).getClStatus()=="3"){%>
+				                    	<%} else if(cRList.get(0).getClStatus().equals("3")){%>
 				                    		판매중지
-				                    	<%} else if(cRList.get(0).getClStatus()=="0"){%>
+				                    	<%} else if(cRList.get(0).getClStatus().equals("0")){%>
 				                    		검수요청
 				                    	<%} %>
 				                    </td>
