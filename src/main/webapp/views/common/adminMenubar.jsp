@@ -36,7 +36,7 @@
     
         
         .wrap{
-            width: 1200px;
+            width: 100%;
             height: 100vh;
             margin: auto;
         }
@@ -44,7 +44,7 @@
         .wrap>div{width: 100%;}
 
         #header{height: 160px;}
-        #content{height: 80%;}
+        #content{height: 100%;}
 
         #content>div{height: 100%; float:left}
 
@@ -53,7 +53,7 @@
         /*헤더바 상세 스타일*/
         #header{background: url(<%=request.getContextPath()%>/resources/images/newMainLogoBG.png); background-size: cover;}
         
-        #log_box{ height: 155px; padding:52px;margin-left:40%;}
+        #log_box{ height: 155px; padding:52px;margin-left:55%;}
 
         p{  display: inline-block;
             margin-top: 15px;}
@@ -61,7 +61,7 @@
         p>a{margin:5px;color:black; text-decoration: none;}
 
 
-        #navigator{width: 16%; box-sizing: border-box;}
+        #navigator{width: 13%; box-sizing: border-box; height:100%;}
         
         
         #mainContent{width:1000px; padding:20px; }
@@ -122,6 +122,8 @@
 
         }
         
+        
+        
         .input-group{
             padding:10px
         }
@@ -163,7 +165,7 @@
                 <!--메뉴창-->
                 <div id="navi_box">
                     <ul id="navi">
-                        <li><a>회원 관리</a>
+                        <li><a href="">회원 관리</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/viewMember.ad">전체 회원 조회</a></li>
                                 <li><a href="<%=contextPath%>/viewTutor.ad">튜터 관리</a></li>
