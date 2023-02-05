@@ -94,12 +94,39 @@
 		     , R.CL_NO
 		     , R.MEM_NO
 		     , CL_NAME
-		     , M.MEM_NICKNAME
+		     , M.MEM_ID
 		     , M.MEM_PROFILE
 		  FROM REVIEW R
 		  JOIN CLASS C ON (R.CL_NO = C.CL_NO)
 		  JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
 		 WHERE C.MEM_NO = ?
+	</entry>
+	
+	<entry key="deleteReview">
+		UPDATE
+		       REVIEW
+		   SET RE_STA = 'N'
+		 WHERE RE_NO = ?
+		
+	</entry>
+	
+	<entry key="selectTutorReview">
+		SELECT *
+		  FROM (
+		        SELECT
+		               RE_NO
+		             , CONTENT
+		             , RE_STAR
+		             , RE_DATE
+		             , MEM_NAME
+		             , C.MEM_NO
+		             , C.CL_NAME
+		          FROM REVIEW
+		          JOIN MEMBER USING(MEM_NO)
+		          JOIN CLASS C USING(CL_NO)
+		          ORDER 
+		             BY RE_NO DESC
+		       )
 	</entry>
 	
 </properties>

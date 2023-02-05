@@ -183,6 +183,29 @@ public class Review {
 
 
 
+	public Review(int ttNo, String reStar, String clName, String reviewContent, String memName) {
+		super();
+		this.reviewContent = reviewContent;
+		this.reStar = reStar;
+		this.clName = clName;
+		this.ttNo = ttNo;
+		this.memName = memName;
+	}
+
+
+
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String memName, String clName) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.memName = memName;
+		this.clName = clName;
+	}
+
+
+
 	public int getMemNo() {
 		return memNo;
 	}
