@@ -761,4 +761,18 @@
 		 WHERE R.MEM_NO = ?
 	</entry>
 	
+	<entry key="selectStatLocation">
+		SELECT ROWNUM, D.DISTR_NAME, D.REG_PRICE
+		  FROM (SELECT
+		               DISTR_NAME
+		             , SUM(REG_PRICE) "REG_PRICE"
+		          FROM REGISTER R
+		          JOIN CLASS USING(CL_NO)
+		          JOIN DISTRICT USING(DISTR_CODE)
+		         GROUP 
+		            BY DISTR_NAME
+		         ORDER
+		            BY REG_PRICE DESC) D
+		WHERE ROWNUM <![CDATA[ < ]]>= 5
+	</entry>
 </properties>

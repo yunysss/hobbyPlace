@@ -1,9 +1,6 @@
 package com.hp.lesson.model.vo;
 
-import java.sql.Clob;
 import java.sql.Date;
-
-import oracle.sql.CLOB;
 
 public class Lesson {
 	
@@ -463,9 +460,11 @@ public class Lesson {
 		this.studentSum = studentSum;
 	}
 
-
-
-	
+	public Lesson(String distrCode, String clPrice) {
+		super();
+		this.distrCode = distrCode;
+		this.clPrice = clPrice;
+	}
 
 
 

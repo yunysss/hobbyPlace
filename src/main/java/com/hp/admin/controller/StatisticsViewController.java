@@ -2,7 +2,6 @@ package com.hp.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,12 +40,14 @@ public class StatisticsViewController extends HttpServlet {
 		ArrayList<Category> cList = new AdminService().selectCategoryList();
 		ArrayList<Dcategory> dList = new AdminService().selectDcategoryList();
 		ArrayList<Lesson> ch1List= new AdminService().selectStatCount();
+		ArrayList<Lesson> ch2List = new AdminService().selectStatLocation();
 		
 		request.setAttribute("catList", cList);
 		request.setAttribute("dcList", dList);
 		request.setAttribute("lList", lList);
 		request.setAttribute("disList", disList);
 		request.setAttribute("ch1List", ch1List);
+		request.setAttribute("ch2List", ch2List);
 		request.getRequestDispatcher("views/admin/statisticsView.jsp").forward(request, response);
 	}
 
