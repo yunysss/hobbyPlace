@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "com.hp.review.model.vo.Register"%>
+<% 
+	Register er = (Register)request.getAttribute("er");
+%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,20 +99,20 @@
             <hr>
             <form class="review-area">
                 <br>
-                <br>
                 <div class="classPart">
                     <div class="classThumbnail">
-                        <img src="<%=contextPath%>/resources/classThumbnail_upfiles/2023012714522990657.png" >
+                        <img src="<%=contextPath%>/<%=er.getClThumb() %>" >
                     </div>
                     <div class="classTitle">
-                        <b> 클래스 제목 들가는 자리</b>
+                        <b> <%=er.getClName() %></b>
                     </div>
                     
                 </div> <!--header:클래스정보부분끝-->
 
 
 
-                <form action="" id="enroll-form" method="post" enctype="multipart/form-data" >
+                <form action="<%=contextPath %>/insert.rev" id="enroll-form" method="post" enctype="multipart/form-data" >
+                
 
                     <div class="starRating" align="center">
 
@@ -118,7 +122,7 @@
                                 <!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
                                 <input type="checkbox" name="rating" id="rating1" value="1" class="rate_radio" title="1점">
                                 <label for="rating1">
-                                    <img src="<%=contextPath%>/resources/images/starrate.png" >
+                                    <img width="61px" src="<%=contextPath%>/resources/images/starrate.png" >
                                 </label>
                                 <input type="checkbox" name="rating" id="rating2" value="2" class="rate_radio" title="2점">
                                 <label for="rating2">
@@ -172,19 +176,12 @@
                                     rating.showMessage('rate');
                                     return false;
                                 }
-                                //리뷰 5자 미만이면 메시지 표시
-                                if(document.querySelector('.review_textarea').value.length < 5){
-                                    rating.showMessage('review');
-                                    return false;
-                                }
+                               
                                 //폼 서밋
                             });
 
                         </script>
 
-                        
-                          
-                        
                         <p>별표를 클릭하여 평가해주세요.</p>
                     </div>
 
@@ -195,7 +192,8 @@
                                 <td><textarea name="reviewContent" rows="10" style="resize:none; width: 600px; margin: auto;" required></textarea></td>
                             </tr>
                             <tr class="img-area" align="center">
-                                <td style="margin:0%"><img id="reviewImg1" width="180" height="120" onclick="clickFile(1);">
+                                <td style="margin:0%">
+                                <img id="reviewImg1" width="180" height="120" onclick="clickFile(1);">
                                 <img id="reviewImg2" width="180" height="120" onclick="clickFile(2);">
                                 <img id="reviewImg3" width="180" height="120" onclick="clickFile(3);">
                             </td>
@@ -212,6 +210,7 @@
 
                 
                     <script>
+
                         function clickFile(num){
                             $("input[name=file" + num + "]").click();
                         }
@@ -248,20 +247,16 @@
                             }
                         }
                         
-                    </scrip>
-
+                    </script>
+                        
                     <br>
                     <div align="center" class="btn-area"> 
-                        <button type="submit">등록하기</button>
+                        <button type="submit" id="save">등록하기</button>
                     </div>
                     
 
                 </form>
     
-
-                
-
-
             </div> <!--리뷰영역 닫는  div-->
             
 

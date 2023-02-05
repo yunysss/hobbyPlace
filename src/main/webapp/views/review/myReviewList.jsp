@@ -114,7 +114,7 @@
                             <p class="clName"><%=list.get(i).getClName() %></p>
                         </div>
                         <div>
-                            별점 들어가는 공간
+                            ⭐⭐⭐⭐⭐
                         </div>
                     </div>
 

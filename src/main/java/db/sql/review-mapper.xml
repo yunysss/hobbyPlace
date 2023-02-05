@@ -110,4 +110,23 @@
 		
 	</entry>
 	
+	<entry key="selectEnrollFormClass">
+	 SELECT 
+               REG_NO
+             , TEACH_DATE
+           	 , REG_STA
+          	 , CL_THUMB
+          	 , C.CL_NAME "CL_NAME"
+             , S.START_TIME "START_TIME"
+             , D.DISTR_NAME "DISTR_NAME"
+          FROM REGISTER R
+          LEFT OUTER JOIN CLASS C
+          ON C.CL_NO = R.CL_NO
+          LEFT OUTER JOIN DISTRICT D
+          ON D.DISTR_CODE = C.DISTR_CODE
+          LEFT OUTER JOIN SCHEDULE S
+          ON S.SCH_NO = R.SCH_NO
+          WHERE REG_NO = ?
+	</entry>
+	
 </properties>

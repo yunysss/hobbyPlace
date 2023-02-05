@@ -202,20 +202,58 @@ public class ReviewDao {
 		}
 		return result;
 	
-}
+		}
+	
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param r
+	 * @return 관리자페이지 리뷰 검색
+	 */
+	public ArrayList<Review> selectAdminSearchReview(Connection conn, Review r) {
+		ArrayList<Review> revList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAdminSearchReview");
+		
+		
+		return null;
+	}
 
-/**
- * @author 수정
- * @param conn
- * @param r
- * @return 관리자페이지 리뷰 검색
- */
-public ArrayList<Review> selectAdminSearchReview(Connection conn, Review r) {
-	ArrayList<Review> revList = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-	String sql = prop.getProperty("selectAdminSearchReview");
 	
-	
-	return null;
-}
+	public Register selectEnrollFormClass(Connection conn, int regNo) {
+		Register er = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectEnrollFormClass");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, regNo);
+			
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				er = new Register(rset.getInt("reg_no"),
+								  rset.getString("teach_date"),
+								  rset.getString("reg_sta"),
+								  rset.getString("cl_thumb"),
+								  rset.getString("cl_name"),
+								  rset.getString("start_time"),
+								  rset.getString("distr_name"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return er;
+	}
+		
+
+} 
