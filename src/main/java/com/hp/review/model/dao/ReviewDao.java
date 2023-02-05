@@ -184,26 +184,38 @@ public class ReviewDao {
 	}
 
 
-	/**
-	 * @author 수정
-	 * @param conn
-	 * @param r
-	 * @return 관리자페이지 리뷰 검색
-	 */
-	public ArrayList<Review> selectAdminSearchReview(Connection conn, Review r) {
-		ArrayList<Review> revList = new ArrayList<>();
+	public int deleteReview(Connection conn, int reNo) {
+		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectAdminSearchReview");
+		String sql = prop.getProperty("deleteReview");
 		
-		
-		return null;
-	}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	
+}
 
-
-
-
+/**
+ * @author 수정
+ * @param conn
+ * @param r
+ * @return 관리자페이지 리뷰 검색
+ */
+public ArrayList<Review> selectAdminSearchReview(Connection conn, Review r) {
+	ArrayList<Review> revList = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String sql = prop.getProperty("selectAdminSearchReview");
 	
 	
-
+	return null;
 }

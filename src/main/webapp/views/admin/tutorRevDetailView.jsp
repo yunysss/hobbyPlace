@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.hp.member.model.vo.Member, com.hp.review.model.vo.Review" %>
+<%@ page import="java.util.ArrayList, com.hp.admin.model.vo.TutorList, com.hp.tutor.model.vo.Tutor, com.hp.review.model.vo.Review" %>
 <%
-	Member m = (Member)request.getAttribute("m");
-	ArrayList<Review> r = (ArrayList<Review>)request.getAttribute("r");
+	Tutor t1 = (Tutor)request.getAttribute("t1");
+	TutorList t2 = (TutorList)request.getAttribute("t2");
+	ArrayList<Review> r = (ArrayList<Review>)request.getAttribute("revList");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -28,7 +28,7 @@ th{background-color:lightgray;}
 <%@ include file="../common/adminMenubar.jsp" %>
 <div class="cWrap">
   <br>
-  <h3><b><%=m.getMemName()%></b>님의 리뷰 리스트</h3>
+  <h3><b><%=t2.getMemName()%></b>님이 받은 리뷰 리스트</h3>
 
   
 
@@ -39,8 +39,9 @@ th{background-color:lightgray;}
         <col style="width:80px;">
         <col style="width:250px;">
         <col style="width:600px;">
+        <col style="width:80px;">
         <col style="width:120px;">
-        <col style="width:150px;">
+        <col style="width:120px;">
         <col style="width:120px;">
       </colgroup>
       <tr>
@@ -48,6 +49,7 @@ th{background-color:lightgray;}
         <th scope="col">클래스</th>
         <th scope="col">내용</th>
         <th scope="col">평점</th>
+        <th scope="col">작성자</th>
         <th scope="col">작성일</th>
         <th scope="col">관리</th>
       </tr>
@@ -55,7 +57,7 @@ th{background-color:lightgray;}
     <tbody>
     <%if(r.isEmpty()) {%>
     	<tr>
-    	<td colspan="6">작성한 리뷰가 없습니다.</td></tr>
+    	<td colspan="7">받은 리뷰가 없습니다.</td></tr>
     <%}else {%>
     	<% for(int i=0;i<r.size(); i++) {%>
 	    	<tr>
@@ -63,6 +65,7 @@ th{background-color:lightgray;}
 	        <td><%=r.get(i).getClName() %></td>
 	        <td><%=r.get(i).getReviewContent() %></td>
 	        <td>⭐<%=r.get(i).getReviewStar()%></td>
+	        <td><%=r.get(i).getMemNickName() %></td>
 	        <%if(r.get(i).getReviewUpDate()==null){ %>
 	        	<td><%=r.get(i).getReviewDate() %></td>
 	        <%}else { %>
@@ -75,7 +78,7 @@ th{background-color:lightgray;}
 			   function modal(){
 					 let dt = "";
 				    dt += "해당 리뷰를 정말로 삭제하시겠습니까?<br><br>";
-				   	dt += "<a class='btn btn-danger' href='<%=contextPath%>/deleteReview.ad?no=<%=r.get(i).getReviewNo()%>'>";
+				   	dt += "<a class='btn btn-danger' href='<%=contextPath%>/deleteRe.ad?no=<%=r.get(i).getReviewNo()%>'>";
 				   	dt += "<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>";
 					 $(".mdDiv").html(dt);
 					 $(".modal-title").html("악성리뷰 관리");
@@ -111,11 +114,6 @@ th{background-color:lightgray;}
 		  </div>
 		</div>
  
-
-
-
-
-
 
 
     </div>

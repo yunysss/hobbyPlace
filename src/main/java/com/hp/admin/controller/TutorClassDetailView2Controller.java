@@ -45,7 +45,7 @@ public class TutorClassDetailView2Controller extends HttpServlet {
 		request.setAttribute("t1", t1);
 		request.setAttribute("t2", t2);
 		request.setAttribute("cRList", cRList);
-		request.getRequestDispatcher("views/admin/tutorDetailView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/admin/tutorInactiveClassDetailView.jsp").forward(request, response);
 	}
 
 	/**
