@@ -40,7 +40,7 @@
    #selectAllCalMng-btn{
    	width:80px;
     background:rgb(22, 160, 133); 
-    color:white;
+    color:white!important;
    }
    input[name=dateType], input[name=calSta]{display: none; margin: 10px;}
    input[name=dateType]+label{
@@ -186,7 +186,7 @@
             </table>
             <br>
             <div align="center">
-            		<button type="button" class="btn btn-sm" id="selectAllCalMng-btn" onclick="selectAllCalMng();">전체조회</button>
+            		<a href="<%=contextPath %>/manage.cal" class="btn btn-sm" id="selectAllCalMng-btn">전체조회</a>
                     <button type="button" class="btn btn-sm" id="selectCalMng-btn" onclick="selectCalMng();">조회</button>
                     <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
             </div>
@@ -311,33 +311,6 @@
 	    			}
 	    		})
 	    	}
-		    function selectAllCalMng(){
-		    	$.ajax({
-	    			url:"<%=contextPath%>/selectMng.cal",
-	    			data:{
-	    				memId:"",
-	    				startDate:"",
-	    				endDate:"",
-	    				status:"정산"    				
-	    			},
-	    			success:function(list){
-	    				if(list.length == 0){
-	    					let value = "<tr>"
-	    						+	"<td colspan='7'>조회된 내역이 없습니다.</td>"
-	    						+ "</tr>"
-	    					$("#calMng-list tbody").html(value);
-	    					$("#paging").html("");
-	    				} else{
-	    	 		    	   totalData = list.length;
-	    	 		           dataList=list;
-	    	 		           displayData(1, dataPerPage, totalData);
-	    	 		           paging(totalData, dataPerPage, pageCount, 1);
-	    				}
-	    			},error:function(){
-	    				console.log("정산목록 조회용 ajax 통신실패");
-	    			}
-	    		})
-		    }
 		    function displayData(currentPage, dataPerPage, totalData) {
 		    	  let value = "";
 		    	  currentPage = Number(currentPage);

@@ -401,18 +401,18 @@ public class Lesson {
 	}
 
 
-	public Lesson(int clNo, String clName, String tutorProfile, int likeCount, int reviewCount, int clStarCount, 
-			int studentSum, String priceSum, Date enrollDate) {
+	public Lesson(int clNo, String clName, String tutorProfile, int likeCount, int reviewCount, int clStarAvg, 
+			int studentSum, String priceSum, String clDay) {
 		super();
 		this.clNo = clNo;
 		this.clName = clName;
-		this.clStarCount = clStarCount;
+		this.clStarAvg = clStarAvg;
 		this.likeCount = likeCount;
 		this.tutorProfile = tutorProfile;
 		this.reviewCount = reviewCount;
 		this.studentSum = studentSum;
 		this.priceSum = priceSum;
-		this.enrollDate = enrollDate;
+		this.clDay = clDay;
 	}
 
 

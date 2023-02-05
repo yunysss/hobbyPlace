@@ -1222,7 +1222,7 @@ public class AdminDao {
 						            rset.getInt("star_avg"),
 						            rset.getInt("student_sum"),
 						            rset.getString("price_sum"),
-						            rset.getDate("enroll_date")
+						            rset.getString("enroll_date")
 						            ));
 			}
 		} catch (SQLException e) {

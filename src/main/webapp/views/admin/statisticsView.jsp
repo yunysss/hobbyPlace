@@ -42,7 +42,7 @@
     #statSearchAll-btn{
      width:80px;
      background:rgb(22, 160, 133); 
-     color:white;
+     color:white!important;
     }
     thead td{
      background:rgb(245, 245, 245);
@@ -106,7 +106,7 @@
 	}
 	
 	#paging li.on a {
-	    color: white;
+	    color: white!important;
 	}
 	#menu2>table{
 		margin-top:70px;
@@ -203,8 +203,8 @@
 	                    	</td>
 	                    	<td>
 	                    		<select name="order">
-	                    			<option value="0">많은순</option>
-	                    			<option value="1">적은순</option>
+	                    			<option value="0">높은순</option>
+	                    			<option value="1">낮은순</option>
 	                    		</select>
 	                    	</td>
 	                    </tr>
@@ -250,7 +250,7 @@
 	            </table>
             <br>
             <div align="center">
-           	    <button type="button" class="btn btn-sm" id="statSearchAll-btn" onclick="selectAllStat();">전체조회</button>
+           	    <a href="<%=contextPath %>/statistics.ad" class="btn btn-sm" id="statSearchAll-btn">전체조회</a>
             	<button type="button" class="btn btn-sm" id="statSearch-btn" onclick="selectStat();">조회</button>
                 <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
             </div>
@@ -365,14 +365,14 @@
                <thead>
                    <tr>
                        <td>클래스번호</td>
-                       <td>클래스명</td>
+                       <td width="150px">클래스명</td>
                        <td>튜터명</td>
-                       <td>찜수</td>
-                       <td>후기수</td>
-                       <td>평균별점</td>
-                       <td>누적 수강생</td>
-                       <td>누적 매출</td>
-                       <td>클래스 등록일</td>
+                       <td>찜</td>
+                       <td>후기</td>
+                       <td>별점</td>
+                       <td>누적수강생</td>
+                       <td>누적매출</td>
+                       <td>등록일</td>
                    </tr>
                </thead>
            		<tbody>
@@ -427,35 +427,6 @@
 	    			}
 	    		})
 	    	}
-		    function selectAllStat(){
-	    		$.ajax({
-	    			url:"<%=contextPath%>/selectMng.ref",
-	    			data:{
-	    				keywordType:"",
-	    				keyword:"",
-	    				dateType:"",
-	    				startDate:"",
-	    				endDate:"",
-	    				status:""    				
-	    			},
-	    			success:function(list){
-	    				if(list.length == 0){
-	    					let value = "<tr>"
-	    						+	"<td colspan='8'>조회된 내역이 없습니다.</td>"
-	    						+ "</tr>"
-	    					$("#statClass-list tbody").html(value);
-	    					$("#paging").html("");
-	    				} else{
-	    	 		    	   totalData = list.length;
-	    	 		           dataList=list;
-	    	 		           displayData(1, dataPerPage, totalData);
-	    	 		           paging(totalData, dataPerPage, pageCount, 1);
-	    				}
-	    			},error:function(){
-	    				console.log("ajax 통신실패");
-	    			}
-	    		})
-	    	}
 		    function displayData(currentPage, dataPerPage, totalData) {
 		    	  let value = "";
 		    	  currentPage = Number(currentPage);
@@ -471,6 +442,14 @@
 		    	  ) {
 		    		  value += "<tr>"
 							+ "<td>" + dataList[i].clNo + "</td>"
+							+ "<td>" + dataList[i].clName + "</td>"
+							+ "<td>" + dataList[i].tutorProfile + "</td>"
+							+ "<td>" + dataList[i].likeCount + "</td>"
+							+ "<td>" + dataList[i].reviewCount + "</td>"
+							+ "<td>" + dataList[i].clStarAvg + "</td>"
+							+ "<td>" + dataList[i].studentSum + "</td>"
+							+ "<td>" + dataList[i].priceSum + "</td>"
+							+ "<td>" + dataList[i].clDay + "</td>"
 							+ "<tr>"
 					}
 		    	  $("#statClass-list tbody").html(value);
