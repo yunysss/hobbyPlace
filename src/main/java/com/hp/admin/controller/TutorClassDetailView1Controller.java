@@ -22,16 +22,16 @@ import com.hp.tutor.model.service.TutorService;
 import com.hp.tutor.model.vo.Tutor;
 
 /**
- * Servlet implementation class TutorDetailViewController
+ * Servlet implementation class TutorClassDetailView1Controller
  */
-@WebServlet("/ttDetail.ad")
-public class TutorDetailViewController extends HttpServlet {
+@WebServlet("/ttClass1.ad")
+public class TutorClassDetailView1Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TutorDetailViewController() {
+    public TutorClassDetailView1Controller() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,39 +43,15 @@ public class TutorDetailViewController extends HttpServlet {
 		int memNo = Integer.parseInt(request.getParameter("no"));
 		
 		AdminService aService = new AdminService();
-		
-		//튜터기본정보조회1
 		Tutor t1 = new TutorService().selectTutorInfo(memNo);
-		
-		//튜터기본정보조회2
 		TutorList t2 = aService.selectTutorInfo(memNo);
-		
-		//클래스별누적후기
 		ArrayList<Review> clRevList = aService.selectClReview(memNo);
-		
-		//클래스별찜
 		ArrayList<Like> clLikeList = aService.selectclLike(memNo);
-		
-		//받은1:1문의
 		ArrayList<Qna> aList = new QnaService().ttSelectAllQna2(memNo);
-		
-		//작성한1:1문의
 		ArrayList<Qna> qList = new QnaService().ttSelectAllQna1(memNo);
-		
-		//진행중인클래스
 		ArrayList<Lesson> cAList = new LessonService().selectActClass(memNo);
-				
-		//승인대기클래스
-		ArrayList<Lesson> cWList = new LessonService().selectWaitingClass(memNo);
-		//반려된클래스
-		ArrayList<Lesson> cRList = new LessonService().selectRejectedClass(memNo);
-		
-		//받은후기
 		ArrayList<Review> revList = new ReviewService().selectReviewList(memNo);
-		
-		
-		
-		
+
 		request.setAttribute("t1", t1);
 		request.setAttribute("t2", t2);
 		request.setAttribute("clRevList", clRevList);
@@ -83,8 +59,6 @@ public class TutorDetailViewController extends HttpServlet {
 		request.setAttribute("aList", aList);
 		request.setAttribute("qList", qList);
 		request.setAttribute("cAList", cAList);
-		request.setAttribute("cWList", cWList);
-		request.setAttribute("cRList", cRList);
 		request.setAttribute("revList", revList);
 		request.getRequestDispatcher("views/admin/tutorDetailView.jsp").forward(request, response);
 	}

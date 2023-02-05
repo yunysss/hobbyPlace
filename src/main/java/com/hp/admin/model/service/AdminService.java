@@ -366,6 +366,14 @@ public class AdminService {
 		close(conn);
 		return qnaList;
 	}
+
+	public ArrayList<Register> selectAllRegister2(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Register> regList = new AdminDao().selectAllRegister2(conn, memNo);
+		
+		close(conn);
+		return regList;
+	}
 	
 
 }

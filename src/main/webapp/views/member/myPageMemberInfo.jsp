@@ -224,11 +224,11 @@
                 })
                 $("#selectMyQna").click(function(){
                     // 나의 문의 조회>>나의 문의내역 클릭시 이동할 페이지링크
-                    location.href = "<%=contextPath%>/.....";
+                	location.href = "<%=contextPath%>/qnaList.tee";
                 })
                 $("#insertMyQna").click(function(){
                     // 나의 문의 조회>> 문의하기 클릭시 이동할 페이지링크
-                    location.href = "<%=contextPath%>/.....";
+                	location.href = "<%=contextPath%>/...";
                 })
                 $("#viewMyClass").click(function(){
                     //마이클래스 클릭시 이동할 페이지링크

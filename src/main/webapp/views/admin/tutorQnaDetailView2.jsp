@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.hp.member.model.vo.Member, com.hp.qna.model.vo.Qna" %>
+<%@ page import="java.util.ArrayList, com.hp.admin.model.vo.TutorList, com.hp.tutor.model.vo.Tutor, com.hp.qna.model.vo.Qna" %>
 <%
-	Member m = (Member)request.getAttribute("m");
+	Tutor t1 = (Tutor)request.getAttribute("t1");
+	TutorList t2 = (TutorList)request.getAttribute("t2");
 	ArrayList<Qna> q = (ArrayList<Qna>)request.getAttribute("q");
 %>
 <!DOCTYPE html>
@@ -30,26 +31,15 @@ table{text-align: center; font-size:13px;}
 <body>
 <%@ include file="../common/adminMenubar.jsp" %>
 <div class="cWrap">
+       <h3><b><%=t1.getTtName()%></b>님이 작성한 문의</h3>
 
-  <h3>1:1 문의</h3>
 
-  <br>
-  
-  <ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page">튜터 QnA</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" aria-current="page" href="<%=contextPath%>/memQna2.ad?no=<%=m.getMemNo()%>">관리자 QnA</a>
-  </li>
-</ul>
 
-	<div class="tbBox">
+       	<div class="tbBox">
 	  <table class="table table-hover" id="tbd">
 	    <thead class="table-dark">
 	      <colgroup>
 	        <col style="width:80px;">
-	        <col style="width:120px;">
 	        <col style="width:200px;">
 	        <col style="width:400px;">
 	        <col style="width:150px;">
@@ -57,8 +47,7 @@ table{text-align: center; font-size:13px;}
 	      </colgroup>
 	      <tr>
 	        <th scope="col">Q.NO</th>
-	        <th scope="col">튜터이름</th>
-	        <th scope="col">클래스이름</th>
+	        <th scope="col">카테고리</th>
 	        <th scope="col">제목</th>
 	        <th scope="col">작성일</th>
 	        <th scope="col">답변여부</th>
@@ -71,11 +60,18 @@ table{text-align: center; font-size:13px;}
 	    <%}else {%>
 	    	<% for(int i=0;i<q.size(); i++) {%>
 		    	<tr onclick="modal();">
+		        <td><%=q.get(i).getqNo() %></td>
 		        <td>
-		        	<%=q.get(i).getqNo() %>
-		        </td>
-		        <td><%=q.get(i).getaMemNick() %></td>
-		        <td><%=q.get(i).getClName() %></td>
+					<%if(((Qna)q.get(i)).getqCategory().equals("10")) {%>
+				   		튜터
+				   	<%}else if(((Qna)q.get(i)).getqCategory().equals("20")) {%>
+				   		결제/환불
+				   	<%}else if(((Qna)q.get(i)).getqCategory().equals("30")) {%>
+				   		운영
+				   	<%}else if(((Qna)q.get(i)).getqCategory().equals("40")) {%>
+				   		기타
+				   	<%}%>
+				</td>
 		        <td><%=q.get(i).getqTitle() %></td>
 		        <td><%=q.get(i).getqDate() %></td>  
 		        <td>
@@ -89,15 +85,25 @@ table{text-align: center; font-size:13px;}
 		      
 		        <script>
 				   function modal(){
+					   	var ctg = "";
+					   	<%if(((Qna)q.get(i)).getqCategory().equals("10")) {%>
+					   		ctg = "카테고리 : 튜터";
+					   	<%}else if(((Qna)q.get(i)).getqCategory().equals("20")) {%>
+					   		ctg = "카테고리 : 결제/환불";
+					   	<%}else if(((Qna)q.get(i)).getqCategory().equals("30")) {%>
+					   		ctg = "카테고리 : 운영";
+					   	<%}else if(((Qna)q.get(i)).getqCategory().equals("40")) {%>
+					   		ctg = "카테고리 : 기타";
+					   	<%}%>
+					   	
 				    	 var dt = "";
-						 dt += "<tr><td colspan='2' style='width:50%'>" + "<%=m.getMemId() %>" + "</td><td colspan='2'>";
-						 dt += "<%=m.getMemNick() %>" + "</td></tr><tr><td style='width:75%' colspan='3'>";
+						 dt += "<tr><td colspan='4'>" + ctg + "</td></tr>";
+						 dt += "<tr><td style='width:75%' colspan='3'>";
 						 dt += "<%=q.get(i).getqTitle()%>" + "</td><td>" + "<%=q.get(i).getqDate()%>" + "</td>";
 						 dt += "</tr><tr rowspan='4'><td colspan='4'>" + "<%=q.get(i).getqContent()%>" + "</td></tr>";
 						 
 						 <%if(q.get(i).getaContent()!=null) {%>
 							 var dv = "";
-							 dv += "<tr><td style='width:25%'>" + "<%=q.get(i).getaMemNick() %>" + "</td><td colspan='3'>" + "<%=q.get(i).getClName() %>" + "</td></tr>";
 							 dv +="<tr><td style='width:75%' colspan='3'>" + "<%=q.get(i).getaTitle()%>" + "</td><td style='width:25%'>";
 							 dv +="<%=q.get(i).getaDate()%>" + "</td></tr>"; 
 						 	 dv +="<tr rowspan='4'><td colspan='4'>" + "<%=q.get(i).getaContent()%>" + "</td></tr>";
@@ -146,9 +152,6 @@ table{text-align: center; font-size:13px;}
 			    </div>
 			  </div>
 			</div>
- 
-
-
 
 
 

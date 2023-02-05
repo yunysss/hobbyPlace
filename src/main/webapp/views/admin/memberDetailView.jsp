@@ -263,7 +263,7 @@
 
         <div>
             <p class="ctTitle">수강한클래스</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="clViewMore();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -382,7 +382,7 @@
 
         <div>
             <p class="ctTitle">작성한 후기</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="revViewMore();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -393,7 +393,7 @@
                         <col style="width:125px;">
                     </colgroup>
                     <tr class="thd">
-                        <th>클래스명</th>
+                        <th>클래스</th>
                         <th>내용</th>
                         <th>평점</th>
                         <th>작성일</th>
@@ -441,7 +441,7 @@
 
         <div>
             <p class="ctTitle">찜한 클래스</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="likeViewMore();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -510,6 +510,15 @@
 	<script>
 		function qnaViewMore(){
 			location.href = "<%=contextPath%>/memQna1.ad?no=<%=m.getMemNo()%>";
+		}
+		function clViewMore(){
+			location.href = "<%=contextPath%>/memClass.ad?no=<%=m.getMemNo()%>";
+		}
+		function revViewMore(){
+			location.href = "<%=contextPath%>/memReview.ad?no=<%=m.getMemNo()%>";
+		}
+		function likeViewMore(){
+			location.href = "<%=contextPath%>/memLike.ad?no=<%=m.getMemNo()%>";
 		}
 	</script>
 

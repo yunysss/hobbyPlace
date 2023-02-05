@@ -288,8 +288,7 @@ public class QnaDao {
 						rset.getString("a_title"),
 						rset.getString("a_content"),
 						rset.getDate("a_date"),
-						rset.getInt("a_mem_no"),
-						rset.getString("a_status")));
+						rset.getInt("a_mem_no")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -319,14 +318,13 @@ public class QnaDao {
 						rset.getString("q_status"),
 						rset.getString("q_grade"),
 						rset.getString("q_category"),
-						rset.getInt("cl_no"),
+						rset.getString("cl_name"),
 						rset.getInt("q_mem_no"),
 						rset.getString("a_title"),
 						rset.getString("a_content"),
 						rset.getDate("a_date"),
 						rset.getInt("a_mem_no"),
-						rset.getString("a_status"),
-						rset.getString("q_memNick")));
+						rset.getString("MEM_NICKNAME")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

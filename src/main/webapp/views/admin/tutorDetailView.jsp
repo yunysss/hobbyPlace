@@ -151,7 +151,7 @@
 
         <div class="qnaList">
             <p class="ctTitle">받은 1:1 문의 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="aViewMore();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -169,14 +169,14 @@
                     </tr>
 					<% if(aList.isEmpty()){ %>
 		                <tr>
-		                    <td colspan="4">작성한 문의가 없습니다.</td>
+		                    <td colspan="4">받은 문의가 없습니다.</td>
 		                </tr>
 					<% }else { %>
 						<%if(aList.size() >= 3) {%>
-							<% for(int i=1; i<=3; i++) { %>
+							<% for(int i=1; i<3; i++) { %>
 				                <tr>
 				                    <td>
-				                    	<%=((Qna)aList.get(i)).getqCategory() %>
+				                    	<%=((Qna)aList.get(i)).getaMemNick() %>
 				                    </td>
 				                    <td><%=((Qna)aList.get(i)).getqTitle() %></td>
 				                    <td><%=((Qna)aList.get(i)).getqDate()  %></td>
@@ -194,7 +194,7 @@
 							<% for(int i=1; i<=2; i++) { %>
 				                <tr>
 				                    <td>
-				                    	<%=((Qna)aList.get(i)).getqCategory() %>
+				                    	<%=((Qna)aList.get(i)).getaMemNick() %>
 				                    </td>
 				                    <td><%=((Qna)aList.get(i)).getqTitle() %></td>
 				                    <td><%=((Qna)aList.get(i)).getqDate()  %></td>
@@ -210,7 +210,7 @@
 						<%} else {%>
 			                <tr>
 			                    <td>
-			                    	<%=((Qna)aList.get(0)).getqCategory() %>
+			                    	<%=((Qna)aList.get(0)).getaMemNick() %>
 			                    </td>
 			                    <td><%=((Qna)aList.get(0)).getqTitle() %></td>
 			                    <td><%=((Qna)aList.get(0)).getqDate() %></td>
@@ -233,7 +233,7 @@
         
         <div class="qnaList">
             <p class="ctTitle">작성한 1:1 문의 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="qViewMore();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -259,7 +259,15 @@
 								<% for(int i=1; i<=3; i++) { %>
 					                <tr>
 					                    <td>
-					                    	<%=((Qna)qList.get(i)).getaMemNick() %>
+					                    	<%if(((Qna)qList.get(i)).getqCategory().equals("10")) {%>
+										   		튜터
+										   	<%}else if(((Qna)qList.get(i)).getqCategory().equals("20")) {%>
+										   		결제/환불
+										   	<%}else if(((Qna)qList.get(i)).getqCategory().equals("30")) {%>
+										   		운영
+										   	<%}else if(((Qna)qList.get(i)).getqCategory().equals("40")) {%>
+										   		기타
+										   	<%}%>
 					                    </td>
 					                    <td><%=((Qna)qList.get(i)).getqTitle() %></td>
 					                    <td><%=((Qna)qList.get(i)).getqDate()  %></td>
@@ -277,7 +285,15 @@
 								<% for(int i=1; i<=2; i++) { %>
 					                <tr>
 					                    <td>
-					                    	<%=((Qna)qList.get(i)).getaMemNick() %>
+					                    	<%if(((Qna)qList.get(i)).getqCategory().equals("10")) {%>
+										   		튜터
+										   	<%}else if(((Qna)qList.get(i)).getqCategory().equals("20")) {%>
+										   		결제/환불
+										   	<%}else if(((Qna)qList.get(i)).getqCategory().equals("30")) {%>
+										   		운영
+										   	<%}else if(((Qna)qList.get(i)).getqCategory().equals("40")) {%>
+										   		기타
+										   	<%}%>
 					                    </td>
 					                    <td><%=((Qna)qList.get(i)).getqTitle() %></td>
 					                    <td><%=((Qna)qList.get(i)).getqDate()  %></td>
@@ -293,7 +309,15 @@
 							<%} else {%>
 				                <tr>
 				                    <td>
-				                    	<%=((Qna)qList.get(0)).getaMemNick() %>
+				                    	<%if(((Qna)qList.get(0)).getqCategory().equals("10")) {%>
+									   		튜터
+									   	<%}else if(((Qna)qList.get(0)).getqCategory().equals("20")) {%>
+									   		결제/환불
+									   	<%}else if(((Qna)qList.get(0)).getqCategory().equals("30")) {%>
+									   		운영
+									   	<%}else if(((Qna)qList.get(0)).getqCategory().equals("40")) {%>
+									   		기타
+									   	<%}%>
 				                    </td>
 				                    <td><%=((Qna)qList.get(0)).getqTitle() %></td>
 				                    <td><%=((Qna)qList.get(0)).getqDate() %></td>
@@ -318,7 +342,7 @@
         
         <div>
             <p class="ctTitle">진행중인 클래스</p>
-            <p class="viewMore">전체보기>></p>  
+            <p class="viewMore" onclick="clViewMore1();">전체보기>></p>  
             <div id="activeClass">
             	<%if(cAList.isEmpty()){ %>
             	진행중인 클래스 없음
@@ -350,96 +374,10 @@
         </div>       
         
         <br><br><br>
-
-        <div>
-            <p class="ctTitle">승인 대기 클래스</p>
-            <p class="viewMore">전체보기>></p>
-            
-            <div class="tbList">
-                <table class="listTable">
-                    <colgroup>
-                        <col style="width:250px;">
-                        <col style="width:400px;">
-                        <col style="width:150px;">
-                        <col style="width:150px;">
-                    </colgroup>
-                    <tr class="thd">
-                        <th>카테고리</th>
-                        <th>클래스명</th>
-                        <th>신청일</th>
-                        <th>진행상태</th>
-                    </tr>
-                    <tbody>
-            		<% if(cWList.isEmpty()){ %>
-			                <tr>
-			                    <td colspan="4">받은 문의가 없습니다.</td>
-			                </tr>
-						<% }else { %>
-							<%if(cWList.size() >= 3) {%>
-								<% for(int i=1; i<=3; i++) { %>
-					                <tr>
-					                    <td>
-					                    	<%=cWList.get(i).getCtName()%> > <%=cWList.get(i).getCtDname()%>
-					                    </td>
-					                    <td>
-					                    	<%=cWList.get(i).getClName() %>
-					                    </td>
-					                    <td>
-					                    	<%=cWList.get(i).getEnrollDate() %>
-					                    </td>
-					                    <td>
-					                    	심사중
-					                    </td>
-				               		</tr>
-			                	<% } %>
-			                	
-							<%} else if(cWList.size() == 2) {%>
-								<% for(int i=1; i<=2; i++) { %>
-					                <tr>
-					                    <td>
-					                    	<%=cWList.get(i).getCtName()%> > <%=cWList.get(i).getCtDname()%>
-					                    </td>
-					                    <td>
-					                    	<%=cWList.get(i).getClName() %>
-					                    </td>
-					                    <td>
-					                    	<%=cWList.get(i).getEnrollDate() %>
-					                    </td>
-					                    <td>
-					                    	심사중
-					                    </td>
-					                </tr>
-			                	<% } %>
-							<%} else {%>
-				                <tr>
-				                    <td>
-				                    	<%=cWList.get(0).getCtName()%> > <%=cWList.get(0).getCtDname()%>
-				                    </td>
-				                    <td>
-				                    	<%=cWList.get(0).getClName() %>
-				                    </td>
-				                    <td>
-				                    	<%=cWList.get(0).getEnrollDate() %>
-				                    </td>
-				                    <td>
-				                    	심사중
-				                    </td>
-				                </tr>
-			                <% } %>
-			                
-		                <% } %>
-	            	
-                    </tbody>
-                    
-                </table>   
-            </div>
-        </div>
-        
-        <br><br><br>
         
         <div>
             <p class="ctTitle">비활성 클래스</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="clViewMore2();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -458,7 +396,7 @@
                     <tbody>
                        <% if(cRList.isEmpty()){ %>
 			                <tr>
-			                    <td colspan="4">받은 문의가 없습니다.</td>
+			                    <td colspan="4">비활성 클래스가 없습니다.</td>
 			                </tr>
 						<% }else { %>
 							<%if(cRList.size() >= 3) {%>
@@ -474,10 +412,12 @@
 					                    	<%=cRList.get(i).getEnrollDate() %>
 					                    </td>
 					                    <td>
-					                    	<%if(cRList.get(i).getClStatus()=="1") {%>
+					                    	<%if(cRList.get(0).getClStatus()=="1") {%>
 					                    		신청반려
-					                    	<%} else {%>
+					                    	<%} else if(cRList.get(0).getClStatus()=="3"){%>
 					                    		판매중지
+					                    	<%} else if(cRList.get(0).getClStatus()=="0"){%>
+					                    		검수요청
 					                    	<%} %>
 					                    </td>
 				               		</tr>
@@ -496,10 +436,12 @@
 					                    	<%=cRList.get(i).getEnrollDate() %>
 					                    </td>
 					                    <td>
-					                    	<%if(cRList.get(i).getClStatus()=="1") {%>
+					                    	<%if(cRList.get(0).getClStatus()=="1") {%>
 					                    		신청반려
-					                    	<%} else {%>
+					                    	<%} else if(cRList.get(0).getClStatus()=="3"){%>
 					                    		판매중지
+					                    	<%} else if(cRList.get(0).getClStatus()=="0"){%>
+					                    		검수요청
 					                    	<%} %>
 					                    </td>
 					                </tr>
@@ -518,8 +460,10 @@
 				                    <td>
 				                    	<%if(cRList.get(0).getClStatus()=="1") {%>
 				                    		신청반려
-				                    	<%} else {%>
+				                    	<%} else if(cRList.get(0).getClStatus()=="3"){%>
 				                    		판매중지
+				                    	<%} else if(cRList.get(0).getClStatus()=="0"){%>
+				                    		검수요청
 				                    	<%} %>
 				                    </td>
 				                </tr>
@@ -535,7 +479,7 @@
 
         <div>
             <p class="ctTitle">받은 후기</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="revViewMore();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -644,6 +588,22 @@
 
         <br><br><br><br><br><br>
 	</div>
-
+<script>
+		function aViewMore(){
+			location.href = "<%=contextPath%>/ttQna1.ad?no=<%=t1.getMemNo()%>";
+		}
+		function qViewMore(){
+			location.href = "<%=contextPath%>/ttQna2.ad?no=<%=t1.getMemNo()%>";
+		}
+		function clViewMore1(){
+			location.href = "<%=contextPath%>/ttClass1.ad?no=<%=t1.getMemNo()%>";
+		}
+		function clViewMore2(){
+			location.href = "<%=contextPath%>/ttClass2.ad?no=<%=t1.getMemNo()%>";
+		}
+		function revViewMore(){
+			location.href = "<%=contextPath%>/ttReview.ad?no=<%=t1.getMemNo()%>";
+		}
+	</script>
 </body>
 </html>
