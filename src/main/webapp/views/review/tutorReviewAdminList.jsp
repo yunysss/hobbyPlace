@@ -98,7 +98,7 @@
                 	<tr>
                     	<td><b>평점</b></td>
                    		<td>
-                   		<input type="checkbox" id="chkAll" checked><label for="chkAll">전체</label>
+                   		<input type="checkbox" id="chkAll"><label for="chkAll">전체</label>
                    		<input type="checkbox" name="reStar" value="1" id="1star">&nbsp;<label for="1star">⭐</label>
                         <input type="checkbox" name="reStar" value="2" id="2star">&nbsp;<label for="2star">⭐⭐</label>
                         <input type="checkbox" name="reStar" value="3" id="3star">&nbsp;<label for="3star">⭐⭐⭐</label>
@@ -136,6 +136,21 @@
 				$("input:text").val("");
 				$(".search-area input:checkbox").removeAttr("checked");
 			}
+			$(function(){
+				$("#chkAll").click(function() {
+					if($("#chkAll").is(":checked")) $("input[name=reStar]").prop("checked", true);
+					else $("input[name=reStar]").prop("checked", false);
+				});
+
+				$("input[name=reStar]").click(function() {
+					var total = $("input[name=reStar]").length;
+					var checked = $("input[name=reStar]:checked").length;
+
+					if(total != checked) $("#chkAll").prop("checked", false);
+					else $("#chkAll").prop("checked", true); 
+				});
+			})
+			
 		</script>
 
         <div class=" result-area">
