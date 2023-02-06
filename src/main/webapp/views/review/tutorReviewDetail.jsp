@@ -16,7 +16,7 @@
 	.content>*{font-size:small;}
     .review-table thead{text-align: center;}
     .review-table td{padding:10px;}
-	img{width:100px; height:100px;}
+	.content img{width:100px; height:100px;}
 </style>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>

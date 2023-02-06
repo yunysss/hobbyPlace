@@ -49,6 +49,9 @@
     thead td{
         background:rgb(245, 245, 245);
        }
+       .result-table>tbody>tr{
+    	cursor:pointer;
+    }
     #revContent , #classTitle{
         height: 40px;
         white-space: nowrap;
@@ -302,7 +305,9 @@
 	      		    paging(totalData, dataPerPage, pageCount, selectedPage);
 	      		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
 	      		  });
-	  		  
+	      		$(document).on("click", ".result-table>tbody>tr", function(){
+			    	 location.href = "<%=contextPath%>/adAdDetail.rev?reNo=" + $(this).children().eq(0).text();
+			     })
 	  		}
         </script>
     </div>
