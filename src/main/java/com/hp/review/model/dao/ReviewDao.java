@@ -252,21 +252,7 @@ public class ReviewDao {
 }
 	
 	
-	/**
-	 * @author 수정
-	 * @param conn
-	 * @param r
-	 * @return 관리자페이지 리뷰 검색
-	 */
-	public ArrayList<Review> selectAdminSearchReview(Connection conn, Review r) {
-		ArrayList<Review> revList = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectAdminSearchReview");
-		
-		
-		return null;
-	}
+
 	
 	public ArrayList<Review> selectTutorReview(Connection conn, Review r){
 		ArrayList<Review> list = new ArrayList<>();
