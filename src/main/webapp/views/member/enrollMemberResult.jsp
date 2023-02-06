@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <!-- Popper JS -->
@@ -70,7 +70,7 @@
 
             <br><br><br>
 			<button type="button" class="moveToLogin" onclick="login();">로그인하러 가기</button>
-            <button type="button" class="moveToGuide" onclick="userGuide();"> 이용안내 페이지 바로가기 </button>
+            
             <br><br><br><br><br><br><br><br><br>
         </div>
 

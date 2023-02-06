@@ -376,7 +376,7 @@
                             <input type="text" id="phone" class="fillOutForms" name="phone" onclick="check();" value="<%=phone%>" required>
                         </td>
                         <td class="td3">
-                            <button type="button" class="doubleCheck phoneDoubleCheck" disabled>인증번호 받기</button>
+                            <button type="button" class="doubleCheck phoneDoubleCheck" onclick="sms();" disabled>인증번호 받기</button>
                         </td>
                     </tr>
                     <tr>
@@ -384,6 +384,53 @@
                         <td class="td2 checkAlert phoneTest"></td>
                         <td></td>
                     </tr>
+                    <script>
+	                    var code = "";
+	 		       		function sms(){
+	 		       			var $phone = $("#phone").val();
+	 		       			$.ajax({
+	 		       				url: "<%=contextPath%>/certifiPhone2.me",
+	 		       				data:{
+	 		       					phone:$phone
+	 		       				},
+	 		       				type:"post",
+	 		       				success:function(result){
+	 		       					if(result=="NNNNN"){//가입된 회원
+	 		       						alert("이미 가입되어있는 회원입니다");
+	 		       						
+	 		       					}else{//가입 안된 회원					
+	 		       						$("#phoneModal").modal('show');
+	 		       						code = result.key;
+	 		                            
+	 		       					}
+	 		       				},
+	 		       				error: function(){
+	 		       					console.log("휴대폰인증 ajax 통신 실패");
+	 		       				}
+	 		       			});
+	 		       		}
+	 		       		
+	 		       		$(function(){
+	 		        		$(".sendAgain").on("click", $(".sendAgain"), function(){
+	 		        			$(".cCode").val('');
+	 		        			alert("인증코드가 재발송되었습니다.");
+	 		        		})
+	 		        		$(".submitCode").on("click", $(".submitCode"), function(){
+	 		        			if(code == $(".cCode").val()) {
+	 		        				$(".cCode").val('');
+	 		        				$("#phoneModal").modal('hide');
+	 		        				$("#phone").attr("readonly", true);
+	 		        				$(".phoneDoubleCheck").attr("disabled");
+			   						$(".phoneDoubleCheck").css('cursor', 'default').css('color', 'rgb(35, 104, 116)').text("인증 완료");
+	 		        				alert("✔인증완료");
+	 		        			}else {
+	 		        				$(".cCode").val('');
+	 		        				alert("인증코드가 일치하지 않습니다.");
+	 		        			}
+	 		        			  
+	 		                 })
+	 		        	})
+                    </script>
                     <tr>
                         <td class="td1" rowspan="3">주소</td>
                         <td class="td2">
@@ -650,7 +697,7 @@
         $(function(){
            let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{6,20}$/i); 
            let nickCheck = RegExp(/^[a-z\d가-힣]{1,8}$/i);
-           let phoneCheck = RegExp(/^[0][1][\d]-[\d]{3,4}-[\d]{3,4}$/);
+           let phoneCheck = RegExp(/^[0][1][\d]{8,9}$/);
            let emailCheck = RegExp(/^[a-z\d+-_.]+@[a-z\d-]+\.[a-z\d.]+$/i);
 
             $("#newPwd").keyup(function(){
@@ -813,7 +860,72 @@
 	    </div>
 	  </div>
 	  
-
+	<!--휴대폰 인증번호 modal -->
+	<div class="modal" id="phoneModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	
+	      <div class="modal-header">
+	        <h6 class="modal-title">인증번호 입력</h6>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        <input style="margin-left:150px;" type="text" class="cCode cInput" placeholder="6자리 입력" required>
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="sendAgain cCode btn-secondary" onclick="sms();">재발송</button>
+	        <button type="button" class="submitCode btn-success">확인</button>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!--휴대폰 인증번호 modal -->
+	<div class="modal" id="phoneModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	
+	      <div class="modal-header">
+	        <h6 class="modal-title">인증번호 입력</h6>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        <input style="margin-left:150px;" type="text" class="cCode cInput" placeholder="6자리 입력" required>
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="sendAgain cCode btn-secondary" onclick="sms();">재발송</button>
+	        <button type="button" class="submitCode btn-success">확인</button>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- 휴대폰인증성공모달 -->
+	<div class="modal" id="successModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+		<!-- Modal body -->
+	      <div class="modal-body">
+	        ✔인증 성공!l
+	      </div>
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	  
 	  
 	
