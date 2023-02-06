@@ -342,7 +342,32 @@
 		   AND MEM_NO = ?
 	</entry>
 	
+	<entry key="phoneCheckForCertifi">
+		SELECT
+		       MEM_NO
+		     , MEM_PHONE
+		  FROM MEMBER
+		 WHERE MEM_PHONE = ?
+           AND MEM_STATUS = 'Y'
+	</entry>
 
+	<entry key="regCount">
+		SELECT COUNT(REG_NO) "REG"
+		  FROM REGISTER
+		 WHERE MEM_NO = ?
+		   AND REG_STA = 2
+	</entry>
 	
+	<entry key="likeCount">
+		SELECT COUNT (LIKE_DATE) "LIKE"
+		  FROM "LIKE"
+		 WHERE MEM_NO = ?
+	</entry>
 	
+	<entry key="revCount">
+		SELECT COUNT(RE_NO) "REV"
+		  FROM REVIEW W
+		  JOIN REGISTER R ON (W.REG_NO = R.REG_NO)
+		 WHERE R.MEM_NO = ?
+	</entry>
 </properties>

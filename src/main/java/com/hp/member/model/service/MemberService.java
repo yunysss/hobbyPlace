@@ -12,6 +12,7 @@ import com.hp.member.model.dao.MemberDao;
 import com.hp.member.model.vo.Like;
 import com.hp.member.model.vo.Member;
 import com.hp.register.model.vo.Register;
+import com.hp.review.model.vo.Review;
 
 public class MemberService {
 
@@ -291,6 +292,42 @@ public class MemberService {
 		int likeStatus = new MemberDao().selectLikeStatus(conn, clNo, memNo);
 		close(conn);
 		return likeStatus;
+	}
+
+
+
+	public Member phoneCheckForCertifi(String phone) {
+		Connection conn = getConnection();
+		Member m = new MemberDao().phoneCheckForCertifi(conn, phone);
+		close(conn);
+		return m;
+	}
+
+
+
+	public int regCount(int no) {
+		Connection conn = getConnection();
+		int r = new MemberDao().regCount(conn, no);
+		close(conn);
+		return r;
+	}
+
+
+
+	public int likeCount(int no) {
+		Connection conn = getConnection();
+		int l = new MemberDao().likeCount(conn, no);
+		close(conn);
+		return l;
+	}
+
+
+
+	public int revCount(int no) {
+		Connection conn = getConnection();
+		int w = new MemberDao().revCount(conn, no);
+		close(conn);
+		return w;
 	}
 
 

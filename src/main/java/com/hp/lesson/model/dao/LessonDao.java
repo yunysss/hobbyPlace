@@ -699,6 +699,7 @@ private Properties prop = new Properties();
 		try {
 			pstmt= conn.prepareStatement(sql);
 			pstmt.setInt(1, clNo);
+			pstmt.setInt(2, clNo);
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
@@ -711,7 +712,8 @@ private Properties prop = new Properties();
 						            rset.getInt("mem_no"),
 						            rset.getString("cl_name"),
 						            rset.getString("mem_nickname"),
-						            rset.getString("mem_profile")
+						            rset.getString("mem_profile"),
+						            rset.getString("titleimg")
 						           
 
 						));
@@ -1536,6 +1538,12 @@ public ArrayList<Lesson> selectRejectedClass(Connection conn, int memNo) {
 }
 	
 
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return 클래스 삭제 
+	 */
 	public int deleteClass(Connection conn, int clNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -1556,6 +1564,13 @@ public ArrayList<Lesson> selectRejectedClass(Connection conn, int memNo) {
 		
 	}
 	
+	/**
+	 * 
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return 수강신청여부 
+	 */
 	public int selectRegisterCount(Connection conn, int clNo) {
 		int count = 0;
 		PreparedStatement pstmt= null;
@@ -1578,6 +1593,8 @@ public ArrayList<Lesson> selectRejectedClass(Connection conn, int memNo) {
 		return count;
 		
 	}
+	
+	
 	
 
 }
