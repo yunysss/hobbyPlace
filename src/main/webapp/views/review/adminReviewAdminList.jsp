@@ -245,7 +245,7 @@
 							+	"<td>" + dataList[i].reviewNo + "</td>"
 							+	"<td>" + dataList[i].reviewUpDate + "</td>"
 							+	"<td>" + dataList[i].memProfile + "</td>"
-							+	"<td>" + dataList[i].reviewContent + "</td>"
+							+	"<td>" + dataList[i].reviewContent.substr(0, 20) + "...</td>"
 							+	"<td>" + dataList[i].reviewStar + "</td>"
 							+	"<td>" + dataList[i].memNickName + "</td>"
 							+	"<td>" + dataList[i].reviewDate + "</td>"

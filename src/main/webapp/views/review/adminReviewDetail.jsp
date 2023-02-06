@@ -27,7 +27,9 @@
         <hr>
         	<div class="btn-area" align="right">
                 <button class="btn btn-sm btn-secondary" id="list-btn" onclick="history.back();">목록</button>
-                <a class="btn btn-sm" id="del-btn" style="background:rgb(22, 160, 133); color:white;">삭제</a>
+                <% if(r.getReviewStatus().equals("등록")) {%>
+                	<a class="btn btn-sm" id="del-btn" style="background:rgb(22, 160, 133); color:white;" href="<%=contextPath %>/deleteReview.ad?reNo=<%=r.getReviewNo()%>">삭제</a>
+            	<% } %>
             </div>
             <br>
             <table class="review-table" border="1" align="center" width="100%">
