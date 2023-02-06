@@ -386,4 +386,14 @@ SELECT *
  ORDER
     BY ENROLL_DATE DESC
 </entry>
+
+<entry key="keywordFaqTutor">
+SELECT *
+  FROM FAQ
+ WHERE STATUS = 'Y'
+   AND GRADE = '2'
+   AND QUESTION LIKE ?
+ ORDER
+    BY ENROLL_DATE DESC
+</entry>
 </properties>
