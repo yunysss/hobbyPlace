@@ -301,4 +301,15 @@ public class NoticeService {
 		close(conn);
 		return result;
 	}
+	
+	public ArrayList<Faq> keywordFaqTutee(String keyword){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Faq> list = new NoticeDao().keywordFaqTutee(conn, keyword);
+		
+		close(conn);
+		
+		return list;
+	}
 }

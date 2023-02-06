@@ -1,26 +1,29 @@
-package com.hp.qna.controller;
+package com.hp.customerService.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.qna.model.service.QnaService;
-import com.hp.qna.model.vo.Qna;
+import com.hp.customerService.model.Service.NoticeService;
+import com.hp.customerService.model.vo.Faq;
+import com.hp.customerService.model.vo.Notice;
 
 /**
- * Servlet implementation class TutorQnaInsertAnswerController
+ * Servlet implementation class FaqKeywordController
  */
-@WebServlet("/insertAnswer.tor")
-public class TutorQnaInsertAnswerController extends HttpServlet {
+@WebServlet("/searchFaq.tee")
+public class FaqKeywordController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TutorQnaInsertAnswerController() {
+    public FaqKeywordController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,23 +32,15 @@ public class TutorQnaInsertAnswerController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		request.setCharacterEncoding("UTF-8");
-		int no = Integer.parseInt(request.getParameter("no"));
+		String keyword = request.getParameter("keyword");
 		
-		String title = request.getParameter("atitle");
-		String content = request.getParameter("acontent");
+		ArrayList<Faq> list = new NoticeService().keywordFaqTutee(keyword);
 		
-		Qna q = new Qna();
-		q.setqNo(no);
-		q.setaTitle(title);
-		q.setaContent(content);
+		request.setAttribute("list", list);
 		
-		int result = new QnaService().updateAnswer(q);
-		
-		if(result>0) {
-			response.sendRedirect(request.getContextPath()+"/qnaPage.tor");
-		}
+		request.getRequestDispatcher("views/customerService/tuteeFaqKeywordList.jsp").forward(request, response);
 		
 	}
 

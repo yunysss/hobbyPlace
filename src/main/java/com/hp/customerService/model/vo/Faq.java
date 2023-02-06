@@ -36,6 +36,21 @@ public class Faq {
 
 
 
+	public Faq(int faqNO, String memNO, String grade, String question, String answer, Date enrollDate,
+			Date updateDate) {
+		super();
+		this.faqNO = faqNO;
+		this.memNO = memNO;
+		this.grade = grade;
+		this.question = question;
+		this.answer = answer;
+		this.enrollDate = enrollDate;
+		this.updateDate = updateDate;
+	}
+
+
+
+
 	public Faq(int faqNO, String question) {
 		super();
 		this.faqNO = faqNO;

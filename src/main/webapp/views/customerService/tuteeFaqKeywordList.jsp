@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, com.hp.customerService.model.vo.*, com.hp.common.model.vo.PageInfo"%>
+    import="java.util.ArrayList, com.hp.customerService.model.vo.*"%>
     
 <%
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
    	ArrayList<Faq> list  = (ArrayList<Faq>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
@@ -25,10 +25,7 @@
             margin: auto;
             margin-top: 100px;
         }
-        .paging-area{
-            text-align: center;
-            
-        }
+        
         #q{
             background-color: lightgray; 
             max-width: fit-content;
@@ -44,8 +41,8 @@
 <%@ include file="../common/tuteeMenubar.jsp" %>
 
 <div class="outer">
-        	<br>
-        	<h1><b onclick="location.href='<%=contextPath%>/cs.tee'">튜티 고객센터</b></h1> 
+        <br>
+        <h1><b onclick="location.href='<%=contextPath%>/cs.tee'">튜티 고객센터</b></h1> 
             <br><br>  
 			
 			<form action="<%=request.getContextPath()%>/searchFaq.tee" method="post" class="keyword">
@@ -84,24 +81,6 @@
             	<%} %>
             <%} %>
             
-
-            <div class="paging-area">
-
-                <%if(pi.getCurrentPage()!=1){ %>
-	            	<button style="border: none; " 
-	            			onclick="location.href='<%=request.getContextPath()%>/faq.tee?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
-	            <%} %>
-	            <%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++){ %>
-	            	<button style="background-color:rgb(22, 160, 133); color:white; border:none"
-	            			onclick="location.href='<%=request.getContextPath()%>/faq.tee?cpage=<%=i%>';"><%=i %></button>
-	            <%} %>
-	            <%if(pi.getCurrentPage()!= pi.getMaxPage()) {%>
-	            	<button style="border: none;"
-	            			onclick="location.href='<%=request.getContextPath()%>/faq.tee?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
-				<%} %>
-    
-            </div>
-
 
     </div>
     
