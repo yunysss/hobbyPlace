@@ -376,4 +376,46 @@ INSERT
 		   SET STATUS = 'N'
 		 WHERE FAQ_NO = ?
 </entry>
+
+<entry key="keywordFaqTutee">
+SELECT *
+  FROM FAQ
+ WHERE STATUS = 'Y'
+   AND GRADE = '1'
+   AND QUESTION LIKE ?
+ ORDER
+    BY ENROLL_DATE DESC
+</entry>
+
+<entry key="keywordFaqTutor">
+SELECT *
+  FROM FAQ
+ WHERE STATUS = 'Y'
+   AND GRADE = '2'
+   AND QUESTION LIKE ?
+ ORDER
+    BY ENROLL_DATE DESC
+</entry>
+
+<entry key="keywordNoticeTutee">
+SELECT
+        *
+  FROM NOTICE
+ WHERE NT_STA='Y'
+   AND GRADE = '1'
+   AND NT_TITLE LIKE ?
+ ORDER 
+    BY ENROLL_DATE DESC
+</entry>
+
+<entry key="keywordNoticeTutor">
+SELECT
+        *
+  FROM NOTICE
+ WHERE NT_STA='Y'
+   AND GRADE = '2'
+   AND NT_TITLE LIKE ?
+ ORDER 
+    BY ENROLL_DATE DESC
+</entry>
 </properties>

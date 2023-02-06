@@ -113,8 +113,20 @@
                         <div>
                             <p class="clName"><%=list.get(i).getClName() %></p>
                         </div>
+                          	
                         <div>
-                           
+                        	<%if(list.get(i).getReviewStar()==1){ %>
+                        		⭐
+                        	<%} else if(list.get(i).getReviewStar()==2){ %>
+                        		⭐⭐
+                        	<%} else if(list.get(i).getReviewStar()==3){ %>
+                        		⭐⭐⭐
+                        	<%} else if(list.get(i).getReviewStar()==4){ %>
+                        		⭐⭐⭐⭐
+                        	<%} else {%>
+                        		⭐⭐⭐⭐⭐
+                        	<%} %>
+                        	
                         </div>
                     </div>
 
@@ -122,6 +134,8 @@
                         <img src="<%=contextPath%>/resources/images/right_arrow.png" onclick="">
                     </div>
                 </div>
+               
+               
                 <hr style="margin:0%">
                 <div class="review-content">
                     <p><%=list.get(i).getReviewDate() %></p>
