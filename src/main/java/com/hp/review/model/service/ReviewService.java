@@ -77,13 +77,8 @@ public class ReviewService {
 
 		}
 
-	public ArrayList<Review> selectAdminSearchReview(Review r) {
-		Connection conn = getConnection();
-		ArrayList<Review> revList = new ReviewDao().selectAdminSearchReview(conn, r);
-		close(conn);
-		return revList;
-
-	}
+	
+	
 	
 	public Register selectEnrollFormClass(int regNo) {
 		Connection conn = getConnection();
@@ -93,11 +88,17 @@ public class ReviewService {
 	}
 
 	
-
 	
 	public ArrayList<Review> selectTutorReview(Review r){
 		Connection conn = getConnection();
 		ArrayList<Review> list = new ReviewDao().selectTutorReview(conn, r);
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Review> selectAdminSearchReview(Review r){
+		Connection conn = getConnection();
+		ArrayList<Review> list = new ReviewDao().selectAdminSearchReview(conn, r);
 		close(conn);
 		return list;
 	}

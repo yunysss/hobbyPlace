@@ -204,21 +204,7 @@ public class ReviewDao {
 	
 		}
 	
-	/**
-	 * @author 수정
-	 * @param conn
-	 * @param r
-	 * @return 관리자페이지 리뷰 검색
-	 */
-	public ArrayList<Review> selectAdminSearchReview(Connection conn, Review r) {
-		ArrayList<Review> revList = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectAdminSearchReview");
-		
-		
-		return null;
-	}
+
 
 	
 	public Register selectEnrollFormClass(Connection conn, int regNo) {
@@ -251,21 +237,49 @@ public class ReviewDao {
 	return er;
 }
 	
-	
-	/**
-	 * @author 수정
-	 * @param conn
-	 * @param r
-	 * @return 관리자페이지 리뷰 검색
-	 */
 	public ArrayList<Review> selectAdminSearchReview(Connection conn, Review r) {
-		ArrayList<Review> revList = new ArrayList<>();
+		ArrayList<Review> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectAdminSearchReview");
 		
 		
-		return null;
+		try {
+			if(!r.getTtName().equals("")) {
+				sql += "AND TT_NAME LIKE '%" + r.getTtName() + "%'";
+			}
+			if(r.getReStar().length() != 0) {
+				sql += "AND RE_STAR IN (" + r.getReStar();
+			    sql = sql.substring(0,sql.length()-1);
+				sql += ")"; 
+			}
+			if(!r.getClName().equals("")) {
+				sql += "AND CL_NAME LIKE '%" + r.getClName() + "%'";
+			}
+			if(!r.getReviewContent().equals("")) {
+				sql += "AND CONTENT LIKE '%" + r.getReviewContent() + "%'";
+			}
+			if(!r.getMemName().equals("")) {
+				sql += "AND MEM_NAME LIKE '%" + r.getMemName() + "%'";
+			}
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Review(rset.getInt("re_no"),
+						            rset.getString("content"),
+						            rset.getInt("re_star"),
+						            rset.getString("re_date"),
+						            rset.getString("cl_name"),
+						            rset.getString("mem_name"),
+						            rset.getString("tt_name")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 	public ArrayList<Review> selectTutorReview(Connection conn, Review r){
