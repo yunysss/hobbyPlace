@@ -55,6 +55,11 @@
     }
     #home {width:20px; height:20px; vertical-align: text-bottom;}
     #home:hover{cursor:pointer;}
+    .outer{
+            width: 800px;
+            margin: auto;
+           
+        }
 </style>
 </head>
 <body>
@@ -97,7 +102,7 @@
                 })
                 $("#insertMyQna").click(function(){
                     // 나의 문의 조회>> 문의하기 클릭시 이동할 페이지링크
-                    location.href = "<%=contextPath%>/.....";
+                    location.href = "<%=contextPath%>/qnaEnroll.tee";
                 })
                 $("#viewMyClass").click(function(){
                     //마이클래스 클릭시 이동할 페이지링크
@@ -147,13 +152,64 @@
 	        		})
 	        	})
 	        </script>
-            <div class="contentMain" align="center">
+            <div class="contentMain" >
                 
-                문의하기
+               <div class="outer">
+
+        <div>
+            <a href="" style="color: black; font-size: large; font-weight: 800;" >
+                문의하기</a>
+        </div>
+
+        <br>
+
+        <form action="" method="post">
+            
+            <table>
+                <tr>
+                    <th style="background-color: lightgray; width: 100px; text-align: center;">
+                        제목
+                    </th>
+                    <td >
+                        <input type="text" style="width: 700px; height: 50px;resize: none; border-color: lightgray;" required placeholder="제목을 입력하세요.">
+                    </td>
+                </tr>
+        
+            </table>
+            <br>
+            <table>
+                <tr>
+                    <th style="background-color: lightgray; width: 100px; height: 50px; text-align: center;">분류</th>
+                    <td>
+                        <select name="Qcategory" id="answerNo" style="border-color: lightgray; width: 300px; height: 50px;">
+                           
+                            <option value="0">관리자</option>
+                            <option value="2">튜터</option>
+                        </select>
+                    </td>
+                    <td><select name="aMemNo" id="aMemNo" style="border-color: lightgray; width: 300px; height: 50px;">
+                        <option value="">선택하세요</option>
+                    </select></td>
+                </tr>
+            </table>
+
+            <br>
+            <table>
+                <tr>
+                    <td><textarea name="" rows="10" required style="resize:none; width:800px; height: 500px; border-color: lightgray;"  ></textarea></td>
+                </tr>
+
+            </table>
+            <br>
+
+            <button type="reset" style="background-color:lightgray; border:none; width: 120px; height: 50px; ">취소</button>
+            <button type="submit" style="background-color:rgb(22, 160, 133); color:white; border:none; width: 120px; height: 50px; float:right">등록하기</button>
+
+        </form>
+
+
+    </div>
                 
-                
-                
-                    
                 
             </div>
         </div>

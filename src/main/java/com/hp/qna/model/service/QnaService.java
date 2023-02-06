@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.hp.customerService.model.dao.NoticeDao;
+import com.hp.lesson.model.vo.Lesson;
 import com.hp.member.model.vo.Member;
 import com.hp.qna.model.dao.QnaDao;
 import com.hp.qna.model.vo.Qna;
@@ -110,11 +111,11 @@ public class QnaService {
 		return aList;
 	}
 	
-	public Register selectClassListQna(int MemNo) {
+	public ArrayList<Lesson> selectClassListQna(int MemNo) {
 		Connection conn = getConnection();
-		Register r  = new QnaDao().selectClassListQna(conn, MemNo);
+		ArrayList<Lesson> list  = new QnaDao().selectClassListQna(conn, MemNo);
 		close(conn);
-		return r;
+		return list;
 	}
 
 }
