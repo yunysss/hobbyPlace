@@ -19,11 +19,31 @@ public class Review {
 	private String memName;
 	private String ttName;
 	private String reStar;
+	private String ctName;
 	
+	private String titleImg;
 	
 	public Review() {}
 	
 	
+
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate, int clNo,
+			int memNo, String clName, String memNickName, String memProfile, String titleImg) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.reviewUpDate = reviewUpDate;
+		this.clNo = clNo;
+		this.memNo = memNo;
+		this.clName = clName;
+		this.memNickName = memNickName;
+		this.memProfile = memProfile;
+		this.titleImg = titleImg;
+	}
+
+
 
 	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate,
 			String reviewStatus, int regNo, int clNo, int memNo) {
@@ -142,6 +162,18 @@ public class Review {
 
 
 
+	public String getTitleImg() {
+		return titleImg;
+	}
+
+
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
+
+
+
 	public Review(int reviewNo, String clName) {
 		super();
 		this.reviewNo = reviewNo;
@@ -202,6 +234,24 @@ public class Review {
 		this.reviewDate = reviewDate;
 		this.memName = memName;
 		this.clName = clName;
+	}
+
+
+
+	public Review(int reviewNo, String reviewContent, 
+			String clName, String ctName, String memName, 
+			int reviewStar, String reviewDate, String reviewUpDate, String reviewStatus, String ttName)  {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewDate = reviewDate;
+		this.reviewUpDate = reviewUpDate;
+		this.reviewStatus = reviewStatus;
+		this.clName = clName;
+		this.memName = memName;
+		this.reviewStar = reviewStar;
+		this.ctName = ctName;
+		this.ttName = ttName;
 	}
 
 
@@ -358,6 +408,18 @@ public class Review {
 
 	public void setReStar(String reStar) {
 		this.reStar = reStar;
+	}
+
+
+
+	public String getCtName() {
+		return ctName;
+	}
+
+
+
+	public void setCtName(String ctName) {
+		this.ctName = ctName;
 	}
 
 

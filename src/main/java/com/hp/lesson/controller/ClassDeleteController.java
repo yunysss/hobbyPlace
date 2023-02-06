@@ -1,31 +1,27 @@
-package com.hp.tutor.controller;
+package com.hp.lesson.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.service.LessonService;
-import com.hp.lesson.model.vo.Lesson;
-import com.hp.lesson.model.vo.Schedule;
-import com.hp.tutor.model.service.TutorService;
 
 /**
- * Servlet implementation class TutorClassDetailController
+ * Servlet implementation class ClassDeleteController
  */
-@WebServlet("/cldetail.tt")
-public class TutorClassDetailController extends HttpServlet {
+@WebServlet("/delete.cl")
+public class ClassDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TutorClassDetailController() {
+    public ClassDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,29 +30,20 @@ public class TutorClassDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		int clNo = Integer.parseInt(request.getParameter("no"));
 		
+		int result = new LessonService().deleteClass(clNo);
 		
-		Lesson l = new TutorService().selectClass(clNo);
-		ArrayList<Schedule> sList = new TutorService().selectSchedule(clNo);
-		
-		//첨부파일 조회 =>
-		ArrayList<Attachment> list = new TutorService().selectAttachmentList(clNo);
-		
-		//register 조회
-		int rCount = new LessonService().selectRegisterCount(clNo);
-		
-		
-		request.setAttribute("rCount", rCount);
-		request.setAttribute("list", list);
-		request.setAttribute("l", l);
-		request.setAttribute("sList", sList);
-		
-		
-		request.getRequestDispatcher("views/tutor/tutorClassDetailView.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		if(result>0) {	
+			session.setAttribute("alertMsg", "클래스가 삭제처리 되었습니다. ");
+			response.sendRedirect(request.getContextPath()+"/ttclass.tt?cpage=1");
+		}else {
+			session.setAttribute("alertMsg", "클래스 삭제에 실패했습니다.");
+			response.sendRedirect(request.getContextPath()+"/cldetail.tt?no=" + clNo);
+		}
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

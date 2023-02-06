@@ -589,6 +589,7 @@ function setSearchDate(start){
                                 	case "1" : status ="검수반려"; break;
                                 	case "2" : status ="판매중"; break;
                                 	case "3" : status ="판매중지"; break;
+                                	
                                 }
                                 
                 

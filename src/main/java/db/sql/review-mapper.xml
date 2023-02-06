@@ -169,6 +169,25 @@
 		             BY RE_NO DESC
 		       )
 	</entry>
+	<entry key="selectReviewDetail">
+		SELECT
+		        RE_NO
+		      , CONTENT
+		      , CL_NAME
+		      , CT_NAME
+		      , MEM_NAME
+		      , RE_STAR
+		      , RE_DATE
+		      , RE_UPDATE
+		      , DECODE(RE_STA, 'Y', '등록', 'N', '삭제') "RE_STA"
+		      , TT_NAME
+		   FROM REVIEW R
+		   JOIN CLASS C USING(CL_NO)
+		   JOIN TUTOR T ON(C.MEM_NO = T.MEM_NO)
+		   JOIN CATEGORY USING(CT_NO)
+		   JOIN MEMBER M ON(R.MEM_NO = M.MEM_NO)
+		  WHERE RE_NO = ?
+	</entry>
 	
 	
 	<!-- 리뷰 등록 -->

@@ -5,6 +5,7 @@
 %>
 <%
 	String contextPath = request.getContextPath();
+	String alertMsg = (String)session.getAttribute("alertMsg");
 	
 %>
 <!DOCTYPE html>
@@ -133,7 +134,12 @@
     </style>
 </head>
 <body>
-	
+	<%if(alertMsg != null) {%>
+		<script>
+			alert("<%=alertMsg%>"); // alert("") 따옴표안에 작성해야됨
+		</script>
+			<%session.removeAttribute("alertMsg");%>
+		<%} %>
     <div class="wrap">
         <div id="header">
                     <div id="log_box">

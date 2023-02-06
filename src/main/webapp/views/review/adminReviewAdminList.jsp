@@ -49,6 +49,9 @@
     thead td{
         background:rgb(245, 245, 245);
        }
+       .result-table>tbody>tr{
+    	cursor:pointer;
+    }
     #revContent , #classTitle{
         height: 40px;
         white-space: nowrap;
@@ -242,7 +245,7 @@
 							+	"<td>" + dataList[i].reviewNo + "</td>"
 							+	"<td>" + dataList[i].reviewUpDate + "</td>"
 							+	"<td>" + dataList[i].memProfile + "</td>"
-							+	"<td>" + dataList[i].reviewContent + "</td>"
+							+	"<td>" + dataList[i].reviewContent.substr(0, 20) + "...</td>"
 							+	"<td>" + dataList[i].reviewStar + "</td>"
 							+	"<td>" + dataList[i].memNickName + "</td>"
 							+	"<td>" + dataList[i].reviewDate + "</td>"
@@ -302,7 +305,9 @@
 	      		    paging(totalData, dataPerPage, pageCount, selectedPage);
 	      		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
 	      		  });
-	  		  
+	      		$(document).on("click", ".result-table>tbody>tr", function(){
+			    	 location.href = "<%=contextPath%>/adAdDetail.rev?reNo=" + $(this).children().eq(0).text();
+			     })
 	  		}
         </script>
     </div>

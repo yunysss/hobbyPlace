@@ -49,6 +49,7 @@
 				JOIN DCATEGORY D USING (CT_DNO)
 				JOIN TUTOR T USING (MEM_NO)
 				WHERE MEM_NO= ?
+				AND C.CL_STATUS IN (0,1,2,3)
 			    ORDER BY CL_NO DESC
 			)A
 	  )	
@@ -658,6 +659,9 @@
 		  WHERE MEM_NO = ?
 	</entry>
 	
-
+	<entry key ="">
+	
+	
+	</entry>
 
 </properties>

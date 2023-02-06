@@ -699,6 +699,7 @@ private Properties prop = new Properties();
 		try {
 			pstmt= conn.prepareStatement(sql);
 			pstmt.setInt(1, clNo);
+			pstmt.setInt(2, clNo);
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
@@ -711,7 +712,8 @@ private Properties prop = new Properties();
 						            rset.getInt("mem_no"),
 						            rset.getString("cl_name"),
 						            rset.getString("mem_nickname"),
-						            rset.getString("mem_profile")
+						            rset.getString("mem_profile"),
+						            rset.getString("titleimg")
 						           
 
 						));
@@ -1534,6 +1536,64 @@ public ArrayList<Lesson> selectRejectedClass(Connection conn, int memNo) {
 	 
 	return list;
 }
+	
+
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return 클래스 삭제 
+	 */
+	public int deleteClass(Connection conn, int clNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteClass");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	/**
+	 * 
+	 * @author 한빛
+	 * @param conn
+	 * @param clNo
+	 * @return 수강신청여부 
+	 */
+	public int selectRegisterCount(Connection conn, int clNo) {
+		int count = 0;
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectRegisterCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			rset= pstmt.executeQuery();
+		    if(rset.next()) {
+		    	count = rset.getInt("count");
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+		
+	}
+	
 	
 	
 

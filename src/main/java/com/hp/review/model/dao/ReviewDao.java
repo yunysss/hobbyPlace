@@ -323,6 +323,38 @@ public class ReviewDao {
 		}
 		return list;
 	}
+	
+	public Review selectReviewDetail(Connection conn, int reNo) {
+		Review r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReviewDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				r = new Review(rset.getInt("re_no"),
+						       rset.getString("content"),
+						       rset.getString("cl_name"),
+						       rset.getString("ct_name"),
+						       rset.getString("mem_name"),
+						       rset.getInt("re_star"),
+						       rset.getString("re_date"),
+						       rset.getString("re_update"),
+						       rset.getString("re_sta"),
+						       rset.getString("tt_name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
+	}
 
 
 	/**

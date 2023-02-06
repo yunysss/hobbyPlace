@@ -103,7 +103,13 @@ public class ReviewService {
 		close(conn);
 		return list;
 	}
-
+	
+	public Review selectReviewDetail(int reNo) {
+		Connection conn = getConnection();
+		Review r = new ReviewDao().selectReviewDetail(conn, reNo);
+		close(conn);
+		return r;
+	}
 	public int insertReview(Review r, ArrayList<Attachment> list) {
 		Connection conn = getConnection();
 		int result1 = new ReviewDao().insertReview(conn, r);

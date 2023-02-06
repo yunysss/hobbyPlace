@@ -50,6 +50,9 @@
     thead td{
         background:rgb(245, 245, 245);
        }
+    .result-table>tbody>tr{
+    	cursor:pointer;
+    }
     #revContent , #classTitle{
         height: 40px;
         white-space: nowrap;
@@ -159,10 +162,10 @@
             <table width="100%" class="table result-table">
             	<thead>
 	                <tr>
-	                	<td>번호</td>
-	                    <td width="280px">클래스명</td>
+	                	<td width="50px">번호</td>
+	                    <td width="200px">클래스명</td>
 	                    <td width="280px">리뷰</td>
-	                    <td width="100px">별점</td>
+	                    <td width="70px">별점</td>
 	                    <td width="70px">작성자</td>
 	                    <td>작성일</td>
 	                </tr>
@@ -180,12 +183,9 @@
 		    let pageCount = 10; 
 		    let globalCurrentPage=1;
 		    let dataList; 
-		
-		    
 		    
 		    $(function () {
 			     selectReview();
-			     
 		    })
 	        function selectReview(){
 		    	let reStar = "";
@@ -235,7 +235,7 @@
 		    		  value += "<tr>"
 							+	"<td>" + dataList[i].reviewNo + "</td>"
 							+	"<td>" + dataList[i].clName + "</td>"
-							+	"<td>" + dataList[i].reviewContent + "</td>"
+							+	"<td>" + dataList[i].reviewContent.substr(0, 20) + "...</td>"
 							+	"<td>" + dataList[i].reviewStar + "</td>"
 							+	"<td>" + dataList[i].memName + "</td>"
 							+	"<td>" + dataList[i].reviewDate + "</td>"
@@ -297,17 +297,10 @@
 	      		  });
 	  		  
 	  		}
+	  		$(document).on("click", ".result-table>tbody>tr", function(){
+		    	 location.href = "<%=contextPath%>/ttAdDetail.rev?reNo=" + $(this).children().eq(0).text();
+		     })
         </script>
-    
-
-
-
-
-
-
-
-
-
 
     </div>
 <%@ include file = "../common/footerbar.jsp" %>	

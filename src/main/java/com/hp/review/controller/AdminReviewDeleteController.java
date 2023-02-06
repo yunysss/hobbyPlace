@@ -1,7 +1,6 @@
 package com.hp.review.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,22 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.common.model.vo.Attachment;
-import com.hp.lesson.model.service.LessonService;
 import com.hp.review.model.service.ReviewService;
-import com.hp.review.model.vo.Review;
 
 /**
- * Servlet implementation class TutorReviewDetailController
+ * Servlet implementation class AdminReviewDeleteController
  */
-@WebServlet("/ttAdDetail.rev")
-public class TutorReviewDetailController extends HttpServlet {
+@WebServlet("/deleteReview.ad")
+public class AdminReviewDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TutorReviewDetailController() {
+    public AdminReviewDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +29,14 @@ public class TutorReviewDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		int reNo = Integer.parseInt(request.getParameter("reNo"));
 		
-		Review r = new ReviewService().selectReviewDetail(reNo);
-		ArrayList<Attachment> list = new LessonService().selectAttachment(reNo, 2);
+		int result = new ReviewService().deleteReview(reNo);
 		
-		request.setAttribute("r", r);
-		request.setAttribute("at", list);
-		request.getRequestDispatcher("views/review/tutorReviewDetail.jsp").forward(request, response);
-	
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "성공적으로 후기 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/adAdList.rev");
+		}
 	}
 
 	/**
