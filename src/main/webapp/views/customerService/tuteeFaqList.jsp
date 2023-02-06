@@ -42,14 +42,9 @@
 
 <div class="outer">
         <br>
-        <h1><b>튜티 고객센터</b></h1> 
+        <h1><b onclick="location.href='<%=contextPath%>/cs.tee'">튜티 고객센터</b></h1> 
             <br><br>  
 
-            <div align="right">
-                <input type="text">
-                <button><img src="resources/search.svg"></button>
-                
-            </div>
 
             <div> 
                 <a href="">

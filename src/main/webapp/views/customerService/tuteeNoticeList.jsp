@@ -23,7 +23,7 @@
         .outer{
             width: 1000px;
             margin: auto;
-            margin-top: 100px;
+           
         }
         .list{
             text-align: center;
@@ -44,13 +44,10 @@
 <%@ include file="../common/tuteeMenubar.jsp" %>
 
  <div class="outer">
-
-        <div align="right">
-            <input type="text">
-            <button><img src="resources/images/search.png" style="height:20px; width:20px;"></button>
-            
-        </div>
-
+		<br>
+        <h1><b onclick="location.href='<%=contextPath%>/cs.tee'">튜티 고객센터</b></h1> 
+            <br><br> 
+       
         <div>
             <a href=""><button style="background-color:rgb(22, 160, 133); color:white; border:none; width: 150px; height: 60px; font-size: large;" >공지사항</button></a>
         </div>

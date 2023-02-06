@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="java.util.ArrayList, com.hp.lesson.model.vo.Lesson"%>
+<%
+	ArrayList<Lesson> list = (ArrayList<Lesson>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -154,7 +158,7 @@
 	        </script>
             <div class="contentMain" >
                 
-               <div class="outer">
+         <div class="outer">
 
         <div>
             <a href="" style="color: black; font-size: large; font-weight: 800;" >
@@ -171,7 +175,7 @@
                         제목
                     </th>
                     <td >
-                        <input type="text" style="width: 700px; height: 50px;resize: none; border-color: lightgray;" required placeholder="제목을 입력하세요.">
+                        <input type="text" style="width: 600px; height: 50px;resize: none; border-color: lightgray;" required placeholder="제목을 입력하세요.">
                     </td>
                 </tr>
         
@@ -181,17 +185,43 @@
                 <tr>
                     <th style="background-color: lightgray; width: 100px; height: 50px; text-align: center;">분류</th>
                     <td>
-                        <select name="Qcategory" id="answerNo" style="border-color: lightgray; width: 300px; height: 50px;">
+                        <select onchange="changeCt();" name="ct" id="ct" style="border-color: lightgray; width: 300px; height: 50px;">
                            
                             <option value="0">관리자</option>
                             <option value="2">튜터</option>
                         </select>
                     </td>
-                    <td><select name="aMemNo" id="aMemNo" style="border-color: lightgray; width: 300px; height: 50px;">
-                        <option value="">선택하세요</option>
+                    <td><select name="dct" id="dct" style="border-color: lightgray; width: 300px; height: 50px;">
+                        <option>선택하세요</option>
                     </select></td>
                 </tr>
             </table>
+
+            <script>
+	            function changeCt(){
+	            	
+	            	var admin = ["튜터", "결제/환불", "기타"];
+	            	var tutor = [<%for(Lesson l : list){%>
+	            					<%=l.getClName()%>
+	            				<%}%>	];
+	        
+	            	var changeDct;
+	            	
+	            	if( $("#ct").val() == "0"){
+	            		changeDct = admin;
+	            		
+	            	}else if( $("#ct").val() == "2"){
+	            		changeDct = tutor;
+	            	}
+	            	
+	            	$("#dct").empty();
+	            	for(var i=0; i<changeDct.length; i++){
+	            		var option = $("<option>"+changeDct[i]+"</option>");
+	            		$("#dct").append(option);
+	            	}
+	            	
+	            }
+                </script>
 
             <br>
             <table>
@@ -203,9 +233,14 @@
             <br>
 
             <button type="reset" style="background-color:lightgray; border:none; width: 120px; height: 50px; ">취소</button>
-            <button type="submit" style="background-color:rgb(22, 160, 133); color:white; border:none; width: 120px; height: 50px; float:right">등록하기</button>
+            <button type="submit" style="background-color:rgb(35, 104, 116); color:white; border:none; width: 120px; height: 50px; float:right">등록하기</button>
 
         </form>
+
+        
+
+
+
 
 
     </div>
