@@ -5,6 +5,7 @@ import static com.hp.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.review.model.dao.ReviewDao;
 import com.hp.review.model.vo.Register;
@@ -94,5 +95,9 @@ public class ReviewService {
 		ArrayList<Review> list = new ReviewDao().selectTutorReview(conn, r);
 		close(conn);
 		return list;
+	}
+
+	public int insertReview(Review r, ArrayList<Attachment> list) {
+		return 0;
 	}
 }
