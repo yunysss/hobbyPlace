@@ -798,6 +798,30 @@ public class MemberDao {
 		return m;
 	}
 
+	public Member phoneCheckForCertifi2(Connection conn, int memNo, String phone) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("phoneCheckForCertifi2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setString(2, phone);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member();
+				m.setPhone(rset.getString("MEM_PHONE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+
 	
 
 

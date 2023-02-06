@@ -377,4 +377,11 @@
 	WHERE MEM_NO = ?
 	  AND MEM_NICKNAME = ?
 	</entry>
+	
+	<entry key="phoneCheckForCertifi2">
+   SELECT MEM_PHONE
+	 FROM MEMBER
+	WHERE MEM_NO = ?
+	  AND MEM_PHONE = ?
+	</entry>
 </properties>
