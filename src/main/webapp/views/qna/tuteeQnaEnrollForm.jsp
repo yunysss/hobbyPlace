@@ -216,9 +216,9 @@
 	                    $('#schQnaType').append("<option value='40' >기타</option>'");
 	                } else if (type == '2') {  // 튜터
 	                	<%for(Lesson l : list){%>
-	                    $('#schQnaType').append("<option value='<%=l.getClNo()%>' ><%=l.getClName()%></option> ");
+	                    $('#schQnaType').append("<option value='<%=l.getClNo()%>' ><%=l.getMemNo()%></option> ");
 	                    if($("#schQnaType option:selected").val() == <%=l.getClNo()%>){
-	                    	$("#ttNo").html("<input type='hidden' value='<%=l.getMemNo()%>' name='aMemNo'>")
+	                    	$("#ttNo").html("<input type='hidden' value='<%=l.getClName()%>' name='aMemNo'>")
 	                    }
 	                    <%}%>
 	                } 
