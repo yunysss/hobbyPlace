@@ -112,7 +112,7 @@
 
                 <form action="<%=contextPath %>/insert.rev" id="enroll-form" method="post" enctype="multipart/form-data" >
                 <input type="hidden" name="no" value="<%=er.getRegNo()%>">
-
+				<input type="hidden" name="clNo" value = "<%=er.getClNo()%>">
                     <div class="starRating" align="center">
 
                         
@@ -201,7 +201,6 @@
 
                 
                     <script>
-
                         function clickFile(num){
                             $("input[name=file" + num + "]").click();
                         }

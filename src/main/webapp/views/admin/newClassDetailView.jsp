@@ -9,7 +9,7 @@
 	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
 	String ttProfile = t.getTtProfile() ==  null? "resources/tutorProfile_upfiles/defaultimg.jpg" : t.getTtProfile();
 
-	String alertMsg = (String)session.getAttribute("alertMsg");
+
 %>      
 
 <!DOCTYPE html>

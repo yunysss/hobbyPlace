@@ -49,7 +49,9 @@ public class ReviewInsertController extends HttpServlet {
 			
 			// DB에 값 기록
 			HttpSession session = request.getSession();
+			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 			int regNo = Integer.parseInt(multiRequest.getParameter("no"));
+			int clNo = Integer.parseInt(multiRequest.getParameter("clNo"));
 			int reviewStar = Integer.parseInt(multiRequest.getParameter("rating"));
 			String reviewContent = multiRequest.getParameter("reviewContent");
 			
@@ -57,6 +59,8 @@ public class ReviewInsertController extends HttpServlet {
 			r.setReviewStar(reviewStar);
 			r.setReviewContent(reviewContent);
 			r.setRegNo(regNo);
+			r.setClNo(clNo);
+			r.setMemNo(memNo);
 			
 			ArrayList<Attachment> list = new ArrayList<>();
 			
@@ -79,7 +83,7 @@ public class ReviewInsertController extends HttpServlet {
 			
 			if(result>0) {
 				session.setAttribute("alertMsg", "후기가 등록되었습니다.");
-				response.sendRedirect(request.getContextPath()+"/list.rev");
+				response.sendRedirect(request.getContextPath()+"/list.rev?cpage=1");
 			}else {
 				request.setAttribute("errorMsg", "리뷰 등록 실패");
 			}
