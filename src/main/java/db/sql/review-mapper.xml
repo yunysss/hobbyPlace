@@ -129,7 +129,7 @@
           WHERE REG_NO = ?
     </entry>
     
-    <entry key="selectTutorReview">
+    <entry key="selectAdminSearchReview">
 		SELECT *
 		  FROM (
 		        SELECT
@@ -151,7 +151,7 @@
 		  WHERE 1=1
 	</entry>
 	
-	<entry key="selectAdminSearchReview">
+	<entry key="selectTutorReview">
 		SELECT *
 		  FROM (
 		        SELECT

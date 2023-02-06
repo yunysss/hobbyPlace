@@ -98,7 +98,7 @@ public class ReviewService {
 	
 	public ArrayList<Review> selectAdminSearchReview(Review r){
 		Connection conn = getConnection();
-		ArrayList<Review> list = new ReviewDao().selectTutorReview(conn, r);
+		ArrayList<Review> list = new ReviewDao().selectAdminSearchReview(conn, r);
 		close(conn);
 		return list;
 	}
