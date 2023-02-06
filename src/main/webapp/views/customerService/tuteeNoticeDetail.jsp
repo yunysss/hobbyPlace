@@ -23,7 +23,7 @@
         .outer{
             width: 1000px;
             margin: auto;
-            margin-top: 100px;
+            margin-top: 20px;
         }
         .detail{
             text-align: center;
@@ -40,16 +40,11 @@
 <%@ include file="../common/tuteeMenubar.jsp" %>
 
 <div class="outer">
+		<br>
+        <h1><b onclick="location.href='<%=contextPath%>/cs.tee'">튜티 고객센터</b></h1> 
+            <br><br> 
 
-        <br>
-        <h1><b>튜티 고객센터</b></h1> 
-            <br><br>  
-
-            <div align="right">
-                <input type="text">
-                <button><img src=""></button>
-                
-            </div>
+            
 
             <div> 
                 <a href=""><button style="background-color:rgb(22, 160, 133); color:white; border:none; width: 150px; height: 60px; font-size: large;">공지사항</button></a>
@@ -90,7 +85,7 @@
 
             <br>
 
-            <div style="border: 1px solid lightgray; padding: 10px; width: 800px; margin-left:auto;margin-right:auto;">
+            <div style="border: 1px solid lightgray; padding: 10px; width: 800px; height:300px; margin-left:auto;margin-right:auto;">
                 <p><%=n.getNtContent() %></p>
 
                 
@@ -100,15 +95,11 @@
             
 
             <div class="abc">
-	            <div style="float: left; width: 33%; "  >
-	                <a href="<%=request.getContextPath()%>/ntDetail.no?ntNo=<%=n.getrNum()%>"><button style="border: none; background-color: lightgray; ">&lt;이전글</button></a>
-	            </div>
-	            <div style="float:left; width: 33%;" >
+	            
+	            <div  >
 	                <a href="<%=request.getContextPath()%>/notice.tee?cpage=1"><button style="border:none; background-color: lightgray;  ">목록</button></a>
 	            </div>
-	            <div style="float: left; width: 33%;">
-	                <a href="<%=request.getContextPath()%>/ntDetail.no?ntNo=<%=n.getrNum() -1%>""><button style="border: none; background-color: lightgray;">다음글&gt;</button></a>
-	            </div>
+	            
            </div>
     
             

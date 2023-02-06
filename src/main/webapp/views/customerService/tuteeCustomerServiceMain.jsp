@@ -23,7 +23,7 @@
     .outer{
         width: 1000px;
         margin: auto;
-        margin-top: 100px;
+        margin-top: 30px;
     }
    .list-area{
     width: 800px;
@@ -54,13 +54,6 @@
     <h1><b>고객센터</b></h1> 
         <br><br>  
 
-
-
-    <div align="right"  ><a href="<%=request.getContextPath()%>/usage.no" class="btn btn-secondary btn-sm">서비스 소개></a></div>
-    <br>
-    <div align="right" ><a href="<%=request.getContextPath()%>/tutorUsage.no" class="btn btn-secondary btn-sm">튜터서비스 소개></a></div>
-
-    
     <hr>
     <br>
 
