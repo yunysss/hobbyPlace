@@ -96,15 +96,26 @@ public class ReviewService {
 		close(conn);
 		return list;
 	}
-
-	public int insertReview(Review r, ArrayList<Attachment> list) {
-		return 0;
-	}
 	
 	public ArrayList<Review> selectAdminSearchReview(Review r){
 		Connection conn = getConnection();
 		ArrayList<Review> list = new ReviewDao().selectAdminSearchReview(conn, r);
 		close(conn);
 		return list;
+	}
+
+	public int insertReview(Review r, ArrayList<Attachment> list) {
+		Connection conn = getConnection();
+		int result1 = new ReviewDao().insertReview(conn, r);
+		int result2 = new ReviewDao().insertAttachment(conn,list);
+		
+		if(result1>0 && result2>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+			
+		}close(conn);
+		
+		return result1*result2;
 	}
 }
