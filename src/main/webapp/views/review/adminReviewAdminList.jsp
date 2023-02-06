@@ -85,6 +85,7 @@
 	}
     
 </style>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body>
 <%@ include file="../common/adminMenubar.jsp" %>
@@ -191,7 +192,6 @@
 		    
 		    $(function () {
 			     selectReview();
-			     
 		    })
 	        function selectReview(){
 		    	let reStar = "";
@@ -201,7 +201,7 @@
 	    		$.ajax({
 	    			url:"<%=contextPath%>/selectReview.ad",
 	    			data:{
-	    				ttName:$("input[name=ttName]").val()
+	    				ttName:$("input[name=ttName]").val(),
 	    				reStar:reStar,
 	    				clName:$("input[name=clName]").val(),
 	    				reContent:$("input[name=reContent]").val(),
