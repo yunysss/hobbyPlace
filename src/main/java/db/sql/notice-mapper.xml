@@ -376,4 +376,14 @@ INSERT
 		   SET STATUS = 'N'
 		 WHERE FAQ_NO = ?
 </entry>
+
+<entry key="keywordFaqTutee">
+SELECT *
+  FROM FAQ
+ WHERE STATUS = 'Y'
+   AND GRADE = '1'
+   AND QUESTION LIKE ?
+ ORDER
+    BY ENROLL_DATE DESC
+</entry>
 </properties>
