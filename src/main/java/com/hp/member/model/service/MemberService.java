@@ -332,6 +332,13 @@ public class MemberService {
 
 
 
+	public int nickCheck2(String checkNick) {
+		Connection conn = getConnection();
+		return 0;
+	}
+
+
+
 
 
 	

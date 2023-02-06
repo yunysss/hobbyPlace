@@ -329,7 +329,7 @@
                             const $nickInput = $("#userNickName");
                             
                             $.ajax({
-                                url:"<%=contextPath%>/nickCheck.me",
+                                url:"<%=contextPath%>/nickCheck2.me",
                                 data:{checkNick:$nickInput.val()},
                                 success:function(result){
                                     if(result == "NNNNN"){

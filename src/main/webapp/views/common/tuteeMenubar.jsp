@@ -443,8 +443,7 @@ select {
 <body>
 	<%if (alertMsg != null) {%>
 		<script>
-			alert("<%=alertMsg%>
-			");
+			alert("<%=alertMsg%>");
 		</script>
 		<%session.removeAttribute("alertMsg");%>
 	<%}%>
