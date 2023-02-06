@@ -59,7 +59,6 @@
             <h6 style="font-weight:bold; padding: 7px; margin-top: 10px;"> 예약 상세 조회</h6>
 
             <div id="content_box">
-                <form id="reservationform"  action="<%=contextPath%>/resUpdate.tt" method="post">
                	 <input type="hidden" name="no" id="regNo" value="<%=r.getRegNo()%>">
                     <div id="status_area">
                         <select id="status" name="regSta">
@@ -115,10 +114,9 @@
                     <textarea name="memo" id="memo" cols="30" rows="10"><%=r.getMemo() %></textarea>
 
                     <div id="btn_area">
-                        <button onclick="updateStatus();"  class="btn btn-secondary" style="height: 30px; line-height: 10px;">저장</button>
+                        <button onclick="updateStatus();" type="button" class="btn btn-secondary" style="height: 30px; line-height: 10px;">저장</button>
                     </div>
                     
-                </form>
 
                 
                 
@@ -129,7 +127,7 @@
                 		$.ajax({
                 			url:"<%=contextPath%>/resUpdate.tt",
                 			data:{
-                				content:$("#memo").val(),
+                				memo:$("#memo").val(),
                 				regSta:$("#status").val(),
                                 no: $("#regNo").val()
                 			},
