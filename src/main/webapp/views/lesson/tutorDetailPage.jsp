@@ -91,7 +91,11 @@
 
   #thumbnail img, #reimg img{ border-radius: 5px;}
 
-
+  .rimg>a>img{
+  width: 130px;
+  height:130px;
+  border-radius  : 5px
+  }
 
 </style>
 </head>
@@ -200,6 +204,7 @@
               </div>
               <div id="menu1" class="container tab-pane fade"><br>
                 <div id="review-area">
+                
                 	<%if(rList.isEmpty()){ %>
                 	<table>
                 		<tr>
@@ -208,6 +213,7 @@
                 	</table>
                 	<%}else %>
                 	<%for(Review r : rList){ %>
+                	<input type="hidden" name="reNo" value="<%=r.getReviewNo()%>">
                     <table style="text-align: left;">
                       <tr>
                        <%if(r.getMemProfile() == null) {%>
@@ -231,6 +237,8 @@
 	                                    <% } %>
 	                            </span>
                       </td>
+                      
+                        <!-- 
                           <td rowspan="3" width="150" id="reimg">
                               <%if(r.getTitleImg() != null){ %>
                               <img src="<%=request.getContextPath()%>/<%=r.getTitleImg() %> " width="150" height="150" alt="">
@@ -239,6 +247,7 @@
 							<%} %>
 								                        
                           </td>
+						-->
                       </tr>
                       <tr>
                         <td width="60">
@@ -255,13 +264,49 @@
                            </div>
                           </td>
                       </tr>
+                      <tr>
+                       
+			  				<td colspan="2" id="reContent-<%=r.getReviewNo()%>" class="rimg"> 
+			  				<br>	
+			  				</td>
+			  		</tr>
                    </table>
                     <hr>
                     
                  <%} %>
                   </div>
+              <script>
+              $(function(){
+					$("input[name='reNo']").each(function(){
+						let regNo = $(this).val();
+						$.ajax({
+							url:"<%=contextPath%>/selectReAttachment.cl",
+							data:{reNo:regNo},
+							success:function(list){
+								let value=""
+									for(let i=0; i<list.length; i++){
+										value += "<a href='<%= contextPath %>/" + list[i].filePath + list[i].changeName + "' data-toggle='lightbox' data-gallery='example-gallery'><img src='<%= contextPath %>/" + list[i].filePath + list[i].changeName + "' class='img-fluid'> </a>";
+									}
+								$("#reContent-" + regNo).append(value);
+							}
+						})
+					})
+		        })
               
-                
+              
+              
+              
+              
+              
+              </script>
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+					<script>
+					$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+					    event.preventDefault();
+					    $(this).ekkoLightbox();
+					});
+					</script>
                  
                   
 
