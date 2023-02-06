@@ -96,7 +96,7 @@
         <div class="content">
             <h6 style="margin-left: 15px;"><b>수강 후기 작성</b></h6>
             <hr>
-            <form class="review-area">
+            <div class="review-area">
                 <br>
                 <div class="classPart">
                     <div class="classThumbnail">
@@ -111,7 +111,7 @@
 
 
                 <form action="<%=contextPath %>/insert.rev" id="enroll-form" method="post" enctype="multipart/form-data" >
-                
+                <input type="hidden" name="no" value="<%=er.getRegNo()%>">
 
                     <div class="starRating" align="center">
 
@@ -168,16 +168,8 @@
                                     }
                                 })
                             });
-                            //저장 전송전 필드 체크 이벤트 리스너
-                            document.querySelector('#save').addEventListener('click', function(e){
-                                //별점 선택 안했으면 메시지 표시
-                                if(rating.rate == 0){
-                                    rating.showMessage('rate');
-                                    return false;
-                                }
-                               
-                                //폼 서밋
-                            });
+                            
+                           
 
                         </script>
 

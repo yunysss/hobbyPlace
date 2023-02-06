@@ -49,12 +49,13 @@ public class ReviewInsertController extends HttpServlet {
 			
 			// DB에 값 기록
 			HttpSession session = request.getSession();
-			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
-			int regNo = Integer.parseInt(request.getParameter("no"));
+			int regNo = Integer.parseInt(multiRequest.getParameter("no"));
+			int reviewStar = Integer.parseInt(multiRequest.getParameter("rating"));
+			String reviewContent = multiRequest.getParameter("reviewContent");
 			
 			Review r = new Review();
-			r.setReStar(multiRequest.getParameter("rating"));
-			r.setReviewContent(multiRequest.getParameter("reviewContent"));
+			r.setReviewStar(reviewStar);
+			r.setReviewContent(reviewContent);
 			r.setRegNo(regNo);
 			
 			ArrayList<Attachment> list = new ArrayList<>();
