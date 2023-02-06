@@ -48,7 +48,7 @@ public class TuteeQnaInsertController extends HttpServlet {
 		q.setaMemNo(aMemNo);
 		
 	    int result = 0;
-		if(grade=="0") {
+		if(grade.equals("0")) {
 			result = new QnaService().insertTuteeQna(q);
 		}else {
 			 result = new QnaService().insertTuteeQnaTutor(q);

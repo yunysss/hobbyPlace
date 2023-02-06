@@ -373,7 +373,8 @@ public class QnaDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, q.getqTitle());
 			pstmt.setString(2, q.getqContent());
-			pstmt.setInt(3, q.getqMemNo());
+			pstmt.setInt(3, q.getClNo());
+			pstmt.setInt(4, q.getqMemNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

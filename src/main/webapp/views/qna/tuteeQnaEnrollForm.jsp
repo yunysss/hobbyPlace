@@ -214,12 +214,14 @@
 	                    $('#schQnaType').append("<option value='10' >튜터</option>'");
 	                    $('#schQnaType').append("<option value='20' >결제/환불</option>'");
 	                    $('#schQnaType').append("<option value='40' >기타</option>'");
+	                    $("#ttNo").html("<input type='hidden' value='0' name='aMemNo'>")
 	                } else if (type == '2') {  // 튜터
 	                	<%for(Lesson l : list){%>
 	                    $('#schQnaType').append("<option value='<%=l.getClNo()%>' ><%=l.getMemNo()%></option> ");
 	                    if($("#schQnaType option:selected").val() == <%=l.getClNo()%>){
 	                    	$("#ttNo").html("<input type='hidden' value='<%=l.getClName()%>' name='aMemNo'>")
 	                    }
+	                    
 	                    <%}%>
 	                } 
 	                document.getElementById("schQnaType").style.display = "";
@@ -229,6 +231,14 @@
 	                    $('#schQnaType').val(select);
 	                }
 	            }
+	            $("#schQnaType").change(function(){
+	            	<%for(Lesson l : list){%>
+                    if($("#schQnaType option:selected").val() == <%=l.getClNo()%>){
+                    	$("#ttNo").html("<input type='hidden' value='<%=l.getClName()%>' name='aMemNo'>")
+                    }
+                    
+                    <%}%>
+	            })
             </script>
 			
             <br>
