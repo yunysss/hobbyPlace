@@ -396,4 +396,15 @@ SELECT *
  ORDER
     BY ENROLL_DATE DESC
 </entry>
+
+<entry key="keywordNoticeTutee">
+SELECT
+        *
+  FROM NOTICE
+ WHERE NT_STA='Y'
+   AND GRADE = '1'
+   AND NT_TITLE LIKE ?
+ ORDER 
+    BY ENROLL_DATE DESC
+</entry>
 </properties>

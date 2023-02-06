@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, com.hp.customerService.model.vo.*, com.hp.common.model.vo.PageInfo"%>
+    import="java.util.ArrayList, com.hp.customerService.model.vo.*"%>
     
 <%
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
    	ArrayList<Notice> list  = (ArrayList<Notice>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
@@ -32,10 +32,7 @@
         	cursor:pointer;
         	
         }
-        .paging-area{
-            text-align: center;
-            
-        }
+        
         .keyword{
         	float:right;
         }
@@ -92,23 +89,6 @@
         
         
         <br><br><br>
-
-        <div class="paging-area">
-			
-			<%if(pi.getCurrentPage()!=1){ %>
-            <button style="border: none;"
-            		onclick="location.href='<%=request.getContextPath()%>/notice.tee?cpage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
-            <%} %>
-            <%for(int i=pi.getStartPage(); i<pi.getEndPage(); i++){ %>
-            <button style="background-color:rgb(22, 160, 133); color:white; border:none"
-            		onclick="location.href='<%=request.getContextPath()%>/notice.tee?cpage=<%=i%>';"><%= i %></button>
-            <%} %>
-            <%if(pi.getCurrentPage()!= pi.getMaxPage()) {%>
-            <button style="border: none;"
-            		onclick="location.href='<%=request.getContextPath()%>/notice.tee?cpage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
-			<%} %>
-        </div>
-        
 
     </div>
     

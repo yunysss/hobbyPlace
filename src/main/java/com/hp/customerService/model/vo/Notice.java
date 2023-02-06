@@ -26,6 +26,20 @@ public class Notice {
 	}
 
 
+	public Notice(int ntNo, String ntMem, String ntTitle, String ntContent, Date enrollDate, Date updateDate,
+			String grade, String ntSta) {
+		super();
+		this.ntNo = ntNo;
+		this.ntMem = ntMem;
+		this.ntTitle = ntTitle;
+		this.ntContent = ntContent;
+		this.enrollDate = enrollDate;
+		this.updateDate = updateDate;
+		this.grade = grade;
+		this.ntSta = ntSta;
+	}
+
+
 	public Notice(int rNum, int ntNo, String ntMem, String ntTitle, String ntContent, Date enrollDate, Date updateDate,
 			String grade, String ntSta) {
 		super();

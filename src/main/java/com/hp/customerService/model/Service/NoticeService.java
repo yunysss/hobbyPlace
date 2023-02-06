@@ -323,4 +323,15 @@ public class NoticeService {
 		
 		return list;
 	}
+	
+	public ArrayList<Notice> keywordNoticeTutee(String keyword){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Notice> list = new NoticeDao().keywordNoticeTutee(conn, keyword);
+		
+		close(conn);
+		
+		return list;
+	}
 }
