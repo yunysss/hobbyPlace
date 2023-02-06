@@ -774,6 +774,30 @@ public class MemberDao {
 		return w;
 	}
 
+	public Member nickCheck2(Connection conn, int memNo, String checkNick) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("nickCheck2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setString(2, checkNick);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member();
+				m.setMemNick(rset.getString("MEM_NICKNAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+
 	
 
 

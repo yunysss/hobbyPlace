@@ -260,11 +260,11 @@
                    		<td>
                    		<img src="<%=contextPath%>/<%= le.getClThumb() %>" class="smallImg">
                    		</td>
-                    	<% for(int i=0; i<aList.size(); i++){ %>
-                    		<td>
-	                   		<img src="<%= contextPath %>/<%= aList.get(i).getFilePath() + aList.get(i).getChangeName() %>" class="smallImg">
-	                   		</td>
-                    	<% } %>
+                    	<% for(int i=0;i<aList.size();i++){ %>
+                                <td>
+                                    <img src="<%=contextPath %>/<%=aList.get(i).getFilePath()+aList.get(i).getChangeName() %>" class="smallImg"> 
+                               </td>
+                               <%} %>
                     	<% if(aList.size()<3) {%>
                     		<% for(int i=0; i<3-aList.size(); i++){ %>
                     			<td>

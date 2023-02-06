@@ -141,7 +141,6 @@
 		  FROM ATTACHMENT
 		 WHERE REF_NO = ?
 		   AND REF_TYPE = ?
-		   AND STATUS = 'Y'
 	</entry>
 	<entry key="selectClassReview">
 		SELECT

@@ -332,6 +332,16 @@ public class MemberService {
 
 
 
+	public Member nickCheck2(int memNo, String checkNick) {
+		Connection conn = getConnection();
+		Member m = new MemberDao().nickCheck2(conn, memNo, checkNick);
+		close(conn);
+		
+		return m;
+	}
+
+
+
 
 
 	

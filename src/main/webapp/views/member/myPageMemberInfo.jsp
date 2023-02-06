@@ -178,6 +178,7 @@
 	<%@ include file="../common/tuteeMenubar.jsp" %>
 	
 	<%
+		int memNo = loginUser.getMemNo();
     	String memId = loginUser.getMemId();
     	String memName = loginUser.getMemName();
     	String memNick = loginUser.getMemNick();
@@ -327,10 +328,12 @@
                     <script>
                         function nickCheck(){
                             const $nickInput = $("#userNickName");
-                            
                             $.ajax({
-                                url:"<%=contextPath%>/nickCheck.me",
-                                data:{checkNick:$nickInput.val()},
+                                url:"<%=contextPath%>/nickCheck2.me",
+                                data:{
+                                	checkNick:$nickInput.val(),
+                                	memNo:<%=memNo%>
+                                	},
                                 success:function(result){
                                     if(result == "NNNNN"){
                                         $(".nickNameTest").html("이미 존재하는 닉네임입니다");
@@ -634,7 +637,7 @@
                 </script>
                 <br><br><br>
                 <div align="center">
-                    <button type="submit" id="updateButton" disabled>수정완료</button>
+                    <button type="submit" id="updateButton">수정완료</button>
                 </div>
             </form>
             <br><br><br><br><br>
@@ -669,16 +672,10 @@
             
             $("#userNickName").keyup(function(){
             	if(!nickCheck.test($("#userNickName").val())){ // 일치x
-            		$("#updateButton").attr("disabled");
-            		$("#updateButton").css('cursor', 'default').css('background-color', 'rgb(96, 109, 112)');
-            		
             		$(".nickNameTest").html('유효한 닉네임 형식이 아닙니다.');
             		$(".nickDoubleCheck").attr("disabled");
                     $(".nickDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
             	}else{ // 일치o
-            		$("#updateButton").removeAttr("disabled");
-            		$("#updateButton").css('cursor', 'pointer').css('background-color', 'rgb(35, 104, 116)');
-            		
             		$(".nickNameTest").html('');
                     $(".nickDoubleCheck").removeAttr("disabled");
                     $(".nickDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
@@ -687,16 +684,10 @@
             
             $("#email").keyup(function(){
             	if(!emailCheck.test($("#email").val())){ // 일치x
-            		$("#updateButton").attr("disabled");
-            		$("#updateButton").css('cursor', 'default').css('background-color', 'rgb(96, 109, 112)');
-            		
             		$(".emailTest").html('유효한 이메일 형식이 아닙니다.');
             		$(".emailDoubleCheck").attr("disabled");
             		$(".emailDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
             	}else{ // 일치o
-            		$("#updateButton").removeAttr("disabled");
-            		$("#updateButton").css('cursor', 'pointer').css('background-color', 'rgb(35, 104, 116)');
-            		
             		$(".emailTest").html('');
                     $(".emailDoubleCheck").removeAttr("disabled");
                     $(".emailDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
@@ -705,17 +696,11 @@
 
             $("#phone").keyup(function(){
                 if(!phoneCheck.test($("#phone").val())){ // 일치x
-            		$("#updateButton").attr("disabled");
-            		$("#updateButton").css('cursor', 'default').css('background-color', 'rgb(96, 109, 112)');
-            		
-                    $(".phoneTest").html('유효한 연락처 형식이 아닙니다.');
+            		 $(".phoneTest").html('유효한 연락처 형식이 아닙니다.');
                     $(".phoneDoubleCheck").attr("disabled");
                     $(".phoneDoubleCheck").css('cursor', 'default').css('color', 'rgb(143, 143, 143)').css('border-color', 'rgb(143, 143, 143)');
                 }else{ // 일치o
-            		$("#updateButton").removeAttr("disabled");
-            		$("#updateButton").css('cursor', 'pointer').css('background-color', 'rgb(35, 104, 116)');
-            		
-                    $(".phoneTest").html('');
+            		$(".phoneTest").html('');
                     $(".phoneDoubleCheck").removeAttr("disabled");
                     $(".phoneDoubleCheck").css('cursor', 'pointer').css('color', 'rgb(182, 1, 1)').css('border-color', 'rgb(35, 104, 116)');
                 }

@@ -30,6 +30,7 @@ public class AjaxNickCheckController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String checkNick = request.getParameter("checkNick");
+		
 		int count = new MemberService().nickCheck(checkNick);
 		
 		if(count > 0) { 
