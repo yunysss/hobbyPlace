@@ -262,7 +262,8 @@
                    		</td>
                     	<% for(int i=0;i<aList.size();i++){ %>
                                 <td>
-                                    <img id="img1" class="imgs" src="<%=contextPath %>/<%=aList.get(i).getFilePath()+aList.get(i).getChangeName() %>" " class="smallImg"> 
+                                    <img src="<%=contextPath %>/<%=aList.get(i).getFilePath()+aList.get(i).getChangeName() %>" class="smallImg"> 
+                               </td>
                                <%} %>
                     	<% if(aList.size()<3) {%>
                     		<% for(int i=0; i<3-aList.size(); i++){ %>
