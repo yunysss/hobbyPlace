@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.lesson.model.dao.LessonDao;
 import com.hp.review.model.vo.Register;
@@ -337,15 +338,49 @@ public class ReviewDao {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, "r.getReviewContent");
+			pstmt.setInt(2,"r.getReviewStar");
+			pstmt.setString(3,"r.getRegNo");
+			pstmt.setString(4,"r.getClNo");
+			pstmt.setString(5, "r.getMemNo");
 			
+			result= pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
-		
-			
-		
-		return 0;
+		return result;
+	}
+
+
+	 	/**
+	 	 * @author 수정
+	 	 * @param conn
+	 	 * @param list
+	 	 * @return 리뷰 첨부파일 등록
+	 	 */
+	 	public int insertAttachment(Connection conn, ArrayList<Attachment> list) {
+	 		int result=0;
+	 		PreparedStatement pstmt = null;
+	 		String sql = prop.getProperty("insertAttachment");
+	 		
+	 		try {
+	 			for(Attachment at : list) {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+
+				result = pstmt.executeUpdate();
+	 		  }
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
 	}
 
 		

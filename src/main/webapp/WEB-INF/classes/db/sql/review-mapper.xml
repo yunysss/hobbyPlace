@@ -170,4 +170,50 @@
 		       )
 	</entry>
 	
+	
+	<!-- 리뷰 등록 -->
+	<entry key="insertReview">
+	INSERT
+	  INTO REVIEW
+		(
+		   RE_NO
+		 , CONTENT
+		 , RE_STAR
+		 , REG_NO
+		 , CL_NO
+		 , MEM_NO
+		 ) VALUES
+		 (
+		   SEQ_RVNO.NEXTVAL
+		 , ?
+		 , ?
+		 , ?
+		 , ?
+		 , ?
+		  )
+	
+	</entry>
+	
+	<entry key="insertAttachment">
+	INSERT
+	  INTO ATTACHMENT
+		 (
+		   FILE_NO
+		 , ORIGIN_NAME
+		 , CHANGE_NAME
+		 , FILE_PATH
+		 , REF_TYPE
+		 , REF_NO
+		 ) VALUES
+		 (
+		   SEQ_ATNO.NEXTVAL
+		 , ?
+		 , ?
+		 , ?
+		 , 2
+		 , SEQ_RVNO.CURRVAL
+		)
+	
+	
+	</entry>
 </properties>
