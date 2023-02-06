@@ -543,7 +543,7 @@
                     
                 </table>
                 <br><br>
-                <button type="button" id="submitForm" onclick="return enrollMember();">가입하기</button>
+                <button type="submit" id="submitForm" onclick="return enrollMember();">가입하기</button>
                 <br><br><br><br>
                                                 
             </form>
