@@ -26,7 +26,7 @@
         <h5 style="font-weight: 600; font-size:18px"><b>후기 상세 조회</b></h5>
         <hr>
         	<div class="btn-area" align="right">
-                <a class="btn btn-sm btn-secondary" id="list-btn">목록</a>
+                <button class="btn btn-sm btn-secondary" id="list-btn" onclick="history.back();">목록</button>
                 <a class="btn btn-sm" id="del-btn" style="background:rgb(22, 160, 133); color:white;">삭제</a>
             </div>
             <br>
