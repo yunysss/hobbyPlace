@@ -110,18 +110,19 @@ public class ReviewService {
 		close(conn);
 		return r;
 	}
-	public int insertReview(Review r, ArrayList<Attachment> list) {
+	public int insertReview(Review r, ArrayList<Attachment> list, int regNo) {
 		Connection conn = getConnection();
 		int result1 = new ReviewDao().insertReview(conn, r);
 		int result2 = new ReviewDao().insertAttachment(conn,list);
+		int result3 = new ReviewDao().updateReEnroll(conn, regNo);
 		
-		if(result1>0 && result2>0) {
+		if(result1>0 && result2>0 && result3>0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 			
 		}close(conn);
 		
-		return result1*result2;
+		return result1*result2*result3;
 	}
 }
