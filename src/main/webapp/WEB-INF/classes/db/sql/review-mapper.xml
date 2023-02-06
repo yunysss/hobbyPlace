@@ -236,4 +236,12 @@
 	
 	
 	</entry>
+	
+	<entry key="updateReEnroll">
+	UPDATE REGISTER
+	   SET RE_ENROLL = 'Y'
+     WHERE REG_NO = ?
+	
+	
+	</entry>
 </properties>

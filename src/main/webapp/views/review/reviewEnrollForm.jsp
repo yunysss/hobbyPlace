@@ -113,7 +113,9 @@
                 <form action="<%=contextPath %>/insert.rev" id="enroll-form" method="post" enctype="multipart/form-data" >
                 <input type="hidden" name="no" value="<%=er.getRegNo()%>">
 				<input type="hidden" name="clNo" value = "<%=er.getClNo()%>">
+				<input type="hidden" name="reEnroll" value = "<%=er.getReEnroll()%>">
                     <div class="starRating" align="center">
+                    
 
                         
                         <div class="starpoint_wrap" height="20px">
