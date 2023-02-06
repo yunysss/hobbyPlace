@@ -16,7 +16,7 @@
 	div{box-sizing:border-box;}
 	/*div{border:solid 1px black;}*/
 	.cWrap{width:100%; padding:10px; padding-right:0;}
-	.searchWrap{width:90%; border:1px solid lightgray; border-radius:10px; padding:15px; padding-left:40px;}
+	.searchWrap{width:90%; border:1px solid lightgray; border-radius:10px; padding:40px; padding-left:100px; margin-left:50px;}
 
 	.dtPicker{height:35px; width:140px; border-radius:3px; border-color:rgb(186, 185, 185);}
 	.fCategory{width:165px; height:35px; margin-left:10px; border-radius: 3px; border-color:rgb(186, 185, 185);}
@@ -26,14 +26,46 @@
 
 	#option1{width:100px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
 	#searchKey{width:250px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
-	.optionWrap1, .optionWrap2{padding:0px 15px 15px 15px; border-radius:5px;}
+	.optionWrap1, .optionWrap2{padding:0px 15px 15px 15px; border-radius:10px;}
 	.option1Detail, .option2Detail{margin-left:85px; display:none;}
 
 	#option2{width:120px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
 	.detailNum{width:80px; height:35px; border-radius:3px; margin-left:10px; border-color:rgb(186, 185, 185);}
-	#detailSearch2{margin-left:140px;}
+	#detailSearch1{margin-left:170px;}
 
 	#option1Show:hover, #option2Show:hover{cursor:pointer;}
+	thead{background:rgb(245, 245, 245);}
+	.listTable td, .listTable th{vertical-align: middle; text-align: center; font-size:14px;}
+	tbody>tr:hover{cursor:pointer;}
+	#paging{
+	    text-align: center;
+	    display: inline-block;
+		padding-left :0;
+	}
+	#paging li {
+	    text-align: center;
+	    float: left;
+		list-style:none;
+		border-radius:10px;
+	}
+	
+	#paging li a {
+	    display: block;
+	    font-size: 12px;
+		color: black;
+	    padding: 5px 10px;
+	    box-sizing: border-box;
+		text-decoration-line:none;
+	}
+	
+	#paging li.on {
+	    background: gray;
+	}
+	
+	#paging li.on a {
+	    color: white;
+	}
+	#ex{font-size:13px; margin-left:20px;}
 </style>
 </head>
 <body>
@@ -62,51 +94,48 @@
 					<option value="incomeTotal">총수입</option>
 			   </select>
 			   <select name="lineup" class="lineup">
-					<option name="desc">내림차순</option>
-					<option name="asc">오름차순</option>
+					<option value="desc">내림차순</option>
+					<option value="asc">오름차순</option>
 			   </select>
 			   <button type="button" class="sButton" id="basicSearch" onclick="bSearch();">검색</button>
 			   
 			   <br><br>
 
 			   <div class="optionWrap1">
-					<p id="option1Show">검색옵션1  ▼</p>
+					<p id="option1Show">추가검색  ▼</p>
 					<br>
+					
 					<div class="option1Detail">
+						
 						<select name="option1" id="option1">
 							<option value="tutorName">튜터명</option>
+							<option value="memName">이름</option>
 							<option value="tutorId">아이디</option>
 						</select>
 						<input type="text" name="searchKey" id="searchKey">
-						<button type="button" class="sButton" id="detailSearch1">검색</button>
-					</div>
-				</div>
-				
-				<div class="optionWrap2">
-					<p id="option2Show">검색옵션2  ▼</p>
-					<br>
-					<div class="option2Detail">
+						
+						<br><br>
+						
 						<select name="option2" id="option2">
-							<option value="countIncome">총수익</option>
+							<option value="incomeCount">총수익</option>
 							<option value="countLesson">누적수업횟수</option>
-							<option value="countTutee">튜티수</option>
+							<option value="countTutee">수강한튜티수</option>
 						</select>
 						<input type="text" name="startNum" class="detailNum" id="startNum"> 이상 
 						
 						<input type="text" name="endNum" class="detailNum" id="endNum"> 이하 (숫자만 입력)
 						<br><br>
-						기간&nbsp; : &nbsp; &nbsp;
+						&nbsp; &nbsp;기간&nbsp; : &nbsp;
 						<input type="text" class="dtPicker" id="datepicker3" name="dayStart"> 부터&nbsp;&nbsp;
 						 
 						<input type="text" class="dtPicker" id="datepicker4" name="dayEnd"> 까지
-						<br><br>
-						<button type="button" class="sButton" id="detailSearch2">검색</button>
+						<br>
+						<p id="ex">* 수업을 한 번 이상 진행한 튜터에 한해 추가검색 가능합니다.<br>
+						(아직 최초 수업을 진행하지 않은 튜터는 검색되지 않습니다.)</p><br>
+						<button type="button" class="sButton" id="detailSearch1" onclick="sSearch1();">검색</button>
 					</div>
 				</div>
 				
-
-				
-
 			</div>
 
 		</div>
@@ -115,40 +144,25 @@
 			$(function(){
 				$("#option1Show").click(function(){
 					if($(".option1Detail").css("display")=="none"){
-						$(this).css("font-weight", "600").html("검색옵션1  ▲");
+						$(this).css("font-weight", "600").html("추가검색  ▲");
 						$(".option1Detail").show();
-						$(".option2Detail").hide();
+						
 						$("#basicSearch").hide();
-						$(".optionWrap1").css("background-color", "rgb(235, 240, 240)").css("width", "80%").css("padding-bottom", "20px");
-						$(".optionWrap2").css("background-color", "white").css("padding-bottom", "15px");
-						$("#option2Show").css("font-weight", "400").html("검색옵션2  ▼");
+						$(".optionWrap1").css("background-color", "rgb(235, 240, 240)").css("width", "80%").css("padding-bottom", "20px").css("width", "650px");
+						
+						
 					}else{
-						$("#option1Show").css("font-weight", "400").html("검색옵션1  ▼");
+						$("#option1Show").css("font-weight", "400").html("추가검색  ▼");
 						$(".option1Detail").css("display", "none");
 						$("#basicSearch").show();
 						$(".optionWrap1").css("background-color", "white").css("padding-bottom", "15px");
 					}	
 				});
 
-				$("#option2Show").click(function(){
-					if($(".option2Detail").css("display")=="none"){
-						$(this).css("font-weight", "600").html("검색옵션2  ▲");
-						$(".option2Detail").show();
-						$(".option1Detail").hide();
-						$("#basicSearch").hide();
-						$(".optionWrap2").css("background-color", "rgb(235, 240, 240)").css("width", "80%").css("padding-bottom", "20px");
-						$(".optionWrap1").css("background-color", "white").css("padding-bottom", "15px");
-						$("#option1Show").css("font-weight", "400").html("검색옵션1  ▼");
-					}else{
-						$("#option2Show").css("font-weight", "400").html("검색옵션2  ▼");
-						$(".option2Detail").css("display", "none");
-						$("#basicSearch").show();
-						$(".optionWrap2").css("background-color", "white").css("padding-bottom", "15px");
-					}	
-				})
-
 			})
-		</script>	
+		</script>
+		
+			
 		<script>
 			$(function() {
 				//모든 datepicker에 대한 공통 옵션 설정
@@ -167,8 +181,8 @@
 					,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
 					,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
 					,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
-					,minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-					,maxDate: "TODAY" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                    
+					//,minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+					//,maxDate: "TODAY" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                    
 				});
 	
 				//input을 datepicker로 선언
@@ -183,10 +197,17 @@
 				//To의 초기값을 내일로 설정
 				$('#datepicker2').datepicker('setDate', 'TODAY'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 				$('#datepicker4').datepicker('setDate', 'TODAY');
-			});
+			})
 		</script>
 		
 		<script>
+			let totalData; 
+		    let dataPerPage=10; 
+		    let pageCount = 10; 
+		    let globalCurrentPage=1; 
+		    let dataList;
+		    
+			<!-- 기본검색용 -->
 			function bSearch(){
 				$.ajax({
 					url:"<%=contextPath%>/tutorBasicSearch.ad",
@@ -198,31 +219,150 @@
 					},
 					type:"post",
 					success:function(result) {
-						let value="";
-						for(let i=0; i<result.length; i++){
-							value += "<tr>"
-					        			+ "<td>" +result[i].memNo +"</td>"
-					        			+ "<td>" +result[i].memName +"</td>"
-					        			+ "<td>" +result[i].memId +"</td>"
-					        			+ "<td>" +result[i].tutorName +"</td>"
-					        			+ "<td>" +result[i].classActive +"</td>"
-					        			+ "<td>" +result[i].classTotal +"</td>"
-					        			+ "<td>" +result[i].lessonTotal +"</td>"
-					        			+ "<td>" +result[i].tuteeTotal +"</td>"
-					        			+ "<td>" +result[i].likeCount +"</td>"
-					        			+ "<td>" +result[i].revCount +"</td>"
-					        			+ "<td>" +result[i].incomeTotal +"</td>"
-					        			+ "<td>" +result[i].tutorAddress +"</td>"
-								        + "</tr>";
+						
+						if(result.length == 0) {
+							let value = "<tr>" + "<td colspan='12'>조회된 내역이 없습니다.</td>" + "</tr>";
+							$(".listTable tbody").html(value);
+							$(".paging-area").html("");
+						} else{
+							totalData = result.length;
+    	 		            dataList=result;
+    	 		            displayData(1, dataPerPage, totalData);
+    	 		            paging(totalData, dataPerPage, pageCount, 1);
 						}
-						$("#resultNt").html("<br>** 총 " + result.length + "명이 조회되었습니다 **");
-						$(".listTable tbody").html(value);
-					
+						
 					}, error:function(){
 						console.log("ajax 통신 실패");
 					}
 				})
 			}
+			
+			<!-- 추가검색 -->
+			function sSearch1(){
+				$.ajax({
+					url:"<%=contextPath%>/tutorDetailSearch1.ad",
+					data:{
+						enrollStart:$("#datepicker1").val(),
+						enrollEnd:$("#datepicker2").val(),
+						fCategory:$(".fCategory").val(),
+						lineup:$(".lineup").val(),
+						
+						option1:$("#option1").val(),
+						searchKey:$("#searchKey").val(),
+						
+						option2:$("#option2").val(),
+						startNum:$("#startNum").val(),
+						endNum:$("#endNum").val(),
+						dayStart:$("#datepicker3").val(),
+						dayEnd:$("#datepicker4").val()
+					},
+					type:"post",
+					success:function(result) {
+						if(result.length == 0) {
+							let value = "<tr>" + "<td colspan='12'>조회된 내역이 없습니다.</td>" + "</tr>";
+							$(".listTable tbody").html(value);
+							$(".paging-area").html("");
+							$("#resultNt").html("<br>** 총 0명이 조회되었습니다 **");
+						} else{
+							totalData = result.length;
+    	 		            dataList=result;
+    	 		            displayData(1, dataPerPage, totalData);
+    	 		            paging(totalData, dataPerPage, pageCount, 1);
+						}
+						
+					}, error:function(){
+						console.log("ajax 통신 실패");
+					}
+				})
+			}
+			
+			
+			<!-- 결과 리스트 디스플레이 -->
+			function displayData(currentPage, dataPerPage, totalData) {
+		    	  let chartHtml = "";
+		    	  currentPage = Number(currentPage);
+		    	  dataPerPage = Number(dataPerPage);
+		    	  if(totalData < dataPerPage){
+		    		  num = totalData;
+		    	  } else{
+		    		  num = dataPerPage;
+		    	  }
+		    	  for (let i = (currentPage - 1) * dataPerPage; 
+		    	    i < (currentPage - 1) * dataPerPage + num;
+		    	    i++
+		    	  ) {
+		    	    chartHtml += "<tr>"
+				        			+ "<td>" +dataList[i].memNo +"</td>"
+				        			+ "<td>" +dataList[i].memName +"</td>"
+				        			+ "<td>" +dataList[i].memId +"</td>"
+				        			+ "<td>" +dataList[i].tutorName +"</td>"
+				        			+ "<td>" +dataList[i].classActive +"</td>"
+				        			+ "<td>" +dataList[i].classTotal +"</td>"
+				        			+ "<td>" +dataList[i].lessonTotal +"</td>"
+				        			+ "<td>" +dataList[i].tuteeTotal +"</td>"
+				        			+ "<td>" +dataList[i].likeCount +"</td>"
+				        			+ "<td>" +dataList[i].revCount +"</td>"
+				        			+ "<td>" +dataList[i].incomeTotal +"</td>"
+				        			+ "<td>" +dataList[i].tutorAddress +"</td>"
+							  + "</tr>";
+		    	  }
+		    	  $(".listTable tbody").html(chartHtml);
+		    	  $("#resultNt").html("<br>** 총 " + dataList.length + "명이 조회되었습니다 **");
+		    }
+			
+			<!-- 페이징처리 -->
+			function paging(totalData, dataPerPage, pageCount, currentPage) {
+	    		 
+	  			  totalPage = Math.ceil(totalData / dataPerPage);
+	      		  
+	      		  if(totalPage<pageCount){
+	      		    pageCount=totalPage;
+	      		  }
+	      		  
+	      		  let pageGroup = Math.ceil(currentPage / pageCount); 
+	      		  let last = pageGroup * pageCount; 
+	      		  
+	      		  if (last > totalPage) {
+	      		    last = totalPage;
+	      		  }
+	
+	      		  let first = last - (pageCount - 1); 
+	      		  let next = last + 1;
+	      		  let prev = first - 1;
+	
+	      		  let pageHtml = "";
+	
+	      		  if (prev > 0) {
+	      		    pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
+	      		  }
+	
+	      		  for (let i = first; i <= last; i++) {
+	      		    if (currentPage == i) {
+	      		      pageHtml +=
+	      		        "<li class='on'><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+	      		    } else {
+	      		      pageHtml += "<li><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+	      		    }
+	      		  }
+	
+	      		  if (last < totalPage) {
+	      		    pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
+	      		  }
+	
+	      		  $("#paging").html(pageHtml);
+	
+	      		  $("#paging li a").click(function () {
+	      		    let $id = $(this).attr("id");
+	      		    selectedPage = $(this).text();
+	
+	      		    if ($id == "next") selectedPage = next;
+	      		    if ($id == "prev") selectedPage = prev;
+	      		    globalCurrentPage = selectedPage;
+	      		    paging(totalData, dataPerPage, pageCount, selectedPage);
+	      		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
+	      		  });
+	  		  
+	  		}
 		</script>
 		
 		<div class="contentMain" align="center">
@@ -259,16 +399,31 @@
 						<th>주소</th>
 					</tr>
 				</thead>
-				<tbody  class="table-group-divider">
+				<tbody  class="table-group-divider" id="tbd">
 					
 				</tbody>
 				</table>
 			</div>
+			<br>
+			<div align="center">
+            	<ul id="paging">
+				</ul>
+            </div>
+			<br><br><br><br><br><br>
+			<script>
+	        	$(function(){
+	        		 $("#tbd").on("click", "tr", function(){
+	        			 location.href = '<%=contextPath%>/ttDetail.ad?no=' + $(this).children().eq(0).text(); 
+	                 })
+	        	})
+        	</script>
 
 
 		</div>
 
 
 	</div>
+	
+	
 </body>
 </html>

@@ -66,7 +66,7 @@
 		      , DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') "CAL_STA"
 		  FROM (SELECT *
 				   FROM CALCULATE
-				   JOIN REGISTER ON(SUBSTR(CAL_REG,1,INSTR(CAL_REG, ',') - 1) = REG_NO)
+				   JOIN REGISTER ON(DECODE(INSTR(CAL_REG, ','), 0, CAL_REG, SUBSTR(CAL_REG,1,INSTR(CAL_REG, ',') - 1)) = REG_NO)
 				   JOIN CLASS C USING(CL_NO)
 		           JOIN TUTOR T ON(C.MEM_NO = T.MEM_NO)
 				  ORDER 
@@ -86,7 +86,7 @@
 		     , DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') "CAL_STA"
 		     , CAL_REG
 		  FROM CALCULATE
-		  JOIN REGISTER ON(SUBSTR(CAL_REG,1,INSTR(CAL_REG, ',') - 1) = REG_NO)
+		  JOIN REGISTER ON(DECODE(INSTR(CAL_REG, ','), 0, CAL_REG, SUBSTR(CAL_REG,1,INSTR(CAL_REG, ',') - 1)) = REG_NO)
 		  JOIN CLASS C USING(CL_NO)
           JOIN TUTOR T ON(C.MEM_NO = T.MEM_NO)
 		 WHERE CAL_NO = ?
@@ -104,12 +104,11 @@
              , MEM_ID
           FROM (SELECT *
                   FROM CALCULATE
-                  JOIN REGISTER ON(SUBSTR(CAL_REG,1,INSTR(CAL_REG, ',') - 1) = REG_NO)
+                  JOIN REGISTER ON(DECODE(INSTR(CAL_REG, ','), 0, CAL_REG, SUBSTR(CAL_REG,1,INSTR(CAL_REG, ',') - 1)) = REG_NO)
 		          JOIN CLASS C USING(CL_NO)
                   JOIN MEMBER M ON(C.MEM_NO = M.MEM_NO)
 		         ORDER 
 		            BY CAL_NO DESC)
-         WHERE DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') LIKE ?
 	</entry>
 	
 	<entry key="updateCalculateSta">

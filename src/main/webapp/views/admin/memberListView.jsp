@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="com.hp.common.model.vo.PageInfo" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +17,7 @@
 	/*div{border:solid 1px black;}*/
 	.cWrap{width:100%; padding:10px; padding-right:0;}
 	.sGroup{width:33px;}
-	.searchWrap{width:90%; border:1px solid lightgray; border-radius:10px; padding:15px; padding-left:40px;}
+	.searchWrap{width:90%; border:1px solid lightgray; border-radius:10px; padding:30px; padding-left:100px;}
 	.fCategory{width:120px; height:35px; margin-left:10px; border-radius: 3px; border-color:rgb(186, 185, 185);}
 	.sCategory{width:120px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
 
@@ -33,7 +32,37 @@
 	.dtCate{margin-left:68px;}
 	#selectValue{width:100px; height:35px; border-radius: 3px; border-color:rgb(186, 185, 185);}
 	.listTable{width:auto;}
+	thead{background:rgb(245, 245, 245);}
 	.listTable>tbody>tr:hover{cursor:pointer;}
+	.listTable td, .listTable th{vertical-align: middle; text-align: center; font-size:14px;}
+	#paging{
+	    text-align: center;
+	    display: inline-block;
+		padding-left :0;
+	}
+	#paging li {
+	    text-align: center;
+	    float: left;
+		list-style:none;
+		border-radius:10px;
+	}
+	
+	#paging li a {
+	    display: block;
+	    font-size: 12px;
+		color: black;
+	    padding: 5px 10px;
+	    box-sizing: border-box;
+		text-decoration-line:none;
+	}
+	
+	#paging li.on {
+	    background: gray;
+	}
+	
+	#paging li.on a {
+	    color: white;
+	}
 </style>
 <body>
 	<%@ include file="../common/adminMenubar.jsp" %>
@@ -43,9 +72,9 @@
 			<h4 align="left">전체 회원 관리</h4>
 			<br>
 			<div class="searchWrap" align="left">
-				<input type="radio" name="sGroup" class="sGroup" id="entire" value="%%" checked><label for="entire">전체</label>
-				<input type="radio" name="sGroup" class="sGroup" id="tutorMem" value="%2%"><label for="tutorMem">튜터 등록 회원</label>
-				<input type="radio" name="sGroup" class="sGroup" id="generalMem" value="%1%"><label for="generalMem">튜터 미등록 회원</label>
+				<input type="radio" name="sGroup" class="sGroup" id="entire" value="all" checked><label for="entire">전체</label>
+				<input type="radio" name="sGroup" class="sGroup" id="tutorMem" value="tutor"><label for="tutorMem">튜터 등록 회원</label>
+				<input type="radio" name="sGroup" class="sGroup" id="generalMem" value="general"><label for="generalMem">튜터 미등록 회원</label>
 
 				<br>
 				<p>기본검색</p>
@@ -205,8 +234,15 @@
 			})
 		</script>
 		
-		<!-- 기본검색용 ajax -->
-		<script> 
+		
+		<script>
+			let totalData; 
+		    let dataPerPage=10; 
+		    let pageCount = 10; 
+		    let globalCurrentPage=1; 
+		    let dataList;
+		    
+			<!-- 기본검색용 -->
 			function bSearch(){
 				$.ajax({
 					url:"<%=contextPath%>/memberBasicSearch.ad",
@@ -217,42 +253,28 @@
 					},
 					type:"post",
 					success:function(result){
-						//console.log(result);
-					
-						let value="";
-						for(let i=0; i<result.length; i++){
-							value += "<tr>"
-					        			+ "<td>" +result[i].memNo +"</td>"
-					        			+ "<td>" +result[i].memName +"</td>"
-					        			+ "<td>" +result[i].grade +"</td>"
-					        			+ "<td>" +result[i].enrollDate +"</td>"
-					        			+ "<td>" +result[i].regCount +"</td>"
-					        			+ "<td>" +result[i].revCount +"</td>"
-					        			+ "<td>" +result[i].likeCount +"</td>"
-					        			+ "<td>" +result[i].totalpay +"</td>"
-					        			+ "<td>" +result[i].email +"</td>"
-					        			+ "<td>" +result[i].phone +"</td>"
-					        			+ "<td>" +result[i].address +"</td>"
-					        			+ "<td>" +result[i].gender +"</td>"
-					        			+ "<td>" +result[i].memDrop +"</td>"
-								        + "</tr>";
+						console.log(result);
+						if(result.length == 0) {
+							let value = "<tr>" + "<td colspan='13'>조회된 내역이 없습니다.</td>" + "</tr>";
+							$(".listTable tbody").html(value);
+							$(".paging-area").html("");
+						} else{
+							totalData = result.length;
+    	 		            dataList=result;
+    	 		            displayData(1, dataPerPage, totalData);
+    	 		            paging(totalData, dataPerPage, pageCount, 1);
 						}
-						$("#resultNt").html("<br>** 총 " + result.length + "명이 조회되었습니다 **");
-						$(".listTable tbody").html(value);
-						
-						
 						
 					},error:function(){
 						console.log("ajax 통신 실패");
 					}
 				})
+				
 			}
-		</script>
 		
-		<!-- 세부검색용 script -->
-		<script>
+			<!-- 세부검색용 -->
 			function dSearch(){
-				console.log($("#datepicker1").val());
+				//console.log($("#datepicker1").val());
 				$.ajax({
 					url:"<%=contextPath%>/memberDetailSearch.ad",
 					data:{
@@ -264,43 +286,122 @@
 						sCategory:$(".sCategory").val(),
 						searchKey1:$("#searchKey1").val(),
 						searchKey2:$("#searchKey2").val(),
-						selectValue:$("#selectValue").val()
+						selectValue:$("#selectValue").val(),
+						
 					},
 					type:"post",
 					success:function(result){
-						let value="";
-						for(let i=0; i<result.length; i++){
-							value += "<tr>"
-					        			+ "<td>" +result[i].memNo +"</td>"
-					        			+ "<td>" +result[i].memName +"</td>"
-					        			+ "<td>" +result[i].grade +"</td>"
-					        			+ "<td>" +result[i].enrollDate +"</td>"
-					        			+ "<td>" +result[i].regCount +"</td>"
-					        			+ "<td>" +result[i].revCount +"</td>"
-					        			+ "<td>" +result[i].likeCount +"</td>"
-					        			+ "<td>" +result[i].totalpay +"</td>"
-					        			+ "<td>" +result[i].email +"</td>"
-					        			+ "<td>" +result[i].phone +"</td>"
-					        			+ "<td>" +result[i].address +"</td>"
-					        			+ "<td>" +result[i].gender +"</td>"
-					        			+ "<td>" +result[i].memDrop +"</td>"
-								        + "</tr>";
+						if(result.length == 0) {
+							let value = "<tr>" + "<td colspan='13'>조회된 내역이 없습니다.</td>" + "</tr>";
+							$(".listTable tbody").html(value);
+							$(".paging-area").html("");
+						} else{
+							totalData = result.length;
+    	 		            dataList=result;
+    	 		            displayData(1, dataPerPage, totalData);
+    	 		            paging(totalData, dataPerPage, pageCount, 1);
 						}
-						$("#resultNt").html("<br>** 총 " + result.length + "명이 조회되었습니다 **");
-						$(".listTable tbody").html(value);
-						
-						
-						
-						
 					},error:function(){
 						console.log("ajax 통신 실패");
 					}
 				})
 			}
+			
+			<!-- 결과 리스트 디스플레이 -->
+			function displayData(currentPage, dataPerPage, totalData) {
+		    	  let chartHtml = "";
+		    	  currentPage = Number(currentPage);
+		    	  dataPerPage = Number(dataPerPage);
+		    	  if(totalData < dataPerPage){
+		    		  num = totalData;
+		    	  } else{
+		    		  num = dataPerPage;
+		    	  }
+		    	  for (let i = (currentPage - 1) * dataPerPage; 
+		    	    i < (currentPage - 1) * dataPerPage + num;
+		    	    i++
+		    	  ) {
+		    	    chartHtml += "<tr>"
+			        			+ "<td>" +dataList[i].memNo +"</td>"
+			        			+ "<td>" +dataList[i].memName +"</td>"
+			        			+ "<td>" +dataList[i].grade +"</td>"
+			        			+ "<td>" +dataList[i].enrollDate +"</td>"
+			        			+ "<td>" +dataList[i].regCount +"</td>"
+			        			+ "<td>" +dataList[i].revCount +"</td>"
+			        			+ "<td>" +dataList[i].likeCount +"</td>"
+			        			+ "<td>" +dataList[i].totalpay +"</td>"
+			        			+ "<td>" +dataList[i].email +"</td>"
+			        			+ "<td>" +dataList[i].phone +"</td>"
+			        			+ "<td>" +dataList[i].address +"</td>"
+			        			+ "<td>" +dataList[i].gender +"</td>"
+			        			+ "<td>" + dataList[i].memDrop + "</td>"
+					        + "</tr>";
+		    	  }
+		    	  $(".listTable tbody").html(chartHtml);
+		    	  $("#resultNt").html("<br>** 총 " + dataList.length + "명이 조회되었습니다 **");
+		    }
+			
+			<!-- 페이징처리 -->
+			function paging(totalData, dataPerPage, pageCount, currentPage) {
+	    		 
+  			  totalPage = Math.ceil(totalData / dataPerPage);
+      		  
+      		  if(totalPage<pageCount){
+      		    pageCount=totalPage;
+      		  }
+      		  
+      		  let pageGroup = Math.ceil(currentPage / pageCount); 
+      		  let last = pageGroup * pageCount; 
+      		  
+      		  if (last > totalPage) {
+      		    last = totalPage;
+      		  }
+
+      		  let first = last - (pageCount - 1); 
+      		  let next = last + 1;
+      		  let prev = first - 1;
+
+      		  let pageHtml = "";
+
+      		  if (prev > 0) {
+      		    pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
+      		  }
+
+      		  for (let i = first; i <= last; i++) {
+      		    if (currentPage == i) {
+      		      pageHtml +=
+      		        "<li class='on'><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+      		    } else {
+      		      pageHtml += "<li><a href='#' id='" + i + "' class='page-btn'>" + i + "</a></li>";
+      		    }
+      		  }
+
+      		  if (last < totalPage) {
+      		    pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
+      		  }
+
+      		  $("#paging").html(pageHtml);
+
+      		  $("#paging li a").click(function () {
+      		    let $id = $(this).attr("id");
+      		    selectedPage = $(this).text();
+
+      		    if ($id == "next") selectedPage = next;
+      		    if ($id == "prev") selectedPage = prev;
+      		    globalCurrentPage = selectedPage;
+      		    paging(totalData, dataPerPage, pageCount, selectedPage);
+      		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
+      		  });
+  		  
+  		}
+			
 		</script>
 		
 		<div class="contentMain">
-  			<p align="left" id="resultNt"></p>
+  			
+  			<p align="left" id="resultNt">
+  				
+  			</p>
 			<div class="container mt-3 table-responsive-xxl" style="overflow-x: auto;">
 
 			  <table class="table table-hover table-responsive-xxl listTable" style="table-layout:fixed;">
@@ -315,7 +416,7 @@
 					<col style="width:130px;">
 					<col style="width:170px;">
 					<col style="width:150px;">
-					<col style="width:230px;">
+					<col style="width:300px;">
 					<col style="width:80px;">
 					<col style="width:100px;">
 				</colgroup>
@@ -337,10 +438,16 @@
 			      </tr>
 			    </thead>
 			    <tbody class="table-group-divider" id="tbd">
-			    
+	                
 			    </tbody>
 			  </table>
 			</div>
+			<br>
+			<div align="center">
+            	<ul id="paging">
+				</ul>
+            </div>
+			<br><br><br><br><br><br>
 			<script>
 	        	$(function(){
 	        		 $("#tbd").on("click", "tr", function(){
@@ -349,11 +456,7 @@
 	        	})
         	</script>
         	
-        	<div class="paging-area">
-        
         	
-            
-			</div>
 		</div>
 		
 	</div>

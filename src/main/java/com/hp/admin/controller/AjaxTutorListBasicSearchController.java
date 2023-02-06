@@ -39,7 +39,7 @@ public class AjaxTutorListBasicSearchController extends HttpServlet {
 		String lineup = request.getParameter("lineup");
 		
 		SearchTutor st = new SearchTutor(enrollStart, enrollEnd, fCategory, lineup);
-		System.out.println(st.getEnrollStart());
+		
 		ArrayList<TutorList> list = new AdminService().selectTutorList1(st);
 		
 		response.setContentType("application/json; charset=UTF-8");

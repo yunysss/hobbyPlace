@@ -164,7 +164,7 @@ public class CalculateDao {
 		ResultSet rset =null;
 		String sql = prop.getProperty("selectCalList");
 		if(!startDate.equals("") && !endDate.equals("")) {
-			sql += "AND RQ_DT BETWEEN ? AND ?";
+			sql += "AND RQ_DT BETWEEN TO_CHAR(TO_DATE(?, 'YYYY-MM-DD'), 'YYYY-MM-DD') AND TO_CHAR(TO_DATE(?, 'YYYY-MM-DD')+1, 'YYYY-MM-DD')";
 		}
 		
 		try {
@@ -248,27 +248,16 @@ public class CalculateDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
 		String sql = prop.getProperty("selectCalMng");
-		if(!startDate.equals("") && !endDate.equals("")) {
-			sql += "AND RQ_DT BETWEEN ? AND TO_DATE(?, 'YYYY-MM-DD') + 1";
-		}
-		if(!memId.equals("")) {
-			sql += "AND MEM_ID LIKE ?";
-		}
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + status + "%");
+			sql += "WHERE DECODE(CAL_STA, 'W', '정산 진행중', 'C', '정산완료') LIKE '%" + status + "%'";
 			if(!startDate.equals("") && !endDate.equals("")) {
-				pstmt.setString(2, startDate);
-				pstmt.setString(3, endDate);
-				if(!memId.equals("")) {
-					pstmt.setString(4, "%" + memId + "%");
-				} 
-			} else {
-				if(!memId.equals("")) {
-					pstmt.setString(2, "%" + memId + "%");
-				}
+				sql += "AND RQ_DT BETWEEN TO_CHAR(TO_DATE('" + startDate + "', 'YYYY-MM-DD'), 'YYYY-MM-DD') AND TO_CHAR(TO_DATE('" + endDate + "', 'YYYY-MM-DD')+1, 'YYYY-MM-DD')";
 			}
+			if(!memId.equals("")) {
+				sql += "AND MEM_ID LIKE '%" + memId + "%'";
+			}
+			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

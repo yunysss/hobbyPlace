@@ -47,7 +47,7 @@ public class ClassDetailSearchController extends HttpServlet {
 			 day = String.join(",", dayArr);
 		 }
 		 String price = request.getParameter("price");
-		 System.out.println("day:" + day);
+		 //System.out.println("day:" + day);
 	
 		 
 		 Search s = new Search(keyword,category,dcategory,sido,sigungu,day,price);

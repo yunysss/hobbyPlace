@@ -25,6 +25,7 @@
             width: 1000px;
             margin: auto;
             margin-top: 100px;
+            padding:40px;
         }
         .detail{
             text-align: center;
@@ -50,8 +51,8 @@
             </div>
 
             <div>
-                <a href="" style="color: black; font-size: large; font-weight: 800;" ><img src="resources/pin-angle-fill.svg" >
-                    공지사항</a>
+                <a href="" style="color: black; font-size: large; font-weight: 800;" >
+                    >>공지사항</a>
             </div>
     
             <br>
@@ -102,7 +103,7 @@
                 <button style="border: none; background-color: lightgray; ">&lt;이전글</button>
             </div>
             <div style="float:left; width: 33%;" >
-                <button style="border:none; background-color: lightgray;  ">목록</button>
+                <a href="<%=contextPath%>/noticelist.tor?cpage=1"><button style="border:none; background-color: lightgray;  ">목록</button></a>
             </div>
             <div style="float: left; width: 33%; text-align: right;">
                 <button style="border: none; background-color: lightgray;">다음글&gt;</button>

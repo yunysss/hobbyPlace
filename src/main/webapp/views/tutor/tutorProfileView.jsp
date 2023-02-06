@@ -131,7 +131,7 @@ padding: 5px 10px;
 	                 
                                 <br>
                                  <font id = "checkId" size = "1"></font>
-                                <span>최대 20자 이내로 입력해주세요.</span>
+                                <span>최대 10자 이내로 입력해주세요.</span>
                                 
                             </td>
 

@@ -145,7 +145,6 @@
 		    	}
 			    function displayData(currentPage, dataPerPage, totalData) {
 			    	  let value = "";
-			    	//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
 			    	  currentPage = Number(currentPage);
 			    	  dataPerPage = Number(dataPerPage);
 			    	  if(totalData < dataPerPage){
@@ -234,7 +233,7 @@
 		
 		        		    if ($id == "next") selectedPage = next;
 		        		    if ($id == "prev") selectedPage = prev;
-		        		    //전역변수에 선택한 페이지 번호를 담는다...
+		        		    //전역변수에 선택한 페이지 번호를 담는다
 		        		    globalCurrentPage = selectedPage;
 		        		    //페이징 표시 재호출
 		        		    paging(totalData, dataPerPage, pageCount, selectedPage);
@@ -269,20 +268,7 @@
 				})
 			})
 		</script>
-		<!-- 모달 -->
-        <div class="modal fade" id="calModal">
-          <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-        
-              <div class="modal-body" align="center">
-                정산 신청 완료되었습니다. <br><br>
-                <a href="<%= contextPath %>/views/common/tutorMainPage.jsp" class="btn btn-secondary">튜터 홈으로</a>
-                <a href="<%= contextPath %>/views/calculate/calculateList.jsp" class="btn btn-secondary">정산 내역 조회</a>
-              </div>
-        
-            </div>
-          </div>
-        </div>
 	</div>
+	<%@ include file="../common/footerbar.jsp" %>
 </body>
 </html>

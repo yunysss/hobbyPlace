@@ -13,6 +13,7 @@ import com.hp.admin.model.service.AdminService;
 import com.hp.lesson.model.vo.Category;
 import com.hp.lesson.model.vo.Dcategory;
 import com.hp.lesson.model.vo.District;
+import com.hp.lesson.model.vo.Lesson;
 
 /**
  * Servlet implementation class StatisticsViewController
@@ -34,15 +35,19 @@ public class StatisticsViewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Category> cList = new AdminService().selectCategoryList();
-		ArrayList<Dcategory> dList = new AdminService().selectDcategoryList();
 		ArrayList<District> lList = new AdminService().selectLocalList();
 		ArrayList<District> disList = new AdminService().selectDistrictList();
+		ArrayList<Category> cList = new AdminService().selectCategoryList();
+		ArrayList<Dcategory> dList = new AdminService().selectDcategoryList();
+		ArrayList<Lesson> ch1List= new AdminService().selectStatCount();
+		ArrayList<Lesson> ch2List = new AdminService().selectStatLocation();
 		
-		request.setAttribute("cList", cList);
-		request.setAttribute("dList", dList);
+		request.setAttribute("catList", cList);
+		request.setAttribute("dcList", dList);
 		request.setAttribute("lList", lList);
 		request.setAttribute("disList", disList);
+		request.setAttribute("ch1List", ch1List);
+		request.setAttribute("ch2List", ch2List);
 		request.getRequestDispatcher("views/admin/statisticsView.jsp").forward(request, response);
 	}
 

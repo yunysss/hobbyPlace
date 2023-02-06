@@ -27,7 +27,7 @@
     #mainPageRec-3{height:40%;}
     
     #rec-pic-1, #rec-pic-2 {display:inline-block; height:241px; overflow:hidden;}
-    #rec-pic-3{display:inline-block; height:290px; overflow:hidden;}
+    #rec-pic-3{display:inline-block; height:320px; overflow:hidden;}
     #rec-pic-3 li{
     	width:200px;
     	margin-right:30px;	
@@ -90,16 +90,23 @@
             <!-- The slideshow -->
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="<%=contextPath %>/resources/images/mainImage.png">
+              	<% if(loginUser == null){ %>
+              		<a href="<%=contextPath%>/login.me"><img src="<%=contextPath %>/resources/images/mainImage.png"></a>
+              	<% } else{%>
+              		<% if(loginUser.getGrade().equals("2")){ %>
+              			<a href="<%=contextPath%>/tutorMain.tt"><img src="<%=contextPath %>/resources/images/mainImage.png"></a>
+              		<% }else{ %>
+              			<a href="<%=contextPath%>/enrollForm.tt"><img src="<%=contextPath %>/resources/images/mainImage.png"></a>
+              		<% } %>
+              	<% } %>
               </div>
               <div class="carousel-item">
-                <img src="<%=contextPath %>/resources/images/mainImage2.png">
+                <a href="<%=contextPath%>/ctselect.cl?cpage=1&ct=쿠킹"><img src="<%=contextPath %>/resources/images/mainImage2.png"></a>
               </div>
               <div class="carousel-item">
-                <img src="<%=contextPath %>/resources/images/mainImage3.png">
+                <a href=""><img src="<%=contextPath %>/resources/images/mainImage3.png"></a>
               </div>
             </div>
-          
             <!-- Left and right controls -->
             <a class="carousel-control-prev" href="#demo" data-slide="prev">
               <span class="carousel-control-prev-icon"></span>
@@ -172,7 +179,6 @@
                 			success:function(list){
                 				let value = "";
                 				for(let i=0; i<list.length; i++){
-                					console.log(list[i].reviewContent.length)
                 					value += "<li>"
                 								+ "<a href='" + '<%=contextPath%>' + "/page.cl?no=" + list[i].clNo + "'>"
                 									+ "<img src='" + '<%=contextPath%>' + "/" + list[i].clThumb + "'><br>"
@@ -185,7 +191,7 @@
                 						value += "⭐"
                 					}
                 					value += "<p>" + list[i].reviewContent 
-             						if(list[i].reviewContent.length == 25){
+             						if(list[i].reviewContent.length == 23){
              							value += "...";
              						}
                						value += "</p>"
@@ -275,6 +281,7 @@
 	                    <b>클래스 후기</b>
 	                    <span><button class="left" onclick="prevView(3);">❮</button> <button class="right" onclick="nextView(3);">❯</button></span>
 	                </div>
+	                <br>
 	                <ul id="rec-pic-3">
 	                </ul>
 	                <script>

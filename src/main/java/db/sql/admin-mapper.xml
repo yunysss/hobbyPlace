@@ -181,8 +181,8 @@
 	<!-- 관리자 클래스 승인 -->
 	<entry key="classApprovalUpdate">
 	UPDATE CLASS
-	  SET UPDATE_DATE = SYSDATE
-	      START_DATE = SYSDATE,
+	  SET START_DATE =  TO_CHAR(SYSDATE,'YYYY/MM/DD')
+	  	 , UPDATE_DATE = SYSDATE
 	     , CL_STATUS = 2
 	WHERE  CL_NO =?   
 
@@ -234,81 +234,7 @@
 	
 	</entry>
 	
-	<entry key="selectMemberListCount1">
-		SELECT COUNT(*) "COUNT"
-		  FROM (
-					SELECT
-					       MEM_NO
-					     , MEM_NAME
-					     , DECODE(GRADE, '0', '관리자', '1', '등록안함', '2', '튜터') "GRADE"
-					     , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE"
-					     , (SELECT COUNT(REG_NO)
-					          FROM REGISTER R
-					         WHERE REG_STA = '2'
-					           AND MEM_NO = M.MEM_NO) "REGCOUNT"   
-					     , (SELECT COUNT(RE_NO) 
-					          FROM REVIEW
-					         WHERE RE_STA = 'Y'
-					           AND MEM_NO = M.MEM_NO) "REVCOUNT"
-					     , (SELECT COUNT(CL_NO)
-					          FROM "LIKE"
-					         WHERE MEM_NO = M.MEM_NO) "LIKECOUNT"
-					     , (SELECT SUM(REG_PRICE)
-					          FROM REGISTER
-					         WHERE REG_STA = '2'
-					          AND MEM_NO = M.MEM_NO) "TOTALPAY"
-					     , NVL(MEM_EMAIL, '미등록') "MEM_EMAIL"
-					     , MEM_PHONE
-					     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
-					     , GENDER
-					     , MEM_STATUS
-					  FROM MEMBER M
-					 WHERE GRADE LIKE ?
-					 <!-- ORDER BY -->
-				)
-	</entry>
 	
-	<!-- 기본검색으로 회원조회시 회원리스트 -->
-	<entry key="selectMemberList1">
-	  SELECT *
-		FROM (
-		  	   SELECT ROWNUM RNUM, A.*
-		  	     FROM (
-						SELECT
-						       MEM_NO
-						     , MEM_NAME
-						     , DECODE(GRADE, '0', '관리자', '1', '등록안함', '2', '튜터') "GRADE"
-						     , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE"
-						     , (SELECT COUNT(REG_NO)
-						          FROM REGISTER R
-						         WHERE REG_STA = '2'
-						           AND MEM_NO = M.MEM_NO) "REGCOUNT"   
-						     , (SELECT COUNT(RE_NO) 
-						          FROM REVIEW
-						         WHERE RE_STA = 'Y'
-						           AND MEM_NO = M.MEM_NO) "REVCOUNT"
-						     , (SELECT COUNT(CL_NO)
-						          FROM "LIKE"
-						         WHERE MEM_NO = M.MEM_NO) "LIKECOUNT"
-						     , (SELECT SUM(REG_PRICE)
-						          FROM REGISTER
-						         WHERE REG_STA = '2'
-						          AND MEM_NO = M.MEM_NO) "TOTALPAY"
-						     , NVL(MEM_EMAIL, '미등록') "MEM_EMAIL"
-						     , MEM_PHONE
-						     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
-						     , GENDER
-						     , MEM_STATUS
-						  FROM MEMBER M
-						 WHERE GRADE LIKE ?
-						 <!-- ORDER BY -->
-					) A
-				)
-			WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	
-	
-		
 	<!-- 회원번호로 회원정보 조회 -->
 	<entry key="selectMemberByNo">
 		SELECT 
@@ -362,15 +288,16 @@
 		     , Q_STATUS
 		     , Q_GRADE
 		     , Q_CATEGORY
-		     , CL_NO
+		     , Q.CL_NO
 		     , Q_MEM_NO
 		     , A_TITLE
 		     , A_CONTENT
 		     , TO_CHAR(A_DATE, 'YYYY-MM-DD') "A_DATE"
 		     , A_MEM_NO
 		     , TT_NAME
-		  FROM QNA 
-		  JOIN TUTOR ON(A_MEM_NO = MEM_NO)
+		  FROM QNA Q
+		  JOIN CLASS C ON (Q.CL_NO = C.CL_NO)
+		  JOIN TUTOR T ON(C.MEM_NO = T.MEM_NO)
 		 WHERE Q_STATUS = 'Y'
    		   AND Q_MEM_NO = ?
 	</entry>
@@ -379,10 +306,10 @@
 	<entry key="selectAllRegister">
 		SELECT
 		       REG_NO
-		     , R.MEM_NO "MEM_NO"
-		     , R.CL_NO "CL_NO"
-		     , C.CL_NAME "CL_NAME"
-		     , R.TEACH_DATE "TEACH_DATE"
+		     , R.MEM_NO
+		     , R.CL_NO
+		     , C.CL_NAME 
+		     , R.TEACH_DATE 
 		     , REG_DATE
 		     , SCH_NO
 		     , REG_PAY
@@ -452,13 +379,47 @@
 	<!-- 체크박스 체크된 클래스만 승인 -->
 	<entry key="checkedClassApprove">
 		UPDATE CLASS
-		  SET UPDATE_DATE = SYSDATE
+		  SET
+			   START_DATE = TO_CHAR(SYSDATE,'YYYY/MM/DD')	    
+		  	 , UPDATE_DATE = SYSDATE
 		     , CL_STATUS = 2
 		WHERE  CL_NO IN (  
 
 	</entry>
 	
-	<!-- 회원목록리스트 세부검색 -->
+	<!-- 기본검색으로 회원조회시 회원리스트 -->
+	<entry key="selectMemberList1">
+	  	SELECT
+		       MEM_NO
+		     , MEM_NAME
+		     , DECODE(GRADE, '0', '관리자', '1', '등록안함', '2', '튜터') "GRADE"
+		     , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE"
+		     , (SELECT COUNT(REG_NO)
+		          FROM REGISTER R
+		         WHERE REG_STA = '2'
+		           AND MEM_NO = M.MEM_NO) "REGCOUNT"   
+		     , (SELECT COUNT(RE_NO) 
+		          FROM REVIEW
+		         WHERE RE_STA = 'Y'
+		           AND MEM_NO = M.MEM_NO) "REVCOUNT"
+		     , (SELECT COUNT(CL_NO)
+		          FROM "LIKE"
+		         WHERE MEM_NO = M.MEM_NO) "LIKECOUNT"
+		     , (SELECT SUM(REG_PRICE)
+		          FROM REGISTER
+		         WHERE REG_STA = '2'
+		          AND MEM_NO = M.MEM_NO) "TOTALPAY"
+		     , NVL(MEM_EMAIL, '미등록') "MEM_EMAIL"
+		     , MEM_PHONE
+		     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
+		     , GENDER
+		     , DECODE(MEM_STATUS, 'Y', '탈퇴X', 'N', '탈퇴O') "MEM_STATUS"
+		  FROM MEMBER M
+		 WHERE GRADE LIKE ?
+		 ORDER BY 
+	</entry>
+	
+	<!-- 세부검색으로 회원조회시 회원리스트 -->
 	<entry key="selectMemberList2">
 		SELECT
 		       MEM_NO
@@ -484,13 +445,29 @@
 		     , MEM_PHONE
 		     , REPLACE(MEM_ADDR, '///', ' ') "MEM_ADDR"
 		     , GENDER
-		     , MEM_STATUS
+		     , DECODE(MEM_STATUS, 'Y', '탈퇴X', 'N', '탈퇴O') "MEM_STATUS"
 		  FROM MEMBER M
 		 WHERE GRADE LIKE ?
    		   AND M.ENROLL_DATE BETWEEN ? AND ?
    		   AND 
 	</entry>
 	
+	<entry key="selectLocalList">
+		SELECT
+		       LOCAL_CODE
+		     , LOCAL_NAME
+		  FROM LOCATION
+	</entry>
+	
+	<entry key="selectDistrictList">
+		SELECT
+		       DISTR_CODE
+		     , LOCAL_CODE 
+		     , DISTR_NAME
+		  FROM DISTRICT
+	</entry>
+	
+	<!-- 튜터관리 기본검색시 튜터리스트 -->
 	<entry key="selectTutorList1">
 		SELECT
 		       T.MEM_NO
@@ -505,48 +482,297 @@
                   FROM CLASS
                  WHERE CL_STATUS IN ('2', '3')
                    AND MEM_NO = T.MEM_NO) "CLASSTOTAL"
-             , (SELECT SUM(REG_COUNT)
-                  FROM REGISTER
-                 WHERE MEM_NO = T.MEM_NO) "TUTEETOTAL"
-             , (SELECT COUNT(CL_NO)
-                  FROM "LIKE"
-                  WHERE MEM_NO = T.MEM_NO) "LIKECOUNT"
-             , (SELECT COUNT(RE_NO) 
-                  FROM REVIEW
-                 WHERE RE_STA = 'Y'
-                   AND MEM_NO = T.MEM_NO) "REVCOUNT"
-             , (SELECT SUM(REG_PRICE)
-                  FROM REGISTER
+             , NVL((select count(distinct(teach_date || sch_no))
+                  from register r
+                  join class c on (r.cl_no = c.cl_no) 
+                 WHERE REG_STA = '2' 
+                   AND C.MEM_NO = T.MEM_NO
+                 group by c.mem_no), 0) "LESSONTOTAL"
+             , NVL((SELECT SUM(REG_COUNT)
+                  from register r
+                  join class c on (r.cl_no = c.cl_no) 
                  WHERE REG_STA = '2'
-                  AND MEM_NO = T.MEM_NO) "INCOMETOTAL"
+                   AND C.MEM_NO = T.MEM_NO
+                 group by c.mem_no), 0) "TUTEETOTAL"
+             , NVL((SELECT COUNT(L.CL_NO)
+                  FROM "LIKE" L
+                  JOIN CLASS C ON (L.CL_NO = C.CL_NO)
+                 WHERE C.MEM_NO = T.MEM_NO
+                 GROUP BY C.MEM_NO), 0) "LIKECOUNT"
+             , NVL((SELECT COUNT(RE_NO) 
+                  FROM REVIEW R
+                  join class c on (r.cl_no = c.cl_no) 
+                 WHERE RE_STA = 'Y'
+                   AND C.MEM_NO = T.MEM_NO
+                 group by C.MEM_NO), 0) "REVCOUNT"
+             , NVL((SELECT SUM(REG_PRICE)
+                  FROM REGISTER r
+                  join class c on (r.cl_no = c.cl_no) 
+                  WHERE REG_STA = '2'
+                    AND REG_CAL = 'C'
+                    AND C.MEM_NO = T.MEM_NO 
+                  group by c.mem_no), 0) "INCOMETOTAL"
              , REPLACE(MEM_ADDR, '///', ' ') "TUTORADDR"
 		  FROM TUTOR T
           JOIN MEMBER M ON (T.MEM_NO = M.MEM_NO)
 		 WHERE T.ENROLL_DATE BETWEEN ? AND ? 
+		  group by T.MEM_NO, MEM_NAME, MEM_ID, TT_NAME, REPLACE(MEM_ADDR, '///', ' ')
          ORDER BY 
 	</entry>
-	
-	<entry key="selectLocalList">
-		SELECT
-		       LOCAL_CODE
-		     , LOCAL_NAME
-		  FROM LOCATION
-	</entry>
-	
-	<entry key="selectDistrictList">
-		SELECT
-		       DISTR_CODE
-		     , LOCAL_CODE
-		     , DISTR_NAME
-		  FROM DISTRICT
-	</entry>
 
+	<!-- 튜터관리 추가검색시 튜터리스트 -->
+	<entry key="selectTutorList2">
+		SELECT
+		       T.MEM_NO
+		     , MEM_NAME
+		     , MEM_ID
+		     , TT_NAME
+             , (SELECT COUNT(CL_NO)
+                  FROM CLASS
+                 WHERE CL_STATUS = 2
+                   AND MEM_NO = T.MEM_NO) "CLASSACTIVE"
+             , (SELECT COUNT(CL_NO)
+                  FROM CLASS
+                 WHERE CL_STATUS IN ('2', '3')
+                   AND MEM_NO = T.MEM_NO) "CLASSTOTAL"
+             , NVL((select count(distinct(teach_date || sch_no))
+                  from register r
+                  join class c on (r.cl_no = c.cl_no) 
+                 WHERE REG_STA = '2' 
+                   AND C.MEM_NO = T.MEM_NO
+                 group by c.mem_no), 0) "LESSONTOTAL"
+             , NVL((SELECT SUM(REG_COUNT)
+                  from register r
+                  join class c on (r.cl_no = c.cl_no) 
+                 WHERE REG_STA = '2'
+                   AND C.MEM_NO = T.MEM_NO
+                 group by c.mem_no), 0) "TUTEETOTAL"
+             , NVL((SELECT COUNT(L.CL_NO)
+                  FROM "LIKE" L
+                  JOIN CLASS C ON (L.CL_NO = C.CL_NO)
+                 WHERE C.MEM_NO = T.MEM_NO
+                 GROUP BY C.MEM_NO), 0) "LIKECOUNT"
+             , NVL((SELECT COUNT(RE_NO) 
+                  FROM REVIEW R
+                  join class c on (r.cl_no = c.cl_no) 
+                 WHERE RE_STA = 'Y'
+                   AND C.MEM_NO = T.MEM_NO
+                 group by C.MEM_NO), 0) "REVCOUNT"
+             , NVL((SELECT SUM(REG_PRICE)
+                  FROM REGISTER r
+                  join class c on (r.cl_no = c.cl_no) 
+                  WHERE REG_STA = '2'
+                    AND REG_CAL = 'C'
+                    AND C.MEM_NO = T.MEM_NO 
+                  group by c.mem_no), 0) "INCOMETOTAL"
+             , REPLACE(MEM_ADDR, '///', ' ') "TUTORADDR"
+		  FROM TUTOR T
+          JOIN MEMBER M ON (T.MEM_NO = M.MEM_NO)
+		 WHERE T.ENROLL_DATE BETWEEN ? AND ? 
+          AND 
+	</entry>
 	
+	<entry key="searchStat">
+		SELECT *
+		  FROM (SELECT CL_NO
+		  			 , CT_NO
+                     , CT_DNO
+                     , LOCAL_CODE
+                     , DISTR_CODE
+                     , CL_NAME
+                     , TT_NAME
+                     , (SELECT COUNT(*)
+                          FROM "LIKE" L
+                         WHERE L.CL_NO = C.CL_NO) "LIKE_COUNT"
+		             , (SELECT COUNT(*)
+                          FROM REVIEW R
+                         WHERE R.CL_NO = C.CL_NO) "REVIEW_COUNT"
+                     , (SELECT NVL(AVG(RE_STAR), 0) 
+                          FROM REVIEW R
+                         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+                     , (SELECT NVL(SUM(REG_COUNT),0)
+                          FROM REGISTER REG
+                         WHERE REG.CL_NO = C.CL_NO) "STUDENT_SUM"
+                     , (SELECT TO_CHAR(NVL(SUM(REG_PRICE),0), '999,999,999') || '원'
+                          FROM REGISTER REG
+                         WHERE REG.CL_NO = C.CL_NO) "PRICE_SUM"
+		             , TO_CHAR(C.ENROLL_DATE, 'YYYY-MM-DD') "ENROLL_DATE" 
+		         FROM CLASS C
+		         JOIN TUTOR USING(MEM_NO)
+		         ORDER BY CL_NO DESC)
+		 WHERE 1 = 1
+	</entry>
+	<entry key="selectStatCount">
+		SELECT (SELECT COUNT(*)
+		           FROM "LIKE"
+		           WHERE EXTRACT(MONTH FROM LIKE_DATE) = EXTRACT(MONTH FROM SYSDATE) - ?) "LIKE_COUNT",
+		        (SELECT COUNT(*)
+		           FROM REVIEW
+		           WHERE EXTRACT(MONTH FROM RE_DATE) = EXTRACT(MONTH FROM SYSDATE) - ?) "REVIEW_COUNT",
+		        (SELECT NVL(SUM(REG_COUNT), 0)
+		           FROM REGISTER
+		           WHERE EXTRACT(MONTH FROM REG_DATE) = EXTRACT(MONTH FROM SYSDATE) - ?) "STUDENT_SUM"
+		  FROM DUAL
+	</entry>
 	
+	<entry key="selectTutorInfo">
+		SELECT
+		       T.MEM_NO
+		     , MEM_NAME
+		     , MEM_ID
+		     , TT_NAME
+             , (SELECT COUNT(CL_NO)
+                  FROM CLASS
+                 WHERE CL_STATUS = 2
+                   AND MEM_NO = T.MEM_NO) "CLASSACTIVE"
+             , (SELECT COUNT(CL_NO)
+                  FROM CLASS
+                 WHERE CL_STATUS IN ('2', '3')
+                   AND MEM_NO = T.MEM_NO) "CLASSTOTAL"
+             , NVL((select count(distinct(teach_date || sch_no))
+                  from register r
+                  join class c on (r.cl_no = c.cl_no) 
+                 WHERE REG_STA = '2' 
+                   AND C.MEM_NO = T.MEM_NO
+                 group by c.mem_no), 0) "LESSONTOTAL"
+             , NVL((SELECT SUM(REG_COUNT)
+                  from register r
+                  join class c on (r.cl_no = c.cl_no) 
+                 WHERE REG_STA = '2'
+                   AND C.MEM_NO = T.MEM_NO
+                 group by c.mem_no), 0) "TUTEETOTAL"
+             , NVL((SELECT COUNT(L.CL_NO)
+                  FROM "LIKE" L
+                  JOIN CLASS C ON (L.CL_NO = C.CL_NO)
+                 WHERE C.MEM_NO = T.MEM_NO
+                 GROUP BY C.MEM_NO), 0) "LIKECOUNT"
+             , NVL((SELECT COUNT(RE_NO) 
+                  FROM REVIEW R
+                  join class c on (r.cl_no = c.cl_no) 
+                 WHERE RE_STA = 'Y'
+                   AND C.MEM_NO = T.MEM_NO
+                 group by C.MEM_NO), 0) "REVCOUNT"
+             , NVL((SELECT SUM(REG_PRICE)
+                  FROM REGISTER r
+                  join class c on (r.cl_no = c.cl_no) 
+                  WHERE REG_STA = '2'
+                    AND REG_CAL = 'C'
+                    AND C.MEM_NO = T.MEM_NO 
+                  group by c.mem_no), 0) "INCOMETOTAL"
+             , REPLACE(MEM_ADDR, '///', ' ') "TUTORADDR"
+		  FROM TUTOR T
+          JOIN MEMBER M ON (T.MEM_NO = M.MEM_NO)
+		 WHERE T.MEM_NO = ?
+	</entry>
 	
+	<entry key="selectClReview">
+		SELECT COUNT(RE_NO) "count"
+		     , CL_NAME
+		  FROM REVIEW R
+		  JOIN CLASS C ON (R.CL_NO = C.CL_NO)
+		 WHERE C.MEM_NO = ?
+		 GROUP BY CL_NAME
+	</entry>
 	
+	<entry key="selectclLike">
+		select count(like_date) "count"
+		     , cl_name
+		  from "LIKE" l
+		  join class c on (l.cl_no = c.cl_no)
+		 where c.mem_no = ?
+		  group by cl_name
+	</entry>
 	
+	<entry key="selectAllQna1">
+		SELECT 
+		       Q_NO
+		     , Q_TITLE
+		     , Q_CONTENT
+		     , TO_CHAR(Q_DATE, 'YYYY-MM-DD') "Q_DATE"
+		     , Q_STATUS
+		     , Q_GRADE
+		     , Q_CATEGORY
+		     , CL_NAME
+		     , Q_MEM_NO
+		     , A_TITLE
+		     , A_CONTENT
+		     , TO_CHAR(A_DATE, 'YYYY-MM-DD') "A_DATE"
+		     , A_MEM_NO
+		     , TT_NAME
+		  FROM QNA Q
+		  JOIN TUTOR T ON(Q.A_MEM_NO = T.MEM_NO)
+		  JOIN CLASS C ON (Q.CL_NO=C.CL_NO)
+		 WHERE Q_STATUS = 'Y'
+		   AND Q_GRADE = '1'
+   		   AND Q_MEM_NO = ?
+	</entry>
 	
+	<entry key="selectAllQna2">
+		SELECT 
+		       Q_NO
+		     , Q_TITLE
+		     , Q_CONTENT
+		     , TO_CHAR(Q_DATE, 'YYYY-MM-DD') "Q_DATE"
+		     , Q_STATUS
+		     , Q_GRADE
+		     , Q_CATEGORY
+		     , CL_NO
+		     , Q_MEM_NO
+		     , A_TITLE
+		     , A_CONTENT
+		     , TO_CHAR(A_DATE, 'YYYY-MM-DD') "A_DATE"
+		     , A_MEM_NO
+		  FROM QNA 
+		 WHERE Q_STATUS = 'Y'
+		   AND Q_GRADE = '0'
+   		   AND Q_MEM_NO = ?
+	</entry>
 	
+	<entry key="selectAllRegister2">
+		SELECT
+		       REG_NO
+		     , R.MEM_NO
+		     , R.CL_NO
+		     , C.CL_NAME 
+		     , R.TEACH_DATE 
+		     , REG_DATE
+		     , REG_PAY
+		     , REG_PRICE
+		     , REG_COUNT
+		     , REG_STA
+		     , REG_REFUSE
+		     , RE_ENROLL
+		     , REG_CAL
+		     , TT_NAME
+		     , START_TIME
+		     , DISTR_NAME
+		     , CT_NAME
+		     , CT_DNAME
+             , END_TIME
+             , LOCAL_NAME
+		  FROM REGISTER R
+		  JOIN CLASS C ON (R.CL_NO = C.CL_NO) 
+		  JOIN TUTOR T ON (C.MEM_NO = T.MEM_NO)
+		  JOIN CATEGORY O ON (C.CT_NO = O.CT_NO)
+		  JOIN DCATEGORY Y ON (C.CT_DNO = Y.CT_DNO)
+          JOIN SCHEDULE S ON (R.SCH_NO = S.SCH_NO)
+          JOIN LOCATION L ON (C.LOCAL_CODE = L.LOCAL_CODE)
+          JOIN DISTRICT D ON (C.DISTR_CODE = D.DISTR_CODE)
+		 WHERE R.MEM_NO = ?
+	</entry>
 	
+	<entry key="selectStatLocation">
+		SELECT ROWNUM, D.DISTR_NAME, D.REG_PRICE
+		  FROM (SELECT
+		               DISTR_NAME
+		             , SUM(REG_PRICE) "REG_PRICE"
+		          FROM REGISTER R
+		          JOIN CLASS USING(CL_NO)
+		          JOIN DISTRICT USING(DISTR_CODE)
+		         GROUP 
+		            BY DISTR_NAME
+		         ORDER
+		            BY REG_PRICE DESC) D
+		WHERE ROWNUM <![CDATA[ < ]]>= 5
+	</entry>
 </properties>

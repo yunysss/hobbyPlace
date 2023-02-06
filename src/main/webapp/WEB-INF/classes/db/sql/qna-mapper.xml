@@ -7,18 +7,155 @@ SELECT *
   FROM QNA Q
   JOIN MEMBER M ON (M.MEM_NO = Q.Q_MEM_NO)
  WHERE MEM_NO = ?
+   AND Q_STATUS = 'Y'
  ORDER
-    BY Q_DATE DESC;
+    BY Q_DATE DESC
 	
 </entry>
 
+<entry key="insertTutorQna">
+	INSERT
+	  INTO QNA
+	  (
+	    Q_NO,
+	    Q_TITLE,
+	    Q_CONTENT,
+	    Q_DATE,
+	    Q_STATUS,
+	    Q_GRADE,
+	    Q_CATEGORY,
+	    CL_NO,
+	    Q_MEM_NO,
+	    A_TITLE,
+	    A_CONTENT,
+	    A_DATE,
+	    A_MEM_NO,
+	    A_STATUS
+	  )
+	  VALUES
+	  (
+	    SEQ_QANO.NEXTVAL,
+	    ?,
+	    ?,
+	    SYSDATE,
+	    'Y',
+	    '0',
+	    ?,
+	    NULL,
+	    ?,
+	    NULL,
+	    NULL,
+        NULL,
+	    0,
+	    'N'
+	  )
+</entry>
 
+<entry key="selectQnaDetail">
+	SELECT *
+	  FROM QNA
+	 WHERE Q_NO =?
+	   AND Q_STATUS = 'Y'
+</entry>
 
+<entry key="selectQnaListTutor">
+	SELECT *
+	  FROM QNA 
+	  JOIN MEMBER ON Q_MEM_NO = MEM_NO
+	 WHERE Q_STATUS = 'Y'
+	   AND GRADE = 2
+	 ORDER 
+		BY Q_DATE DESC
+	   
+</entry>
 
+<entry key="selectQnaListTutee">
+	SELECT *
+	  FROM QNA 
+	  JOIN MEMBER ON Q_MEM_NO = MEM_NO
+	 WHERE Q_STATUS = 'Y'
+	   AND GRADE = 1
+	   AND Q_GRADE = 0
+	 ORDER 
+		BY Q_DATE DESC
+	   
+</entry>
 
+<entry key="insertQnaAnswer">
+	UPDATE QNA
+	   SET A_TITLE = ?,
+	       A_CONTENT = ?,
+	       A_DATE = SYSDATE,
+	       A_MEM_NO = 0,
+	       A_STATUS = 'Y'
+	 WHERE Q_NO = ?
+</entry>
 
+<entry key="insertTuteeToTutorQna">
+	INSERT 
+	  INTO QNA
+	       (
+	         Q_NO
+	       , Q_TITLE
+	       , Q_CONTENT
+	       , Q_GRADE
+	       , CL_NO
+	       , Q_MEM_NO
+	       , A_MEM_NO
+	       )
+	VALUES
+	       (
+	         SEQ_QANO.NEXTVAL
+	       , ?
+	       , ?
+	       , '1'
+	       , ?
+	       , ?
+	       , ?
+	       )
+</entry>
 
+<entry key="ttSelectAllQna1">
+SELECT 
+       Q_NO
+     , Q_TITLE
+     , Q_CONTENT
+     , Q_DATE
+     , Q_STATUS
+     , Q_GRADE
+     , Q_CATEGORY
+     , CL_NO
+     , Q_MEM_NO
+     , A_TITLE
+     , A_CONTENT
+     , A_DATE
+     , A_MEM_NO
+  FROM QNA Q
+  JOIN MEMBER M ON(Q.Q_MEM_NO = M.MEM_NO)
+  WHERE M.MEM_NO = ?
+</entry>
 
+<entry key="ttSelectAllQna2">
+SELECT 
+       Q_NO
+     , Q_TITLE
+     , Q_CONTENT
+     , Q_DATE
+     , Q_STATUS
+     , Q_GRADE
+     , Q_CATEGORY
+     , CL_NAME
+     , Q_MEM_NO
+     , A_TITLE
+     , A_CONTENT
+     , A_DATE
+     , A_MEM_NO
+     , MEM_NICKNAME
+  FROM QNA Q
+  JOIN MEMBER M ON(Q.Q_MEM_NO = M.MEM_NO)
+  JOIN CLASS C ON (Q.CL_NO = C.CL_NO)
+  WHERE A_MEM_NO = ?
+</entry>
 
 
 

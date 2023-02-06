@@ -45,9 +45,11 @@
         <br>
 		<div class="memProfile" align="left">
             <div class="memImg">
-
-                <img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
-
+				<%if(m.getMemProfile()!=null) {%>
+					<img src="<%=contextPath%>/<%=m.getMemProfile()%>" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
+				<%}else{ %>
+                	<img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
+				<%} %>
             </div>
             <div class="memInfo">
                 <p id="profile1"><%=m.getMemName()%> &nbsp; <%=m.getMemNick() %></p>
@@ -108,7 +110,24 @@
                             <%if(m.getInterest()==null) {%>
 	                        	미등록
 	                        <%}else{ %>
-                      			<%=m.getInterest() %>
+                        	<%
+                        		String[] iArray = (m.getInterest()).split(",");
+                        		String ctList = "";
+                        		for(int i = 0; i<iArray.length; i++){
+                        			if(iArray[i].equals("11")){
+                        				ctList += "교육 ";
+                        			}else if(iArray[i].equals("22")) {
+                        				ctList += " 공예DIY ";
+                        			}else if(iArray[i].equals("33")) {
+                        				ctList += " 드로잉 ";
+                        			}else if(iArray[i].equals("44")) {
+                        				ctList += " 쿠킹 ";
+                        			}else if(iArray[i].equals("55")) {
+                        				ctList += " 스포츠/피트니스";
+                        			}
+                        		}
+                        	%>
+                      			<%= ctList %>
 	                        <%} %>                       
                         </td>
                     </tr>
@@ -150,7 +169,7 @@
 
         <div class="qnaList">
             <p class="ctTitle">1:1 문의 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="qnaViewMore();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -244,7 +263,7 @@
 
         <div>
             <p class="ctTitle">수강한클래스</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="clViewMore();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -363,7 +382,7 @@
 
         <div>
             <p class="ctTitle">작성한 후기</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="revViewMore();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -374,7 +393,7 @@
                         <col style="width:125px;">
                     </colgroup>
                     <tr class="thd">
-                        <th>클래스명</th>
+                        <th>클래스</th>
                         <th>내용</th>
                         <th>평점</th>
                         <th>작성일</th>
@@ -422,7 +441,7 @@
 
         <div>
             <p class="ctTitle">찜한 클래스</p>
-            <p class="viewMore">전체보기>></p>
+            <p class="viewMore" onclick="likeViewMore();">전체보기>></p>
             
             <div class="tbList">
                 <table class="listTable">
@@ -488,7 +507,20 @@
                 </table>   
             </div>
         </div>
-
+	<script>
+		function qnaViewMore(){
+			location.href = "<%=contextPath%>/memQna1.ad?no=<%=m.getMemNo()%>";
+		}
+		function clViewMore(){
+			location.href = "<%=contextPath%>/memClass.ad?no=<%=m.getMemNo()%>";
+		}
+		function revViewMore(){
+			location.href = "<%=contextPath%>/memReview.ad?no=<%=m.getMemNo()%>";
+		}
+		function likeViewMore(){
+			location.href = "<%=contextPath%>/memLike.ad?no=<%=m.getMemNo()%>";
+		}
+	</script>
 
 
 

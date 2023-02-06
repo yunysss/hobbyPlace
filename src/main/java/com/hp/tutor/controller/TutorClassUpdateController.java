@@ -58,16 +58,16 @@ public class TutorClassUpdateController extends HttpServlet {
 			String clName = multiRequest.getParameter("className");
 			String localCode = multiRequest.getParameter("sido");
 			String distrCode = multiRequest.getParameter("sigungu");
-			
+
 			String[] distr = distrCode.split(" ");
-		       distrCode = distr[0];
-		         
-	
+			distrCode = distr[0];
+
 			String address1 = multiRequest.getParameter("address");
 			String address2 = multiRequest.getParameter("dAddress");
 			String clAddress = address1 + " " + address2;
 			int clMax = Integer.parseInt(multiRequest.getParameter("clMax"));
 			String clLevel = multiRequest.getParameter("level");
+			String endDate = multiRequest.getParameter("endDate");
 			String clSchedule = multiRequest.getParameter("schedule");
 
 			String[] days = multiRequest.getParameterValues("day");
@@ -95,51 +95,44 @@ public class TutorClassUpdateController extends HttpServlet {
 			String clSupplies = multiRequest.getParameter("supplies");
 			String keyword = multiRequest.getParameter("keyword");
 
-			Lesson l = new Lesson(clNo, ctNo, ctDno, localCode, distrCode, clName, clAddress, clMax, clLevel, clTimes,
+			Lesson l = new Lesson(clNo, ctNo, ctDno, localCode, distrCode, clName, clAddress, clMax, clLevel, endDate,clTimes,
 					clSchedule, clDay, clPrice, clDetail, curriculum, refundPolicy, clSupplies, keyword, clThumb);
 
 			// 첨부파일
 			ArrayList<Attachment> list = new ArrayList<>();
 
-			for (int i = 0; i <= 2; i++) {
+			String[] fileNo = multiRequest.getParameterValues("originfile"); 
+			System.out.println("fileNo:" + Arrays.toString(fileNo));
+			
+			for (int i = 2; i <= 4; i++) {
 				String key = "file" + i;
 
 				// 새로운 첨부파일 있을경우
-				
 				if (multiRequest.getOriginalFileName(key) != null) {
 					Attachment at = new Attachment();
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setChangeName(multiRequest.getFilesystemName(key));
 					at.setFilePath("resources/classThumbnail_upfiles/");
 					at.setRefType("1");
-					
-				
+
 					// 기존 첨부파일 있을경우=> update
-				if (multiRequest.getParameterValues("originfile") != null) {
-						String[] fileNo = multiRequest.getParameterValues("originfile");
-						//System.out.println("fileNo:" + Arrays.toString(fileNo));
-						
-						int[] origin = new int[fileNo.length];
-						
-						for (int j = 0; j < fileNo.length; j++) {
-							origin[j] = Integer.parseInt(fileNo[j]);
-							at.setFileNo(origin[i]);
-						}	
-						
-					
-				       // System.out.println("origin:"+ Arrays.toString(origin));
-					  
-			} else {// 기존 첨부파일 없을경우=> insert
+					if (i-2 < fileNo.length) {
+						at.setFileNo(Integer.parseInt(fileNo[i-2]));
+					} else {// 기존 첨부파일 없을경우=> insert
 						at.setRefNo(clNo);
 					}
-				System.out.println("at2" + at);
+					
+					System.out.println("at" + at);
+					list.add(at);
+
+				}
 
 			}
 			
-		}
+			
 			ArrayList<Schedule> sList = new ArrayList<>();
 			// 스케줄
-			String [] schNoArr = multiRequest.getParameterValues("schNo");
+			String[] schNoArr = multiRequest.getParameterValues("schNo");
 			String[] sessionArr = multiRequest.getParameterValues("session");
 			String[] startTimeArr = multiRequest.getParameterValues("startTime");
 			String[] endTimeArr = multiRequest.getParameterValues("endTime");
@@ -148,22 +141,22 @@ public class TutorClassUpdateController extends HttpServlet {
 			int[] newSch = new int[schNoArr.length];
 
 			for (int j = 0; j < sessionArr.length; j++) {
-				newsession[j] = Integer.parseInt(sessionArr[j]);	
+				newsession[j] = Integer.parseInt(sessionArr[j]);
 			}
-			
-			for(int j = 0; j< schNoArr.length; j++) {// 
-				newSch[j] = Integer.parseInt(schNoArr[j]);	
+
+			for (int j = 0; j < schNoArr.length; j++) {//
+				newSch[j] = Integer.parseInt(schNoArr[j]);
 			}
 
 			for (int i = 0; i < newsession.length; i++) {
-				Schedule sc = new Schedule();	
+				Schedule sc = new Schedule();
 				sc.setClNo(String.valueOf(clNo));
 				sc.setSessionNo(newsession[i]);
 				sc.setStartTime(startTimeArr[i]);
 				sc.setEndTime(endTimeArr[i]);
 
 				sList.add(sc);
-			
+
 			}
 
 			int result = new TutorService().updateClass(l, list, sList);
@@ -171,7 +164,7 @@ public class TutorClassUpdateController extends HttpServlet {
 			HttpSession session = request.getSession();
 			if (result > 0) {
 				session.setAttribute("alertMsg", "성공적으로 수정요청되었습니다. 검수완료 후 재판매가 시작됩니다. ");
-				response.sendRedirect(request.getContextPath() + "/cldetail.tt?no="+clNo);
+				response.sendRedirect(request.getContextPath() + "/cldetail.tt?no=" + clNo);
 
 			} else {
 

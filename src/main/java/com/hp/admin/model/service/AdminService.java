@@ -158,9 +158,9 @@ public class AdminService {
 	 * @param pi 
 	 * @return list
 	 */
-	public ArrayList<MemberList> selectMemberList(String sGroup, String fCategory, String lineup, PageInfo pi) {
+	public ArrayList<MemberList> selectMemberList(String sGroup, String fCategory, String lineup) {
 		Connection conn = getConnection();
-		ArrayList<MemberList> list = new AdminDao().selectMemberList(conn, sGroup, fCategory, lineup, pi);
+		ArrayList<MemberList> list = new AdminDao().selectMemberList(conn, sGroup, fCategory, lineup);
 		close(conn);
 		return list;
 	}
@@ -284,19 +284,7 @@ public class AdminService {
 		return list;
 	}
 
-	/** 회원 조회 페이징 처리용 전체 조회된행수 조회
-	 * @author 수연
-	 * @param sGroup
-	 * @param fCategory
-	 * @param lineup
-	 * @return listCount
-	 */
-	public int selectMemberListCount1(String sGroup, String fCategory, String lineup) {
-		Connection conn = getConnection();
-		int listCount = new AdminDao().selectMemberListCount1(conn, sGroup, fCategory, lineup);
-		close(conn);
-		return listCount;
-	}
+	
 
 	public ArrayList<District> selectLocalList(){
 		Connection conn = getConnection();
@@ -308,6 +296,87 @@ public class AdminService {
 	public ArrayList<District> selectDistrictList(){
 		Connection conn = getConnection();
 		ArrayList<District> list = new AdminDao().selectDistrictList(conn);
+		close(conn);
+		return list;
+	}
+
+	/** 튜터 조회 검색옵션1용 list  
+	 * @author 수연
+	 * @param st
+	 * @return list
+	 */
+	public ArrayList<TutorList> selectTutorList2(SearchTutor st) {
+		Connection conn = getConnection();
+		ArrayList<TutorList> list = new AdminDao().selectTutorList2(conn, st);
+		
+		close(conn);
+		return list;
+	}
+
+	
+	public ArrayList<Lesson> searchStat(Search s){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new AdminDao().searchStat(conn, s);
+		close(conn);
+		return list;
+	}
+
+	public TutorList selectTutorInfo(int memNo) {
+		Connection conn = getConnection();
+		TutorList t2 = new AdminDao().selectTutorInfo(conn, memNo);
+		close(conn);
+		return t2;
+	}
+
+	public ArrayList<Review> selectClReview(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Review> clReviewList = new AdminDao().selectClReview(conn, memNo);
+		close(conn);
+		return clReviewList;
+	}
+
+	public ArrayList<Like> selectclLike(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Like> clLikeList = new AdminDao().selectclLike(conn, memNo);
+		close(conn);
+		return clLikeList;
+	}
+
+	
+	public ArrayList<Lesson> selectStatCount(){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new AdminDao().selectStatCount(conn);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Qna> selectAllQna1(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Qna> qnaList = new AdminDao().selectAllQna1(conn, memNo);
+		
+		close(conn);
+		return qnaList;
+	}
+	
+	public ArrayList<Qna> selectAllQna2(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Qna> qnaList = new AdminDao().selectAllQna2(conn, memNo);
+		
+		close(conn);
+		return qnaList;
+	}
+
+	public ArrayList<Register> selectAllRegister2(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Register> regList = new AdminDao().selectAllRegister2(conn, memNo);
+		
+		close(conn);
+		return regList;
+	}
+	
+	public ArrayList<Lesson> selectStatLocation(){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new AdminDao().selectStatLocation(conn);
 		close(conn);
 		return list;
 	}

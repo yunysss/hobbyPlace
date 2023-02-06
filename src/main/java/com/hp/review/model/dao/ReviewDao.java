@@ -149,9 +149,167 @@ public class ReviewDao {
 	}
 
 
+	public ArrayList<Review> selectReviewList(Connection conn, int memNo) {
+		ArrayList<Review> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReviewList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Review(rset.getInt("re_no"),
+								   rset.getString("content"),
+								   rset.getInt("re_star"),
+								   rset.getString("re_date"),
+								   rset.getString("re_update"),
+								   rset.getString("re_sta"),
+								   rset.getInt("reg_no"),
+								   rset.getInt("cl_no"),
+								   rset.getInt("mem_no"),
+								   rset.getString("cl_name"),
+								   rset.getString("mem_nickname"),
+								   rset.getString("mem_profile")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 
+
+	public int deleteReview(Connection conn, int reNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	
+		}
+	
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param r
+	 * @return 관리자페이지 리뷰 검색
+	 */
+	public ArrayList<Review> selectAdminSearchReview(Connection conn, Review r) {
+		ArrayList<Review> revList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAdminSearchReview");
+		
+		
+		return null;
+	}
 
 	
-	
-
+	public Register selectEnrollFormClass(Connection conn, int regNo) {
+		Register er = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectEnrollFormClass");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, regNo);
+			
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				er = new Register(rset.getInt("reg_no"),
+								  rset.getString("teach_date"),
+								  rset.getString("reg_sta"),
+								  rset.getString("cl_thumb"),
+								  rset.getString("cl_name"),
+								  rset.getString("start_time"),
+								  rset.getString("distr_name"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+	}
+	return er;
 }
+	
+	
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param r
+	 * @return 관리자페이지 리뷰 검색
+	 */
+	public ArrayList<Review> selectAdminSearchReview(Connection conn, Review r) {
+		ArrayList<Review> revList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAdminSearchReview");
+		
+		
+		return null;
+	}
+	
+	public ArrayList<Review> selectTutorReview(Connection conn, Review r){
+		ArrayList<Review> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTutorReview");
+		
+		try {
+			sql += "WHERE MEM_NO = " + r.getTtNo();
+			if(r.getReStar().length() != 0) {
+				sql += "AND RE_STAR IN (" + r.getReStar();
+			    sql = sql.substring(0,sql.length()-1);
+				sql += ")"; 
+			}
+			if(!r.getClName().equals("")) {
+				sql += "AND CL_NAME LIKE '%" + r.getClName() + "%'";
+			}
+			if(!r.getReviewContent().equals("")) {
+				sql += "AND CONTENT LIKE '%" + r.getReviewContent() + "%'";
+			}
+			if(!r.getMemName().equals("")) {
+				sql += "AND MEM_NAME LIKE '%" + r.getMemName() + "%'";
+			}
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Review(rset.getInt("re_no"),
+						            rset.getString("content"),
+						            rset.getInt("re_star"),
+						            rset.getString("re_date"),
+						            rset.getString("mem_name"),
+						            rset.getString("cl_name")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+		
+
+} 
+	

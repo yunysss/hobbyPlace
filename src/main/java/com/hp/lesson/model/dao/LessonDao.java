@@ -213,7 +213,8 @@ private Properties prop = new Properties();
 						        rset.getInt("star_avg"),
 						        rset.getInt("star_count"),
 						        rset.getInt("like_count"),
-						        rset.getString("tt_profile")
+						        rset.getString("tt_profile"),
+						        rset.getString("mem_no")
 						        );
 			}
 		} catch (SQLException e) {
@@ -403,7 +404,9 @@ private Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Lesson(rset.getInt("cl_no"),
+						            rset.getString("ct_no"),
 									rset.getString("ct_name"),
+									rset.getString("ct_dno"),
 									rset.getString("ct_dname"),
 									rset.getString("local_name"),
 									rset.getString("distr_name"),
@@ -452,7 +455,9 @@ private Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			while(rset.next()){
 				dList.add(new Lesson(rset.getInt("cl_no"),
+						            rset.getString("ct_no"),
 									rset.getString("ct_name"),
+									rset.getString("ct_dno"),
 									rset.getString("ct_dname"),
 									rset.getString("local_name"),
 									rset.getString("distr_name"),
@@ -461,10 +466,10 @@ private Properties prop = new Properties();
 									rset.getString("cl_thumb"),
 									rset.getInt("star_avg"),
 									rset.getInt("star_count")
-
 						));
-						
+			
 			}
+			  //System.out.println(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -702,10 +707,12 @@ private Properties prop = new Properties();
 						            rset.getInt("re_star"),
 						            rset.getString("re_date"),
 						            rset.getString("re_update"),
+						            rset.getInt("cl_no"),
+						            rset.getInt("mem_no"),
 						            rset.getString("cl_name"),
 						            rset.getString("mem_nickname"),
-						            rset.getString("mem_profile"),
-						            rset.getInt("mem_no")
+						            rset.getString("mem_profile")
+						           
 
 						));
 
@@ -779,6 +786,12 @@ private Properties prop = new Properties();
 	}
 	
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param keyword
+	 * @return 키워드 카운트 
+	 */
 	public int keywordSearchCount(Connection conn, String keyword) {
 		int kCount = 0;
 		PreparedStatement pstmt =null;
@@ -804,6 +817,13 @@ private Properties prop = new Properties();
 	}
 	
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param keyword
+	 * @param pi
+	 * @return 키워드 검색 결과 
+	 */
 	public ArrayList<Lesson> selectKeywordSearhList(Connection conn, String keyword, PageInfo pi){
 		ArrayList<Lesson> kList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -846,25 +866,36 @@ private Properties prop = new Properties();
 		return kList;
 	}
 	
-	public ArrayList<Lesson> selectPriceAsc(Connection conn, String category,PageInfo pi){
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param category
+	 * @param sort
+	 * @return 카테고리 정렬
+	 */
+	public ArrayList<Lesson> categorySort(Connection conn, String category,String sort){
 		 
-		ArrayList<Lesson> ascList =new ArrayList<>();
+		ArrayList<Lesson> list =new ArrayList<>();
 		 PreparedStatement pstmt = null;
 		 ResultSet rset = null;
-		 
-		 String sql = prop.getProperty("selectPriceAsc");
+			System.out.println("ct"+ category);
+		 String sql = prop.getProperty("categorySort");
 		 try {
+			 
+			 switch(sort) {
+			 case "낮은가격순" : sql += "\r\n order by cl_price asc";  break;
+			 case "높은가격순" : sql += "\r\n order by cl_price desc";break;
+			 case "인기순": sql += "\r\n order by star_avg desc nulls last"; break;
+			 case "평점순": sql += "\r\n order by reg_count desc nulls last"; break;
+			 }
+	
 			pstmt = conn.prepareStatement(sql);
-
-			//int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
-			//int endRow = startRow + pi.getBoardLimit() -1;
 			pstmt.setString(1, category);
-			//pstmt.setInt(2, startRow);
-			//pstmt.setInt(3, endRow);
-
+			
+			System.out.println(sql);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				ascList.add(new Lesson(rset.getInt("cl_no"),
+				list.add(new Lesson(rset.getInt("cl_no"),
 									rset.getString("ct_name"),
 									rset.getString("ct_dname"),
 									rset.getString("local_name"),
@@ -885,7 +916,7 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		 
-		 return ascList;
+		 return list;
 		 
 	}
 	
@@ -923,131 +954,30 @@ private Properties prop = new Properties();
 		 return list;
 	}
 	
-	public ArrayList<Lesson> selectPriceDesc(Connection conn, String category){
-		 
-		ArrayList<Lesson> descList =new ArrayList<>();
-		 PreparedStatement pstmt = null;
-		 ResultSet rset = null;
-		 
-		 String sql = prop.getProperty("selectPriceDesc");
-		 try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, category);
-			
 
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				descList.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-			}
-					
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		 
-		 return descList;
-		 
-	}
 	
-	public ArrayList<Lesson> selectHighStarDesc(Connection conn, String category){
-		 
-		ArrayList<Lesson> list =new ArrayList<>();
-		 PreparedStatement pstmt = null;
-		 ResultSet rset = null;
-		 
-		 String sql = prop.getProperty("selectHighStarDesc");
-		 try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, category);
-			
-
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-			}
-					
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		 
-		 return list;
-		 
-	}
-	
-	public ArrayList<Lesson> selectRegisterDesc(Connection conn, String category){
-		 
-		ArrayList<Lesson> list =new ArrayList<>();
-		 PreparedStatement pstmt = null;
-		 ResultSet rset = null;
-		 
-		 String sql = prop.getProperty("selectRegisterDesc");
-		 try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, category);
-			
-
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-			}
-					
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		 
-		 return list;
-		 
-	}
-	
-	public ArrayList<Lesson> dctPriceAsc(Connection conn, String dct){
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param dct
+	 * @param sort
+	 * @return 카테고리 소분류 정렬
+	 */
+	public ArrayList<Lesson> dcategorySort(Connection conn, String dct,String sort){
 		
 		ArrayList<Lesson> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		 
-		String sql = prop.getProperty("dctPriceAsc");
+		String sql = prop.getProperty("dcategorySort");
 		try {
+			 switch(sort) {
+			 case "낮은가격순" : sql += "\r\n order by cl_price asc";  break;
+			 case "높은가격순" : sql += "\r\n order by cl_price desc";break;
+			 case "인기순": sql += "\r\n order by star_avg desc nulls last"; break;
+			 case "평점순": sql += "\r\n order by reg_count desc nulls last"; break;
+			
+			 }
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, dct);
 				rset = pstmt.executeQuery();
@@ -1064,7 +994,7 @@ private Properties prop = new Properties();
 										rset.getInt("star_count")
 							));
 	
-			}
+			   }
 				
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1077,263 +1007,6 @@ private Properties prop = new Properties();
 		 
 	}
 	
-public ArrayList<Lesson> dctPriceDesc(Connection conn, String dct){
-		
-		ArrayList<Lesson> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		String sql = prop.getProperty("dctPriceDesc");
-		try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, dct);
-				rset = pstmt.executeQuery();
-				while (rset.next()) {
-					list.add(new Lesson(rset.getInt("cl_no"),
-										rset.getString("ct_name"),
-										rset.getString("ct_dname"),
-										rset.getString("local_name"),
-										rset.getString("distr_name"),
-										rset.getString("cl_name"),
-										rset.getString("cl_price"),
-										rset.getString("cl_thumb"),
-										rset.getInt("star_avg"),
-										rset.getInt("star_count")
-							));
-	
-			}
-				
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		 
-		 return list;
-		 
-	}
-
-public ArrayList<Lesson> dctRegisterDesc(Connection conn, String dct){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-
-	String sql = prop.getProperty("dctRegisterDesc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dct);
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-
-public ArrayList<Lesson> dctStarDesc(Connection conn, String dct){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-
-	String sql = prop.getProperty("dctStarDesc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dct);
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-public ArrayList<Lesson> keywordPriceAsc(Connection conn, String keyword){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-	 
-	String sql = prop.getProperty("keywordPriceAsc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,  "%"+keyword+"%");
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-	
-public ArrayList<Lesson> keywordPriceDesc(Connection conn, String keyword){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-	 
-	String sql = prop.getProperty("keywordPriceDesc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,  "%"+keyword+"%");
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-public ArrayList<Lesson> keywordStarDesc(Connection conn, String keyword){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-	 
-	String sql = prop.getProperty("keywordStarDesc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,  "%"+keyword+"%");
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-
-public ArrayList<Lesson> keywordRegisterDesc(Connection conn, String keyword){
-	
-	ArrayList<Lesson> list = new ArrayList<>();
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-	 
-	String sql = prop.getProperty("keywordRegisterDesc");
-	try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,  "%"+keyword+"%");
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				list.add(new Lesson(rset.getInt("cl_no"),
-									rset.getString("ct_name"),
-									rset.getString("ct_dname"),
-									rset.getString("local_name"),
-									rset.getString("distr_name"),
-									rset.getString("cl_name"),
-									rset.getString("cl_price"),
-									rset.getString("cl_thumb"),
-									rset.getInt("star_avg"),
-									rset.getInt("star_count")
-						));
-
-		}
-			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	 
-	 return list;
-	 
-}
-
 
 /**
  * @author 한빛
@@ -1358,25 +1031,28 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 		String day = s.getDay();
 		String price = s.getPrice();
 
+		  System.out.println(category);
 		if(keyword != null && !keyword.equals("")) {
 			sql += "and CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD like" + "'%"+ keyword + "%'";
 		}
 		
-		if(category.equals("00")) {
+		if(category.equals("전체")) {
 			sql += "";				
 		}else if(category !=null && !category.equals("")) {
-		     sql += "and G.ct_no = " + "'" +category +"'";
-		}else if(category == null& category.equals("")) {
+		     sql += "and G.ct_name = " + "'" +category +"'";
+		}else if(category == null || category.equals("")) {
 			sql += "";
 		
 		}
 		
-		if(category.equals("00") && dcategory.equals("전체")){
+		if(category.equals("전체") && dcategory.equals("전체")){
 			sql +="";
-		}else if(!category.equals("00")&& dcategory.equals("전체")) {
-			sql += "and g.ct_no =" + "'" + category + "'";
+		}else if(!category.equals("전체")&& dcategory.equals("전체")) {
+			sql += "and g.ct_name =" + "'" + category + "'";
 		}else if(!dcategory.equals("전체")) {
 			sql += "and ct_dname= "+ "'"+ dcategory + "'";
+		}else  {
+			sql +="";
 		}
 		
 		if(sido.equals("00")) {
@@ -1393,9 +1069,11 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 		}else if(!sigungu.equals("전체")) {
 			sql += "and distr_name =" + "'" + sigungu + "'";
 		}
-		
-		if(price != null && price.equals("")) {
+		//
+		if(price != null && !price.equals("")) {
 			sql += "and cl_price <= " + price;
+		}else { 
+			sql += "";
 		}
 		
 	
@@ -1404,13 +1082,13 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 				sql += "and cl_schedule = '매일'";
 				
 		 }else if(day.length()!=0 && day.contains("sat") && day.contains("sun")) {
-				sql += "and cl_day like '%토%' or cl_day like '%일%'";
+				sql += "and (cl_day like '%토%' or cl_day like '%일%')";
 		 		
 		 }else if((day.contains("weekday") && day.contains("sat")) || (day.contains("weekday") && day.contains("sun"))  ) {
 				sql += "and cl_schedule = '매일'";
 		 
 		 }else if(day.length() !=0 && day.contains("weekday")) {
-			sql += "and cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%'";		
+			sql += "and (cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%')";		
 		}else if(day.length()!= 0 && day.contains("sat")) {
 			sql += "and cl_day like '%토%'";
 					
@@ -1418,12 +1096,13 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			sql += "and cl_day like '%일%'";
 	
 		}
+		  sql += "\r\n order by cl_no desc ";
 		 
 		 sql += "	)A\r\n"
 		 		+ "		)	\r\n"
 		 		+ "		WHERE RNUM BETWEEN ?  AND ?	";
 
-		System.out.println(sql);
+		//System.out.println(sql);
 
 		pstmt = conn.prepareStatement(sql);
 		int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
@@ -1475,25 +1154,26 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			String sigungu = s.getSigungu();
 			String day = s.getDay();
 			String price = s.getPrice();
+		
 
 			if(keyword != null && !keyword.equals("")) {
 				sql += "and CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD like" + "'%"+ keyword + "%'";
 			}
 			
-			if(category.equals("00")) {
+			if(category.equals("전체")) {
 				sql += "";				
 			}else if(category !=null && !category.equals("")) {
-			     sql += "and G.ct_no = " + "'" +category +"'";
-			}else if(category == null& category.equals("")) {
+			     sql += "and G.ct_name = " + "'" +category +"'";
+			}else if(category == null || category.equals("")) {
 				sql += "";
 			}
 			
-			if(category.equals("00") && dcategory.equals("전체")){
+			if(category.equals("전체") && dcategory.equals("전체")){
 				sql +="";
-			}else if(!category.equals("00")&& dcategory.equals("전체")) {
-				sql += "and g.ct_no =" + "'" + category + "'";
+			}else if(!category.equals("전체")&& dcategory.equals("전체")) {
+				sql += "and g.ct_name =" + "'" + category + "'";
 			}else if(!dcategory.equals("전체")) {
-				sql += "and ct_name= "+ "'"+ dcategory + "'";
+				sql += "and ct_dname= "+ "'"+ dcategory + "'";
 			}else {
 				sql +="";
 			}
@@ -1513,8 +1193,10 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 				sql += "and distr_name =" + "'" + sigungu + "'";
 			}
 			
-			if(price != null && price.equals("")) {
+			if(price != null && !price.equals("")) {
 				sql += "and cl_price <= " + price;
+			}else {
+				sql += "";
 			}
 			
 		
@@ -1523,13 +1205,13 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 					sql += "and cl_schedule = '매일'";
 					
 			 }else if(day.length()!=0 && day.contains("sat") && day.contains("sun")) {
-					sql += "and cl_day like '%토%' or cl_day like '%일%'";
+					sql += "and (cl_day like '%토%' or cl_day like '%일%')";
 			 		
 			 }else if((day.contains("weekday") && day.contains("sat")) || (day.contains("weekday") && day.contains("sun"))  ) {
 					sql += "and cl_schedule = '매일'";
 			 
 			 }else if(day.length() !=0 && day.contains("weekday")) {
-				sql += "and cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%'";		
+				sql += "and (cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%')";		
 			}else if(day.length()!= 0 && day.contains("sat")) {
 				sql += "and cl_day like '%토%'";
 						
@@ -1541,7 +1223,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			 sql += ")";
 			
 			
-			System.out.println(sql);
+			//System.out.println(sql);
 
 			pstmt = conn.prepareStatement(sql);
 			rset= pstmt.executeQuery();
@@ -1560,13 +1242,298 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 	 
 	 return count;
 	 
-	 
-	 
-	 
-	 
-	 
-	 
  }
+ 
+ /**
+  *@author 한빛
+ * @param conn
+ * @param s
+ * @return 클래스 상세조회 필터
+ */
+public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
+	 ArrayList<Lesson> list = new ArrayList<>();
+	 PreparedStatement pstmt = null;
+	 ResultSet rset = null;
+	 
+	 String sql = prop.getProperty("detailSearchSort");
+	 
+	 try {
+		 
+		   String keyword = s.getKeyword();
+		   String category = s.getCategory();
+			String dcategory = s.getDcategory();
+			String sido = s.getSido();
+			String sigungu = s.getSigungu();
+			String day = s.getDay();
+			String price = s.getPrice();
+			String sort = s.getSort();
+			//System.out.println("category:" +category);
+			
+			if(keyword != null && !keyword.equals("")) {
+				sql += "and CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD like" + "'%"+ keyword + "%'";
+			}
+			
+			if(category.equals("전체") ) {
+				sql += "";				
+			}else if(category !=null && !category.equals("")) {
+			     sql += "and G.ct_name = " + "'" +category +"'";
+			}
+			
+			
+			if(category.equals("전체") && dcategory.equals("전체")){
+				sql +="";
+			}else if(!category.equals("전체")&& dcategory.equals("전체")) {
+				sql += "and g.ct_name =" + "'" + category + "'";
+			}else if(!dcategory.equals("전체")) {
+				sql += "and ct_dname= "+ "'"+ dcategory + "'";
+			}else {
+				sql +="";
+			}
+			
+			if(sido.equals("00")) {
+				sql += "";
+			}else if(sido != null && !sido.equals("")) {
+				sql += "and c.local_code = " + "'"+ sido +"'";
+			}else {
+				sql += "";
+			}	
+			if(sido.equals("00") && sigungu.equals("전체")) {
+				sql += "";
+			}else if(!sido.equals("00") && sigungu.equals("전체")) {
+				sql += "and c.local_code = " + "'" + sido +"'";
+			}else if(!sigungu.equals("전체")) {
+				sql += "and distr_name =" + "'" + sigungu + "'";
+			}
+			
+			
+			if(price != null && !price.equals("")) {
+				sql += "and cl_price <=" +  price ;
+			}else { 
+				sql += "";
+			}
+			
+		
+			// 일정
+			 if(day.length()!=0 && day.contains("weekday") && day.contains("sat")&& day.contains("sun")) {
+					sql += "and cl_schedule = '매일'";
+					
+			 }else if(day.length()!=0 && day.contains("sat") && day.contains("sun")) {
+					sql += "and (cl_day like '%토%' or cl_day like '%일%')";
+			 		
+			 }else if((day.contains("weekday") && day.contains("sat")) || (day.contains("weekday") && day.contains("sun"))  ) {
+					sql += "and cl_schedule = '매일'";
+			 
+			 }else if(day.length() !=0 && day.contains("weekday")) {
+				sql += "and (cl_day like '%월%' or cl_day like '%화%' or cl_day like '%수%' or cl_day like '%목%' or cl_day like '%금%')";		
+			}else if(day.length()!= 0 && day.contains("sat")) {
+				sql += "and cl_day like '%토%'";
+						
+			}else if(day.length()!=0 && day.contains("sun")) {
+				sql += "and cl_day like '%일%'";
+			
+			}		 
+			
+			 
+			 // 정렬
+			 switch(sort) {
+			 case "낮은가격순" : sql += "\r\n order by cl_price asc";  break;
+			 case "높은가격순" : sql += "\r\n order by cl_price desc";break;
+			 case "인기순": sql += "\r\n order by star_avg desc nulls last"; break;
+			 case "평점순": sql += "\r\n order by reg_count desc nulls last"; break;
+			 
+			 
+			 }
+			 
+			
+			System.out.println(sql);
+		 
+		pstmt= conn.prepareStatement(sql);
+	    rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+			list.add(new Lesson(rset.getInt("cl_no"),
+								rset.getString("ct_name"),
+								rset.getString("ct_dname"),
+								rset.getString("local_name"),
+								rset.getString("distr_name"),
+								rset.getString("cl_name"),
+								rset.getString("cl_price"),
+								rset.getString("cl_thumb"),
+								rset.getInt("star_avg"),
+								rset.getInt("star_count")));
+		
+		
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rset);
+		close(pstmt);
+	}
+	 return list;
+ }
+
+/** 진행중인 클래스 리스트
+ * @author 수연
+ * @param conn
+ * @param memNo
+ * @return cActiveList
+ */
+public ArrayList<Lesson> selectActClass(Connection conn, int memNo) {
+	ArrayList<Lesson> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String sql = prop.getProperty("selectActClass");
+	 
+	 try {
+		pstmt= conn.prepareStatement(sql);
+		pstmt.setInt(1, memNo);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			list.add(new Lesson(rset.getInt("cl_no"),
+			        rset.getString("ct_name"),
+			        rset.getString("ct_dname"),
+			        rset.getString("mem_no"),
+			        rset.getString("local_name"),
+			        rset.getString("distr_name"),
+			        rset.getString("cl_name"),
+			        rset.getString("cl_address"),
+			        rset.getInt("cl_max"),
+			        rset.getString("cl_level"),
+			        rset.getString("start_date"),
+			        rset.getString("end_date"),
+			        rset.getInt("cl_times"),
+			        rset.getString("cl_schedule"),
+			        rset.getString("cl_day"),
+			        rset.getString("cl_price"),
+			        rset.getString("cl_detail"),
+			        rset.getString("curriculum"),
+			        rset.getString("cl_supplies"),
+			        rset.getDate("enroll_date"),
+			        rset.getDate("update_date"),
+			        rset.getString("cl_status"),
+			        rset.getInt("cl_count"),
+			        rset.getString("cl_refuse"),
+			        rset.getString("cl_thumb"),
+			        rset.getInt("star_avg"),
+			        rset.getInt("star_count"),
+			        rset.getInt("like_count")));
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	 
+	 
+	return list;
+}
+
+public ArrayList<Lesson> selectWaitingClass(Connection conn, int memNo) {
+	ArrayList<Lesson> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String sql = prop.getProperty("selectWaitingClass");
+	 
+	 try {
+		pstmt= conn.prepareStatement(sql);
+		pstmt.setInt(1, memNo);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			list.add(new Lesson(rset.getInt("cl_no"),
+			        rset.getString("ct_name"),
+			        rset.getString("ct_dname"),
+			        rset.getString("mem_no"),
+			        rset.getString("local_name"),
+			        rset.getString("distr_name"),
+			        rset.getString("cl_name"),
+			        rset.getString("cl_address"),
+			        rset.getInt("cl_max"),
+			        rset.getString("cl_level"),
+			        rset.getString("start_date"),
+			        rset.getString("end_date"),
+			        rset.getInt("cl_times"),
+			        rset.getString("cl_schedule"),
+			        rset.getString("cl_day"),
+			        rset.getString("cl_price"),
+			        rset.getString("cl_detail"),
+			        rset.getString("curriculum"),
+			        rset.getString("cl_supplies"),
+			        rset.getDate("enroll_date"),
+			        rset.getDate("update_date"),
+			        rset.getString("cl_status"),
+			        rset.getInt("cl_count"),
+			        rset.getString("cl_refuse"),
+			        rset.getString("cl_thumb"),
+			        rset.getInt("star_avg"),
+			        rset.getInt("star_count"),
+			        rset.getInt("like_count")));
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	 
+	 
+	return list;
+}
+
+public ArrayList<Lesson> selectRejectedClass(Connection conn, int memNo) {
+	ArrayList<Lesson> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String sql = prop.getProperty("selectRejectedClass");
+	 
+	 try {
+		pstmt= conn.prepareStatement(sql);
+		pstmt.setInt(1, memNo);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			list.add(new Lesson(rset.getInt("cl_no"),
+			        rset.getString("ct_name"),
+			        rset.getString("ct_dname"),
+			        rset.getString("mem_no"),
+			        rset.getString("local_name"),
+			        rset.getString("distr_name"),
+			        rset.getString("cl_name"),
+			        rset.getString("cl_address"),
+			        rset.getInt("cl_max"),
+			        rset.getString("cl_level"),
+			        rset.getString("start_date"),
+			        rset.getString("end_date"),
+			        rset.getInt("cl_times"),
+			        rset.getString("cl_schedule"),
+			        rset.getString("cl_day"),
+			        rset.getString("cl_price"),
+			        rset.getString("cl_detail"),
+			        rset.getString("curriculum"),
+			        rset.getString("cl_supplies"),
+			        rset.getDate("enroll_date"),
+			        rset.getDate("update_date"),
+			        rset.getString("cl_status"),
+			        rset.getInt("cl_count"),
+			        rset.getString("cl_refuse"),
+			        rset.getString("cl_thumb"),
+			        rset.getInt("star_avg"),
+			        rset.getInt("star_count"),
+			        rset.getInt("like_count")));
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	 
+	 
+	return list;
+}
 	
 	
 

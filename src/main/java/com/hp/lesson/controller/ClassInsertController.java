@@ -65,6 +65,7 @@ public class ClassInsertController extends HttpServlet {
 		         String clAddress = address1 +" "+ address2;
 		         int clMax = Integer.parseInt(multiRequest.getParameter("clMax"));
 		         String clLevel = multiRequest.getParameter("level");
+		         String endDate = multiRequest.getParameter("endDate");
 		         String clSchedule = multiRequest.getParameter("schedule");
 		         
 		         String[] days = multiRequest.getParameterValues("day");
@@ -90,7 +91,7 @@ public class ClassInsertController extends HttpServlet {
 		         String clSupplies = multiRequest.getParameter("supplies");
 		         String keyword = multiRequest.getParameter("keyword");
 		         
-		         Lesson l = new Lesson(ctNo, ctDno,String.valueOf(memNo),localCode,distrCode,clName,clAddress,clMax,clLevel,clTimes,clSchedule,clDay,clPrice,clDetail,curriculum,refundPolicy,clSupplies,keyword,clThumb);
+		         Lesson l = new Lesson(ctNo, ctDno,String.valueOf(memNo),localCode,distrCode,clName,clAddress,clMax,clLevel,endDate,clTimes,clSchedule,clDay,clPrice,clDetail,curriculum,refundPolicy,clSupplies,keyword,clThumb);
 		      
 		         //attachment
 		        ArrayList<Attachment> list = new ArrayList<>();
@@ -103,7 +104,6 @@ public class ClassInsertController extends HttpServlet {
 		        		 at.setOriginName(multiRequest.getOriginalFileName(key));
 		        		 at.setChangeName(multiRequest.getFilesystemName(key));
 		        		 at.setFilePath("resources/classThumbnail_upfiles/");
-		        		
 		        		 at.setRefType("1");
 		        		
 		        		 list.add(at);

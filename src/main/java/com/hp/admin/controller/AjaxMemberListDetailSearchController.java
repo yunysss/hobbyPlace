@@ -37,8 +37,6 @@ public class AjaxMemberListDetailSearchController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		
 		String sGroup = request.getParameter("sGroup");
 		String fCategory = request.getParameter("fCategory");
 		String lineup = request.getParameter("lineup");
@@ -49,14 +47,7 @@ public class AjaxMemberListDetailSearchController extends HttpServlet {
 		
 		String enrollStart = request.getParameter("enrollStart");
 		String enrollEnd = request.getParameter("enrollEnd");
-		/*
-		try {
-			enrollStart = df.parse(request.getParameter("enrollStart"));
-			enrollEnd = df.parse(request.getParameter("enrollEnd"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		*/
+		
 		SearchMember sm = new SearchMember(sGroup, fCategory, lineup, enrollStart, enrollEnd, sCategory, searchKey1, searchKey2, selectValue);
 
 		ArrayList<MemberList> list = new AdminService().selectMemberList2(sm);

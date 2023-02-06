@@ -1,6 +1,7 @@
 package com.hp.tutor.model.service;
 
 import static com.hp.common.JDBCTemplate.close;
+
 import static com.hp.common.JDBCTemplate.commit;
 import static com.hp.common.JDBCTemplate.getConnection;
 import static com.hp.common.JDBCTemplate.rollback;
@@ -191,7 +192,7 @@ public class TutorService {
 				}
 			}
 		}
-
+		
 		int result3 = new TutorDao().deleteSchedule(conn, l);
 		int result4 = new TutorDao().insertNewSchedule(conn, sList);
 		
@@ -254,6 +255,42 @@ public class TutorService {
 		close(conn);
 		return list;
 	}
+	
+	public ArrayList<Register> selectBFClassList(int memNo){
+		Connection conn = getConnection();
+		ArrayList<Register> bfList = new TutorDao().selectBFClassList(conn, memNo);
+		close(conn);
+		return bfList;
+	}
+
+	public ArrayList<Register> selectATClassList(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Register> atList = new TutorDao().selectATClassList(conn, memNo);
+		close(conn);
+		return atList;
+	}
+
+	public Register selectReservationClass(int regNo) {
+		Connection conn = getConnection();
+		Register r = new TutorDao().selectReservationClass(conn, regNo);
+		
+		return r;
+	}
+
+
+	public int updateReservation(Register r) {
+		Connection conn = getConnection();
+		int result = new TutorDao().updateReservation(conn,r);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+
 	
 
 }

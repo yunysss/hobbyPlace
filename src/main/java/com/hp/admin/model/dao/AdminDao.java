@@ -1,12 +1,10 @@
 package com.hp.admin.model.dao;
 
 import static com.hp.common.JDBCTemplate.close;
-import static com.hp.common.JDBCTemplate.getConnection;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -526,6 +524,12 @@ public class AdminDao {
 	}
 	
 	
+	/**
+	 * @author 한빛
+	 * @param conn
+	 * @param s
+	 * @return 관리자 클래스조회 
+	 */
 	public ArrayList<Lesson> searchClass(Connection conn, Search s){
 		ArrayList<Lesson> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -590,7 +594,7 @@ public class AdminDao {
 				sql += ")"; 
 			}
 			
-	
+				sql += "\r\n order by cl_no desc ";
 			System.out.println(sql);
 	
 			pstmt=conn.prepareStatement(sql);
@@ -620,79 +624,6 @@ public class AdminDao {
 		
 	}
 
-
-
-	/** 기본검색으로 회원조회시 회원리스트 select
-	 * @author 수연
-	 * @param conn
-	 * @param sGroup
-	 * @param fCategory
-	 * @param lineup
-	 * @param pi 
-	 * @return list
-	 */
-	public ArrayList<MemberList> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup, PageInfo pi) {
-		ArrayList<MemberList> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectMemberList1");
-		
-		try {
-			/*
-			switch(fCategory) {
-			case "enroll_date" : sql += " enroll_date "; break;
-			case "mem_no" : sql += " mem_no "; break;
-			case "mem_name" : sql += " mem_name "; break;
-			case "regcount" : sql += " regcount "; break;
-			case "revcount" : sql += " revcount "; break;
-			case "likecount" : sql += " likecount "; break;
-			case "totalpay" : sql += " totalpay "; break;
-			}
-			
-			
-			if(lineup.equals("desc")) {
-				sql += "desc";
-			}else if(lineup.equals("asc")) {
-				sql += "asc";
-			}
-			*/
-			
-			pstmt=conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() -1;
-			pstmt.setString(1, sGroup);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			
-
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new MemberList(rset.getInt("mem_no"),
-						            rset.getString("mem_name"),
-						            rset.getString("grade"),
-						            rset.getString("enroll_date"),
-						            rset.getInt("regcount"),
-						            rset.getInt("revcount"),
-						            rset.getInt("likecount"),
-						            rset.getInt("totalpay"),
-						            rset.getString("mem_email"),
-						            rset.getString("mem_phone"),
-						            rset.getString("mem_addr"),
-						            rset.getString("gender"),
-						            rset.getString("mem_status")));
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
 
 	/** 회원번호로 회원정보조회
 	 * @author 수연
@@ -890,7 +821,10 @@ public class AdminDao {
 			while(rset.next()) {
 				likeList.add(new Like(rset.getString("cl_name"),
 						              rset.getInt("mem_no"),
-						              rset.getString("like_date")));
+						              rset.getString("like_date"),
+						              rset.getString("ct_name"),
+						              rset.getString("ct_dname"),
+						              rset.getString("tt_name")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -974,7 +908,79 @@ public class AdminDao {
 
 	}
 	
-	
+	/** 기본검색으로 회원조회시 회원리스트 select
+	 * @author 수연
+	 * @param conn
+	 * @param sGroup
+	 * @param fCategory
+	 * @param lineup
+	 * @return list
+	 */
+	public ArrayList<MemberList> selectMemberList(Connection conn, String sGroup, String fCategory, String lineup) {
+		ArrayList<MemberList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberList1");
+		
+		String sg = null;
+		if(sGroup.equals("all")) {
+			sg = "%%";
+		}else if(sGroup.equals("tutor")) {
+			sg = "%2%";
+		}else {
+			sg = "%1%";
+		}
+		
+		try {
+			
+			switch(fCategory) {
+			case "enroll_date" : sql += " enroll_date "; break;
+			case "mem_no" : sql += " mem_no "; break;
+			case "mem_name" : sql += " mem_name "; break;
+			case "regcount" : sql += " regcount "; break;
+			case "revcount" : sql += " revcount "; break;
+			case "likecount" : sql += " likecount "; break;
+			case "totalpay" : sql += " totalpay "; break;
+			}
+			
+			
+			if(lineup.equals("desc")) {
+				sql += "desc";
+			}else if(lineup.equals("asc")) {
+				sql += "asc";
+			}
+			
+			
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, sg);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new MemberList(rset.getInt("mem_no"),
+						            rset.getString("mem_name"),
+						            rset.getString("grade"),
+						            rset.getString("enroll_date"),
+						            rset.getInt("regcount"),
+						            rset.getInt("revcount"),
+						            rset.getInt("likecount"),
+						            rset.getInt("totalpay"),
+						            rset.getString("mem_email"),
+						            rset.getString("mem_phone"),
+						            rset.getString("mem_addr"),
+						            rset.getString("gender"),
+						            rset.getString("mem_status")));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	/** 세부검색으로 회원조회시 나오는 list
 	 * @author 수연
 	 * @param conn
@@ -987,6 +993,17 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberList2");
 		
+		
+		
+		String sg = null;
+		if(sm.getsGroup().equals("all")) {
+			sg = "%%";
+		}else if(sm.getsGroup().equals("tutor")) {
+			sg = "%2%";
+		}else {
+			sg = "%1%";
+		}
+		
 		try {
 			switch(sm.getsCategory()) {
 			case "mem_name" : sql += " mem_name "; break;
@@ -996,32 +1013,41 @@ public class AdminDao {
 			case "regcount" : sql += " (SELECT COUNT(REG_NO) \r\n"
 					+ "		          FROM REGISTER R\r\n"
 					+ "		         WHERE REG_STA = '2'\r\n"
-					+ "		           AND MEM_NO = M.MEM_NO) = "; break;
+					+ "		           AND MEM_NO = M.MEM_NO) "; break;
 					
 			case "revcount" : sql += " (SELECT COUNT(RE_NO) \r\n"
 					+ "		          FROM REVIEW\r\n"
 					+ "		         WHERE RE_STA = 'Y'\r\n"
-					+ "		           AND MEM_NO = M.MEM_NO) = "; break;
+					+ "		           AND MEM_NO = M.MEM_NO) "; break;
 					
 			case "likecount" : sql += " (SELECT COUNT(CL_NO)\r\n"
 					+ "		          FROM \"LIKE\"\r\n"
-					+ "		         WHERE MEM_NO = M.MEM_NO) = "; break;
+					+ "		         WHERE MEM_NO = M.MEM_NO) "; break;
 					
 			case "totalpay" : sql += " (SELECT SUM(REG_PRICE)\r\n"
 					+ "		          FROM REGISTER\r\n"
 					+ "		         WHERE REG_STA = '2'\r\n"
-					+ "		          AND MEM_NO = M.MEM_NO) = "; break;
+					+ "		          AND MEM_NO = M.MEM_NO) "; break;
 					
 			case "gender" : sql += " gender = "; break;
 			case "mem_status" : sql += " mem_status = "; break;
 			}
 			
-			if(!sm.getSearchkey1().isEmpty()) { //MEM_NAME 선택시
+			if((sm.getsCategory().equals("mem_name") || sm.getsCategory().equals("mem_email") || sm.getsCategory().equals("mem_addr") || sm.getsCategory().equals("mem_phone")) 
+					&& (!sm.getSearchkey1().isEmpty())) { //MEM_NAME 선택시
 				sql += " LIKE '%" + sm.getSearchkey1() + "%'";
-			}
-			
-			if(!sm.getSearchkey2().isEmpty()) { //REVCOUNT, LIKECOUNT,TOTALPAY 선택시
-				sql += sm.getSearchkey2();
+				
+			}else if((sm.getsCategory().equals("mem_name") || sm.getsCategory().equals("mem_email") || sm.getsCategory().equals("mem_addr") || sm.getsCategory().equals("mem_phone"))
+					&& sm.getSearchkey1().isEmpty()){
+				sql += " LIKE '%" + sm.getSearchkey1() + "%'";
+				
+			}else if((sm.getsCategory().equals("regcount") || sm.getsCategory().equals("revcount") || sm.getsCategory().equals("likecount") || sm.getsCategory().equals("totalpay"))
+					&& (!sm.getSearchkey2().isEmpty())) { // REGCOUNT, REVCOUNT, LIKECOUNT,TOTALPAY 선택시
+				sql += " = " + sm.getSearchkey2();
+				
+			}else if((sm.getsCategory().equals("regcount") || sm.getsCategory().equals("revcount") || sm.getsCategory().equals("likecount") || sm.getsCategory().equals("totalpay")) 
+					&& sm.getSearchkey2().isEmpty()){
+				sql += " >= 0";
 			}
 			
 			switch(sm.getSelectValue()) {// GENDER, MEM_STATUS 선택시
@@ -1032,27 +1058,24 @@ public class AdminDao {
 			case "N" : sql += "'N'"; break;
 			}
 			
-
 			switch(sm.getfCategory()) {
 			case "enroll_date" : sql += " order by enroll_date "; break;
-			case "mem_no" : sql += " order by  mem_no "; break;
+			case "mem_no" : sql += " order by mem_no "; break;
 			case "mem_name" : sql += " order by mem_name "; break;
 			case "regcount" : sql += " order by regcount "; break;
 			case "revcount" : sql += " order by revcount "; break;
 			case "likecount" : sql += " order by likecount "; break;
 			case "totalpay" : sql += " order by totalpay "; break;
 			}
-				
-				
+			
 			if(sm.getLineup().equals("desc")) {
 				sql += "desc";
 			}else if(sm.getLineup().equals("asc")) {
 				sql += "asc";
 			}
 			
-
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, sm.getsGroup());
+			pstmt.setString(1, sg);
 			pstmt.setString(2, sm.getEnrollStart());
 			pstmt.setString(3, sm.getEnrollEnd());
 			
@@ -1083,62 +1106,6 @@ public class AdminDao {
 		}
 		
 		return list;
-	}
-
-
-
-
-	public ArrayList<TutorList> selectTutorList1(Connection conn, SearchTutor st) {
-		return null;
-	}
-
-
-
-	/** 회원 조회 페이징 처리용 전체 조회된행수 조회
-	 * @author 수연
-	 * @param conn
-	 * @return
-	 */
-	public int selectMemberListCount1(Connection conn, String sGroup, String fCategory, String lineup) {
-		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectMemberListCount1");
-		
-		try {
-			/*
-			switch(fCategory) {
-			case "enroll_date" : sql += " enroll_date "; break;
-			case "mem_no" : sql += " mem_no "; break;
-			case "mem_name" : sql += " mem_name "; break;
-			case "regcount" : sql += " regcount "; break;
-			case "revcount" : sql += " revcount "; break;
-			case "likecount" : sql += " likecount "; break;
-			case "totalpay" : sql += " totalpay "; break;
-			}
-			
-			
-			if(lineup.equals("desc")) {
-				sql += "desc";
-			}else if(lineup.equals("asc")) {
-				sql += "asc";
-			}
-			*/
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, sGroup);
-			
-			if(rset.next()) {
-				listCount = rset.getInt("count");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);	
-		}
-		
-		return listCount;
 	}
 
 
@@ -1187,6 +1154,542 @@ public class AdminDao {
 		}
 		return list;
 	}
+	
+	/** 기본검색으로 튜터관리 검색시 나오는 list
+	 * @author 수연
+	 * @param conn
+	 * @param st
+	 * @return list
+	 */
+	public ArrayList<TutorList> selectTutorList1(Connection conn, SearchTutor st) {
+		ArrayList<TutorList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTutorList1");
+		
+		switch(st.getfCategory()) {
+		case "classActive" : sql += " (SELECT COUNT(CL_NO)\r\n"
+				+ "                  FROM CLASS\r\n"
+				+ "                 WHERE CL_STATUS = 2\r\n"
+				+ "                   AND MEM_NO = T.MEM_NO) "; break;
+		case "classTotal" : sql += " (SELECT COUNT(CL_NO)\r\n"
+				+ "                  FROM CLASS\r\n"
+				+ "                 WHERE CL_STATUS IN ('2', '3')\r\n"
+				+ "                   AND MEM_NO = T.MEM_NO) "; break;
+		case "tuteeTotal" : sql += " (SELECT SUM(REG_COUNT)\r\n"
+				+ "                  FROM REGISTER\r\n"
+				+ "                 WHERE MEM_NO = T.MEM_NO) "; break;
+		case "lessonTotal" : sql += " (select count(distinct(teach_date || sch_no))\r\n"
+				+ "                  from register r\r\n"
+				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
+				+ "                  WHERE C.MEM_NO = T.MEM_NO\r\n"
+				+ "                 group by c.mem_no) "; break;
+		case "incomeTotal" : sql += " (SELECT SUM(REG_PRICE)\r\n"
+				+ "                  FROM REGISTER\r\n"
+				+ "                 WHERE REG_STA = '2'\r\n"
+				+ "                  AND MEM_NO = T.MEM_NO) "; break;
+		}
+		
+		if(st.getLineup().equals("desc")) {
+			sql += "desc";
+		}else if(st.getLineup().equals("asc")) {
+			sql += "asc";
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, st.getEnrollStart());
+			pstmt.setString(2, st.getEnrollEnd());
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new TutorList(rset.getInt("mem_no"),
+									   rset.getString("mem_name"),
+									   rset.getString("mem_id"),
+									   rset.getString("tt_name"),
+									   rset.getInt("classactive"),
+									   rset.getInt("CLASSTOTAL"),
+									   rset.getInt("LESSONTOTAL"),
+									   rset.getInt("TUTEETOTAL"),
+									   rset.getInt("LIKECOUNT"),
+									   rset.getInt("REVCOUNT"),
+									   rset.getInt("INCOMETOTAL"),
+									   rset.getString("TUTORADDR")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	/** 검색옵션1로 튜터관리 검색시 나오는 list
+	 * @author 수연
+	 * @param conn
+	 * @param st
+	 * @return list
+	 */
+	public ArrayList<TutorList> selectTutorList2(Connection conn, SearchTutor st) {
+		ArrayList<TutorList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTutorList2");
+		
+		switch(st.getOption1()) {
+		case "tutorName" : sql += " TT_NAME LIKE "; break;
+		case "memName" : sql += " MEM_NAME LIKE "; break;
+		case "tutorId" : sql += " MEM_ID LIKE "; break;
+		}
+		
+		if(st.getSearchKey().isEmpty()) {
+			sql += "'%%'";
+		}else {
+			sql += "'%" + st.getSearchKey() + "%'";
+		}
+		
+		switch(st.getOption2()) {
+		case "incomeCount" : sql += " AND (SELECT SUM(REG_PRICE)\r\n"
+				+ "                  FROM REGISTER r\r\n"
+				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
+				+ "                  WHERE REG_STA = '2'\r\n"
+				+ "                    AND REG_CAL = 'C'\r\n"
+				+ "                    AND C.MEM_NO = T.MEM_NO \r\n"
+				+ "				      AND TO_DATE(TEACH_DATE) BETWEEN '"
+				+ st.getDayStart() + "' AND '" + st.getDayEnd() + "' \r\n"
+				+ "                  group by c.mem_no) BETWEEN "; break;
+		case "countLesson" : sql += " AND (select count(distinct(teach_date || sch_no))\r\n"
+				+ "                  from register r\r\n"
+				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
+				+ "                  WHERE REG_STA = '2' \r\n"
+				+ "                   AND C.MEM_NO = T.MEM_NO\r\n"
+				+ "				      AND TO_DATE(TEACH_DATE) BETWEEN '"
+				+ st.getDayStart() + "' AND '" + st.getDayEnd() + "' \r\n"
+				+ "                 group by c.mem_no) BETWEEN "; break;
+		case "countTutee" : sql += " AND (SELECT SUM(REG_COUNT)\r\n"
+				+ "                  from register r\r\n"
+				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
+				+ "                 WHERE REG_STA = '2'\r\n"
+				+ "                   AND C.MEM_NO = T.MEM_NO\r\n"
+				+ "				      AND TO_DATE(TEACH_DATE) BETWEEN '"
+				+ st.getDayStart() + "' AND '" + st.getDayEnd() + "' \r\n"
+				+ "                 group by c.mem_no) BETWEEN "; break;
+		}
+		
+		sql += (st.getStartNum()  + " AND " + st.getEndNum());
+
+		
+		switch(st.getfCategory()) {
+		case "classActive" : sql += " ORDER BY (SELECT COUNT(CL_NO)\r\n"
+				+ "                  FROM CLASS\r\n"
+				+ "                 WHERE CL_STATUS = 2\r\n"
+				+ "                   AND MEM_NO = T.MEM_NO) "; break;
+		case "classTotal" : sql += " ORDER BY (SELECT COUNT(CL_NO)\r\n"
+				+ "                  FROM CLASS\r\n"
+				+ "                 WHERE CL_STATUS IN ('2', '3')\r\n"
+				+ "                   AND MEM_NO = T.MEM_NO) "; break;
+		case "tuteeTotal" : sql += " ORDER BY (SELECT SUM(REG_COUNT)\r\n"
+				+ "                  FROM REGISTER\r\n"
+				+ "                 WHERE MEM_NO = T.MEM_NO) "; break;
+		case "lessonTotal" : sql += " ORDER BY (select count(distinct(teach_date || sch_no))\r\n"
+				+ "                  from register r\r\n"
+				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
+				+ "                  WHERE C.MEM_NO = T.MEM_NO\r\n"
+				+ "                 group by c.mem_no) "; break;
+		case "incomeTotal" : sql += " ORDER BY (SELECT SUM(REG_PRICE)\r\n"
+				+ "                  FROM REGISTER\r\n"
+				+ "                 WHERE REG_STA = '2'\r\n"
+				+ "                  AND MEM_NO = T.MEM_NO) "; break;
+		}
+		
+		if(st.getLineup().equals("desc")) {
+			sql += "desc";
+		}else if(st.getLineup().equals("asc")) {
+			sql += "asc";
+		}
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, st.getEnrollStart());
+			pstmt.setString(2, st.getEnrollEnd());
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new TutorList(rset.getInt("mem_no"),
+									   rset.getString("mem_name"),
+									   rset.getString("mem_id"),
+									   rset.getString("tt_name"),
+									   rset.getInt("classactive"),
+									   rset.getInt("CLASSTOTAL"),
+									   rset.getInt("LESSONTOTAL"),
+									   rset.getInt("TUTEETOTAL"),
+									   rset.getInt("LIKECOUNT"),
+									   rset.getInt("REVCOUNT"),
+									   rset.getInt("INCOMETOTAL"),
+									   rset.getString("TUTORADDR")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	
+	/**
+	 * @author 예서
+	 * @param s 검색조건
+	 * @return 검색결과
+	 */
+	public ArrayList<Lesson> searchStat(Connection conn, Search s){
+		ArrayList<Lesson> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchStat");
+		
+		try {
+			
+			if(!s.getKeyword().equals("")) {
+				if(s.getKeywordType().equals("clName")) {
+					sql += "AND CL_NAME LIKE '%" + s.getKeyword() + "%'" ;
+				}else {
+					sql += "AND TT_NAME LIKE '%" + s.getKeyword() + "%'";
+				}
+			}
+			if(!s.getCategory().equals("all")) {
+				sql += "AND CT_NO = " + s.getCategory();
+				if(!s.getDcategory().equals("all")) {
+					sql += "AND CT_DNO = " + s.getDcategory();
+				}
+			}
+			if(!s.getLocation().equals("all")) {
+				sql += "AND LOCAL_CODE = " + s.getLocation();
+				if(!s.getDistrict().equals("all")) {
+					sql += "AND DISTR_CODE = " + s.getDistrict();
+				}
+			}
+			if(!s.getStarDate().equals("") && !s.getEndDate().equals("")) {
+				sql += "AND ENROLL_DATE BETWEEN TO_CHAR(TO_DATE('" + s.getStarDate() + "', 'YYYY-MM-DD'), 'YYYY-MM-DD') AND TO_CHAR(TO_DATE('" + s.getEndDate() + "', 'YYYY-MM-DD')+1, 'YYYY-MM-DD')";
+			}
+			if(!s.getFiltering().equals("all")) {
+				switch(s.getFiltering()) {
+				case "likeCount" : sql += "ORDER BY LIKE_COUNT"; break;
+				case "reviewCount" : sql += "ORDER BY REVIEW_COUNT"; break;
+				case "starAvg" : sql += "ORDER BY STAR_AVG"; break;
+				case "memberSum" : sql += "ORDER BY STUDENT_SUM"; break;
+				case "priceSum" : sql += "ORDER BY PRICE_SUM";
+				}
+				switch(s.getOrder()) {
+				case 0 : sql += " DESC"; break;
+				case 1 : sql += " ASC";
+				}
+			}
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Lesson(rset.getInt("cl_no"),
+						            rset.getString("cl_name"),
+						            rset.getString("tt_name"),
+						            rset.getInt("like_count"),
+						            rset.getInt("review_count"),
+						            rset.getInt("star_avg"),
+						            rset.getInt("student_sum"),
+						            rset.getString("price_sum"),
+						            rset.getString("enroll_date")
+						            ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+
+
+	public TutorList selectTutorInfo(Connection conn, int memNo) {
+		TutorList t2 = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTutorInfo");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				t2 = new TutorList(rset.getInt("mem_no"),
+						   rset.getString("mem_name"),
+						   rset.getString("mem_id"),
+						   rset.getString("tt_name"),
+						   rset.getInt("classactive"),
+						   rset.getInt("CLASSTOTAL"),
+						   rset.getInt("LESSONTOTAL"),
+						   rset.getInt("TUTEETOTAL"),
+						   rset.getInt("LIKECOUNT"),
+						   rset.getInt("REVCOUNT"),
+						   rset.getInt("INCOMETOTAL"),
+						   rset.getString("TUTORADDR"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return t2;
+	}
+
+
+
+	/** 클래스별 리뷰개수
+	 * @author 수연
+	 * @param conn
+	 * @param memNo
+	 * @return
+	 */
+	public ArrayList<Review> selectClReview(Connection conn, int memNo) {
+		ArrayList<Review> clReviewList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectClReview");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				clReviewList.add(new Review(rset.getInt("count"),
+											rset.getString("cl_name")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return clReviewList;
+	}		
+			
+			
+	public ArrayList<Lesson> selectStatCount(Connection conn){
+		ArrayList<Lesson> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectStatCount");
+		
+		try {
+				for(int i=2; i>=0; i--) {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, i);
+					pstmt.setInt(2, i);
+					pstmt.setInt(3, i);
+					rset = pstmt.executeQuery();
+					if(rset.next()) {
+						Lesson l = new Lesson(rset.getInt("review_count"), 
+								              rset.getInt("like_count"), 
+								              rset.getInt("student_sum"));
+						list.add(l);
+					}
+				}
+				
+				
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+
+
+	public ArrayList<Like> selectclLike(Connection conn, int memNo) {
+		ArrayList<Like> clLikeList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectclLike");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				clLikeList.add(new Like(rset.getString("cl_name"),
+										rset.getInt("count")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return clLikeList;
+	}
+
+
+
+
+	public ArrayList<Qna> selectAllQna1(Connection conn, int memNo) {
+		ArrayList<Qna> qnaList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllQna1");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				qnaList.add(new Qna(rset.getInt("Q_NO"),
+			            rset.getString("Q_TITLE"),
+			            rset.getString("Q_CONTENT"),
+			            rset.getDate("Q_DATE"),
+			            rset.getString("Q_STATUS"),
+			            rset.getString("Q_GRADE"),
+			            rset.getString("Q_CATEGORY"),
+			            rset.getString("CL_NAME"),
+			            rset.getInt("Q_MEM_NO"),
+			            rset.getString("A_TITLE"),
+			            rset.getString("A_CONTENT"),
+			            rset.getDate("A_DATE"),
+			            rset.getInt("A_MEM_NO"),
+			            rset.getString("TT_NAME")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		
+		return qnaList;
+	}
+	
+	public ArrayList<Qna> selectAllQna2(Connection conn, int memNo) {
+		ArrayList<Qna> qnaList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllQna2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				qnaList.add(new Qna(rset.getInt("Q_NO"),
+			            rset.getString("Q_TITLE"),
+			            rset.getString("Q_CONTENT"),
+			            rset.getDate("Q_DATE"),
+			            rset.getString("Q_STATUS"),
+			            rset.getString("Q_GRADE"),
+			            rset.getString("Q_CATEGORY"),
+			            rset.getInt("CL_NO"),
+			            rset.getInt("Q_MEM_NO"),
+			            rset.getString("A_TITLE"),
+			            rset.getString("A_CONTENT"),
+			            rset.getDate("A_DATE"),
+			            rset.getInt("A_MEM_NO")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		return qnaList;
+	}
+
+
+
+
+	public ArrayList<Register> selectAllRegister2(Connection conn, int memNo) {
+		ArrayList<Register> regList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllRegister2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				regList.add(new Register(rset.getInt("REG_NO"),
+									     rset.getString("MEM_NO"),
+									     rset.getString("CL_NO"),
+									     rset.getString("CL_NAME"),
+									     rset.getString("TEACH_DATE"),
+									     rset.getString("REG_DATE"),
+									     rset.getString("reg_pay"),
+									     rset.getString("reg_price"),
+									     rset.getString("reg_count"),
+									     rset.getString("reg_sta"),
+									     rset.getString("reg_refuse"),
+									     rset.getString("re_enroll"),
+									     rset.getString("reg_cal"),
+									     rset.getString("tt_name"),
+									     rset.getString("START_TIME"),
+									     rset.getString("distr_name"),
+									     rset.getString("ct_name"),
+									     rset.getString("ct_dname"),
+									     rset.getString("end_time"),
+									     rset.getString("local_name")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		
+		return regList;
+	}
+
+	public ArrayList<Lesson> selectStatLocation(Connection conn){
+		ArrayList<Lesson> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectStatLocation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Lesson(rset.getString("distr_name"), 
+						              rset.getString("reg_price")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+
+
+
+
+	
 	
 	
 	

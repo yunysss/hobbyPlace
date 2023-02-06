@@ -16,10 +16,12 @@ public class Register {
 	private String reEnroll;
 	private String regCal;
 	private String depositSta;
+	private String memName;
 	private String memPhone;
 	private String memEmail;
 	private String clThumb;
 	private String clName;
+	private String clPrice;
 	private String startTime;
 	private String distrName;
 	private String ttName;
@@ -27,6 +29,9 @@ public class Register {
 	private String ctDname;
 	private String refRqDt;
 	private String refSta;
+	private String endTime;
+	private String memo;
+	private String localName;
 	
 	public Register() {}
 
@@ -209,6 +214,84 @@ public class Register {
 		this.ttName = ttName;
 		this.refRqDt = refRqDt;
 		this.refSta = refSta;
+	}
+	
+	
+
+	public Register(int regNo, String teachDate, String regPrice, String regCount, String regSta, String memName,
+			String memPhone, String memEmail, String clName, String clPrice, String startTime) {
+		super();
+		this.regNo = regNo;
+		this.teachDate = teachDate;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.memName = memName;
+		this.memPhone = memPhone;
+		this.memEmail = memEmail;
+		this.clName = clName;
+		this.clPrice = clPrice;
+		this.startTime = startTime;
+	}
+	
+	
+
+	public Register(int regNo, String teachDate, String regDate, String regPrice, String regCount, String regSta,
+			String reEnroll, String memName, String memPhone, String memEmail, String clName, String clPrice,
+			String startTime, String endTime, String memo) {
+		super();
+		this.regNo = regNo;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.reEnroll = reEnroll;
+		this.memName = memName;
+		this.memPhone = memPhone;
+		this.memEmail = memEmail;
+		this.clName = clName;
+		this.clPrice = clPrice;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.memo = memo;
+		
+	}
+
+	
+	public Register(int regNo, String memNo, String clNo, String clName, String teachDate, String regDate, String regPay,
+			String regPrice, String regCount, String regSta, String refuse, String reEnroll, String regCal,
+			String memName, String startTime, String distrName, String ctName, String ctDname, String endTime,
+			String localName) {
+		super();
+		this.regNo = regNo;
+		this.memNo = memNo;
+		this.clNo = clNo;
+		this.clName = clName;
+		this.teachDate = teachDate;
+		this.regDate = regDate;
+		this.regPay = regPay;
+		this.regPrice = regPrice;
+		this.regCount = regCount;
+		this.regSta = regSta;
+		this.refuse = refuse;
+		this.reEnroll = reEnroll;
+		this.regCal = regCal;
+		this.memName = memName;
+		this.startTime = startTime;
+		this.distrName = distrName;
+		this.ctName = ctName;
+		this.ctDname = ctDname;
+		this.endTime = endTime;
+		this.localName = localName;
+	}
+
+	public String getLocalName() {
+		return localName;
+	}
+
+	public void setLocalName(String localName) {
+		this.localName = localName;
 	}
 
 	public int getRegNo() {
@@ -415,17 +498,63 @@ public class Register {
 	public void setRefSta(String refSta) {
 		this.refSta = refSta;
 	}
+	
+	
+
+	public String getMemName() {
+		return memName;
+	}
+
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+
+	public String getClPrice() {
+		return clPrice;
+	}
+
+	public void setClPrice(String clPrice) {
+		this.clPrice = clPrice;
+	}
+
+	
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
 
 	@Override
 	public String toString() {
 		return "Register [regNo=" + regNo + ", memNo=" + memNo + ", clNo=" + clNo + ", teachDate=" + teachDate
 				+ ", regDate=" + regDate + ", schNo=" + schNo + ", regPay=" + regPay + ", regPrice=" + regPrice
 				+ ", regCount=" + regCount + ", regSta=" + regSta + ", refuse=" + refuse + ", reEnroll=" + reEnroll
-				+ ", regCal=" + regCal + ", depositSta=" + depositSta + ", memPhone=" + memPhone + ", memEmail="
-				+ memEmail + ", clThumb=" + clThumb + ", clName=" + clName + ", startTime=" + startTime + ", distrName="
-				+ distrName + ", ttName=" + ttName + ", ctName=" + ctName + ", ctDname=" + ctDname + ", refRqDt="
-				+ refRqDt + ", refSta=" + refSta + "]";
+				+ ", regCal=" + regCal + ", depositSta=" + depositSta + ", memName=" + memName + ", memPhone="
+				+ memPhone + ", memEmail=" + memEmail + ", clThumb=" + clThumb + ", clName=" + clName + ", clPrice="
+				+ clPrice + ", startTime=" + startTime + ", distrName=" + distrName + ", ttName=" + ttName + ", ctName="
+				+ ctName + ", ctDname=" + ctDname + ", refRqDt=" + refRqDt + ", refSta=" + refSta + ", endTime="
+				+ endTime + ", memo=" + memo + "]";
 	}
+	
+	
+	
+
+	
+
+	
+
+	
+	
 
 	
 

@@ -37,6 +37,11 @@
     background:rgb(22, 160, 133); 
     color:white;
    }
+   #selectAllCalMng-btn{
+   	width:80px;
+    background:rgb(22, 160, 133); 
+    color:white!important;
+   }
    input[name=dateType], input[name=calSta]{display: none; margin: 10px;}
    input[name=dateType]+label{
         display: inline-block;
@@ -181,6 +186,7 @@
             </table>
             <br>
             <div align="center">
+            		<a href="<%=contextPath %>/manage.cal" class="btn btn-sm" id="selectAllCalMng-btn">전체조회</a>
                     <button type="button" class="btn btn-sm" id="selectCalMng-btn" onclick="selectCalMng();">조회</button>
                     <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
             </div>
@@ -195,10 +201,8 @@
 		
 		    $(function() {
 		
-		        //datepicker 한국어로 사용하기 위한 언어설정
 		        $.datepicker.setDefaults($.datepicker.regional['ko']);     
 		    
-		        // Datepicker            
 		        $(".datepicker").datepicker({
 		            showButtonPanel: true,
 		            dateFormat: "yy-mm-dd",
@@ -220,12 +224,11 @@
 		            }
 		        }); 
 		
-		        $(".dateclick").dateclick();    // DateClick
-		        $(".searchDate").schDate();        // searchDate
+		        $(".dateclick").dateclick();    
+		        $(".searchDate").schDate();       
 		        
 		    });
 		
-		    // Search Date
 		    jQuery.fn.schDate = function(){
 		        var $obj = $(this);
 		        var $chk = $obj.find("input[type=radio]");
@@ -235,14 +238,12 @@
 		        });
 		    };
 		
-		    // DateClick
 		    jQuery.fn.dateclick = function(){
 		        var $obj = $(this);
 		        $obj.click(function(){
 		            $(this).parent().find("input").focus();
 		        });
 		    }    
-		
 		    
 		    function setSearchDate(start){
 		

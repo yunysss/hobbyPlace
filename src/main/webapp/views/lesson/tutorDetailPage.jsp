@@ -34,6 +34,7 @@
          
 
       }
+
       #tutorProfile{
           height: 200px;
           padding: 45px;
@@ -57,6 +58,13 @@
 
      #introduce>div{
       height: 100px;
+     }
+     
+     #introduce textarea{
+      border: none;
+      width: 410px;
+      resize: none;
+      margin-top : 10px;
      }
      #introduce a{ color: rgb(89, 86, 86); 
       font-size: 12px;
@@ -97,14 +105,14 @@
 
    
         <div id="profile">
-            <div id="tutorProfile" align="center">
+            <div id="tutorProfile" align="center" >
                 <p style="border: 1px solid rgb(201, 199, 199);" id="p">
             
-                <img src="<%=request.getContextPath()%>/<%=ttProfile %>" width="60"height="60" class="rounded-circle" alt="Cinque Terre">
-                <span style="font-weight: 600;"><%=t.getTtName() %></span><br>
-                <span style="font-size: 11px; color: g;">클래스 <%=cCount %> </span> | 
-                <span style="font-size: 11px;"> 후기 <%=rCount %></span>
-                <a><span class="badge badge-danger">문의하기</span><a/>
+                <img src="<%=request.getContextPath()%>/<%=ttProfile %>" width="80"height="80" class="rounded-circle" alt="Cinque Terre">
+                &nbsp;<span style="font-weight: 600;"><%=t.getTtName() %></span><br>
+                <span style="font-size: 12px; color: g;">클래스 <%=cCount %> </span> | 
+                <span style="font-size: 12px;"> 후기 <%=rCount %></span>
+                <a href=<%=contextPath %>><span class="badge badge-danger">문의하기</span></a>
                 
               </p>
                 
@@ -112,15 +120,15 @@
             <div id="introduce">
                 <h6 style="font-weight: 600;">튜터 소개</h6>
                 <div style="font-size: 13px;">
-                    <%=t.getIntroduce() %>
-
+                  <% if( t.getIntroduce() !=null){%>
+                   <textarea rows="10"><%=t.getIntroduce() %></textarea>
+                   <%}%>
+                </div>
+             
+                <a href="#demo" data-toggle="collapse" data-target="#demo"></a>
+                <div id="demo" class="collapse show">
                 </div>
                
-                <a href="#demo" data-toggle="collapse" data-target="#demo">더보기</a>
-
-                <div id="demo" class="collapse show">
-                  
-                </div>
             </div>
             
         </div>
@@ -202,7 +210,11 @@
                 	<%for(Review r : rList){ %>
                     <table style="text-align: left;">
                       <tr>
-                        <th width="70" height="60"><img src="<%=request.getContextPath()%>/<%=r.getMemProfile() %>" width="60" height="60" class="rounded-circle" alt="Cinque Terre"></th>
+                       <%if(r.getMemProfile() == null) {%>
+		                 <th width="70" height="60"><img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" type="button" width="60" height="60"  class="rounded-circle" class="dropdown-toggle" data-toggle="dropdown">
+		                <%} else {%>
+                        <th width="70" height="60"><img src="<%=contextPath%>/<%=r.getMemProfile() %>" width="60" height="60" class="rounded-circle" alt="Cinque Terre"></th>
+                        <%} %>
                         <td>
                           <label id="review-nick" style="font-weight: 550;"></label><%=r.getMemNickName() %><br>
                             <% 
@@ -220,6 +232,7 @@
 	                            </span>
                       </td>
                           <td rowspan="3" width="150" id="reimg">
+                          
                               <img src="<%=request.getContextPath()%>/resources/images/sample1.png" width="150" height="150" alt="">
                           </td>
                       </tr>

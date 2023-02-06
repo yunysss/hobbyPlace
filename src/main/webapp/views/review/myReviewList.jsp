@@ -10,11 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    div{box-sizing:border-box; }
-    .cwrap{width:1000px; height:1300px; margin:auto; padding:2px;}
     
-    .menubar{width:200px; height:1299px; float:left; padding-top:30px; background: white; }
-    .content {width:793px; height:1300px;  float: right; padding-top:65px;}
 
 	 .classnull{
         width: 100%;
@@ -50,9 +46,16 @@
         padding-top: 5px;
         font-size: 13px;;
         }
-    .classText div{
-        height: 50%;
 
+
+    .clName{
+        font-weight: bold;
+        width: 178px;
+        white-space : nowrap;
+        overflow : hidden;
+        text-overflow : ellipsis;
+        margin-top: 10px;
+        margin-bottom: 0%;
     }
     #nextBtn {
         width: 10px;
@@ -73,6 +76,13 @@
         margin:0%; 
         padding:3px; 
         padding-left: 5px;
+    }
+    .revContent{
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
 
@@ -101,10 +111,10 @@
                     
                     <div class="classText">
                         <div>
-                            <p><%=list.get(i).getClName() %></p>
+                            <p class="clName"><%=list.get(i).getClName() %></p>
                         </div>
                         <div>
-                            별점 들어가는 공간
+                            ⭐⭐⭐⭐⭐
                         </div>
                     </div>
 
@@ -115,7 +125,7 @@
                 <hr style="margin:0%">
                 <div class="review-content">
                     <p><%=list.get(i).getReviewDate() %></p>
-                    <p><%=list.get(i).getReviewContent() %></p>
+                    <p class="revContent"><%=list.get(i).getReviewContent() %></p>
 
                 </div>
 

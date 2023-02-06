@@ -56,9 +56,49 @@ public class ReviewService {
 		return list;
 	}
 
+	public ArrayList<Review> selectReviewList(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Review> list = new ReviewDao().selectReviewList(conn, memNo);
+		close(conn);
+		return list;
+	}
+
+
+	public int deleteReview(int reNo) {
+		Connection conn = getConnection();
+		int result = new ReviewDao().deleteReview(conn, reNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+
+		}
+
+	public ArrayList<Review> selectAdminSearchReview(Review r) {
+		Connection conn = getConnection();
+		ArrayList<Review> revList = new ReviewDao().selectAdminSearchReview(conn, r);
+		close(conn);
+		return revList;
+
+	}
 	
+	public Register selectEnrollFormClass(int regNo) {
+		Connection conn = getConnection();
+		Register er = new ReviewDao().selectEnrollFormClass(conn, regNo);
+		close(conn);
+		return er;
+	}
 
 	
-
+	}
 	
+	public ArrayList<Review> selectTutorReview(Review r){
+		Connection conn = getConnection();
+		ArrayList<Review> list = new ReviewDao().selectTutorReview(conn, r);
+		close(conn);
+		return list;
+	}
 }

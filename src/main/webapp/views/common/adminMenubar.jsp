@@ -14,7 +14,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-	
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
    
@@ -23,11 +28,15 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+   
     <style>
     
         
         .wrap{
-            width: 1200px;
+            width: 100%;
             height: 100vh;
             margin: auto;
         }
@@ -35,7 +44,7 @@
         .wrap>div{width: 100%;}
 
         #header{height: 160px;}
-        #content{height: 80%;}
+        #content{height: 100%;}
 
         #content>div{height: 100%; float:left}
 
@@ -44,7 +53,7 @@
         /*헤더바 상세 스타일*/
         #header{background: url(<%=request.getContextPath()%>/resources/images/newMainLogoBG.png); background-size: cover;}
         
-        #log_box{ height: 155px; padding:52px;margin-left:40%;}
+        #log_box{ height: 155px; padding:52px;margin-left:55%;}
 
         p{  display: inline-block;
             margin-top: 15px;}
@@ -52,7 +61,7 @@
         p>a{margin:5px;color:black; text-decoration: none;}
 
 
-        #navigator{width: 16%; box-sizing: border-box;}
+        #navigator{width: 13%; box-sizing: border-box; height:100%;}
         
         
         #mainContent{width:1000px; padding:20px; }
@@ -113,6 +122,8 @@
 
         }
         
+        
+        
         .input-group{
             padding:10px
         }
@@ -126,7 +137,7 @@
     <div class="wrap">
         <div id="header">
                     <div id="log_box">
-                            <p style="width: 450px;" align="right"> <img src="<%=request.getContextPath()%>/resources/images/admin_icon.png" height="23px">
+                            <p style="width: 430px;" align="right"> <img src="<%=request.getContextPath()%>/resources/images/admin_icon.png" height="23px">
                             관리자<%=loginAdmin.getMemName() %>님 반갑습니다!</p>
                             <p><a href="<%=contextPath%>/logout.ad">로그아웃</a></p>
                             <p><a href="<%=contextPath%>/main.tee">합플 홈</a></p>
@@ -139,17 +150,7 @@
         <div id="content">
             <!--사이드 메뉴바-->
             <div id="navigator">
-                <!-- 검색창-->
-                <div id="search_box">
-                    <form action="#" id="searchForm">
-                        <div class="input-group mb-3 input-group-sm">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">검색</span>
-                           </div>
-                           <input type="text" class="form-control">
-                         </div>
-                    </form>
-                </div>
+                
     
                 <!--메뉴창-->
                 <div id="navi_box">
@@ -160,31 +161,30 @@
                                 <li><a href="<%=contextPath%>/viewTutor.ad">튜터 관리</a></li>
                             </ul>
                         </li>
-                        <li><a href="">클래스 관리</a>
+                        <li><a>클래스 관리</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/newcl.ad?cpage=1">신규클래스 검토/승인</a></li>
                                 <li><a href="<%=contextPath%>/classmg.ad?cpage=1">클래스 관리</a></li>
-                                <li><a href="">리뷰 관리</a></li>
+                                <li><a href="<%=contextPath%>/adAdList.rev">리뷰 관리</a></li>
                             </ul>
                         </li>
-                        <li><a href="">결제 관리</a>
+                        <li><a>결제 관리</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/manage.reg">결제 내역 관리</a></li>
                                 <li><a href="<%=contextPath%>/manage.cal">튜터 정산 관리</a></li>
                                 <li><a href="<%=contextPath %>/manage.ref">환불 신청 관리</a></li>
                             </ul>
                         </li>
-                        <li><a href="">통계</a>
+                        <li><a>통계</a>
                             <ul>
-                                <li><a href="">사용자 관리 통계</a></li>
                                 <li><a href="<%=contextPath%>/statistics.ad">클래스 관리 통계</a></li>
                             </ul>
                         </li>
-                        <li><a href="">고객센터</a>
+                        <li><a>고객센터</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/noticeList.ad?cpage=1">공지사항</a></li>
                                 <li><a href="<%=contextPath%>/faqMain.ad">자주 묻는 질문</a></li>
-                                <li><a href="">문의 / 답변</a></li>
+                                <li><a href="<%=contextPath%>/qnaList.ad">문의 / 답변</a></li>
                             </ul>
                         </li>
     

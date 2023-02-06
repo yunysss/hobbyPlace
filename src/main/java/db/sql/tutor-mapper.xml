@@ -207,6 +207,7 @@
 			    , CL_ADDRESS
 			    , CL_MAX 
 			    , CL_LEVEL
+			    , END_DATE 
 			    , CL_TIMES 
 			    , CL_SCHEDULE
 			    , CL_DAY 
@@ -235,6 +236,7 @@
 			  (SELECT DISTR_CODE
 			  FROM DISTRICT
 			  WHERE DISTR_NAME = ?),
+			  ?,
 			  ?,
 			  ?,
 			  ?,
@@ -347,6 +349,7 @@
 			    , CL_ADDRESS = ?
 			    , CL_MAX = ?
 			    , CL_LEVEL = ?
+			    , END_DATE = ?
 			    , CL_TIMES = ?
 			    , CL_SCHEDULE = ?
 			    , CL_DAY = ?
@@ -470,7 +473,7 @@
 		   enroll_date
 	  FROM NOTICE
 	 WHERE NT_STA='Y'
-	   AND GRADE='1'
+	   AND GRADE='2'
 	 ORDER 
 	    BY ENROLL_DATE DESC
 		
@@ -482,12 +485,12 @@
 	<entry key= "selectTutorStatistics">
 
 	SELECT MEM_NO,	
-		    SUM(SUM_REG_MONTH)  "sumMonth",
-		    SUM(SUM_TOTAL) "sumTotal",
-		     COUNT(SUM_TOTAL) "sumReg",
-		     SUM(CANCEL_COUNT) "cancelCount",
-		     AVG(STAR_AVG)"avgStar",
-		    SUM(STAR_COUNT) "rCount"
+		    NVL(SUM(SUM_REG_MONTH),0)  "sumMonth",
+		    NVL(SUM(SUM_TOTAL),0) "sumTotal",
+		    NVL(COUNT(SUM_TOTAL),0) "sumReg",
+		    NVL(SUM(CANCEL_COUNT),0) "cancelCount",
+            NVL(AVG(STAR_AVG),0)"avgStar",
+		    NVL(SUM(STAR_COUNT),0) "rCount"
 	FROM (
 
 			SELECT
@@ -531,7 +534,7 @@
 	
 	<entry key= "selectQnaPercent">
 	SELECT 
-       DISTINCT (TOTALA/TOTALQ*100) "qnaPer"
+       DISTINCT (TOTALA/NVL(TOTALQ,0)*100) "qnaPer"
 			FROM(
 			        SELECT A_MEM_NO,
 			            (SELECT COUNT(Q_NO)
@@ -544,7 +547,7 @@
 			            ) "TOTALA"
 			     FROM QNA 
 			     )
-
+	WHERE TOTALQ !=0
 	</entry>
 	
 	<entry key="selectTutorRegister">
@@ -564,12 +567,96 @@
 		  JOIN CLASS C USING(CL_NO)
 		  JOIN SCHEDULE USING(SCH_NO)
 		 WHERE C.MEM_NO = ?
-           AND REG_STA = 0
+           AND REG_STA = 1
 		 ORDER 
 		    BY REG_NO DESC
 	</entry>
 	
+	<!-- 튜터수강전리스트 조회 -->
+	<entry key="selectBFClassList">
+	  SELECT  
+	  		  REG_NO
+			, MEM_NAME
+			, MEM_PHONE
+			, MEM_EMAIL
+			, CL_NAME
+			, TEACH_DATE
+			, START_TIME
+			, REG_PRICE
+			, REG_COUNT
+			, REG_STA
+			, CL_PRICE
+		 FROM REGISTER R
+		 JOIN MEMBER USING (MEM_NO)
+		 JOIN CLASS C USING (CL_NO)
+		 JOIN SCHEDULE S USING (SCH_NO)
+	    WHERE C.MEM_NO=?
+		  AND REG_STA= 1 
+			
+	</entry>
 	
+		<!-- 튜터수강완료리스트 조회 -->
+	<entry key="selectATClassList">
+	  SELECT  
+	  		  REG_NO
+			, MEM_NAME
+			, MEM_PHONE
+			, MEM_EMAIL
+			, CL_NAME
+			, TEACH_DATE
+			, START_TIME
+			, REG_PRICE
+			, REG_COUNT
+			, decode(REG_STA,'2','수강완료','3','취소') "REG_STA"
+			, CL_PRICE
+		 FROM REGISTER R
+		 JOIN MEMBER USING (MEM_NO)
+		 JOIN CLASS C USING (CL_NO)
+		 JOIN SCHEDULE S USING (SCH_NO)
+	    WHERE C.MEM_NO=?
+		  AND REG_STA IN (2,3)
+			
+	</entry>
+	
+	<!--예약관리 상세페이지 조회 -->
+	<entry key="selectReservationClass">
+	   SELECT  
+	  		  REG_NO
+	  		, REG_DATE
+			, MEM_NAME
+			, MEM_PHONE
+			, NVL(MEM_EMAIL,'-') "MEM_EMAIL" 
+			, CL_NAME
+			, TEACH_DATE
+			, START_TIME
+            , END_TIME
+			, TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+			, REG_COUNT
+			, decode(REG_STA,'2','수강완료','3','취소') "REG_STA"
+			, RE_ENROLL
+			, CL_PRICE
+			, NVL(MEMO,'특이사항을 메모해주세요') "MEMO"
+            
+		 FROM REGISTER R
+		 JOIN MEMBER USING (MEM_NO)
+		 JOIN CLASS C USING (CL_NO)
+		 JOIN SCHEDULE S USING (SCH_NO)
+	    WHERE REG_NO = ?
+	
+	</entry>
+	
+	<entry key="updateReservation">
+		UPDATE REGISTER
+           SET REG_STA = ?
+             , MEMO = ?
+         WHERE REG_NO=?
+	</entry>
+	
+	<entry key="selectTutorInfo2">
+		SELECT *
+		  FROM TUTOR
+		  WHERE MEM_NO = ?
+	</entry>
 	
 
 

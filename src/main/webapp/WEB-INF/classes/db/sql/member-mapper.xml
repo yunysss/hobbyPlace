@@ -306,7 +306,43 @@
 	     WHERE MEM_ID = ?
 	       AND MEM_PHONE = ?
 	       AND MEM_STATUS = 'Y'
+	</entry >
+	
+	<entry key="selectMyLikeClassList">
+	SELECT 
+	       L.CL_NO "CL_NO"
+	     , DISTR_NAME
+	     , CL_NAME
+	     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+	     , CL_THUMB
+	     , (SELECT AVG(RE_STAR) 
+	          FROM REVIEW R
+	         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+	     , (SELECT COUNT(RE_STAR) 
+	          FROM REVIEW R
+	         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+	     , (SELECT COUNT(*)
+	          FROM "LIKE" L
+	         WHERE L.CL_NO = C.CL_NO
+	         GROUP BY L.CL_NO) "LIKE_COUNT"
+	  FROM "LIKE" L
+	  LEFT OUTER JOIN CLASS C
+	    ON C.CL_NO = L.CL_NO
+	  LEFT OUTER JOIN DISTRICT D
+	    ON D.DISTR_CODE = C.DISTR_CODE    
+	 WHERE L.MEM_NO = ?
+	  ORDER BY LIKE_DATE DESC
+	
 	</entry>
+	
+	<entry key="deleteLikeClassList">
+		DELETE 
+		  FROM "LIKE"
+		 WHERE CL_NO = ?
+		   AND MEM_NO = ?
+	</entry>
+	
+
 	
 	
 </properties>

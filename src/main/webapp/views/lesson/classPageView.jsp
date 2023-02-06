@@ -8,6 +8,7 @@
 	if((Member)session.getAttribute("loginUser") != null){
 		likeStatus = (int)request.getAttribute("likeStatus");
 	}
+	String qnaInsert = (String)session.getAttribute("qnaInsert");
 %>
 <!DOCTYPE html>
 <html>
@@ -228,10 +229,19 @@
 		    color: white!important;
 		}
 		
-		.modal-body input{
+		#shareModal input{
             border: none;
             font-size: 15px;
             outline: none;
+        }
+        #textarea{
+        	border:1px solid rgb(127, 127, 127);
+        	border-radius:3px;
+        	width:770px;
+        	padding:10px;
+        }
+        textarea{
+        	border:none;
         }
     </style>
     <!-- 카카오 -->
@@ -451,7 +461,7 @@
                     <script>
 						$(function(){
 							$("#reviewList tr").slice(0, 10).show(); // 초기갯수
-					        if($("#reviewList tr:hidden").length = 0){ // 컨텐츠 남아있는지 확인
+					        if($("#reviewList tr:hidden").length == 0){ // 컨텐츠 남아있는지 확인
 					            $("#viewMore").hide();
 					        }
 							$("#viewMore").click(function(e){ // 클릭시 more
@@ -773,7 +783,7 @@
                             <%}else{ %>
                             	<a class="btn like-btn">❤️ 찜하기 해제</a>
                             <%} %>
-                            <a href="" class="btn">💬 1:1문의</a>
+                            <a class="btn qna-btn">💬 1:1문의</a>
                         </div>
                         <button class="btn" id="regi-btn" disabled>클래스 신청하기</button>
                     </div>
@@ -831,9 +841,22 @@
 						$("#regi-btn").attr("disabled", true);
 				<%}%>
 			})
+			$(".qna-btn").click(function(){
+				<% if(loginUser == null){ %>
+					$("#loginModal").modal("show")
+				<% } else{%>
+					$("input[name='title']").val("");
+					$("textarea").val("");
+					$("#qnaModal").modal("show")
+				<% }%>
+			})
+			<% if(qnaInsert != null){%>
+				$("#qnaSuccessModal").modal("show")
+				<% session.removeAttribute("qnaInsert"); %>
+			<%}%>
 	   	})
 	</script>
-    <div class="modal fade" id="loginModal">
+    <div class="modal fade" id="loginModal" data-backdrop='static' data-keyboard='false'>
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-body" align="center">
@@ -844,6 +867,57 @@
         	</div>
     	</div>
    	</div>
+   	
+   	 <div class="modal fade" id="qnaModal" data-backdrop='static' data-keyboard='false' >
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                	<div align="center"><b>튜터에게 문의하기</b></div><br>
+                	<form action="<%=contextPath %>/classPage.qna" method="post">
+	                	<input type="text" name="title" size="99" placeholder="제목을 입력하세요." required><br><br>
+	                	<div id="textarea">
+	                		<textarea name="content" cols="98" rows="15" style="resize:none" placeholder="문의하실 내용을 입력하세요." maxlength="1400" required></textarea>
+	                		<div align="right">
+	                			<span id="counter">(0 / 최대 1400자)</span>
+	                		</div>
+	                	</div><br>
+	                	<input type="hidden" name="clNo" value="<%=le.getClNo()%>"> 
+	                	<% if(loginUser != null){ %>
+	                		<input type="hidden" name="memNo" value="<%= loginUser.getMemNo() %>">
+	                	<% } %>
+	                	<input type="hidden" name="ttNo" value="<%=le.getIntroduce() %>">
+	                	<div align="center">
+	                		<button type="submit" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">등록</button>
+	                    	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
+	                	</div>
+                    </form>
+            	</div>  
+        	</div>
+    	</div>
+   	</div>
+   	<div class="modal fade" id="qnaSuccessModal" data-backdrop='static' data-keyboard='false' >
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-body" align="center">
+                	성공적으로 문의 등록되었습니다. <br><br>
+               		<a href="<%=contextPath %>/qnaList.tee" type="button" class="btn btn-sm" style="background:rgb(35, 104, 116); color:white!important;">나의 문의 내역</a>
+                   	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
+            	</div>  
+        	</div>
+    	</div>
+   	</div>
+   	<script>
+	   	$("textarea").keyup(function(){
+	   		$('#counter').html("(1400 / 최대 1400자)").css("color", "black");
+	   	    let content = $(this).val();
+	   	    $('#counter').html("("+content.length+" / 최대 1400자)");
+	
+	   	    if (content.length > 1400){
+	   	        $(this).val(content.substring(0, 1400));
+	   	        $('#counter').html("(1400 / 최대 1400자)").css("color", "red");
+	   	    }
+	   	});
+   	</script>
     
     <br clear="both">
     <%@ include file="../common/footerbar.jsp" %>

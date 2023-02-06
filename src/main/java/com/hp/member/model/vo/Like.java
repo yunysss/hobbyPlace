@@ -8,6 +8,12 @@ public class Like {
 	private String ctName;
 	private String ctDname;
 	private String ttName;
+	private String distrName;
+	private String clPrice;
+	private String clThumb;
+	private int starAvg;
+	private int starCount;
+	private int likeCount;
 	
 	public Like() {}
 
@@ -47,6 +53,34 @@ public class Like {
 		this.ctName = ctName;
 		this.ctDname = ctDname;
 		this.ttName = ttName;
+	}
+	
+	
+
+	public Like(int clNo, String clName, String distrName, String clPrice, String clThumb, int starAvg, int starCount) {
+		super();
+		this.clNo = clNo;
+		this.clName = clName;
+		this.distrName = distrName;
+		this.clPrice = clPrice;
+		this.clThumb = clThumb;
+		this.starAvg = starAvg;
+		this.starCount = starCount;
+	}
+
+	
+	public Like(String clName, int likeCount) {
+		super();
+		this.clName = clName;
+		this.likeCount = likeCount;
+	}
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 
 	public int getClNo() {
@@ -105,15 +139,57 @@ public class Like {
 	public void setTtName(String ttName) {
 		this.ttName = ttName;
 	}
+	
+	
+
+	public String getDistrName() {
+		return distrName;
+	}
+
+	public void setDistrName(String distrName) {
+		this.distrName = distrName;
+	}
+
+	public String getClPrice() {
+		return clPrice;
+	}
+
+	public void setClPrice(String clPrice) {
+		this.clPrice = clPrice;
+	}
+
+	public String getClThumb() {
+		return clThumb;
+	}
+
+	public void setClThumb(String clThumb) {
+		this.clThumb = clThumb;
+	}
+
+	public int getStarAvg() {
+		return starAvg;
+	}
+
+	public void setStarAvg(int starAvg) {
+		this.starAvg = starAvg;
+	}
+
+	public int getStarCount() {
+		return starCount;
+	}
+
+	public void setStarCount(int starCount) {
+		this.starCount = starCount;
+	}
 
 	@Override
 	public String toString() {
-		return "Like [clNo=" + clNo + ", clName=" + clName + ", memNo=" + memNo + ", likeDate=" + likeDate
-				+ ", ctName=" + ctName + ", ctDname=" + ctDname + ", ttName=" + ttName + "]";
+		return "Like [clNo=" + clNo + ", clName=" + clName + ", memNo=" + memNo + ", likeDate=" + likeDate + ", ctName="
+				+ ctName + ", ctDname=" + ctDname + ", ttName=" + ttName + ", distrName=" + distrName + ", clPrice="
+				+ clPrice + ", clThumb=" + clThumb + ", starAvg=" + starAvg + ", starCount=" + starCount + "]";
 	}
 
 	
-
 	
 
 	

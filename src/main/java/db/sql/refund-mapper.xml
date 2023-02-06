@@ -18,7 +18,6 @@
 		        JOIN REGISTER ON(ORDER_NO = REG_NO)
 		       ORDER
 		          BY REF_RQ_DT DESC)
-		 WHERE REF_STA LIKE ?
 	</entry>
 	
 	<entry key="updateRefund">

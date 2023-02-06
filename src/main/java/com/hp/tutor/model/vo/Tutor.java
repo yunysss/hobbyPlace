@@ -170,6 +170,8 @@ public class Tutor {
 		this.ttProfile = ttProfile;
 	}
 
+	
+
 	public int getMemNo() {
 		return memNo;
 	}

@@ -27,6 +27,7 @@
             width: 1000px;
             margin: auto;
             margin-top: 100px;
+            padding:40px;
         }
         .list{
             text-align: center;
@@ -36,6 +37,19 @@
             
         }
             
+        .list>tbody>tr:hover{
+        	cursor:pointer;
+        	
+        }
+        table {
+        width: 100%;
+        border-top: 1px solid lightgray;
+        border-collapse: collapse;
+	    }
+	    th, td {
+	        border-bottom: 1px solid lightgray;
+	        padding: 10px;
+	    }
         
     </style>
 </head>
@@ -46,8 +60,8 @@
     <div class="outer">
 
         <div>
-            <a href="" style="color: black; font-size: large; font-weight: 800;" ><img src="resources/pin-angle-fill.svg" >
-                공지사항</a>
+            <a href="" style="color: black; font-size: large; font-weight: 800;" >
+                >>공지사항</a>
         </div>
 
         <div align="right">
@@ -73,24 +87,18 @@
 	                <td colspan="3">조회된 공지사항이 없습니다.</td>
 	            </tr>
 				<%}else{ %>
-					<%for(Notice n : list){ %>
+					<%for(int i=0; i<list.size(); i++){ %>
 			            <tr>
-			                <td><%=n.getrNum() %></td>
-			                <td><%=n.getNtTitle() %></td>
-			                <td><%=n.getEnrollDate() %></td>
+			                <td><%=i+1 %></td>
+			                <td onclick="location.href = '<%=contextPath%>/noticedetail.tor?ntNo=<%=list.get(i).getNtNo()%>'"><%=list.get(i).getNtTitle() %></td>
+			                <td><%=list.get(i).getEnrollDate() %></td>
 			            </tr>
-	            	<%} %>
+		            <%} %>
 				<%} %>
 			</tbody>
         </table>
 
-        <script>
-        	$(function(){
-        		$(".list>tbody>tr").click(function(){
-        			location.href = '<%=contextPath%>/noticedetail.tor?ntNo=' + $(this).children().eq(0).text();
-        		})
-        	})
-        </script>
+        
         
         <br><br><br>
 

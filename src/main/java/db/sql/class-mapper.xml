@@ -82,7 +82,7 @@
 	<entry key="selectReviewClass">
 		SELECT 
 		         RE_NO
-		       , SUBSTR(CONTENT, 1, 25) "CONTENT"
+		       , SUBSTR(CONTENT, 1, 23) "CONTENT"
 		       , RE_STAR
 		       , CL_NO
 		       , SUBSTR(CL_NAME, 1, 13) "CL_NAME"
@@ -125,21 +125,22 @@
 		         WHERE L.CL_NO = C.CL_NO
 		         GROUP BY L.CL_NO) "LIKE_COUNT"
 		     , TT_PROFILE
+		     , MEM_NO
 		  FROM CLASS C
 		  JOIN CATEGORY USING(CT_NO)
 		  JOIN DCATEGORY USING(CT_DNO)
-		  JOIN TUTOR USING(MEM_NO)
+		  JOIN TUTOR T USING(MEM_NO)
 		 WHERE C.CL_STATUS = 2
 		   AND C.CL_NO = ?
 	</entry>
-	<entry key="selectClassAttachment">
+	<entry key="selectAttachment">
 		SELECT 
 		       FILE_NO
 		     , CHANGE_NAME
 		     , FILE_PATH
 		  FROM ATTACHMENT
 		 WHERE REF_NO = ?
-		   AND REF_TYPE = 1
+		   AND REF_TYPE = ?
 		   AND STATUS = 'Y'
 	</entry>
 	<entry key="selectClassReview">
@@ -195,11 +196,13 @@
 			(
 				SELECT 
 				       CL_NO
+				     , T.CT_NO  
 				     , CT_NAME
+				   	 , CT_DNO
 				     , CT_DNAME  
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25) "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
@@ -211,12 +214,13 @@
 				  FROM CLASS C
 				  JOIN LOCATION USING(LOCAL_CODE)
 				  JOIN DISTRICT USING(DISTR_CODE)
-				  JOIN CATEGORY USING (CT_NO)
+				  JOIN CATEGORY T ON (C.CT_NO = T.CT_NO)
 				  JOIN DCATEGORY USING (CT_DNO)
 				 WHERE CL_STATUS = 2
 				   AND CT_NAME = ?
 				 ORDER
 				    BY CL_NO DESC
+                   
 			)A
 		)	
 		WHERE RNUM BETWEEN ?   AND ?
@@ -236,29 +240,31 @@
 			(
 		
 			SELECT 
-			       CL_NO
-			     , CT_NAME
-			     , CT_DNAME     
-			     , LOCAL_NAME
-			     , DISTR_NAME
-			     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-			     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-			     , CL_THUMB
-			     , (SELECT AVG(RE_STAR) 
-			          FROM REVIEW R
-			         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-			     , (SELECT COUNT(RE_STAR) 
-			          FROM REVIEW R
-			         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-			  FROM CLASS C
-			  JOIN LOCATION USING(LOCAL_CODE)
-			  JOIN DISTRICT USING(DISTR_CODE)
-			   JOIN CATEGORY USING (CT_NO)
-			  JOIN DCATEGORY USING (CT_DNO)
-			 WHERE CL_STATUS = 2
-			   AND CT_DNAME = ?
-			 ORDER
-			    BY CL_NO DESC
+				       CL_NO
+				     , T.CT_NO  
+				     , CT_NAME
+				   	 , CT_DNO
+				     , CT_DNAME  
+				     , LOCAL_NAME
+				     , DISTR_NAME
+				     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
+				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+				     , CL_THUMB
+				     , (SELECT AVG(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				     , (SELECT COUNT(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				  FROM CLASS C
+				  JOIN LOCATION USING(LOCAL_CODE)
+				  JOIN DISTRICT USING(DISTR_CODE)
+				  JOIN CATEGORY T ON (C.CT_NO = T.CT_NO)
+				  JOIN DCATEGORY USING (CT_DNO)
+				 WHERE CL_STATUS = 2
+				   AND CT_DNAME = ?
+				 ORDER
+				    BY CL_NO DESC
 			)A
 		)	
 		WHERE RNUM BETWEEN ?   AND ?
@@ -305,7 +311,7 @@
 		     , CT_DNAME     
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 20) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 20) "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -338,7 +344,7 @@
 		     , CT_DNAME  
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -377,7 +383,7 @@
 		       CL_NO
 		     , LOCAL_NAME
 		     , DISTR_NAME
-		     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+		     , SUBSTR(CL_NAME, 1, 25) "CL_NAME"
 		     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
@@ -400,28 +406,26 @@
 	
 	<entry key="selectTutorReview">
 	
-	SELECT
+		SELECT
 		      RE_NO
 		     , CONTENT
 			 , RE_STAR
 			 , RE_DATE
 			 , RE_UPDATE
+             , R.CL_NO
 		     , CL_NAME
 			 , MEM_NICKNAME
 			 , MEM_PROFILE
-		     , C.MEM_NO 
+		     , R.MEM_NO 
   
 		  FROM REVIEW R
-		  JOIN REGISTER G USING(REG_NO)
-		  JOIN MEMBER USING (MEM_NO)
           JOIN CLASS C ON (C.CL_NO=R.CL_NO)
+           JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
 		  WHERE RE_STA = 'Y'
-        GROUP BY C.MEM_NO, RE_NO, CONTENT, RE_STAR, RE_DATE, 
-      			  RE_UPDATE, MEM_NICKNAME, MEM_PROFILE, CL_NAME 
-          HAVING C.MEM_NO = ( SELECT MEM_NO
+          AND C.MEM_NO = ( SELECT MEM_NO
                             FROM CLASS
                              WHERE CL_NO = ?) 
-                                  
+          ORDER BY RE_DATE DESC              
 	
 	</entry>
 	
@@ -433,7 +437,7 @@
 			       CL_NO
 			     , LOCAL_NAME
 			     , DISTR_NAME
-			     , SUBSTR(CL_NAME, 1, 15) || '...' "CL_NAME"
+			     , SUBSTR(CL_NAME, 1, 15)  "CL_NAME"
 			     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 			     , CL_THUMB
 			     , (SELECT AVG(RE_STAR) 
@@ -461,27 +465,26 @@
 	  SELECT COUNT(*) "count"          
 	  FROM
 		  (
-		   SELECT
-				      RE_NO
-				     , CONTENT
-					 , RE_STAR
-					 , RE_DATE
-					 , RE_UPDATE
-				     , CL_NAME
-					 , MEM_NICKNAME
-					 , MEM_PROFILE
-				     , C.MEM_NO 
-		  
-				  FROM REVIEW R
-				  JOIN REGISTER G USING(REG_NO)
-				  JOIN MEMBER USING (MEM_NO)
-		          JOIN CLASS C ON (C.CL_NO=R.CL_NO)
-				  WHERE RE_STA = 'Y'
-		        GROUP BY C.MEM_NO, RE_NO, CONTENT, RE_STAR, RE_DATE, 
-		      			  RE_UPDATE, MEM_NICKNAME, MEM_PROFILE, CL_NAME 
-		          HAVING C.MEM_NO = ( SELECT MEM_NO
-		                            FROM CLASS
-		                             WHERE CL_NO = ?) 
+		   	SELECT
+		      RE_NO
+		     , CONTENT
+			 , RE_STAR
+			 , RE_DATE
+			 , RE_UPDATE
+             , R.CL_NO
+		     , CL_NAME
+			 , MEM_NICKNAME
+			 , MEM_PROFILE
+		     , R.MEM_NO 
+  
+		  FROM REVIEW R
+          JOIN CLASS C ON (C.CL_NO=R.CL_NO)
+           JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
+		  WHERE RE_STA = 'Y'
+          AND C.MEM_NO = ( SELECT MEM_NO
+                            FROM CLASS
+                             WHERE CL_NO = ?) 
+          ORDER BY RE_DATE DESC     
 		           )                               
 
 	 </entry>
@@ -499,7 +502,7 @@
 				     , TT_NAME
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
 				     , CL_THUMB
@@ -539,7 +542,7 @@
 				     , TT_NAME
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25) "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
 				     , CL_THUMB
@@ -565,15 +568,14 @@
  
 	 </entry>
 	 
-	<entry key="selectPriceAsc">
-
-				SELECT 
+	<entry key="categorySort">
+ 			SELECT 
 				       CL_NO
 				     , CT_NAME
 				     , CT_DNAME  
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25) "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
@@ -582,6 +584,10 @@
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
 				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+                        ,(SELECT COUNT(REG_NO)
+                         FROM REGISTER E
+                         WHERE C.CL_NO = E.CL_NO) "REG_COUNT"
+
 				  FROM CLASS C
 				  JOIN LOCATION USING(LOCAL_CODE)
 				  JOIN DISTRICT USING(DISTR_CODE)
@@ -589,8 +595,6 @@
 				  JOIN DCATEGORY USING (CT_DNO)
 				 WHERE CL_STATUS = 2
 				   AND CT_NAME = ?
-				 ORDER
-				    BY CL_PRICE ASC
 		
 		
 	</entry> 
@@ -616,7 +620,8 @@
 	
 	
 
-	<entry key="selectPriceDesc">
+	
+	<entry key="dcategorySort">
 
 				SELECT 
 				       CL_NO
@@ -624,7 +629,7 @@
 				     , CT_DNAME  
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
@@ -633,99 +638,10 @@
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
 				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-				  FROM CLASS C
-				  JOIN LOCATION USING(LOCAL_CODE)
-				  JOIN DISTRICT USING(DISTR_CODE)
-				  JOIN CATEGORY USING (CT_NO)
-				  JOIN DCATEGORY USING (CT_DNO)
-				 WHERE CL_STATUS = 2
-				   AND CT_NAME = ? 
-				 ORDER
-				    BY CL_PRICE DESC
-		
-		
-	</entry> 
-	
-	<entry key="selectHighStarDesc">
-	SELECT
-			CL_NO
-			, CT_NAME
-			, CT_DNAME
-			, LOCAL_NAME
-			, DISTR_NAME
-			, SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-			, TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-			, CL_THUMB
-			, (SELECT AVG(RE_STAR)
-			FROM REVIEW R
-			WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-			, (SELECT COUNT(RE_STAR)
-			FROM REVIEW R
-			WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-		
-			FROM CLASS C
-			JOIN LOCATION USING(LOCAL_CODE)
-			JOIN DISTRICT USING(DISTR_CODE)
-			JOIN CATEGORY USING (CT_NO)
-			JOIN DCATEGORY USING (CT_DNO)
-			WHERE CL_STATUS = 2
-			AND CT_NAME = ?
-			ORDER
-			BY STAR_AVG DESC  NULLS LAST
-			
-	</entry>
-	
-	<entry key="selectRegisterDesc">
-		 SELECT 
-				       CL_NO
-				     , CT_NAME
-				     , CT_DNAME  
-				     , LOCAL_NAME
-				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-				     , CL_THUMB
-				     , (SELECT AVG(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-				     , (SELECT COUNT(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-                     ,( select count(reg_no)
-                        from register g
-                        group by cl_no
-                        having c.cl_no =g.cl_no )"REG_COUNT"
-				  FROM CLASS C
-				  JOIN LOCATION USING(LOCAL_CODE)
-				  JOIN DISTRICT USING(DISTR_CODE)
-				  JOIN CATEGORY USING (CT_NO)
-				  JOIN DCATEGORY USING (CT_DNO)
-				 WHERE CL_STATUS = 2
-				   AND CT_NAME = ?
-                   ORDER 
-                   BY REG_COUNT DESC  NULLS LAST
-	
-	
-	</entry>
-	
-	
-	<entry key="dctPriceAsc">
+                        ,(SELECT COUNT(REG_NO)
+                         FROM REGISTER E
+                         WHERE C.CL_NO = E.CL_NO) "REG_COUNT"
 
-				SELECT 
-				       CL_NO
-				     , CT_NAME
-				     , CT_DNAME  
-				     , LOCAL_NAME
-				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-				     , CL_THUMB
-				     , (SELECT AVG(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-				     , (SELECT COUNT(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
 				  FROM CLASS C
 				  JOIN LOCATION USING(LOCAL_CODE)
 				  JOIN DISTRICT USING(DISTR_CODE)
@@ -733,232 +649,10 @@
 				  JOIN DCATEGORY USING (CT_DNO)
 				 WHERE CL_STATUS = 2
 				   AND CT_DNAME = ?
-				 ORDER
-				    BY CL_PRICE ASC
-		
 		
 	</entry> 
-	<entry key="dctPriceDesc">
-
-				SELECT 
-				       CL_NO
-				     , CT_NAME
-				     , CT_DNAME  
-				     , LOCAL_NAME
-				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-				     , CL_THUMB
-				     , (SELECT AVG(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-				     , (SELECT COUNT(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-				  FROM CLASS C
-				  JOIN LOCATION USING(LOCAL_CODE)
-				  JOIN DISTRICT USING(DISTR_CODE)
-				  JOIN CATEGORY USING (CT_NO)
-				  JOIN DCATEGORY USING (CT_DNO)
-				 WHERE CL_STATUS = 2
-				   AND CT_DNAME = ?
-				 ORDER
-				    BY CL_PRICE DESC
-		
-		
-	</entry> 
-	<entry key="dctRegisterDesc">
-		 SELECT 
-				       CL_NO
-				     , CT_NAME
-				     , CT_DNAME  
-				     , LOCAL_NAME
-				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-				     , CL_THUMB
-				     , (SELECT AVG(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-				     , (SELECT COUNT(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-                     ,( select count(reg_no)
-                        from register g
-                        group by cl_no
-                        having c.cl_no =g.cl_no )"REG_COUNT"
-				  FROM CLASS C
-				  JOIN LOCATION USING(LOCAL_CODE)
-				  JOIN DISTRICT USING(DISTR_CODE)
-				  JOIN CATEGORY USING (CT_NO)
-				  JOIN DCATEGORY USING (CT_DNO)
-				 WHERE CL_STATUS = 2
-				   AND CT_DNAME = ?
-                   ORDER 
-                   BY REG_COUNT DESC  NULLS LAST
 	
 	
-	</entry>
-	
-	
-	<entry key="dctStarDesc">
-		SELECT
-				CL_NO
-				, CT_NAME
-				, CT_DNAME
-				, LOCAL_NAME
-				, DISTR_NAME
-				, SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-				, TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-				, CL_THUMB
-				, (SELECT AVG(RE_STAR)
-				FROM REVIEW R
-				WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-				, (SELECT COUNT(RE_STAR)
-				FROM REVIEW R
-				WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-			
-				FROM CLASS C
-				JOIN LOCATION USING(LOCAL_CODE)
-				JOIN DISTRICT USING(DISTR_CODE)
-				JOIN CATEGORY USING (CT_NO)
-				JOIN DCATEGORY USING (CT_DNO)
-				WHERE CL_STATUS = 2
-				AND CT_DNAME = ?
-				ORDER
-				BY STAR_AVG DESC  NULLS LAST
-				
-	</entry>
-	
-	<entry key="keywordPriceAsc">
-		SELECT 
-				       CL_NO
-				     , CT_NAME
-				     , CT_DNAME  
-				     , MEM_NO
-				     , TT_NAME
-				     , LOCAL_NAME
-				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-				     , KEYWORD
-				     , CL_THUMB
-				     , (SELECT AVG(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-				     , (SELECT COUNT(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-				  FROM CLASS C
-				  JOIN LOCATION USING(LOCAL_CODE)
-				  JOIN DISTRICT USING(DISTR_CODE)
-				  JOIN CATEGORY USING (CT_NO)
-				  JOIN DCATEGORY USING (CT_DNO)
-				  JOIN TUTOR USING(MEM_NO)
-				 WHERE CL_STATUS = 2
-				 AND CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD LIKE ?
-				 ORDER
-				    BY CL_PRICE ASC
-	
-	
-	</entry>
-	
-		<entry key="keywordPriceDesc">
-		SELECT 
-				       CL_NO
-				     , CT_NAME
-				     , CT_DNAME  
-				     , MEM_NO
-				     , TT_NAME
-				     , LOCAL_NAME
-				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-				     , KEYWORD
-				     , CL_THUMB
-				     , (SELECT AVG(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-				     , (SELECT COUNT(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-				  FROM CLASS C
-				  JOIN LOCATION USING(LOCAL_CODE)
-				  JOIN DISTRICT USING(DISTR_CODE)
-				  JOIN CATEGORY USING (CT_NO)
-				  JOIN DCATEGORY USING (CT_DNO)
-				  JOIN TUTOR USING(MEM_NO)
-				 WHERE CL_STATUS = 2
-				 AND CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD LIKE ?
-				 ORDER
-				    BY CL_PRICE DESC
-	
-	
-	</entry>
-	
-	<entry key="keywordStarDesc">
-		SELECT
-				CL_NO
-				, CT_NAME
-				, CT_DNAME
-				, LOCAL_NAME
-				, DISTR_NAME
-				, SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-				, TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-				, CL_THUMB
-				, (SELECT AVG(RE_STAR)
-				FROM REVIEW R
-				WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-				, (SELECT COUNT(RE_STAR)
-				FROM REVIEW R
-				WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-			
-				FROM CLASS C
-				JOIN LOCATION USING(LOCAL_CODE)
-				JOIN DISTRICT USING(DISTR_CODE)
-				JOIN CATEGORY USING (CT_NO)
-				JOIN DCATEGORY USING (CT_DNO)
-				JOIN TUTOR USING(MEM_NO)
-				WHERE CL_STATUS = 2
-				AND CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD LIKE ?
-				ORDER
-				BY STAR_AVG DESC  NULLS LAST
-				
-	</entry>
-	
-	<entry key="keywordRegisterDesc">
-		 SELECT 
-				       CL_NO
-				     , CT_NAME
-				     , CT_DNAME  
-				     , LOCAL_NAME
-				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
-				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
-				     , CL_THUMB
-				     , (SELECT AVG(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
-				     , (SELECT COUNT(RE_STAR) 
-				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
-                     ,( select count(reg_no)
-                        from register g
-                        group by cl_no
-                        having c.cl_no =g.cl_no )"REG_COUNT"
-				  FROM CLASS C
-				  JOIN LOCATION USING(LOCAL_CODE)
-				  JOIN DISTRICT USING(DISTR_CODE)
-				  JOIN CATEGORY USING (CT_NO)
-				  JOIN DCATEGORY USING (CT_DNO)
-				  JOIN TUTOR USING(MEM_NO)
-				 WHERE CL_STATUS = 2
-				   AND CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD LIKE ?
-                   ORDER 
-                   BY REG_COUNT DESC  NULLS LAST
-	
-	
-	</entry>
 	
 	
 	<entry key="searchDetailClass">
@@ -982,7 +676,7 @@
                      , C.LOCAL_CODE
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 26) "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
                      , START_DATE
@@ -1024,7 +718,7 @@
                      , C.LOCAL_CODE
 				     , LOCAL_NAME
 				     , DISTR_NAME
-				     , SUBSTR(CL_NAME, 1, 25) || '...' "CL_NAME"
+				     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
 				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
 				     , KEYWORD
                      , START_DATE
@@ -1048,8 +742,196 @@
 		
 	</entry>
 	
+	<entry key = "detailSearchSort">
+				SELECT 
+				       CL_NO
+                     , CT_NO 
+				     , CT_NAME
+				     , CT_DNAME  
+				     , MEM_NO
+				     , TT_NAME
+                     , C.LOCAL_CODE
+				     , LOCAL_NAME
+				     , DISTR_NAME
+				     , SUBSTR(CL_NAME, 1, 25)  "CL_NAME"
+				     , TO_CHAR(CL_PRICE, '999,999,999') || '원' "CL_PRICE"
+				     , KEYWORD
+                     , START_DATE
+                     , END_DATE
+                     , CL_SCHEDULE
+                     , CL_DAY
+				     , CL_THUMB
+				     , (SELECT AVG(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				     , (SELECT COUNT(RE_STAR) 
+				          FROM REVIEW R
+				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				     ,( select count(reg_no)
+                        from register E
+                        group by cl_no
+                        having c.cl_no =E.cl_no )"REG_COUNT"    
+				         
+				  FROM CLASS C
+				  JOIN LOCATION L ON(C.LOCAL_CODE= L.LOCAL_CODE)
+				  JOIN DISTRICT USING(DISTR_CODE)
+				  JOIN CATEGORY G ON (C.CT_NO = G.CT_NO)
+				  JOIN DCATEGORY USING (CT_DNO)
+				  JOIN TUTOR USING(MEM_NO)
+				 WHERE CL_STATUS = 2
 	
 	
+	</entry>
+	
+	<entry key="selectActClass">
+		SELECT
+		       CL_NO
+		     , CT_NAME 
+		     , CT_DNAME 
+		     
+		     , C.MEM_NO
+		     
+		     , LOCAL_NAME 
+		     , DISTR_NAME 
+		     
+		     , CL_NAME
+		     , CL_ADDRESS
+		     , CL_MAX
+		     , CL_LEVEL
+		     , START_DATE
+		     , END_DATE
+		     , CL_TIMES
+		     , CL_SCHEDULE
+		     , CL_DAY
+		     , CL_PRICE
+		     , CL_DETAIL
+		     , CURRICULUM
+		     , CL_SUPPLIES
+		     
+		     , ENROLL_DATE
+		     , UPDATE_DATE
+		     , CL_STATUS
+		     , CL_COUNT
+		     , CL_REFUSE
+		     , CL_THUMB
+		     , (SELECT AVG(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		     , (SELECT COUNT(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		     , (SELECT COUNT(*)
+		          FROM "LIKE" L
+		         WHERE L.CL_NO = C.CL_NO
+		         GROUP BY L.CL_NO) "LIKE_COUNT"
+		 FROM CLASS C
+		 JOIN CATEGORY A ON (C.CT_NO = A.CT_NO)
+		 JOIN DCATEGORY D ON (C.CT_DNO = D.CT_DNO)
+		 JOIN LOCATION L ON (C.LOCAL_CODE = L.LOCAL_CODE)
+		 JOIN DISTRICT D ON (C.DISTR_CODE = D.DISTR_CODE)
+		 WHERE CL_STATUS = '2'
+		 AND C.MEM_NO = ?
+	</entry>
+	
+	<entry key="selectWaitingClass">
+		SELECT
+		       CL_NO
+		     , CT_NAME 
+		     , CT_DNAME 
+		     
+		     , C.MEM_NO
+		     
+		     , LOCAL_NAME 
+		     , DISTR_NAME 
+		     
+		     , CL_NAME
+		     , CL_ADDRESS
+		     , CL_MAX
+		     , CL_LEVEL
+		     , START_DATE
+		     , END_DATE
+		     , CL_TIMES
+		     , CL_SCHEDULE
+		     , CL_DAY
+		     , CL_PRICE
+		     , CL_DETAIL
+		     , CURRICULUM
+		     , CL_SUPPLIES
+		     
+		     , ENROLL_DATE
+		     , UPDATE_DATE
+		     , CL_STATUS
+		     , CL_COUNT
+		     , CL_REFUSE
+		     , CL_THUMB
+		     , (SELECT AVG(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		     , (SELECT COUNT(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		     , (SELECT COUNT(*)
+		          FROM "LIKE" L
+		         WHERE L.CL_NO = C.CL_NO
+		         GROUP BY L.CL_NO) "LIKE_COUNT"
+		 FROM CLASS C
+		 JOIN CATEGORY A ON (C.CT_NO = A.CT_NO)
+		 JOIN DCATEGORY D ON (C.CT_DNO = D.CT_DNO)
+		 JOIN LOCATION L ON (C.LOCAL_CODE = L.LOCAL_CODE)
+		 JOIN DISTRICT D ON (C.DISTR_CODE = D.DISTR_CODE)
+		 WHERE CL_STATUS = '0'
+		 AND C.MEM_NO = ?
+	</entry>
+	
+	<entry key="selectRejectedClass">
+		SELECT
+		       CL_NO
+		     , CT_NAME 
+		     , CT_DNAME 
+		     
+		     , C.MEM_NO
+		     
+		     , LOCAL_NAME 
+		     , DISTR_NAME 
+		     
+		     , CL_NAME
+		     , CL_ADDRESS
+		     , CL_MAX
+		     , CL_LEVEL
+		     , START_DATE
+		     , END_DATE
+		     , CL_TIMES
+		     , CL_SCHEDULE
+		     , CL_DAY
+		     , CL_PRICE
+		     , CL_DETAIL
+		     , CURRICULUM
+		     , CL_SUPPLIES
+		     
+		     , ENROLL_DATE
+		     , UPDATE_DATE
+		     , CL_STATUS
+		     , CL_COUNT
+		     , CL_REFUSE
+		     , CL_THUMB
+		     , (SELECT AVG(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		     , (SELECT COUNT(RE_STAR) 
+		          FROM REVIEW R
+		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		     , (SELECT COUNT(*)
+		          FROM "LIKE" L
+		         WHERE L.CL_NO = C.CL_NO
+		         GROUP BY L.CL_NO) "LIKE_COUNT"
+		 FROM CLASS C
+		 JOIN CATEGORY A ON (C.CT_NO = A.CT_NO)
+		 JOIN DCATEGORY D ON (C.CT_DNO = D.CT_DNO)
+		 JOIN LOCATION L ON (C.LOCAL_CODE = L.LOCAL_CODE)
+		 JOIN DISTRICT D ON (C.DISTR_CODE = D.DISTR_CODE)
+		 WHERE CL_STATUS IN ('1', '3', '0')
+		 AND C.MEM_NO = ?
+	</entry>
 	
 	
 

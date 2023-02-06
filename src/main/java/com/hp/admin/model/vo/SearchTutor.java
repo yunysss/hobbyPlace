@@ -42,6 +42,17 @@ public class SearchTutor {
 		this.lineup = lineup;
 	}
 
+	public SearchTutor(String enrollStart, String enrollEnd, String fCategory, String lineup, String option1,
+			String searchKey) {
+		super();
+		this.enrollStart = enrollStart;
+		this.enrollEnd = enrollEnd;
+		this.fCategory = fCategory;
+		this.lineup = lineup;
+		this.option1 = option1;
+		this.searchKey = searchKey;
+	}
+
 	public String getEnrollStart() {
 		return enrollStart;
 	}

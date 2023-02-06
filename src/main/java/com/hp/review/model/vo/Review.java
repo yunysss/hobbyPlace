@@ -16,7 +16,9 @@ public class Review {
 	private String memNickName;
 	private String memProfile;
 	private int ttNo;
-	
+	private String memName;
+	private String ttName;
+	private String reStar;
 	
 	
 	public Review() {}
@@ -35,6 +37,23 @@ public class Review {
 		this.regNo = regNo;
 		this.clNo = clNo;
 		this.memNo = memNo;
+	}
+
+
+
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate, int clNo,
+			int memNo, String clName, String memNickName, String memProfile) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.reviewUpDate = reviewUpDate;
+		this.clNo = clNo;
+		this.memNo = memNo;
+		this.clName = clName;
+		this.memNickName = memNickName;
+		this.memProfile = memProfile;
 	}
 
 
@@ -115,6 +134,74 @@ public class Review {
 		this.reviewDate = reviewDate;
 		this.clName = clName;
 		this.clThumb = clThumb;
+	}
+
+
+
+	
+
+
+
+	public Review(int reviewNo, String clName) {
+		super();
+		this.reviewNo = reviewNo;
+		this.clName = clName;
+	}
+
+
+
+	
+
+
+
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate,
+			String reviewStatus, int regNo, int clNo, int memNo, String clName, String memNickName, String memProfile) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.reviewUpDate = reviewUpDate;
+		this.reviewStatus = reviewStatus;
+		this.regNo = regNo;
+		this.clNo = clNo;
+		this.memNo = memNo;
+		this.clName = clName;
+		this.memNickName = memNickName;
+		this.memProfile = memProfile;
+	}
+
+
+	public Review(String memName, String ttName, String reviewContent, String clName, String reStar) {
+		super();
+		this.memName = memName;
+		this.ttName = ttName;
+		this.reviewContent = reviewContent;
+		this.clName = clName;
+		this.reStar = reStar;
+	}
+
+
+
+	public Review(int ttNo, String reStar, String clName, String reviewContent, String memName) {
+		super();
+		this.reviewContent = reviewContent;
+		this.reStar = reStar;
+		this.clName = clName;
+		this.ttNo = ttNo;
+		this.memName = memName;
+	}
+
+
+
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String memName, String clName) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.memName = memName;
+		this.clName = clName;
 	}
 
 
@@ -237,11 +324,54 @@ public class Review {
 		this.ttNo = ttNo;
 	}
 
+
+
+	public String getMemName() {
+		return memName;
+	}
+
+
+
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+
+
+
+	public String getTtName() {
+		return ttName;
+	}
+
+
+
+	public void setTtName(String ttName) {
+		this.ttName = ttName;
+	}
+
+
+
+	public String getReStar() {
+		return reStar;
+	}
+
+
+
+	public void setReStar(String reStar) {
+		this.reStar = reStar;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Review [reviewNo=" + reviewNo + ", reviewContent=" + reviewContent + ", reviewStar=" + reviewStar
 				+ ", reviewDate=" + reviewDate + ", reviewUpDate=" + reviewUpDate + ", reviewStatus=" + reviewStatus
-				+ ", regNo=" + regNo + ", clNo=" + clNo + "]";
+				+ ", regNo=" + regNo + ", clNo=" + clNo + ", memNo=" + memNo + ", clName=" + clName + ", clThumb="
+				+ clThumb + ", memNickName=" + memNickName + ", memProfile=" + memProfile + ", ttNo=" + ttNo
+				+ ", memName=" + memName + ", ttName=" + ttName + ", reStar=" + reStar + "]";
 	}
+	
+
+	 
 
 }

@@ -30,6 +30,11 @@
     background:rgb(22, 160, 133); 
     color:white;
    }
+   #selectAllCal{
+    width:80px;
+    background:rgb(22, 160, 133); 
+    color:white!important;
+   }
 
    thead td{
     background:rgb(245, 245, 245);
@@ -170,6 +175,7 @@
             </table>
             <br>
             <div align="center">
+            	<a href="<%=contextPath %>/list.cal" class="btn btn-sm" id="selectAllCal">전체조회</a>
 	            <button type="button" class="btn btn-sm" id="selectCal" onclick="selectCalList();">조회</button>
 	            <button type="button" class="btn btn-secondary btn-sm" onclick="resetAll();">초기화</button>
             </div>
@@ -184,10 +190,8 @@
 		
 		    $(document).ready(function() {
 		
-		        //datepicker 한국어로 사용하기 위한 언어설정
 		        $.datepicker.setDefaults($.datepicker.regional['ko']);     
 		    
-		        // Datepicker            
 		        $(".datepicker").datepicker({
 		            showButtonPanel: true,
 		            dateFormat: "yy-mm-dd",
@@ -209,12 +213,11 @@
 		            }
 		        }); 
 		
-		        $(".dateclick").dateclick();    // DateClick
-		        $(".searchDate").schDate();        // searchDate
+		        $(".dateclick").dateclick();   
+		        $(".searchDate").schDate();      
 		        
 		    });
 		
-		    // Search Date
 		    jQuery.fn.schDate = function(){
 		        var $obj = $(this);
 		        var $chk = $obj.find("input[type=radio]");
@@ -224,7 +227,6 @@
 		        });
 		    };
 		
-		    // DateClick
 		    jQuery.fn.dateclick = function(){
 		        var $obj = $(this);
 		        $obj.click(function(){
@@ -239,10 +241,6 @@
 		        var str = start.substring(1,2);
 		
 		        var today = new Date();
-		
-		        //var year = today.getFullYear();
-		        //var month = today.getMonth() + 1;
-		        //var day = today.getDate();
 		        
 		        var endDate = $.datepicker.formatDate('yy-mm-dd', today);
 		        $('#searchEndDate').val(endDate);
@@ -259,21 +257,19 @@
 		        var startDate = $.datepicker.formatDate('yy-mm-dd', today);
 		        $('#searchStartDate').val(startDate);
 		                
-		        // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
 		        $("#searchEndDate").datepicker( "option", "minDate", startDate );
 		        
-		        // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
 		        $("#searchStartDate").datepicker( "option", "maxDate", endDate );
 		
 		    }
 
     </script>
     <script>
-	    let totalData; //총 데이터 수
-	    let dataPerPage=10; //한 페이지에 나타낼 글 수
-	    let pageCount = 10; //페이징에 나타낼 페이지 수
-	    let globalCurrentPage=1; //현재 페이지
-	    let dataList; //표시하려하는 데이터 리스트
+	    let totalData; 
+	    let dataPerPage=10; 
+	    let pageCount = 10; 
+	    let globalCurrentPage=1; 
+	    let dataList; 
 	
 	    $(function () {
 		     selectCalList();
@@ -294,9 +290,7 @@
     					$("#calList-area tbody").html(value);
     					$("#paging").html("");
     				} else{
-    					//totalData(총 데이터 수) 구하기
     	 		    	   totalData = d.length;
-    	 		               //데이터 대입
     	 		           dataList=d;
     	 		           displayData(1, dataPerPage, totalData);
     	 		           paging(totalData, dataPerPage, pageCount, 1);
@@ -309,7 +303,6 @@
     	}
 	    function displayData(currentPage, dataPerPage, totalData) {
 	    	  let chartHtml = "";
-	    	//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림.. 
 	    	  currentPage = Number(currentPage);
 	    	  dataPerPage = Number(dataPerPage);
 	    	  if(totalData < dataPerPage){
@@ -336,20 +329,20 @@
     	
     	function paging(totalData, dataPerPage, pageCount, currentPage) {
     		 
-    			  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+    			  totalPage = Math.ceil(totalData / dataPerPage);
         		  
         		  if(totalPage<pageCount){
         		    pageCount=totalPage;
         		  }
         		  
-        		  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
-        		  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+        		  let pageGroup = Math.ceil(currentPage / pageCount); 
+        		  let last = pageGroup * pageCount; 
         		  
         		  if (last > totalPage) {
         		    last = totalPage;
         		  }
 
-        		  let first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
+        		  let first = last - (pageCount - 1); 
         		  let next = last + 1;
         		  let prev = first - 1;
 
@@ -359,7 +352,6 @@
         		    pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
         		  }
 
-        		 //페이징 번호 표시 
         		  for (let i = first; i <= last; i++) {
         		    if (currentPage == i) {
         		      pageHtml +=
@@ -375,19 +367,14 @@
 
         		  $("#paging").html(pageHtml);
 
-
-        		  //페이징 번호 클릭 이벤트 
         		  $("#paging li a").click(function () {
         		    let $id = $(this).attr("id");
         		    selectedPage = $(this).text();
 
         		    if ($id == "next") selectedPage = next;
         		    if ($id == "prev") selectedPage = prev;
-        		    //전역변수에 선택한 페이지 번호를 담는다...
         		    globalCurrentPage = selectedPage;
-        		    //페이징 표시 재호출
         		    paging(totalData, dataPerPage, pageCount, selectedPage);
-        		    //글 목록 표시 재호출
         		    displayData(selectedPage, dataPerPage, totalData-(selectedPage-1)*dataPerPage);
         		  });
     		  
@@ -485,6 +472,6 @@
           </div>
         </div>
       </div>
-
+<%@ include file="../common/footerbar.jsp" %>
 </body>
 </html>

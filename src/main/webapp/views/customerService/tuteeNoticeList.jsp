@@ -30,6 +30,7 @@
         }
         .list>tbody>tr:hover{
         	cursor:pointer;
+        	
         }
         .paging-area{
             text-align: center;
@@ -46,7 +47,7 @@
 
         <div align="right">
             <input type="text">
-            <button><img src="resources/search.svg"></button>
+            <button><img src="resources/images/search.png" style="height:20px; width:20px;"></button>
             
         </div>
 
@@ -71,25 +72,18 @@
 		        	</tr>
 		        <%}else{ %>
 		            
-		            
-		            <tr>
-		            <%for(Notice n : list){ %>
-		                <td><%=n.getrNum() %></td>
-		                <td><%=n.getNtTitle() %></td>
-		                <td><%=n.getEnrollDate() %></td>
-		            </tr>
+		            <%for(int i=0; i<list.size(); i++){ %>
+			            <tr>
+			                <td><%=i+1 %></td>
+			                <td onclick="location.href = '<%=contextPath%>/ntDetail.no?ntNo=<%=list.get(i).getNtNo()%>'"><%=list.get(i).getNtTitle() %></td>
+			                <td><%=list.get(i).getEnrollDate() %></td>
+			            </tr>
 		            <%} %>
 		          <%} %>
 			</tbody>
         </table>
         
-        <script>
-        	$(function(){
-        		$(".list>tbody>tr").click(function(){
-        			location.href = '<%=contextPath%>/ntDetail.no?ntNo=' + $(this).children().eq(0).text();
-        		})
-        	})
-        </script>
+        
         
         <br><br><br>
 
