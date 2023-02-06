@@ -373,8 +373,30 @@ public class QnaDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, q.getqTitle());
 			pstmt.setString(2, q.getqContent());
-			pstmt.setString(3, q.getqCategory());
-			pstmt.setInt(4, q.getqMemNo());
+			pstmt.setInt(3, q.getqMemNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertTuteeQnaTutor(Connection conn, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTuteeQnaTutor");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, q.getqTitle());
+			pstmt.setString(2, q.getqContent());
+			pstmt.setInt(3, q.getClNo());
+			pstmt.setInt(4,q.getqMemNo());
+			pstmt.setInt(5, q.getaMemNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

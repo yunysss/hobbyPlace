@@ -131,5 +131,19 @@ public class QnaService {
 		return result;
 		
 	}
+	
+	public int insertTuteeQnaTutor(Qna q) {
+		Connection conn = getConnection();
+		
+		int result = new QnaDao().insertTuteeQnaTutor(conn, q);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
 
 }

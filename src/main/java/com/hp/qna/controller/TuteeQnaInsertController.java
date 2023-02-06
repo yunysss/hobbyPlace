@@ -37,6 +37,7 @@ public class TuteeQnaInsertController extends HttpServlet {
 		String grade = request.getParameter("questType");
 		int clNo = Integer.parseInt(request.getParameter("schQnaType"));
 		String content = request.getParameter("content");
+		int aMemNo = Integer.parseInt(request.getParameter("aMemNo"));
 		
 		Qna q = new Qna();
 		q.setqMemNo(no);
@@ -44,8 +45,15 @@ public class TuteeQnaInsertController extends HttpServlet {
 		q.setqGrade(grade);
 		q.setClNo(clNo);
 		q.setqContent(content);
+		q.setaMemNo(aMemNo);
 		
-		int result = new QnaService().insertTuteeQna(q);
+	    int result = 0;
+		if(grade=="0") {
+			result = new QnaService().insertTuteeQna(q);
+		}else {
+			 result = new QnaService().insertTuteeQnaTutor(q);
+		}
+		
 		
 		if(result>0) {
 			response.sendRedirect(request.getContextPath()+"/qnaList.tee");

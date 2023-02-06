@@ -64,6 +64,26 @@
             margin: auto;
            
         }
+        .admin {
+            width: 300px;
+            height: 30px;
+            background-color: rgb(50, 106, 118);
+            color: white;
+            font-size: larger;
+            font-weight: 600;
+            text-align: center;
+            
+        }
+        .tutor{
+            width: 300px;
+            height: 30px;
+            background-color: rgb(50, 106, 118);
+            color: white;
+            font-size: larger;
+            font-weight: 600;
+            text-align: center;
+            
+        }
 </style>
 </head>
 <body>
@@ -141,118 +161,12 @@
  		</script>
 
         <div class="content">
-            <div class="pageRoute">
-                &nbsp;  <svg xmlns="http://www.w3.org/2000/svg" id="home"  width="20" height="20" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
-                  </svg>
-                > <a class="contentA" href="<%=contextPath%>/myPageMain.me">마이페이지</a>
-                > 나의 문의 조회 > 문의하기
-                <hr>
-            </div>
-            <script>
-	        	$(function(){
-	        		$("#home").click(function(){
-	        			location.href="<%=contextPath%>/main.tee"
-	        		})
-	        	})
-	        </script>
-            <div class="contentMain" >
-                
-         <div class="outer">
-
-        <div>
-            <a href="" style="color: black; font-size: large; font-weight: 800;" >
-                문의하기</a>
-        </div>
-
-        <br>
-
-        <form action="<%=contextPath %>/insertQna.tee" method="post">
-            <input type="hidden" name="no" value="<%=loginUser.getMemNo()%>">
-            <table>
-                <tr>
-                    <th style="background-color: lightgray; width: 100px; text-align: center;">
-                        제목
-                    </th>
-                    <td >
-                        <input type="text" name="title" style="width: 600px; height: 50px;resize: none; border-color: lightgray;" required placeholder="제목을 입력하세요.">
-                    </td>
-                </tr>
-        
-            </table>
-            <br>
-            <table>
-                <tr>
-                    <th style="background-color: lightgray; width: 100px; height: 50px; text-align: center;">분류</th>
-                    <td>
-                    <select name="questType" id="select1" onChange="chnQnaType(this.value)" style="border-color: lightgray; width: 300px; height: 50px;" >
-					    <option value="0">관리자</option>
-					    <option value="2">튜터</option>
-					    
-					</select>    
-					<select id="schQnaType" name="schQnaType"   style="border-color: lightgray; width: 300px; height: 50px; display:none;" >
-					</select>
-                     
-                    </td>
-                    
-                </tr>
-            </table>
-			<div id="ttNo"></div>
-            <script>
-           
-	            $(function(){
-	                
-	                // 질문유형을 선택한다.
-	                chnQnaType('1' , '11');
-	            });
-	
-	            function chnQnaType(type , select) {
-	                
-	                $('#schQnaType').empty();
-	                
-	                if(type == '0') { // 관리자
-	                    $('#schQnaType').append("<option value='10' >튜터</option>'");
-	                    $('#schQnaType').append("<option value='20' >결제/환불</option>'");
-	                    $('#schQnaType').append("<option value='40' >기타</option>'");
-	                } else if (type == '2') {  // 튜터
-	                	<%for(Lesson l : list){%>
-	                    $('#schQnaType').append("<option value='<%=l.getClNo()%>' ><%=l.getClName()%></option> ");
-	                    if($("#schQnaType option:selected").val() == <%=l.getClNo()%>){
-	                    	$("#ttNo").html("<input type='hidden' value='<%=l.getMemNo()%>' name='aMemNo'>")
-	                    }
-	                    <%}%>
-	                } 
-	                document.getElementById("schQnaType").style.display = "";
-	                
-	                if ($.trim(select) != "") {
-	                    $('#select1').val(type);
-	                    $('#schQnaType').val(select);
-	                }
-	            }
-            </script>
-			
-            <br>
-            <table>
-                <tr>
-                    <td><textarea name="content" rows="10" required style="resize:none; width:800px; height: 500px; border-color: lightgray;"  ></textarea></td>
-                </tr>
-
-            </table>
-            <br>
-
-            <button type="reset" style="background-color:lightgray; border:none; width: 120px; height: 50px; ">취소</button>
-            <button type="submit" style="background-color:rgb(35, 104, 116); color:white; border:none; width: 120px; height: 50px; float:right">등록하기</button>
-
-        </form>
-
-        
-
-
-
-
-
-    </div>
-                
+            <div class="outer" align="center">
+					<br><br><br><br><br>
+		        <div class="admin" onclick="location.href='<%=contextPath%>/qnaEnrollAdmin.tee'">>>관리자에게 문의하기</div><br>
+		        <div class="tutor" onclick="location.href='<%=contextPath%>/qnaEnrollTutor.tee'">>>튜터에게 문의하기</div>
+					<br><br><br><br><br>
+   			 </div>
                 
             </div>
         </div>
