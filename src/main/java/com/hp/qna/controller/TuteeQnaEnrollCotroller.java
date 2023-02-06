@@ -1,6 +1,8 @@
 package com.hp.qna.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hp.lesson.model.vo.Lesson;
 import com.hp.member.model.vo.Member;
 import com.hp.qna.model.service.QnaService;
 import com.hp.register.model.vo.Register;
@@ -35,7 +38,10 @@ public class TuteeQnaEnrollCotroller extends HttpServlet {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		int MemNo = loginUser.getMemNo();
 		
-		Register r  = new QnaService().selectClassListQna(MemNo);
+		ArrayList<Lesson> list  = new QnaService().selectClassListQna(MemNo);
+		
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/qna/tuteeQnaEnrollForm.jsp").forward(request, response);
 		
 	}
 

@@ -85,6 +85,15 @@ public class Lesson {
 
 
 
+	public Lesson(int clNo, String memNo, String clName) {
+		super();
+		this.clNo = clNo;
+		this.memNo = memNo;
+		this.clName = clName;
+	}
+
+
+
 	public Lesson(int clNo, String ctNo, String ctName, String ctDno, String ctDname, String localCode,
 			String distrCode, String clName, String clPrice, String clThumb, int clStarAvg, int clStarCount) {
 		super();

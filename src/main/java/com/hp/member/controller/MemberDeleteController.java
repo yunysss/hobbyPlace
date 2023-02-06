@@ -34,8 +34,6 @@ public class MemberDeleteController extends HttpServlet {
 		String memPwd = request.getParameter("memPwd");
 		String memDrop = request.getParameter("memDrop");
 		
-		System.out.println(memId + memPwd + memDrop);
-		
 		int count = new MemberService().deleteMember(memId, memPwd, memDrop);
 		
 		

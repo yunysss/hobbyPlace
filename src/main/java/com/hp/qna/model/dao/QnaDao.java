@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.hp.lesson.model.vo.Lesson;
 import com.hp.member.model.vo.Member;
 import com.hp.qna.model.vo.Qna;
 import com.hp.register.model.vo.Register;
@@ -337,11 +338,30 @@ public class QnaDao {
 		return aList;
 	}
 	
-	public Register selectClassListQna(Connection conn, int MemNo) {
-		Register r = new Register();
+	public ArrayList<Lesson> selectClassListQna(Connection conn, int MemNo) {
+		ArrayList<Lesson> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectClassListQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, MemNo);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Lesson(rset.getInt("cl_no"),
+									rset.getString("cl_name"),
+									rset.getString("mem_no")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }

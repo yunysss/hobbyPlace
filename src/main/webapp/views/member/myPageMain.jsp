@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	int l = (int)request.getAttribute("l");
+	int r = (int)request.getAttribute("r");
+	int w = (int)request.getAttribute("w");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,9 +126,9 @@
 	                            <td>내가 남긴 리뷰</td>
 	                        </tr>
 	                        <tr align="center" class="numberData">
-	                            <td>14</td>
-	                            <td>29</td>
-	                            <td>6</td>
+	                            <td><%= r %></td>
+	                            <td><%= l %></td>
+	                            <td><%= w %></td>
 	                        </tr>
 	                    </table>
 	                </div>

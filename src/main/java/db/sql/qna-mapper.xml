@@ -157,6 +157,15 @@ SELECT
   WHERE A_MEM_NO = ?
 </entry>
 
+<entry key="selectClassListQna">
+SELECT CL_NO,
+       CL_NAME,
+       C.MEM_NO
+  FROM REGISTER R
+  JOIN CLASS C USING(CL_NO)
+ WHERE R.MEM_NO = ?
+</entry>
+
 
 
 
