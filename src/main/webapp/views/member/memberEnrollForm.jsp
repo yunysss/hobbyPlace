@@ -719,15 +719,20 @@
 	
 	      <!-- Modal body -->
 	      <div class="modal-body">
-	        <input style="margin-left:150px;" type="text" class="cCode cInput" placeholder="6자리 입력" required>
+	        <br>
+	        <table class="phoneModal" style="margin-left:80px;">
+	       		<tr>
+	                 <td class="td10">인증번호</td>
+	                 <td class="td20">
+	                     <input type="text" class="fillOutForms cCode cInput" placeholder="6자리 입력" required>
+	                 </td>
+	             </tr>
+	       </table>
+	       <br>
+	       <button type="button" class="sendAgain cCode btn btn-secondary" style="margin-left:140px;" onclick="sms();">재발송</button>
+	       <button type="button" class="btn btn-success submitCode">확인</button>
 	      </div>
-	
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="button" class="sendAgain cCode btn-secondary" onclick="sms();">재발송</button>
-	        <button type="button" class="submitCode btn-success">확인</button>
-	      </div>
-	
+
 	    </div>
 	  </div>
 	</div>
@@ -735,8 +740,6 @@
 	<div class="modal" id="successModal">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
-
-	
 	      <!-- Modal body -->
 	      <div class="modal-body">
 	        ✔인증 성공!l

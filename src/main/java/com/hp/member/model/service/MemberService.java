@@ -342,6 +342,16 @@ public class MemberService {
 
 
 
+	public Member phoneCheckForCertifi2(int memNo, String phone) {
+		Connection conn = getConnection();
+		Member m = new MemberDao().phoneCheckForCertifi2(conn, memNo, phone);
+		close(conn);
+		
+		return m;
+	}
+
+
+
 
 
 	

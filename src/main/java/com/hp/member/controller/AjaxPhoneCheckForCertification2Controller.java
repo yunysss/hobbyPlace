@@ -38,11 +38,49 @@ public class AjaxPhoneCheckForCertification2Controller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String phone = request.getParameter("phone");
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
 		Member m1 = new MemberService().phoneCheckForCertifi(phone);
 		
 		if(m1!=null) {// 넘어온번호로 회원 이미 있음
-			response.getWriter().print("NNNNN");
+			
+			//그 회원이 현재 이 회원인지 확인
+			Member m2 = new MemberService().phoneCheckForCertifi2(memNo, phone);
+			
+			if(m2==null) {//동일회원이 아닐경우
+				response.getWriter().print("NNNNN");
+			}else {
+				String api_key = "NCSPIQMUBEKHXCTW";      
+			    String api_secret = "EP9ER8X5LQC7EPLRSXORESR00EBKEMYJ";        
+			    Message coolsms = new Message(api_key, api_secret);
+
+			    Random rd = new Random();
+				int ranCode = rd.nextInt(899999)+100000;
+				
+			    HashMap<String, String> params = new HashMap<String, String>();
+			    params.put("to", phone);
+			    params.put("from", "01084162654");          
+			    params.put("type", "SMS");
+			    params.put("text", "[합플] 본인인증번호 : " + ranCode);     
+			    params.put("app_version", "test app 1.2");
+
+			    try {
+			      JSONObject obj = (JSONObject) coolsms.send(params);
+			      
+			    } catch (CoolsmsException e) {
+			      System.out.println(e.getMessage());
+			      System.out.println(e.getCode());
+			    }
+			    
+			    // 랜덤숫자리턴
+			    JSONObject jObj = new JSONObject();
+			    
+			    jObj.put("key", ranCode);
+
+	            response.setContentType("application/json; charset=UTF-8");
+	    		response.getWriter().print(jObj);	
+			}
+			
 			
 		}else {
 			String api_key = "NCSPIQMUBEKHXCTW";      
@@ -56,12 +94,12 @@ public class AjaxPhoneCheckForCertification2Controller extends HttpServlet {
 		    params.put("to", phone);
 		    params.put("from", "01084162654");          
 		    params.put("type", "SMS");
-		    params.put("text", "[합플] 본인인증번호 : " + ranCode);     //메시지 내용
+		    params.put("text", "[합플] 본인인증번호 : " + ranCode);     
 		    params.put("app_version", "test app 1.2");
 
 		    try {
 		      JSONObject obj = (JSONObject) coolsms.send(params);
-		      //System.out.println(obj.toString());   //전송 결과 출력 
+		      
 		    } catch (CoolsmsException e) {
 		      System.out.println(e.getMessage());
 		      System.out.println(e.getCode());
@@ -71,8 +109,7 @@ public class AjaxPhoneCheckForCertification2Controller extends HttpServlet {
 		    JSONObject jObj = new JSONObject();
 		    
 		    jObj.put("key", ranCode);
-            
-            
+
             response.setContentType("application/json; charset=UTF-8");
     		response.getWriter().print(jObj);
 		}

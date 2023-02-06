@@ -391,7 +391,8 @@
 	 		       			$.ajax({
 	 		       				url: "<%=contextPath%>/certifiPhone2.me",
 	 		       				data:{
-	 		       					phone:$phone
+	 		       					phone:$phone,
+	 		       					memNo:<%=memNo%>
 	 		       				},
 	 		       				type:"post",
 	 		       				success:function(result){
@@ -684,7 +685,7 @@
                 </script>
                 <br><br><br>
                 <div align="center">
-                    <button type="submit" id="updateButton">수정완료</button>
+                    <button type="submit" id="updateButton" onclick="return updateMember();">수정완료</button>
                 </div>
             </form>
             <br><br><br><br><br>
@@ -754,6 +755,48 @@
             })
             
         })
+        
+        function enrollMember(){
+            let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{6,20}$/i);
+            let nickCheck = RegExp(/^[a-z\d가-힣]{1,8}$/i);
+            let phoneCheck = RegExp(/^[0][1][\d]{8,9}$/);
+            let emailCheck = RegExp(/^[a-z\d+-_.]+@[a-z\d-]+\.[a-z\d.]+$/i);
+            
+            
+            if(!pwdCheck.test($("#userPwd").val())){
+            	alert("유효한 비밀번호를 입력해주세요!");
+            	return false;
+            }
+            if($("#userPwd").val() != $("#userPwdCheck").val()){
+            	alert('비밀번호가 일치하지 않습니다.');
+            	return false;
+            }
+            
+            if(!nickCheck.test($("#userNickName").val())){
+        		alert('유효한 닉네임 형식이 아닙니다.');
+        		return false;
+        	}else if(!$("#userNickName").attr("readonly")){
+            	alert("닉네임을 중복확인해주세요!");
+            	return false;
+            }
+            
+            if(!emailCheck.test($("#email").val())){
+        		alert('유효한 이메일 형식이 아닙니다.');
+        		return false;
+        	}
+            if(!phoneCheck.test($("#phone").val())){
+            	alert('유효한 연락처 형식이 아닙니다.');
+                return false;
+            }else if(!$("#phone").attr("readonly")){
+            	alert("휴대폰 문자인증 해주세요!");
+            	return false;
+            }
+            
+            
+            
+            
+            
+        }
     </script>
     
     
@@ -872,52 +915,31 @@
 	
 	      <!-- Modal body -->
 	      <div class="modal-body">
-	        <input style="margin-left:150px;" type="text" class="cCode cInput" placeholder="6자리 입력" required>
+	        <br>
+	        <table class="phoneModal" style="margin-left:80px;">
+	       		<tr>
+	                 <td class="td10">인증번호</td>
+	                 <td class="td20">
+	                     <input type="text" class="fillOutForms cCode cInput" placeholder="6자리 입력" required>
+	                 </td>
+	             </tr>
+	       </table>
+	       <br>
+	       <button type="button" class="sendAgain cCode btn btn-secondary" style="margin-left:140px;" onclick="sms();">재발송</button>
+	       <button type="button" class="btn btn-success submitCode">확인</button>
 	      </div>
-	
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="button" class="sendAgain cCode btn-secondary" onclick="sms();">재발송</button>
-	        <button type="button" class="submitCode btn-success">확인</button>
-	      </div>
-	
+
 	    </div>
 	  </div>
 	</div>
-	
-	
-	<!--휴대폰 인증번호 modal -->
-	<div class="modal" id="phoneModal">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	
-	      <div class="modal-header">
-	        <h6 class="modal-title">인증번호 입력</h6>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      </div>
-	
-	      <!-- Modal body -->
-	      <div class="modal-body">
-	        <input style="margin-left:150px;" type="text" class="cCode cInput" placeholder="6자리 입력" required>
-	      </div>
-	
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="button" class="sendAgain cCode btn-secondary" onclick="sms();">재발송</button>
-	        <button type="button" class="submitCode btn-success">확인</button>
-	      </div>
-	
-	    </div>
-	  </div>
-	</div>
-	
+
 	<!-- 휴대폰인증성공모달 -->
 	<div class="modal" id="successModal">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 		<!-- Modal body -->
 	      <div class="modal-body">
-	        ✔인증 성공!l
+	        ✔인증 성공!
 	      </div>
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
