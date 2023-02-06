@@ -19,12 +19,6 @@
 div{box-sizing:border-box;}
 .tbBox{margin-top:50px; margin-left:20px;}
 table{text-align: center; font-size:13px;}
-.mdTable{
-     font-size:14px;
-     width:60%;
-     border-color:black;
-        }
- th{background-color:lightgray;}
 </style>
 </head>
 <body>
@@ -90,17 +84,17 @@ table{text-align: center; font-size:13px;}
 		        <script>
 				   function modal(){
 				    	 var dt = "";
-						 dt += "<tr><td colspan='2' style='width:50%'>" + "<%=m.getMemId() %>" + "</td><td colspan='2'>";
-						 dt += "<%=m.getMemNick() %>" + "</td></tr><tr><td style='width:75%' colspan='3'>";
+						
+						 dt += "<tr><td style='width:75%' colspan='3'>";
 						 dt += "<%=q.get(i).getqTitle()%>" + "</td><td>" + "<%=q.get(i).getqDate()%>" + "</td>";
-						 dt += "</tr><tr rowspan='4'><td colspan='4'>" + "<%=q.get(i).getqContent()%>" + "</td></tr>";
+						 dt += "</tr><tr style='height:150px' rowspan='4'><td colspan='4'>" + "<%=q.get(i).getqContent()%>" + "</td></tr>";
 						 
 						 <%if(q.get(i).getaContent()!=null) {%>
 							 var dv = "";
 							 dv += "<tr><td style='width:25%'>" + "<%=q.get(i).getaMemNick() %>" + "</td><td colspan='3'>" + "<%=q.get(i).getClName() %>" + "</td></tr>";
 							 dv +="<tr><td style='width:75%' colspan='3'>" + "<%=q.get(i).getaTitle()%>" + "</td><td style='width:25%'>";
 							 dv +="<%=q.get(i).getaDate()%>" + "</td></tr>"; 
-						 	 dv +="<tr rowspan='4'><td colspan='4'>" + "<%=q.get(i).getaContent()%>" + "</td></tr>";
+						 	 dv +="<tr style='height:150px'  rowspan='4'><td colspan='4'>" + "<%=q.get(i).getaContent()%>" + "</td></tr>";
 							$("#mTb2").html(dv);
 						 <%}%>
 						 
@@ -131,13 +125,13 @@ table{text-align: center; font-size:13px;}
 			      <div class="modal-body">
 				        <div class="container mt-3">
 				        	  
-						      <table class="table table-bordered table-sm mdTable" id="mTb1">
+						      <table class="table table-bordered border-primary" id="mTb1">
 						          
 						          
 						      </table>
 						      <br><br>
 						      
-						      <table class="table table-bordered table-sm mdTable" id="mTb2">
+						      <table class="table table-bordered border-success" id="mTb2">
 						          
 						          
 						      </table>

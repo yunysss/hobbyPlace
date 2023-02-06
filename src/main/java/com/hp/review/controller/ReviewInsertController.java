@@ -1,6 +1,7 @@
 package com.hp.review.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.hp.common.MyFileRenamePolicy;
+import com.hp.common.model.vo.Attachment;
 import com.hp.member.model.vo.Member;
+import com.hp.review.model.service.ReviewService;
 import com.hp.review.model.vo.Review;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -53,6 +56,32 @@ public class ReviewInsertController extends HttpServlet {
 			r.setReStar(multiRequest.getParameter("rating"));
 			r.setReviewContent(multiRequest.getParameter("reviewContent"));
 			r.setRegNo(regNo);
+			
+			ArrayList<Attachment> list = new ArrayList<>();
+			
+			for(int i=1; i<=3; i++) {
+				String key = "file" + i;
+				if(multiRequest.getOriginalFileName(key)!=null) {
+					
+					Attachment at  = new Attachment();
+					at.setOriginName(multiRequest.getOriginalFileName(key));
+					at.setChangeName(multiRequest.getFilesystemName(key));
+					at.setFilePath("resources/review_upfiles/");
+					
+					list.add(at);
+					
+					
+				}
+			}
+			
+			int result = new ReviewService().insertReview(r, list);
+			
+			if(result>0) {
+				session.setAttribute("alertMsg", "후기가 등록되었습니다.");
+				response.sendRedirect(request.getContextPath()+"/list.rev");
+			}else {
+				request.setAttribute("errorMsg", "리뷰 등록 실패");
+			}
 			
 			
 		}

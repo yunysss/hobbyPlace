@@ -1,4 +1,4 @@
-package com.hp.admin.controller;
+package com.hp.review.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hp.admin.model.service.AdminService;
-import com.hp.member.model.vo.Member;
-import com.hp.qna.model.vo.Qna;
+import com.google.gson.Gson;
+import com.hp.review.model.service.ReviewService;
+import com.hp.review.model.vo.Review;
 
 /**
- * Servlet implementation class MemberQnaDetailView2Controller
+ * Servlet implementation class AjaxSelectAdminReview
  */
-@WebServlet("/memQna2.ad")
-public class MemberQnaDetailView2Controller extends HttpServlet {
+@WebServlet("/selectReview.ad")
+public class AjaxSelectAdminReview extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberQnaDetailView2Controller() {
+    public AjaxSelectAdminReview() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +32,16 @@ public class MemberQnaDetailView2Controller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memNo = Integer.parseInt(request.getParameter("no"));
+		String ttName = request.getParameter("ttName");
+		String clName = request.getParameter("clName");
+		String reContent = request.getParameter("reContent");
+		String reMem = request.getParameter("reMem");
+		String reStar = request.getParameter("reStar");
 		
-		Member m = new AdminService().selectMemberByNo(memNo);
-		ArrayList<Qna> qnaList = new AdminService().selectAllQna2(memNo);
-		
-		request.setAttribute("m", m);
-		request.setAttribute("q", qnaList);
-		System.out.println(qnaList);
-		request.getRequestDispatcher("views/admin/memberQnaDetailView2.jsp").forward(request, response);
+		Review r = new Review(reMem, ttName, reContent, clName, reStar);
+		response.setContentType("application/json; charset=UTF-8");
+		ArrayList<Review> list = new ReviewService().selectAdminSearchReview(r);
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

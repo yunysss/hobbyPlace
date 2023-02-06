@@ -30,7 +30,7 @@
 </style>
 </head>
 <body>
-    <%@ include file = "../common/myClassMenubar.jsp" %>
+    <%@ include file = "../common/tutorMenubar.jsp" %>
     <div class="content" >
         <h6 style="margin-left: 15px;"><b>후기 조회</b></h6>
         <hr>
