@@ -774,8 +774,8 @@ public class MemberDao {
 		return w;
 	}
 
-	public int nickCheck2(Connection conn, int memNo, String checkNick) {
-		int count = 0;
+	public Member nickCheck2(Connection conn, int memNo, String checkNick) {
+		Member m = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("nickCheck2");
@@ -786,7 +786,8 @@ public class MemberDao {
 			pstmt.setString(2, checkNick);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				count = rset.getInt("count");
+				m = new Member();
+				m.setMemNick(rset.getString("MEM_NICKNAME"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -794,7 +795,7 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		return count;
+		return m;
 	}
 
 	

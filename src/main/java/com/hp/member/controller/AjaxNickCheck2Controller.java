@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hp.member.model.service.MemberService;
+import com.hp.member.model.vo.Member;
 
 /**
  * Servlet implementation class AjaxNickCheck2Controller
@@ -35,11 +36,13 @@ public class AjaxNickCheck2Controller extends HttpServlet {
 		
 		if(count1 > 0) { //중복되는 닉네임이 있을때
 			
-			int count2 = new MemberService().nickCheck2(memNo, checkNick);
-			if(count2 > 0 ) {
-				
+			Member m = new MemberService().nickCheck2(memNo, checkNick);
+			
+			if(m == null ) { //중복되는 닉네임이 해당 회원이 아닐경우
+				response.getWriter().print("NNNNN");
+			}else {
+				response.getWriter().print("NNNNY");
 			}
-			response.getWriter().print("NNNNN");
 			
 		}else { //중복되는 닉네임이 없을때
 			response.getWriter().print("NNNNY");
