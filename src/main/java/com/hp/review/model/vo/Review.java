@@ -19,7 +19,7 @@ public class Review {
 	private String memName;
 	private String ttName;
 	private String reStar;
-	
+	private String ctName;
 	
 	public Review() {}
 	
@@ -206,6 +206,23 @@ public class Review {
 
 
 
+	public Review(int reviewNo, String reviewContent, 
+			String clName, String ctName, String memName, 
+			int reviewStar, String reviewDate, String reviewUpDate, String reviewStatus)  {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewDate = reviewDate;
+		this.reviewUpDate = reviewUpDate;
+		this.reviewStatus = reviewStatus;
+		this.clName = clName;
+		this.memName = memName;
+		this.reviewStar = reviewStar;
+		this.ctName = ctName;
+	}
+
+
+
 	public int getMemNo() {
 		return memNo;
 	}
@@ -358,6 +375,18 @@ public class Review {
 
 	public void setReStar(String reStar) {
 		this.reStar = reStar;
+	}
+
+
+
+	public String getCtName() {
+		return ctName;
+	}
+
+
+
+	public void setCtName(String ctName) {
+		this.ctName = ctName;
 	}
 
 

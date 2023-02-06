@@ -102,4 +102,11 @@ public class ReviewService {
 		close(conn);
 		return list;
 	}
+	
+	public Review selectReviewDetail(int reNo) {
+		Connection conn = getConnection();
+		Review r = new ReviewDao().selectReviewDetail(conn, reNo);
+		close(conn);
+		return r;
+	}
 }
