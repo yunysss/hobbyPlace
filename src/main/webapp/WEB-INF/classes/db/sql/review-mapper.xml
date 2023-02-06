@@ -113,6 +113,7 @@
 	<entry key="selectEnrollFormClass">
 	 SELECT 
                REG_NO
+             , R.CL_NO "CL_NO"
              , TEACH_DATE
            	 , REG_STA
           	 , CL_THUMB

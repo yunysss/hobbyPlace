@@ -223,6 +223,7 @@ public class ReviewDao {
 			
 			if(rset.next()) {
 				er = new Register(rset.getInt("reg_no"),
+								  rset.getString("cl_no"),
 								  rset.getString("teach_date"),
 								  rset.getString("reg_sta"),
 								  rset.getString("cl_thumb"),
@@ -370,12 +371,11 @@ public class ReviewDao {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, "r.getReviewContent");
-			pstmt.setInt(2,"r.getReviewStar");
-			pstmt.setString(3,"r.getRegNo");
-			pstmt.setString(4,"r.getClNo");
-			pstmt.setString(5, "r.getMemNo");
-			
+			pstmt.setString(1, r.getReviewContent());
+			pstmt.setInt(2,r.getReviewStar());
+			pstmt.setInt(3,r.getRegNo());
+			pstmt.setInt(4,r.getClNo());
+			pstmt.setInt(5, r.getMemNo());
 			result= pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

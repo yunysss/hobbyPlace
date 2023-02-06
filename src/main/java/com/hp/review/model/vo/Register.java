@@ -61,6 +61,21 @@ public class Register {
 		this.distrName = distrName;
 	}
 
+	
+
+	public Register(int regNo, String clNo, String teachDate, String regSta, String clThumb, String clName,
+			String startTime, String distrName) {
+		super();
+		this.regNo = regNo;
+		this.clNo = clNo;
+		this.teachDate = teachDate;
+		this.regSta = regSta;
+		this.clThumb = clThumb;
+		this.clName = clName;
+		this.startTime = startTime;
+		this.distrName = distrName;
+	}
+
 	public int getRegNo() {
 		return regNo;
 	}
