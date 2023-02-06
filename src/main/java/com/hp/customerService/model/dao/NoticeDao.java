@@ -893,6 +893,39 @@ public class NoticeDao {
 			return list;
 		}
 		
+		public ArrayList<Notice> keywordNoticeTutor(Connection conn, String keyword){
+			ArrayList<Notice> list= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("keywordNoticeTutor");
+			
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "%"+keyword+"%");
+				
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					list.add(new Notice(
+										rset.getInt("nt_no"),
+										rset.getString("nt_mem"),
+										rset.getString("nt_title"),
+										rset.getString("nt_content"),
+										rset.getDate("enroll_date"),
+										rset.getDate("update_date"),
+										rset.getString("grade"),
+										rset.getString("nt_sta")));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
+		
 		
 		
 }
