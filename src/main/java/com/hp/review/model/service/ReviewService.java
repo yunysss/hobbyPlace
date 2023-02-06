@@ -95,4 +95,11 @@ public class ReviewService {
 		close(conn);
 		return list;
 	}
+	
+	public ArrayList<Review> selectAdminSearchReview(Review r){
+		Connection conn = getConnection();
+		ArrayList<Review> list = new ReviewDao().selectTutorReview(conn, r);
+		close(conn);
+		return list;
+	}
 }

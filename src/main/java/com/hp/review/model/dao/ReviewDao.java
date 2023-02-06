@@ -276,8 +276,9 @@ public class ReviewDao {
 						            rset.getString("content"),
 						            rset.getInt("re_star"),
 						            rset.getString("re_date"),
+						            rset.getString("cl_name"),
 						            rset.getString("mem_name"),
-						            rset.getString("cl_name")));
+						            rset.getString("tt_name")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -240,10 +240,11 @@
 		    	  ) {
 		    		  value += "<tr>"
 							+	"<td>" + dataList[i].reviewNo + "</td>"
-							+	"<td>" + dataList[i].clName + "</td>"
+							+	"<td>" + dataList[i].reviewUpdate + "</td>"
+							+	"<td>" + dataList[i].memProfile + "</td>"
 							+	"<td>" + dataList[i].reviewContent + "</td>"
 							+	"<td>" + dataList[i].reviewStar + "</td>"
-							+	"<td>" + dataList[i].memName + "</td>"
+							+	"<td>" + dataList[i].memNickName + "</td>"
 							+	"<td>" + dataList[i].reviewDate + "</td>"
   							+	"</tr>"
 					}
