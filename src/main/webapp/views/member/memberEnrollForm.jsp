@@ -102,6 +102,9 @@
         font-size:20px;
     }
 	.showRules:hover, .agreeAll:hover, .agreement:hover {cursor: pointer;}
+	.sendAgain, .submitCode, .cInput{border-radius:5px; width:80px;}
+	.cInput{width:200px; height:30px;}
+	#successModal, #phoneModal{align:center; padding-left:20px;}
 </style>
 </head>
 <body>	
@@ -241,6 +244,7 @@
                     			}
                     		});
                     	}
+                    	
                     </script>
                     <tr>
                         <td class="td1">이메일 <span class="star">*</span></td>
@@ -258,10 +262,10 @@
                     <tr>
                         <td class="td1">휴대폰 <span class="star">*</span></td>
                         <td class="td2">
-                            <input type="text" id="phone" class="fillOutForms" name="phone" onclick="check();" placeholder="숫자만입력하세요" required>
+                            <input type="text" id="phone" class="fillOutForms" name="phone" placeholder="숫자만입력하세요" required>
                         </td>
                         <td class="td3">
-                            <button type="button" class="doubleCheck phoneDoubleCheck" disabled>인증번호 받기</button>
+                            <button type="button" class="doubleCheck phoneDoubleCheck" onclick="sms();" disabled>인증번호 받기</button>
                         </td>
                     </tr>
                     <tr>
@@ -290,6 +294,51 @@
                         <td class="td3"></td>
                     </tr>
                     <script>
+	                    var code = "";
+	 		       		function sms(){
+	 		       			var $phone = $("#phone").val();
+	 		       			$.ajax({
+	 		       				url: "<%=contextPath%>/certifiPhone.me",
+	 		       				data:{
+	 		       					phone:$phone
+	 		       				},
+	 		       				type:"post",
+	 		       				success:function(result){
+	 		       					if(result=="NNNNN"){//가입된 회원
+	 		       						alert("이미 가입되어있는 회원입니다");
+	 		       						
+	 		       					}else{//가입 안된 회원					
+	 		       						$("#phoneModal").modal('show');
+	 		       						code = result.key;
+	 		                            
+	 		       					}
+	 		       				},
+	 		       				error: function(){
+	 		       					console.log("휴대폰인증 ajax 통신 실패");
+	 		       				}
+	 		       			});
+	 		       		}
+	 		       		
+	 		       		$(function(){
+	 		        		$(".sendAgain").on("click", $(".sendAgain"), function(){
+	 		        			$(".cCode").val('');
+	 		        			alert("인증코드가 재발송되었습니다.");
+	 		        		})
+	 		        		$(".submitCode").on("click", $(".submitCode"), function(){
+	 		        			if(code == $(".cCode").val()) {
+	 		        				$(".cCode").val('');
+	 		        				$("#phoneModal").modal('hide');
+	 		        				$("#phone").attr("readonly", true);
+	 		        				$(".phoneDoubleCheck").attr("disabled");
+			   						$(".phoneDoubleCheck").css('cursor', 'default').css('color', 'rgb(35, 104, 116)').text("인증 완료");
+	 		        				alert("✔인증완료");
+	 		        			}else {
+	 		        				$(".cCode").val('');
+	 		        				alert("인증코드가 일치하지 않습니다.");
+	 		        			}
+	 		        			  
+	 		                 })
+	 		        	})
                         function execDaumPostcode() {
                             new daum.Postcode({
                                 oncomplete: function(data) {
@@ -321,6 +370,7 @@
                                 }
                             }).open();
                         }
+                        
                     </script>    
                     <tr>
                         <td class="td1">성별</td>
@@ -493,7 +543,7 @@
                     
                 </table>
                 <br><br>
-                <button type="submit" id="submitForm" onclick="enrollMember();" disabled>가입하기</button>
+                <button type="button" id="submitForm" onclick="return enrollMember();">가입하기</button>
                 <br><br><br><br>
                                                 
             </form>
@@ -601,19 +651,106 @@
             })
             
         })
+    
+    	function enrollMember(){
+        	let idCheck = RegExp(/^[a-z\d]{4,16}$/);
+            let pwdCheck = RegExp(/^[a-z\d~`!@#$%^&*()_+=-{}<>?,.]{6,20}$/i);
+            let nameCheck = RegExp(/^[가-힣]{2,}$/);
+            let nickCheck = RegExp(/^[a-z\d가-힣]{1,8}$/i);
+            let phoneCheck = RegExp(/^[0][1][\d]{8,9}$/);
+            let emailCheck = RegExp(/^[a-z\d+-_.]+@[a-z\d-]+\.[a-z\d.]+$/i);
+            
+            if(!idCheck.test($("#userId").val())){
+            	alert("유효한 아이디를 입력해주세요!");
+                return false;
+            }else if(!$("#userId").attr("readonly")){
+            	alert("아이디를 중복확인해주세요!");
+            	return false;
+            }
+            
+            if(!pwdCheck.test($("#userPwd").val())){
+            	alert("유효한 비밀번호를 입력해주세요!");
+            	return false;
+            }
+            if($("#userPwd").val() != $("#userPwdCheck").val()){
+            	alert('비밀번호가 일치하지 않습니다.');
+            	return false;
+            }
+            if(!nameCheck.test($("#userName").val())){
+                alert('유효한 이름이 아닙니다.');
+                return false;
+            }
+            if(!nickCheck.test($("#userNickName").val())){
+        		alert('유효한 닉네임 형식이 아닙니다.');
+        		return false;
+        	}else if(!$("#userNickName").attr("readonly")){
+            	alert("닉네임을 중복확인해주세요!");
+            	return false;
+            }
+            
+            if(!emailCheck.test($("#email").val())){
+        		alert('유효한 이메일 형식이 아닙니다.');
+        		return false;
+        	}
+            if(!phoneCheck.test($("#phone").val())){
+            	alert('유효한 연락처 형식이 아닙니다.');
+                return false;
+            }else if(!$("#phone").attr("readonly")){
+            	alert("휴대폰 문자인증 해주세요!");
+            	return false;
+            }
+            
+            
+            
+            
+            
+        }
     </script>
-    <script>
-    	$(function(){
-    		if($(".idTest").html('') && $(".pwdTest1").html('') && $(".pwdTest2").html('') && $(".nameTest").html('') 
-    		   		&& $(".nickNameTest").html('') && $(".emailTest").html('') && $(".phoneTest").html('')){
-    	    		 $("#submitForm").removeAttr("disabled");
-    	    		 $("#submitForm").css('cursor', 'pointer');
-    	    }else{
-    	    	$("#submitForm").attr("disabled");
-    	    	$("#submitForm").css('cursor', 'default');
-    	    }
-    	})
-    </script>
+	
+	<!--휴대폰 인증번호 modal -->
+	<div class="modal" id="phoneModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	
+	      <div class="modal-header">
+	        <h6 class="modal-title">인증번호 입력</h6>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        <input style="margin-left:150px;" type="text" class="cCode cInput" placeholder="6자리 입력" required>
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="sendAgain cCode btn-secondary" onclick="sms();">재발송</button>
+	        <button type="button" class="submitCode btn-success">확인</button>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="modal" id="successModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+
+	
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        ✔인증 성공!l
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
+	
 	
 	<!-- 이용약관 modal -->
 	<div class="modal" id="viewAgreeRules">

@@ -1205,7 +1205,7 @@ public class AdminDao {
 			pstmt.setString(1, st.getEnrollStart());
 			pstmt.setString(2, st.getEnrollEnd());
 			rset = pstmt.executeQuery();
-			System.out.println(sql);
+			
 			while(rset.next()) {
 				list.add(new TutorList(rset.getInt("mem_no"),
 									   rset.getString("mem_name"),

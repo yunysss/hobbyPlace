@@ -588,7 +588,7 @@ select {
 							<img src="<%=contextPath%><%=loginUser.getMemProfile()%>" type="button" width="45"  class="rounded-circle" class="dropdown-toggle" data-toggle="dropdown">
 						<%} %>
 						<div class="dropdown-menu">
-						    <a class="dropdown-item" href="<%=contextPath%>/myPageMain.me">마이페이지</a>
+						    <a class="dropdown-item" href="<%=contextPath%>/myPageMain.me?no=<%=loginUser.getMemNo()%>">마이페이지</a>
 						    <a class="dropdown-item" href="#">내가 찜한 목록</a>
 						    <a class="dropdown-item" href="<%=contextPath%>/logout.me">로그아웃</a>
 						</div>

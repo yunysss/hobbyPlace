@@ -19,16 +19,16 @@ import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 /**
- * Servlet implementation class AjaxPhoneCheckForIdController
+ * Servlet implementation class AjaxPhoneCheckForCertificationController
  */
-@WebServlet("/IdByPhone.me")
-public class AjaxPhoneCheckForIdController extends HttpServlet {
+@WebServlet("/certifiPhone.me")
+public class AjaxPhoneCheckForCertificationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxPhoneCheckForIdController() {
+    public AjaxPhoneCheckForCertificationController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,12 +37,11 @@ public class AjaxPhoneCheckForIdController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memName = request.getParameter("memName");
 		String phone = request.getParameter("phone");
 		
-		Member m = new MemberService().phoneCheckForId(memName, phone);
+		Member m = new MemberService().phoneCheckForCertifi(phone);
 		
-		if(m==null || !m.getPhone().equals(phone)) {
+		if(m!=null) {
 			response.getWriter().print("NNNNN");
 		}else {
 			String api_key = "NCSPIQMUBEKHXCTW";      
@@ -53,10 +52,10 @@ public class AjaxPhoneCheckForIdController extends HttpServlet {
 			int ranCode = rd.nextInt(899999)+100000;
 			
 		    HashMap<String, String> params = new HashMap<String, String>();
-		    params.put("to", m.getPhone());
+		    params.put("to", phone);
 		    params.put("from", "01084162654");          
 		    params.put("type", "SMS");
-		    params.put("text", "[합플] 아이디찾기 인증번호 : " + ranCode);     //메시지 내용
+		    params.put("text", "[합플] 본인인증번호 : " + ranCode);     //메시지 내용
 		    params.put("app_version", "test app 1.2");
 
 		    try {
@@ -67,11 +66,11 @@ public class AjaxPhoneCheckForIdController extends HttpServlet {
 		      System.out.println(e.getCode());
 		    }
 		    
-		    // 랜덤숫자와 아이디리턴
+		    // 랜덤숫자리턴
 		    JSONObject jObj = new JSONObject();
 		    
 		    jObj.put("key", ranCode);
-            jObj.put("memId", m.getMemId());
+            
             
             response.setContentType("application/json; charset=UTF-8");
     		response.getWriter().print(jObj);

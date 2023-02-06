@@ -14,6 +14,7 @@ import static com.hp.common.JDBCTemplate.*;
 import com.hp.member.model.vo.Like;
 import com.hp.member.model.vo.Member;
 import com.hp.register.model.vo.Register;
+import com.hp.review.model.vo.Review;
 
 public class MemberDao {
 	
@@ -676,6 +677,104 @@ public class MemberDao {
 		return likeStatus;
 	}
 
+	public Member phoneCheckForCertifi(Connection conn, String phone) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("phoneCheckForCertifi");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, phone);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member();
+				m.setMemNo(rset.getInt("mem_no"));
+				m.setPhone(rset.getString("mem_phone"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
+
+	public int regCount(Connection conn, int no) {
+		int r = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("regCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				 r = rset.getInt("reg");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(rset);
+			close(conn);
+		}
+		
+		return r;
+	}
+
+	public int likeCount(Connection conn, int no) {
+		int l = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("likeCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				l = rset.getInt("like");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(rset);
+			close(conn);
+		}
+		return l;
+	}
+
+	public int revCount(Connection conn, int no) {
+		int w = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("revCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				w = rset.getInt("rev");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(rset);
+			close(conn);
+		}
+		return w;
+	}
+
+	
 
 
 	
