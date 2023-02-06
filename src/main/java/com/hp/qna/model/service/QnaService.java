@@ -156,5 +156,19 @@ public class QnaService {
 	}
 	
 	
+	public int updateAnswer(Qna q) {
+		Connection conn = getConnection();
+		
+		int result = new QnaDao().updateAnswer(conn, q);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
+	
 
 }

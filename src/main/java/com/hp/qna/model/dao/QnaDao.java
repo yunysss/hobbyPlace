@@ -448,6 +448,28 @@ public class QnaDao {
 		
 	}
 	
+	public int updateAnswer(Connection conn, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAnswer");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, q.getaTitle());
+			pstmt.setString(2, q.getaContent());
+			pstmt.setInt(3, q.getqNo());
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	
 
 }

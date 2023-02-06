@@ -60,7 +60,7 @@
 			
             <div style="background-color:lightgray;  border:none; width: 130px; height: 30px; text-align: center; font-size:large; font-weight: 600; ">답변 등록</div><br>
 			<%if(q.getaStatus().equals("N")){ %>
-	            <form action="" method="post">
+	            <form action="insertAnswer.tor" method="post">
 	            <input type="hidden" name="no" value="<%=q.getqNo()%>">
 	                <table>
 	                    <tr>
