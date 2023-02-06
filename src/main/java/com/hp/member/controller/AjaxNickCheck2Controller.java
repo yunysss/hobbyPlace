@@ -29,11 +29,13 @@ public class AjaxNickCheck2Controller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String checkNick = request.getParameter("checkNick");
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		
 		int count1 = new MemberService().nickCheck(checkNick);
 		
 		if(count1 > 0) { //중복되는 닉네임이 있을때
 			
-			int count2 = new MemberService().nickCheck2(checkNick);
+			int count2 = new MemberService().nickCheck2(memNo, checkNick);
 			if(count2 > 0 ) {
 				
 			}

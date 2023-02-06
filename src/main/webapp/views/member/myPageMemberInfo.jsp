@@ -178,6 +178,7 @@
 	<%@ include file="../common/tuteeMenubar.jsp" %>
 	
 	<%
+		int memNo = loginUser.getMemNo();
     	String memId = loginUser.getMemId();
     	String memName = loginUser.getMemName();
     	String memNick = loginUser.getMemNick();
@@ -327,10 +328,12 @@
                     <script>
                         function nickCheck(){
                             const $nickInput = $("#userNickName");
-                            
                             $.ajax({
                                 url:"<%=contextPath%>/nickCheck2.me",
-                                data:{checkNick:$nickInput.val()},
+                                data:{
+                                	checkNick:$nickInput.val(),
+                                	memNo:<%=memNo%>
+                                	},
                                 success:function(result){
                                     if(result == "NNNNN"){
                                         $(".nickNameTest").html("이미 존재하는 닉네임입니다");

@@ -370,4 +370,11 @@
 		  JOIN REGISTER R ON (W.REG_NO = R.REG_NO)
 		 WHERE R.MEM_NO = ?
 	</entry>
+	
+	<entry key="nickCheck2">
+	SELECT MEM_NICKNAME
+	 FROM MEMBER
+	WHERE MEM_NO = ?
+	  AND MEM_NICKNAME = ?
+	</entry>
 </properties>
