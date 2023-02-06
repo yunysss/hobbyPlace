@@ -79,7 +79,9 @@ public class ReviewInsertController extends HttpServlet {
 				}
 			}
 			
-			int result = new ReviewService().insertReview(r, list);
+			
+			
+			int result = new ReviewService().insertReview(r, list, regNo);
 			
 			if(result>0) {
 				session.setAttribute("alertMsg", "후기가 등록되었습니다.");

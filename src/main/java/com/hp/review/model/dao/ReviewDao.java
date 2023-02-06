@@ -415,6 +415,30 @@ public class ReviewDao {
 			return result;
 	}
 
+
+		/**@author 수정
+		 * @param conn
+		 * @param reEnroll
+		 * @return 리뷰 등록후 후기작성상태 update
+		 */
+		public int updateReEnroll(Connection conn, int regNo) {
+			int result=0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("updateReEnroll");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, regNo);
+				
+				result=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+
 		
 
 } 

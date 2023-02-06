@@ -63,7 +63,7 @@ public class Register {
 
 	
 
-	public Register(int regNo, String clNo, String teachDate, String regSta, String clThumb, String clName,
+	public Register(int regNo, String clNo, String teachDate, String regSta,String clThumb, String clName,
 			String startTime, String distrName) {
 		super();
 		this.regNo = regNo;
