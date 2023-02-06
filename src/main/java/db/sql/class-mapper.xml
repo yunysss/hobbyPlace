@@ -934,5 +934,31 @@
 	</entry>
 	
 	
+	<entry key = "deleteClass">
+	 UPDATE CLASS
+	 SET CL_STATUS = '4'
+	    ,UPDATE_DATE = SYSDATE
+	 WHERE CL_NO =?   
+	
+	
+	
+	</entry>
+	
+	<entry key = "selectRegisterCount">
+	
+	 SELECT COUNT(*)"COUNT"            
+		FROM (SELECT REG_NO
+		       ,R.CL_NO
+		       ,S.SCH_NO
+		       ,REG_STA
+		 FROM REGISTER R
+		 JOIN SCHEDULE S ON (R.SCH_NO=S.SCH_NO)
+		 WHERE R.CL_NO = ?)
+	 
+	
+	
+	
+	</entry>
+	
 
 </properties>

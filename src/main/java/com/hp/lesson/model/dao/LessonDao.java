@@ -1535,6 +1535,49 @@ public ArrayList<Lesson> selectRejectedClass(Connection conn, int memNo) {
 	return list;
 }
 	
+
+	public int deleteClass(Connection conn, int clNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteClass");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public int selectRegisterCount(Connection conn, int clNo) {
+		int count = 0;
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectRegisterCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clNo);
+			rset= pstmt.executeQuery();
+		    if(rset.next()) {
+		    	count = rset.getInt("count");
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+		
+	}
 	
 
 }

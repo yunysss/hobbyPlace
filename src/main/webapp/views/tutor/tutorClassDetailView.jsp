@@ -5,6 +5,7 @@
 	ArrayList<Schedule> sList = (ArrayList<Schedule>)request.getAttribute("sList");
 	Lesson l = (Lesson)request.getAttribute("l");
 	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
+	int rCount = (int)request.getAttribute("rCount");
 %>          
 
 <!DOCTYPE html>
@@ -116,15 +117,19 @@ textarea {
             </span> 
             <form action="<%=contextPath%>/" method="post">
             <div id="btn-area" >
-
-            <a href="<%=contextPath%>/updateForm.cl?no=<%=l.getClNo()%>" class="btn btn-secondary btn-sm a">수정</a>
+			
+			<%if (rCount==0){ %>
+            <a href="<%=contextPath%>/updateForm.cl?no=<%=l.getClNo()%>" class="btn btn-secondary btn-sm a" onclick="registerCh();">수정</a>
+            <%} %>
              <%if (l.getClStatus().equals("2")){ %>
             <button type="button" class="btn btn-secondary btn-sm a" data-toggle="modal" data-target="#classDelete">판매중단</button>
 			<%} %>
-		     
+		     <a href="<%=contextPath%>/delete.cl?no=<%=l.getClNo()%>" class="btn btn-secondary btn-sm">삭제</a>
             </div>
             
+            <script>
             
+            </script>
         
             <hr>
             <div id="detail-area">
@@ -164,10 +169,6 @@ textarea {
 
 
                     </script>
-
-
-
-
 
 
                 </div>

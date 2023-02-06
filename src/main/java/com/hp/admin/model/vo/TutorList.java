@@ -14,6 +14,7 @@ public class TutorList {
 	private int revCount;
 	private int incomeTotal;
 	private String tutorAddress;
+	private String enrollDate;
 	
 	public TutorList() {}
 
@@ -50,6 +51,43 @@ public class TutorList {
 		this.revCount = revCount;
 		this.incomeTotal = incomeTotal;
 		this.tutorAddress = tutorAddress;
+	}
+
+	
+	public TutorList(int memNo, String memName, String memId, String tutorName, int classActive, int classTotal,
+			int lessonTotal, int tuteeTotal, int likeCount, int revCount, int incomeTotal, String tutorAddress,
+			String enrollDate) {
+		super();
+		this.memNo = memNo;
+		this.memName = memName;
+		this.memId = memId;
+		this.tutorName = tutorName;
+		this.classActive = classActive;
+		this.classTotal = classTotal;
+		this.lessonTotal = lessonTotal;
+		this.tuteeTotal = tuteeTotal;
+		this.likeCount = likeCount;
+		this.revCount = revCount;
+		this.incomeTotal = incomeTotal;
+		this.tutorAddress = tutorAddress;
+		this.enrollDate = enrollDate;
+	}
+
+	
+	public String getTutorName() {
+		return tutorName;
+	}
+
+	public void setTutorName(String tutorName) {
+		this.tutorName = tutorName;
+	}
+
+	public String getEnrollDate() {
+		return enrollDate;
+	}
+
+	public void setEnrollDate(String enrollDate) {
+		this.enrollDate = enrollDate;
 	}
 
 	public int getMemNo() {

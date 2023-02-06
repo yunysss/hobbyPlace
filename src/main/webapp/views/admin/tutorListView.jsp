@@ -87,6 +87,10 @@
 
 			   기본검색 &nbsp;&nbsp;&nbsp;
 			   <select name="fCategory" class="fCategory">
+			   		<option value="enroll_date">회원가입일</option>
+					<option value="mem_no">회원번호</option>
+					<option value="mem_name">이름</option>
+					<option value="tt_name">튜터명</option>
 					<option value="classActive">운영중인 클래스수</option>
 					<option value="classTotal">누적클래스수</option>
 					<option value="tuteeTotal">누적튜티수</option>

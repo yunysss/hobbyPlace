@@ -5,6 +5,7 @@ import static com.hp.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.common.model.vo.PageInfo;
 import com.hp.review.model.dao.ReviewDao;
 import com.hp.review.model.vo.Register;
@@ -108,5 +109,19 @@ public class ReviewService {
 		Review r = new ReviewDao().selectReviewDetail(conn, reNo);
 		close(conn);
 		return r;
+
+	public int insertReview(Review r, ArrayList<Attachment> list) {
+		Connection conn = getConnection();
+		int result1 = new ReviewDao().insertReview(conn, r);
+		int result2 = new ReviewDao().insertAttachment(conn,list);
+		
+		if(result1>0 && result2>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+			
+		}close(conn);
+		
+		return result1*result2;
 	}
 }

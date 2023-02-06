@@ -39,7 +39,7 @@ public class MemberQnaDetailView2Controller extends HttpServlet {
 		
 		request.setAttribute("m", m);
 		request.setAttribute("q", qnaList);
-		
+		System.out.println(qnaList);
 		request.getRequestDispatcher("views/admin/memberQnaDetailView2.jsp").forward(request, response);
 	}
 

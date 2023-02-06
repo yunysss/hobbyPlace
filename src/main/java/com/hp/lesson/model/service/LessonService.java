@@ -269,6 +269,26 @@ public class LessonService {
 		close(conn);
 		return list;
 	}
+	
+	public int deleteClass(int clNo) {
+		Connection conn = getConnection();
+		int result = new LessonDao(). deleteClass(conn,clNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			close(conn);
+		}
+		return result;
+	}
+	
+	public int selectRegisterCount(int clNo) {
+		Connection conn = getConnection();
+		int count = new LessonDao().selectRegisterCount(conn, clNo);
+		close(conn);
+		return count;
+		
+		
+	}
 
 	
 

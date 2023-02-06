@@ -354,7 +354,50 @@ public class ReviewDao {
 		return r;
 	}
 
+
+	/**
+	 * @author 수정
+	 * @param conn
+	 * @param r
+	 * @return 리뷰 등록
+	 */
+	public int insertReview(Connection conn, Review r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReview");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+			
+		
+		return 0;
+	}
+
 		
 
 } 
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

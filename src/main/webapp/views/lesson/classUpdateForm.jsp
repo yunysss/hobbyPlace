@@ -236,14 +236,14 @@
 	            <tr>
 	                <th width=100>카테고리</th>
 	                <td>
-	                     <select name="category" id="category" class="ct" required onchange="changeCt();">
+	                     <select name="category" id="category" class="ct require" required onchange="changeCt();">
 	                        <%for(Category c : cList){ %>
 	                        <option value="<%=c.getCtNo()%>"><%=c.getCtName() %></option>
 	                        <%} %>
 
 						</select>
 	                     
-	                    <select name="dCategory" id="Dcategory" class="ct" required >
+	                    <select name="dCategory" id="Dcategory" class="ct require" required >
 	                       
 	
 	                    </select>
@@ -275,7 +275,7 @@
 	                <th>클래스명</th>
 	                <td>
 	                    <br>
-	                    <input type="text" id="clName"  name="className" min="10" max="50" class="form-control" value="<%=l.getClName()%>"required > 
+	                    <input type="text" id="clName"  name="className" min="10" max="50" class="form-control require" data-name="클래스명" value="<%=l.getClName()%>"required > 
 						 <div style="font-size: 11px; ">*10자 이상으로 입력해주세요. &nbsp;<span class="textCount"></span></div>
         
 	                </td>
@@ -303,7 +303,7 @@
 	                    <input id="class_sido" type="hidden"  name="sido" placeholder="시/도" readonly value="<%=l.getLocalCode() %>">
 	                    <input id="class_sigungu" type="hidden" name="sigungu" placeholder="구" readonly value="<%=l.getDistrCode() %>"> <br>
 	                    
-	                    <input id="class_addr" type="text" name="address" required  placeholder="주소입력" readonly value="<%=l.getClAddress()%>">
+	                    <input id="class_addr" type="text" name="address" required class="require" data-name="주소" placeholder="주소입력" readonly value="<%=l.getClAddress()%>">
 	                    <button type="button" onclick="findAddr()"  class="btn btn-secondary btn-sm">주소검색 </button><br>
 	                    <input type="text" name="dAddress" placeholder="상세주소입력"><br>
 	                    <label style="font-size: 11px; color: red;">*서울,인천,경기 지역만 등록가능합니다.😥</label>
@@ -345,12 +345,12 @@
 	            </tr>
 	            <tr>
 	                <th>최대인원</th>
-	                <td><input type="number" name="clMax" min="1" class="form-control-sm" value="<%=l.getClMax()%>"required > 명</td>
+	                <td><input type="number" name="clMax" min="1" class="form-control-sm require" data-name="최대인원" value="<%=l.getClMax()%>"required > 명</td>
 	            </tr>
 	            <tr>
 	                <th>난이도</th>
 	                <td>
-	                    <input type="radio" name="level" value="없음" id="none"><label for="none">없음</label>
+	                    <input type="radio" name="level" value="없음" id="none" checked><label for="none">없음</label>
 	                    <input type="radio" name="level" value="하" id="easy"><label for="easy">쉬움</label>
 	                    <input type="radio" name="level" value="중" id="normal"><label for="normal">보통</label>
 	                    <input type="radio" name="level" value="상" id="hard"><label for="hard">어려움</label>
@@ -378,7 +378,7 @@
 	        <table>
 	        	<tr>
 					<th>판매종료일</th>
-					<td><input type="date" name="endDate" value="<%=l.getEndDate()%>"></td>
+					<td><input type="date" name="endDate" class="require" data-name="판매종료일" value="<%=l.getEndDate()%>"></td>
 					
 				</tr>
 				
@@ -387,7 +387,7 @@
 	                <td><br>
 	                    <input type="radio" id="everyday" name="schedule"class="schedule" value="매일">
 	                    <label for="everyday">매일</label>
-	                    <input type="radio" id="weekly" name="schedule" class="schedule" value="매주">
+	                    <input type="radio" id="weekly" name="schedule" class="schedule" value="매주" checked>
 	                    <label for="weekly">매주</label>
 	                    <br>
 	                    <script>
@@ -403,7 +403,7 @@
 	            		</script>
 	
 	
-	                    <input type="checkbox" name="day" value="월" class="day" id="mon"><label for="mon">월</label>
+	                    <input type="checkbox" name="day" value="월" class="day require" data-name="요일" id="mon"><label for="mon">월</label>
 	                    <input type="checkbox" name="day" value="화" class="day" id="tue"><label for="tue">화</label>
 	                    <input type="checkbox" name="day" value="수" class="day" id="wed"><label for="wed">수</label>
 	                    <input type="checkbox" name="day" value="목" class="day" id="thur"><label for="thur">목</label>
@@ -441,7 +441,7 @@
 	            </tr>
 	            <tr>
 	                <th>일 운영횟수</th>
-	                <td><input type="number" name="times" min="1" required value="<%=l.getClTimes()%>">회</td>
+	                <td><input type="number" name="times" min="1"class="require" data-name="운영횟수" required value="<%=l.getClTimes()%>">회</td>
 	            </tr>
 	            <tr>
 	                <th>운영시간</th>
@@ -469,13 +469,13 @@
 	                          <tbody id="table_body">
 	                                <tr>
 	                                <td>
-	                                    <input type="number" min="1" name="session" value="<%=s.getSessionNo() %>" class="form_control" >
+	                                    <input type="number" min="1"data-name="회차" name="session" value="<%=s.getSessionNo() %>" class="form_control require" >
 	                                </td>
 	                                <td>
-	                                    <input type="time" name="startTime" value="<%=s.getStartTime() %>" class="form_control" >
+	                                    <input type="time" name="startTime" data-name="시작시간" value="<%=s.getStartTime() %>" class="form_control require" >
 	                                </td>
 	                                <td>
-	                                    <input type="time" name="endTime" value="<%=s.getEndTime() %>" class="form_control">
+	                                    <input type="time" name="endTime" data-name="종료시간" value="<%=s.getEndTime() %>" class="form_control require">
 	                                </td>
 	                                <td>
 	                                <div class="action_container">
@@ -500,7 +500,7 @@
 	        <table>
 	            <tr>
 	                <th width="100">판매가</th>
-	                <td><input type="text" class="form-control-sm" name="price" required value="<%=l.getClPrice() %>" > 원</td>
+	                <td><input type="text" class="form-control-sm require" data-name="가격" name="price" required value="<%=l.getClPrice() %>" > 원</td>
 	            </tr>
 	
 	        </table>
@@ -660,7 +660,7 @@
 	            <td style="width: 100;">
 	                <br>
 	               
-	                    <textarea id="summernote" name="editordata" ><%=l.getClDetail() %></textarea>
+	                    <textarea id="summernote" name="editordata" class="require" data-name="상세설명"><%=l.getClDetail() %></textarea>
 	                
 	                
 	                <script>
@@ -686,7 +686,7 @@
 	        <tr>
 	            <th>커리큘럼</th>
 	            <td>
-	                <textarea name="curriculum"  rows="4" style="resize:none" required ><%=l.getCurriculum() %></textarea>
+	                <textarea name="curriculum"  rows="4" style="resize:none" class="require" data-name="커리큘럼" required ><%=l.getCurriculum() %></textarea>
 	            </td>
 	        </tr>
 	        </table>
@@ -723,7 +723,7 @@
 	        <br><hr><br>
 	        <div align="center">
 	            <button type="button" class="btn btn-secondary btn-sm"  onclick="$('.form1').trigger('click');">이전</button>
-	            <button type="submit" id="save" class="btn btn-secondary btn-sm">수정요청</button>
+	            <button type="submit" id="save" class="btn btn-secondary btn-sm sub">수정요청</button>
 	            
 	        </div>
 	        
@@ -747,7 +747,27 @@
 	
 	        </script>
 	        
+	        <script>
+	        	$(function(){
+	        		$(".sub").click(function(){
+	        			var isRight = true;
+	        		$("#enroll-form").find(".require").each(function(index, item){
+	        			if($(this).val().trim() == ''){
+	        				alert($(this).attr("data-name")+" 항목을 입력하세요.");
+	        				isRight = false;
+	        				return false;
+	        			}
+	        		});
+	        		
+	        		if(!isRight){
+	        			return;
+	        		}
+	        		$(this).prop("disabled",true);
+	        		$(this).prop("disabled",false);
+	        	})
 	        
+	        })
+	        </script>
 	          
 	    </div>
    </div>

@@ -1168,6 +1168,10 @@ public class AdminDao {
 		String sql = prop.getProperty("selectTutorList1");
 		
 		switch(st.getfCategory()) {
+		case "enroll_date" : sql += " ENROLL_DATE "; break;
+		case "mem_no" : sql += " T.MEM_NO "; break;
+		case "mem_name" : sql += " MEM_NAME "; break;
+		case "tt_name" : sql += " TT_NAME "; break;
 		case "classActive" : sql += " (SELECT COUNT(CL_NO)\r\n"
 				+ "                  FROM CLASS\r\n"
 				+ "                 WHERE CL_STATUS = 2\r\n"
@@ -1201,7 +1205,7 @@ public class AdminDao {
 			pstmt.setString(1, st.getEnrollStart());
 			pstmt.setString(2, st.getEnrollEnd());
 			rset = pstmt.executeQuery();
-			
+			System.out.println(sql);
 			while(rset.next()) {
 				list.add(new TutorList(rset.getInt("mem_no"),
 									   rset.getString("mem_name"),
@@ -1214,7 +1218,8 @@ public class AdminDao {
 									   rset.getInt("LIKECOUNT"),
 									   rset.getInt("REVCOUNT"),
 									   rset.getInt("INCOMETOTAL"),
-									   rset.getString("TUTORADDR")));
+									   rset.getString("TUTORADDR"),
+									   rset.getString("enroll_date")));
 			}
 			
 		} catch (SQLException e) {
