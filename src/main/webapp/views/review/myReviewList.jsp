@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.hp.review.model.vo.Review, com.hp.common.model.vo.PageInfo"%>
+    pageEncoding="UTF-8" %>
+<%@ page import="java.util.ArrayList, com.hp.review.model.vo.Review, com.hp.common.model.vo.PageInfo"%>
 <% 
 	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
 	PageInfo rePi = (PageInfo)request.getAttribute("rePi"); 
@@ -131,7 +132,7 @@
                     </div>
 
                     <div class="nextBtn">
-                        <img src="<%=contextPath%>/resources/images/right_arrow.png" onclick="">
+                        <img src="<%=contextPath%>/resources/images/right_arrow.png" onclick="location.href='<%=contextPath%>/page.cl?no=<%=list.get(i).getClNo() %>'">
                     </div>
                 </div>
                
@@ -144,7 +145,7 @@
                 </div>
 
                 <div class="reviewThumb" align="center">
-                    <img src="" width="200px" height="150px">
+                    <img src="<%=list.get(i).getTitleImg()%>" width="200px" height="150px">
 
                 </div>
                 

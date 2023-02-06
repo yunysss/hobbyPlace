@@ -147,13 +147,15 @@ public class Review {
 	
 
 
-	public Review(String reviewContent, int reviewStar, String reviewDate, String clName, String clThumb) {
+	public Review(String reviewContent, int reviewStar, String reviewDate, int clNo, String clName, String clThumb, String titleImg) {
 		super();
 		this.reviewContent = reviewContent;
 		this.reviewStar = reviewStar;
 		this.reviewDate = reviewDate;
+		this.clNo = clNo;
 		this.clName = clName;
 		this.clThumb = clThumb;
+		this.titleImg = titleImg;
 	}
 
 

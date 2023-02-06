@@ -47,6 +47,9 @@ public class ReviewInsertController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/review_upfiles/");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
+		
+			
+			
 			// DB에 값 기록
 			HttpSession session = request.getSession();
 			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
@@ -54,6 +57,9 @@ public class ReviewInsertController extends HttpServlet {
 			int clNo = Integer.parseInt(multiRequest.getParameter("clNo"));
 			int reviewStar = Integer.parseInt(multiRequest.getParameter("rating"));
 			String reviewContent = multiRequest.getParameter("reviewContent");
+			
+			
+			
 			
 			Review r = new Review();
 			r.setReviewStar(reviewStar);
@@ -64,7 +70,7 @@ public class ReviewInsertController extends HttpServlet {
 			
 			ArrayList<Attachment> list = new ArrayList<>();
 			
-			for(int i=1; i<=3; i++) {
+			for(int i=2; i<=3; i++) {
 				String key = "file" + i;
 				if(multiRequest.getOriginalFileName(key)!=null) {
 					

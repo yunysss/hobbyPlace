@@ -135,8 +135,10 @@ public class ReviewDao {
 				list.add(new Review(rset.getString("content"),
 								      rset.getInt("re_star"),
 								      rset.getString("re_date"),
+								      rset.getInt("cl_no"),
 								      rset.getString("cl_name"),
-								      rset.getString("cl_thumb")
+								      rset.getString("cl_thumb"),
+								      rset.getString("titleImg")
 						));
 			}
 		} catch (SQLException e) {
