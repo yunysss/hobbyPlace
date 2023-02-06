@@ -208,7 +208,7 @@ public class Review {
 
 	public Review(int reviewNo, String reviewContent, 
 			String clName, String ctName, String memName, 
-			int reviewStar, String reviewDate, String reviewUpDate, String reviewStatus)  {
+			int reviewStar, String reviewDate, String reviewUpDate, String reviewStatus, String ttName)  {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewContent = reviewContent;
@@ -219,6 +219,7 @@ public class Review {
 		this.memName = memName;
 		this.reviewStar = reviewStar;
 		this.ctName = ctName;
+		this.ttName = ttName;
 	}
 
 

@@ -343,7 +343,8 @@ public class ReviewDao {
 						       rset.getInt("re_star"),
 						       rset.getString("re_date"),
 						       rset.getString("re_update"),
-						       rset.getString("re_sta"));
+						       rset.getString("re_sta"),
+						       rset.getString("tt_name"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
