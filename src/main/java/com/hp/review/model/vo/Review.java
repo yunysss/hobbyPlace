@@ -21,9 +21,29 @@ public class Review {
 	private String reStar;
 	private String ctName;
 	
+	private String titleImg;
+	
 	public Review() {}
 	
 	
+
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate, int clNo,
+			int memNo, String clName, String memNickName, String memProfile, String titleImg) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.reviewUpDate = reviewUpDate;
+		this.clNo = clNo;
+		this.memNo = memNo;
+		this.clName = clName;
+		this.memNickName = memNickName;
+		this.memProfile = memProfile;
+		this.titleImg = titleImg;
+	}
+
+
 
 	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, String reviewUpDate,
 			String reviewStatus, int regNo, int clNo, int memNo) {
@@ -139,6 +159,18 @@ public class Review {
 
 
 	
+
+
+
+	public String getTitleImg() {
+		return titleImg;
+	}
+
+
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
 
 
 

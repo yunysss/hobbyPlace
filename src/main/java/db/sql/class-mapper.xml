@@ -417,6 +417,11 @@
 			 , MEM_NICKNAME
 			 , MEM_PROFILE
 		     , R.MEM_NO 
+		     , (SELECT FILE_PATH || CHANGE_NAME "TITLEIMG"
+                FROM ATTACHMENT
+                WHERE REF_TYPE = 2
+                AND REF_NO = ?
+                AND ROWNUM= 1)"TITLEIMG"
   
 		  FROM REVIEW R
           JOIN CLASS C ON (C.CL_NO=R.CL_NO)
@@ -956,9 +961,9 @@
 		 WHERE R.CL_NO = ?)
 	 
 	
-	
-	
 	</entry>
+	
+	
 	
 
 </properties>

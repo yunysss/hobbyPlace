@@ -112,7 +112,7 @@
                 &nbsp;<span style="font-weight: 600;"><%=t.getTtName() %></span><br>
                 <span style="font-size: 12px; color: g;">클래스 <%=cCount %> </span> | 
                 <span style="font-size: 12px;"> 후기 <%=rCount %></span>
-                <a href=<%=contextPath %>><span class="badge badge-danger">문의하기</span></a>
+                <a href="<%=contextPath %>/qnaEnroll.tee"><span class="badge badge-danger">문의하기</span></a>
                 
               </p>
                 
@@ -232,8 +232,12 @@
 	                            </span>
                       </td>
                           <td rowspan="3" width="150" id="reimg">
-                          
-                              <img src="<%=request.getContextPath()%>/resources/images/sample1.png" width="150" height="150" alt="">
+                              <%if(r.getTitleImg() != null){ %>
+                              <img src="<%=request.getContextPath()%>/<%=r.getTitleImg() %> " width="150" height="150" alt="">
+							<%} else{ %>
+							 <img src="<%=request.getContextPath()%>/resources/images/classimg.png " width="150" height="150" alt="">
+							<%} %>
+								                        
                           </td>
                       </tr>
                       <tr>

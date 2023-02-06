@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.lesson.model.service.LessonService;
 import com.hp.lesson.model.vo.Lesson;
 import com.hp.review.model.vo.Review;
@@ -42,6 +43,8 @@ public class TutorDetailPageController extends HttpServlet {
 		ArrayList<Review> rList = new LessonService().selectTutorReview(clNo);
 		ArrayList<Lesson> cList =  new LessonService().selectTutorClass(clNo);
 	
+	
+		
 		request.setAttribute("cCount",cCount);
 		request.setAttribute("rCount", rCount);
 		
