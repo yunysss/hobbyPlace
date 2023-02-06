@@ -20,10 +20,10 @@
       #selectAllReview-btn{
       	width:80px;
   		background:rgb(22, 160, 133); 
-   	color:white!important;
+   		color:white!important;
       }
     .search-area, .result-area{ 
-    	width:920px;
+    	width:1000px;
         padding: 20px;
         border: 1px solid gray;
         border-radius: 5px;
@@ -36,7 +36,7 @@
     	margin-right:20px;
     }
     input[type=text]{
-           width: 170px;
+           width: 200px;
            border: 1px solid rgb(202, 199, 199);
            height: 30px;
            border-radius: 5px;
@@ -85,6 +85,7 @@
 	}
     
 </style>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body>
 <%@ include file="../common/adminMenubar.jsp" %>
@@ -92,7 +93,7 @@
         <h5 style="font-weight: 600; font-size:18px"><b>후기 관리</b></h5><br>
         <hr>
         <div class="search-area">
-            <table width="700px">
+            <table width="900px">
                 <tbody>
                 	<tr>
                     	<td><b>평점</b></td>
@@ -165,11 +166,11 @@
             	<thead>
 	                <tr>
 	                	<td>번호</td>
-	                    <td width="280px">클래스명</td>
+	                    <td>클래스명</td>
 	                    <td>튜티명</td>
-	                    <td width="280px">리뷰</td>
-	                    <td width="100px">별점</td>
-	                    <td width="70px">작성자</td>
+	                    <td>리뷰</td>
+	                    <td>별점</td>
+	                    <td>작성자</td>
 	                    <td>작성일</td>
 	                </tr>
                 </thead>
@@ -191,7 +192,6 @@
 		    
 		    $(function () {
 			     selectReview();
-			     
 		    })
 	        function selectReview(){
 		    	let reStar = "";
@@ -201,7 +201,7 @@
 	    		$.ajax({
 	    			url:"<%=contextPath%>/selectReview.ad",
 	    			data:{
-	    				ttName:$("input[name=ttName]").val()
+	    				ttName:$("input[name=ttName]").val(),
 	    				reStar:reStar,
 	    				clName:$("input[name=clName]").val(),
 	    				reContent:$("input[name=reContent]").val(),
@@ -240,10 +240,11 @@
 		    	  ) {
 		    		  value += "<tr>"
 							+	"<td>" + dataList[i].reviewNo + "</td>"
-							+	"<td>" + dataList[i].clName + "</td>"
+							+	"<td>" + dataList[i].reviewUpDate + "</td>"
+							+	"<td>" + dataList[i].memProfile + "</td>"
 							+	"<td>" + dataList[i].reviewContent + "</td>"
 							+	"<td>" + dataList[i].reviewStar + "</td>"
-							+	"<td>" + dataList[i].memName + "</td>"
+							+	"<td>" + dataList[i].memNickName + "</td>"
 							+	"<td>" + dataList[i].reviewDate + "</td>"
   							+	"</tr>"
 					}

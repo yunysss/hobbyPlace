@@ -237,13 +237,6 @@ public class ReviewDao {
 	return er;
 }
 	
-	
-	/**
-	 * @author 수정
-	 * @param conn
-	 * @param r
-	 * @return 관리자페이지 리뷰 검색
-	 */
 	public ArrayList<Review> selectAdminSearchReview(Connection conn, Review r) {
 		ArrayList<Review> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -276,8 +269,9 @@ public class ReviewDao {
 						            rset.getString("content"),
 						            rset.getInt("re_star"),
 						            rset.getString("re_date"),
+						            rset.getString("cl_name"),
 						            rset.getString("mem_name"),
-						            rset.getString("cl_name")));
+						            rset.getString("tt_name")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

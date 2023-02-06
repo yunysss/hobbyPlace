@@ -100,4 +100,11 @@ public class ReviewService {
 	public int insertReview(Review r, ArrayList<Attachment> list) {
 		return 0;
 	}
+	
+	public ArrayList<Review> selectAdminSearchReview(Review r){
+		Connection conn = getConnection();
+		ArrayList<Review> list = new ReviewDao().selectAdminSearchReview(conn, r);
+		close(conn);
+		return list;
+	}
 }

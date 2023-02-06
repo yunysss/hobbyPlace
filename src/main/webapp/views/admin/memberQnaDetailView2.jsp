@@ -33,7 +33,7 @@ table{text-align: center; font-size:13px;}
        <h3>1:1 문의</h3>
        <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link" href="<%=contextPath%>/memQna1.ad?no=<%=m.getMemNo()%>";>튜터 QnA</a>
+          <a class="nav-link" href="<%=contextPath%>/memQna1.ad?no=<%=m.getMemNo()%>">튜터 QnA</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page">관리자 QnA</a>
@@ -46,7 +46,6 @@ table{text-align: center; font-size:13px;}
 	    <thead class="table-dark">
 	      <colgroup>
 	        <col style="width:80px;">
-	        <col style="width:120px;">
 	        <col style="width:200px;">
 	        <col style="width:400px;">
 	        <col style="width:150px;">
@@ -54,8 +53,7 @@ table{text-align: center; font-size:13px;}
 	      </colgroup>
 	      <tr>
 	        <th scope="col">Q.NO</th>
-	        <th scope="col">튜터이름</th>
-	        <th scope="col">클래스이름</th>
+	        <th scope="col">카테고리</th>
 	        <th scope="col">제목</th>
 	        <th scope="col">작성일</th>
 	        <th scope="col">답변여부</th>
@@ -68,11 +66,18 @@ table{text-align: center; font-size:13px;}
 	    <%}else {%>
 	    	<% for(int i=0;i<q.size(); i++) {%>
 		    	<tr onclick="modal();">
+		        <td><%=q.get(i).getqNo() %></td>
 		        <td>
-		        	<%=q.get(i).getqNo() %>
+		        	<%if((q.get(i).getqCategory()).equals("10")) {%>
+				   		튜터
+				   	<%}else if((q.get(i).getqCategory()).equals("20")) {%>
+				   		결제/환불
+				   	<%}else if((q.get(i).getqCategory()).equals("30")) {%>
+				   		운영
+				   	<%}else if((q.get(i).getqCategory()).equals("40")) {%>
+				   		기타
+				   	<%}%>
 		        </td>
-		        <td><%=q.get(i).getaMemNick() %></td>
-		        <td><%=q.get(i).getClName() %></td>
 		        <td><%=q.get(i).getqTitle() %></td>
 		        <td><%=q.get(i).getqDate() %></td>  
 		        <td>
@@ -85,19 +90,29 @@ table{text-align: center; font-size:13px;}
 		      </tr>
 		      
 		        <script>
+		       
 				   function modal(){
+					   var ct = "";
+					   <%if((q.get(i).getqCategory()).equals("10")) {%>
+					   		ct = "튜터";
+					   	<%}else if((q.get(i).getqCategory()).equals("20")) {%>
+					   	ct = "결제/환불";
+					   	<%}else if((q.get(i).getqCategory()).equals("30")) {%>
+					   	ct = "운영";
+					   	<%}else if((q.get(i).getqCategory()).equals("40")) {%>
+					   	ct = "기타";
+					   	<%}%>
 				    	 var dt = "";
-						 dt += "<tr><td colspan='2' style='width:50%'>" + "<%=m.getMemId() %>" + "</td><td colspan='2'>";
-						 dt += "<%=m.getMemNick() %>" + "</td></tr><tr><td style='width:75%' colspan='3'>";
+						 dt += "<tr><td colspan='2' style='width:50%'>" + "ID : " + "<%=m.getMemId() %>" + "</td><td colspan='2'>";
+						 dt += "카테고리 : " + ct + "</td></tr><tr><td style='width:75%' colspan='3'>";
 						 dt += "<%=q.get(i).getqTitle()%>" + "</td><td>" + "<%=q.get(i).getqDate()%>" + "</td>";
-						 dt += "</tr><tr rowspan='4'><td colspan='4'>" + "<%=q.get(i).getqContent()%>" + "</td></tr>";
+						 dt += "</tr><tr style='height:150px' rowspan='4'><td colspan='4'>" + "<%=q.get(i).getqContent()%>" + "</td></tr>";
 						 
 						 <%if(q.get(i).getaContent()!=null) {%>
 							 var dv = "";
-							 dv += "<tr><td style='width:25%'>" + "<%=q.get(i).getaMemNick() %>" + "</td><td colspan='3'>" + "<%=q.get(i).getClName() %>" + "</td></tr>";
 							 dv +="<tr><td style='width:75%' colspan='3'>" + "<%=q.get(i).getaTitle()%>" + "</td><td style='width:25%'>";
 							 dv +="<%=q.get(i).getaDate()%>" + "</td></tr>"; 
-						 	 dv +="<tr rowspan='4'><td colspan='4'>" + "<%=q.get(i).getaContent()%>" + "</td></tr>";
+						 	 dv +="<tr style='height:150px' rowspan='4'><td colspan='4'>" + "<%=q.get(i).getaContent()%>" + "</td></tr>";
 							$("#mTb2").html(dv);
 						 <%}%>
 						 

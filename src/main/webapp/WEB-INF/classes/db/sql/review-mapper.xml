@@ -129,7 +129,7 @@
           WHERE REG_NO = ?
     </entry>
     
-    <entry key="selectTutorReview">
+    <entry key="selectAdminSearchReview">
 		SELECT *
 		  FROM (
 		        SELECT

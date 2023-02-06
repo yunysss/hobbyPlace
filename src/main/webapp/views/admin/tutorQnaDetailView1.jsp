@@ -23,7 +23,6 @@ table{text-align: center; font-size:13px;}
 .mdTable{
      font-size:14px;
      width:60%;
-     border-color:black;
         }
  th{background-color:lightgray;}
 </style>
@@ -84,13 +83,13 @@ table{text-align: center; font-size:13px;}
 						 dt += "<tr><td style='width:25%'>" + "<%=a.get(i).getaMemNick() %>" + "</td><td colspan='3'>";
 						 dt += "<%=a.get(i).getClName() %>" + "</td></tr><tr><td style='width:75%' colspan='3'>";
 						 dt += "<%=a.get(i).getqTitle()%>" + "</td><td>" + "<%=a.get(i).getqDate()%>" + "</td>";
-						 dt += "</tr><tr rowspan='4'><td colspan='4'>" + "<%=a.get(i).getqContent()%>" + "</td></tr>";
+						 dt += "</tr><tr style='height:150px;' rowspan='4'><td colspan='4'>" + "<%=a.get(i).getqContent()%>" + "</td></tr>";
 						 
 						 <%if(a.get(i).getaContent()!=null) {%>
 							 var dv = "";
 							 dv +="<tr><td style='width:75%' colspan='3'>" + "<%=a.get(i).getaTitle()%>" + "</td><td style='width:25%'>";
 							 dv +="<%=a.get(i).getaDate()%>" + "</td></tr>"; 
-						 	 dv +="<tr rowspan='4'><td colspan='4'>" + "<%=a.get(i).getaContent()%>" + "</td></tr>";
+						 	 dv +="<tr style='height:150px;'rowspan='4'><td colspan='4'>" + "<%=a.get(i).getaContent()%>" + "</td></tr>";
 							$("#mTb2").html(dv);
 						 <%}%>
 						 
@@ -121,13 +120,13 @@ table{text-align: center; font-size:13px;}
 			      <div class="modal-body">
 				        <div class="container mt-3">
 				        	  
-						      <table class="table table-bordered table-sm mdTable" id="mTb1">
+						      <table class="table table-bordered border-success rounded" id="mTb1">
 						          
 						          
 						      </table>
 						      <br><br>
 						      
-						      <table class="table table-bordered table-sm mdTable" id="mTb2">
+						      <table class="table table-bordered border-success rounded" id="mTb2">
 						          
 						          
 						      </table>

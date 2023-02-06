@@ -32,7 +32,7 @@ public class AjaxSelectAdminReview extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String ttName = request.getParameter("ttNo");
+		String ttName = request.getParameter("ttName");
 		String clName = request.getParameter("clName");
 		String reContent = request.getParameter("reContent");
 		String reMem = request.getParameter("reMem");
