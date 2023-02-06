@@ -242,6 +242,24 @@ SELECT CL_NO,
 	  )
 </entry>
 
+<entry key="selectTutorQnaMain">
+SELECT *
+  FROM QNA
+ WHERE A_MEM_NO = ?
+   AND Q_STATUS = 'Y'
+ ORDER
+    BY Q_DATE DESC
+</entry>
+
+<entry key="updateAnswer">
+	UPDATE QNA
+	   SET A_TITLE = ?,
+	       A_CONTENT = ?,
+	       A_DATE = SYSDATE,
+	       A_STATUS = 'Y'
+	 WHERE Q_NO = ?
+</entry>
+
 
 
 

@@ -261,13 +261,14 @@
                           <td colspan="2" width="700" style="font-size: 14px;">
                             <div style="width: 600px;">
                            <%=r.getReviewContent() %>
+                          
                            </div>
                           </td>
                       </tr>
-                      <tr>
-                       
+                   
+                      <tr>      	
 			  				<td colspan="2" id="reContent-<%=r.getReviewNo()%>" class="rimg"> 
-			  				<br>	
+			  					<br>	
 			  				</td>
 			  		</tr>
                    </table>
