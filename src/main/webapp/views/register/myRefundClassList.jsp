@@ -106,6 +106,11 @@
 		font-size: small;
 	}
 </style>
+<script>
+$(function(){
+	console.log(refList)
+})
+</script>
 </head>
 <body>
     <%@ include file = "../common/myClassMenubar.jsp" %>
