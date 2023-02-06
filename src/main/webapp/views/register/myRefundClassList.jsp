@@ -106,11 +106,6 @@
 		font-size: small;
 	}
 </style>
-<script>
-$(function(){
-	console.log(refList)
-})
-</script>
 </head>
 <body>
     <%@ include file = "../common/myClassMenubar.jsp" %>
@@ -120,29 +115,29 @@ $(function(){
 		<!-- 환불한 클래스가 없을때-->
 		<%if(loginUser != null && refList.isEmpty()) {%>	
 		
-		<div id="refundNull">
-			<img src="<%=contextPath%>/resources/images/refunPage_smile_icon.png">
-			<br>
-			<br>
-			<p>환불한 클래스가 없습니다.</p>
-		</div>
+			<div id="refundNull">
+				<img src="<%=contextPath%>/resources/images/refunPage_smile_icon.png">
+				<br>
+				<br>
+				<p>환불한 클래스가 없습니다.</p>
+			</div>
         
         <%} else{ %>
 		
 		<!--취소한 클래스가 있을 때-->
-		<%for(int i=0; i<refList.size();i++){ %>
+			<%for(int i=0; i<refList.size();i++){ %>
 		
 			<!--환불 접수 -->
 			
-			<div id="class-area">
-											
-				<div id="classContent">
-					<p style="text-align:left"><%=refList.get(i).getRegDate() %>취소</p>
-					<div id="classThumbnail">
-						<img src="<%=contextPath%>/<%=refList.get(i).getClThumb() %>"> <!--클래스썸네일대표사진-->
-						<br>
-						<p><%=refList.get(i).getTtName() %></p>
-					</div>
+				<div id="class-area">
+												
+					<div id="classContent">
+						<p style="text-align:left"><%=refList.get(i).getRegDate() %>취소</p>
+						<div id="classThumbnail">
+							<img src="<%=contextPath%>/<%=refList.get(i).getClThumb() %>"> <!--클래스썸네일대표사진-->
+							<br>
+							<p><%=refList.get(i).getTtName() %></p>
+						</div>
 					<div id="classDetail">
 						<table  border="0">
 							<thead>
@@ -175,73 +170,73 @@ $(function(){
 						</table>
 					</div>
 
-				</div>
+				 </div>
 			</div>
 			
 		
-		<!-- 결제상세내역 Modal -->
-		<div class="modal fade" id="myModal<%=i%>">
-			<div class="modal-dialog modal-dialog-centered">
-			  	<div class="modal-content">
-			  
-					<!-- Modal Header -->
-					<div class="modal-header">
-						<h5 class="modal-title" style="margin-left: 163px; font-weight: bold;">환불 상세 내역</h5>
-						
-					</div>
-				
-				<!-- Modal body -->
-				<div class="modal-body" style="margin:auto">
-					<div>
-						<table class="modalTB" >
-							<tr>
-								<td rowspan="2" >결제 금액</td>
-								<%if(refList.get(i).getRegPay().equals("0")){%>
-									<td colspan="2" id="payment1">신용카드</td>
-								<%} else {%>
-									<td colspan="2" id="payment1">무통장입금</td>
-								<%} %>
-							</tr>
-							<tr>
-								<td colspan="2" id="payment2"><%=refList.get(i).getRegPrice() %></td>
-							</tr>
-							<tr>
-								<td colspan="3" id="detailLine">세부내용</td>
-							</tr>
-							<tr >
-								<td colspan="2" style="font-size: 11px; color: gray;">주문번호 <%=refList.get(i).getRegNo() %></td>								
-								<td rowspan="4" style="text-align: right;" width="80px"><%=refList.get(i).getRegPrice() %></td>
-							</tr>
-							<tr>
-								<td colspan="2"><%=refList.get(i).getClName() %></td>
-							</tr>
-							<tr>
-								<td colspan="2"><%=refList.get(i).getTtName() %></td>
-							</tr>
-							<tr>
-								<td width="120px">클래스 수강권 x </td>
-								<td><%=refList.get(i).getRegCount() %></td>
-							</tr>
-                            <tr>
-                                <td colspan="3" height="1px" style="background: gray;"></td>
-                            </tr>
-                            <tr>
-                                <td height="45px">최종 환불 금액</td>
-                                <td colspan="3" style="text-align: right;"><%=refList.get(i).getRegPrice() %></td>
-                            </tr>
+			<!-- 결제상세내역 Modal -->
+			<div class="modal fade" id="myModal<%=i%>">
+				<div class="modal-dialog modal-dialog-centered">
+				  	<div class="modal-content">
+				  
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h5 class="modal-title" style="margin-left: 163px; font-weight: bold;">환불 상세 내역</h5>
 							
-						</table>
-                    </div>
+						</div>
+					
+					<!-- Modal body -->
+					<div class="modal-body" style="margin:auto">
+						<div>
+							<table class="modalTB" >
+								<tr>
+									<td rowspan="2" >결제 금액</td>
+									<%if(refList.get(i).getRegPay().equals("0")){%>
+										<td colspan="2" id="payment1">신용카드</td>
+									<%} else {%>
+										<td colspan="2" id="payment1">무통장입금</td>
+									<%} %>
+								</tr>
+								<tr>
+									<td colspan="2" id="payment2"><%=refList.get(i).getRegPrice() %></td>
+								</tr>
+								<tr>
+									<td colspan="3" id="detailLine">세부내용</td>
+								</tr>
+								<tr >
+									<td colspan="2" style="font-size: 11px; color: gray;">주문번호 <%=refList.get(i).getRegNo() %></td>								
+									<td rowspan="4" style="text-align: right;" width="80px"><%=refList.get(i).getRegPrice() %></td>
+								</tr>
+								<tr>
+									<td colspan="2"><%=refList.get(i).getClName() %></td>
+								</tr>
+								<tr>
+									<td colspan="2"><%=refList.get(i).getTtName() %></td>
+								</tr>
+								<tr>
+									<td width="120px">클래스 수강권 x </td>
+									<td><%=refList.get(i).getRegCount() %></td>
+								</tr>
+	                            <tr>
+	                                <td colspan="3" height="1px" style="background: gray;"></td>
+	                            </tr>
+	                            <tr>
+	                                <td height="45px">최종 환불 금액</td>
+	                                <td colspan="3" style="text-align: right;"><%=refList.get(i).getRegPrice() %></td>
+	                            </tr>
+								
+							</table>
+	                    </div>
+					  </div>
+				  	</div>
 				</div>
-				
-			  </div>
-			</div>
-		 </div>
+			 </div>
 		 
-		<%} %>
+	    <%} %>
 	
 	
 		 <div class="paging-area">
+
 		 <%if(refPi.getCurrentPage()!=1){ %>
 				<button onclick="location.href='<%=contextPath%>/refundList.reg?cpage=<%=refPi.getCurrentPage()-1%>'">&lt;</button>
 				<%} %>
@@ -253,10 +248,14 @@ $(function(){
 				<%if(refPi.getCurrentPage()!= refPi.getMaxPage()){ %>
 				<button onclick="location.href='<%=contextPath%>/refundList.reg?cpage=<%=refPi.getCurrentPage()+1%>'">&gt;</button>
 				<%} %>
-			</div>
-		<%} %> 	
-		
 		</div>
+	<%} %> 	
+		
+	<script>
+	$(function(){
+		console.log(<%=refList%>)
+	})
+	</script>
 	
 	</div>  
       
