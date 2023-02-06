@@ -242,6 +242,15 @@ SELECT CL_NO,
 	  )
 </entry>
 
+<entry key="selectTutorQnaMain">
+SELECT *
+  FROM QNA
+ WHERE A_MEM_NO = ?
+   AND Q_STATUS = 'Y'
+ ORDER
+    BY Q_DATE DESC
+</entry>
+
 
 
 

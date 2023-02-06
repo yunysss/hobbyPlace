@@ -145,5 +145,16 @@ public class QnaService {
 		return result;
 		
 	}
+	
+	public ArrayList<Qna> selectTutorQnaMain(int MemNo){
+		Connection conn = getConnection();
+		
+		ArrayList<Qna> list = new QnaDao().selectTutorQnaMain(conn, MemNo);
+		
+		close(conn);
+		return list;
+	}
+	
+	
 
 }
