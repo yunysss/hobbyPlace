@@ -363,5 +363,27 @@ public class QnaDao {
 		}
 		return list;
 	}
+	
+	public int insertTuteeQna(Connection conn, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTuteeQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, q.getqTitle());
+			pstmt.setString(2, q.getqContent());
+			pstmt.setString(3, q.getqCategory());
+			pstmt.setInt(4, q.getqMemNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }

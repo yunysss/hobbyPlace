@@ -166,6 +166,44 @@ SELECT CL_NO,
  WHERE R.MEM_NO = ?
 </entry>
 
+<entry key="insertTuteeQna">
+	INSERT
+	  INTO QNA
+	  (
+	    Q_NO,
+	    Q_TITLE,
+	    Q_CONTENT,
+	    Q_DATE,
+	    Q_STATUS,
+	    Q_GRADE,
+	    Q_CATEGORY,
+	    CL_NO,
+	    Q_MEM_NO,
+	    A_TITLE,
+	    A_CONTENT,
+	    A_DATE,
+	    A_MEM_NO,
+	    A_STATUS
+	  )
+	  VALUES
+	  (
+	    SEQ_QANO.NEXTVAL,
+	    ?,
+	    ?,
+	    SYSDATE,
+	    'Y',
+	    ?,
+	    NULL,
+	    ?,
+	    ?,
+	    NULL,
+	    NULL,
+        NULL,
+	    0,
+	    'N'
+	  )
+</entry>
+
 
 
 

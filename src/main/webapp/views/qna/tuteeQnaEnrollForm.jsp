@@ -167,15 +167,15 @@
 
         <br>
 
-        <form action="" method="post">
-            
+        <form action="<%=contextPath %>/insertQna.tee" method="post">
+            <input type="hidden" name="no" value="<%=loginUser.getMemNo()%>">
             <table>
                 <tr>
                     <th style="background-color: lightgray; width: 100px; text-align: center;">
                         제목
                     </th>
                     <td >
-                        <input type="text" style="width: 600px; height: 50px;resize: none; border-color: lightgray;" required placeholder="제목을 입력하세요.">
+                        <input type="text" name="title" style="width: 600px; height: 50px;resize: none; border-color: lightgray;" required placeholder="제목을 입력하세요.">
                     </td>
                 </tr>
         
@@ -185,48 +185,53 @@
                 <tr>
                     <th style="background-color: lightgray; width: 100px; height: 50px; text-align: center;">분류</th>
                     <td>
-                        <select onchange="changeCt();" name="ct" id="ct" style="border-color: lightgray; width: 300px; height: 50px;">
-                           
-                            <option value="0">관리자</option>
-                            <option value="2">튜터</option>
-                        </select>
+                    <select name="questType" id="select1" onChange="chnQnaType(this.value)" style="border-color: lightgray; width: 300px; height: 50px;" >
+					    <option value="0">관리자</option>
+					    <option value="2">튜터</option>
+					    
+					</select>    
+					<select id="schQnaType" name="schQnaType"   style="border-color: lightgray; width: 300px; height: 50px; display:none;" >
+					</select>
+                     
                     </td>
-                    <td><select name="dct" id="dct" style="border-color: lightgray; width: 300px; height: 50px;">
-                        <option>선택하세요</option>
-                    </select></td>
+                    
                 </tr>
             </table>
 
             <script>
-	            function changeCt(){
-	            	
-	            	var admin = ["튜터", "결제/환불", "기타"];
-	            	var tutor = [<%for(Lesson l : list){%>
-	            					<%=l.getClName()%>
-	            				<%}%>	];
-	        
-	            	var changeDct;
-	            	
-	            	if( $("#ct").val() == "0"){
-	            		changeDct = admin;
-	            		
-	            	}else if( $("#ct").val() == "2"){
-	            		changeDct = tutor;
-	            	}
-	            	
-	            	$("#dct").empty();
-	            	for(var i=0; i<changeDct.length; i++){
-	            		var option = $("<option>"+changeDct[i]+"</option>");
-	            		$("#dct").append(option);
-	            	}
-	            	
+           
+	            $(function(){
+	                
+	                // 질문유형을 선택한다.
+	                chnQnaType('1' , '11');
+	            });
+	
+	            function chnQnaType(type , select) {
+	                
+	                $('#schQnaType').empty();
+	                
+	                if(type == '0') { // 관리자
+	                    $('#schQnaType').append("<option value='10' >튜터</option>'");
+	                    $('#schQnaType').append("<option value='20' >결제/환불</option>'");
+	                    $('#schQnaType').append("<option value='40' >기타</option>'");
+	                } else if (type == '2') {  // 튜터
+	                	<%for(Lesson l : list){%>
+	                    $('#schQnaType').append("<option value='<%=l.getClNo()%>' ><%=l.getClName()%></option>'");
+	                    <%}%>
+	                } 
+	                document.getElementById("schQnaType").style.display = "";
+	                
+	                if ($.trim(select) != "") {
+	                    $('#select1').val(type);
+	                    $('#schQnaType').val(select);
+	                }
 	            }
-                </script>
+            </script>
 
             <br>
             <table>
                 <tr>
-                    <td><textarea name="" rows="10" required style="resize:none; width:800px; height: 500px; border-color: lightgray;"  ></textarea></td>
+                    <td><textarea name="content" rows="10" required style="resize:none; width:800px; height: 500px; border-color: lightgray;"  ></textarea></td>
                 </tr>
 
             </table>
