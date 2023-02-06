@@ -114,7 +114,7 @@
                             <p class="clName"><%=list.get(i).getClName() %></p>
                         </div>
                         <div>
-                            ⭐⭐⭐⭐⭐
+                           
                         </div>
                     </div>
 

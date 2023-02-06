@@ -34,7 +34,7 @@ public class MyClassListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
@@ -43,7 +43,7 @@ public class MyClassListController extends HttpServlet {
 		//현재 결제클래수 총 개수
 		int listCount = new RegisterService().selectListCount(memNo); 
 		
-		// 사용자가 요청한 페이지 == 현재페이지 (cpage)
+		// 사용자가 요청한 페이지 == 현재페이지
 		int currentPage = Integer.parseInt(request.getParameter("cpage")); 
 		
 		// 페이지 하단에 보여질 페이징바의 페이지 최대(단위)개수
