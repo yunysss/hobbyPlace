@@ -127,6 +127,7 @@
           LEFT OUTER JOIN SCHEDULE S
           ON S.SCH_NO = R.SCH_NO
           WHERE REG_NO = ?
+	
 	<entry key="selectTutorReview">
 		SELECT *
 		  FROM (
