@@ -77,13 +77,8 @@ public class ReviewService {
 
 		}
 
-	public ArrayList<Review> selectAdminSearchReview(Review r) {
-		Connection conn = getConnection();
-		ArrayList<Review> revList = new ReviewDao().selectAdminSearchReview(conn, r);
-		close(conn);
-		return revList;
-
-	}
+	
+	
 	
 	public Register selectEnrollFormClass(int regNo) {
 		Connection conn = getConnection();
