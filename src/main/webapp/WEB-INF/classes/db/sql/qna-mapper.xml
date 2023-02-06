@@ -192,14 +192,52 @@ SELECT CL_NO,
 	    ?,
 	    SYSDATE,
 	    'Y',
+	    '0',
+	    NULL,
+	    NULL,
 	    ?,
+	    NULL,
+	    NULL,
+        NULL,
+	    0,
+	    'N'
+	  )
+</entry>
+
+<entry key="insertTuteeQnaTutor">
+	INSERT
+	  INTO QNA
+	  (
+	    Q_NO,
+	    Q_TITLE,
+	    Q_CONTENT,
+	    Q_DATE,
+	    Q_STATUS,
+	    Q_GRADE,
+	    Q_CATEGORY,
+	    CL_NO,
+	    Q_MEM_NO,
+	    A_TITLE,
+	    A_CONTENT,
+	    A_DATE,
+	    A_MEM_NO,
+	    A_STATUS
+	  )
+	  VALUES
+	  (
+	    SEQ_QANO.NEXTVAL,
+	    ?,
+	    ?,
+	    SYSDATE,
+	    'Y',
+	    '2',
 	    NULL,
 	    ?,
 	    ?,
 	    NULL,
 	    NULL,
         NULL,
-	    0,
+	    ?,
 	    'N'
 	  )
 </entry>
