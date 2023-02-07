@@ -144,10 +144,11 @@
         <div id="header">
                     <div id="log_box">
                             <p style="width: 430px;" align="right"> <img src="<%=request.getContextPath()%>/resources/images/admin_icon.png" height="23px">
-                            관리자<%=loginAdmin.getMemName() %>님 반갑습니다!</p>
+                            <%=loginAdmin.getMemName() %>님 반갑습니다!</p>
                             <p><a href="<%=contextPath%>/logout.ad">로그아웃</a></p>
                             <p><a href="<%=contextPath%>/main.tee">합플 홈</a></p>
                     </div>
+                    
                 
             
         </div>
@@ -161,7 +162,7 @@
                 <!--메뉴창-->
                 <div id="navi_box">
                     <ul id="navi">
-                        <li><a href="">회원 관리</a>
+                        <li><a >회원 관리</a>
                             <ul>
                                 <li><a href="<%=contextPath%>/viewMember.ad">전체 회원 조회</a></li>
                                 <li><a href="<%=contextPath%>/viewTutor.ad">튜터 관리</a></li>

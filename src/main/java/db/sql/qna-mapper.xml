@@ -8,6 +8,19 @@ SELECT *
   JOIN MEMBER M ON (M.MEM_NO = Q.Q_MEM_NO)
  WHERE MEM_NO = ?
    AND Q_STATUS = 'Y'
+   AND Q_GRADE = '2'
+ ORDER
+    BY Q_DATE DESC
+	
+</entry>
+
+<entry key="selectTuteeQnaList">
+SELECT *
+  FROM QNA Q
+  JOIN MEMBER M ON (M.MEM_NO = Q.Q_MEM_NO)
+ WHERE MEM_NO = ?
+   AND Q_STATUS = 'Y'
+   
  ORDER
     BY Q_DATE DESC
 	
@@ -64,6 +77,7 @@ SELECT *
 	  JOIN MEMBER ON Q_MEM_NO = MEM_NO
 	 WHERE Q_STATUS = 'Y'
 	   AND GRADE = 2
+	   AND Q_GRADE = 0
 	 ORDER 
 		BY Q_DATE DESC
 	   
@@ -192,7 +206,7 @@ SELECT CL_NO,
 	    ?,
 	    SYSDATE,
 	    'Y',
-	    0,
+	    '0',
 	    ?,
 	    NULL,
 	    ?,

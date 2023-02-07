@@ -78,6 +78,45 @@ public class QnaDao {
 		
 	}
 	
+	public ArrayList<Qna> selectTuteeQnaList(Connection conn, int MemNo){
+		ArrayList<Qna> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTuteeQnaList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, MemNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Qna(rset.getInt("q_no"),
+								rset.getString("q_title"),
+								rset.getString("q_content"),
+								rset.getDate("q_date"),
+								rset.getString("q_status"),
+								rset.getString("q_grade"),
+								rset.getString("q_category"),
+								rset.getInt("cl_no"),
+								rset.getInt("q_mem_no"),
+								rset.getString("a_title"),
+								rset.getString("a_content"),
+								rset.getDate("a_date"),
+								rset.getInt("a_mem_no"),
+								rset.getString("a_status")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
 	public int insertTutorQna(Connection conn, Qna q) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -360,6 +399,7 @@ public class QnaDao {
 		}finally {
 			close(rset);
 			close(pstmt);
+			
 		}
 		return list;
 	}

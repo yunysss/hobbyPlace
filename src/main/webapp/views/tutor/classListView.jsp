@@ -432,8 +432,9 @@
   			    	 $("#clTable tbody").html("");
       				 $(".paging-area").html("");
       				 $("#clTable tbody").html(value);
-  				 $(function(){
-	        		$("#classList>tbody>tr").click(function(){
+  				
+      				 $(function(){
+	        		$("#clTable>tbody>tr").click(function(){
 	        			location.href="<%=contextPath%>/cldetail.ad?no="+$(this).children().eq(0).text();
 	        		})
   				})  	
