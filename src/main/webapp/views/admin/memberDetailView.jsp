@@ -300,9 +300,11 @@
 				                <script>
 									$(function(){
 										let clName = <%= ((Register)regList.get(i)).getClName() %>;
+										console.log(clName);
 										if(clName.length > 25){
 											clName = clName.substring(1, 25);
 										}
+										console.log(clName);
 										$(".regClName").html(clName);
 									})
 								</script>
