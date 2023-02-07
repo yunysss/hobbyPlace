@@ -246,7 +246,7 @@
 	
 				/* 1:1문의로 가는 버튼*/
 				$(".csBtn").click(function(){
-					location.href="<%=contextPath%>/..";
+					location.href="<%=contextPath%>/qnaEnroll.tee";
 				})
 				
 				})

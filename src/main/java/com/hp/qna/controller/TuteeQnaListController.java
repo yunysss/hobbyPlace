@@ -43,7 +43,7 @@ public class TuteeQnaListController extends HttpServlet {
 			
 			Member loginUser = (Member) session.getAttribute("loginUser");
 			int MemNo = loginUser.getMemNo();
-			ArrayList<Qna> list = new QnaService().selectTutorQnaList(MemNo);
+			ArrayList<Qna> list = new QnaService().selectTuteeQnaList(MemNo);
 			request.setAttribute("list", list);
 			
 			request.getRequestDispatcher("views/qna/tuteeMyQnaListView.jsp").forward(request, response);

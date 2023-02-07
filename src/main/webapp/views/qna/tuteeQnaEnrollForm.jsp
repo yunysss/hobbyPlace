@@ -64,6 +64,7 @@
             margin: auto;
            
         }
+        .contentA{text-decoration: none; color:black;}
 </style>
 </head>
 <body>
@@ -110,7 +111,7 @@
                 })
                 $("#viewMyClass").click(function(){
                     //마이클래스 클릭시 이동할 페이지링크
-                    location.href = "<%=contextPath%>/myClass.tt";
+                    location.href = "<%=contextPath%>/myClassList.reg?cpage=1";
                 })
                 $("#withdrawal").click(function(){
                     // 회원탈퇴 클릭시 이동할 페이지링크

@@ -244,8 +244,9 @@
 	      		if(type == 'schedule'){
 	      			if(id != null){
 	      			param.append('day',id);
+	      			param.append('sido',"전체")
 	      			}else{
-	      				param.delete('day');
+	      			param.delete('day');
 	      			}
 	      		}
 	    		 param.delete('dct');
@@ -254,7 +255,7 @@
 	      		 param.append('dcategory',dct);
 	      		 param.append('sigungu','전체');
 	      		 param.append('price','');
-	      		
+	      		 
 	      		
 	      		location.href = "<%=contextPath%>/detail.sc?" +  param.toString();
 	      	}

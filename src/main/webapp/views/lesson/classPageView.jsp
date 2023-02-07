@@ -438,7 +438,11 @@
 				  							<% for(int j=1; j<= rList.get(i).getReviewStar(); j++) { %>
 				  								⭐
 				  							<% } %>
-				  							<%= rList.get(i).getReviewUpDate() %>
+				  							<% if(rList.get(i).getReviewUpDate() != null){ %>
+				  								<%= rList.get(i).getReviewUpDate() %>
+				  							<% }else{ %>
+				  								<%= rList.get(i).getReviewDate() %>
+				  							<% } %>
 				  							<input type="hidden" name="reNo" value="<%=rList.get(i).getReviewNo()%>">
 				  						</td>
 			  						</tr>
