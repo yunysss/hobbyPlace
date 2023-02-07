@@ -63,7 +63,7 @@
 
    
 
-    .button-area button{d
+    .button-area button{
         border: 0;
         margin: 10px;
     }
