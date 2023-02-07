@@ -217,7 +217,7 @@
 	                    $("#ttNo").html("<input type='hidden' value='0' name='aMemNo'>")
 	                } else if (type == '2') {  // 튜터
 	                	<%for(Lesson l : list){%>
-	                    $('#schQnaType').append("<option value='<%=l.getClNo()%>' ><%=l.getMemNo()%></option> ");
+	                    $('#schQnaType').append("<option value='<%=l.getClNo()%>'><%=l.getMemNo()%></option> ");
 	                    if($("#schQnaType option:selected").val() == <%=l.getClNo()%>){
 	                    	$("#ttNo").html("<input type='hidden' value='<%=l.getClName()%>' name='aMemNo'>")
 	                    }
