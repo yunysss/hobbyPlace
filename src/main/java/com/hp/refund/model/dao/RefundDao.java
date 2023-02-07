@@ -204,12 +204,13 @@ private Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				r = new Register (								  
+				r = new Register (
+						          rset.getString("cl_no"),
 								  rset.getInt("reg_no"),
-								  rset.getString("cl_no"),
 								  rset.getString("teach_date"),
 								  rset.getString("reg_pay"),
 								  rset.getString("reg_price"),
+								  rset.getString("deposit_sta"),
 								  rset.getString("cl_thumb"),
 								  rset.getString("cl_name"),
 								  rset.getString("start_time"),

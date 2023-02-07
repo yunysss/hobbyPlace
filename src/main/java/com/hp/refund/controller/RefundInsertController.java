@@ -46,6 +46,7 @@ public class RefundInsertController extends HttpServlet {
 		String refName = request.getParameter("refName"); 
 		String refRea = request.getParameter("refRea");
 		String regSta = request.getParameter("regSta");
+		String deposit = request.getParameter("deposit");
 		
 		// refRea변수에 담긴값이 "기타"일 경우
 		// => etc라는 키값으로 넘어오는 value값 뽑아서 refRea에 덮어씌우기
@@ -64,6 +65,7 @@ public class RefundInsertController extends HttpServlet {
 		ref.setRefAcc(refAcc);
 		ref.setRefName(refName);
 		ref.setRefRea(refRea);
+		
 		
 		
 		

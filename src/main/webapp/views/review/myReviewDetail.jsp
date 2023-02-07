@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    div{box-sizing:border-box;  }
+    div{box-sizing:border-box; }
     .cwrap{width:1000px; height:1300px; margin:auto; padding:2px;}
     
     .menubar{width:200px; height:1299px; float:left; padding-top:30px; background: white; }
@@ -19,7 +19,7 @@
     .review-area{
         margin: auto;
         width: 80%;
-        height: 800px;
+       
         border: 1px solid gray;
         border-radius: 5px;
 
@@ -62,6 +62,16 @@
 
     .reviewTable {
         border: 1px solid gray;
+    }
+
+    .button-area button{
+        border: 0;
+        margin: 10px;
+    }
+
+    .reviewPart div{
+        width:600px;
+        word-break:break-all;
     }
 
     
@@ -108,16 +118,31 @@
                             <td colspan="2" style="height: 1px; background: gray;"></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><%=dr.getReviewContent() %></td>
+                            <td colspan="2" class="reviewPart"> 
+                                <div><%=dr.getReviewContent() %></div>
+                            </td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="reviewPhoto">
+                            <td colspan="2" class="reviewPhoto1">
                                 <img src="" width="400px" height="200px" >
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                <button>수정하기</button>
+                            <td colspan="2" class="reviewPhoto2">
+                                <img src="" width="400px" height="200px" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="reviewPhoto3">
+                                <img src="" width="400px" height="200px" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="button-area">
+                                <button onclick="location.href='<%=contextPath%>/update.rev?no=<%=dr.getReviewNo() %>'">수정하기</button>
                                 <button> 삭제하기</button>
                             </td>
                             

@@ -141,7 +141,7 @@
     </div>
 
         <!--무통장 결제 일때-->
-    <%if(r.getRegPay().equals("1")){ %>
+    <%if(r.getDepositSta().equals('Y') &&r.getRegPay().equals("1")){ %>
     <div id="refundBank">
         <table width="690px" >
             <tr>

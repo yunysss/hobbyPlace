@@ -136,6 +136,7 @@
 	<form action="<%=contextPath %>/insert.ref?no=<%=r.getRegNo() %>" id="reasonForm" method="post">
     <input type="hidden" name="regPrice" value="<%=r.getRegPrice()%>">
     <input type="hidden" name = "regSta" value="<%=r.getRegSta() %>">
+    <input type="hidden" name = "deposit" value="<%=r.getDepositSta() %>">
         <div id="refundReasonForm">
             <p style="font-size: small; color: gray;">- 환불 신청을 클릭하시면 환불이 진행됩니다. 이후 '취소 수강 목록'에서 해당 클래스를 확인하실 수 있습니다.</p>
             <h6><b>환불 사유</b></h6>
@@ -202,7 +203,7 @@
 
         <!--무통장 결제 일때-->
 
-        <%if(r.getRegPay().equals("1")){ %>
+        <%if(r.getDepositSta().equals('Y') && r.getRegPay().equals("1")){ %>
          <br>
     
          <div id="bankForm">

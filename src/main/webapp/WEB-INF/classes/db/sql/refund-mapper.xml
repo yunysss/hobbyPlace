@@ -62,11 +62,12 @@
 		     , TEACH_DATE
 		     , REG_PAY
 		     , TO_CHAR(REG_PRICE, '999,999,999') || '원' "REG_PRICE"
+		     , DEPOSIT_STA
 		     , CL_THUMB
 		     , CL_NAME
 		     , START_TIME
 		     , DISTR_NAME
-		     		    
+		   
 		  FROM REGISTER R
 		  LEFT OUTER JOIN CLASS C
 		    ON C.CL_NO = R.CL_NO
