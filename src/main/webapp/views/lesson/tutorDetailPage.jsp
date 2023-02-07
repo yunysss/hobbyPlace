@@ -230,7 +230,7 @@
 	                			} %>
 	                			<%= value %> 
 	                			<span id="review-date" style="font-size:12px;">
-	                			<% if(r.getReviewDate() == null){ %>
+	                			<% if(r.getReviewUpDate() == null){ %>
 	                                    	<%= r.getReviewDate() %>
 	                                    <% } else{%>
 	                                    	<%= r.getReviewUpDate() %>
