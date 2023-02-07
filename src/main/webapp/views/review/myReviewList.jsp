@@ -71,7 +71,7 @@
         cursor: pointer;
     }
     .review-content{
-        height: 140px;
+        height: 80px; margin:auto; width:270px; box-sizing:border-box; border-radius:5px; margin-top:5px; margin-bottom:5px;
     }
 
     .review-content p {
@@ -91,6 +91,12 @@
     .reviewThumb:hover{
         opacity: 0.7;
         cursor: pointer;
+    }
+    .review-area {
+    	width:300px;
+    	height:350px;
+    	margin-right:30px;
+    	margin-left:30px;
     }
 
 
@@ -154,15 +160,9 @@
                 </div>
 
                 <div class="reviewThumb" align="center">
-                    <img src="<%=list.get(i).getTitleImg()%>" width="220px" height="150px" style="border-radius:5px">
+                    <img class="thumbImg" src="<%=list.get(i).getTitleImg()%>" width="220px" height="150px" style="border-radius:5px" onclick="location.href='<%=contextPath%>/detail.rev?no=<%=list.get(i).getReviewNo()%>'">
                 </div>
-                <script>
-                    $(function(){
-                    	$(".reviewThumb").click(function(){
-                    		location.href="<%=contextPath%>/detail.rev?no=<%=list.get(i).getReviewNo()%>"
-                    	})
-                    })
-               </script>
+               
                 
                
             </div> <!-- 리뷰div끝-->

@@ -12,11 +12,12 @@ public class Refund {
 	private String refName;
 	private String refSta;
 	private String refRea;
+	private String depositSta;
 	
 	public Refund() {}
 
 	public Refund(int orderNo, String memNo, String refRqDt, String refFinDt, String refPrice, String refBank,
-			String refAcc, String refName, String refSta, String refRea) {
+			String refAcc, String refName, String refSta, String refRea, String depositSta) {
 		super();
 		this.orderNo = orderNo;
 		this.memNo = memNo;
@@ -28,6 +29,7 @@ public class Refund {
 		this.refName = refName;
 		this.refSta = refSta;
 		this.refRea = refRea;
+		this.depositSta = depositSta;
 	}
 
 	public Refund(int orderNo, String refRqDt, String refPrice, String refBank, String refAcc, String refName, String refSta, String refRea) {
@@ -132,6 +134,14 @@ public class Refund {
 
 	public void setRefRea(String refRea) {
 		this.refRea = refRea;
+	}
+
+	public String getDepositSta() {
+		return depositSta;
+	}
+
+	public void setDepositSta(String depositSta) {
+		this.depositSta = depositSta;
 	}
 
 	@Override

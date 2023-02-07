@@ -11,10 +11,12 @@
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_AVG"
 		     , (SELECT COUNT(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_COUNT"
 		  FROM CLASS C
 		  JOIN LOCATION USING(LOCAL_CODE)
 		  JOIN DISTRICT USING(DISTR_CODE)
@@ -36,10 +38,12 @@
 		                     , CL_THUMB
 		                     , (SELECT AVG(RE_STAR) 
 		                          FROM REVIEW R
-		                         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		                         WHERE R.CL_NO = C.CL_NO
+		                           AND RE_STA = 'Y') "STAR_AVG"
 		                     , (SELECT COUNT(RE_STAR) 
 		                          FROM REVIEW R
-		                         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		                         WHERE R.CL_NO = C.CL_NO
+		                           AND RE_STA = 'Y') "STAR_COUNT"
 		                     , (SELECT COUNT(*)
 		                          FROM "LIKE" L
 		                         WHERE L.CL_NO = C.CL_NO
@@ -65,10 +69,12 @@
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_AVG"
 		     , (SELECT COUNT(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_COUNT"
 		     , (SELECT COUNT(*)
 		          FROM "LIKE" L
 		         WHERE L.CL_NO = C.CL_NO
@@ -206,10 +212,12 @@
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_AVG"
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_COUNT"
 				  FROM CLASS C
 				  JOIN LOCATION USING(LOCAL_CODE)
 				  JOIN DISTRICT USING(DISTR_CODE)
@@ -251,10 +259,12 @@
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_AVG"
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_COUNT"
 				  FROM CLASS C
 				  JOIN LOCATION USING(LOCAL_CODE)
 				  JOIN DISTRICT USING(DISTR_CODE)
@@ -315,10 +325,12 @@
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_AVG"
 		     , (SELECT COUNT(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_COUNT"
 		  FROM CLASS C
 		  JOIN LOCATION USING(LOCAL_CODE)
 		  JOIN DISTRICT USING(DISTR_CODE)
@@ -348,10 +360,12 @@
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_AVG"
 		     , (SELECT COUNT(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_COUNT"
 		  FROM CLASS C
 		  JOIN LOCATION USING(LOCAL_CODE)
 		  JOIN DISTRICT USING(DISTR_CODE)
@@ -387,10 +401,12 @@
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_AVG"
 		     , (SELECT COUNT(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_COUNT"
 		  FROM CLASS C
 		  JOIN LOCATION USING(LOCAL_CODE)
 		  JOIN DISTRICT USING(DISTR_CODE)
@@ -446,10 +462,12 @@
 			     , CL_THUMB
 			     , (SELECT AVG(RE_STAR) 
 			          FROM REVIEW R
-			         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+			         WHERE R.CL_NO = C.CL_NO
+			           AND RE_STA = 'Y') "STAR_AVG"
 			     , (SELECT COUNT(RE_STAR) 
 			          FROM REVIEW R
-			         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+			         WHERE R.CL_NO = C.CL_NO
+			           AND RE_STA = 'Y') "STAR_COUNT"
 			  FROM CLASS C
 			  JOIN LOCATION USING(LOCAL_CODE)
 			  JOIN DISTRICT USING(DISTR_CODE)
@@ -512,10 +530,12 @@
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_AVG"
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_COUNT"
 				  FROM CLASS C
 				  JOIN LOCATION USING(LOCAL_CODE)
 				  JOIN DISTRICT USING(DISTR_CODE)
@@ -552,10 +572,12 @@
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_AVG"
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_COUNT"
 				  FROM CLASS C
 				  JOIN LOCATION USING(LOCAL_CODE)
 				  JOIN DISTRICT USING(DISTR_CODE)
@@ -584,10 +606,12 @@
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_AVG"
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_COUNT"
                         ,(SELECT COUNT(REG_NO)
                          FROM REGISTER E
                          WHERE C.CL_NO = E.CL_NO) "REG_COUNT"
@@ -638,10 +662,12 @@
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_AVG"
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_COUNT"
                         ,(SELECT COUNT(REG_NO)
                          FROM REGISTER E
                          WHERE C.CL_NO = E.CL_NO) "REG_COUNT"
@@ -690,10 +716,12 @@
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_AVG"
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_COUNT"
 				  FROM CLASS C
 				  JOIN LOCATION L ON(C.LOCAL_CODE= L.LOCAL_CODE)
 				  JOIN DISTRICT USING(DISTR_CODE)
@@ -732,10 +760,12 @@
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_AVG"
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_COUNT"
 				  FROM CLASS C
 				  JOIN LOCATION L ON(C.LOCAL_CODE= L.LOCAL_CODE)
 				  JOIN DISTRICT USING(DISTR_CODE)
@@ -767,10 +797,12 @@
 				     , CL_THUMB
 				     , (SELECT AVG(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_AVG"
 				     , (SELECT COUNT(RE_STAR) 
 				          FROM REVIEW R
-				         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+				         WHERE R.CL_NO = C.CL_NO
+				           AND RE_STA = 'Y') "STAR_COUNT"
 				     ,( select count(reg_no)
                         from register E
                         group by cl_no
@@ -820,10 +852,12 @@
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_AVG"
 		     , (SELECT COUNT(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_COUNT"
 		     , (SELECT COUNT(*)
 		          FROM "LIKE" L
 		         WHERE L.CL_NO = C.CL_NO
@@ -870,10 +904,12 @@
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_AVG"
 		     , (SELECT COUNT(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_COUNT"
 		     , (SELECT COUNT(*)
 		          FROM "LIKE" L
 		         WHERE L.CL_NO = C.CL_NO
@@ -920,10 +956,12 @@
 		     , CL_THUMB
 		     , (SELECT AVG(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_AVG"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_AVG"
 		     , (SELECT COUNT(RE_STAR) 
 		          FROM REVIEW R
-		         WHERE R.CL_NO = C.CL_NO) "STAR_COUNT"
+		         WHERE R.CL_NO = C.CL_NO
+		           AND RE_STA = 'Y') "STAR_COUNT"
 		     , (SELECT COUNT(*)
 		          FROM "LIKE" L
 		         WHERE L.CL_NO = C.CL_NO

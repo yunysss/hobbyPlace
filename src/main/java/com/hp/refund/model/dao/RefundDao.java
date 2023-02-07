@@ -66,7 +66,8 @@ private Properties prop = new Properties();
 								    rset.getString("reg_pay"),
 								    rset.getString("cl_no"),
 								    rset.getString("ref_sta"),
-								    rset.getString("ref_rea")
+								    rset.getString("ref_rea"),
+								    rset.getString("deposit_sta")
 								    ));
 			}
 		} catch (SQLException e) {

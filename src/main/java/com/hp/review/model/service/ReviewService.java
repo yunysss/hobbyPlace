@@ -76,7 +76,7 @@ public class ReviewService {
 		close(conn);
 		return result;
 
-		}
+	}
 
 	
 	
@@ -124,5 +124,13 @@ public class ReviewService {
 		}close(conn);
 		
 		return result1*result2*result3;
+	}
+
+	public Review myReviewDetailView(int reNo) {
+		Connection conn = getConnection();
+		Review dr = new ReviewDao().myReviewDetailView(conn, reNo);
+		close(conn);
+		return dr;
+		
 	}
 }
