@@ -435,7 +435,7 @@
   				
       				 $(function(){
 	        		$("#clTable>tbody>tr").click(function(){
-	        			location.href="<%=contextPath%>/cldetail.ad?no="+$(this).children().eq(0).text();
+	        			location.href="<%=contextPath%>/cldetail.tt?no="+$(this).children().eq(0).text();
 	        		})
   				})  	
   				  	

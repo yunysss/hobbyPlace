@@ -7,6 +7,7 @@
 	String dct = (String)request.getAttribute("dct");
 	int count = (int)request.getAttribute("count");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
 %>    
     
     
@@ -251,7 +252,7 @@
 	      		}
 	    		 param.delete('dct');
 	      		 param.append('keyword','');
-	      		 param.append('category','');
+	      		 param.append('category','<%=classList.get(0).getCtName() %>');
 	      		 param.append('dcategory',dct);
 	      		 param.append('sigungu','전체');
 	      		 param.append('price','');
