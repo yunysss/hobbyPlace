@@ -68,12 +68,23 @@ div{box-sizing:border-box;}
 					<tr>
 						<td>
 						💰<%=((Lesson)c.get(i)).getClPrice() %>&nbsp;&nbsp;
-						⭐<%=c.get(i).getClStarAvg()%>&nbsp;(<%=c.get(i).getReviewCount() %>)&nbsp;&nbsp;
+						⭐
+						<%if(c.get(i).getClStarAvg()==0){%>
+								-
+							<%} else{%>
+								<%=c.get(i).getClStarAvg()%>
+						<%} %>
+						
+						&nbsp;(<%=c.get(i).getReviewCount() %>)&nbsp;&nbsp;
 						❤️
 						<%if(cl.isEmpty()){%>
 						0
 						<%}else{ %>
-						<%=((Like)cl.get(i)).getLikeCount() %>
+							<%if(((Like)cl.get(i)).getLikeCount()==0){%>
+								0
+							<%} else{%>
+								<%=((Like)cl.get(i)).getLikeCount() %>
+							<%} %>
 						<%} %>
 						</td>
 					</tr>
