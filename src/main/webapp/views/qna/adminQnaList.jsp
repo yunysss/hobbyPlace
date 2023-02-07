@@ -98,19 +98,36 @@
                 <td colspan="4">등록된 문의가 없습니다.</td>
             </tr>
 		<%}else{ %>
-		<%for(int i=0; i<5; i++){%>
-            <tr>
-            
-                <td><%=i+1 %></td>
-                <td><%=list1.get(i).getqTitle() %></td>
-                <td><%=list1.get(i).getqDate() %></td>
-                <td><%if(list1.get(i).getaMemNick().equals("N")){ %>
-		                		대기
-		                <%}else{ %>
-		                		완료
-		                <%} %></td>
-            
-            </tr>
+		<%if(list1.size()>5){ %>
+			<%for(int i=0; i<5; i++){%>
+	            <tr>
+	            
+	                <td><%=i+1 %></td>
+	                <td><%=list1.get(i).getqTitle() %></td>
+	                <td><%=list1.get(i).getqDate() %></td>
+	                <td><%if(list1.get(i).getaMemNick().equals("N")){ %>
+			                		대기
+			                <%}else{ %>
+			                		완료
+			                <%} %></td>
+	            
+	            </tr>
+	            <%} %>
+            <%}else{ %>
+            	<%for(int i=0; i<list1.size(); i++){%>
+	            <tr>
+	            
+	                <td><%=i+1 %></td>
+	                <td><%=list1.get(i).getqTitle() %></td>
+	                <td><%=list1.get(i).getqDate() %></td>
+	                <td><%if(list1.get(i).getaMemNick().equals("N")){ %>
+			                		대기
+			                <%}else{ %>
+			                		완료
+			                <%} %></td>
+	            
+	            </tr>
+	            <%} %>
             <%} %>
          <%} %>
 		</tbody>
@@ -143,20 +160,37 @@
                 <td colspan="4">등록된 문의가 없습니다.</td>
             </tr>
 		<%}else{ %>
-		<%for(int i=0; i<5; i++){%>
-            <tr>
-            
-                <td><%=i+1 %></td>
-                <td><%=list2.get(i).getqTitle() %></td>
-                <td><%=list2.get(i).getqDate() %></td>
-                <td><%if(list2.get(i).getaMemNick().equals("N")){ %>
-		                		대기
-		                <%}else{ %>
-		                		완료
-		                <%} %></td>
-            
-            </tr>
-            <%} %>
+		<%if(list2.size()>5){ %>
+			<%for(int i=0; i<5; i++){%>
+	            <tr>
+	            
+	                <td><%=i+1 %></td>
+	                <td><%=list2.get(i).getqTitle() %></td>
+	                <td><%=list2.get(i).getqDate() %></td>
+	                <td><%if(list2.get(i).getaMemNick().equals("N")){ %>
+			                		대기
+			                <%}else{ %>
+			                		완료
+			                <%} %></td>
+	            
+	            </tr>
+	            <%} %>
+            <%}else{ %>
+            	<%for(int i=0; i<list2.size(); i++){%>
+	            <tr>
+	            
+	                <td><%=i+1 %></td>
+	                <td><%=list2.get(i).getqTitle() %></td>
+	                <td><%=list2.get(i).getqDate() %></td>
+	                <td><%if(list2.get(i).getaMemNick().equals("N")){ %>
+			                		대기
+			                <%}else{ %>
+			                		완료
+			                <%} %></td>
+	            
+	            </tr>
+	            <%} %>
+	            <%} %>
          <%} %>
 		</tbody>
            
