@@ -229,7 +229,8 @@
 		
 						<!-- Modal footer -->
 						<div class="modal-footer">
-						  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="refundBtn<%=i%>" onclick="location.href='<%=contextPath%>/refundReqForm.ref?no=<%=list.get(i).getRegNo() %>'">환불신청</button>
+						  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="refundBtn<%=i%>" 
+							onclick="location.href='<%=contextPath%>/refundReqForm.ref?no=<%=list.get(i).getRegNo() %>'">환불신청</button>
 						</div>
 						
 					  </div>

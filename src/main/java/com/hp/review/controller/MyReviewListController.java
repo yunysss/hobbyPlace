@@ -56,6 +56,7 @@ public class MyReviewListController extends HttpServlet {
 		
 		request.setAttribute("rePi",rePi);
 		request.setAttribute("list", list);
+		//System.out.println(list);
 		
 		request.getRequestDispatcher("views/review/myReviewList.jsp").forward(request, response);
 	}

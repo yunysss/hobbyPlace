@@ -256,12 +256,10 @@
 			 RE_NO
 			,CONTENT
 			,RE_STAR
-			,RE_DATE
+			,TO_CHAR(RE_DATE, 'YYYY/MM/DD') "RE_DATE"
 			,RE_UPDATE
 			,REG_NO
-			,CL_NO
 			,MEM_NAME
-			,R.MEM_NO
 			,CL_NAME
 			,CL_THUMB
 		FROM REVIEW R
