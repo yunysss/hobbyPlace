@@ -27,7 +27,6 @@
     .outer{
         width: 1000px;
         margin: auto;
-        margin-top: 100px;
     }
     .title{
         font-size: 20px;
@@ -95,7 +94,6 @@
 <body>
 <%@ include file="../common/adminMenubar.jsp"%>
     <div class="outer">
-        <br>
         <h1><b>고객센터</b></h1> 
         <br><hr>
 
