@@ -8,7 +8,7 @@ SELECT *
   JOIN MEMBER M ON (M.MEM_NO = Q.Q_MEM_NO)
  WHERE MEM_NO = ?
    AND Q_STATUS = 'Y'
-   AND Q_GRADE = '2'
+   AND Q_GRADE = '0'
  ORDER
     BY Q_DATE DESC
 	
@@ -147,6 +147,7 @@ SELECT
   FROM QNA Q
   JOIN MEMBER M ON(Q.Q_MEM_NO = M.MEM_NO)
   WHERE M.MEM_NO = ?
+    AND Q_GRADE = '0'
 </entry>
 
 <entry key="ttSelectAllQna2">
