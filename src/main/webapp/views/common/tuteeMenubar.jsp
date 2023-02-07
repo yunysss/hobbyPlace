@@ -682,7 +682,7 @@ select {
 				<tr>
 					<th>지역</th>
 					<td><select name="sido" id="region" onchange="sidoChange();">
-							<option value="00">전체</option>
+							<option value="전체">전체</option>
 							<option value="10">서울</option>
 							<option value="20">인천</option>
 							<option value="30">경기</option>

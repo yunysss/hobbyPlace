@@ -206,7 +206,7 @@ a {
               <div class="dropdown-menu filter" id="schedule">
                 <a class="dropdown-item" id="weekday" href="#">평일</a>
                 <a class="dropdown-item" id="sat" href="#">토요일</a>
-                <a class="dropdown-item" id="sun" href="#">주말</a>
+                <a class="dropdown-item" id="sun" href="#">일요일</a>
               </div>
     
         </div>

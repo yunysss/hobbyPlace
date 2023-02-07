@@ -212,8 +212,13 @@
 			               		</tr>
 		                	<% } %>
 		                	
-						<%} else if(qnaList.size() > 3) {%>
+						<%} else if(qnaList.size() >= 3) {%>
 							<% for(int i=0; i<3; i++) { %>
+							<script>
+							$(function(){
+								console.log(<%=qnaList%>);
+							})
+							</script>
 				                <tr>
 				                    <td>
 				                    <% if((((Qna)qnaList.get(i)).getqGrade()).equals("0")) {%>
@@ -280,13 +285,19 @@
 				                    <%=((Register)regList.get(i)).getCtDname() %>
 				                    </td>
 				                    <td class="regClName">
-				                    <%if(((Register)regList.get(i)).getClName().length()>18) {%>
-				                    		<%=((Register)regList.get(i)).getClName().substring(0, 16) %>...
+				                    <%if(((Register)regList.get(i)).getClName().length()>20) {%>
+				                    		<%=((Register)regList.get(i)).getClName().substring(0, 18) %>...
 				                    <%}else {%>
 				                    	<%= ((Register)regList.get(i)).getClName() %>
 				                    <%} %>
 				                    </td>
-				                    <td><%= ((Register)regList.get(i)).getTtName() %></td>
+				                    <td>
+				                    <%if(((Register)regList.get(i)).getTtName().length() >6) {%>
+				                    		<%=((Register)regList.get(i)).getTtName() .substring(0, 5) %>...
+				                    <%}else {%>
+				                    	<%= ((Register)regList.get(i)).getTtName()  %>
+				                    <%} %>
+				                    </td>
 				                    <td><%= ((Register)regList.get(i)).getTeachDate() %></td>
 				                    <td>
 				                     <%if(((Register)regList.get(i)).getRegSta().equals("0")) {%>
@@ -303,13 +314,9 @@
 				                    </td>
 				                    <td><%= ((Register)regList.get(i)).getReEnroll() %></td>
 				                </tr>
-				                <script>
-									$(function(){
-										
-									})
-								</script>
+				                
 							<%} %>
-						<%} else if(regList.size() > 3) {%>
+						<%} else if(regList.size() >= 3) {%>
 							<% for(int i=0; i<3; i++) {%>
 								<tr>
 				                    <td>
@@ -318,13 +325,19 @@
 				                    <%=((Register)regList.get(i)).getCtDname() %>
 				                    </td>
 				                    <td class="regClName">
-				                    <%if(((Register)regList.get(i)).getClName().length()>18) {%>
-				                    		<%=((Register)regList.get(i)).getClName().substring(0, 16) %>...
+				                    <%if(((Register)regList.get(i)).getClName().length()>20) {%>
+				                    		<%=((Register)regList.get(i)).getClName().substring(0, 18) %>...
 				                    <%}else {%>
 				                    	<%= ((Register)regList.get(i)).getClName() %>
 				                    <%} %>
 				                    </td>
-				                    <td><%= ((Register)regList.get(i)).getTtName() %></td>
+				                    <td>
+				                    <%if(((Register)regList.get(i)).getTtName().length() >6) {%>
+				                    		<%=((Register)regList.get(i)).getTtName() .substring(0, 5) %>...
+				                    <%}else {%>
+				                    	<%= ((Register)regList.get(i)).getTtName()  %>
+				                    <%} %>
+				                    </td>
 				                    <td><%= ((Register)regList.get(i)).getTeachDate() %></td>
 				                    <td>
 				                     <%if(((Register)regList.get(i)).getRegSta().equals("0")) {%>
@@ -341,11 +354,7 @@
 				                    </td>
 				                    <td><%= ((Register)regList.get(i)).getReEnroll() %></td>
 				                </tr>
-				                <script>
-									$(function(){
-										
-									})
-								</script>
+				                
 							<%} %>							
 						<%} %>
 	                
@@ -368,7 +377,7 @@
                         <col style="width:250px;">
                         <col style="width:400px;">
                         <col style="width:125px;">
-                        <col style="width:125px;">
+                        <col style="width:250px;">
                     </colgroup>
                     <tr class="thd">
                         <th>클래스</th>
@@ -385,17 +394,41 @@
 			                <%if(revList.size() <= 2) {%>
 			                	<% for(int i=0; i<revList.size(); i++) { %>
 					                <tr>
-					                    <td><%= ((Review)revList.get(i)).getClName() %></td>
-					                    <td><%= ((Review)revList.get(i)).getReviewContent() %></td>
+					                    <td>
+					                    <%if(((Review)revList.get(i)).getClName().length() >17) {%>
+				                    		<%=((Review)revList.get(i)).getClName().substring(0, 16) %>...
+					                    <%}else {%>
+					                    	<%= ((Review)revList.get(i)).getClName()  %>
+					                    <%} %>
+					                    </td>
+					                    <td>
+					                    <%if(((Review)revList.get(i)).getReviewContent().length() >26) {%>
+				                    		<%=((Review)revList.get(i)).getReviewContent().substring(0, 25) %>...
+					                    <%}else {%>
+					                    	<%= ((Review)revList.get(i)).getReviewContent()  %>
+					                    <%} %>
+					                    </td>
 					                    <td><%= ((Review)revList.get(i)).getReviewStar() %></td>
 					                    <td><%= ((Review)revList.get(i)).getReviewDate() %></td>
 					                </tr>
 			                	<% } %>
-			                <%} else if(revList.size() > 3) {%>
+			                <%} else if(revList.size() >= 3) {%>
 				                <% for(int i=0; i<3; i++) { %>
 					                <tr>
-					                    <td><%= ((Review)revList.get(i)).getClName() %></td>
-					                    <td><%= ((Review)revList.get(i)).getReviewContent() %></td>
+					                    <td>
+					                    <%if(((Review)revList.get(i)).getClName().length() >17) {%>
+				                    		<%=((Review)revList.get(i)).getClName().substring(0, 16) %>...
+					                    <%}else {%>
+					                    	<%= ((Review)revList.get(i)).getClName()  %>
+					                    <%} %>
+					                    </td>
+					                    <td>
+					                    <%if(((Review)revList.get(i)).getReviewContent().length() >26) {%>
+				                    		<%=((Review)revList.get(i)).getReviewContent().substring(0, 25) %>...
+					                    <%}else {%>
+					                    	<%= ((Review)revList.get(i)).getReviewContent()  %>
+					                    <%} %>
+					                    </td>
 					                    <td><%= ((Review)revList.get(i)).getReviewStar() %></td>
 					                    <td><%= ((Review)revList.get(i)).getReviewDate() %></td>
 					                </tr>
@@ -448,7 +481,7 @@
 					                    <td><%= ((Like)likeList.get(i)).getLikeDate() %></td>
 					                </tr>
 				                <% } %>
-							<%} else if(likeList.size() > 3) {%>
+							<%} else if(likeList.size() >= 3) {%>
 								<% for(int i=0;i<3;i++) { %>
 					                <tr>
 					                    <td>
