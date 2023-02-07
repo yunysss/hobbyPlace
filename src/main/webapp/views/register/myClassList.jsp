@@ -170,7 +170,7 @@
 									</tbody>
 									<tfoot>
 										<tr>
-											<td colspan="2"><button class="csBtn" onclick="">1:1문의</button></td>
+											<td colspan="2"><button class="csBtn" onclick="<%=contextPath%>/qnaEnroll.tee">1:1문의</button></td>
 											<td colspan="2"><button id="btn2" onclick="" data-toggle="modal" data-target="#myModal<%=i%>">결제상세내역</button></td>
 										</tr>
 									</tfoot>	
