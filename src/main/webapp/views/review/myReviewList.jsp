@@ -142,7 +142,7 @@
                 <hr style="margin:0%">
                 <div class="review-content">
                     <p><%=list.get(i).getReviewDate() %></p>
-                    <p class="revContent"><%=list.get(i).getReviewContent() %></p>
+                    <p class="revContent"><%=list.get(i).getReviewContent()%></p>
 
                 </div>
 
