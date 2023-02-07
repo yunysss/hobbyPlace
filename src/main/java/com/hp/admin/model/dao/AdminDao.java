@@ -1661,7 +1661,28 @@ public class AdminDao {
 		return list;
 	}
 	
-
+	public ArrayList<Lesson> selectCatSales(Connection conn){
+		ArrayList<Lesson> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCatSales");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Lesson(rset.getString("ct_name"), 
+						              rset.getString("reg_price")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 
 
 

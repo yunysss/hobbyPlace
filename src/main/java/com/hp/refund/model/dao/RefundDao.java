@@ -262,6 +262,33 @@ private Properties prop = new Properties();
 		
 		return result;
 	}
+	
+	public int insertRefundN(Connection conn, Refund ref) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertRefundN");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, ref.getOrderNo());
+			pstmt.setString(2, ref.getMemNo());
+			pstmt.setString(3, ref.getRefPrice());
+			pstmt.setString(4, ref.getRefBank());
+			pstmt.setString(5, ref.getRefAcc());
+			pstmt.setString(6, ref.getRefName());
+			pstmt.setString(7, ref.getRefRea());
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace(); 
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 	/**
 	 * @author 수정
