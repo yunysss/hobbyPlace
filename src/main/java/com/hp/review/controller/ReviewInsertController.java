@@ -70,7 +70,7 @@ public class ReviewInsertController extends HttpServlet {
 			
 			ArrayList<Attachment> list = new ArrayList<>();
 			
-			for(int i=2; i<=3; i++) {
+			for(int i=1; i<=3; i++) {
 				String key = "file" + i;
 				if(multiRequest.getOriginalFileName(key)!=null) {
 					
