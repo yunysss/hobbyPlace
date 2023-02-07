@@ -42,14 +42,7 @@
 
     <div class="outer">
 
-         
-
-            <div align="right">
-                <input type="text">
-                <button><img src="resources/search.svg"></button>
-                
-            </div>
-
+        
             <div>
                 <a href="" style="color: black; font-size: large; font-weight: 800;" >
                     >>공지사항</a>
@@ -90,7 +83,7 @@
 
             <br>
 
-            <div style="border: 1px solid lightgray; padding: 10px; width: 1000px; margin-left:auto;margin-right:auto;">
+            <div style="border: 1px solid lightgray; padding: 10px; width: 800px; margin-left:auto;margin-right:auto;">
                 <p><%=n.getNtContent() %></p>
 
                 
