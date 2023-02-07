@@ -203,7 +203,7 @@
 
         <!--무통장 결제 일때-->
 
-        <%if(r.getDepositSta().equals('Y') && r.getRegPay().equals("1")){ %>
+        <%if(r.getDepositSta().equals("Y") && r.getRegPay().equals("1")){ %>
          <br>
     
          <div id="bankForm">

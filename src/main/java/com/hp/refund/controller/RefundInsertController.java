@@ -65,7 +65,7 @@ public class RefundInsertController extends HttpServlet {
 		ref.setRefAcc(refAcc);
 		ref.setRefName(refName);
 		ref.setRefRea(refRea);
-		
+		ref.setDepositSta(deposit);
 		
 		
 		

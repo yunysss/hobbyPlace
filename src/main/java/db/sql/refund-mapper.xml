@@ -106,6 +106,37 @@
 		
 	</entry>
 	
+	<entry key="insertRefundN">
+		INSERT
+	   	  INTO REFUND
+		     (
+		       ORDER_NO
+		     , MEM_NO
+		     , REF_RQ_DT
+		     , REF_PRICE
+		     , REF_BANK
+		     , REF_ACC
+		     , REF_NM
+		     , REF_REA
+		     , REF_FIN_DT
+		     , REF_STA
+		     )
+		VALUES
+		     (
+		       ?
+			 , ?
+			 , SYSDATE
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , SYSDATE
+			 , 'Y'
+		     )
+		
+	</entry>
+	
 	<!-- 수강상태 변경 -->
 	<entry key="updateStatus">
 	UPDATE REGISTER 

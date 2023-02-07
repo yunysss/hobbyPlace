@@ -83,7 +83,13 @@ public class RefundService {
 	 */
 	public int insertRefund(Refund ref, int orderNo, String regSta) {
 		Connection conn = getConnection();
-		int result1 = new RefundDao().insertRefund(conn,ref);
+		int result1 = 0;
+		if(ref.getDepositSta().equals("N")) {
+			result1 = new RefundDao().insertRefundN(conn,ref);
+		}else {
+			result1 = new RefundDao().insertRefund(conn, ref);
+		}
+		
 		int result2 = new RefundDao().updateStatus(conn, orderNo, regSta);
 		
 		if(result1>0 && result2>0) {
