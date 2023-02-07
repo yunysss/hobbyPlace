@@ -341,6 +341,7 @@
 							+	"<td>" + dataList[i].regNo + "</td>"
 							+	"<td>" + dataList[i].regDate + "</td>"
 							+	"<td>" + dataList[i].memNo + "</td>"
+							+	"<td>" + dataList[i].clName + "</td>"
 							+	"<td>" + dataList[i].regPrice + "<br>" 
 							+	"<td>" + dataList[i].regPay + "</td>"
 							+	"<td>" + dataList[i].depositSta 
@@ -414,6 +415,7 @@
                         <td>주문번호</td>
                         <td>결제일자</td>
                         <td>고객ID</td>
+                        <td>클래스명</td>
                         <td>결제금액</td>
                         <td>결제수단</td>
                         <td>결제상태</td>

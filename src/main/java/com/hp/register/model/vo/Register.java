@@ -286,6 +286,18 @@ public class Register {
 		this.endTime = endTime;
 		this.localName = localName;
 	}
+	public Register(String memNo, String regDate, String regPay, String regPrice, String regSta,
+			String depositSta, String clName, int regNo) {
+		super();
+		this.regNo = regNo;
+		this.memNo = memNo;
+		this.regDate = regDate;
+		this.regPay = regPay;
+		this.regPrice = regPrice;
+		this.regSta = regSta;
+		this.depositSta = depositSta;
+		this.clName = clName;
+	}
 
 	public String getLocalName() {
 		return localName;
