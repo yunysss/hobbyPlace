@@ -345,7 +345,7 @@ a {
                     	  keyword : '<%=keyword%>',
                  		  category : '전체',
                       	  dcategory : '전체',
-                          sido : '00',
+                          sido : '전체',
                           sigungu : '전체',
                           price : '',
                           day : '',
