@@ -279,7 +279,7 @@
 				                    > 
 				                    <%=((Register)regList.get(i)).getCtDname() %>
 				                    </td>
-				                    <td id="regClName"></td>
+				                    <td class="regClName"></td>
 				                    <td><%= ((Register)regList.get(i)).getTtName() %></td>
 				                    <td><%= ((Register)regList.get(i)).getTeachDate() %></td>
 				                    <td>
@@ -299,11 +299,11 @@
 				                </tr>
 				                <script>
 									$(function(){
-										let clName = <%= ((Register)regList.get(i)).getClName() %>
+										let clName = <%= ((Register)regList.get(i)).getClName() %>;
 										if(clName.length > 25){
 											clName = clName.substring(1, 25);
 										}
-										$("#regClName").html(clName);
+										$(".regClName").html(clName);
 									})
 								</script>
 							<%} %>
@@ -315,7 +315,7 @@
 				                    > 
 				                    <%=((Register)regList.get(i)).getCtDname() %>
 				                    </td>
-				                    <td></td>
+				                    <td class="regClName"></td>
 				                    <td><%= ((Register)regList.get(i)).getTtName() %></td>
 				                    <td><%= ((Register)regList.get(i)).getTeachDate() %></td>
 				                    <td>
@@ -336,10 +336,10 @@
 				                <script>
 									$(function(){
 										let clName = <%= ((Register)regList.get(i)).getClName() %>
-										if(clName.length > 25){
+										if(clName.length() > 25){
 											clName = clName.substring(1, 25);
 										}
-										$("#regClName").html(clName);
+										$(".regClName").html(clName);
 									})
 								</script>
 							<%} %>							

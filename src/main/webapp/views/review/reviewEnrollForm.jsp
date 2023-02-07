@@ -196,7 +196,7 @@
                     </div>
 
                     <div id="file-area" style="display:none">
-                        <input request type="file" name="file1" onchange="loadImg(this, 1);">
+                        <input type="file" name="file1" onchange="loadImg(this, 1);">
                         <input type="file" name="file2" onchange="loadImg(this, 2);">
                         <input type="file" name="file3" onchange="loadImg(this, 3);">
                     </div>

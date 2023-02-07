@@ -66,16 +66,24 @@
 		          FROM (
 		                SELECT
 							   CONTENT
+							 , RE_NO
 							 , RE_STAR
 							 , RE_DATE
 							 , C.CL_NO "CL_NO"
 							 , C.CL_NAME "CL_NAME"
 							 , C.CL_THUMB "CL_THUMB"
-							 , FILE_PATH||CHANGE_NAME "TITLEIMG"
+							 , (SELECT TITLE_IMG
+                                  FROM (
+                                        SELECT ROWNUM RNUM, B.*
+                                            FROM (
+                                                    SELECT FILE_PATH||CHANGE_NAME "TITLE_IMG"
+                                                      FROM ATTACHMENT
+                                                      JOIN REVIEW RE ON(REF_NO = RE.RE_NO)
+                                                     WHERE REF_TYPE = 2)B) 
+                                 WHERE RNUM = 1) "TITLEIMG"
 						  FROM REVIEW R
 						  LEFT OUTER JOIN CLASS C
 						    ON C.CL_NO = R.CL_NO
-						  JOIN ATTACHMENT ON(RE_NO=REF_NO)
 						 WHERE R.MEM_NO = ?
 						   AND RE_STA = 'Y'
 						 ORDER

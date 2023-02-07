@@ -159,7 +159,7 @@
                 <script>
                     $(function(){
                     	$(".reviewThumb").click(function(){
-                    		location.href="<%=contextPath%>/detail.rev?no=<%=list.get(i).getReviewNo()%>
+                    		location.href="<%=contextPath%>/detail.rev?no=<%=list.get(i).getReviewNo()%>"
                     	})
                     })
                </script>
