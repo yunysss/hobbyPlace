@@ -41,6 +41,7 @@ public class StatisticsViewController extends HttpServlet {
 		ArrayList<Dcategory> dList = new AdminService().selectDcategoryList();
 		ArrayList<Lesson> ch1List= new AdminService().selectStatCount();
 		ArrayList<Lesson> ch2List = new AdminService().selectStatLocation();
+		ArrayList<Lesson> ch3List = new AdminService().selectCatSales();
 		
 		request.setAttribute("catList", cList);
 		request.setAttribute("dcList", dList);
@@ -48,6 +49,7 @@ public class StatisticsViewController extends HttpServlet {
 		request.setAttribute("disList", disList);
 		request.setAttribute("ch1List", ch1List);
 		request.setAttribute("ch2List", ch2List);
+		request.setAttribute("ch3List", ch3List);
 		request.getRequestDispatcher("views/admin/statisticsView.jsp").forward(request, response);
 	}
 
