@@ -12,7 +12,7 @@ import com.hp.review.model.service.ReviewService;
 /**
  * Servlet implementation class DeleteMemberReviewController
  */
-@WebServlet("/DeleteMemberReviewController")
+@WebServlet("/deleteReviewMem.ad")
 public class DeleteMemberReviewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,9 +29,10 @@ public class DeleteMemberReviewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int reNo = Integer.parseInt(request.getParameter("no"));
+		int memNo = Integer.parseInt(request.getParameter("mem"));
 		int result = new ReviewService().deleteReview(reNo);
 		
-		response.sendRedirect(request.getContextPath() + "/memReview.ad");
+		response.sendRedirect(request.getContextPath() + "/memReview.ad?no="+memNo);
 	}
 
 	/**

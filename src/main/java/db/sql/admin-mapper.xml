@@ -347,6 +347,7 @@
 		  FROM REVIEW R
 		  JOIN CLASS C ON (R.CL_NO = C.CL_NO)
 		 WHERE R.MEM_NO = ?
+		   AND RE_STA = 'Y'
 	</entry>
 	
 	<!-- 회원번호로 좋아요리스트 select -->

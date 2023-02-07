@@ -110,13 +110,7 @@
 		 WHERE C.MEM_NO = ?
 	</entry>
 	
-	<entry key="deleteReview">
-		UPDATE
-		       REVIEW
-		   SET RE_STA = 'N'
-		 WHERE RE_NO = ?
-		
-	</entry>
+	
 	
 	<entry key="selectEnrollFormClass">
 	 SELECT 
@@ -249,8 +243,12 @@
 	UPDATE REGISTER
 	   SET RE_ENROLL = 'Y'
      WHERE REG_NO = ?
+	</entry>
 	
-	
+	<entry key="deleteReview">
+	UPDATE REVIEW
+	   SET RE_STA = 'N'
+	 WHERE RE_NO = ?
 	</entry>
 	
 	<entry key="myReviewDetailView">
@@ -258,12 +256,10 @@
 			 RE_NO
 			,CONTENT
 			,RE_STAR
-			,RE_DATE
+			,TO_CHAR(RE_DATE, 'YYYY/MM/DD') "RE_DATE"
 			,RE_UPDATE
 			,REG_NO
-			,CL_NO
 			,MEM_NAME
-			,R.MEM_NO
 			,CL_NAME
 			,CL_THUMB
 		FROM REVIEW R

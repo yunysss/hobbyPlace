@@ -11,7 +11,7 @@
 <style>
     div, p, form, input{box-sizing:border-box;}
     .outer{width:1000px; height:1500px; margin:auto; margin-top:20px;}
-    a{text-decoration: none !important; color:black !important;}
+    .outer a{text-decoration: none !important; color:black !important;}
 
     .outer>div{width:100%;}
     #demo{height:25%;}
@@ -35,6 +35,9 @@
 	#mainPageRec img{
 		border-radius: 5px;
   	}
+  	#mainPageRec-3 a{
+  		height:100%;
+  	}
   	#mainPageRec li:hover img{
   		opacity:0.8;
   	}
@@ -48,7 +51,9 @@
         width:210px;
         height:210px;
     }
-
+	#mainPageRec-3 li{
+		height:320px;
+	}
    li {
 	  float: left;
 	  list-style: none;

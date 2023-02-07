@@ -135,7 +135,7 @@
                 </tbody>
              </table>
              <div align="center">
-            	<a href="<%=contextPath %>/ttAdList.rev" class="btn btn-sm" id="selectAllReview-btn">전체조회</a>
+            	<a href="<%=contextPath %>/adAdList.rev" class="btn btn-sm" id="selectAllReview-btn">전체조회</a>
             	<button type="button" class="btn btn-sm" id="selectReview-btn" onclick="selectReview();">조회</button>
                 <button type="button" class="btn btn-sm btn-secondary" onclick="resetAll();">초기화</button>
             </div>
