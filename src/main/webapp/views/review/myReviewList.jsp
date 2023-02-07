@@ -38,6 +38,7 @@
         height: 90px;
         float: left;
         padding: 6px;
+        border-radius:5px;
     }
     .classThumb img {float: left;}
     .classText{
@@ -85,6 +86,7 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
+    .paging-area button{border:0; border-radius:3px;}
 
     .reviewThumb:hover{
         opacity: 0.7;
@@ -147,12 +149,12 @@
                 <hr style="margin:0%">
                 <div class="review-content">
                     <p><%=list.get(i).getReviewDate() %></p>
-                    <p class="revContent"><%=list.get(i).getReviewContent() %></p>
+                    <p class="revContent"><%=list.get(i).getReviewContent()%></p>
 
                 </div>
 
                 <div class="reviewThumb" align="center">
-                    <img src="<%=list.get(i).getTitleImg()%>" width="220px" height="150px">
+                    <img src="<%=list.get(i).getTitleImg()%>" width="220px" height="150px" style="border-radius:5px">
                 </div>
                 <script>
                     $(function(){

@@ -69,7 +69,7 @@
     </div>
     <script>
         function enrollPage(){
-
+			location.href="<%=contextPath%>/enrollForm.me";
         }
     </script>
 	
