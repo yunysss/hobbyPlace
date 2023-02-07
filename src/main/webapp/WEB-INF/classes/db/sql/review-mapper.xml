@@ -113,13 +113,7 @@
 		 WHERE C.MEM_NO = ?
 	</entry>
 	
-	<entry key="deleteReview">
-		UPDATE
-		       REVIEW
-		   SET RE_STA = 'N'
-		 WHERE RE_NO = ?
-		
-	</entry>
+	
 	
 	<entry key="selectEnrollFormClass">
 	 SELECT 
@@ -252,7 +246,11 @@
 	UPDATE REGISTER
 	   SET RE_ENROLL = 'Y'
      WHERE REG_NO = ?
+	</entry>
 	
-	
+	<entry key="deleteReview">
+	UPDATE REVIEW
+	   SET RE_STA = 'N'
+	 WHERE RE_NO = ?
 	</entry>
 </properties>
