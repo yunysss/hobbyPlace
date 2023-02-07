@@ -25,6 +25,14 @@ public class QnaService {
 		close(conn);
 		return list;
 	}
+	public ArrayList<Qna> selectTuteeQnaList(int MemNo){
+		Connection conn = getConnection();
+		
+		ArrayList<Qna> list = new QnaDao().selectTuteeQnaList(conn, MemNo);
+		
+		close(conn);
+		return list;
+	}
 	
 	public int insertTutorQna(Qna q) {
 		Connection conn = getConnection();
