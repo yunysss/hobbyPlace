@@ -255,4 +255,24 @@
 	
 	
 	</entry>
+	
+	<entry key="myReviewDetailView">
+	 SELECT
+			 RE_NO
+			,CONTENT
+			,RE_STAR
+			,RE_DATE
+			,RE_UPDATE
+			,REG_NO
+			,CL_NO
+			,MEM_NAME
+			,R.MEM_NO
+			,CL_NAME
+			,CL_THUMB
+		FROM REVIEW R
+		JOIN  MEMBER M USING (MEM_NO)
+		JOIN CLASS C USING (CL_NO)
+	   WHERE RE_NO=?
+		 AND RE_STA = 'Y'
+	</entry>
 </properties>
