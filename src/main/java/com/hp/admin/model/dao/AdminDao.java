@@ -550,23 +550,16 @@ public class AdminDao {
 				sql += "and cl_name||ct_name||tt_name like" + "'%%'";
 			}
 			
-			if(category.equals("00")) {
-				sql += "";
-			}else if(category != null && !category.equals(""))  {
-			    sql +=  "and G.ct_no= " + "'"+ category + "'";
-			 }else{
-				sql += "";
-			 }
 			
-			if(category.equals("00") && dcategory.equals("전체")) {
-				 sql +="";
-			}else if(!category.equals("00") && dcategory.equals("전체")) {
-				sql += "and g.ct_no = " + "'"+ category +"'";
-			}else if(!dcategory.equals("전체")) {
-				sql += "and ct_dname= " + "'"+ dcategory +"'";
-			}else{
-				sql +=  "";
+			if(!category.equals("00") && !category.equals("")) {
+				sql += "and ct_no =" + "'" + category + "'";
+			   if(!dcategory.equals("전체")){
+				   sql += "and ct_dname =" + "'" +dcategory +"'";
+			   }
+				   
 			}
+			
+		
 			    
 			if(startDate != null && endDate != null && !startDate.equals("") && !endDate.equals("")) {
 				 sql += "and c.enroll_date between '" + startDate + "' and '" + endDate +"'";
