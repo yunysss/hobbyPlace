@@ -442,6 +442,40 @@ public class ReviewDao {
 			return result;
 		}
 
+
+		public Review myReviewDetailView(Connection conn, int reNo) {
+			
+			Review dr = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset =null;
+			
+			String sql = prop.getProperty("myReviewDetailView");
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, reNo);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					dr = new Review( rset.getInt("re_no"),
+									rset.getString("content"),
+									rset.getInt("re_star"),
+									rset.getString("re_date"),
+									rset.getString("mem_name"),
+									rset.getString("cl_name"),
+									rset.getString("cl_thumb")
+									
+							);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return dr;
+		}
+
 		
 
 } 

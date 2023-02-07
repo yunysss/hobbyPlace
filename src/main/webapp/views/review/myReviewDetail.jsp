@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.hp.review.model.vo.Review"%>
+<%
+ 	Review dr = (Review)request.getAttribute("dr");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +42,7 @@
         height: 100%;
     }
     .classTitle{
-        width: 350px;
+        width: 415px;
         height: 134px;
         float: left;
     }
@@ -66,34 +69,46 @@
 </head>
 <body>
     <%@ include file = "../common/myClassMenubar.jsp" %>
-        <div class="content" align="center">
-            <h6 style="margin-left: 15px;"><b>수강 후기 작성</b></h6>
+        <div class="content" >
+            <h6 style="margin-left: 15px;"><b>수강후기</b></h6>
             <hr>
             <div class="review-area">
                 <div class="classPart">
                     <div class="classThumbnail">
-                        <img src="클래스 이미지" >
+                        <img src="<%=contextPath%>/<%=dr.getMemProfile() %>" >
                     </div>
-                    <div class="classTitle">
-                        <b> z 클래스 제목</b>
+                    <div class="classTitle" style="font-size: 15px; font-weight: bold; vertical-align: middle; ">
+                        <p style="margin-top:45px"><%=dr.getMemNickName() %></p>
                     </div>
                     
                 </div> <!--header:클래스정보부분끝-->
-                <div align="center"  >
-                    <table class="reviewTable" >
+                <div align="center">
+                    <table class="reviewTable" border="0">
                         <tr>
-                            <td>작성자이름</td>
-                            <td rowspan="2">⭐⭐⭐⭐⭐</td>
+                            <td><%=dr.getReviewUpDate() %></td>
+                            <td rowspan="2">
+                            <%if(dr.getReviewStar()==1){ %>
+                        		⭐
+                        	<%} else if(dr.getReviewStar()==2){ %>
+                        		⭐⭐
+                        	<%} else if(dr.getReviewStar()==3){ %>
+                        		⭐⭐⭐
+                        	<%} else if(dr.getReviewStar()==4){ %>
+                        		⭐⭐⭐⭐
+                        	<%} else {%>
+                        		⭐⭐⭐⭐⭐
+                        	<%} %>
+                            </td>
                         </tr>
                         
                         <tr>
-                            <td>2023/01/03</td>
+                            <td><%=dr.getReviewDate() %></td>
                         </tr>
                         <tr>
                             <td colspan="2" style="height: 1px; background: gray;"></td>
                         </tr>
                         <tr>
-                            <td colspan="2">와라라랄랄라랄라라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라ffff라와라fffffffffffffffffffffff라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라와라라랄랄라랄라라</td>
+                            <td colspan="2"><%=dr.getReviewContent() %></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="reviewPhoto">

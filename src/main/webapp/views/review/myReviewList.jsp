@@ -154,15 +154,9 @@
                 </div>
 
                 <div class="reviewThumb" align="center">
-                    <img src="<%=list.get(i).getTitleImg()%>" width="220px" height="150px" style="border-radius:5px">
+                    <img class="thumbImg" src="<%=list.get(i).getTitleImg()%>" width="220px" height="150px" style="border-radius:5px" onclick="location.href='<%=contextPath%>/detail.rev?no=<%=list.get(i).getReviewNo()%>'">
                 </div>
-                <script>
-                    $(function(){
-                    	$(".reviewThumb").click(function(){
-                    		location.href="<%=contextPath%>/detail.rev?no=<%=list.get(i).getReviewNo()%>"
-                    	})
-                    })
-               </script>
+               
                 
                
             </div> <!-- 리뷰div끝-->

@@ -256,6 +256,21 @@ public class Review {
 		this.ctName = ctName;
 		this.ttName = ttName;
 	}
+	
+	
+
+
+	public Review(int reviewNo, String reviewContent, int reviewStar, String reviewDate, int memNo, String clName,
+			String clThumb) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewContent = reviewContent;
+		this.reviewStar = reviewStar;
+		this.reviewDate = reviewDate;
+		this.memNo = memNo;
+		this.clName = clName;
+		this.clThumb = clThumb;
+	}
 
 
 
