@@ -108,7 +108,7 @@ SELECT *
 	         SEQ_QANO.NEXTVAL
 	       , ?
 	       , ?
-	       , '1'
+	       , '2'
 	       , ?
 	       , ?
 	       , ?
