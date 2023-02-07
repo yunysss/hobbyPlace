@@ -80,7 +80,7 @@
                                                       FROM ATTACHMENT
                                                       JOIN REVIEW RE ON(REF_NO = RE.RE_NO)
                                                      WHERE REF_TYPE = 2)B) 
-                                 WHERE RNUM = 1) "TITLE_IMG"
+                                 WHERE RNUM = 1) "TITLEIMG"
 						  FROM REVIEW R
 						  LEFT OUTER JOIN CLASS C
 						    ON C.CL_NO = R.CL_NO
