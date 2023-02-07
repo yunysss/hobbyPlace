@@ -122,7 +122,7 @@
 					<img src="<%=contextPath%>/resources/images/myClassNull.jpg" alt="">
 					<p>아직 신청 내역이 없어요!<br>
 					지금 바로 합플을 시작해 보세요.</p>
-					<button type="button" class="btn btn-light" id="findClass" onclick="">클래스 찾아보기</button>
+					<button type="button" class="btn btn-light" id="findClass" onclick="location.href='<%=contextPath%>/main.tee'">클래스 찾아보기</button>
 				</div>
 			
 			<%} else{ %>

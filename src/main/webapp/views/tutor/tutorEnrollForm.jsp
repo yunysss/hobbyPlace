@@ -112,7 +112,8 @@
     			  }else{
     				  if(confirm("사용가능한 이름 입니다! 정말로 사용하시겠습니까?")){
     					  $nameInput.attr("readonly",true);
-    					  
+                $("#nameCheckBtn").attr("disabled",true);
+                $("#nameCheckBtn").html("확인")
     					  $("#submitBtn").removeAttr("disabled");
     				  }else{
     					  $nameInput.focus();
