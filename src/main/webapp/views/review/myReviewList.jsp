@@ -38,6 +38,7 @@
         height: 90px;
         float: left;
         padding: 6px;
+        border-radius:5px;
     }
     .classThumb img {float: left;}
     .classText{
@@ -85,6 +86,7 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
+    .paging-area button{border:0; border-radius:3px;}
 
 
 </style>
@@ -145,7 +147,7 @@
                 </div>
 
                 <div class="reviewThumb" align="center">
-                    <img src="<%=list.get(i).getTitleImg()%>" width="200px" height="150px">
+                    <img src="<%=list.get(i).getTitleImg()%>" width="200px" height="150px" style="border-radius:5px">
 
                 </div>
                 
