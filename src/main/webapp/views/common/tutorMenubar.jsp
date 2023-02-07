@@ -209,7 +209,7 @@
                     <div class="dropdown-menu sub">
                       <a class="dropdown-item" href="<%=contextPath%>/profile.tt">프로필관리</a>
                       <a class="dropdown-item" href="<%=contextPath%>/ttclass.tt?cpage=1">내 클래스</a>
-                      <a class="dropdown-item" href="<%=contextPath%>">메인페이지로</a>
+                      <a class="dropdown-item" href="<%=contextPath%>/main.tee">메인페이지로</a>
                       <a class="dropdown-item" href="<%=contextPath%>/logout.me">로그아웃</a>
                     </div>
                   </div>

@@ -311,7 +311,7 @@
                                 <input type="checkbox" name="status" id="" value="0">
                                 <label for="">검수요청</label>
                                 <input type="checkbox" name="status" id="" value="1">
-                                <label for="">신청반려</label>
+                                <label for="">검수반려</label>
                                 <input type="checkbox" name="status" id="" value="2">
                                 <label for="">판매중</label>
                                 <input type="checkbox" name="status" id="" value="3">
