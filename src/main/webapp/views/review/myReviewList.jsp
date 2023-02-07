@@ -86,6 +86,11 @@
         overflow: hidden;
     }
 
+    .reviewThumb:hover{
+        opacity: 0.7;
+        cursor: pointer;
+    }
+
 
 </style>
 </head>
@@ -94,7 +99,7 @@
         <div class="content">
         <!-- 작성한 리뷰가 없을 때-->
             <%if(loginUser != null && list.isEmpty()) {%>
-            <div class="classnull">
+            <div class="classnull" align="center">
                 <img src="<%=contextPath%>/resources/images/refunPage_smile_icon.png" >
                 <br><br>
 					<p>작성한 리뷰가 없어요!</p>
@@ -107,6 +112,7 @@
 
                 <div class="class-area">
                     <div class="classThumb">
+                    
                         <img src="<%=contextPath%>/<%=list.get(i).getClThumb() %>" width="80px" height="80px">
                     </div>
                     
@@ -130,6 +136,7 @@
                         	
                         </div>
                     </div>
+                    
 
                     <div class="nextBtn">
                         <img src="<%=contextPath%>/resources/images/right_arrow.png" onclick="location.href='<%=contextPath%>/page.cl?no=<%=list.get(i).getClNo() %>'">
@@ -145,9 +152,15 @@
                 </div>
 
                 <div class="reviewThumb" align="center">
-                    <img src="<%=list.get(i).getTitleImg()%>" width="200px" height="150px">
-
+                    <img src="<%=list.get(i).getTitleImg()%>" width="220px" height="150px">
                 </div>
+                <script>
+                    $(function(){
+                    	$(".reviewThumb").click(function(){
+                    		location.href="<%=contextPath%>/detail.rev?no=<%=list.get(i).getReviewNo()%>
+                    	})
+                    })
+               </script>
                 
                
             </div> <!-- 리뷰div끝-->
