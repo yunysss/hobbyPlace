@@ -103,28 +103,28 @@
                 </tr>
                 <tr>
                     <td height="30px">1</td>
-                    <td>강보람</td>
-                    <td>공예>뜨개</td>
-                    <td>하루만에 하는 뜨개교실어쩌고저쩌고</td>
+                    <td>봄의손메</td>
+                    <td>공예>뜨개/자수</td>
+                    <td>마크라메 파인애플 화분 만들기</td>
                 </tr>
                 <tr>
                     <td height="30px">2</td>
-                    <td>김말똥</td>
-                    <td>댄스>방송댄스</td>
-                    <td>뉴진스 hypeboy배워보기 어쩌고저쩌</td>
+                    <td>오늘도</td>
+                    <td>공예>뜨개/자수</td>
+                    <td> &lt;명지국제신도시&gt; 자이언트얀만두백</td>
                 </tr>
                 <tr>
                     <td height="30px">3</td>
-                    <td>김말똥</td>
-                    <td>댄스>방송댄스</td>
-                    <td>뉴진스 hypeboy배워보기 어쩌고저쩌</td>
+                    <td>너의 일상</td>
+                    <td>공예>가죽/라탄</td>
+                    <td>라탄 가랜드 전등갓 만들기 알전구 조명 행잉 벽걸이 캠핑 너의일상</td>
                 </tr>
 
                 <tr>
                     <td height="30px">3</td>
-                    <td>김말똥</td>
-                    <td>댄스>방송댄스</td>
-                    <td>뉴진스 hypeboy배워보기 어쩌고저쩌</td>
+                    <td>지아네 요리공작소</td>
+                    <td>쿠킹>베이킹</td>
+                    <td>[지아네 공작소]스콘2종 (플레인/커피초코칩) 16~20개 만들기</td>
                 </tr>
             </table>
         </div>
@@ -148,25 +148,25 @@
                 <tr>
                     <td height="30px">1</td>
                     <td>강보람</td>
-                    <td>어제 강사님한테 연락드렸는데 연락이  </td>
+                    <td>어제 강사님한테 연락드렸는데 연락이 안돼  </td>
                     <td><div id="answer_null">미답변</div></td>
                 </tr>
                 <tr>
                     <td height="30px">2</td>
                     <td>김말똥</td>
-                    <td>어제 강사님한테 연락드렸는데 연락이</td>
+                    <td>수강 취소 시 사용한 쿠폰은 사라지나요?</td>
                     <td><div id="answer_null">미답변</div></td>
                 </tr>
                 <tr>
                     <td height="30px">3</td>
-                    <td>김말똥</td>
-                    <td>어제 강사님한테 연락드렸는데 연락이</td>
+                    <td>강말숙</td>
+                    <td>단체클래스 수업 가능한가요?</td>
                     <td><div id="answerC">답변완료</div></td>
                 </tr>
                 <tr>
                     <td height="30px">3</td>
-                    <td>김말똥</td>
-                    <td>어제 강사님한테 연락드렸는데 연락이</td>
+                    <td>춘식이</td>
+                    <td>외국인도 가입이 가능한가요?</td>
                     <td><div id="answerC">답변완료</div></td>
                 </tr>
                 

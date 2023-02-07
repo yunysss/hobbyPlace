@@ -109,14 +109,15 @@ public class Register {
 		this.regCount = regCount;
 	}
 
-	public Register(int regNo, String clNo, String teachDate, String regPay, String regPrice, String clThumb,
+	public Register( String clNo, int regNo, String teachDate, String regPay, String regPrice, String depositSta, String clThumb,
 			String clName, String startTime, String distrName) {
 		super();
-		this.regNo = regNo;
 		this.clNo = clNo;
+		this.regNo = regNo;
 		this.teachDate = teachDate;
 		this.regPay = regPay;
 		this.regPrice = regPrice;
+		this.depositSta = depositSta;
 		this.clThumb = clThumb;
 		this.clName = clName;
 		this.startTime = startTime;
