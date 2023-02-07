@@ -23,7 +23,6 @@
         .outer{
             width: 1000px;
             margin: auto;
-            margin-top: 100px;
         }
         .detail{
             text-align: center;

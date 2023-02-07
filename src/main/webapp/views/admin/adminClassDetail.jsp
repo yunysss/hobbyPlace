@@ -33,7 +33,6 @@
             .outer{
                 padding: 30px 50px;
                 font-size: smaller;
-    
             }
     
             #detail-area * {box-sizing: border-box;}
