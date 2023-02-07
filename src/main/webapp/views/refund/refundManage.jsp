@@ -363,15 +363,19 @@
 								value += "<td>" + dataList[i].refAcc + "</td>";
 							} else{
 								if(dataList[i].depositSta == "Y"){
-									value += "<td>" + dataList[i].refAcc + "<button type='button' class='btn btn-sm btn-secondary refAcc-btn'>확인</button>";
+									value += "<td>" + dataList[i].refAcc + "<button type='button' class='btn btn-sm btn-secondary refAcc-btn'>확인</button></td>";
 								}else{
 									value += "<td>미입금</td>";
 								}
 							}
-							value += "<td>"
-							+		dataList[i].refSta
-								+		"<button type='button' class='btn btn-sm btn-secondary refChange-btn'>수정</button>"
-								+	"</td>"
+							value += "<td>";
+							if(dataList[i].depositSta == "Y"){
+									value += dataList[i].refSta
+											+ "<button type='button' class='btn btn-sm btn-secondary refChange-btn'>수정</button>"
+							}else{
+								value += "취소완료"
+							}
+							value += "</td>"
 								+ "</tr>"
 					}
 		    	  $("#refMng-result tbody").html(value);
