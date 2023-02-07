@@ -535,7 +535,7 @@
 		  		</tr>
 		  		<tr>
 		  			<td>
-		  				<br><b>전월 카테고리별 매출 분포</b><br><br>
+		  				<br><b>카테고리별 누적 매출 분포</b><br><br>
 		  				<canvas id="myChart3" style="width:460px; height:300px"></canvas>
 		  			</td>
 		  			<td></td>
