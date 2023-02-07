@@ -1038,38 +1038,19 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 			sql += "and CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD like" + "'%"+ keyword + "%'";
 		}
 		
-		if(category.equals("전체")) {
-			sql += "";				
-		}else if(category !=null && !category.equals("")) {
-		     sql += "and G.ct_name = " + "'" +category +"'";
-		}else if(category == null || category.equals("")) {
-			sql += "";
-		
+		if(!category.equals("전체")) {
+			  sql += "and G.ct_name = " + "'" +category +"'";
+			  if(!dcategory.equals("전체")) {
+				  sql += "and ct_dname= "+ "'"+ dcategory + "'";
+			  }
 		}
 		
-		if(category.equals("전체") && dcategory.equals("전체")){
-			sql +="";
-		}else if(!category.equals("전체")&& dcategory.equals("전체")) {
-			sql += "and g.ct_name =" + "'" + category + "'";
-		}else if(!dcategory.equals("전체")) {
-			sql += "and ct_dname= "+ "'"+ dcategory + "'";
-		}else  {
-			sql +="";
-		}
 		
-		if(sido.equals("00")) {
-			sql += "";
-		}else if(sido != null && !sido.equals("")) {
+		if(!sido.equals("") && !sido.equals("전체")) {
 			sql += "and c.local_code = " + "'"+ sido +"'";
-		}else {
-			sql += "";
-		}	
-		if(sido.equals("00") && sigungu.equals("전체")) {
-			sql += "";
-		}else if(!sido.equals("00") && sigungu.equals("전체")) {
-			sql += "and c.local_code = " + "'" + sido +"'";
-		}else if(!sigungu.equals("전체")) {
-			sql += "and distr_name =" + "'" + sigungu + "'";
+			if(!sigungu.equals("전체")) {
+				sql += "and distr_name =" + "'" + sigungu + "'";
+			}
 		}
 		//
 		if(price != null && !price.equals("")) {
@@ -1104,7 +1085,7 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 		 		+ "		)	\r\n"
 		 		+ "		WHERE RNUM BETWEEN ?  AND ?	";
 
-		//System.out.println(sql);
+		System.out.println(sql);
 
 		pstmt = conn.prepareStatement(sql);
 		int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() + 1;
@@ -1162,39 +1143,24 @@ public ArrayList<Lesson> searchDetailClass(Connection conn, Search s, PageInfo p
 				sql += "and CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD like" + "'%"+ keyword + "%'";
 			}
 			
-			if(category.equals("전체")) {
-				sql += "";				
-			}else if(category !=null && !category.equals("")) {
-			     sql += "and G.ct_name = " + "'" +category +"'";
-			}else if(category == null || category.equals("")) {
-				sql += "";
+
+			if(!category.equals("전체")) {
+				  sql += "and G.ct_name = " + "'" +category +"'";
+				  if(!dcategory.equals("전체")) {
+					  sql += "and ct_dname= "+ "'"+ dcategory + "'";
+				  }
 			}
 			
-			if(category.equals("전체") && dcategory.equals("전체")){
-				sql +="";
-			}else if(!category.equals("전체")&& dcategory.equals("전체")) {
-				sql += "and g.ct_name =" + "'" + category + "'";
-			}else if(!dcategory.equals("전체")) {
-				sql += "and ct_dname= "+ "'"+ dcategory + "'";
-			}else {
-				sql +="";
-			}
 			
-			if(sido.equals("00")) {
-				sql += "";
-			}else if(sido != null && !sido.equals("")) {
+			if(!sido.equals("") && !sido.equals("전체")) {
 				sql += "and c.local_code = " + "'"+ sido +"'";
-			}else {
-				sql += "";
-			}	
-			if(sido.equals("00") && sigungu.equals("전체")) {
-				sql += "";
-			}else if(!sido.equals("00") && sigungu.equals("전체")) {
-				sql += "and c.local_code = " + "'" + sido +"'";
-			}else if(!sigungu.equals("전체")) {
-				sql += "and distr_name =" + "'" + sigungu + "'";
+				if(!sigungu.equals("전체")) {
+					sql += "and distr_name =" + "'" + sigungu + "'";
+				}
 			}
 			
+			
+		
 			if(price != null && !price.equals("")) {
 				sql += "and cl_price <= " + price;
 			}else {
@@ -1275,36 +1241,19 @@ public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
 				sql += "and CL_NAME||CT_NAME||CT_DNAME||TT_NAME||LOCAL_NAME||DISTR_NAME||KEYWORD like" + "'%"+ keyword + "%'";
 			}
 			
-			if(category.equals("전체") ) {
-				sql += "";				
-			}else if(category !=null && !category.equals("")) {
-			     sql += "and G.ct_name = " + "'" +category +"'";
+			if(!category.equals("전체")) {
+				  sql += "and G.ct_name = " + "'" +category +"'";
+				  if(!dcategory.equals("전체")) {
+					  sql += "and ct_dname= "+ "'"+ dcategory + "'";
+				  }
 			}
 			
 			
-			if(category.equals("전체") && dcategory.equals("전체")){
-				sql +="";
-			}else if(!category.equals("전체")&& dcategory.equals("전체")) {
-				sql += "and g.ct_name =" + "'" + category + "'";
-			}else if(!dcategory.equals("전체")) {
-				sql += "and ct_dname= "+ "'"+ dcategory + "'";
-			}else {
-				sql +="";
-			}
-			
-			if(sido.equals("00")) {
-				sql += "";
-			}else if(sido != null && !sido.equals("")) {
+			if(!sido.equals("") && !sido.equals("전체")) {
 				sql += "and c.local_code = " + "'"+ sido +"'";
-			}else {
-				sql += "";
-			}	
-			if(sido.equals("00") && sigungu.equals("전체")) {
-				sql += "";
-			}else if(!sido.equals("00") && sigungu.equals("전체")) {
-				sql += "and c.local_code = " + "'" + sido +"'";
-			}else if(!sigungu.equals("전체")) {
-				sql += "and distr_name =" + "'" + sigungu + "'";
+				if(!sigungu.equals("전체")) {
+					sql += "and distr_name =" + "'" + sigungu + "'";
+				}
 			}
 			
 			

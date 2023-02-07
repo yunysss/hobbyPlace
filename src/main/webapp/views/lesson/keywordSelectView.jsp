@@ -224,7 +224,7 @@ a {
 	      			if(id != null){
 	      			param.append('sido', id);
 	      			}else{ 
-	      			param.delete('sido')	
+	      			param.delete('sido');	
 	      			}
 	      		}
 	      		
@@ -233,6 +233,7 @@ a {
 	      			param.append('day',id);
 	      			}else{
 	      				param.delete('day');
+	      				param.append('sido',"전체");
 	      			}
 	      		}
 	    	
