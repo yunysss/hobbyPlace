@@ -279,7 +279,13 @@
 				                    > 
 				                    <%=((Register)regList.get(i)).getCtDname() %>
 				                    </td>
-				                    <td class="regClName"></td>
+				                    <td class="regClName">
+				                    <%if(((Register)regList.get(i)).getClName().length()>18) {%>
+				                    		<%=((Register)regList.get(i)).getClName().substring(0, 16) %>...
+				                    <%}else {%>
+				                    	<%= ((Register)regList.get(i)).getClName() %>
+				                    <%} %>
+				                    </td>
 				                    <td><%= ((Register)regList.get(i)).getTtName() %></td>
 				                    <td><%= ((Register)regList.get(i)).getTeachDate() %></td>
 				                    <td>
@@ -299,13 +305,7 @@
 				                </tr>
 				                <script>
 									$(function(){
-										let clName = <%= ((Register)regList.get(i)).getClName() %>;
-										console.log(clName);
-										if(clName.length > 25){
-											clName = clName.substring(1, 25);
-										}
-										console.log(clName);
-										$(".regClName").html(clName);
+										
 									})
 								</script>
 							<%} %>
@@ -317,7 +317,13 @@
 				                    > 
 				                    <%=((Register)regList.get(i)).getCtDname() %>
 				                    </td>
-				                    <td class="regClName"></td>
+				                    <td class="regClName">
+				                    <%if(((Register)regList.get(i)).getClName().length()>18) {%>
+				                    		<%=((Register)regList.get(i)).getClName().substring(0, 16) %>...
+				                    <%}else {%>
+				                    	<%= ((Register)regList.get(i)).getClName() %>
+				                    <%} %>
+				                    </td>
 				                    <td><%= ((Register)regList.get(i)).getTtName() %></td>
 				                    <td><%= ((Register)regList.get(i)).getTeachDate() %></td>
 				                    <td>
@@ -337,11 +343,7 @@
 				                </tr>
 				                <script>
 									$(function(){
-										let clName = <%= ((Register)regList.get(i)).getClName() %>;
-										if(clName.length() > 25){
-											clName = clName.substring(1, 25);
-										}
-										$(".regClName").html(clName);
+										
 									})
 								</script>
 							<%} %>							
