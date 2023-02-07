@@ -299,7 +299,7 @@
 				                </tr>
 				                <script>
 									$(function(){
-										let clName = <%= ((Register)regList.get(i)).getClName() %>
+										let clName = <%= ((Register)regList.get(i)).getClName() %>;
 										if(clName.length > 25){
 											clName = clName.substring(1, 25);
 										}
