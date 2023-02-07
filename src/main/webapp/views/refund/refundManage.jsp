@@ -353,16 +353,29 @@
 							}else{
 								value += "<td>" + dataList[i].refRea
 							}
-							value += "</td><td>" + dataList[i].refPrice  + "</td>";
+							if(dataList[i].depositSta == "Y"){
+								value += "</td><td>" + dataList[i].refPrice  + "</td>";
+							}else{
+								value += "</td><td>미입금</td>";
+							}
+							
 							if(dataList[i].refAcc == "카드"){
 								value += "<td>" + dataList[i].refAcc + "</td>";
 							} else{
-								value += "<td>" + dataList[i].refAcc + "<button type='button' class='btn btn-sm btn-secondary refAcc-btn'>확인</button>";
+								if(dataList[i].depositSta == "Y"){
+									value += "<td>" + dataList[i].refAcc + "<button type='button' class='btn btn-sm btn-secondary refAcc-btn'>확인</button></td>";
+								}else{
+									value += "<td>미입금</td>";
+								}
 							}
-							value += "<td>"
-							+		dataList[i].refSta
-								+		"<button type='button' class='btn btn-sm btn-secondary refChange-btn'>수정</button>"
-								+	"</td>"
+							value += "<td>";
+							if(dataList[i].depositSta == "Y"){
+									value += dataList[i].refSta
+											+ "<button type='button' class='btn btn-sm btn-secondary refChange-btn'>수정</button>"
+							}else{
+								value += "취소완료"
+							}
+							value += "</td>"
 								+ "</tr>"
 					}
 		    	  $("#refMng-result tbody").html(value);
