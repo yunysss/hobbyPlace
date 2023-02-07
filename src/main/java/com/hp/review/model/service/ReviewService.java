@@ -133,4 +133,12 @@ public class ReviewService {
 		return dr;
 		
 	}
+
+	public ArrayList<Attachment> selectAttachment(int reNo) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> list = new ReviewDao().selectAttachment(conn, reNo);
+		close(conn);
+		
+		return list;
+	}
 }

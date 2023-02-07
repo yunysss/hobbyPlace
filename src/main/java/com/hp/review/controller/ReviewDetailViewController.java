@@ -1,6 +1,7 @@
 package com.hp.review.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hp.common.model.vo.Attachment;
 import com.hp.review.model.service.ReviewService;
 import com.hp.review.model.vo.Review;
 
@@ -34,9 +36,11 @@ public class ReviewDetailViewController extends HttpServlet {
 		
 		Review dr =new ReviewService().myReviewDetailView(reNo);
 		request.setAttribute("dr", dr);
-		//ystem.out.println(dr);
 		
+		ArrayList<Attachment> atList = new ReviewService().selectAttachment(reNo);
 		
+		request.setAttribute("atList", atList);
+
 		request.getRequestDispatcher("views/review/myReviewDetail.jsp").forward(request, response);
 	}
 

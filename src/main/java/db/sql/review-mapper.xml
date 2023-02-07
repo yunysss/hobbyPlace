@@ -268,4 +268,15 @@
 	   WHERE RE_NO=?
 		 AND RE_STA = 'Y'
 	</entry>
+	
+	<entry key="selectAttachment">
+	SELECT 
+			FILE_NO
+		  , ORIGIN_NAME
+		  , CHANGE_NAME
+		  , FILE_PATH
+	   FROM ATTACHMENT
+      WHERE REF_TYPE = 2
+        AND REF_NO = ?
+	</entry>
 </properties>

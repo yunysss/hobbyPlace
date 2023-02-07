@@ -101,7 +101,7 @@
                             <th>휴대폰 번호</th>
                             <td><%=r.getMemPhone() %></td>
                             <th>수강료</th>
-                            <td><%=r.getClPrice() %>*<%=r.getRegCount() %>=<%=r.getRegPrice() %></td>
+                            <td><%=r.getClPrice() %> * <%=r.getRegCount() %> = <%=r.getRegPrice() %></td>
                         </tr>
                         <tr>
                             <th>이메일</th>

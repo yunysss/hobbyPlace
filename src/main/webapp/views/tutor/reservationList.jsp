@@ -156,7 +156,8 @@ th {
 		</div>
 		
 
-		<script>			
+		<script>
+			
 			$(function(){
 				$("#atBtn").click(function(){
 					$.ajax({
