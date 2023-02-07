@@ -71,7 +71,7 @@
         cursor: pointer;
     }
     .review-content{
-        height: 140px;
+        height: 80px; margin:auto; width:270px; box-sizing:border-box; border-radius:5px; margin-top:5px; margin-bottom:5px;
     }
 
     .review-content p {
@@ -91,6 +91,12 @@
     .reviewThumb:hover{
         opacity: 0.7;
         cursor: pointer;
+    }
+    .review-area {
+    	width:300px;
+    	height:350px;
+    	margin-right:30px;
+    	margin-left:30px;
     }
 
 
