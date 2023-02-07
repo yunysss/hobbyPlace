@@ -70,7 +70,7 @@
                 			$(function(){
 	                     		// option 요소들의 innerText값이 현재 게시글의 카테고리명과 일치하는 
 	                			// option 요소를 찾아서 selected 속성 부여해주기
-                				$("#reservationform option").each(function(){
+                				$("#status option").each(function(){
                 					if($(this).text() == "<%=r.getRegSta()%>"){
                 						$(this).attr("selected", true); 
                 					}
