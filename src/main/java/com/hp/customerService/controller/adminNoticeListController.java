@@ -48,7 +48,7 @@ public class adminNoticeListController extends HttpServlet {
 		//사용자가 요청한 페이지 (현재 페이지)
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 				
-		pageLimit = 5;
+		pageLimit = 10;
 		//페이지당 보여질 게시글 최대 갯수 
 		boardLimit = 10;
 		
