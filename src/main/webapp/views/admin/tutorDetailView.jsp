@@ -171,9 +171,8 @@
 		                <tr>
 		                    <td colspan="4">받은 문의가 없습니다.</td>
 		                </tr>
-					<% }else { %>
-						<%if(aList.size() >= 3) {%>
-							<% for(int i=1; i<3; i++) { %>
+					<% }else if(aList.size() <= 3) {%>
+							<% for(int i=0; i<aList.size(); i++) { %>
 				                <tr>
 				                    <td>
 				                    	<%=((Qna)aList.get(i)).getaMemNick() %>
@@ -190,8 +189,8 @@
 			               		</tr>
 		                	<% } %>
 		                	
-						<%} else if(aList.size() == 2) {%>
-							<% for(int i=1; i<=2; i++) { %>
+						<%} else if(aList.size() > 3) {%>
+							<% for(int i=0; i<3; i++) { %>
 				                <tr>
 				                    <td>
 				                    	<%=((Qna)aList.get(i)).getaMemNick() %>
@@ -207,24 +206,9 @@
 				                    </td>
 				                </tr>
 		                	<% } %>
-						<%} else {%>
-			                <tr>
-			                    <td>
-			                    	<%=((Qna)aList.get(0)).getaMemNick() %>
-			                    </td>
-			                    <td><%=((Qna)aList.get(0)).getqTitle() %></td>
-			                    <td><%=((Qna)aList.get(0)).getqDate() %></td>
-			                    <td>
-			                    <% if(((Qna)aList.get(0)).getaTitle()==null) { %>
-			                    	답변대기
-			                    <%}else {%>
-			                    	답변완료
-			                    <%} %>
-			                    </td>
-			                </tr>
-		                <% } %>
+						<%} %>
 		                
-	                <% } %>
+	                
                 </table>   
             </div>
         </div>
@@ -254,9 +238,8 @@
 			                <tr>
 			                    <td colspan="4">받은 문의가 없습니다.</td>
 			                </tr>
-						<% }else { %>
-							<%if(qList.size() >= 3) {%>
-								<% for(int i=1; i<=3; i++) { %>
+						<% }else if(qList.size() <= 3) {%>
+								<% for(int i=0; i<qList.size(); i++) { %>
 					                <tr>
 					                    <td>
 					                    	<%if(((Qna)qList.get(i)).getqCategory().equals("10")) {%>
@@ -281,17 +264,17 @@
 				               		</tr>
 			                	<% } %>
 			                	
-							<%} else if(qList.size() == 2) {%>
-								<% for(int i=1; i<=2; i++) { %>
+							<%} else if(qList.size() > 3) {%>
+								<% for(int i=0; i<3; i++) { %>
 					                <tr>
 					                    <td>
-					                    	<%if(((Qna)qList.get(i)).getqCategory().equals("10")) {%>
+					                    	<%if((((Qna)qList.get(i)).getqCategory()).equals("10")) {%>
 										   		튜터
-										   	<%}else if(((Qna)qList.get(i)).getqCategory().equals("20")) {%>
+										   	<%}else if((((Qna)qList.get(i)).getqCategory()).equals("20")) {%>
 										   		결제/환불
-										   	<%}else if(((Qna)qList.get(i)).getqCategory().equals("30")) {%>
+										   	<%}else if((((Qna)qList.get(i)).getqCategory()).equals("30")) {%>
 										   		운영
-										   	<%}else if(((Qna)qList.get(i)).getqCategory().equals("40")) {%>
+										   	<%}else if((((Qna)qList.get(i)).getqCategory()).equals("40")) {%>
 										   		기타
 										   	<%}%>
 					                    </td>
@@ -306,32 +289,8 @@
 					                    </td>
 					                </tr>
 			                	<% } %>
-							<%} else {%>
-				                <tr>
-				                    <td>
-				                    	<%if(((Qna)qList.get(0)).getqCategory().equals("10")) {%>
-									   		튜터
-									   	<%}else if(((Qna)qList.get(0)).getqCategory().equals("20")) {%>
-									   		결제/환불
-									   	<%}else if(((Qna)qList.get(0)).getqCategory().equals("30")) {%>
-									   		운영
-									   	<%}else if(((Qna)qList.get(0)).getqCategory().equals("40")) {%>
-									   		기타
-									   	<%}%>
-				                    </td>
-				                    <td><%=((Qna)qList.get(0)).getqTitle() %></td>
-				                    <td><%=((Qna)qList.get(0)).getqDate() %></td>
-				                    <td>
-				                    <% if(((Qna)qList.get(0)).getaTitle()==null) { %>
-				                    	답변대기
-				                    <%}else {%>
-				                    	답변완료
-				                    <%} %>
-				                    </td>
-				                </tr>
-			                <% } %>
-			                
-		                <% } %>
+							<%} %>
+				                
 					</tbody>
                 </table>   
             </div>
@@ -398,9 +357,8 @@
 			                <tr>
 			                    <td colspan="4">비활성 클래스가 없습니다.</td>
 			                </tr>
-						<% }else { %>
-							<%if(cRList.size() >= 3) {%>
-								<% for(int i=1; i<=3; i++) { %>
+						<% }else if(cRList.size() <= 3) {%>
+								<% for(int i=0; i<cRList.size(); i++) { %>
 					                <tr>
 					                    <td>
 					                    	<%=cRList.get(i).getCtName()%> > <%=cRList.get(i).getCtDname()%>
@@ -423,8 +381,8 @@
 				               		</tr>
 			                	<% } %>
 			                	
-							<%} else if(cRList.size() == 2) {%>
-								<% for(int i=1; i<=2; i++) { %>
+							<%} else if(cRList.size() > 3) {%>
+								<% for(int i=0; i<3; i++) { %>
 					                <tr>
 					                    <td>
 					                    	<%=cRList.get(i).getCtName()%> > <%=cRList.get(i).getCtDname()%>
@@ -446,30 +404,8 @@
 					                    </td>
 					                </tr>
 			                	<% } %>
-							<%} else {%>
-				                <tr>
-				                    <td>
-				                    	<%=cRList.get(0).getCtName()%> > <%=cRList.get(0).getCtDname()%>
-				                    </td>
-				                    <td>
-				                    	<%=cRList.get(0).getClName() %>
-				                    </td>
-				                    <td>
-				                    	<%=cRList.get(0).getEnrollDate() %>
-				                    </td>
-				                    <td>
-				                    	<%if(cRList.get(0).getClStatus().equals("1")) {%>
-				                    		신청반려
-				                    	<%} else if(cRList.get(0).getClStatus().equals("3")){%>
-				                    		판매중지
-				                    	<%} else if(cRList.get(0).getClStatus().equals("0")){%>
-				                    		검수요청
-				                    	<%} %>
-				                    </td>
-				                </tr>
-			                <% } %>
-			                
-		                <% } %>
+							<%} %>
+				                
                     </tbody>
                 </table>   
             </div>
@@ -502,9 +438,8 @@
 			                <tr>
 			                    <td colspan="4">받은 문의가 없습니다.</td>
 			                </tr>
-						<% }else { %>
-							<%if(revList.size() >= 3) {%>
-								<% for(int i=1; i<=3; i++) { %>
+						<% }else if(revList.size() <= 3) {%>
+								<% for(int i=0; i<revList.size(); i++) { %>
 					                <tr>
 					                    <td>
 					                    	<%=revList.get(i).getReviewStar()%>
@@ -528,8 +463,8 @@
 				               		</tr>
 			                	<% } %>
 			                	
-							<%} else if(revList.size() == 2) {%>
-								<% for(int i=1; i<=2; i++) { %>
+							<%} else if(revList.size() > 3) {%>
+								<% for(int i=0; i<3; i++) { %>
 					                <tr>
 					                    <td>
 					                    	<%=revList.get(i).getReviewStar()%>
@@ -552,31 +487,8 @@
 					                    </td>
 				               		</tr>
 			                	<% } %>
-							<%} else {%>
-				                <tr>
-				                    <td>
-				                    	<%=revList.get(0).getReviewStar()%>
-				                    </td>
-				                    <td>
-				                    	<%=revList.get(0).getClName()%>
-				                    </td>
-				                    <td>
-				                    	<%=revList.get(0).getReviewContent()%>
-				                    </td>
-				                    <td>
-				                    	<%=revList.get(0).getMemNickName() %>
-				                    </td>
-				                    <td>
-				                    	<%if(revList.get(0).getReviewUpDate()==null){ %>
-				                    		<%=revList.get(0).getReviewDate() %>
-				                    	<%}else{ %>
-				                    		<%=revList.get(0).getReviewUpDate() %>
-				                    	<%} %>
-				                    </td>
-			               		</tr>
-			                <% } %>
-			                
-		                <% } %>
+							<%}%>
+				                
                     </tbody>
                 </table>   
             </div>

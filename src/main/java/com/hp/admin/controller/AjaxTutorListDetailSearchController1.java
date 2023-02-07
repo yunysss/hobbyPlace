@@ -60,6 +60,7 @@ public class AjaxTutorListDetailSearchController1 extends HttpServlet {
 		}
 		
 		SearchTutor st = new SearchTutor(enrollStart, enrollEnd, fCategory, lineup, option1, searchKey, option2, startNum, endNum, dayStart, dayEnd);
+		System.out.println(st);
 		ArrayList<TutorList> list = new AdminService().selectTutorList2(st);
 		
 		response.setContentType("application/json; charset=UTF-8");

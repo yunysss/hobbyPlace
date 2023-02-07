@@ -706,7 +706,7 @@
 		  JOIN TUTOR T ON(Q.A_MEM_NO = T.MEM_NO)
 		  JOIN CLASS C ON (Q.CL_NO=C.CL_NO)
 		 WHERE Q_STATUS = 'Y'
-		   AND Q_GRADE = '1'
+		   AND Q_GRADE = '2'
    		   AND Q_MEM_NO = ?
 	</entry>
 	

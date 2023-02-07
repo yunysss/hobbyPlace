@@ -45,7 +45,7 @@ th{background-color:lightgray;}
     <thead class="table-dark">
       <colgroup>
         <col style="width:80px;">
-        <col style="width:250px;">
+        <col style="width:300px;">
         <col style="width:600px;">
         <col style="width:120px;">
         <col style="width:230px;">
@@ -68,7 +68,14 @@ th{background-color:lightgray;}
     	<% for(int i=0;i<r.size(); i++) {%>
 	    	<tr>
 	        <td><%=r.get(i).getReviewNo()%></td>
-	        <td><%=r.get(i).getClName() %></td>
+	        <td>
+	        <%if(r.get(i).getClName().length()>12) {%>
+            		<%=r.get(i).getClName().substring(0, 11) %>...
+            <%}else {%>
+            	<%= r.get(i).getClName() %>
+            <%} %>
+	       
+	        </td>
 	        <td><%=r.get(i).getReviewContent() %></td>
 	        <%if(r.get(i).getReviewStar()==5){ %>
 	        	<td>⭐⭐⭐⭐⭐</td>

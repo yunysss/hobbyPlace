@@ -74,7 +74,7 @@ public class TutorDetailViewController extends HttpServlet {
 		ArrayList<Review> revList = new ReviewService().selectReviewList(memNo);
 		
 		
-		
+		//System.out.println(qList);
 		
 		request.setAttribute("t1", t1);
 		request.setAttribute("t2", t2);

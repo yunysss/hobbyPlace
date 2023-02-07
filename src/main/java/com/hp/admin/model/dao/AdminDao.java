@@ -1165,26 +1165,13 @@ public class AdminDao {
 		case "mem_no" : sql += " T.MEM_NO "; break;
 		case "mem_name" : sql += " MEM_NAME "; break;
 		case "tt_name" : sql += " TT_NAME "; break;
-		case "classActive" : sql += " (SELECT COUNT(CL_NO)\r\n"
-				+ "                  FROM CLASS\r\n"
-				+ "                 WHERE CL_STATUS = 2\r\n"
-				+ "                   AND MEM_NO = T.MEM_NO) "; break;
-		case "classTotal" : sql += " (SELECT COUNT(CL_NO)\r\n"
-				+ "                  FROM CLASS\r\n"
-				+ "                 WHERE CL_STATUS IN ('2', '3')\r\n"
-				+ "                   AND MEM_NO = T.MEM_NO) "; break;
-		case "tuteeTotal" : sql += " (SELECT SUM(REG_COUNT)\r\n"
-				+ "                  FROM REGISTER\r\n"
-				+ "                 WHERE MEM_NO = T.MEM_NO) "; break;
-		case "lessonTotal" : sql += " (select count(distinct(teach_date || sch_no))\r\n"
-				+ "                  from register r\r\n"
-				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
-				+ "                  WHERE C.MEM_NO = T.MEM_NO\r\n"
-				+ "                 group by c.mem_no) "; break;
-		case "incomeTotal" : sql += " (SELECT SUM(REG_PRICE)\r\n"
-				+ "                  FROM REGISTER\r\n"
-				+ "                 WHERE REG_STA = '2'\r\n"
-				+ "                  AND MEM_NO = T.MEM_NO) "; break;
+		case "classActive" : sql += " CLASSACTIVE "; break;
+		case "classTotal" : sql += " CLASSTOTAL "; break;
+		case "tuteeTotal" : sql += " TUTEETOTAL "; break;
+		case "lessonTotal" : sql += " LESSONTOTAL "; break;
+		case "likeCount" : sql += " LIKECOUNT "; break;
+		case "revCount" : sql += " REVCOUNT "; break;
+		case "incomeTotal" : sql += " INCOMETOTAL "; break;
 		}
 		
 		if(st.getLineup().equals("desc")) {
@@ -1281,26 +1268,17 @@ public class AdminDao {
 
 		
 		switch(st.getfCategory()) {
-		case "classActive" : sql += " ORDER BY (SELECT COUNT(CL_NO)\r\n"
-				+ "                  FROM CLASS\r\n"
-				+ "                 WHERE CL_STATUS = 2\r\n"
-				+ "                   AND MEM_NO = T.MEM_NO) "; break;
-		case "classTotal" : sql += " ORDER BY (SELECT COUNT(CL_NO)\r\n"
-				+ "                  FROM CLASS\r\n"
-				+ "                 WHERE CL_STATUS IN ('2', '3')\r\n"
-				+ "                   AND MEM_NO = T.MEM_NO) "; break;
-		case "tuteeTotal" : sql += " ORDER BY (SELECT SUM(REG_COUNT)\r\n"
-				+ "                  FROM REGISTER\r\n"
-				+ "                 WHERE MEM_NO = T.MEM_NO) "; break;
-		case "lessonTotal" : sql += " ORDER BY (select count(distinct(teach_date || sch_no))\r\n"
-				+ "                  from register r\r\n"
-				+ "                  join class c on (r.cl_no = c.cl_no) \r\n"
-				+ "                  WHERE C.MEM_NO = T.MEM_NO\r\n"
-				+ "                 group by c.mem_no) "; break;
-		case "incomeTotal" : sql += " ORDER BY (SELECT SUM(REG_PRICE)\r\n"
-				+ "                  FROM REGISTER\r\n"
-				+ "                 WHERE REG_STA = '2'\r\n"
-				+ "                  AND MEM_NO = T.MEM_NO) "; break;
+		case "enroll_date" : sql += " ORDER BY T.ENROLL_DATE "; break;
+		case "mem_no" : sql += " ORDER BY T.MEM_NO "; break;
+		case "mem_name" : sql += " ORDER BY MEM_NAME "; break;
+		case "tt_name" : sql += " ORDER BY TT_NAME "; break;
+		case "classActive" : sql += " ORDER BY CLASSACTIVE "; break;
+		case "classTotal" : sql += " ORDER BY CLASSTOTAL "; break;
+		case "tuteeTotal" : sql += " ORDER BY TUTEETOTAL "; break;
+		case "lessonTotal" : sql += " ORDER BY LESSONTOTAL "; break;
+		case "likeCount" : sql += " ORDER BY LIKECOUNT "; break;
+		case "revCount" : sql += " ORDER BY REVCOUNT "; break;
+		case "incomeTotal" : sql += " ORDER BY INCOMETOTAL "; break;
 		}
 		
 		if(st.getLineup().equals("desc")) {
@@ -1309,7 +1287,7 @@ public class AdminDao {
 			sql += "asc";
 		}
 		
-		
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, st.getEnrollStart());

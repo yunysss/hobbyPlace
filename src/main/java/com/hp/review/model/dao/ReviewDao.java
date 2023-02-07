@@ -175,7 +175,7 @@ public class ReviewDao {
 								   rset.getInt("cl_no"),
 								   rset.getInt("mem_no"),
 								   rset.getString("cl_name"),
-								   rset.getString("mem_nickname"),
+								   rset.getString("mem_id"),
 								   rset.getString("mem_profile")));
 			}
 		} catch (SQLException e) {
