@@ -72,15 +72,12 @@
 							 , C.CL_NO "CL_NO"
 							 , C.CL_NAME "CL_NAME"
 							 , C.CL_THUMB "CL_THUMB"
-							 , (SELECT TITLE_IMG
-                                  FROM (
-                                        SELECT ROWNUM RNUM, B.*
-                                            FROM (
-                                                    SELECT FILE_PATH||CHANGE_NAME "TITLE_IMG"
-                                                      FROM ATTACHMENT
-                                                      JOIN REVIEW RE ON(REF_NO = RE.RE_NO)
-                                                     WHERE REF_TYPE = 2)B) 
-                                 WHERE RNUM = 1) "TITLEIMG"
+							 , (SELECT FILE_PATH||CHANGE_NAME "TITLE_IMG"
+                                  FROM ATTACHMENT
+                                  JOIN REVIEW ON(REF_NO = RE_NO)
+                                 WHERE REF_TYPE = 2
+                                   AND REF_NO = R.RE_NO
+                                   AND ROWNUM = 1) "TITLEIMG"
 						  FROM REVIEW R
 						  LEFT OUTER JOIN CLASS C
 						    ON C.CL_NO = R.CL_NO
