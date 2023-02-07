@@ -47,7 +47,10 @@
             	<%for(int i=0; i<list.size();i++) { %>
             		<div class="list-area<%=i%>" width="210px" height="300px" style="display:inline-block">
                         <div class="thumbnail" >
-                            <div><img src="<%=contextPath%>/<%=list.get(i).getClThumb()%>" width="200px" height="150px"></div>
+                            <div><img style="cursor: pointer;" src="<%=contextPath%>/<%=list.get(i).getClThumb()%>" width="200px" height="150px"
+                                onclick="location.href='<%=contextPath%>/page.cl?no=<%=list.get(i).getClNo() %>'">
+                            </div>
+
                             
                             <table class="class-area">
                                 <tr>
