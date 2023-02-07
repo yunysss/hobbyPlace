@@ -147,9 +147,10 @@ public class Review {
 	
 
 
-	public Review(String reviewContent, int reviewStar, String reviewDate, int clNo, String clName, String clThumb, String titleImg) {
+	public Review(String reviewContent, int reviewNo, int reviewStar, String reviewDate, int clNo, String clName, String clThumb, String titleImg) {
 		super();
 		this.reviewContent = reviewContent;
+		this.reviewNo = reviewNo;
 		this.reviewStar = reviewStar;
 		this.reviewDate = reviewDate;
 		this.clNo = clNo;

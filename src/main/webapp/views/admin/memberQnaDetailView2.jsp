@@ -31,6 +31,7 @@ table{text-align: center; font-size:13px;}
 <%@ include file="../common/adminMenubar.jsp" %>
 <div class="cWrap">
        <h3>1:1 문의</h3>
+       <br>
        <ul class="nav nav-tabs">
         <li class="nav-item">
           <a class="nav-link" href="<%=contextPath%>/memQna1.ad?no=<%=m.getMemNo()%>">튜터 QnA</a>

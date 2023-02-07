@@ -279,7 +279,7 @@
 				                    > 
 				                    <%=((Register)regList.get(i)).getCtDname() %>
 				                    </td>
-				                    <td><%= ((Register)regList.get(i)).getClName() %></td>
+				                    <td class="regClName"></td>
 				                    <td><%= ((Register)regList.get(i)).getTtName() %></td>
 				                    <td><%= ((Register)regList.get(i)).getTeachDate() %></td>
 				                    <td>
@@ -297,6 +297,15 @@
 				                    </td>
 				                    <td><%= ((Register)regList.get(i)).getReEnroll() %></td>
 				                </tr>
+				                <script>
+									$(function(){
+										let clName = <%= ((Register)regList.get(i)).getClName() %>;
+										if(clName.length > 25){
+											clName = clName.substring(1, 25);
+										}
+										$(".regClName").html(clName);
+									})
+								</script>
 							<%} %>
 						<%} else if(regList.size() > 3) {%>
 							<% for(int i=0; i<3; i++) {%>
@@ -306,7 +315,7 @@
 				                    > 
 				                    <%=((Register)regList.get(i)).getCtDname() %>
 				                    </td>
-				                    <td><%= ((Register)regList.get(i)).getClName() %></td>
+				                    <td class="regClName"></td>
 				                    <td><%= ((Register)regList.get(i)).getTtName() %></td>
 				                    <td><%= ((Register)regList.get(i)).getTeachDate() %></td>
 				                    <td>
@@ -324,6 +333,15 @@
 				                    </td>
 				                    <td><%= ((Register)regList.get(i)).getReEnroll() %></td>
 				                </tr>
+				                <script>
+									$(function(){
+										let clName = <%= ((Register)regList.get(i)).getClName() %>
+										if(clName.length() > 25){
+											clName = clName.substring(1, 25);
+										}
+										$(".regClName").html(clName);
+									})
+								</script>
 							<%} %>							
 						<%} %>
 	                
@@ -333,7 +351,7 @@
                 </table>   
             </div>
         </div>
-
+		
         <br><br><br>
 
         <div>

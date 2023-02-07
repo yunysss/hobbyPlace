@@ -66,6 +66,7 @@
 		          FROM (
 		                SELECT
 							   CONTENT
+							 , RE_NO
 							 , RE_STAR
 							 , RE_DATE
 							 , C.CL_NO "CL_NO"
