@@ -183,7 +183,7 @@ a {
  <div class="outer">
  	<%if (list.isEmpty()) {%>
  		<div align="center">
-  		<h5> 검색된 클래스가 없습니다.🥲</h5>
+  		<h5> 검색된 클래스가 없습니다.</h5>
   		</div>
   		<%} else {%>
         <h4> <a href=""><%=keyword%> 검색결과</a><span class="material-symbols-outlined symbol">expand_more</span></h4>
