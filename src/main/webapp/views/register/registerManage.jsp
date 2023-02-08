@@ -8,7 +8,7 @@
     <style>
         div, p, form, input, table{box-sizing:border-box;}
 
-       .outer{width:1000px; margin:auto; padding:20px 50px;}
+       .outer{width:1200px; margin:auto; padding:20px 50px;}
        .outer>*{
        	font-size:small;
        }
@@ -130,7 +130,7 @@
     <div class="outer">
         <h5 style="font-weight: 600; font-size:18px"><b>결제 내역 관리</b></h5><br>
         <div id="regMng-form">
-            <table width="700px">
+            <table width="900px">
                 <tbody>
                 	<tr>
                     	<td><b>진행상태</b></td>
