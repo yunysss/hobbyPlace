@@ -22,8 +22,9 @@
         .rsvList>div{
         	float:left;
         	height:100%;
-            width:50%;
         }
+        .rsvList-1{width:70%;}
+        .rsvList-2{width:30%;}
         #rsvListAll span{
             color:white;
             border-radius:15px;
@@ -158,14 +159,14 @@
 			    	    i++
 			    	  ) {
 			    		  value += "<div class='rsvList'>"
-			    		  		+ 	"<div>"
+			    		  		+ 	"<div class='rsvList-1'>"
 			    		  		+ 		"주문번호 <input type='text' name='regNo' value='"+ dataList[i].regNo + "'><br>"
 			    		  		+		dataList[i].regDate + "<br>"
 			    		  		+		dataList[i].memNo + " 수강생<br>"
 			    		  		+		"<h5>" + dataList[i].clNo + "</h5><br>"
 			    		  		+		"진행일시 : " + dataList[i].teachDate + "&nbsp;" + dataList[i].schNo
 			    		  		+	"</div>"
-			    		  		+ 	"<div align='right'>";
+			    		  		+ 	"<div align='right' class='rsvList-2'>";
 			    		  if(dataList[i].regSta == '0'){
 	                    		value += "<span style='background:rgb(241, 196, 15)'>"
 	                    				+	"<b>NEW</b></span>"	

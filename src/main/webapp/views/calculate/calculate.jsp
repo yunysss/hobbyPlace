@@ -17,10 +17,12 @@
     .calList{
         border:1px solid rgb(180, 180, 180); 
         border-radius:5px;
-        height:180px;
+        height:170px;
         margin-bottom:20px;
     }
-    .calList>div{float:left; height:100%; width:50%}
+    .calList>div{float:left; height:100%;}
+    .calList-1{width:70%;}
+    .calList-2{width:30%;}
 
     #cal-2 button{
         background:rgb(22, 160, 133);
@@ -157,14 +159,14 @@
 			    	    i++
 			    	  ) {
 			    	    value += "<div class='calList'>"
-	                    		+ "<div>"
+	                    		+ "<div class='calList-1'>"
 	                    		+	"주문번호 : " + dataList[i].regNo + "<br>"
                         		+	"결제일자 : " + dataList[i].teachDate + "<br>"
                         		+	"<h5>" + dataList[i].memNo + "</h5> <br>"
                         		+	"수업일자 : " + dataList[i].clNo + "&nbsp;" + dataList[i].regDate + "<br>"
                        			+	"신청인원 : " + dataList[i].regPrice
                     			+ "</div>"
-                    			+ "<div align='right'>";
+                    			+ "<div align='right' class='calList-2'>";
                     	if(dataList[i].regSta == 'N'){
                     		value += "<span style='background:rgb(241, 196, 15)'>"
                     				+	"<b>미신청</b></span><br><br><br><br><br>"	
