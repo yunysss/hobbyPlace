@@ -292,10 +292,10 @@
                     </div>
                 </div>
                 <div class="modal fade" id="shareModal">
-				  <div class="modal-dialog modal-sm modal-dialog-centered">
+				  <div class="modal-dialog modal-dialog-centered">
 				    <div class="modal-content">
 				      <div class="modal-body">
-				        <input id="myInput" value="http://localhost:8327<%= contextPath %>/page.cl?no=<%=le.getClNo() %>" size="35" readonly>
+				        <input id="myInput" value="http://192.168.9.7:8327<%= contextPath %>/page.cl?no=<%=le.getClNo() %>" size="50" readonly>
 				      </div>
 				      <div class="modal-footer">
 				      	<button type="button" class="btn btn-secondary btn-sm" style="background:rgb(35, 104, 116)" onclick="copy_to_clipboard()">url복사</button>
