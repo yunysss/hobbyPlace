@@ -33,7 +33,6 @@
             .outer{
                 padding: 30px 50px;
                 font-size: smaller;
-    
             }
     
             #detail-area * {box-sizing: border-box;}
@@ -222,7 +221,7 @@
     
             <h6 style="font-weight: 550; font-size: 15px; ">클래스 소개</h6>
             <hr>
-            <div style="width:400px">
+            <div style="width:600px">
               <!--  clob 변환해야됨 -->
                 <%=l.getClDetail() %>
                 

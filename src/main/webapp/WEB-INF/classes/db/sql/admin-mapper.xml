@@ -772,10 +772,25 @@
 		          FROM REGISTER R
 		          JOIN CLASS USING(CL_NO)
 		          JOIN DISTRICT USING(DISTR_CODE)
+		         WHERE REG_STA = 2
+                   AND DEPOSIT_STA = 'Y'
 		         GROUP 
 		            BY DISTR_NAME
 		         ORDER
 		            BY REG_PRICE DESC) D
 		WHERE ROWNUM <![CDATA[ < ]]>= 5
+	</entry>
+	
+	<entry key="selectCatSales">
+		SELECT
+	                   CT_NAME
+	                 , SUM(REG_PRICE) "REG_PRICE"
+	        FROM REGISTER R
+	             JOIN CLASS USING(CL_NO)
+	              JOIN CATEGORY USING(CT_NO)
+	       WHERE REG_STA = 2
+	               AND DEPOSIT_STA = 'Y'
+	       GROUP 
+	          BY CT_NAME
 	</entry>
 </properties>

@@ -70,7 +70,7 @@
                 			$(function(){
 	                     		// option 요소들의 innerText값이 현재 게시글의 카테고리명과 일치하는 
 	                			// option 요소를 찾아서 selected 속성 부여해주기
-                				$("#reservationform option").each(function(){
+                				$("#status option").each(function(){
                 					if($(this).text() == "<%=r.getRegSta()%>"){
                 						$(this).attr("selected", true); 
                 					}
@@ -101,7 +101,7 @@
                             <th>휴대폰 번호</th>
                             <td><%=r.getMemPhone() %></td>
                             <th>수강료</th>
-                            <td><%=r.getClPrice() %>*<%=r.getRegCount() %>=<%=r.getRegPrice() %></td>
+                            <td><%=r.getClPrice() %> * <%=r.getRegCount() %> = <%=r.getRegPrice() %></td>
                         </tr>
                         <tr>
                             <th>이메일</th>

@@ -476,6 +476,35 @@ public class ReviewDao {
 			return dr;
 		}
 
+
+		public ArrayList<Attachment> selectAttachment(Connection conn, int reNo) {
+			ArrayList<Attachment> list= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectAttachment");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1,reNo);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Attachment(rset.getString("change_name"),
+										    rset.getString("file_path")));
+					
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
+
 		
 
 } 

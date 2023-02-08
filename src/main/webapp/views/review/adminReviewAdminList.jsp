@@ -115,7 +115,7 @@
                         </td>
                     </tr>
                     <tr>
-                    	<td><b>튜티명</b></td>
+                    	<td><b>튜터명</b></td>
                         <td>
                         	<input type="text" name="ttName">
                         </td>
@@ -170,7 +170,7 @@
 	                <tr>
 	                	<td>번호</td>
 	                    <td>클래스명</td>
-	                    <td>튜티명</td>
+	                    <td>튜터명</td>
 	                    <td>리뷰</td>
 	                    <td>별점</td>
 	                    <td>작성자</td>

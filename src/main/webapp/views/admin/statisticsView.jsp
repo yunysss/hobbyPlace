@@ -8,6 +8,7 @@
     ArrayList<District> disList = (ArrayList<District>)request.getAttribute("disList");
     ArrayList<Lesson> ch1List = (ArrayList<Lesson>)request.getAttribute("ch1List");
     ArrayList<Lesson> ch2List = (ArrayList<Lesson>)request.getAttribute("ch2List");
+    ArrayList<Lesson> ch3List = (ArrayList<Lesson>)request.getAttribute("ch3List");
 %> 
 <!DOCTYPE html>
 <html>
@@ -534,7 +535,7 @@
 		  		</tr>
 		  		<tr>
 		  			<td>
-		  				<br><b>전월 카테고리별 매출 분포</b><br><br>
+		  				<br><b>카테고리별 누적 매출 분포</b><br><br>
 		  				<canvas id="myChart3" style="width:460px; height:300px"></canvas>
 		  			</td>
 		  			<td></td>
@@ -547,6 +548,11 @@
 		  	let reviewCount = [];
 		  	let districtList = [];
 		  	let districtSales = [];
+		  	let today = new Date();
+		  	let lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()).getMonth() + 1;
+		  	let lastlastMonth = new Date(today.getFullYear(), today.getMonth() - 2, today.getDate()).getMonth() + 1;
+		  	let catList = [];
+		  	let catSales = [];
 		  	$(function(){
 			  	<%for(int i=0; i<ch1List.size(); i++){%>
 			  		regCount.push(<%=ch1List.get(i).getStudentSum()%>);
@@ -557,7 +563,10 @@
 			  		districtList.push("<%=ch2List.get(i).getDistrCode()%>");
 			  		districtSales.push(<%=ch2List.get(i).getClPrice()%>);
 			  	<% }%>
-			  	
+			  	<% for(int i=0; i<ch3List.size(); i++){%>
+			  		catList.push("<%=ch3List.get(i).getDistrCode()%>");
+			  		catSales.push(<%=ch3List.get(i).getClPrice()%>)
+			  	<% }%>
 		  	})
             var context = document
                 .getElementById('myChart1')
@@ -565,26 +574,26 @@
             var myChart = new Chart(context, {
                 type: 'line', // 차트의 형태
                 data: { // 차트에 들어갈 데이터
-                    labels: ['12월', '1월', '2월'],
-                    datasets: [
+                    labels: [lastlastMonth + '월', lastMonth + '월', (today.getMonth() + 1) + '월'],
+                    datasets: [ 
                         { //데이터
                             label: '수강수', //차트 제목
                             lineTension:0,
                             data: regCount,
-                            backgroundColor:'rgba(255, 99, 132, 0.2)',
-                            borderColor: 'rgba(255, 99, 132, 0.2)'
+                            fill: false,
+                            borderColor: 'rgba(255, 99, 132)'
                         },{
                         	label: '찜수',
                         	lineTension:0,
                         	data: likeCount,
-                        	backgroundColor:'rgba(54, 162, 235, 0.2)',
-                        	borderColor: 'rgba(54, 162, 235, 0.2)'
+                        	fill: false,
+                        	borderColor: 'rgba(54, 162, 235)'
                         },{
                         	label: '리뷰수',
                         	lineTension:0,
                         	data: reviewCount,
-                        	backgroundColor:'rgba(255, 206, 86, 0.2)',
-                        	borderColor: 'rgba(255, 206, 86, 0.2)'
+                        	fill: false,
+                        	borderColor: 'rgba(255, 206, 86)'
                         }]
                 },
                 options:{
@@ -604,7 +613,7 @@
 	        		labels:districtList,
 	        		datasets:[{
 	        			data:districtSales,
-	        			backgroundColor:['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)']
+	        			backgroundColor:['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)',  'rgba(153, 102, 255, 0.2)']
 	        		}]
 	        	}
 	        })
@@ -612,18 +621,15 @@
 	        var myChart = new Chart(context3, {
 	            type: 'bar', // 차트의 형태
 	            data: { // 차트에 들어갈 데이터
-	                labels: ['교육', '공예DIY', '드로잉', '쿠킹', '스포츠/피트니스'],
+	                labels:catList,
 	                datasets: [
 	                    { //데이터
 	                        label: '원', //차트 제목
-	                        data: [5000000,3000000,6000000,2000000, 5000000],
+	                        data: catSales,
 	                        backgroundColor: 'rgba(255, 99, 132, 0.2)'
 	                    }
 	                ]
-	            },
-	            options:{
-                	responsive:false
-                }
+	            }
 	        });
         </script>
 		</div>

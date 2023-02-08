@@ -21,8 +21,6 @@
     .classnull img{width: 100px}
     
     .review-area{
-        width: 300px; 
-        height: 400px; 
         margin: 15px 40px;
         border: 1px solid lightgray;
         border-radius: 5px;
@@ -94,7 +92,7 @@
     }
     .review-area {
     	width:300px;
-    	height:350px;
+    	height:370px;
     	margin-right:30px;
     	margin-left:30px;
     }
@@ -158,6 +156,9 @@
                     <p class="revContent"><%=list.get(i).getReviewContent()%></p>
 
                 </div>
+                <br>
+                
+                
 
                 <div class="reviewThumb" align="center">
                     <img class="thumbImg" src="<%=list.get(i).getTitleImg()%>" width="220px" height="150px" style="border-radius:5px" onclick="location.href='<%=contextPath%>/detail.rev?no=<%=list.get(i).getReviewNo()%>'">

@@ -106,10 +106,10 @@
               	<% } %>
               </div>
               <div class="carousel-item">
-                <a href="<%=contextPath%>/ctselect.cl?cpage=1&ct=쿠킹"><img src="<%=contextPath %>/resources/images/mainImage2.png"></a>
+              	<a href="<%=contextPath%>/dctselect.cl?cpage=1&dct=베이킹"><img src="<%=contextPath %>/resources/images/mainImg.png"></a>
               </div>
               <div class="carousel-item">
-                <a href=""><img src="<%=contextPath %>/resources/images/mainImage3.png"></a>
+                <a href="<%=contextPath%>/dctselect.cl?cpage=1&dct=요리"><img src="<%=contextPath %>/resources/images/mainImage2.png"></a>
               </div>
             </div>
             <!-- Left and right controls -->

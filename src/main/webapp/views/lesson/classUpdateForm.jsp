@@ -16,7 +16,8 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 <!-- include summernote css/js-->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> 
@@ -228,7 +229,9 @@
 	  	  <div id="form1" class="container tab-pane active" ><br>
 	        <span style="font-size: 14px; font-weight: 600;">기본정보</span>
 	        <div class="guidebtn">
-	        <button type="button" class="btn btn-secondary btn-sm guide">작성가이드</button>
+	       <button type="button" class="btn btn-secondary btn-sm guide" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					작성가이드
+		   </button>
 	        </div>
 	        <br><hr><br>
 	       
@@ -588,7 +591,9 @@
 	    <div id="form2" class="container tab-pane fade"><br>
 	        <span style="font-size: 14px; font-weight: 600;">클래스 설명</span>
 	        <div class="guidebtn">
-	        <button type="button" class="btn btn-secondary btn-sm guide">작성가이드</button>
+				<button type="button" class="btn btn-secondary btn-sm guide" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					작성가이드
+				  </button>
 	        </div>
 	        <hr><br>
 	        <table>
@@ -774,6 +779,64 @@
 
 </form>  
 </div>
+
+<!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h3 class="modal-title fs-5" id="exampleModalLabel">📖작성가이드</h3>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<br>
+			💙 기본정보 <br>
+
+			✅클래스명 : 장소와 액티비티를 클래스명에 넣어주시는 것이 좋습니다.
+			  <br> (예시 : [홍대] 방송댄스를 배워봐요)<br>
+			✅진행장소 : 클래스가 진행되는 장소로 상세하게 작성해주셔야합니다.<br>
+			✅최대인원 : 한 클래스당 들을 수 있는 인원을 설정해주세요.<br>
+			✅난이도 : 참여하는 튜티들에게 참고용으로 제공하는 정보이며,<br> 
+			 튜티들이 생각할 난이도를 고려하여 지정해주시기 바랍니다. <br>
+			<br>
+			💙 판매일정<br>
+			
+			✅판매종료일 : 검수완료 후 부터 언제까지 판매할 것인지 선택해주세요.<br>
+			✅일정 : 판매시작일 부터 종료일까지 매일 / 매주 반복할 요일을 선택해주세요.<br>
+			   (예시 : 매일을 선택했을 경우 - 월,화,수,목,금,토,일 모두 선택 <br>
+			           매주를 선택했을 경우 - 월,수,금 / 토,일  반복할 요일 선택 )<br>
+			✅일 운영횟수 : 일정에서 선택한 요일에 하루에 몇번 수업하는지 선택해주세요. <br>
+			✅운영시간 : 운영횟수에 따른 클래스 진행 시간을 선택해주세요 <br>
+			   (예시 : 일 운영횟수 2회일 경우 운영시간 <br>
+			   		 		클래스회차1 /시작시간 오전 10:00 -  종료시간 오후 12:00  <br>
+					         클래스회차2 / 시작시간 오후 2:00 - 종료시간 오후 4:00) <br>
+
+			                             
+			✅판매가격 : 클래스에 따른 적정한 가격을 입력해주세요. <br>
+			 합플에서 결제하는 가격은 최종 참가비여야 합니다. (현장에서 추가결제 불가)<br>
+			<br>
+			   
+			 💙 클래스 설명<br>
+			 ✅대표이미지 : 사진은 최대 4장까지 등록가능합니다. 용량은 10MB 이하로 올려주시길 바랍니다. <br>
+			 ✅상세설명 : 상품에 대한 짧은 소개문장, 튜터 소개, 진행방식, 이런분들에게 추천합니다 등을 적어주시면 좋습니다. <br>
+			 ✅커리큘럼 :  클래스가 어떤 순서로 진행되는지 적어주세요.<br>
+			<br>
+			  
+			 💙 부가정보 <br>
+			 준비물 : 클래스에 참여할 때 필요한 준비물이 있을시 적어주시면 좋습니다. <br>
+			 검색키워드 : 키워드를 적어주시면 검색시 클래스 노출이 증가할 수 있습니다. <br>
+			  (예시 : 요리 , 베이킹 , 빵 , 스콘 등 )
+		 <br><br>
+
+
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+		  
+		</div>
+	  </div>
+	</div>
+  </div>
 
   
 </div>

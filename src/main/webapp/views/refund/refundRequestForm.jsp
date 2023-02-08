@@ -141,7 +141,7 @@
             <p style="font-size: small; color: gray;">- 환불 신청을 클릭하시면 환불이 진행됩니다. 이후 '취소 수강 목록'에서 해당 클래스를 확인하실 수 있습니다.</p>
             <h6><b>환불 사유</b></h6>
             <hr>
-            <input type="radio" class="radio-Reason" name="refRea" value="단순변심" checked>
+            <input type="radio" class="radio-Reason" name="refRea" value="단순변심" >
             <label for="changeMind">단순변심</label>
             <br>
             <input type="radio" class="radio-Reason" name="refRea" value="주문실수" >
@@ -150,7 +150,7 @@
             <input type="radio" class="radio-Reason" name="refRea" value="신청반려" >
             <label for="refuse">튜터의 신청 반려</label>
             <br>
-            <input type="radio" class="radio-Reason" name="refRea"  value="기타" >
+            <input type="radio" class="radio-Reason" name="refRea"  value="기타" checked>
             <label for="reason"><input type="text" id="inputReason" maxlength="50" placeholder="기타 (50자이하)" name="etc" style="width: 440px;"></label>
             
             <script>

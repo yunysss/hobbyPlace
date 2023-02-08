@@ -68,7 +68,7 @@
 							   CONTENT
 							 , RE_NO
 							 , RE_STAR
-							 , RE_DATE
+							 , TO_CHAR(RE_DATE, 'YYYY/MM/DD') "RE_DATE"
 							 , C.CL_NO "CL_NO"
 							 , C.CL_NAME "CL_NAME"
 							 , C.CL_THUMB "CL_THUMB"
@@ -95,7 +95,7 @@
 		       RE_NO
 		     , "CONTENT"
 		     , RE_STAR
-		     , RE_DATE
+		     , TO_CHAR(RE_DATE, 'YYYY/MM/DD') "RE_DATE"
 		     , RE_UPDATE
 		     , RE_STA
 		     , REG_NO
@@ -139,7 +139,7 @@
 		               RE_NO
 		             , CONTENT
 		             , RE_STAR
-		             , RE_DATE
+		             , TO_CHAR(RE_DATE, 'YYYY/MM/DD') "RE_DATE"
 		             , MEM_NAME
 		             , C.MEM_NO
 		             , C.CL_NAME
@@ -161,7 +161,7 @@
 		               RE_NO
 		             , CONTENT
 		             , RE_STAR
-		             , RE_DATE
+		             , TO_CHAR(RE_DATE, 'YYYY/MM/DD') "RE_DATE"
 		             , MEM_NAME
 		             , C.MEM_NO
 		             , C.CL_NAME
@@ -180,7 +180,7 @@
 		      , CT_NAME
 		      , MEM_NAME
 		      , RE_STAR
-		      , RE_DATE
+		      , TO_CHAR(RE_DATE, 'YYYY/MM/DD') "RE_DATE"
 		      , RE_UPDATE
 		      , DECODE(RE_STA, 'Y', '등록', 'N', '삭제') "RE_STA"
 		      , TT_NAME
@@ -267,5 +267,16 @@
 		JOIN CLASS C USING (CL_NO)
 	   WHERE RE_NO=?
 		 AND RE_STA = 'Y'
+	</entry>
+	
+	<entry key="selectAttachment">
+	SELECT 
+			FILE_NO
+		  , ORIGIN_NAME
+		  , CHANGE_NAME
+		  , FILE_PATH
+	   FROM ATTACHMENT
+      WHERE REF_TYPE = 2
+        AND REF_NO = ?
 	</entry>
 </properties>

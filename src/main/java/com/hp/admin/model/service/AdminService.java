@@ -380,6 +380,12 @@ public class AdminService {
 		close(conn);
 		return list;
 	}
+	public ArrayList<Lesson> selectCatSales(){
+		Connection conn = getConnection();
+		ArrayList<Lesson> list = new AdminDao().selectCatSales(conn);
+		close(conn);
+		return list;
+	}
 	
 
 }

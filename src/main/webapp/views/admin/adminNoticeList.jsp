@@ -94,6 +94,7 @@
 <body>
 <%@ include file="../common/adminMenubar.jsp"%>
     <div class="outer">
+    	<br>
         <h1><b>고객센터</b></h1> 
         <br><hr>
 

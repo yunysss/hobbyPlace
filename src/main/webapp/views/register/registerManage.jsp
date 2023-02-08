@@ -8,7 +8,7 @@
     <style>
         div, p, form, input, table{box-sizing:border-box;}
 
-       .outer{width:1000px; margin:auto; padding:20px 50px;}
+       .outer{width:1200px; margin:auto; padding:20px 50px;}
        .outer>*{
        	font-size:small;
        }
@@ -130,7 +130,7 @@
     <div class="outer">
         <h5 style="font-weight: 600; font-size:18px"><b>결제 내역 관리</b></h5><br>
         <div id="regMng-form">
-            <table width="700px">
+            <table width="900px">
                 <tbody>
                 	<tr>
                     	<td><b>진행상태</b></td>
@@ -341,6 +341,7 @@
 							+	"<td>" + dataList[i].regNo + "</td>"
 							+	"<td>" + dataList[i].regDate + "</td>"
 							+	"<td>" + dataList[i].memNo + "</td>"
+							+	"<td>" + dataList[i].clName + "</td>"
 							+	"<td>" + dataList[i].regPrice + "<br>" 
 							+	"<td>" + dataList[i].regPay + "</td>"
 							+	"<td>" + dataList[i].depositSta 
@@ -414,6 +415,7 @@
                         <td>주문번호</td>
                         <td>결제일자</td>
                         <td>고객ID</td>
+                        <td>클래스명</td>
                         <td>결제금액</td>
                         <td>결제수단</td>
                         <td>결제상태</td>

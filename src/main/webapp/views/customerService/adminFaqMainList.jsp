@@ -24,7 +24,6 @@
     .outer{
             width: 1000px;
             margin: auto;
-            margin-top: 100px;
         }
         .title{
         font-size: 20px;

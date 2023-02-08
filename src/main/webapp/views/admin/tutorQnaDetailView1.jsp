@@ -79,14 +79,16 @@ table{text-align: center; font-size:13px;}
 		      
 		        <script>
 				   function modal(){
+					   
 				    	 var dt = "";
+				    	 var dv = "";
 						 dt += "<tr><td style='width:25%'>" + "<%=a.get(i).getaMemNick() %>" + "</td><td colspan='3'>";
 						 dt += "<%=a.get(i).getClName() %>" + "</td></tr><tr><td style='width:75%' colspan='3'>";
 						 dt += "<%=a.get(i).getqTitle()%>" + "</td><td>" + "<%=a.get(i).getqDate()%>" + "</td>";
 						 dt += "</tr><tr style='height:150px;' rowspan='4'><td colspan='4'>" + "<%=a.get(i).getqContent()%>" + "</td></tr>";
 						 
 						 <%if(a.get(i).getaContent()!=null) {%>
-							 var dv = "";
+							 
 							 dv +="<tr><td style='width:75%' colspan='3'>" + "<%=a.get(i).getaTitle()%>" + "</td><td style='width:25%'>";
 							 dv +="<%=a.get(i).getaDate()%>" + "</td></tr>"; 
 						 	 dv +="<tr style='height:150px;'rowspan='4'><td colspan='4'>" + "<%=a.get(i).getaContent()%>" + "</td></tr>";
@@ -130,6 +132,7 @@ table{text-align: center; font-size:13px;}
 						          
 						          
 						      </table>
+						      
 		  				</div>
 			      </div>
 			    </div>

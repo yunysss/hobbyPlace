@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.hp.review.model.vo.Review"%>
+    pageEncoding="UTF-8" import="com.hp.review.model.vo.Review, java.util.ArrayList,com.hp.common.model.vo.Attachment"%>
 <%
  	Review dr = (Review)request.getAttribute("dr");
+	ArrayList<Attachment> atList = ((ArrayList<Attachment>)request.getAttribute("atList"));
 %>
 <!DOCTYPE html>
 <html>
@@ -60,9 +61,7 @@
         
     }
 
-    .reviewTable {
-        border: 1px solid gray;
-    }
+   
 
     .button-area button{
         border: 0;
@@ -124,19 +123,15 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="reviewPhoto1">
-                                <img src="" width="400px" height="200px" >
+                            <%for(int i=0; i<atList.size(); i++){ %>
+                                <img src="<%=contextPath%>/<%=atList.get(i).getFilePath()+atList.get(i).getChangeName()%>" width="400px" height="200px" >
+                                <br>
+                                <br>
+                         	<%} %>       
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="2" class="reviewPhoto2">
-                                <img src="" width="400px" height="200px" >
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="reviewPhoto3">
-                                <img src="" width="400px" height="200px" >
-                            </td>
-                        </tr>
+                        
+              
                         <tr>
                             <td></td>
                         </tr>
