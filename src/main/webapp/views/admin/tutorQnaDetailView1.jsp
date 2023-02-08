@@ -35,32 +35,65 @@ table{text-align: center; font-size:13px;}
 
   <br>
 	<div class="tbBox">
-	  <table class="table table-hover" id="tbd">
-	    <thead class="table-dark">
-	      <colgroup>
-	        <col style="width:80px;">
-	        <col style="width:100px;">
-	        <col style="width:350px;">
-	        <col style="width:250px;">
-	        <col style="width:150px;">
-	        <col style="width:150px;">
-	      </colgroup>
-	      <tr>
-	        <th scope="col">No</th>
-	        <th scope="col">질문자</th>
-	        <th scope="col">클래스이름</th>
-	        <th scope="col">제목</th>
-	        <th scope="col">작성일</th>
-	        <th scope="col">답변여부</th>
-	      </tr>
-	    </thead>
-	    <tbody>
 	    <%if(a.isEmpty()) {%>
-	    	<tr>
-	    	<td colspan="6">받은 문의가 없습니다.</td></tr>
+	    	
+	    	<table class="table table-hover" id="tbd">
+			    <thead class="table-dark">
+			      <colgroup>
+			        <col style="width:80px;">
+			        <col style="width:100px;">
+			        <col style="width:350px;">
+			        <col style="width:250px;">
+			        <col style="width:150px;">
+			        <col style="width:150px;">
+			      </colgroup>
+			      <tr>
+			        <th scope="col">No</th>
+			        <th scope="col">질문자</th>
+			        <th scope="col">클래스이름</th>
+			        <th scope="col">제목</th>
+			        <th scope="col">작성일</th>
+			        <th scope="col">답변여부</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			    <tr>
+			    	<td colspan="6">받은 문의가 없습니다.</td></tr>
+			     </tbody>
+	  </table>
 	    <%}else {%>
+	    <table class="table table-hover" id="tbd">
+				    <thead class="table-dark">
+				      <colgroup>
+				        <col style="width:80px;">
+				        <col style="width:100px;">
+				        <col style="width:350px;">
+				        <col style="width:250px;">
+				        <col style="width:150px;">
+				        <col style="width:150px;">
+				      </colgroup>
+				      <tr>
+				        <th scope="col">No</th>
+				        <th scope="col">질문자</th>
+				        <th scope="col">클래스이름</th>
+				        <th scope="col">제목</th>
+				        <th scope="col">작성일</th>
+				        <th scope="col">답변여부</th>
+				      </tr>
+				    </thead>
+				</table>
 	    	<% for(int i=0;i<a.size(); i++) {%>
-		    	<tr onclick="modal();">
+	    		<table class="table table-hover" id="tbd">
+	    		<colgroup>
+				        <col style="width:80px;">
+				        <col style="width:100px;">
+				        <col style="width:350px;">
+				        <col style="width:250px;">
+				        <col style="width:150px;">
+				        <col style="width:150px;">
+				      </colgroup>
+				    <tbody>
+		    	<tr onclick="" data-toggle="modal" data-target="#myModal<%=i%>">
 		        <td>
 		        	<%=a.get(i).getqNo() %>
 		        </td>
@@ -76,39 +109,9 @@ table{text-align: center; font-size:13px;}
 					<%} %>
 				</td>
 		      </tr>
-		      
-		        <script>
-				   function modal(){
-					   
-				    	 var dt = "";
-				    	 var dv = "";
-						 dt += "<tr><td style='width:25%'>" + "<%=a.get(i).getaMemNick() %>" + "</td><td colspan='3'>";
-						 dt += "<%=a.get(i).getClName() %>" + "</td></tr><tr><td style='width:75%' colspan='3'>";
-						 dt += "<%=a.get(i).getqTitle()%>" + "</td><td>" + "<%=a.get(i).getqDate()%>" + "</td>";
-						 dt += "</tr><tr style='height:150px;' rowspan='4'><td colspan='4'>" + "<%=a.get(i).getqContent()%>" + "</td></tr>";
-						 
-						 <%if(a.get(i).getaContent()!=null) {%>
-							 
-							 dv +="<tr><td style='width:75%' colspan='3'>" + "<%=a.get(i).getaTitle()%>" + "</td><td style='width:25%'>";
-							 dv +="<%=a.get(i).getaDate()%>" + "</td></tr>"; 
-						 	 dv +="<tr style='height:150px;'rowspan='4'><td colspan='4'>" + "<%=a.get(i).getaContent()%>" + "</td></tr>";
-							$("#mTb2").html(dv);
-						 <%}%>
-						 
-						 $("#mTb1").html(dt);
-						 $(".modal-title").html("상세내용");
-				         $("#myModal").modal('show');
-				    }
-				 </script>
-	      <%} %>
-	    <%} %>
-	    </tbody>
+		       </tbody>
 	  </table>
-	
-	</div>
-	
-	
-	    	<div class="modal" id="myModal">
+			<div class="modal" id="myModal<%=i%>">
 			  <div class="modal-dialog modal-lg">
 			    <div class="modal-content">
 			
@@ -123,14 +126,29 @@ table{text-align: center; font-size:13px;}
 				        <div class="container mt-3">
 				        	  
 						      <table class="table table-bordered border-success rounded" id="mTb1">
-						          
-						          
+						          <tr>
+							          <td style='width:25%'><%=a.get(i).getaMemNick() %></td>
+							          <td colspan='3'><%=a.get(i).getClName() %></td>
+						          </tr>
+						          <tr>
+							          <td style='width:75%' colspan='3'><%=a.get(i).getqTitle()%></td>
+									  <td><%=a.get(i).getqDate()%></td>
+						 		  </tr>
+						 		  <tr style='height:150px;' rowspan='4'><td colspan='4'><%=a.get(i).getqContent()%></td>
+						 		  </tr> 
 						      </table>
 						      <br><br>
 						      
 						      <table class="table table-bordered border-success rounded" id="mTb2">
-						          
-						          
+							      <%if(a.get(i).getaContent()!=null) {%>
+								 	<tr>
+									 	<td style='width:75%' colspan='3'><%=a.get(i).getaTitle()%></td>
+									 	<td style='width:25%'><%=a.get(i).getaDate()%></td>
+								 	</tr>
+							 	    <tr style='height:150px;'rowspan='4'>
+							 	    	<td colspan='4'><%=a.get(i).getaContent()%></td>
+							 	    </tr>
+							 	 <%}%>  
 						      </table>
 						      
 		  				</div>
@@ -138,6 +156,13 @@ table{text-align: center; font-size:13px;}
 			    </div>
 			  </div>
 			</div>
+	      <%} %>
+	    <%} %>
+	
+	</div>
+	
+	
+	    	
  
 
 

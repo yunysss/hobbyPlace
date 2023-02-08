@@ -57,7 +57,7 @@
         #log_box{ height: 155px; padding:52px; margin-left:55%;}
 
         p{  display: inline-block;
-            margin-top: 15px;}
+            margin-top: 50px;}
 
         p>a{margin:5px;color:black; text-decoration: none;}
 
@@ -152,7 +152,7 @@
                 
             
         </div>
-        <br clear="both">    
+    
         <!--해당 화면 나오는 곳-->
         <div id="content">
             <!--사이드 메뉴바-->
