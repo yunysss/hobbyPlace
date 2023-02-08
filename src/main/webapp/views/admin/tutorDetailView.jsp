@@ -46,12 +46,11 @@
 	<%@ include file="../common/adminMenubar.jsp" %>
 	<div class="cWrap">
         <h3>회원 상세 조회</h3>
-        <hr>
-        <br>
+
 		<div class="memProfile" align="left">
             <div class="memImg">
 				<%if(t1.getTtProfile()!=null) {%>
-					<img src="<%=contextPath%>/<%=t1.getTtProfile()%>" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
+					<img src="<%=contextPath%>/<%=t1.getTtProfile()%>" style="width:100px; height:100px; margin-top:30px;" class="rounded-circle loadedProfile">
 				<%}else{ %>
                 	<img src="<%=contextPath%>/resources/tutorProfile_upfiles/defaultimg.jpg" style="width:100px; height:100px;" class="rounded-circle loadedProfile">
             	<%} %>

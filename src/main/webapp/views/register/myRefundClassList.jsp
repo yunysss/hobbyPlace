@@ -136,7 +136,14 @@
 						<div id="classThumbnail">
 							<img src="<%=contextPath%>/<%=refList.get(i).getClThumb() %>"> <!--클래스썸네일대표사진-->
 							<br>
-							<p><%=refList.get(i).getTtName() %></p>
+							<p>
+							<%if(refList.get(i).getTtName().length()>20) {%>
+		                    	<%=refList.get(i).getTtName().substring(0, 18)%> ...
+		                    <%}else {%>
+		                    	<%=refList.get(i).getTtName() %>
+		                    <%} %>
+							
+							</p>
 						</div>
 					<div id="classDetail">
 						<table  border="0">
@@ -148,7 +155,14 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td colspan="4" id="classTitle"><%=refList.get(i).getClName() %></td>
+									<td colspan="4" id="classTitle">
+									<%if(refList.get(i).getClName().length()>41) {%>
+				                    	<%=refList.get(i).getClName().substring(0, 40)%> ...
+				                    <%}else {%>
+				                    	<%=refList.get(i).getClName() %>
+				                    <%} %>
+									
+									</td>
 								</tr>
 								<tr>
 									<td colspan="4"><%=refList.get(i).getDistrName() %>  <%=refList.get(i).getTeachDate() %> <%=refList.get(i).getStartTime() %></td>

@@ -108,7 +108,7 @@
 			   <br><br>
 
 			   <div class="optionWrap1">
-					<p id="option1Show">추가검색  ▼</p>
+					<p id="option1Show" style="margin-top:10px">추가검색  ▼</p>
 					<br>
 					
 					<div class="option1Detail">
@@ -150,15 +150,15 @@
 			$(function(){
 				$("#option1Show").click(function(){
 					if($(".option1Detail").css("display")=="none"){
-						$(this).css("font-weight", "600").html("추가검색  ▲");
+						$(this).css("font-weight", "600").html("추가검색  ▲").css("margin-top", "10px");
 						$(".option1Detail").show();
 						
 						$("#basicSearch").hide();
-						$(".optionWrap1").css("background-color", "rgb(235, 240, 240)").css("width", "80%").css("padding-bottom", "20px").css("width", "650px");
+						$(".optionWrap1").css("background-color", "rgb(235, 240, 240)").css("padding-bottom", "20px").css("padding-top", "0px").css("width", "650px");
 						
 						
 					}else{
-						$("#option1Show").css("font-weight", "400").html("추가검색  ▼");
+						$("#option1Show").css("font-weight", "400").html("추가검색  ▼").css("margin-top", "10px");
 						$(".option1Detail").css("display", "none");
 						$("#basicSearch").show();
 						$(".optionWrap1").css("background-color", "white").css("padding-bottom", "15px");

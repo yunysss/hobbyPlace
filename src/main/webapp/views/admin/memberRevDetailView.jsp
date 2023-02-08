@@ -30,6 +30,7 @@ th{background-color:lightgray;}
   padding: 0;
 }
 #deleteBt{height:38px; border:0; border-radius:5px; width:60px; background-color:rgb(219, 53, 53); color:white; margin-right:15px; margin-left:80px;}
+
 </style>
 </head>
 <body>
@@ -110,7 +111,7 @@ th{background-color:lightgray;}
 			   
 			   
         		 function delRev(){
-        			 location.href='<%=contextPath%>/deleteReviewMem.ad?no=<%=r.get(i).getReviewNo()%>&mem=<%=m.getMemNo()%>'; 
+        			 location.href='<%=contextPath%>/deleteReviewMem.ad?no=<%=r.get(i).getReviewNo()%>&mem=<%=r.get(i).getMemNo()%>'; 
         		 }
 			 </script>
       <%} %>

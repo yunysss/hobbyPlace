@@ -72,7 +72,7 @@
                         <td></td>
                     </tr>
 	                <tr>
-	                	<td>새로운 비빌번호</td>
+	                	<td>새로운 비밀번호</td>
 	                	<td>
 	                		<input type="password" class="fillOutForms" id="userPwd" name="userPwd" placeholder="영문, 숫자, 특수문자 포함 6~20자" required>
 	                	</td>

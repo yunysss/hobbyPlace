@@ -5,6 +5,7 @@
 	Tutor t1 = (Tutor)request.getAttribute("t1");
 	TutorList t2 = (TutorList)request.getAttribute("t2");
 	ArrayList<Review> r = (ArrayList<Review>)request.getAttribute("revList");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -22,6 +23,14 @@ table{text-align: center; font-size:13px;}
 .modal-body{align:center;}
 .mdDiv{font-size:15px; text-align:left; padding:20px; width:80%; border-radius:5px; line-height: 200%}
 th{background-color:lightgray;}
+.modal-dialog.modal-del {
+  width: 400px;
+  height: 150px;
+  margin: auto;
+  margin-top:200px;
+  padding: 0;
+}
+#deleteBt{height:38px; border:0; border-radius:5px; width:60px; background-color:rgb(219, 53, 53); color:white; margin-right:15px; margin-left:80px;}
 </style>
 </head>
 <body>
@@ -78,12 +87,16 @@ th{background-color:lightgray;}
 			   function modal(){
 					 let dt = "";
 				    dt += "해당 리뷰를 정말로 삭제하시겠습니까?<br><br>";
-				   	dt += "<a class='btn btn-danger' href='<%=contextPath%>/deleteRe.ad?no=<%=r.get(i).getReviewNo()%>'>";
-				   	dt += "<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>";
+					dt += "<button id='deleteBt' onclick='delRev();'>삭제</button>";
+				   	dt += "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>닫기</button>";
 					 $(".mdDiv").html(dt);
 					 $(".modal-title").html("악성리뷰 관리");
 			         $("#myModal").modal('show');
 			    }
+			   
+			   function delRev(){
+      			 location.href='<%=contextPath%>/DeleteReviewTut.ad?no=<%=r.get(i).getReviewNo()%>&mem=<%=r.get(i).getMemNo()%>'; 
+      		 }
 			 </script>
       <%} %>
     <%} %>
@@ -94,7 +107,7 @@ th{background-color:lightgray;}
 
 
     	<div class="modal" id="myModal">
-		  <div class="modal-dialog modal-lg">
+		  <div class="modal-dialog modal-del">
 		    <div class="modal-content">
 		
 		      <!-- Modal Header -->
