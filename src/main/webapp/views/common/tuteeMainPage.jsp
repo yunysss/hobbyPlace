@@ -95,6 +95,9 @@
             <!-- The slideshow -->
             <div class="carousel-inner">
               <div class="carousel-item active">
+              	<a href="<%=contextPath%>/dctselect.cl?cpage=1&dct=베이킹"><img src="<%=contextPath %>/resources/images/mainImg.png"></a>
+              </div>
+              <div class="carousel-item">
               	<% if(loginUser == null){ %>
               		<a href="<%=contextPath%>/login.me"><img src="<%=contextPath %>/resources/images/mainImage.png"></a>
               	<% } else{%>
@@ -104,9 +107,6 @@
               			<a href="<%=contextPath%>/enrollForm.tt"><img src="<%=contextPath %>/resources/images/mainImage.png"></a>
               		<% } %>
               	<% } %>
-              </div>
-              <div class="carousel-item">
-              	<a href="<%=contextPath%>/dctselect.cl?cpage=1&dct=베이킹"><img src="<%=contextPath %>/resources/images/mainImg.png"></a>
               </div>
               <div class="carousel-item">
                 <a href="<%=contextPath%>/dctselect.cl?cpage=1&dct=요리"><img src="<%=contextPath %>/resources/images/mainImage2.png"></a>
