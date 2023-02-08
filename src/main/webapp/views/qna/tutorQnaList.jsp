@@ -100,13 +100,15 @@
 		                <td><%=i+1 %></td>
 		                <td onclick="location.href='<%=contextPath%>/detailQna.tor?no=<%=list.get(i).getqNo()%>'"><%=list.get(i).getqTitle() %></td>
 		                <td><%=list.get(i).getqDate() %></td>
-		                <td><%=list.get(i).getaDate() %></td>
-		                <td><%if(list.get(i).getaMemNick().equals("N")){ %>
-		                		대기
+		                
+		                <%if(list.get(i).getaMemNick().equals("N")){ %>
+		                        <td></td>
+		                		<td>대기</td>
 		                <%}else{ %>
-		                		완료
+		                	<td><%=list.get(i).getaDate() %></td>
+		                		<td>완료</td>
 		                <%} %>
-		                </td>
+		                
 		            </tr>
             	<%} %>
 			<%} %>
