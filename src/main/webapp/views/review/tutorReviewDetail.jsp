@@ -53,7 +53,13 @@
 	                    <th>등록일</th>
 	                    <td width="110px"><%= r.getReviewDate() %></td>
 	                    <th>수정일</th>
-	                    <td><%= r.getReviewUpDate() %></td>
+						<td width="110px">
+							<%if(r.getReviewUpDate()==null) {%>
+								<%= r.getReviewDate() %>
+							<%}else{%>
+								<%= r.getReviewUpDate() %>
+							<%}%>
+						</td>
 	                    <th>등록상태</th>
 	                    <td><%=r.getReviewStatus() %></td>
 	                </tr>
