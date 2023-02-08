@@ -44,17 +44,17 @@
 
         .wrap>div{width: 100%;}
 
-        #header{height: 160px;}
-        #content{height: 100%;}
+        #header{height: 200px;}
+        #content{height: 100%; }
 
-        #content>div{height: 100%; float:left}
+        #content>div{height: 100%; float:left;}
 
        
         
         /*헤더바 상세 스타일*/
-        #header{background: url(<%=request.getContextPath()%>/resources/images/newMainLogoBG.png); background-size: cover;}
+        #header{background: url(<%=request.getContextPath()%>/resources/images/newMainLogoBG.png); background-size: cover; }
         
-        #log_box{ height: 155px; padding:52px;margin-left:55%;}
+        #log_box{ height: 155px; padding:52px; margin-left:55%;}
 
         p{  display: inline-block;
             margin-top: 15px;}
@@ -62,10 +62,10 @@
         p>a{margin:5px;color:black; text-decoration: none;}
 
 
-        #navigator{width: 13%; box-sizing: border-box; height:100%;}
+        #navigator{width: 13%; box-sizing: border-box; height:100%; padding-top:0; margin-top:0;}
         
         
-        #mainContent{width:1000px; padding:20px; }
+        #mainContent{width:1000px; padding:20px;}
 
        
         #search_box, #meny_box{width: 100%;}
@@ -152,7 +152,7 @@
                 
             
         </div>
-            
+        <br clear="both">    
         <!--해당 화면 나오는 곳-->
         <div id="content">
             <!--사이드 메뉴바-->
