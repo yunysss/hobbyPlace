@@ -209,7 +209,7 @@
 
 <div class="container">
      <br>
-    <h5 style="font-weight: 900;">클래스 등록</h5>
+    <h5 style="font-weight: 900;">클래스 수정</h5>
     <div class="outer">
 
         <br>

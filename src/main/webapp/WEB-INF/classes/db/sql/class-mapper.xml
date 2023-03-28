@@ -722,6 +722,9 @@
 				          FROM REVIEW R
 				         WHERE R.CL_NO = C.CL_NO
 				           AND RE_STA = 'Y') "STAR_COUNT"
+				       ,(SELECT COUNT(REG_NO)
+                         FROM REGISTER E
+                         WHERE C.CL_NO = E.CL_NO) "REG_COUNT"     
 				  FROM CLASS C
 				  JOIN LOCATION L ON(C.LOCAL_CODE= L.LOCAL_CODE)
 				  JOIN DISTRICT USING(DISTR_CODE)
@@ -803,10 +806,9 @@
 				          FROM REVIEW R
 				         WHERE R.CL_NO = C.CL_NO
 				           AND RE_STA = 'Y') "STAR_COUNT"
-				     ,( select count(reg_no)
-                        from register E
-                        group by cl_no
-                        having c.cl_no =E.cl_no )"REG_COUNT"    
+				     ,(SELECT COUNT(REG_NO)
+                         FROM REGISTER E
+                         WHERE C.CL_NO = E.CL_NO) "REG_COUNT"     
 				         
 				  FROM CLASS C
 				  JOIN LOCATION L ON(C.LOCAL_CODE= L.LOCAL_CODE)

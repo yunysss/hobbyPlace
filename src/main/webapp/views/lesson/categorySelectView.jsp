@@ -351,7 +351,7 @@
 		      <a class="dropdown-item" >낮은가격순</a>
 		      <a class="dropdown-item" >높은가격순</a>
 		      <a class="dropdown-item" >인기순</a>
-		      <a class="dropdown-item" >평점순</a>
+		      <a class="dropdown-item" >리뷰많은순</a>
 		      
 		    </div>
        	 </div>

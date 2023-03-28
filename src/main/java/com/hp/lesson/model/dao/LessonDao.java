@@ -1290,7 +1290,7 @@ public ArrayList<Lesson> detailSearchSort(Connection conn, Search s){
 			 case "낮은가격순" : sql += "\r\n order by cl_price asc";  break;
 			 case "높은가격순" : sql += "\r\n order by cl_price desc";break;
 			 case "인기순": sql += "\r\n order by star_avg desc nulls last"; break;
-			 case "평점순": sql += "\r\n order by reg_count desc nulls last"; break;
+			 case "리뷰많은순": sql += "\r\n order by reg_count desc nulls last"; break;
 			 
 			 
 			 }
